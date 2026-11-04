@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import { Plant } from '../types/index.ts';
 import { SEED_PLANTS } from '../data/plants.ts';
+import { getPlantBySlug } from '../services/apiService.ts';
 import { useSEO } from '../utils/useSEO.ts';
 import {
   ArrowLeft,
@@ -41,8 +43,22 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
   const [isSaved, setIsSaved] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
-  // Tìm cây theo slug
-  const plant = SEED_PLANTS.find((p) => p.slug === slug);
+  // Tìm cây theo slug (kết hợp cache tức thì + dữ liệu động từ MySQL)
+  const [plant, setPlant] = useState<Plant | undefined>(() => SEED_PLANTS.find((p) => p.slug === slug));
+
+  useEffect(() => {
+    if (slug) {
+      let isMounted = true;
+      getPlantBySlug(slug).then((livePlant) => {
+        if (isMounted && livePlant) {
+          setPlant(livePlant);
+        }
+      });
+      return () => {
+        isMounted = false;
+      };
+    }
+  }, [slug]);
 
   // Khởi tạo các giá trị AEO / GEO mặc định nếu chưa có thủ công trong DB
   const categoryName =

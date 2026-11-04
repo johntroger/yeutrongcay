@@ -1,6 +1,7 @@
-import React, { useMemo } from 'react';
-import { PlantCategory } from '../types/index.ts';
+import React, { useMemo, useState, useEffect } from 'react';
+import { Plant, PlantCategory } from '../types/index.ts';
 import { SEED_PLANTS } from '../data/plants.ts';
+import { getPlants } from '../services/apiService.ts';
 import { useSEO } from '../utils/useSEO.ts';
 import { Hero } from '../components/Hero.tsx';
 import { MedicalDisclaimer } from '../components/MedicalDisclaimer.tsx';
@@ -25,9 +26,24 @@ export const HomePage: React.FC<HomePageProps> = ({
   onClearSearch,
   onScrollToSection,
 }) => {
+  const [allPlants, setAllPlants] = useState<Plant[]>(SEED_PLANTS);
+
+  // Tải dữ liệu cây thực tế từ MySQL qua Cloudflare Edge API
+  useEffect(() => {
+    let isMounted = true;
+    getPlants().then(({ plants }) => {
+      if (isMounted && plants && plants.length > 0) {
+        setAllPlants(plants);
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   // Lọc cây theo chế độ vườn đang chọn và từ khóa tìm kiếm
   const filteredPlants = useMemo(() => {
-    return SEED_PLANTS.filter((plant) => {
+    return allPlants.filter((plant) => {
       // Khớp chế độ vườn
       const matchesCategory = plant.category === activeMode;
 
@@ -44,7 +60,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
       return matchesCategory && matchesSearch;
     });
-  }, [activeMode, searchQuery]);
+  }, [allPlants, activeMode, searchQuery]);
 
   // SEO / AEO / GEO Cấu hình cho từng chuyên mục
   const categorySeoInfo = {

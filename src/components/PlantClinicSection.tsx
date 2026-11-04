@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { ClinicQuestion } from '../types/index.ts';
 import { INITIAL_CLINIC_QUESTIONS } from '../data/clinicCases.ts';
+import { getClinicQuestions, submitClinicQuestion } from '../services/apiService.ts';
 
 export const PlantClinicSection: React.FC = () => {
   const [questions, setQuestions] = useState<ClinicQuestion[]>(INITIAL_CLINIC_QUESTIONS);
@@ -27,8 +28,14 @@ export const PlantClinicSection: React.FC = () => {
   const [replyText, setReplyText] = useState('');
   const [draftSaved, setDraftSaved] = useState(false);
 
-  // Lưu nháp ngoại tuyến (Offline-First Draft)
+  // Tải danh sách câu hỏi thực tế từ MySQL và khôi phục bản nháp
   useEffect(() => {
+    getClinicQuestions().then(({ questions: liveQ }) => {
+      if (liveQ && liveQ.length > 0) {
+        setQuestions(liveQ);
+      }
+    });
+
     const savedHint = localStorage.getItem('ytc_clinic_hint');
     const savedDesc = localStorage.getItem('ytc_clinic_desc');
     if (savedHint) setPlantHint(savedHint);
@@ -57,7 +64,7 @@ export const PlantClinicSection: React.FC = () => {
     );
   };
 
-  const handleSubmitQuestion = (e: React.FormEvent) => {
+  const handleSubmitQuestion = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!description.trim()) return;
 
@@ -66,32 +73,46 @@ export const PlantClinicSection: React.FC = () => {
     const regionText = region === 'north' ? 'Miền Bắc' : region === 'central' ? 'Miền Trung' : 'Miền Nam';
     const symptomsText = selectedSymptoms.join(', ') || 'Dấu hiệu suy yếu chung';
 
-    setTimeout(() => {
-      setIsAnalyzing(false);
-
-      const newQ: ClinicQuestion = {
-        id: `case-${Date.now()}`,
-        user_id: 'usr-current',
-        user_name: 'Bạn (Chủ Vườn)',
-        title: `Cây ${plantHint || 'cảnh'} gặp tình trạng: ${symptomsText}`,
-        description: description,
+    try {
+      const savedQ = await submitClinicQuestion({
         plant_name_hint: plantHint || 'Chưa rõ loài',
+        description: description,
         region: region,
         symptoms: selectedSymptoms,
-        images: ['https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80'],
-        ai_instant_diagnosis: `Phân tích sơ bộ từ AI (khu vực ${regionText}): Cây biểu hiện ${symptomsText}. Tạm ngưng tưới đẫm, kiểm tra độ thoát nước đáy chậu và xịt phòng dung dịch sinh học hữu cơ. Câu hỏi đã được ghim lên đầu để các nhà vườn khu vực ${regionText} tư vấn thêm!`,
-        answers: [],
-        status: 'visible',
-        created_at: 'Vừa xong',
-      };
+        user_name: 'Bạn (Chủ Vườn)'
+      });
 
-      setQuestions([newQ, ...questions]);
+      if (savedQ) {
+        setQuestions((prev) => [savedQ, ...prev]);
+      } else {
+        // Fallback lưu tạm bộ nhớ nếu mất mạng
+        const fallbackQ: ClinicQuestion = {
+          id: `case-${Date.now()}`,
+          user_id: 'usr-current',
+          user_name: 'Bạn (Chủ Vườn)',
+          title: `Cây ${plantHint || 'cảnh'} gặp tình trạng: ${symptomsText}`,
+          description: description,
+          plant_name_hint: plantHint || 'Chưa rõ loài',
+          region: region,
+          symptoms: selectedSymptoms,
+          images: ['https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80'],
+          ai_instant_diagnosis: `Phân tích AI tức thì (khu vực ${regionText}): Cây biểu hiện ${symptomsText}. Tạm ngưng tưới đẫm, kiểm tra độ thoát nước đáy chậu và xịt phòng dung dịch sinh học hữu cơ.`,
+          answers: [],
+          status: 'visible',
+          created_at: 'Vừa xong',
+        };
+        setQuestions((prev) => [fallbackQ, ...prev]);
+      }
+    } catch (err) {
+      console.warn('Submit clinic question error:', err);
+    } finally {
+      setIsAnalyzing(false);
       setDescription('');
       setPlantHint('');
       setSelectedSymptoms([]);
       localStorage.removeItem('ytc_clinic_desc');
       localStorage.removeItem('ytc_clinic_hint');
-    }, 2000);
+    }
   };
 
   const handleUpvote = (questionId: string, answerId: string) => {
