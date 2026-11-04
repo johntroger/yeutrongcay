@@ -10,7 +10,7 @@ export const INITIAL_CLINIC_QUESTIONS: ClinicQuestion[] = [
     plant_name_hint: 'Ổi Lê Đài Loan',
     region: 'south',
     symptoms: ['Rệp sáp trắng bám thân', 'Rụng hoa/trái non'],
-    images: ['https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/Psidium_guajava_fruit.jpg/330px-Psidium_guajava_fruit.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail'],
+    images: ['https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Psidium_guajava_fruit.jpg/330px-Psidium_guajava_fruit.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail'],
     ai_instant_diagnosis: 'Phân tích sơ bộ từ AI (Miền Nam): Khả năng 95% cây bị rệp sáp bông (Pseudococcidae) cộng sinh với kiến đen. Rệp hút nhựa làm kiệt đọt non và rụng nụ. Khuyến cáo cấp tốc: Pha nước rửa chén hữu cơ hoặc cồn y tế 70 độ xịt trực tiếp vào ổ rệp vào lúc chiều mát, sáng hôm sau xịt nước mạnh rửa trôi.',
     answers: [
       {
@@ -45,7 +45,7 @@ export const INITIAL_CLINIC_QUESTIONS: ClinicQuestion[] = [
     plant_name_hint: 'Đinh Lăng Nếp Lá Nhỏ',
     region: 'north',
     symptoms: ['Lá héo rũ dù đất ẩm', 'Vàng lá đốm nâu'],
-    images: ['https://thumb.wikimedia.org/wikipedia/commons/thumb/7/78/Polyscias_fruticosa%2C_Hong_Kong_Park%2C_December_2019_16.jpg/330px-Polyscias_fruticosa%2C_Hong_Kong_Park%2C_December_2019_16.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail'],
+    images: ['https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Polyscias_fruticosa%2C_Hong_Kong_Park%2C_December_2019_16.jpg/330px-Polyscias_fruticosa%2C_Hong_Kong_Park%2C_December_2019_16.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail'],
     ai_instant_diagnosis: 'Phân tích sơ bộ từ AI (Miền Bắc): Đinh lăng bị thối đen gốc do úng rễ (Pythium). Đất thịt quá chặt bí khí kết hợp tưới đẫm làm cành thiếu oxy nghẹt rễ. Cần nhổ cành, cắt bỏ đoạn đen, rửa nước vôi và chuyển sang giá thể xơ dừa + đá perlite tơi xốp.',
     answers: [
       {

@@ -399,7 +399,7 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
             alt={`Cây ${plant.common_name} (${plant.scientific_name}) - Thảo dược và cây trồng đô thị`}
             className="w-full h-full object-cover object-center"
             onError={(e) => {
-              (e.target as HTMLImageElement).src = 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1b/Leaf_-pani_koorkka.JPG/330px-Leaf_-pani_koorkka.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail';
+              (e.target as HTMLImageElement).src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Leaf_-pani_koorkka.JPG/330px-Leaf_-pani_koorkka.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail';
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/90 via-charcoal-950/30 to-transparent flex items-end p-6 sm:p-10">

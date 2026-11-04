@@ -131,7 +131,7 @@ export const PlantClinicSection: React.FC = () => {
           plant_name_hint: plantHint || 'Chưa rõ loài',
           region: region,
           symptoms: selectedSymptoms,
-          images: questionImages.length > 0 ? questionImages : ['https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/Psidium_guajava_fruit.jpg/330px-Psidium_guajava_fruit.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail'],
+          images: questionImages.length > 0 ? questionImages : ['https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Psidium_guajava_fruit.jpg/330px-Psidium_guajava_fruit.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail'],
           ai_instant_diagnosis: `Phân tích AI tức thì (khu vực ${regionText}): Cây biểu hiện ${symptomsText}. Tạm ngưng tưới đẫm, kiểm tra độ thoát nước đáy chậu và xịt phòng dung dịch sinh học hữu cơ.`,
           answers: [],
           status: 'visible',

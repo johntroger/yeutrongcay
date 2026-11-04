@@ -114,7 +114,7 @@ export const PlantSwapSection: React.FC = () => {
       item_type: newItemType,
       description: newDescription || 'Sẵn sàng chia sẻ cho anh chị em cùng đam mê làm vườn.',
       quarantine_pledge: true,
-      image_url: uploadedImageUrl || 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1b/Leaf_-pani_koorkka.JPG/330px-Leaf_-pani_koorkka.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+      image_url: uploadedImageUrl || 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Leaf_-pani_koorkka.JPG/330px-Leaf_-pani_koorkka.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
       status: 'visible',
       created_at: 'Vừa xong',
       contact_note: newContact || 'Nhắn tin trực tiếp qua diễn đàn',
@@ -263,7 +263,7 @@ export const PlantSwapSection: React.FC = () => {
                   alt={offer.plant_name}
                   className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                   onError={(e) => {
-                    (e.target as HTMLImageElement).src = 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1b/Leaf_-pani_koorkka.JPG/330px-Leaf_-pani_koorkka.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail';
+                    (e.target as HTMLImageElement).src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Leaf_-pani_koorkka.JPG/330px-Leaf_-pani_koorkka.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail';
                   }}
                 />
                 <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">

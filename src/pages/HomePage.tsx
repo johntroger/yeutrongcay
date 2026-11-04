@@ -30,6 +30,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   onClearSearch,
 }) => {
   const [allPlants, setAllPlants] = useState<Plant[]>(SEED_PLANTS);
+  const [visibleCount, setVisibleCount] = useState(6);
 
   // Tải dữ liệu cây thực tế từ MySQL qua Cloudflare Edge API
   useEffect(() => {
@@ -43,6 +44,11 @@ export const HomePage: React.FC<HomePageProps> = ({
       isMounted = false;
     };
   }, []);
+
+  // Đặt lại số lượng hiển thị ban đầu là 6 khi chuyển đổi danh mục
+  useEffect(() => {
+    setVisibleCount(6);
+  }, [activeMode]);
 
   // Lọc cây theo chế độ vườn đang chọn và từ khóa tìm kiếm
   const filteredPlants = useMemo(() => {
@@ -61,6 +67,21 @@ export const HomePage: React.FC<HomePageProps> = ({
       return matchesCategory && matchesSearch;
     });
   }, [allPlants, activeMode, searchQuery]);
+
+  // Danh sách hiển thị: nếu đang tìm kiếm thì hiển thị toàn bộ kết quả khớp,
+  // nếu ở chế độ mặc định chỉ hiển thị số lượng minh họa (6 cây) để trang chủ gọn gàng
+  const displayedPlants = useMemo(() => {
+    if (searchQuery.trim()) {
+      return filteredPlants;
+    }
+    return filteredPlants.slice(0, visibleCount);
+  }, [filteredPlants, searchQuery, visibleCount]);
+
+  const categoryInfoMap: Record<PlantCategory, { path: string; name: string }> = {
+    herb: { path: '/thao-duoc', name: 'Tủ Thuốc Xanh (Thảo Dược Bản Địa)' },
+    fruit: { path: '/cay-an-trai', name: 'Trái Ngọt Phố (Cây Ăn Quả Đô Thị)' },
+    ornamental: { path: '/cay-canh', name: 'Cây Cảnh & Không Gian Thư Thái' },
+  };
 
   useSEO({
     title: 'Yêu Trồng Cây - Nền Tảng Thực Vật Bản Địa & Cây Trồng Đô Thị Việt Nam',
@@ -162,7 +183,9 @@ export const HomePage: React.FC<HomePageProps> = ({
                 : 'Bách Khoa Cây Cảnh & Bonsai'}
             </h2>
             <p className="text-xs sm:text-sm text-forest-700 mt-1">
-              Hiển thị {filteredPlants.length} loài thực vật (Mỗi cây bấm vào sẽ mở bài viết chi tiết ở tab mới)
+              {searchQuery
+                ? `Tìm thấy ${filteredPlants.length} cây phù hợp từ khóa "${searchQuery}"`
+                : `Hiển thị ${displayedPlants.length} / ${filteredPlants.length} cây minh họa tiêu biểu (Mỗi bài viết mở tab mới)`}
             </p>
           </div>
 
@@ -174,15 +197,55 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
 
         {/* Grid display */}
-        {filteredPlants.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {filteredPlants.map((plant) => (
-              <PlantCard
-                key={plant.id}
-                plant={plant}
-              />
-            ))}
-          </div>
+        {displayedPlants.length > 0 ? (
+          <>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+              {displayedPlants.map((plant) => (
+                <PlantCard
+                  key={plant.id}
+                  plant={plant}
+                />
+              ))}
+            </div>
+
+            {/* Thanh điều hướng xem thêm & mở toàn bộ bách khoa sang tab mới */}
+            {!searchQuery && (
+              <div className="mt-10 p-6 rounded-3xl bg-white border border-forest-100 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="inline-block w-2 h-2 rounded-full bg-herbal-500 animate-pulse"></span>
+                    <p className="text-xs uppercase tracking-wider font-bold text-herbal-800">
+                      Bách Khoa Chuyên Sâu
+                    </p>
+                  </div>
+                  <p className="text-xs sm:text-sm font-semibold text-forest-900 mt-0.5">
+                    Đang hiển thị {displayedPlants.length} / {filteredPlants.length} cây minh họa. Bạn có thể xem thêm hoặc mở chuyên mục đầy đủ trong tab mới.
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto justify-end">
+                  {visibleCount < filteredPlants.length && (
+                    <button
+                      onClick={() => setVisibleCount((prev) => Math.min(prev + 6, filteredPlants.length))}
+                      className="flex-1 sm:flex-initial px-5 py-2.5 rounded-2xl bg-forest-50 hover:bg-forest-100 text-forest-900 text-xs font-semibold border border-forest-200 transition text-center"
+                    >
+                      Xem Thêm 6 Cây ({filteredPlants.length - visibleCount} cây còn lại)
+                    </button>
+                  )}
+
+                  <Link
+                    to={categoryInfoMap[activeMode].path}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 sm:flex-initial px-5 py-2.5 rounded-2xl bg-forest-900 hover:bg-forest-950 text-white text-xs font-semibold shadow-md hover:shadow-lg transition flex items-center justify-center gap-1.5"
+                  >
+                    <span>Mở Toàn Bộ Chuyên Mục (Tab Mới)</span>
+                    <ArrowUpRight className="w-4 h-4 text-herbal-400" />
+                  </Link>
+                </div>
+              </div>
+            )}
+          </>
         ) : (
           <div className="text-center py-16 bg-white rounded-3xl border border-forest-100 p-8 max-w-md mx-auto">
             <Sparkles className="w-10 h-10 text-forest-400 mx-auto mb-3" />
