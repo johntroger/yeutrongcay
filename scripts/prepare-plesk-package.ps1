@@ -44,11 +44,12 @@ Copy-Item -Path "migrations/*" -Destination "$deployDir/migrations" -Recurse -Fo
 $buildDate = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
 "yeutrongcay.com production build - $buildDate" | Set-Content -Path "$deployDir/build-info.txt" -Encoding UTF8
 
-Write-Host "===> 4. Tao file nen yeutrongcay-production.zip de upload len Plesk..." -ForegroundColor Cyan
+Write-Host "===> 4. Tao file nen POSIX zip yeutrongcay-production.zip chuan Linux..." -ForegroundColor Cyan
 $zipPath = "yeutrongcay-production.zip"
 if (Test-Path $zipPath) { Remove-Item $zipPath -Force }
 
-Compress-Archive -Path "$deployDir/*" -DestinationPath $zipPath -Force
+# Dung tar tao file zip chuan POSIX slash (/) tuong thich 100% voi Linux /usr/bin/unzip tren Plesk
+tar -a -c -f $zipPath -C $deployDir .
 
 # Tự động dọn dẹp thư mục dist/ sau khi nén xong để tuân thủ Storage Cleanup rule
 Remove-Item -Recurse -Force $deployDir
