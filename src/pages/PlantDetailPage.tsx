@@ -290,6 +290,8 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
         </p>
         <Link
           to="/"
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-forest-900 text-white text-xs font-semibold hover:bg-forest-800 transition"
         >
           <ArrowLeft className="w-4 h-4" />
@@ -323,12 +325,12 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
       
       {/* 1. Breadcrumbs Navigation (Semantic & SEO Breadcrumb) */}
       <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-forest-700 mb-6 overflow-x-auto no-scrollbar">
-        <Link to="/" className="hover:text-forest-950 flex items-center gap-1 transition">
+        <Link to="/" target="_blank" rel="noopener noreferrer" className="hover:text-forest-950 flex items-center gap-1 transition">
           <Home className="w-3.5 h-3.5" />
           <span>Trang Chủ</span>
         </Link>
         <ChevronRight className="w-3 h-3 text-forest-400 shrink-0" />
-        <Link to={categoryPath} className="hover:text-forest-950 font-medium transition whitespace-nowrap">
+        <Link to={categoryPath} target="_blank" rel="noopener noreferrer" className="hover:text-forest-950 font-medium transition whitespace-nowrap">
           {categoryName}
         </Link>
         <ChevronRight className="w-3 h-3 text-forest-400 shrink-0" />
@@ -808,6 +810,8 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
                 <Link
                   key={rel.id}
                   to={`/cay/${rel.slug}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center gap-3 p-2 rounded-2xl hover:bg-forest-50 transition group"
                 >
                   <img

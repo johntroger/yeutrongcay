@@ -24,6 +24,8 @@ export const PlantCard: React.FC<PlantCardProps> = ({ plant, onSelect }) => {
   return (
     <Link
       to={`/cay/${plant.slug}`}
+      target="_blank"
+      rel="noopener noreferrer"
       onClick={() => {
         if (onSelect) {
           onSelect(plant);

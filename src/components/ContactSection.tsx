@@ -124,6 +124,8 @@ export const ContactSection: React.FC = () => {
                     <span className="block text-gray-500 text-xs">Thư điện tử (Email)</span>
                     <a
                       href="mailto:contact@yeutrongcay.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="font-semibold text-forest-900 hover:text-herbal-700 transition"
                     >
                       contact@yeutrongcay.com
