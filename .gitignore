@@ -32,3 +32,4 @@ dist-ssr
 uploads/*
 !uploads/.gitkeep
 !uploads/.htaccess
+*.zip
