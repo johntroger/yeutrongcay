@@ -12,6 +12,8 @@ import { MonetizationSection } from './components/MonetizationSection.tsx';
 import { Web3SandboxSection } from './components/Web3SandboxSection.tsx';
 import { AuthModal } from './components/AuthModal.tsx';
 import { MyGardenModal } from './components/MyGardenModal.tsx';
+import { PrivacyModal } from './components/PrivacyModal.tsx';
+import { OfflineBanner } from './components/OfflineBanner.tsx';
 import { Footer } from './components/Footer.tsx';
 import { Filter, Sparkles } from 'lucide-react';
 
@@ -51,6 +53,7 @@ export default function App() {
 
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isMyGardenOpen, setIsMyGardenOpen] = useState(false);
+  const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
 
   useEffect(() => {
     if (currentUser) {
@@ -197,7 +200,7 @@ export default function App() {
       <Web3SandboxSection />
 
       {/* 9. Footer */}
-      <Footer />
+      <Footer onOpenPrivacy={() => setIsPrivacyOpen(true)} />
 
       {/* 10. Plant Detail Modal */}
       <PlantModal
@@ -228,6 +231,15 @@ export default function App() {
           }}
         />
       )}
+
+      {/* 13. Privacy & Medical Disclaimer Modal (H13) */}
+      <PrivacyModal
+        isOpen={isPrivacyOpen}
+        onClose={() => setIsPrivacyOpen(false)}
+      />
+
+      {/* 14. Offline-First Network Banner */}
+      <OfflineBanner />
 
     </div>
   );

@@ -1,7 +1,11 @@
 import React from 'react';
 import { ShieldCheck, Heart } from 'lucide-react';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onOpenPrivacy?: () => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy }) => {
   return (
     <footer className="bg-forest-950 text-white border-t border-forest-900 pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -53,9 +57,19 @@ export const Footer: React.FC = () => {
 
         </div>
 
-        {/* Copyright */}
+        {/* Copyright & Legal Links */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-forest-400">
-          <p>© 2026 Yêu Trồng Cây (yeutrongcay.com). Vận hành trên Plesk Mắt Bão & Cloudflare.</p>
+          <div className="flex flex-wrap items-center gap-4">
+            <p>© 2026 Yêu Trồng Cây (yeutrongcay.com). Vận hành trên Plesk Mắt Bão & Cloudflare.</p>
+            {onOpenPrivacy && (
+              <button
+                onClick={onOpenPrivacy}
+                className="text-herbal-400 hover:text-herbal-300 underline underline-offset-2 transition cursor-pointer"
+              >
+                Điều khoản & Quyền riêng tư
+              </button>
+            )}
+          </div>
           <p className="flex items-center gap-1">
             Xây dựng với tình yêu thiên nhiên <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500" /> tại Việt Nam
           </p>
