@@ -74,7 +74,7 @@ export const PlantSwapSection: React.FC = () => {
       item_type: newItemType,
       description: newDescription || 'Sẵn sàng chia sẻ cho anh chị em cùng đam mê làm vườn.',
       quarantine_pledge: true,
-      image_url: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=600&q=80',
+      image_url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1b/Leaf_-pani_koorkka.JPG/640px-Leaf_-pani_koorkka.JPG',
       status: 'visible',
       created_at: 'Vừa xong',
       contact_note: newContact || 'Nhắn tin trực tiếp qua diễn đàn',
