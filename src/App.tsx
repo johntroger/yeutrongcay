@@ -1,5 +1,5 @@
-import { useState, useMemo } from 'react';
-import { PlantCategory, Plant } from './types/index.ts';
+import { useState, useMemo, useEffect } from 'react';
+import { PlantCategory, Plant, UserProfile } from './types/index.ts';
 import { SEED_PLANTS } from './data/plants.ts';
 import { Navbar } from './components/Navbar.tsx';
 import { Hero } from './components/Hero.tsx';
@@ -9,6 +9,8 @@ import { PlantModal } from './components/PlantModal.tsx';
 import { PlantClinicSection } from './components/PlantClinicSection.tsx';
 import { MonetizationSection } from './components/MonetizationSection.tsx';
 import { Web3SandboxSection } from './components/Web3SandboxSection.tsx';
+import { AuthModal } from './components/AuthModal.tsx';
+import { MyGardenModal } from './components/MyGardenModal.tsx';
 import { Footer } from './components/Footer.tsx';
 import { Filter, Sparkles } from 'lucide-react';
 
@@ -16,6 +18,37 @@ export default function App() {
   const [activeMode, setActiveMode] = useState<PlantCategory>('herb');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedPlant, setSelectedPlant] = useState<Plant | null>(null);
+
+  // Trạng thái Người Dùng & Vườn Của Tôi
+  const [currentUser, setCurrentUser] = useState<UserProfile | null>(() => {
+    const saved = localStorage.getItem('ytc_user');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch {
+        // Fallback
+      }
+    }
+    // Mặc định tạo tài khoản demo để người dùng trải nghiệm ngay
+    return {
+      id: 'usr-demo-01',
+      name: 'Trần Tùng',
+      email: 'trantung.gardener@gmail.com',
+      avatar_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+      badge: 'Chủ Vườn Tiên Phong',
+      karma_points: 120,
+      joined_date: '04/11/2026',
+    };
+  });
+
+  const [isAuthOpen, setIsAuthOpen] = useState(false);
+  const [isMyGardenOpen, setIsMyGardenOpen] = useState(false);
+
+  useEffect(() => {
+    if (currentUser) {
+      localStorage.setItem('ytc_user', JSON.stringify(currentUser));
+    }
+  }, [currentUser]);
 
   // Lọc cây theo chế độ vườn đang chọn và từ khóa tìm kiếm
   const filteredPlants = useMemo(() => {
@@ -59,6 +92,15 @@ export default function App() {
         onSearchChange={setSearchQuery}
         onOpenClinic={() => scrollToSection('clinic')}
         onOpenWeb3={() => scrollToSection('web3')}
+        currentUser={currentUser}
+        onOpenAuth={() => setIsAuthOpen(true)}
+        onOpenMyGarden={() => {
+          if (currentUser) {
+            setIsMyGardenOpen(true);
+          } else {
+            setIsAuthOpen(true);
+          }
+        }}
       />
 
       {/* 2. Hero Section adapting to Garden Mode */}
@@ -141,6 +183,30 @@ export default function App() {
         plant={selectedPlant}
         onClose={() => setSelectedPlant(null)}
       />
+
+      {/* 10. Auth Modal */}
+      <AuthModal
+        isOpen={isAuthOpen}
+        onClose={() => setIsAuthOpen(false)}
+        onLoginSuccess={(user) => {
+          setCurrentUser(user);
+          setIsAuthOpen(false);
+        }}
+      />
+
+      {/* 11. My Digital Garden Modal */}
+      {currentUser && (
+        <MyGardenModal
+          isOpen={isMyGardenOpen}
+          onClose={() => setIsMyGardenOpen(false)}
+          user={currentUser}
+          onOpenWeb3ForPlant={(plantName) => {
+            setIsMyGardenOpen(false);
+            scrollToSection('web3');
+            console.log('Open Web3 for plant:', plantName);
+          }}
+        />
+      )}
 
     </div>
   );

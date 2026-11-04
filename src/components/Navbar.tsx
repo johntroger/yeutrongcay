@@ -1,6 +1,6 @@
 import React from 'react';
-import { Search, ShieldCheck, HeartHandshake, Mic } from 'lucide-react';
-import { PlantCategory } from '../types/index.ts';
+import { Search, ShieldCheck, HeartHandshake, Mic, User } from 'lucide-react';
+import { PlantCategory, UserProfile } from '../types/index.ts';
 
 interface NavbarProps {
   activeMode: PlantCategory;
@@ -9,6 +9,9 @@ interface NavbarProps {
   onSearchChange: (q: string) => void;
   onOpenClinic: () => void;
   onOpenWeb3: () => void;
+  currentUser: UserProfile | null;
+  onOpenAuth: () => void;
+  onOpenMyGarden: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -18,6 +21,9 @@ export const Navbar: React.FC<NavbarProps> = ({
   onSearchChange,
   onOpenClinic,
   onOpenWeb3,
+  currentUser,
+  onOpenAuth,
+  onOpenMyGarden,
 }) => {
   const [isListening, setIsListening] = React.useState(false);
 
@@ -69,22 +75,47 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Action Buttons */}
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2">
             <button
               onClick={onOpenClinic}
-              className="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium bg-forest-50 hover:bg-forest-100 text-forest-900 flex items-center gap-1.5 border border-forest-200 transition"
+              className="px-3 py-2 rounded-xl text-xs sm:text-sm font-medium bg-forest-50 hover:bg-forest-100 text-forest-900 flex items-center gap-1.5 border border-forest-200 transition"
             >
               <HeartHandshake className="w-4 h-4 text-herbal-600" />
-              <span>Bác Sĩ Cây (3s)</span>
+              <span className="hidden sm:inline">Bác Sĩ Cây (3s)</span>
+              <span className="sm:hidden">Bác Sĩ</span>
             </button>
 
             <button
               onClick={onOpenWeb3}
-              className="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium bg-terracotta-50 hover:bg-terracotta-100 text-terracotta-700 flex items-center gap-1.5 border border-terracotta-100 transition"
+              className="px-3 py-2 rounded-xl text-xs sm:text-sm font-medium bg-terracotta-50 hover:bg-terracotta-100 text-terracotta-700 flex items-center gap-1.5 border border-terracotta-100 transition"
             >
               <ShieldCheck className="w-4 h-4 text-terracotta-600" />
-              <span>Web3 Sandbox</span>
+              <span className="hidden sm:inline">Web3 Sandbox</span>
+              <span className="sm:hidden">Web3</span>
             </button>
+
+            {/* User Profile / Login */}
+            {currentUser ? (
+              <button
+                onClick={onOpenMyGarden}
+                className="px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium bg-herbal-50 hover:bg-herbal-100 text-herbal-900 flex items-center gap-2 border border-herbal-200 transition shadow-2xs"
+              >
+                <img
+                  src={currentUser.avatar_url}
+                  alt={currentUser.name}
+                  className="w-6 h-6 rounded-full object-cover"
+                />
+                <span className="hidden md:inline font-semibold">Vườn Của Tôi</span>
+              </button>
+            ) : (
+              <button
+                onClick={onOpenAuth}
+                className="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium bg-forest-900 hover:bg-forest-800 text-white flex items-center gap-1.5 shadow-sm transition"
+              >
+                <User className="w-4 h-4 text-herbal-400" />
+                <span>Đăng Nhập</span>
+              </button>
+            )}
           </div>
         </div>
 

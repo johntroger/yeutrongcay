@@ -77,6 +77,31 @@ export interface ClinicQuestion {
   created_at: string;
 }
 
+export interface UserGardenPlant {
+  id: string;
+  plant_id: string;
+  plant_name: string;
+  scientific_name: string;
+  category: PlantCategory;
+  planted_date: string;
+  location: string;
+  image_url: string;
+  notes?: string;
+  watering_interval_days: number;
+  last_watered_date: string;
+  passport_token_id?: string;
+}
+
+export interface UserProfile {
+  id: string;
+  name: string;
+  email: string;
+  avatar_url: string;
+  badge: string;
+  karma_points: number;
+  joined_date: string;
+}
+
 export interface Web3TestnetPassport {
   token_id: string;
   plant_name: string;
