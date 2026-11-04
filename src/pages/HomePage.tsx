@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { PlantCategory } from '../types/index.ts';
 import { SEED_PLANTS } from '../data/plants.ts';
+import { useSEO } from '../utils/useSEO.ts';
 import { Hero } from '../components/Hero.tsx';
 import { MedicalDisclaimer } from '../components/MedicalDisclaimer.tsx';
 import { PlantCard } from '../components/PlantCard.tsx';
@@ -44,6 +45,54 @@ export const HomePage: React.FC<HomePageProps> = ({
       return matchesCategory && matchesSearch;
     });
   }, [activeMode, searchQuery]);
+
+  // SEO / AEO / GEO Cấu hình cho từng chuyên mục
+  const categorySeoInfo = {
+    herb: {
+      title: 'Tủ Thuốc Xanh - Thảo Dược Bản Địa Việt Nam | Yêu Trồng Cây',
+      desc: 'Cẩm nang thảo dược bản địa và cây dược thực đồng nguyên: công dụng trị cảm ho, đau nhức, bồi bổ sức khỏe và cách trồng chậu ban công gia đình.',
+      canonical: 'https://yeutrongcay.com/thao-duoc',
+      keywords: ['thảo dược bản địa', 'cây thuốc nam', 'tủ thuốc xanh', 'húng chanh', 'đinh lăng', 'tía tô'],
+    },
+    fruit: {
+      title: 'Trái Ngọt Phố - Cây Ăn Quả Ban Công Sân Thượng | Yêu Trồng Cây',
+      desc: 'Hướng dẫn trồng cây ăn trái đô thị trong chậu: ổi lê, cóc thái, khế ngọt, lựu đỏ. Kỹ thuật ép hoa ra trái sai trĩu cành trên sân thượng.',
+      canonical: 'https://yeutrongcay.com/cay-an-trai',
+      keywords: ['cây ăn trái sân thượng', 'trồng cây ăn quả chậu', 'ổi lê đài loan', 'cóc thái', 'khế ngọt'],
+    },
+    ornamental: {
+      title: 'Cây Cảnh & Bonsai Thư Thái Bản Địa | Yêu Trồng Cây',
+      desc: 'Khám phá các loài cây cảnh phong thủy, bonsai bản địa và hoa thư thái: mai vàng, kim ngân, lưỡi hổ giúp thanh lọc không khí và kiến tạo không gian sống.',
+      canonical: 'https://yeutrongcay.com/cay-canh',
+      keywords: ['cây cảnh bản địa', 'bonsai phong thủy', 'cây lọc không khí', 'mai vàng', 'lưỡi hổ'],
+    },
+  }[activeMode];
+
+  useSEO({
+    title: categorySeoInfo.title,
+    description: categorySeoInfo.desc,
+    canonicalUrl: categorySeoInfo.canonical,
+    keywords: categorySeoInfo.keywords,
+    ogType: 'website',
+    jsonLdSchemas: [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: categorySeoInfo.title,
+        description: categorySeoInfo.desc,
+        url: categorySeoInfo.canonical,
+        mainEntity: {
+          '@type': 'ItemList',
+          itemListElement: filteredPlants.slice(0, 10).map((p, i) => ({
+            '@type': 'ListItem',
+            position: i + 1,
+            url: `https://yeutrongcay.com/cay/${p.slug}`,
+            name: p.common_name,
+          })),
+        },
+      },
+    ],
+  });
 
   return (
     <div>

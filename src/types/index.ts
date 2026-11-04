@@ -25,6 +25,26 @@ export interface PlantMedicalInfo {
   };
 }
 
+export interface PlantFAQ {
+  question: string;
+  answer: string;
+}
+
+export interface PlantHowToStep {
+  step: number;
+  title: string;
+  instruction: string;
+}
+
+export interface PlantBotanicalDetails {
+  family?: string;              // Họ thực vật chuẩn Latinh & tên Việt (e.g. Lamiaceae - Họ Hoa Môi)
+  native_range?: string;        // Vùng phân bố địa lý (Việt Nam, Đông Nam Á...)
+  active_compounds?: string[];  // Hoạt chất hóa thực vật chính (Thymol, Carvacrol, Tanin...)
+  soil_ph?: string;             // Độ pH đất tối ưu (e.g. 6.0 - 7.0)
+  ideal_temp?: string;          // Nhiệt độ sinh trưởng lý tưởng (e.g. 22°C - 32°C)
+  pot_size?: string;            // Kích thước chậu ban công khuyến nghị (e.g. 25cm - 40cm)
+}
+
 export interface Plant {
   id: string;                   // UUID
   slug: string;                 // URL slug bất biến
@@ -33,6 +53,8 @@ export interface Plant {
   aliases: string[];            // Tên gọi địa phương (Tần dày lá, rau thơm lông...)
   category: PlantCategory;      // herb | fruit | ornamental
   description: string;          // Mô tả tổng quan
+  quick_answer?: string;        // Khối AEO Direct Answer 40-60 từ tối ưu cho AI Overviews / Perplexity
+  botanical_details?: PlantBotanicalDetails; // GEO Entity Grounding & Knowledge Graph
   image_url: string;            // Ảnh đại diện chất lượng cao
   image_sha256?: string;        // Bằng chứng mã băm cho Web3
   sunlight: 'full_sun' | 'partial_shade' | 'indoor'; // Ánh sáng
@@ -42,6 +64,9 @@ export interface Plant {
   container_suitable: boolean;  // Trồng được trong chậu/ban công không
   seasonality?: RegionalSeason; // Lịch nông vụ theo vùng
   medical_info?: PlantMedicalInfo; // Thông tin y tế & cảnh báo (dành cho herb)
+  how_to_grow_steps?: PlantHowToStep[]; // GEO & HowTo Schema
+  faqs?: PlantFAQ[];            // AEO FAQPage Schema
+  academic_citations?: string[]; // GEO Authoritative Citations (Dược điển, Sách GS Đỗ Tất Lợi)
   monetization_tips?: string[]; // Gợi ý kiếm tiền từ cây này
   tags: string[];
 }
