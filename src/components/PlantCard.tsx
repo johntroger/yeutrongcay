@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Plant } from '../types/index.ts';
 import { Sun, Droplets, Clock, AlertCircle, ArrowUpRight } from 'lucide-react';
 
 interface PlantCardProps {
   plant: Plant;
-  onSelect: (plant: Plant) => void;
+  onSelect?: (plant: Plant) => void;
 }
 
 export const PlantCard: React.FC<PlantCardProps> = ({ plant, onSelect }) => {
@@ -21,9 +22,14 @@ export const PlantCard: React.FC<PlantCardProps> = ({ plant, onSelect }) => {
   }[plant.watering];
 
   return (
-    <div
-      onClick={() => onSelect(plant)}
-      className="group bg-white rounded-3xl overflow-hidden border border-forest-100 hover:border-herbal-500/50 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer transform hover:-translate-y-1"
+    <Link
+      to={`/cay/${plant.slug}`}
+      onClick={() => {
+        if (onSelect) {
+          onSelect(plant);
+        }
+      }}
+      className="group bg-white rounded-3xl overflow-hidden border border-forest-100 hover:border-herbal-500/50 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer transform hover:-translate-y-1 block"
     >
       {/* Plant Image */}
       <div className="relative aspect-[4/3] overflow-hidden bg-forest-50">
@@ -97,6 +103,6 @@ export const PlantCard: React.FC<PlantCardProps> = ({ plant, onSelect }) => {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };

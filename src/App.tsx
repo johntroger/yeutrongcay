@@ -1,27 +1,70 @@
-import { useState, useMemo, useEffect } from 'react';
-import { PlantCategory, Plant, UserProfile } from './types/index.ts';
-import { SEED_PLANTS } from './data/plants.ts';
+import { useState, useEffect } from 'react';
+import { Routes, Route, useLocation, useNavigate, useParams, Navigate } from 'react-router-dom';
+import { PlantCategory, UserProfile } from './types/index.ts';
 import { Navbar } from './components/Navbar.tsx';
-import { Hero } from './components/Hero.tsx';
-import { MedicalDisclaimer } from './components/MedicalDisclaimer.tsx';
-import { PlantCard } from './components/PlantCard.tsx';
-import { PlantModal } from './components/PlantModal.tsx';
-import { PlantClinicSection } from './components/PlantClinicSection.tsx';
-import { PlantSwapSection } from './components/PlantSwapSection.tsx';
-import { MonetizationSection } from './components/MonetizationSection.tsx';
-import { Web3SandboxSection } from './components/Web3SandboxSection.tsx';
-import { ContactSection } from './components/ContactSection.tsx';
+import { Footer } from './components/Footer.tsx';
+import { HomePage } from './pages/HomePage.tsx';
+import { PlantDetailPage } from './pages/PlantDetailPage.tsx';
 import { AuthModal } from './components/AuthModal.tsx';
 import { MyGardenModal } from './components/MyGardenModal.tsx';
 import { PrivacyModal } from './components/PrivacyModal.tsx';
 import { OfflineBanner } from './components/OfflineBanner.tsx';
-import { Footer } from './components/Footer.tsx';
-import { Filter, Sparkles } from 'lucide-react';
+
+// Wrapper xử lý danh mục động
+function DynamicCategoryWrapper({
+  setCategory,
+  render,
+}: {
+  setCategory: (cat: PlantCategory) => void;
+  render: (cat: PlantCategory) => JSX.Element;
+}) {
+  const { cat } = useParams<{ cat: string }>();
+  let mode: PlantCategory = 'herb';
+  if (cat === 'cay-an-trai' || cat === 'fruit') mode = 'fruit';
+  else if (cat === 'cay-canh' || cat === 'ornamental') mode = 'ornamental';
+
+  useEffect(() => {
+    setCategory(mode);
+  }, [mode, setCategory]);
+
+  return render(mode);
+}
+
+// Wrapper xử lý cuộn tự động đến section theo URL
+function SectionRouteWrapper({
+  sectionId,
+  render,
+}: {
+  sectionId: string;
+  render: () => JSX.Element;
+}) {
+  useEffect(() => {
+    // Đợi DOM render rồi cuộn mượt
+    const timer = setTimeout(() => {
+      const el = document.getElementById(sectionId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [sectionId]);
+
+  return render();
+}
 
 export default function App() {
-  const [activeMode, setActiveMode] = useState<PlantCategory>('herb');
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Xác định activeMode ban đầu dựa trên URL hiện tại
+  const [activeMode, setActiveMode] = useState<PlantCategory>(() => {
+    const path = window.location.pathname;
+    if (path.includes('cay-an-trai')) return 'fruit';
+    if (path.includes('cay-canh')) return 'ornamental';
+    return 'herb';
+  });
+
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedPlant, setSelectedPlant] = useState<Plant | null>(null);
 
   // Cỡ chữ đa thế hệ cho người lớn tuổi (Accessibility 50-75 tuổi)
   const [fontSize, setFontSize] = useState<'normal' | 'large' | 'xlarge'>('normal');
@@ -40,7 +83,6 @@ export default function App() {
         // Fallback
       }
     }
-    // Mặc định tạo tài khoản demo để người dùng trải nghiệm ngay
     return {
       id: 'usr-demo-01',
       name: 'Trần Tùng',
@@ -62,26 +104,28 @@ export default function App() {
     }
   }, [currentUser]);
 
-  // Lọc cây theo chế độ vườn đang chọn và từ khóa tìm kiếm
-  const filteredPlants = useMemo(() => {
-    return SEED_PLANTS.filter((plant) => {
-      // Khớp chế độ vườn
-      const matchesCategory = plant.category === activeMode;
-
-      // Khớp từ khóa tìm kiếm (tên, tên khoa học, tên địa phương, công dụng)
-      const q = searchQuery.toLowerCase().trim();
-      if (!q) return matchesCategory;
-
-      const matchesSearch =
-        plant.common_name.toLowerCase().includes(q) ||
-        plant.scientific_name.toLowerCase().includes(q) ||
-        plant.aliases.some((a) => a.toLowerCase().includes(q)) ||
-        plant.tags.some((t) => t.toLowerCase().includes(q)) ||
-        (plant.medical_info?.uses.some((u) => u.toLowerCase().includes(q)) ?? false);
-
-      return matchesCategory && matchesSearch;
-    });
-  }, [activeMode, searchQuery]);
+  // Cập nhật title SEO theo URL
+  useEffect(() => {
+    const path = location.pathname;
+    if (path === '/' || path === '/thao-duoc') {
+      document.title = 'Tủ Thuốc Xanh (Thảo Dược Bản Địa) | Yêu Trồng Cây';
+      setActiveMode('herb');
+    } else if (path === '/cay-an-trai') {
+      document.title = 'Trái Ngọt Phố (Cây Ăn Quả Ban Công) | Yêu Trồng Cây';
+      setActiveMode('fruit');
+    } else if (path === '/cay-canh') {
+      document.title = 'Cây Cảnh & Bonsai Thư Thái | Yêu Trồng Cây';
+      setActiveMode('ornamental');
+    } else if (path === '/trao-doi-cay') {
+      document.title = 'Trạm Trao Đổi Cây & Hạt Giống | Yêu Trồng Cây';
+    } else if (path === '/bac-si-cay-trong') {
+      document.title = 'Hội Quán Bác Sĩ Cây Trồng (AI 3s) | Yêu Trồng Cây';
+    } else if (path === '/lien-he') {
+      document.title = 'Liên Hệ & Đóng Góp Tri Thức | Yêu Trồng Cây';
+    } else if (path === '/web3-sandbox') {
+      document.title = 'Hộ Chiếu Cây Số Web3 Sandbox | Yêu Trồng Cây';
+    }
+  }, [location.pathname]);
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
@@ -94,12 +138,20 @@ export default function App() {
   const fontScaleStyle =
     fontSize === 'xlarge' ? { fontSize: '118%' } : fontSize === 'large' ? { fontSize: '108%' } : {};
 
+  const renderHomeWithMode = (mode: PlantCategory) => (
+    <HomePage
+      activeMode={mode}
+      searchQuery={searchQuery}
+      onClearSearch={() => setSearchQuery('')}
+      onScrollToSection={scrollToSection}
+    />
+  );
+
   return (
     <div
       style={fontScaleStyle}
       className="min-h-screen bg-cream-100 flex flex-col font-sans transition-all duration-200"
     >
-      
       {/* 1. Header Navigation */}
       <Navbar
         activeMode={activeMode}
@@ -109,10 +161,34 @@ export default function App() {
         }}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
-        onOpenClinic={() => scrollToSection('clinic')}
-        onOpenWeb3={() => scrollToSection('web3')}
-        onOpenSwapMap={() => scrollToSection('swap-map')}
-        onOpenContact={() => scrollToSection('contact')}
+        onOpenClinic={() => {
+          if (location.pathname === '/' || location.pathname === '/thao-duoc') {
+            scrollToSection('clinic');
+          } else {
+            navigate('/bac-si-cay-trong');
+          }
+        }}
+        onOpenWeb3={() => {
+          if (location.pathname === '/' || location.pathname === '/thao-duoc') {
+            scrollToSection('web3');
+          } else {
+            navigate('/web3-sandbox');
+          }
+        }}
+        onOpenSwapMap={() => {
+          if (location.pathname === '/' || location.pathname === '/thao-duoc') {
+            scrollToSection('swap-map');
+          } else {
+            navigate('/trao-doi-cay');
+          }
+        }}
+        onOpenContact={() => {
+          if (location.pathname === '/' || location.pathname === '/thao-duoc') {
+            scrollToSection('contact');
+          } else {
+            navigate('/lien-he');
+          }
+        }}
         currentUser={currentUser}
         onOpenAuth={() => setIsAuthOpen(true)}
         onOpenMyGarden={() => {
@@ -126,97 +202,106 @@ export default function App() {
         onToggleFontSize={handleToggleFontSize}
       />
 
-      {/* 2. Hero Section adapting to Garden Mode */}
-      <Hero
-        activeMode={activeMode}
-        onExploreMonetization={() => scrollToSection('monetization')}
-        onOpenClinic={() => scrollToSection('clinic')}
-      />
+      {/* 2. Main Router Pages */}
+      <div className="flex-1">
+        <Routes>
+          {/* Trang chủ mặc định */}
+          <Route path="/" element={renderHomeWithMode(activeMode)} />
 
-      {/* 3. Medical Disclaimer (Always visible for Herbs) */}
-      {activeMode === 'herb' && <MedicalDisclaimer />}
+          {/* 3 URL Danh mục riêng biệt */}
+          <Route path="/thao-duoc" element={renderHomeWithMode('herb')} />
+          <Route path="/cay-an-trai" element={renderHomeWithMode('fruit')} />
+          <Route path="/cay-canh" element={renderHomeWithMode('ornamental')} />
 
-      {/* 4. Plants Catalog Grid */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 w-full">
-        <div className="flex items-center justify-between mb-8 pb-4 border-b border-forest-100">
-          <div>
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-forest-900 tracking-tight">
-              {activeMode === 'herb'
-                ? 'Danh Mục Thảo Dược & Cây Thực Phẩm'
-                : activeMode === 'fruit'
-                ? 'Danh Mục Cây Ăn Trái Đô Thị'
-                : 'Danh Mục Cây Cảnh & Bonsai Thư Thái'}
-            </h2>
-            <p className="text-xs sm:text-sm text-forest-700 mt-1">
-              Hiển thị {filteredPlants.length} loài thực vật bản địa chuẩn hóa
-            </p>
-          </div>
-
-          <div className="flex items-center gap-2 text-xs font-semibold text-forest-800 bg-white px-3.5 py-2 rounded-xl border border-forest-100 shadow-sm">
-            <Filter className="w-4 h-4 text-herbal-600" />
-            <span className="hidden sm:inline">Phân Loại:</span>
-            <span className="capitalize">{activeMode}</span>
-          </div>
-        </div>
-
-        {/* Grid display */}
-        {filteredPlants.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {filteredPlants.map((plant) => (
-              <PlantCard
-                key={plant.id}
-                plant={plant}
-                onSelect={(p) => setSelectedPlant(p)}
+          {/* Alias /danh-muc/:cat */}
+          <Route
+            path="/danh-muc/:cat"
+            element={
+              <DynamicCategoryWrapper
+                setCategory={setActiveMode}
+                render={renderHomeWithMode}
               />
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-16 bg-white rounded-3xl border border-forest-100 p-8 max-w-md mx-auto">
-            <Sparkles className="w-10 h-10 text-forest-400 mx-auto mb-3" />
-            <h3 className="text-base font-bold text-forest-900 mb-1">
-              Không tìm thấy cây phù hợp
-            </h3>
-            <p className="text-xs text-gray-500 mb-4">
-              Thử tìm kiếm với tên khác hoặc chuyển sang chế độ vườn khác.
-            </p>
-            <button
-              onClick={() => setSearchQuery('')}
-              className="px-4 py-2 bg-forest-900 text-white rounded-xl text-xs font-medium"
-            >
-              Xem tất cả cây
-            </button>
-          </div>
-        )}
-      </main>
+            }
+          />
 
-      {/* 5. Plant Swap Section (Trạm Trao Đổi Cây & Hạt Giống Bản Địa) */}
-      <PlantSwapSection />
+          {/* URL Riêng Biệt Cho Mỗi Bài Viết / Loài Cây */}
+          <Route
+            path="/cay/:slug"
+            element={
+              <PlantDetailPage
+                onOpenMyGarden={() => setIsMyGardenOpen(true)}
+                onAddPlantToGarden={(plantId) => {
+                  console.log('Added plant to garden:', plantId);
+                }}
+              />
+            }
+          />
 
-      {/* 6. Plant Clinic Section (Bác sĩ cây trồng 1-chạm) */}
-      <PlantClinicSection />
+          {/* URL Trực Tiếp Cho Các Chuyên Mục Lớn */}
+          <Route
+            path="/trao-doi-cay"
+            element={
+              <SectionRouteWrapper
+                sectionId="swap-map"
+                render={() => renderHomeWithMode(activeMode)}
+              />
+            }
+          />
+          <Route
+            path="/bac-si-cay-trong"
+            element={
+              <SectionRouteWrapper
+                sectionId="clinic"
+                render={() => renderHomeWithMode(activeMode)}
+              />
+            }
+          />
+          <Route
+            path="/kiem-tien-tu-vuon"
+            element={
+              <SectionRouteWrapper
+                sectionId="monetization"
+                render={() => renderHomeWithMode(activeMode)}
+              />
+            }
+          />
+          <Route
+            path="/web3-sandbox"
+            element={
+              <SectionRouteWrapper
+                sectionId="web3"
+                render={() => renderHomeWithMode(activeMode)}
+              />
+            }
+          />
+          <Route
+            path="/lien-he"
+            element={
+              <SectionRouteWrapper
+                sectionId="contact"
+                render={() => renderHomeWithMode(activeMode)}
+              />
+            }
+          />
 
-      {/* 7. Monetization Section (Biến đam mê thành tiền) */}
-      <MonetizationSection />
+          {/* 404 Fallback */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </div>
 
-      {/* 8. Web3 Sandbox Section (Trải nghiệm học tập 100% miễn phí) */}
-      <Web3SandboxSection />
-
-      {/* 9. Contact Section (Liên Hệ & Đóng Góp Tri Thức Thực Vật) */}
-      <ContactSection />
-
-      {/* 10. Footer */}
+      {/* 3. Footer */}
       <Footer
         onOpenPrivacy={() => setIsPrivacyOpen(true)}
-        onOpenContact={() => scrollToSection('contact')}
+        onOpenContact={() => {
+          if (location.pathname === '/' || location.pathname === '/thao-duoc') {
+            scrollToSection('contact');
+          } else {
+            navigate('/lien-he');
+          }
+        }}
       />
 
-      {/* 11. Plant Detail Modal */}
-      <PlantModal
-        plant={selectedPlant}
-        onClose={() => setSelectedPlant(null)}
-      />
-
-      {/* 12. Auth Modal */}
+      {/* 4. Auth Modal */}
       <AuthModal
         isOpen={isAuthOpen}
         onClose={() => setIsAuthOpen(false)}
@@ -226,7 +311,7 @@ export default function App() {
         }}
       />
 
-      {/* 13. My Digital Garden Modal */}
+      {/* 5. My Digital Garden Modal */}
       {currentUser && (
         <MyGardenModal
           isOpen={isMyGardenOpen}
@@ -234,21 +319,20 @@ export default function App() {
           user={currentUser}
           onOpenWeb3ForPlant={(plantName) => {
             setIsMyGardenOpen(false);
-            scrollToSection('web3');
+            navigate('/web3-sandbox');
             console.log('Open Web3 for plant:', plantName);
           }}
         />
       )}
 
-      {/* 14. Privacy & Medical Disclaimer Modal (H13) */}
+      {/* 6. Privacy & Medical Disclaimer Modal (H13) */}
       <PrivacyModal
         isOpen={isPrivacyOpen}
         onClose={() => setIsPrivacyOpen(false)}
       />
 
-      {/* 15. Offline-First Network Banner */}
+      {/* 7. Offline-First Network Banner */}
       <OfflineBanner />
-
     </div>
   );
 }

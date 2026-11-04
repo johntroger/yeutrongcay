@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Search, ShieldCheck, HeartHandshake, Mic, User, MapPin, Type, MessageCircle } from 'lucide-react';
 import { PlantCategory, UserProfile } from '../types/index.ts';
 
@@ -48,10 +49,11 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20 gap-4">
           
-          {/* Official Brand Logo */}
-          <div
-            className="flex items-center cursor-pointer py-1"
+          {/* Official Brand Logo -> Link to Home */}
+          <Link
+            to="/"
             onClick={() => onModeChange('herb')}
+            className="flex items-center cursor-pointer py-1"
             title="Yêu Trồng Cây - Design your life"
           >
             <img
@@ -59,7 +61,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               alt="Yêu Trồng Cây - Design your life"
               className="h-12 sm:h-14 w-auto object-contain hover:opacity-95 transition"
             />
-          </div>
+          </Link>
 
           {/* Search Bar with Voice */}
           <div className="hidden md:flex flex-1 max-w-md items-center relative">
@@ -86,43 +88,47 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="flex items-center gap-1.5 sm:gap-2">
             
             {/* Swap Map Link */}
-            <button
+            <Link
+              to="/trao-doi-cay"
               onClick={onOpenSwapMap}
               className="px-2.5 sm:px-3 py-2 rounded-xl text-xs sm:text-sm font-medium bg-emerald-50 hover:bg-emerald-100 text-emerald-900 flex items-center gap-1.5 border border-emerald-200 transition"
               title="Trạm Trao Đổi Cây & Hạt Giống"
             >
               <MapPin className="w-4 h-4 text-emerald-600" />
               <span className="hidden sm:inline">Đổi Cây</span>
-            </button>
+            </Link>
 
             {/* Clinic */}
-            <button
+            <Link
+              to="/bac-si-cay-trong"
               onClick={onOpenClinic}
               className="px-2.5 sm:px-3 py-2 rounded-xl text-xs sm:text-sm font-medium bg-forest-50 hover:bg-forest-100 text-forest-900 flex items-center gap-1.5 border border-forest-200 transition"
             >
               <HeartHandshake className="w-4 h-4 text-herbal-600" />
               <span className="hidden sm:inline">Bác Sĩ Cây (3s)</span>
               <span className="sm:hidden">Bác Sĩ</span>
-            </button>
-
-            {/* Web3 Sandbox */}
-            <button
-              onClick={onOpenWeb3}
-              className="hidden lg:flex px-3 py-2 rounded-xl text-xs sm:text-sm font-medium bg-terracotta-50 hover:bg-terracotta-100 text-terracotta-700 items-center gap-1.5 border border-terracotta-100 transition"
-            >
-              <ShieldCheck className="w-4 h-4 text-terracotta-600" />
-              <span>Web3 Sandbox</span>
-            </button>
+            </Link>
 
             {/* Contact Button */}
-            <button
+            <Link
+              to="/lien-he"
               onClick={onOpenContact}
               className="hidden sm:flex px-2.5 sm:px-3 py-2 rounded-xl text-xs sm:text-sm font-medium bg-white hover:bg-forest-50 text-forest-900 items-center gap-1.5 border border-forest-200 transition"
               title="Liên hệ & Đóng góp ý kiến"
             >
               <MessageCircle className="w-4 h-4 text-forest-600" />
               <span>Liên Hệ</span>
-            </button>
+            </Link>
+
+            {/* Web3 Sandbox */}
+            <Link
+              to="/web3-sandbox"
+              onClick={onOpenWeb3}
+              className="hidden lg:flex px-3 py-2 rounded-xl text-xs sm:text-sm font-medium bg-terracotta-50 hover:bg-terracotta-100 text-terracotta-700 items-center gap-1.5 border border-terracotta-100 transition"
+            >
+              <ShieldCheck className="w-4 h-4 text-terracotta-600" />
+              <span>Web3 Sandbox</span>
+            </Link>
 
             {/* Accessibility Font Size Toggle (A- / A+) */}
             <button
@@ -159,9 +165,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
         </div>
 
-        {/* Garden Mode Switcher */}
+        {/* Garden Mode Switcher - 3 Distinct Category URLs */}
         <div className="flex items-center justify-center gap-2 py-2 border-t border-forest-50 overflow-x-auto no-scrollbar">
-          <button
+          <Link
+            to="/thao-duoc"
             onClick={() => onModeChange('herb')}
             className={`px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition flex items-center gap-2 shrink-0 ${
               activeMode === 'herb'
@@ -171,9 +178,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <span>🌿</span>
             <span>Tủ Thuốc Xanh (Thảo Dược)</span>
-          </button>
+          </Link>
 
-          <button
+          <Link
+            to="/cay-an-trai"
             onClick={() => onModeChange('fruit')}
             className={`px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition flex items-center gap-2 shrink-0 ${
               activeMode === 'fruit'
@@ -183,9 +191,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <span>🍋</span>
             <span>Trái Ngọt Phố (Cây Ăn Quả)</span>
-          </button>
+          </Link>
 
-          <button
+          <Link
+            to="/cay-canh"
             onClick={() => onModeChange('ornamental')}
             className={`px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition flex items-center gap-2 shrink-0 ${
               activeMode === 'ornamental'
@@ -195,7 +204,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <span>🌸</span>
             <span>Cây Cảnh & Thư Thái (Bonsai/Hoa)</span>
-          </button>
+          </Link>
         </div>
       </div>
     </header>
