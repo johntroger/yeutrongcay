@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, ShieldCheck, HeartHandshake, Mic, User, MapPin, Type } from 'lucide-react';
+import { Search, ShieldCheck, HeartHandshake, Mic, User, MapPin, Type, MessageCircle } from 'lucide-react';
 import { PlantCategory, UserProfile } from '../types/index.ts';
 
 interface NavbarProps {
@@ -10,6 +10,7 @@ interface NavbarProps {
   onOpenClinic: () => void;
   onOpenWeb3: () => void;
   onOpenSwapMap: () => void;
+  onOpenContact: () => void;
   currentUser: UserProfile | null;
   onOpenAuth: () => void;
   onOpenMyGarden: () => void;
@@ -25,6 +26,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenClinic,
   onOpenWeb3,
   onOpenSwapMap,
+  onOpenContact,
   currentUser,
   onOpenAuth,
   onOpenMyGarden,
@@ -110,6 +112,16 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <ShieldCheck className="w-4 h-4 text-terracotta-600" />
               <span>Web3 Sandbox</span>
+            </button>
+
+            {/* Contact Button */}
+            <button
+              onClick={onOpenContact}
+              className="hidden sm:flex px-2.5 sm:px-3 py-2 rounded-xl text-xs sm:text-sm font-medium bg-white hover:bg-forest-50 text-forest-900 items-center gap-1.5 border border-forest-200 transition"
+              title="Liên hệ & Đóng góp ý kiến"
+            >
+              <MessageCircle className="w-4 h-4 text-forest-600" />
+              <span>Liên Hệ</span>
             </button>
 
             {/* Accessibility Font Size Toggle (A- / A+) */}

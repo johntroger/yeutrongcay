@@ -3,9 +3,10 @@ import { ShieldCheck, Heart } from 'lucide-react';
 
 interface FooterProps {
   onOpenPrivacy?: () => void;
+  onOpenContact?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy }) => {
+export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy, onOpenContact }) => {
   return (
     <footer className="bg-forest-950 text-white border-t border-forest-900 pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -67,6 +68,14 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy }) => {
                 className="text-herbal-400 hover:text-herbal-300 underline underline-offset-2 transition cursor-pointer"
               >
                 Điều khoản & Quyền riêng tư
+              </button>
+            )}
+            {onOpenContact && (
+              <button
+                onClick={onOpenContact}
+                className="text-herbal-400 hover:text-herbal-300 underline underline-offset-2 transition cursor-pointer"
+              >
+                Liên hệ & Hợp tác
               </button>
             )}
           </div>

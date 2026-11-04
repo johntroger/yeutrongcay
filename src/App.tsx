@@ -10,6 +10,7 @@ import { PlantClinicSection } from './components/PlantClinicSection.tsx';
 import { PlantSwapSection } from './components/PlantSwapSection.tsx';
 import { MonetizationSection } from './components/MonetizationSection.tsx';
 import { Web3SandboxSection } from './components/Web3SandboxSection.tsx';
+import { ContactSection } from './components/ContactSection.tsx';
 import { AuthModal } from './components/AuthModal.tsx';
 import { MyGardenModal } from './components/MyGardenModal.tsx';
 import { PrivacyModal } from './components/PrivacyModal.tsx';
@@ -111,6 +112,7 @@ export default function App() {
         onOpenClinic={() => scrollToSection('clinic')}
         onOpenWeb3={() => scrollToSection('web3')}
         onOpenSwapMap={() => scrollToSection('swap-map')}
+        onOpenContact={() => scrollToSection('contact')}
         currentUser={currentUser}
         onOpenAuth={() => setIsAuthOpen(true)}
         onOpenMyGarden={() => {
@@ -199,16 +201,22 @@ export default function App() {
       {/* 8. Web3 Sandbox Section (Trải nghiệm học tập 100% miễn phí) */}
       <Web3SandboxSection />
 
-      {/* 9. Footer */}
-      <Footer onOpenPrivacy={() => setIsPrivacyOpen(true)} />
+      {/* 9. Contact Section (Liên Hệ & Đóng Góp Tri Thức Thực Vật) */}
+      <ContactSection />
 
-      {/* 10. Plant Detail Modal */}
+      {/* 10. Footer */}
+      <Footer
+        onOpenPrivacy={() => setIsPrivacyOpen(true)}
+        onOpenContact={() => scrollToSection('contact')}
+      />
+
+      {/* 11. Plant Detail Modal */}
       <PlantModal
         plant={selectedPlant}
         onClose={() => setSelectedPlant(null)}
       />
 
-      {/* 11. Auth Modal */}
+      {/* 12. Auth Modal */}
       <AuthModal
         isOpen={isAuthOpen}
         onClose={() => setIsAuthOpen(false)}
@@ -218,7 +226,7 @@ export default function App() {
         }}
       />
 
-      {/* 12. My Digital Garden Modal */}
+      {/* 13. My Digital Garden Modal */}
       {currentUser && (
         <MyGardenModal
           isOpen={isMyGardenOpen}
@@ -232,13 +240,13 @@ export default function App() {
         />
       )}
 
-      {/* 13. Privacy & Medical Disclaimer Modal (H13) */}
+      {/* 14. Privacy & Medical Disclaimer Modal (H13) */}
       <PrivacyModal
         isOpen={isPrivacyOpen}
         onClose={() => setIsPrivacyOpen(false)}
       />
 
-      {/* 14. Offline-First Network Banner */}
+      {/* 15. Offline-First Network Banner */}
       <OfflineBanner />
 
     </div>
