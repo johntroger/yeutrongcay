@@ -1,4 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Plant, PlantCategory } from '../types/index.ts';
 import { SEED_PLANTS } from '../data/plants.ts';
 import { getPlants } from '../services/apiService.ts';
@@ -6,25 +7,27 @@ import { useSEO } from '../utils/useSEO.ts';
 import { Hero } from '../components/Hero.tsx';
 import { MedicalDisclaimer } from '../components/MedicalDisclaimer.tsx';
 import { PlantCard } from '../components/PlantCard.tsx';
-import { PlantClinicSection } from '../components/PlantClinicSection.tsx';
-import { PlantSwapSection } from '../components/PlantSwapSection.tsx';
-import { MonetizationSection } from '../components/MonetizationSection.tsx';
-import { Web3SandboxSection } from '../components/Web3SandboxSection.tsx';
-import { ContactSection } from '../components/ContactSection.tsx';
-import { Filter, Sparkles } from 'lucide-react';
+import {
+  Filter,
+  Sparkles,
+  MapPin,
+  Stethoscope,
+  Coins,
+  MessageCircle,
+  ArrowUpRight
+} from 'lucide-react';
 
 interface HomePageProps {
   activeMode: PlantCategory;
   searchQuery: string;
   onClearSearch: () => void;
-  onScrollToSection: (id: string) => void;
+  onScrollToSection?: (id: string) => void;
 }
 
 export const HomePage: React.FC<HomePageProps> = ({
   activeMode,
   searchQuery,
   onClearSearch,
-  onScrollToSection,
 }) => {
   const [allPlants, setAllPlants] = useState<Plant[]>(SEED_PLANTS);
 
@@ -44,10 +47,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   // Lọc cây theo chế độ vườn đang chọn và từ khóa tìm kiếm
   const filteredPlants = useMemo(() => {
     return allPlants.filter((plant) => {
-      // Khớp chế độ vườn
       const matchesCategory = plant.category === activeMode;
-
-      // Khớp từ khóa tìm kiếm (tên, tên khoa học, tên địa phương, công dụng)
       const q = searchQuery.toLowerCase().trim();
       if (!q) return matchesCategory;
 
@@ -62,79 +62,107 @@ export const HomePage: React.FC<HomePageProps> = ({
     });
   }, [allPlants, activeMode, searchQuery]);
 
-  // SEO / AEO / GEO Cấu hình cho từng chuyên mục
-  const categorySeoInfo = {
-    herb: {
-      title: 'Tủ Thuốc Xanh - Thảo Dược Bản Địa Việt Nam | Yêu Trồng Cây',
-      desc: 'Cẩm nang thảo dược bản địa và cây dược thực đồng nguyên: công dụng trị cảm ho, đau nhức, bồi bổ sức khỏe và cách trồng chậu ban công gia đình.',
-      canonical: 'https://yeutrongcay.com/thao-duoc',
-      keywords: ['thảo dược bản địa', 'cây thuốc nam', 'tủ thuốc xanh', 'húng chanh', 'đinh lăng', 'tía tô'],
-    },
-    fruit: {
-      title: 'Trái Ngọt Phố - Cây Ăn Quả Ban Công Sân Thượng | Yêu Trồng Cây',
-      desc: 'Hướng dẫn trồng cây ăn trái đô thị trong chậu: ổi lê, cóc thái, khế ngọt, lựu đỏ. Kỹ thuật ép hoa ra trái sai trĩu cành trên sân thượng.',
-      canonical: 'https://yeutrongcay.com/cay-an-trai',
-      keywords: ['cây ăn trái sân thượng', 'trồng cây ăn quả chậu', 'ổi lê đài loan', 'cóc thái', 'khế ngọt'],
-    },
-    ornamental: {
-      title: 'Cây Cảnh & Bonsai Thư Thái Bản Địa | Yêu Trồng Cây',
-      desc: 'Khám phá các loài cây cảnh phong thủy, bonsai bản địa và hoa thư thái: mai vàng, kim ngân, lưỡi hổ giúp thanh lọc không khí và kiến tạo không gian sống.',
-      canonical: 'https://yeutrongcay.com/cay-canh',
-      keywords: ['cây cảnh bản địa', 'bonsai phong thủy', 'cây lọc không khí', 'mai vàng', 'lưỡi hổ'],
-    },
-  }[activeMode];
-
   useSEO({
-    title: categorySeoInfo.title,
-    description: categorySeoInfo.desc,
-    canonicalUrl: categorySeoInfo.canonical,
-    keywords: categorySeoInfo.keywords,
-    ogType: 'website',
-    jsonLdSchemas: [
-      {
-        '@context': 'https://schema.org',
-        '@type': 'CollectionPage',
-        name: categorySeoInfo.title,
-        description: categorySeoInfo.desc,
-        url: categorySeoInfo.canonical,
-        mainEntity: {
-          '@type': 'ItemList',
-          itemListElement: filteredPlants.slice(0, 10).map((p, i) => ({
-            '@type': 'ListItem',
-            position: i + 1,
-            url: `https://yeutrongcay.com/cay/${p.slug}`,
-            name: p.common_name,
-          })),
-        },
-      },
-    ],
+    title: 'Yêu Trồng Cây - Nền Tảng Thực Vật Bản Địa & Cây Trồng Đô Thị Việt Nam',
+    description: 'Bách khoa tri thức thực vật, tủ thuốc thảo dược gia đình, bí quyết trồng cây ăn quả ban công và trạm trao đổi hạt giống an toàn ba miền.',
   });
 
   return (
-    <div>
-      {/* 1. Hero Section adapting to Garden Mode */}
+    <div className="min-h-screen bg-cream-100 flex flex-col">
+      {/* 1. Hero Banner */}
       <Hero
         activeMode={activeMode}
-        onExploreMonetization={() => onScrollToSection('monetization')}
-        onOpenClinic={() => onScrollToSection('clinic')}
+        onExploreMonetization={() => window.open('/kiem-tien-tu-vuon', '_blank')}
+        onOpenClinic={() => window.open('/bac-si-cay-trong', '_blank')}
       />
 
-      {/* 2. Medical Disclaimer (Always visible for Herbs) */}
+      {/* 2. Bộ 3 Chuyên Mục Lớn Mở Tab Riêng Biệt */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-20 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Link
+            to="/thao-duoc"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-5 rounded-3xl bg-white border border-forest-100 shadow-md hover:shadow-xl hover:border-herbal-400 transition group flex flex-col justify-between"
+          >
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-2xl">🌿</span>
+                <span className="text-[11px] font-semibold text-herbal-700 bg-herbal-50 px-2.5 py-1 rounded-full flex items-center gap-1">
+                  Mở Tab Mới <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
+                </span>
+              </div>
+              <h3 className="text-base font-serif font-bold text-forest-950 group-hover:text-herbal-700 transition">
+                Tủ Thuốc Xanh (Thảo Dược)
+              </h3>
+              <p className="text-xs text-forest-700/80 mt-1 line-clamp-2">
+                20 loài thảo dược bản địa trị ho, giải cảm, bổ khí huyết và bài thuốc an toàn.
+              </p>
+            </div>
+          </Link>
+
+          <Link
+            to="/cay-an-trai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-5 rounded-3xl bg-white border border-forest-100 shadow-md hover:shadow-xl hover:border-amber-400 transition group flex flex-col justify-between"
+          >
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-2xl">🍋</span>
+                <span className="text-[11px] font-semibold text-amber-800 bg-amber-50 px-2.5 py-1 rounded-full flex items-center gap-1">
+                  Mở Tab Mới <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
+                </span>
+              </div>
+              <h3 className="text-base font-serif font-bold text-forest-950 group-hover:text-amber-800 transition">
+                Trái Ngọt Phố (Cây Ăn Quả)
+              </h3>
+              <p className="text-xs text-forest-700/80 mt-1 line-clamp-2">
+                10 giống cây ăn trái lùn nhanh cho quả trồng chậu ban công và sân thượng.
+              </p>
+            </div>
+          </Link>
+
+          <Link
+            to="/cay-canh"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-5 rounded-3xl bg-white border border-forest-100 shadow-md hover:shadow-xl hover:border-purple-400 transition group flex flex-col justify-between"
+          >
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-2xl">🌸</span>
+                <span className="text-[11px] font-semibold text-purple-800 bg-purple-50 px-2.5 py-1 rounded-full flex items-center gap-1">
+                  Mở Tab Mới <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
+                </span>
+              </div>
+              <h3 className="text-base font-serif font-bold text-forest-950 group-hover:text-purple-800 transition">
+                Cây Cảnh & Thư Thái
+              </h3>
+              <p className="text-xs text-forest-700/80 mt-1 line-clamp-2">
+                Thanh lọc không khí, nghệ thuật bonsai hoa thơm và cây phong thủy tài lộc.
+              </p>
+            </div>
+          </Link>
+        </div>
+      </section>
+
+      {/* 3. Medical Disclaimer */}
       {activeMode === 'herb' && <MedicalDisclaimer />}
 
-      {/* 3. Plants Catalog Grid */}
+      {/* 4. Plants Catalog Grid */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 w-full">
         <div className="flex items-center justify-between mb-8 pb-4 border-b border-forest-100">
           <div>
             <h2 className="text-2xl sm:text-3xl font-serif font-bold text-forest-900 tracking-tight">
               {activeMode === 'herb'
-                ? 'Danh Mục Thảo Dược & Cây Thực Phẩm'
+                ? 'Bách Khoa Thảo Dược Bản Địa'
                 : activeMode === 'fruit'
-                ? 'Danh Mục Cây Ăn Trái Đô Thị'
-                : 'Danh Mục Cây Cảnh & Bonsai Thư Thái'}
+                ? 'Bách Khoa Cây Ăn Trái Đô Thị'
+                : 'Bách Khoa Cây Cảnh & Bonsai'}
             </h2>
             <p className="text-xs sm:text-sm text-forest-700 mt-1">
-              Hiển thị {filteredPlants.length} loài thực vật bản địa chuẩn hóa (Bấm vào mỗi cây để xem bài viết chi tiết)
+              Hiển thị {filteredPlants.length} loài thực vật (Mỗi cây bấm vào sẽ mở bài viết chi tiết ở tab mới)
             </p>
           </div>
 
@@ -162,7 +190,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               Không tìm thấy cây phù hợp
             </h3>
             <p className="text-xs text-gray-500 mb-4">
-              Thử tìm kiếm với tên khác hoặc chuyển sang chế độ vườn khác.
+              Thử tìm kiếm với tên khác hoặc mở chuyên mục riêng.
             </p>
             <button
               onClick={onClearSearch}
@@ -174,20 +202,120 @@ export const HomePage: React.FC<HomePageProps> = ({
         )}
       </main>
 
-      {/* 4. Plant Swap Section (Trạm Trao Đổi Cây & Hạt Giống Bản Địa) */}
-      <PlantSwapSection />
+      {/* 5. Hệ Sinh Thái Tính Năng Riêng Biệt (Mở Tab Mới Giải Phóng Trang Chủ) */}
+      <section className="bg-forest-900 text-white py-14 border-t border-forest-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-herbal-500/20 text-herbal-300 border border-herbal-400/30 mb-2">
+              Hệ Sinh Thái Tính Năng
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
+              Khám Phá Các Tiện Ích Chuyên Sâu
+            </h2>
+            <p className="text-xs sm:text-sm text-forest-200/80 mt-2">
+              Mỗi tính năng được tối ưu thành một không gian độc lập, mở sang tab mới giúp bạn vừa tra cứu vừa thao tác mượt mà.
+            </p>
+          </div>
 
-      {/* 5. Plant Clinic Section (Bác sĩ cây trồng 1-chạm) */}
-      <PlantClinicSection />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {/* Box 1: Bác sĩ cây trồng */}
+            <Link
+              to="/bac-si-cay-trong"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-6 rounded-3xl bg-forest-950/60 border border-forest-800 hover:border-herbal-400 hover:bg-forest-950 transition group flex flex-col justify-between"
+            >
+              <div>
+                <div className="w-10 h-10 rounded-2xl bg-herbal-500/10 text-herbal-400 flex items-center justify-center mb-4">
+                  <Stethoscope className="w-5 h-5" />
+                </div>
+                <h3 className="font-serif font-bold text-base text-white group-hover:text-herbal-300 transition">
+                  Bác Sĩ Cây Trồng
+                </h3>
+                <p className="text-xs text-forest-300/80 mt-1.5 leading-relaxed">
+                  Chẩn đoán tức thì 3 giây bệnh vàng lá, rệp sáp, thối rễ kèm bài thuốc sinh học.
+                </p>
+              </div>
+              <div className="pt-4 mt-4 border-t border-forest-800/60 flex items-center justify-between text-xs font-semibold text-herbal-400">
+                <span>Mở Phòng Khám</span>
+                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
+              </div>
+            </Link>
 
-      {/* 6. Monetization Section (Biến đam mê thành tiền) */}
-      <MonetizationSection />
+            {/* Box 2: Trạm Đổi Cây */}
+            <Link
+              to="/trao-doi-cay"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-6 rounded-3xl bg-forest-950/60 border border-forest-800 hover:border-emerald-400 hover:bg-forest-950 transition group flex flex-col justify-between"
+            >
+              <div>
+                <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-4">
+                  <MapPin className="w-5 h-5" />
+                </div>
+                <h3 className="font-serif font-bold text-base text-white group-hover:text-emerald-300 transition">
+                  Trạm Trao Đổi Cây
+                </h3>
+                <p className="text-xs text-forest-300/80 mt-1.5 leading-relaxed">
+                  Kết nối tặng hạt giống, đổi cành giâm an toàn ba miền với cam kết cách ly 7 ngày.
+                </p>
+              </div>
+              <div className="pt-4 mt-4 border-t border-forest-800/60 flex items-center justify-between text-xs font-semibold text-emerald-400">
+                <span>Mở Trạm Đổi Cây</span>
+                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
+              </div>
+            </Link>
 
-      {/* 7. Web3 Sandbox Section (Trải nghiệm học tập 100% miễn phí) */}
-      <Web3SandboxSection />
+            {/* Box 3: Kiếm Tiền Từ Vườn */}
+            <Link
+              to="/kiem-tien-tu-vuon"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-6 rounded-3xl bg-forest-950/60 border border-forest-800 hover:border-amber-400 hover:bg-forest-950 transition group flex flex-col justify-between"
+            >
+              <div>
+                <div className="w-10 h-10 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-4">
+                  <Coins className="w-5 h-5" />
+                </div>
+                <h3 className="font-serif font-bold text-base text-white group-hover:text-amber-300 transition">
+                  Bí Quyết Làm Kinh Tế
+                </h3>
+                <p className="text-xs text-forest-300/80 mt-1.5 leading-relaxed">
+                  Chiến lược tạo thu nhập bền vững từ chiết cành, ươm giống và chế biến thảo mộc.
+                </p>
+              </div>
+              <div className="pt-4 mt-4 border-t border-forest-800/60 flex items-center justify-between text-xs font-semibold text-amber-400">
+                <span>Xem Cẩm Nang</span>
+                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
+              </div>
+            </Link>
 
-      {/* 8. Contact Section (Liên Hệ & Đóng Góp Tri Thức Thực Vật) */}
-      <ContactSection />
+            {/* Box 4: Kênh Liên Hệ & Hợp Tác */}
+            <Link
+              to="/lien-he"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-6 rounded-3xl bg-forest-950/60 border border-forest-800 hover:border-forest-400 hover:bg-forest-950 transition group flex flex-col justify-between"
+            >
+              <div>
+                <div className="w-10 h-10 rounded-2xl bg-forest-500/10 text-forest-300 flex items-center justify-center mb-4">
+                  <MessageCircle className="w-5 h-5" />
+                </div>
+                <h3 className="font-serif font-bold text-base text-white group-hover:text-forest-200 transition">
+                  Liên Hệ & Hợp Tác
+                </h3>
+                <p className="text-xs text-forest-300/80 mt-1.5 leading-relaxed">
+                  Gửi yêu cầu hỗ trợ, đóng góp bài thuốc dân gian hoặc đăng ký đối tác nhà vườn.
+                </p>
+              </div>
+              <div className="pt-4 mt-4 border-t border-forest-800/60 flex items-center justify-between text-xs font-semibold text-forest-300">
+                <span>Gửi Tin Nhắn</span>
+                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
+              </div>
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

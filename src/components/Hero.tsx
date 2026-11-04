@@ -4,14 +4,12 @@ import { Sparkles, Shield, Leaf, Coins } from 'lucide-react';
 
 interface HeroProps {
   activeMode: PlantCategory;
-  onExploreMonetization: () => void;
-  onOpenClinic: () => void;
+  onExploreMonetization?: () => void;
+  onOpenClinic?: () => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({
   activeMode,
-  onExploreMonetization,
-  onOpenClinic,
 }) => {
   const modeData = {
     herb: {
@@ -58,23 +56,27 @@ export const Hero: React.FC<HeroProps> = ({
             {modeData.description}
           </p>
 
-          {/* Call to action buttons */}
+          {/* Call to action buttons (Mở sang tab mới để giải phóng trang chủ) */}
           <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-10">
-            <button
-              onClick={onOpenClinic}
+            <a
+              href="/bac-si-cay-trong"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-6 py-3.5 rounded-2xl bg-forest-900 hover:bg-forest-800 text-white font-medium text-sm sm:text-base flex items-center gap-2 shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5"
             >
               <Leaf className="w-5 h-5 text-herbal-500" />
               <span>Chẩn Đoán Bệnh Cây (3s)</span>
-            </button>
+            </a>
 
-            <button
-              onClick={onExploreMonetization}
+            <a
+              href="/kiem-tien-tu-vuon"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-6 py-3.5 rounded-2xl bg-white hover:bg-terracotta-50 text-terracotta-700 font-medium text-sm sm:text-base border border-terracotta-200 flex items-center gap-2 shadow-sm hover:shadow transition"
             >
               <Coins className="w-5 h-5 text-terracotta-600" />
               <span>Bí Quyết Kiếm Tiền Từ Vườn</span>
-            </button>
+            </a>
           </div>
 
           {/* Highlights */}

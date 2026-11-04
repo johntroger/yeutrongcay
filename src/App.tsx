@@ -4,6 +4,12 @@ import { PlantCategory, UserProfile } from './types/index.ts';
 import { Navbar } from './components/Navbar.tsx';
 import { Footer } from './components/Footer.tsx';
 import { HomePage } from './pages/HomePage.tsx';
+import { CategoryPage } from './pages/CategoryPage.tsx';
+import { SwapPage } from './pages/SwapPage.tsx';
+import { ClinicPage } from './pages/ClinicPage.tsx';
+import { MonetizationPage } from './pages/MonetizationPage.tsx';
+import { Web3Page } from './pages/Web3Page.tsx';
+import { ContactPage } from './pages/ContactPage.tsx';
 import { PlantDetailPage } from './pages/PlantDetailPage.tsx';
 import { AuthModal } from './components/AuthModal.tsx';
 import { MyGardenModal } from './components/MyGardenModal.tsx';
@@ -28,28 +34,6 @@ function DynamicCategoryWrapper({
   }, [mode, setCategory]);
 
   return render(mode);
-}
-
-// Wrapper xử lý cuộn tự động đến section theo URL
-function SectionRouteWrapper({
-  sectionId,
-  render,
-}: {
-  sectionId: string;
-  render: () => JSX.Element;
-}) {
-  useEffect(() => {
-    // Đợi DOM render rồi cuộn mượt
-    const timer = setTimeout(() => {
-      const el = document.getElementById(sectionId);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 100);
-    return () => clearTimeout(timer);
-  }, [sectionId]);
-
-  return render();
 }
 
 export default function App() {
@@ -138,15 +122,6 @@ export default function App() {
   const fontScaleStyle =
     fontSize === 'xlarge' ? { fontSize: '118%' } : fontSize === 'large' ? { fontSize: '108%' } : {};
 
-  const renderHomeWithMode = (mode: PlantCategory) => (
-    <HomePage
-      activeMode={mode}
-      searchQuery={searchQuery}
-      onClearSearch={() => setSearchQuery('')}
-      onScrollToSection={scrollToSection}
-    />
-  );
-
   return (
     <div
       style={fontScaleStyle}
@@ -206,12 +181,48 @@ export default function App() {
       <div className="flex-1">
         <Routes>
           {/* Trang chủ mặc định */}
-          <Route path="/" element={renderHomeWithMode(activeMode)} />
+          <Route
+            path="/"
+            element={
+              <HomePage
+                activeMode={activeMode}
+                searchQuery={searchQuery}
+                onClearSearch={() => setSearchQuery('')}
+              />
+            }
+          />
 
-          {/* 3 URL Danh mục riêng biệt */}
-          <Route path="/thao-duoc" element={renderHomeWithMode('herb')} />
-          <Route path="/cay-an-trai" element={renderHomeWithMode('fruit')} />
-          <Route path="/cay-canh" element={renderHomeWithMode('ornamental')} />
+          {/* 3 URL Danh mục riêng biệt (Mở tab độc lập giải phóng trang chủ) */}
+          <Route
+            path="/thao-duoc"
+            element={
+              <CategoryPage
+                category="herb"
+                searchQuery={searchQuery}
+                onClearSearch={() => setSearchQuery('')}
+              />
+            }
+          />
+          <Route
+            path="/cay-an-trai"
+            element={
+              <CategoryPage
+                category="fruit"
+                searchQuery={searchQuery}
+                onClearSearch={() => setSearchQuery('')}
+              />
+            }
+          />
+          <Route
+            path="/cay-canh"
+            element={
+              <CategoryPage
+                category="ornamental"
+                searchQuery={searchQuery}
+                onClearSearch={() => setSearchQuery('')}
+              />
+            }
+          />
 
           {/* Alias /danh-muc/:cat */}
           <Route
@@ -219,7 +230,13 @@ export default function App() {
             element={
               <DynamicCategoryWrapper
                 setCategory={setActiveMode}
-                render={renderHomeWithMode}
+                render={(cat) => (
+                  <CategoryPage
+                    category={cat}
+                    searchQuery={searchQuery}
+                    onClearSearch={() => setSearchQuery('')}
+                  />
+                )}
               />
             }
           />
@@ -237,52 +254,12 @@ export default function App() {
             }
           />
 
-          {/* URL Trực Tiếp Cho Các Chuyên Mục Lớn */}
-          <Route
-            path="/trao-doi-cay"
-            element={
-              <SectionRouteWrapper
-                sectionId="swap-map"
-                render={() => renderHomeWithMode(activeMode)}
-              />
-            }
-          />
-          <Route
-            path="/bac-si-cay-trong"
-            element={
-              <SectionRouteWrapper
-                sectionId="clinic"
-                render={() => renderHomeWithMode(activeMode)}
-              />
-            }
-          />
-          <Route
-            path="/kiem-tien-tu-vuon"
-            element={
-              <SectionRouteWrapper
-                sectionId="monetization"
-                render={() => renderHomeWithMode(activeMode)}
-              />
-            }
-          />
-          <Route
-            path="/web3-sandbox"
-            element={
-              <SectionRouteWrapper
-                sectionId="web3"
-                render={() => renderHomeWithMode(activeMode)}
-              />
-            }
-          />
-          <Route
-            path="/lien-he"
-            element={
-              <SectionRouteWrapper
-                sectionId="contact"
-                render={() => renderHomeWithMode(activeMode)}
-              />
-            }
-          />
+          {/* Các Tính Năng Chuyên Sâu Độc Lập - Giải Phóng Cho Trang Chủ */}
+          <Route path="/trao-doi-cay" element={<SwapPage />} />
+          <Route path="/bac-si-cay-trong" element={<ClinicPage />} />
+          <Route path="/kiem-tien-tu-vuon" element={<MonetizationPage />} />
+          <Route path="/web3-sandbox" element={<Web3Page />} />
+          <Route path="/lien-he" element={<ContactPage />} />
 
           {/* 404 Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />

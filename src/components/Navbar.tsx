@@ -8,10 +8,10 @@ interface NavbarProps {
   onModeChange: (mode: PlantCategory) => void;
   searchQuery: string;
   onSearchChange: (q: string) => void;
-  onOpenClinic: () => void;
-  onOpenWeb3: () => void;
-  onOpenSwapMap: () => void;
-  onOpenContact: () => void;
+  onOpenClinic?: () => void;
+  onOpenWeb3?: () => void;
+  onOpenSwapMap?: () => void;
+  onOpenContact?: () => void;
   currentUser: UserProfile | null;
   onOpenAuth: () => void;
   onOpenMyGarden: () => void;
@@ -24,10 +24,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   onModeChange,
   searchQuery,
   onSearchChange,
-  onOpenClinic,
-  onOpenWeb3,
-  onOpenSwapMap,
-  onOpenContact,
   currentUser,
   onOpenAuth,
   onOpenMyGarden,
@@ -90,9 +86,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Swap Map Link */}
             <Link
               to="/trao-doi-cay"
-              onClick={onOpenSwapMap}
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-2.5 sm:px-3 py-2 rounded-xl text-xs sm:text-sm font-medium bg-emerald-50 hover:bg-emerald-100 text-emerald-900 flex items-center gap-1.5 border border-emerald-200 transition"
-              title="Trạm Trao Đổi Cây & Hạt Giống"
+              title="Trạm Trao Đổi Cây & Hạt Giống (Mở tab mới)"
             >
               <MapPin className="w-4 h-4 text-emerald-600" />
               <span className="hidden sm:inline">Đổi Cây</span>
@@ -101,8 +98,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Clinic */}
             <Link
               to="/bac-si-cay-trong"
-              onClick={onOpenClinic}
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-2.5 sm:px-3 py-2 rounded-xl text-xs sm:text-sm font-medium bg-forest-50 hover:bg-forest-100 text-forest-900 flex items-center gap-1.5 border border-forest-200 transition"
+              title="Bác Sĩ Cây Trồng (Mở tab mới)"
             >
               <HeartHandshake className="w-4 h-4 text-herbal-600" />
               <span className="hidden sm:inline">Bác Sĩ Cây (3s)</span>
@@ -112,9 +111,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Contact Button */}
             <Link
               to="/lien-he"
-              onClick={onOpenContact}
+              target="_blank"
+              rel="noopener noreferrer"
               className="hidden sm:flex px-2.5 sm:px-3 py-2 rounded-xl text-xs sm:text-sm font-medium bg-white hover:bg-forest-50 text-forest-900 items-center gap-1.5 border border-forest-200 transition"
-              title="Liên hệ & Đóng góp ý kiến"
+              title="Liên hệ & Đóng góp ý kiến (Mở tab mới)"
             >
               <MessageCircle className="w-4 h-4 text-forest-600" />
               <span>Liên Hệ</span>
@@ -123,8 +123,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Web3 Sandbox */}
             <Link
               to="/web3-sandbox"
-              onClick={onOpenWeb3}
+              target="_blank"
+              rel="noopener noreferrer"
               className="hidden lg:flex px-3 py-2 rounded-xl text-xs sm:text-sm font-medium bg-terracotta-50 hover:bg-terracotta-100 text-terracotta-700 items-center gap-1.5 border border-terracotta-100 transition"
+              title="Hộ chiếu cây trồng Web3 (Mở tab mới)"
             >
               <ShieldCheck className="w-4 h-4 text-terracotta-600" />
               <span>Web3 Sandbox</span>
@@ -165,16 +167,18 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
         </div>
 
-        {/* Garden Mode Switcher - 3 Distinct Category URLs */}
+        {/* Garden Mode Switcher - 3 Distinct Category URLs (Mở sang tab mới) */}
         <div className="flex items-center justify-center gap-2 py-2 border-t border-forest-50 overflow-x-auto no-scrollbar">
           <Link
             to="/thao-duoc"
-            onClick={() => onModeChange('herb')}
+            target="_blank"
+            rel="noopener noreferrer"
             className={`px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition flex items-center gap-2 shrink-0 ${
               activeMode === 'herb'
                 ? 'bg-forest-900 text-white shadow-sm'
-                : 'bg-white text-forest-800 hover:bg-forest-50 border border-forest-100'
+                : 'bg-white text-forest-800 hover:bg-forest-50 border border-forest-100 hover:border-herbal-400'
             }`}
+            title="Mở Tủ Thuốc Xanh trong tab mới"
           >
             <span>🌿</span>
             <span>Tủ Thuốc Xanh (Thảo Dược)</span>
@@ -182,12 +186,14 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           <Link
             to="/cay-an-trai"
-            onClick={() => onModeChange('fruit')}
+            target="_blank"
+            rel="noopener noreferrer"
             className={`px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition flex items-center gap-2 shrink-0 ${
               activeMode === 'fruit'
                 ? 'bg-forest-900 text-white shadow-sm'
-                : 'bg-white text-forest-800 hover:bg-forest-50 border border-forest-100'
+                : 'bg-white text-forest-800 hover:bg-forest-50 border border-forest-100 hover:border-amber-400'
             }`}
+            title="Mở Trái Ngọt Phố trong tab mới"
           >
             <span>🍋</span>
             <span>Trái Ngọt Phố (Cây Ăn Quả)</span>
@@ -195,12 +201,14 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           <Link
             to="/cay-canh"
-            onClick={() => onModeChange('ornamental')}
+            target="_blank"
+            rel="noopener noreferrer"
             className={`px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition flex items-center gap-2 shrink-0 ${
               activeMode === 'ornamental'
                 ? 'bg-forest-900 text-white shadow-sm'
-                : 'bg-white text-forest-800 hover:bg-forest-50 border border-forest-100'
+                : 'bg-white text-forest-800 hover:bg-forest-50 border border-forest-100 hover:border-purple-400'
             }`}
+            title="Mở Cây Cảnh & Thư Thái trong tab mới"
           >
             <span>🌸</span>
             <span>Cây Cảnh & Thư Thái (Bonsai/Hoa)</span>

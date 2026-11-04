@@ -4,7 +4,7 @@ interface SEOProps {
   title: string;
   description: string;
   keywords?: string[];
-  canonicalUrl: string;
+  canonicalUrl?: string;
   ogImage?: string;
   ogType?: 'website' | 'article';
   publishedTime?: string;
@@ -16,7 +16,7 @@ export function useSEO({
   title,
   description,
   keywords,
-  canonicalUrl,
+  canonicalUrl = typeof window !== 'undefined' ? window.location.href : 'https://yeutrongcay.com/',
   ogImage = 'https://yeutrongcay.com/logo.jpg',
   ogType = 'website',
   publishedTime,
