@@ -1,12 +1,14 @@
 <?php
 /**
  * API TIẾP NHẬN LIÊN HỆ & GÓP Ý - YEUTRONGECAY.COM
- * Bảo vệ chống spam, chống XSS và chuẩn bị sẵn sàng lưu trữ PDO MySQL
+ * Bảo vệ chống spam, chống XSS và lưu trữ trực tiếp vào MySQL qua PDO Prepared Statements
  */
 
 header('Content-Type: application/json; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: SAMEORIGIN');
+
+require_once __DIR__ . '/db.php';
 
 // Chỉ chấp nhận POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -36,6 +38,7 @@ $fullname = isset($data['fullname']) ? trim(htmlspecialchars($data['fullname'], 
 $email    = isset($data['email']) ? trim(filter_var($data['email'], FILTER_SANITIZE_EMAIL)) : '';
 $phone    = isset($data['phone']) ? trim(htmlspecialchars($data['phone'], ENT_QUOTES, 'UTF-8')) : '';
 $topic    = isset($data['topic']) ? trim(htmlspecialchars($data['topic'], ENT_QUOTES, 'UTF-8')) : 'Góp ý chung';
+$subject  = isset($data['subject']) ? trim(htmlspecialchars($data['subject'], ENT_QUOTES, 'UTF-8')) : ($topic . ' - ' . date('d/m/Y'));
 $message  = isset($data['message']) ? trim(htmlspecialchars($data['message'], ENT_QUOTES, 'UTF-8')) : '';
 
 // Xác thực tính hợp lệ cơ bản
@@ -48,25 +51,54 @@ if (empty($fullname) || (empty($email) && empty($phone)) || empty($message)) {
     exit;
 }
 
-// Lưu trữ dữ liệu an toàn (Ghi log JSON cục bộ tại hosting)
-$contact_entry = [
-    'id'         => 'cnt_' . uniqid(),
-    'fullname'   => $fullname,
-    'email'      => $email,
-    'phone'      => $phone,
-    'topic'      => $topic,
-    'message'    => $message,
-    'created_at' => date('Y-m-d H:i:s'),
-    'ip_hash'    => hash('sha256', $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1')
-];
+$ticket_id = 'TICKET-' . strtoupper(dechex(time())) . '-' . rand(100, 999);
+$ip_address = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
 
-// Thư mục lưu trữ tin nhắn
+// 1. Lưu vào MySQL qua PDO Prepared Statements nếu đã kết nối
+$pdo = getDbConnection();
+$saved_to_db = false;
+
+if ($pdo) {
+    try {
+        $stmt = $pdo->prepare("INSERT INTO contact_submissions (
+            ticket_id, full_name, email, phone, topic, subject, message, ip_address, status
+        ) VALUES (
+            :ticket_id, :full_name, :email, :phone, :topic, :subject, :message, :ip_address, 'new'
+        )");
+        $stmt->execute([
+            ':ticket_id'  => $ticket_id,
+            ':full_name'  => $fullname,
+            ':email'      => $email,
+            ':phone'      => $phone,
+            ':topic'      => $topic,
+            ':subject'    => $subject,
+            ':message'    => $message,
+            ':ip_address' => $ip_address
+        ]);
+        $saved_to_db = true;
+    } catch (PDOException $e) {
+        error_log('Contact DB Insert Error: ' . $e->getMessage());
+    }
+}
+
+// 2. Dự phòng: Ghi log JSON cục bộ tại hosting
 $storage_dir = __DIR__ . '/../storage';
 if (!is_dir($storage_dir)) {
     @mkdir($storage_dir, 0755, true);
-    // Chặn truy cập trực tiếp từ web
     @file_put_contents($storage_dir . '/.htaccess', "Deny from all\n");
 }
+
+$contact_entry = [
+    'ticket_id'   => $ticket_id,
+    'fullname'    => $fullname,
+    'email'       => $email,
+    'phone'       => $phone,
+    'topic'       => $topic,
+    'subject'     => $subject,
+    'message'     => $message,
+    'saved_to_db' => $saved_to_db,
+    'created_at'  => date('Y-m-d H:i:s')
+];
 
 $log_file = $storage_dir . '/contacts.jsonl';
 @file_put_contents($log_file, json_encode($contact_entry, JSON_UNESCAPED_UNICODE) . "\n", FILE_APPEND | LOCK_EX);
@@ -75,6 +107,7 @@ $log_file = $storage_dir . '/contacts.jsonl';
 echo json_encode([
     'success' => true,
     'message' => 'Cảm ơn bạn! Ban Quản Trị Yêu Trồng Cây đã tiếp nhận thông tin và sẽ phản hồi sớm nhất qua Email/Số điện thoại của bạn.',
-    'ticket_id' => $contact_entry['id'],
+    'ticket_id' => $ticket_id,
+    'saved_to_database' => $saved_to_db,
     'server_time' => date('Y-m-d H:i:s')
 ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
