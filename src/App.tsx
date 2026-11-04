@@ -7,6 +7,7 @@ import { MedicalDisclaimer } from './components/MedicalDisclaimer.tsx';
 import { PlantCard } from './components/PlantCard.tsx';
 import { PlantModal } from './components/PlantModal.tsx';
 import { PlantClinicSection } from './components/PlantClinicSection.tsx';
+import { PlantSwapSection } from './components/PlantSwapSection.tsx';
 import { MonetizationSection } from './components/MonetizationSection.tsx';
 import { Web3SandboxSection } from './components/Web3SandboxSection.tsx';
 import { AuthModal } from './components/AuthModal.tsx';
@@ -18,6 +19,13 @@ export default function App() {
   const [activeMode, setActiveMode] = useState<PlantCategory>('herb');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedPlant, setSelectedPlant] = useState<Plant | null>(null);
+
+  // Cỡ chữ đa thế hệ cho người lớn tuổi (Accessibility 50-75 tuổi)
+  const [fontSize, setFontSize] = useState<'normal' | 'large' | 'xlarge'>('normal');
+
+  const handleToggleFontSize = () => {
+    setFontSize((curr) => (curr === 'normal' ? 'large' : curr === 'large' ? 'xlarge' : 'normal'));
+  };
 
   // Trạng thái Người Dùng & Vườn Của Tôi
   const [currentUser, setCurrentUser] = useState<UserProfile | null>(() => {
@@ -78,8 +86,15 @@ export default function App() {
     }
   };
 
+  // Lớp CSS theo cỡ chữ
+  const fontScaleStyle =
+    fontSize === 'xlarge' ? { fontSize: '118%' } : fontSize === 'large' ? { fontSize: '108%' } : {};
+
   return (
-    <div className="min-h-screen bg-cream-100 flex flex-col font-sans">
+    <div
+      style={fontScaleStyle}
+      className="min-h-screen bg-cream-100 flex flex-col font-sans transition-all duration-200"
+    >
       
       {/* 1. Header Navigation */}
       <Navbar
@@ -92,6 +107,7 @@ export default function App() {
         onSearchChange={setSearchQuery}
         onOpenClinic={() => scrollToSection('clinic')}
         onOpenWeb3={() => scrollToSection('web3')}
+        onOpenSwapMap={() => scrollToSection('swap-map')}
         currentUser={currentUser}
         onOpenAuth={() => setIsAuthOpen(true)}
         onOpenMyGarden={() => {
@@ -101,6 +117,8 @@ export default function App() {
             setIsAuthOpen(true);
           }
         }}
+        fontSize={fontSize}
+        onToggleFontSize={handleToggleFontSize}
       />
 
       {/* 2. Hero Section adapting to Garden Mode */}
@@ -166,25 +184,28 @@ export default function App() {
         )}
       </main>
 
-      {/* 5. Plant Clinic Section (Bác sĩ cây trồng 1-chạm) */}
+      {/* 5. Plant Swap Section (Trạm Trao Đổi Cây & Hạt Giống Bản Địa) */}
+      <PlantSwapSection />
+
+      {/* 6. Plant Clinic Section (Bác sĩ cây trồng 1-chạm) */}
       <PlantClinicSection />
 
-      {/* 6. Monetization Section (Biến đam mê thành tiền) */}
+      {/* 7. Monetization Section (Biến đam mê thành tiền) */}
       <MonetizationSection />
 
-      {/* 7. Web3 Sandbox Section (Trải nghiệm học tập 100% miễn phí) */}
+      {/* 8. Web3 Sandbox Section (Trải nghiệm học tập 100% miễn phí) */}
       <Web3SandboxSection />
 
-      {/* 8. Footer */}
+      {/* 9. Footer */}
       <Footer />
 
-      {/* 9. Plant Detail Modal */}
+      {/* 10. Plant Detail Modal */}
       <PlantModal
         plant={selectedPlant}
         onClose={() => setSelectedPlant(null)}
       />
 
-      {/* 10. Auth Modal */}
+      {/* 11. Auth Modal */}
       <AuthModal
         isOpen={isAuthOpen}
         onClose={() => setIsAuthOpen(false)}
@@ -194,7 +215,7 @@ export default function App() {
         }}
       />
 
-      {/* 11. My Digital Garden Modal */}
+      {/* 12. My Digital Garden Modal */}
       {currentUser && (
         <MyGardenModal
           isOpen={isMyGardenOpen}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, ShieldCheck, HeartHandshake, Mic, User } from 'lucide-react';
+import { Search, ShieldCheck, HeartHandshake, Mic, User, MapPin, Type } from 'lucide-react';
 import { PlantCategory, UserProfile } from '../types/index.ts';
 
 interface NavbarProps {
@@ -9,9 +9,12 @@ interface NavbarProps {
   onSearchChange: (q: string) => void;
   onOpenClinic: () => void;
   onOpenWeb3: () => void;
+  onOpenSwapMap: () => void;
   currentUser: UserProfile | null;
   onOpenAuth: () => void;
   onOpenMyGarden: () => void;
+  fontSize: 'normal' | 'large' | 'xlarge';
+  onToggleFontSize: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -21,9 +24,12 @@ export const Navbar: React.FC<NavbarProps> = ({
   onSearchChange,
   onOpenClinic,
   onOpenWeb3,
+  onOpenSwapMap,
   currentUser,
   onOpenAuth,
   onOpenMyGarden,
+  fontSize,
+  onToggleFontSize,
 }) => {
   const [isListening, setIsListening] = React.useState(false);
 
@@ -75,30 +81,52 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Action Buttons */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            
+            {/* Swap Map Link */}
+            <button
+              onClick={onOpenSwapMap}
+              className="px-2.5 sm:px-3 py-2 rounded-xl text-xs sm:text-sm font-medium bg-emerald-50 hover:bg-emerald-100 text-emerald-900 flex items-center gap-1.5 border border-emerald-200 transition"
+              title="Trạm Trao Đổi Cây & Hạt Giống"
+            >
+              <MapPin className="w-4 h-4 text-emerald-600" />
+              <span className="hidden sm:inline">Đổi Cây</span>
+            </button>
+
+            {/* Clinic */}
             <button
               onClick={onOpenClinic}
-              className="px-3 py-2 rounded-xl text-xs sm:text-sm font-medium bg-forest-50 hover:bg-forest-100 text-forest-900 flex items-center gap-1.5 border border-forest-200 transition"
+              className="px-2.5 sm:px-3 py-2 rounded-xl text-xs sm:text-sm font-medium bg-forest-50 hover:bg-forest-100 text-forest-900 flex items-center gap-1.5 border border-forest-200 transition"
             >
               <HeartHandshake className="w-4 h-4 text-herbal-600" />
               <span className="hidden sm:inline">Bác Sĩ Cây (3s)</span>
               <span className="sm:hidden">Bác Sĩ</span>
             </button>
 
+            {/* Web3 Sandbox */}
             <button
               onClick={onOpenWeb3}
-              className="px-3 py-2 rounded-xl text-xs sm:text-sm font-medium bg-terracotta-50 hover:bg-terracotta-100 text-terracotta-700 flex items-center gap-1.5 border border-terracotta-100 transition"
+              className="hidden lg:flex px-3 py-2 rounded-xl text-xs sm:text-sm font-medium bg-terracotta-50 hover:bg-terracotta-100 text-terracotta-700 items-center gap-1.5 border border-terracotta-100 transition"
             >
               <ShieldCheck className="w-4 h-4 text-terracotta-600" />
-              <span className="hidden sm:inline">Web3 Sandbox</span>
-              <span className="sm:hidden">Web3</span>
+              <span>Web3 Sandbox</span>
+            </button>
+
+            {/* Accessibility Font Size Toggle (A- / A+) */}
+            <button
+              onClick={onToggleFontSize}
+              title="Phóng to / Thu nhỏ cỡ chữ (Cho người lớn tuổi)"
+              className="px-2.5 py-2 rounded-xl text-xs font-bold bg-white hover:bg-forest-50 text-forest-800 border border-forest-200 flex items-center gap-1 transition"
+            >
+              <Type className="w-3.5 h-3.5 text-forest-600" />
+              <span>{fontSize === 'normal' ? 'A' : fontSize === 'large' ? 'A+' : 'A++'}</span>
             </button>
 
             {/* User Profile / Login */}
             {currentUser ? (
               <button
                 onClick={onOpenMyGarden}
-                className="px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium bg-herbal-50 hover:bg-herbal-100 text-herbal-900 flex items-center gap-2 border border-herbal-200 transition shadow-2xs"
+                className="px-2.5 sm:px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium bg-herbal-50 hover:bg-herbal-100 text-herbal-900 flex items-center gap-2 border border-herbal-200 transition shadow-2xs"
               >
                 <img
                   src={currentUser.avatar_url}

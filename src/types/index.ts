@@ -123,3 +123,24 @@ export interface GardenModeConfig {
   hero_image: string;
   badge_color: string;
 }
+
+export type SwapOfferType = 'giveaway' | 'exchange' | 'seek';
+
+export interface SwapOffer {
+  id: string;
+  user_id: string;
+  user_name: string;
+  user_avatar?: string;
+  region_zone: 'north' | 'central' | 'south'; // Tuân thủ H4 (Lịch vùng miền)
+  location_name: string;                      // Tuân thủ H8 (Làm mờ, cấp Quận/Huyện, không lưu GPS)
+  plant_name: string;
+  scientific_name?: string;
+  offer_type: SwapOfferType;                  // 'giveaway' | 'exchange' | 'seek'
+  item_type: string;                          // 'Cành giâm' | 'Hạt giống' | 'Cây con bầu đất' | 'Cây chậu'
+  description: string;
+  quarantine_pledge: boolean;                 // Cam kết quy tắc cách ly cây 7 ngày
+  image_url: string;
+  status: ContentStatus;                      // Tuân thủ H5
+  created_at: string;
+  contact_note?: string;
+}
