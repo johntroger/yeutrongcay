@@ -1,0 +1,445 @@
+import { Plant } from '../types/index.ts';
+
+export const SEED_PLANTS: Plant[] = [
+  // ==========================================
+  // NHÓM 1: THẢO DƯỢC & DƯỢC THỰC ĐỒNG NGUYÊN (HERBS)
+  // ==========================================
+  {
+    id: 'herb-01',
+    slug: 'hung-chanh',
+    common_name: 'Húng Chanh',
+    scientific_name: 'Plectranthus amboinicus',
+    aliases: ['Tần Dày Lá', 'Rau Thơm Lông', 'Dương Tử Tô'],
+    category: 'herb',
+    description: 'Thảo dược quý trị ho số một cho trẻ nhỏ và người lớn. Toàn thân mọng nước, chứa nhiều tinh dầu thymol và carvacrol diệt khuẩn đường hô hấp cực mạnh.',
+    image_url: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80',
+    image_sha256: '9f8a3c21a4e5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1',
+    sunlight: 'partial_shade',
+    watering: 'moderate',
+    propagation_difficulty: 1,
+    growth_time: '20 ngày cắt lá, 45 ngày thu hoạch cả bụi',
+    container_suitable: true,
+    seasonality: {
+      north: 'Trồng tốt nhất từ tháng 3 - tháng 9, mùa đông cần che gió bấc',
+      central: 'Trồng quanh năm, mùa mưa cần giá thể thoát nước nhanh',
+      south: 'Phát triển cực mạnh quanh năm dưới nắng tán xạ',
+      best_months: [2, 3, 4, 8, 9],
+      warning: 'Tránh ngập úng gốc khi mưa dầm kéo dài',
+    },
+    medical_info: {
+      uses: ['Trị ho đờm, khản tiếng, viêm họng hạt', 'Hạ sốt nhanh cho trẻ nhỏ', 'Nấu canh chua thanh nhiệt'],
+      folk_remedies: [
+        'Húng chanh 5 lá + Quất xanh 2 quả + Đường phèn 20g: Chưng cách thủy 20 phút, ngậm nước cốt trị dứt ho.',
+        'Lá húng chanh giã nát với muối hột đắp lên nốt muỗi cắn, côn trùng đốt làm dịu ngay lập tức.'
+      ],
+      preparation: ['Nấu siro ho húng chanh đóng chai tiệt trùng', 'Hãm trà lá tươi uống buổi sáng thông họng'],
+      toxicity_warning: 'Lành tính, không độc. Trẻ sơ sinh dưới 6 tháng tuổi nên dùng đường phèn tự nhiên, không dùng mật ong.',
+      disclaimer: 'Thông tin mang tính chất chia sẻ kinh nghiệm dân gian, không thay thế chẩn đoán y khoa chuyên nghiệp.',
+      confusion_risk: {
+        confused_with: 'Cây húng quế hoặc cây gai hoang mọc bờ ao',
+        distinguishing_features: 'Lá húng chanh rất dày, nhiều lông nhung tơ mịn, bẻ ra mùi thơm nồng như chanh sả.'
+      }
+    },
+    monetization_tips: [
+      'Nhân giống bầu cây ươm sẵn giá 25.000đ - 35.000đ/bầu cho cư dân chung cư.',
+      'Nấu siro ho húng chanh - quất - đường phèn hữu cơ đóng chai 250ml bán theo mùa dịch cảm cúm.'
+    ],
+    tags: ['Trị ho', 'Kháng sinh tự nhiên', 'Dễ trồng chậu', 'Trẻ nhỏ']
+  },
+  {
+    id: 'herb-02',
+    slug: 'tia-to',
+    common_name: 'Tía Tô Nếp',
+    scientific_name: 'Perilla frutescens',
+    aliases: ['Tử Tô', 'Xích Tô'],
+    category: 'herb',
+    description: 'Cây gia vị quen thuộc có hàm lượng chất chống oxy hóa cao, kháng viêm, hạ sốt phong hàn và hỗ trợ đào thải acid uric cho người bị gút.',
+    image_url: 'https://images.unsplash.com/photo-1628088062854-d1870b4553da?auto=format&fit=crop&w=800&q=80',
+    image_sha256: 'a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c19f8a3c21a4e5b6c7d8e9f0',
+    sunlight: 'full_sun',
+    watering: 'moderate',
+    propagation_difficulty: 1,
+    growth_time: '35 - 40 ngày là có thể tỉa lá ăn liên tục',
+    container_suitable: true,
+    seasonality: {
+      north: 'Gieo hạt vụ xuân (tháng 2 - 4) và vụ thu (tháng 8 - 10)',
+      central: 'Phát triển tốt nhất vào mùa xuân hè',
+      south: 'Trồng thu hoạch quanh năm',
+      best_months: [2, 3, 4, 8, 9, 10],
+    },
+    medical_info: {
+      uses: ['Giải cảm mạo phong hàn, toát mồ hôi độc', 'Hỗ trợ đào thải acid uric cho người bị gút', 'Dưỡng trắng da, mờ thâm nám'],
+      folk_remedies: [
+        'Nấu cháo hành hoa + lá tía tô thái nhỏ ăn nóng khi bị cảm lạnh, đắp chăn cho toát mồ hôi.',
+        'Hãm 1 nắm lá tía tô với 500ml nước sôi uống thay trà hàng ngày giúp hạ cơn đau gút cấp.'
+      ],
+      preparation: ['Sấy lạnh lá tía tô làm trà thảo mộc', 'Xông mặt nước tía tô tươi tinh dầu'],
+      toxicity_warning: 'Người ra quá nhiều mồ hôi do biểu hư không nên uống nước tía tô đậm đặc kéo dài.',
+      disclaimer: 'Thông tin mang tính chất chia sẻ kinh nghiệm dân gian, không thay thế chẩn đoán y khoa chuyên nghiệp.'
+    },
+    monetization_tips: [
+      'Làm trà tía tô sấy lạnh túi lọc bán cho người ăn kiêng và người phòng ngừa gút.',
+      'Bán cây giống và hạt giống thuần F1 bản địa.'
+    ],
+    tags: ['Giải cảm', 'Trị gút', 'Dưỡng da', 'Rau thơm']
+  },
+  {
+    id: 'herb-03',
+    slug: 'diep-ca',
+    common_name: 'Diếp Cá',
+    scientific_name: 'Houttuynia cordata',
+    aliases: ['Giấp Cá', 'Ngư Tinh Thảo'],
+    category: 'herb',
+    description: 'Kháng sinh thảo dược cực mạnh chuyên thanh nhiệt, giải độc, tiêu viêm loét và đặc trị trĩ nội trĩ ngoại.',
+    image_url: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=800&q=80',
+    sunlight: 'partial_shade',
+    watering: 'daily',
+    propagation_difficulty: 1,
+    growth_time: '30 ngày đẻ nhánh lan kín mặt chậu',
+    container_suitable: true,
+    medical_info: {
+      uses: ['Thanh nhiệt tiêu viêm, giải độc gan', 'Điều trị trĩ và táo bón mãn tính', 'Hạ sốt cấp tính'],
+      folk_remedies: [
+        'Xay 100g diếp cá tươi lọc lấy nước uống, bã đắp hậu môn trị trĩ sưng đau.',
+        'Giã nát lá diếp cá đắp trán và bẹn giúp trẻ hạ sốt an toàn không lạm dụng paracetamol.'
+      ],
+      toxicity_warning: 'Tính hàn mát, người tỳ vị hư hàn đi ngoài phân lỏng không nên uống nước cốt sống nhiều.',
+      disclaimer: 'Thông tin mang tính chất chia sẻ kinh nghiệm dân gian, không thay thế chẩn đoán y khoa chuyên nghiệp.'
+    },
+    monetization_tips: [
+      'Kinh doanh chậu cây diếp cá sinh trưởng nhanh cho các hộ gia đình chung cư.',
+      'Sản xuất bột diếp cá sấy thăng hoa nguyên chất.'
+    ],
+    tags: ['Thanh nhiệt', 'Trị trĩ', 'Hạ sốt', 'Dễ sống']
+  },
+  {
+    id: 'herb-04',
+    slug: 'dinh-lang',
+    common_name: 'Đinh Lăng Nếp Lá Nhỏ',
+    scientific_name: 'Polyscias fruticosa',
+    aliases: ['Sâm Của Người Nghèo', 'Cây Gỏi Cá'],
+    category: 'herb',
+    description: 'Thảo dược đại bổ của danh y Hải Thượng Lãn Ông. Lá thơm ăn gỏi bồi bổ thần kinh; củ rễ lâu năm chứa saponin bổ khí huyết tương đương nhân sâm.',
+    image_url: 'https://images.unsplash.com/photo-1509423350716-97f9360b4e09?auto=format&fit=crop&w=800&q=80',
+    image_sha256: 'c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c19f8a3c21a4e5b6c7d8e9f0a1b2',
+    sunlight: 'partial_shade',
+    watering: 'moderate',
+    propagation_difficulty: 2,
+    growth_time: '6 tháng tỉa lá, 3 năm - 5 năm thu hoạch rễ củ quý',
+    container_suitable: true,
+    seasonality: {
+      north: 'Giâm hom cành từ tháng 2 - 4 (mùa xuân có mưa phùn), tránh giâm mùa đông',
+      central: 'Giâm đầu mùa mưa khi đất đủ ẩm',
+      south: 'Giâm cành quanh năm dưới bóng râm',
+      best_months: [2, 3, 4, 8, 9],
+      warning: 'Cây sợ úng nước, rễ non sẽ thối đen nếu chậu bí nước'
+    },
+    medical_info: {
+      uses: ['Bồi bổ khí huyết, tăng lực, chống suy nhược', 'An thần, chữa mất ngủ kinh niên', 'Lá non ăn kèm gỏi cá chống ngộ độc đạm'],
+      folk_remedies: [
+        'Lá đinh lăng sao vàng hãm nước uống trước khi ngủ 1 giờ giúp ngủ sâu giấc.',
+        'Rễ củ đinh lăng 3 năm tuổi ngâm rượu nếp 40 độ sau 3 tháng thành rượu bổ gân cốt.'
+      ],
+      toxicity_warning: 'Chứa hàm lượng saponin cao. Không uống nước sắc đinh lăng quá đặc và kéo dài sẽ gây say, mệt mỏi.',
+      disclaimer: 'Thông tin mang tính chất chia sẻ kinh nghiệm dân gian, không thay thế chẩn đoán y khoa chuyên nghiệp.'
+    },
+    monetization_tips: [
+      'Chiết cành giống chuẩn nếp lá nhỏ bán 40.000đ - 60.000đ/cây.',
+      'Nuôi dưỡng chậu bonsai đinh lăng gốc to 3-5 năm giá từ 500.000đ - 2.000.000đ/chậu.'
+    ],
+    tags: ['Bổ khí huyết', 'Ngủ ngon', 'Sâm Việt Nam', 'Bonsai thuốc']
+  },
+  {
+    id: 'herb-05',
+    slug: 'ngai-cuu',
+    common_name: 'Ngải Cứu',
+    scientific_name: 'Artemisia vulgaris',
+    aliases: ['Thuốc Cứu', 'Ngải Diệp'],
+    category: 'herb',
+    description: 'Thảo dược ôn ấm kinh mạch, thông huyết ứ, an thai và trị đau nhức xương khớp gió lạnh.',
+    image_url: 'https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?auto=format&fit=crop&w=800&q=80',
+    sunlight: 'full_sun',
+    watering: 'moderate',
+    propagation_difficulty: 1,
+    growth_time: '30 ngày',
+    container_suitable: true,
+    medical_info: {
+      uses: ['Điều hòa kinh nguyệt, ấm tử cung', 'Giảm đau nửa đầu, đau mỏi thắt lưng', 'Món ăn bổ dưỡng trứng rán ngải cứu, gà tần'],
+      toxicity_warning: 'Phụ nữ mang thai 3 tháng đầu không nên ăn ngải cứu quá nhiều lần trong tuần.',
+      disclaimer: 'Thông tin mang tính chất chia sẻ kinh nghiệm dân gian, không thay thế chẩn đoán y khoa chuyên nghiệp.'
+    },
+    monetization_tips: ['Sản xuất nhang ngải cứu nhung trị liệu dưỡng sinh.'],
+    tags: ['Ấm kinh', 'Đau đầu', 'Món ăn thuốc']
+  },
+  {
+    id: 'herb-06',
+    slug: 'la-lot',
+    common_name: 'Lá Lốt',
+    scientific_name: 'Piper sarmentosum',
+    aliases: ['Tất Bát'],
+    category: 'herb',
+    description: 'Cây thuốc gia vị thơm nồng, tính ấm, chuyên trị tê thấp, ra mồ hôi chân tay và đau khớp mùa lạnh.',
+    image_url: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+    sunlight: 'partial_shade',
+    watering: 'moderate',
+    propagation_difficulty: 1,
+    growth_time: '25 ngày cắt lá',
+    container_suitable: true,
+    medical_info: {
+      uses: ['Trừ phong thấp, giảm đau nhức xương khớp', 'Trị đổ mồ hôi tay chân', 'Món bò nướng lá lốt, chả lá lốt'],
+      folk_remedies: ['Nấu nước lá lốt ngâm chân nước ấm trước khi ngủ chữa phong tê thấp.'],
+      disclaimer: 'Thông tin mang tính chất tham khảo dân gian.'
+    },
+    monetization_tips: ['Bán cành giống giâm rễ nhanh cho vườn ban công râm mát.'],
+    tags: ['Xương khớp', 'Mồ hôi chân', 'Ẩm thực']
+  },
+  {
+    id: 'herb-07',
+    slug: 'gung-gio',
+    common_name: 'Gừng Gió Bản Địa',
+    scientific_name: 'Zingiber zerumbet',
+    aliases: ['Gừng Rừng', 'Mã Đề Khương'],
+    category: 'herb',
+    description: 'Loài gừng hoang dã chứa hàm lượng tinh dầu zerumbone quý, hỗ trợ ức chế khối u và chống viêm đường tiêu hóa.',
+    image_url: 'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=800&q=80',
+    sunlight: 'partial_shade',
+    watering: 'moderate',
+    propagation_difficulty: 2,
+    growth_time: '8 - 10 tháng thu hoạch củ quý',
+    container_suitable: true,
+    tags: ['Kháng viêm', 'Tiêu hóa', 'Dược liệu quý']
+  },
+  {
+    id: 'herb-08',
+    slug: 'nghe-nep-do',
+    common_name: 'Nghệ Nếp Đỏ (Hưng Yên)',
+    scientific_name: 'Curcuma longa',
+    aliases: ['Khương Hoàng', 'Nghệ Đỏ'],
+    category: 'herb',
+    description: 'Giống nghệ nếp lõi đỏ tươi có hàm lượng Curcumin cao gấp 3-4 lần nghệ vàng thông thường, báu vật chữa viêm loét dạ dày.',
+    image_url: 'https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?auto=format&fit=crop&w=800&q=80',
+    sunlight: 'full_sun',
+    watering: 'moderate',
+    propagation_difficulty: 1,
+    growth_time: '9 tháng đào củ',
+    container_suitable: true,
+    monetization_tips: ['Chế biến tinh bột nghệ nếp đỏ và mật ong nghệ viên nén.'],
+    tags: ['Dạ dày', 'Curcumin cao', 'Bản địa']
+  },
+  {
+    id: 'herb-09',
+    slug: 'ca-gai-leo',
+    common_name: 'Cà Gai Leo',
+    scientific_name: 'Solanum procumbens',
+    aliases: ['Cà Gai Dây', 'Cà Quạnh'],
+    category: 'herb',
+    description: 'Cây thuốc Nam đầu bảng trong giải độc gan, hạ men gan và hỗ trợ điều trị viêm gan B mãn tính.',
+    image_url: 'https://images.unsplash.com/photo-1587593810167-a84920ea0781?auto=format&fit=crop&w=800&q=80',
+    sunlight: 'full_sun',
+    watering: 'moderate',
+    propagation_difficulty: 2,
+    growth_time: '6 tháng thu cắt dây',
+    container_suitable: true,
+    tags: ['Giải độc gan', 'Hạ men gan', 'Thuốc quý']
+  },
+  {
+    id: 'herb-10',
+    slug: 'chum-ngay',
+    common_name: 'Chùm Ngây',
+    scientific_name: 'Moringa oleifera',
+    aliases: ['Cây Độ Sinh', 'Moringa'],
+    category: 'herb',
+    description: 'Siêu thực phẩm xanh. Lá chùm ngây chứa vitamin C gấp 7 lần cam, canxi gấp 4 lần sữa, bồi dưỡng thể lực tuyệt vời.',
+    image_url: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=800&q=80',
+    sunlight: 'full_sun',
+    watering: 'moderate',
+    propagation_difficulty: 1,
+    growth_time: '45 ngày bấm ngọn nấu canh',
+    container_suitable: true,
+    tags: ['Siêu dinh dưỡng', 'Canh bổ', 'Dễ lớn']
+  },
+
+  // ==========================================
+  // NHÓM 2: CÂY ĂN TRÁI ĐÔ THỊ (FRUITS IN CONTAINERS)
+  // ==========================================
+  {
+    id: 'fruit-01',
+    slug: 'oi-le-dai-loan',
+    common_name: 'Ổi Lê Đài Loan Ghép Cành',
+    scientific_name: 'Psidium guajava',
+    aliases: ['Ổi Lê Trồng Chậu', 'Ổi Nữ Hoàng Lùn'],
+    category: 'fruit',
+    description: 'Cây ăn trái số một cho ban công và sân thượng đô thị. Cực kỳ nhanh ra trái, trồng chậu 50L sau 4 tháng đã bắt đầu đậu quả, trái giòn ngọt ít hạt.',
+    image_url: 'https://images.unsplash.com/photo-1536511135898-752b0d49281c?auto=format&fit=crop&w=800&q=80',
+    sunlight: 'full_sun',
+    watering: 'daily',
+    propagation_difficulty: 2,
+    growth_time: '4 - 6 tháng bắt đầu cho lứa quả đầu tiên',
+    container_suitable: true,
+    seasonality: {
+      north: 'Trồng tháng 2 - 4 hoặc tháng 8 - 10, bọc trái chống ruồi vàng',
+      central: 'Tránh giai đoạn mưa lũ úng rễ chậu',
+      south: 'Cho trái thu hoạch 4 mùa liên tục',
+      best_months: [2, 3, 4, 8, 9, 10],
+    },
+    monetization_tips: [
+      'Bán cây giống ghép cành đang có sẵn hoa và nụ giá 120.000đ - 180.000đ/cây.',
+      'Dịch vụ tỉa cành, bấm đọt kích quả nghịch vụ cho sân thượng.'
+    ],
+    tags: ['Cực sai quả', 'Nhanh thu hoạch', 'Sân thượng', 'Giòn ngọt']
+  },
+  {
+    id: 'fruit-02',
+    slug: 'coc-thai-lun',
+    common_name: 'Cóc Thái Lùn Trĩu Cành',
+    scientific_name: 'Spondias dulcis',
+    aliases: ['Cóc Cảnh Sân Thượng', 'Cóc Không Hạt'],
+    category: 'fruit',
+    description: 'Cây chỉ cao 80cm đã trĩu chịt từng chùm quả. Ra hoa đậu trái liên tục quanh năm không cần ép hoa, quả giòn rụm chấm muối ớt tuyệt hảo.',
+    image_url: 'https://images.unsplash.com/photo-1550258987-190a2d41a8ba?auto=format&fit=crop&w=800&q=80',
+    sunlight: 'full_sun',
+    watering: 'daily',
+    propagation_difficulty: 1,
+    growth_time: '3 tháng là có trái ăn liên tục',
+    container_suitable: true,
+    tags: ['Ra quả quanh năm', 'Dễ chăm', 'Trẻ nhỏ thích']
+  },
+  {
+    id: 'fruit-03',
+    slug: 'chanh-tu-quy',
+    common_name: 'Chanh Tứ Quý Không Hạt',
+    scientific_name: 'Citrus latifolia',
+    aliases: ['Chanh Bốn Mùa', 'Chanh Mỹ Chậu'],
+    category: 'fruit',
+    description: 'Cây gia vị thiết yếu của mọi nhà. Cho quả mọng nước, thơm lừng quanh năm, lá chanh nấu ốc/hấp gà không thể thiếu.',
+    image_url: 'https://images.unsplash.com/photo-1590502593747-42a996133562?auto=format&fit=crop&w=800&q=80',
+    sunlight: 'full_sun',
+    watering: 'daily',
+    propagation_difficulty: 2,
+    growth_time: '5 tháng thu hoạch trái',
+    container_suitable: true,
+    tags: ['Gia vị bếp', 'Không hạt', 'Trái 4 mùa']
+  },
+  {
+    id: 'fruit-04',
+    slug: 'sung-my',
+    common_name: 'Sung Mỹ Mật Ngọt (Black Genoa)',
+    scientific_name: 'Ficus carica',
+    aliases: ['Sung Đường', 'Figs Ban Công'],
+    category: 'fruit',
+    description: 'Nữ hoàng cây ăn trái ban công cao cấp. Quả to bằng nắm tay, ruột đỏ ứa mật ngọt lịm, giàu chất xơ và kali chống lão hóa.',
+    image_url: 'https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?auto=format&fit=crop&w=800&q=80',
+    sunlight: 'full_sun',
+    watering: 'moderate',
+    propagation_difficulty: 2,
+    growth_time: '6 tháng bắt đầu chín mật',
+    container_suitable: true,
+    monetization_tips: ['Chiết cành sung Mỹ giống chuẩn bán 150.000đ - 250.000đ/cây giống thuần.'],
+    tags: ['Trái ngọt mật', 'Cao cấp', 'Sân thượng nắng']
+  },
+  {
+    id: 'fruit-05',
+    slug: 'luu-do-lun',
+    common_name: 'Lựu Đỏ Lùn Ấn Độ',
+    scientific_name: 'Punica granatum',
+    aliases: ['Lựu Phong Thủy', 'Lựu Bonsai Chậu'],
+    category: 'fruit',
+    description: 'Biểu tượng của tài lộc và con đàn cháu đống. Cây lùn sai hoa đỏ rực rỡ, quả mọng đỏ sẫm hạt mềm ngọt mọng nước.',
+    image_url: 'https://images.unsplash.com/photo-1541344999736-83eca872f242?auto=format&fit=crop&w=800&q=80',
+    sunlight: 'full_sun',
+    watering: 'moderate',
+    propagation_difficulty: 2,
+    growth_time: '8 tháng đậu quả',
+    container_suitable: true,
+    tags: ['Phong thủy', 'Hoa đỏ rực', 'Nước ép bổ']
+  },
+
+  // ==========================================
+  // NHÓM 3: CÂY CẢNH, HOA & BONSAI NGHỆ THUẬT (ORNAMENTAL)
+  // ==========================================
+  {
+    id: 'orn-01',
+    slug: 'mai-chieu-thuy',
+    common_name: 'Mai Chiếu Thủy Bonsai',
+    scientific_name: 'Wrightia religiosa',
+    aliases: ['Lá Trung', 'Kim Giòn', 'Mai Chiếu Thổ'],
+    category: 'ornamental',
+    description: 'Vua cây cảnh phong thủy Việt Nam. Hoa trắng tinh khôi nở hướng xuống đất, hương thơm ngào ngạt thanh tao giúp tĩnh tâm thư giãn.',
+    image_url: 'https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&w=800&q=80',
+    image_sha256: 'd4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c19f8a3c21a4e5b6c7d8e9f0a1b2c3',
+    sunlight: 'full_sun',
+    watering: 'daily',
+    propagation_difficulty: 3,
+    growth_time: '2 - 5 năm thành tác phẩm bonsai giá trị',
+    container_suitable: true,
+    monetization_tips: [
+      'Uốn tạo dáng bonsai mini để bàn giá từ 300.000đ đến vài triệu đồng.',
+      'Đúc Hộ chiếu NFT số hóa tuổi thọ và chứng nhận nghệ nhân tạo tác.'
+    ],
+    tags: ['Bonsai', 'Hương thơm', 'Phong thủy', 'Thư thái']
+  },
+  {
+    id: 'orn-02',
+    slug: 'hoa-hong-co-sapa',
+    common_name: 'Hoa Hồng Cổ Sapa',
+    scientific_name: 'Rosa odorata',
+    aliases: ['Hồng Cổ Pháp', 'Hồng Trà Cổ'],
+    category: 'ornamental',
+    description: 'Giống hoa hồng cổ bản địa đượm sắc hương. Cánh hoa kép dày dặn xếp tầng cung điện, hương thơm nước hoa Pháp cổ điển quyến rũ.',
+    image_url: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
+    sunlight: 'full_sun',
+    watering: 'daily',
+    propagation_difficulty: 3,
+    growth_time: '3 tháng bật lứa hoa rực rỡ',
+    container_suitable: true,
+    tags: ['Hương nước hoa', 'Sang trọng', 'Bản địa']
+  },
+  {
+    id: 'orn-03',
+    slug: 'ngu-gia-bi',
+    common_name: 'Ngũ Gia Bì Chân Chim',
+    scientific_name: 'Schefflera heptaphylla',
+    aliases: ['Cây Đuổi Muỗi', 'Chân Vịt'],
+    category: 'ornamental',
+    description: 'Cây cảnh nội thất bền bỉ số một. Tỏa mùi tinh dầu tự nhiên đuổi muỗi, lọc sạch khói bụi và hóa chất độc hại trong phòng kín.',
+    image_url: 'https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=800&q=80',
+    sunlight: 'indoor',
+    watering: 'moderate',
+    propagation_difficulty: 1,
+    growth_time: 'Cây bền sống nhiều năm trong nhà',
+    container_suitable: true,
+    tags: ['Đuổi muỗi', 'Lọc không khí', 'Nội thất bền']
+  },
+  {
+    id: 'orn-04',
+    slug: 'kim-tien',
+    common_name: 'Kim Tiền Chiêu Tài',
+    scientific_name: 'Zamioculcas zamiifolia',
+    aliases: ['Kim Phát Tài'],
+    category: 'ornamental',
+    description: 'Cây phong thủy vượng tài lộc. Thân mọng nước, lá xanh bóng mỡ màng, sức sống mãnh liệt chịu hạn và thiếu sáng cực giỏi.',
+    image_url: 'https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=800&q=80',
+    sunlight: 'indoor',
+    watering: 'drought_tolerant',
+    propagation_difficulty: 1,
+    growth_time: 'Sống khỏe quanh năm',
+    container_suitable: true,
+    tags: ['Chiêu tài', 'Cực dễ sống', 'Văn phòng']
+  },
+  {
+    id: 'orn-05',
+    slug: 'sen-da-phat-ba',
+    common_name: 'Sen Đá Phật Bà',
+    scientific_name: 'Sempervivum tectorum',
+    aliases: ['Sen Đá Nghìn Mắt'],
+    category: 'ornamental',
+    description: 'Tượng trưng cho sự may mắn và bình an che chở. Hàng chục cánh sen xếp tròn đồng tâm tuyệt mỹ như tòa sen Quan Âm.',
+    image_url: 'https://images.unsplash.com/photo-1509423350716-97f9360b4e09?auto=format&fit=crop&w=800&q=80',
+    sunlight: 'full_sun',
+    watering: 'drought_tolerant',
+    propagation_difficulty: 2,
+    growth_time: '3 tháng đẻ cây con xung quanh',
+    container_suitable: true,
+    tags: ['May mắn', 'Tiểu cảnh', 'Chịu hạn']
+  }
+];
