@@ -16,3 +16,9 @@
   RewriteCond %{REQUEST_URI} !^/uploads/
   RewriteRule ^ index.html [L]
 </IfModule>
+
+# Chặn truy cập trực tiếp vào các file cấu hình và dữ liệu nhạy cảm
+<FilesMatch "(\.env|\.sql|\.jsonl|config\.php)$">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
