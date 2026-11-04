@@ -15,13 +15,16 @@ import { SEED_SWAP_OFFERS } from '../data/swapOffers.ts';
 
 export const PlantSwapSection: React.FC = () => {
   const [offers, setOffers] = useState<SwapOffer[]>(() => {
-    const saved = localStorage.getItem('ytc_swap_offers');
-    if (saved) {
-      try {
-        return JSON.parse(saved);
-      } catch {
-        // Fallback
+    try {
+      // Dọn dẹp cache phiên bản cũ chứa link ảnh placeholder không phù hợp
+      localStorage.removeItem('ytc_swap_offers');
+      const saved = localStorage.getItem('ytc_swap_offers_v2');
+      if (saved) {
+        const userCreatedOffers = JSON.parse(saved).filter((item: SwapOffer) => !item.id.startsWith('swap-'));
+        return [...userCreatedOffers, ...SEED_SWAP_OFFERS];
       }
+    } catch {
+      // Fallback
     }
     return SEED_SWAP_OFFERS;
   });
@@ -74,7 +77,7 @@ export const PlantSwapSection: React.FC = () => {
       item_type: newItemType,
       description: newDescription || 'Sẵn sàng chia sẻ cho anh chị em cùng đam mê làm vườn.',
       quarantine_pledge: true,
-      image_url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1b/Leaf_-pani_koorkka.JPG/640px-Leaf_-pani_koorkka.JPG',
+      image_url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1b/Leaf_-pani_koorkka.JPG/330px-Leaf_-pani_koorkka.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
       status: 'visible',
       created_at: 'Vừa xong',
       contact_note: newContact || 'Nhắn tin trực tiếp qua diễn đàn',
@@ -82,7 +85,7 @@ export const PlantSwapSection: React.FC = () => {
 
     const updated = [createdOffer, ...offers];
     setOffers(updated);
-    localStorage.setItem('ytc_swap_offers', JSON.stringify(updated));
+    localStorage.setItem('ytc_swap_offers_v2', JSON.stringify(updated));
 
     // Reset form
     setNewPlantName('');
@@ -221,6 +224,9 @@ export const PlantSwapSection: React.FC = () => {
                   src={offer.image_url}
                   alt={offer.plant_name}
                   className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1b/Leaf_-pani_koorkka.JPG/330px-Leaf_-pani_koorkka.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail';
+                  }}
                 />
                 <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
                   <span
