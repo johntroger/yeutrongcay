@@ -49,6 +49,17 @@ export interface Plant {
 export type ContentType = 'question' | 'answer' | 'diary' | 'swap_offer';
 export type ContentStatus = 'visible' | 'pending' | 'hidden';
 
+export interface ClinicAnswer {
+  id: string;
+  question_id: string;
+  author_name: string;
+  author_badge?: string; // 'Nhà Vườn Kinh Nghiệm' | 'Dược Sĩ Cổ Truyền' | 'Thành Viên Tích Cực'
+  content: string;
+  upvotes: number;
+  created_at: string;
+  is_verified?: boolean;
+}
+
 export interface ClinicQuestion {
   id: string;
   user_id: string;
@@ -60,7 +71,8 @@ export interface ClinicQuestion {
   symptoms: string[];                    // Vàng lá, rệp sáp, thối rễ...
   images: string[];                      // Danh sách ảnh lá bệnh đã tẩy EXIF
   ai_instant_diagnosis?: string;         // Phân tích sơ bộ tức thì của AI trong 3s
-  answers_count: number;
+  answers: ClinicAnswer[];
+  reports_count?: number;
   status: ContentStatus;
   created_at: string;
 }
