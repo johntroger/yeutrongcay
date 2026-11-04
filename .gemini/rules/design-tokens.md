@@ -6,7 +6,7 @@
    - `Terracotta Earth`: `terracotta-500` (`#C86D51`) - Đất nung chậu gốm mộc, ấm áp, cân bằng thị giác.
    - `Alabaster Cream`: `cream-100` (`#F9FBF9`) - Nền sáng thở tự nhiên, chống mỏi mắt.
    - `Dark Slate`: `charcoal-900` (`#0C100E`) - Nền tối cho Dark mode / Web3 card.
-2. **Typography**:
-   - Tiêu đề chính / Header: Font Serif sang trọng (`font-serif`: Cinzel, Playfair Display).
-   - Nội dung / Body: Font Sans dễ đọc (`font-sans`: Plus Jakarta Sans, Inter).
-   - Dữ liệu số / Mã băm: Font Monospace (`font-mono`: JetBrains Mono).
+2. **Typography (Hỗ trợ 100% Tiếng Việt có dấu)**:
+   - Tiêu đề chính / Header: Font Serif chuẩn Tiếng Việt (`Playfair Display`, `Lora`). CẤM dùng `Cinzel` vì lỗi dấu tiếng Việt.
+   - Nội dung / Body: Font Sans chuẩn Tiếng Việt (`Plus Jakarta Sans`, `Inter`).
+   - Dữ liệu số / Mã băm: Font Monospace (`JetBrains Mono`).
