@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sprout, ShieldCheck, Heart } from 'lucide-react';
+import { ShieldCheck, Heart } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
@@ -8,13 +8,14 @@ export const Footer: React.FC = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-forest-900 text-xs sm:text-sm">
           
-          {/* Col 1 */}
+          {/* Col 1: Brand Logo & Mission */}
           <div className="space-y-4 md:col-span-1">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-forest-900 flex items-center justify-center text-herbal-400">
-                <Sprout className="w-5 h-5" />
-              </div>
-              <span className="font-serif font-bold text-lg text-white">YÊU TRỒNG CÂY</span>
+            <div className="bg-white p-2.5 rounded-2xl inline-block shadow-sm">
+              <img
+                src="/logo.jpg"
+                alt="Yêu Trồng Cây - Design your life"
+                className="h-10 w-auto object-contain"
+              />
             </div>
             <p className="text-forest-200/80 leading-relaxed text-xs">
               Nền tảng kết nối những người đam mê thực vật bản địa, cây ăn trái sân thượng và nông nghiệp gia đình Việt Nam.

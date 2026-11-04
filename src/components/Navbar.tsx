@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sprout, Search, ShieldCheck, HeartHandshake, Mic } from 'lucide-react';
+import { Search, ShieldCheck, HeartHandshake, Mic } from 'lucide-react';
 import { PlantCategory } from '../types/index.ts';
 
 interface NavbarProps {
@@ -23,7 +23,6 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const handleVoiceSearch = () => {
     setIsListening(true);
-    // Giả lập nhận diện giọng nói
     setTimeout(() => {
       onSearchChange('Húng Chanh');
       setIsListening(false);
@@ -35,15 +34,17 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20 gap-4">
           
-          {/* Logo */}
-          <div className="flex items-center gap-3 cursor-pointer" onClick={() => onModeChange('herb')}>
-            <div className="w-11 h-11 rounded-2xl bg-forest-900 flex items-center justify-center text-herbal-500 shadow-md">
-              <Sprout className="w-6 h-6 stroke-[2.5]" />
-            </div>
-            <div>
-              <span className="text-xl font-serif font-bold text-forest-900 tracking-tight block">YÊU TRỒNG CÂY</span>
-              <span className="text-xs font-sans text-forest-700 tracking-widest uppercase block -mt-1">Thực vật bản địa Việt</span>
-            </div>
+          {/* Official Brand Logo */}
+          <div
+            className="flex items-center cursor-pointer py-1"
+            onClick={() => onModeChange('herb')}
+            title="Yêu Trồng Cây - Design your life"
+          >
+            <img
+              src="/logo.jpg"
+              alt="Yêu Trồng Cây - Design your life"
+              className="h-12 sm:h-14 w-auto object-contain hover:opacity-95 transition"
+            />
           </div>
 
           {/* Search Bar with Voice */}
@@ -87,7 +88,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
         </div>
 
-        {/* Garden Mode Switcher (Thanh chuyển đổi chế độ Vườn linh hoạt) */}
+        {/* Garden Mode Switcher */}
         <div className="flex items-center justify-center gap-2 py-2 border-t border-forest-50 overflow-x-auto no-scrollbar">
           <button
             onClick={() => onModeChange('herb')}
