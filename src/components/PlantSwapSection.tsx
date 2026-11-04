@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   MapPin,
   Search,
@@ -8,10 +8,16 @@ import {
   AlertTriangle,
   Heart,
   Sparkles,
-  Info
+  Info,
+  Flag,
+  Upload,
+  Loader2,
+  X as CloseIcon
 } from 'lucide-react';
 import { SwapOffer, SwapOfferType } from '../types/index.ts';
 import { SEED_SWAP_OFFERS } from '../data/swapOffers.ts';
+import { uploadPlantImage } from '../services/apiService.ts';
+import { ReportModal } from './ReportModal.tsx';
 
 export const PlantSwapSection: React.FC = () => {
   const [offers, setOffers] = useState<SwapOffer[]>(() => {
@@ -44,6 +50,15 @@ export const PlantSwapSection: React.FC = () => {
   const [newContact, setNewContact] = useState('');
   const [pledgedQuarantine, setPledgedQuarantine] = useState(false);
 
+  // Upload ảnh tin đăng
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(null);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+
+  // Modal Báo Cáo Vi Phạm
+  const [reportTarget, setReportTarget] = useState<{ id: string; title: string } | null>(null);
+
   // Lọc tin trao đổi
   const filteredOffers = offers.filter((item) => {
     const matchRegion = selectedRegion === 'all' || item.region_zone === selectedRegion;
@@ -57,6 +72,28 @@ export const PlantSwapSection: React.FC = () => {
 
     return matchRegion && matchType && matchSearch;
   });
+
+  const handleImageFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
+      setUploadError('Dung lượng ảnh tối đa 5MB');
+      return;
+    }
+
+    setUploadError(null);
+    setIsUploadingImage(true);
+
+    const res = await uploadPlantImage(file);
+    setIsUploadingImage(false);
+
+    if (res.success && res.url) {
+      setUploadedImageUrl(res.url);
+    } else {
+      setUploadError(res.error || 'Lỗi khi tải ảnh lên máy chủ');
+    }
+  };
 
   const handleCreateOffer = (e: React.FormEvent) => {
     e.preventDefault();
@@ -77,7 +114,7 @@ export const PlantSwapSection: React.FC = () => {
       item_type: newItemType,
       description: newDescription || 'Sẵn sàng chia sẻ cho anh chị em cùng đam mê làm vườn.',
       quarantine_pledge: true,
-      image_url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1b/Leaf_-pani_koorkka.JPG/330px-Leaf_-pani_koorkka.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+      image_url: uploadedImageUrl || 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1b/Leaf_-pani_koorkka.JPG/330px-Leaf_-pani_koorkka.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
       status: 'visible',
       created_at: 'Vừa xong',
       contact_note: newContact || 'Nhắn tin trực tiếp qua diễn đàn',
@@ -92,6 +129,7 @@ export const PlantSwapSection: React.FC = () => {
     setNewLocation('');
     setNewDescription('');
     setNewContact('');
+    setUploadedImageUrl(null);
     setPledgedQuarantine(false);
     setIsModalOpen(false);
   };
@@ -248,6 +286,16 @@ export const PlantSwapSection: React.FC = () => {
                     {offer.item_type}
                   </span>
                 </div>
+
+                {/* Nút Báo Cáo Vi Phạm (M6 - H6, H9) */}
+                <button
+                  type="button"
+                  onClick={() => setReportTarget({ id: offer.id, title: `${offer.plant_name} (${offer.location_name})` })}
+                  title="Báo cáo tin vi phạm"
+                  className="absolute top-3 right-3 p-1.5 rounded-full bg-black/40 hover:bg-rose-600 text-white backdrop-blur-xs transition"
+                >
+                  <Flag className="w-3.5 h-3.5" />
+                </button>
 
                 {offer.quarantine_pledge && (
                   <div className="absolute bottom-3 right-3 bg-white/90 backdrop-blur-xs text-forest-900 text-[10px] font-bold px-2 py-0.5 rounded-md flex items-center gap-1 shadow-xs">
@@ -478,6 +526,73 @@ export const PlantSwapSection: React.FC = () => {
                 />
               </div>
 
+              {/* Upload Ảnh Thật (M5: Xóa EXIF GPS, chuyển WebP) */}
+              <div>
+                <label className="block text-xs font-bold text-forest-900 mb-1">
+                  Hình ảnh cây / cành giâm / hạt giống (tùy chọn)
+                </label>
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  accept="image/jpeg,image/png,image/webp"
+                  className="hidden"
+                  onChange={handleImageFileChange}
+                />
+                {uploadedImageUrl ? (
+                  <div className="relative rounded-2xl overflow-hidden border border-herbal-200 bg-herbal-50/50 p-2.5 flex items-center justify-between">
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <img
+                        src={uploadedImageUrl}
+                        alt="Ảnh giống cây đã tải"
+                        className="w-12 h-12 object-cover rounded-xl border border-white shrink-0 shadow-xs"
+                      />
+                      <div className="min-w-0">
+                        <p className="text-[11px] font-bold text-herbal-900 truncate">
+                          Đã tải ảnh thực tế
+                        </p>
+                        <p className="text-[10px] text-herbal-600">
+                          Đã tẩy sạch EXIF GPS an toàn
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setUploadedImageUrl(null)}
+                      className="p-1.5 rounded-full hover:bg-white text-gray-500 hover:text-rose-600 transition"
+                      title="Xóa ảnh này"
+                    >
+                      <CloseIcon className="w-4 h-4" />
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <div
+                      onClick={() => fileInputRef.current?.click()}
+                      className={`border border-dashed rounded-xl p-3 text-center transition cursor-pointer ${
+                        isUploadingImage
+                          ? 'border-herbal-400 bg-herbal-50/30'
+                          : 'border-forest-200 bg-white hover:border-herbal-500 hover:bg-forest-50/30'
+                      }`}
+                    >
+                      {isUploadingImage ? (
+                        <div className="flex items-center justify-center gap-2 text-herbal-700 py-1">
+                          <Loader2 className="w-4 h-4 animate-spin text-herbal-600" />
+                          <span className="text-xs font-semibold">Đang xử lý & tẩy EXIF GPS...</span>
+                        </div>
+                      ) : (
+                        <div className="flex items-center justify-center gap-2 text-forest-700">
+                          <Upload className="w-4 h-4 text-forest-500" />
+                          <span className="text-xs font-medium">Chọn ảnh chụp cây từ máy (tối đa 5MB)</span>
+                        </div>
+                      )}
+                    </div>
+                    {uploadError && (
+                      <p className="text-[10px] text-rose-600 mt-1 font-medium">{uploadError}</p>
+                    )}
+                  </div>
+                )}
+              </div>
+
               {/* 7-Day Quarantine Pledge Checkbox */}
               <div className="p-3.5 rounded-2xl bg-forest-50/70 border border-forest-200 space-y-2">
                 <label className="flex items-start gap-2.5 cursor-pointer">
@@ -516,6 +631,16 @@ export const PlantSwapSection: React.FC = () => {
         </div>
       )}
 
+      {/* Modal Báo Cáo Vi Phạm (M6 - H6, H9) */}
+      {reportTarget && (
+        <ReportModal
+          isOpen={true}
+          onClose={() => setReportTarget(null)}
+          targetType="swap_offer"
+          targetId={reportTarget.id}
+          targetTitle={reportTarget.title}
+        />
+      )}
     </section>
   );
 };

@@ -26,8 +26,10 @@ import {
   ChevronDown,
   Layers,
   Thermometer,
-  Sprout
+  Sprout,
+  Flag
 } from 'lucide-react';
+import { ReportModal } from '../components/ReportModal.tsx';
 
 interface PlantDetailPageProps {
   onOpenMyGarden?: () => void;
@@ -42,6 +44,7 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
   const [copied, setCopied] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
 
   // Tìm cây theo slug (kết hợp cache tức thì + dữ liệu động từ MySQL)
   const [plant, setPlant] = useState<Plant | undefined>(() => SEED_PLANTS.find((p) => p.slug === slug));
@@ -613,6 +616,19 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
               <div className="text-[11px] text-gray-500 italic bg-gray-50 p-3.5 rounded-xl border border-gray-100 leading-relaxed">
                 * {plant.medical_info.disclaimer}
               </div>
+
+              {/* Báo cáo thông tin dược lý chưa chính xác (M6 - H6, H9) */}
+              <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-forest-600 border-t border-forest-50">
+                <span>Phát hiện thông tin dược tính hoặc liều dùng chưa chính xác?</span>
+                <button
+                  type="button"
+                  onClick={() => setIsReportModalOpen(true)}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-rose-600 hover:bg-rose-50 border border-rose-200 font-semibold transition self-start sm:self-auto"
+                >
+                  <Flag className="w-3.5 h-3.5" />
+                  <span>Báo cáo hiệu đính</span>
+                </button>
+              </div>
             </section>
           )}
 
@@ -815,6 +831,17 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
         </div>
 
       </div>
+
+      {/* Modal Báo Cáo Vi Phạm (M6 - H6, H9) */}
+      {isReportModalOpen && plant && (
+        <ReportModal
+          isOpen={true}
+          onClose={() => setIsReportModalOpen(false)}
+          targetType="plant_info"
+          targetId={plant.id}
+          targetTitle={`Loài: ${plant.common_name} (${plant.scientific_name})`}
+        />
+      )}
 
     </article>
   );

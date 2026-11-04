@@ -167,3 +167,81 @@ export async function submitClinicQuestion(payload: {
   }
   return null;
 }
+
+/**
+ * Tải ảnh an toàn lên máy chủ (M5: Xóa EXIF GPS, chuyển WebP, sinh SHA-256)
+ */
+export async function uploadPlantImage(file: File): Promise<{
+  success: boolean;
+  url?: string;
+  sha256?: string;
+  error?: string;
+}> {
+  try {
+    const formData = new FormData();
+    formData.append('image', file);
+
+    const res = await fetch(`${API_BASE}/upload.php`, {
+      method: 'POST',
+      body: formData,
+    });
+
+    const json = await res.json();
+    if (res.ok && json.success) {
+      return {
+        success: true,
+        url: json.url,
+        sha256: json.sha256,
+      };
+    } else {
+      return {
+        success: false,
+        error: json.error || 'Tải ảnh thất bại. Vui lòng thử lại.',
+      };
+    }
+  } catch (err: any) {
+    console.error('Upload image error:', err);
+    return {
+      success: false,
+      error: 'Không thể kết nối đến máy chủ upload ảnh.',
+    };
+  }
+}
+
+/**
+ * Gửi báo cáo vi phạm nội dung (M6 - H6, H9)
+ */
+export async function submitReport(payload: {
+  target_type: 'clinic_question' | 'swap_offer' | 'plant_info' | 'comment';
+  target_id: string;
+  reason: string;
+  note?: string;
+}): Promise<{ success: boolean; message: string; ticket_id?: string }> {
+  try {
+    const res = await fetch(`${API_BASE}/report.php`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    const json = await res.json();
+    if (json.success) {
+      return {
+        success: true,
+        message: json.message || 'Báo cáo đã được tiếp nhận.',
+        ticket_id: json.ticket_id,
+      };
+    } else {
+      return {
+        success: false,
+        message: json.message || 'Gửi báo cáo thất bại. Vui lòng thử lại.',
+      };
+    }
+  } catch (err) {
+    console.error('Submit report error:', err);
+    return {
+      success: false,
+      message: 'Không thể gửi báo cáo lúc này do lỗi mạng.',
+    };
+  }
+}

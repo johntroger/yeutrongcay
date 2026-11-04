@@ -8,10 +8,18 @@ header('Content-Type: application/json; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: SAMEORIGIN');
 
-// CORS chỉ cho phép cùng domain
-$allowed_origin = 'https://yeutrongcay.com';
-if (isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['HTTP_ORIGIN'] === $allowed_origin) {
-    header('Access-Control-Allow-Origin: ' . $allowed_origin);
+// CORS hỗ trợ yeutrongcay.com và môi trường dev
+$allowed_origins = ['https://yeutrongcay.com', 'http://localhost:5173', 'http://localhost:3000', 'http://127.0.0.1:5173'];
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+if (in_array($origin, $allowed_origins, true)) {
+    header('Access-Control-Allow-Origin: ' . $origin);
+}
+header('Access-Control-Allow-Methods: POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, Accept');
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

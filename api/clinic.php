@@ -87,6 +87,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $ai_instant_diagnosis = "Phân tích AI tức thì (khu vực {$region_vn}): Cây {$plant_hint} có dấu hiệu {$symptoms_text}. Khuyến nghị: 1) Tạm ngưng bón phân hóa học ngay; 2) Kiểm tra lỗ thoát nước đáy chậu tránh úng thối rễ; 3) Cách ly chậu cây khỏi các bụi cây khỏe khác; 4) Sử dụng chế phẩm sinh học tỏi - ớt - gừng hoặc nấm Trichoderma để dưỡng rễ phục hồi.";
 
+    // M6 (H6): Bộ lọc từ khóa đen (Blacklist cơ bản) phòng chống spam / chất cấm / y tế nguy hại
+    $status = 'visible';
+    $blacklist = [
+        'chữa khỏi ung thư', 'trị dứt điểm ung thư', 'thần dược', 'uống thay thuốc tây',
+        'cần sa', 'thuốc phiện', 'cây anh túc', 'lá khát', 'bóng cười',
+        'cá độ', 'lô đề', 'kubet', 'shbet', 'nạp tiền nhận quà'
+    ];
+    $combined_text = mb_strtolower($title . ' ' . $description, 'UTF-8');
+    foreach ($blacklist as $bad_word) {
+        if (mb_strpos($combined_text, $bad_word) !== false) {
+            $status = 'pending'; // Tạm giữ để kiểm duyệt thủ công
+            break;
+        }
+    }
+
     $saved_db = false;
     if ($pdo) {
         try {
@@ -95,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 symptoms_json, images_json, ai_instant_diagnosis, status
             ) VALUES (
                 :id, :user_id, :user_name, :title, :description, :plant_hint, :region,
-                :symptoms_json, :images_json, :ai_diagnosis, 'visible'
+                :symptoms_json, :images_json, :ai_diagnosis, :status
             )");
             $stmt->execute([
                 ':id'           => $id,
@@ -107,7 +122,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ':region'       => $region,
                 ':symptoms_json'=> json_encode($symptoms, JSON_UNESCAPED_UNICODE),
                 ':images_json'  => json_encode($images, JSON_UNESCAPED_UNICODE),
-                ':ai_diagnosis' => $ai_instant_diagnosis
+                ':ai_diagnosis' => $ai_instant_diagnosis,
+                ':status'       => $status
             ]);
             $saved_db = true;
         } catch (PDOException $e) {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Stethoscope,
   Upload,
@@ -11,11 +11,14 @@ import {
   Send,
   Flag,
   Check,
-  Award
+  Award,
+  Loader2,
+  X as CloseIcon
 } from 'lucide-react';
 import { ClinicQuestion } from '../types/index.ts';
 import { INITIAL_CLINIC_QUESTIONS } from '../data/clinicCases.ts';
-import { getClinicQuestions, submitClinicQuestion } from '../services/apiService.ts';
+import { getClinicQuestions, submitClinicQuestion, uploadPlantImage } from '../services/apiService.ts';
+import { ReportModal } from './ReportModal.tsx';
 
 export const PlantClinicSection: React.FC = () => {
   const [questions, setQuestions] = useState<ClinicQuestion[]>(INITIAL_CLINIC_QUESTIONS);
@@ -27,6 +30,15 @@ export const PlantClinicSection: React.FC = () => {
   const [activeReplyId, setActiveReplyId] = useState<string | null>(null);
   const [replyText, setReplyText] = useState('');
   const [draftSaved, setDraftSaved] = useState(false);
+
+  // Upload ảnh thực tế
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(null);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+
+  // Modal Báo Cáo Vi Phạm (M6 - H6, H9)
+  const [reportTarget, setReportTarget] = useState<{ id: string; title: string } | null>(null);
 
   // Tải danh sách câu hỏi thực tế từ MySQL và khôi phục bản nháp
   useEffect(() => {
@@ -64,6 +76,28 @@ export const PlantClinicSection: React.FC = () => {
     );
   };
 
+  const handleImageFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
+      setUploadError('Dung lượng ảnh tối đa 5MB');
+      return;
+    }
+
+    setUploadError(null);
+    setIsUploadingImage(true);
+
+    const res = await uploadPlantImage(file);
+    setIsUploadingImage(false);
+
+    if (res.success && res.url) {
+      setUploadedImageUrl(res.url);
+    } else {
+      setUploadError(res.error || 'Lỗi khi tải ảnh lên máy chủ');
+    }
+  };
+
   const handleSubmitQuestion = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!description.trim()) return;
@@ -72,6 +106,7 @@ export const PlantClinicSection: React.FC = () => {
 
     const regionText = region === 'north' ? 'Miền Bắc' : region === 'central' ? 'Miền Trung' : 'Miền Nam';
     const symptomsText = selectedSymptoms.join(', ') || 'Dấu hiệu suy yếu chung';
+    const questionImages = uploadedImageUrl ? [uploadedImageUrl] : [];
 
     try {
       const savedQ = await submitClinicQuestion({
@@ -79,7 +114,8 @@ export const PlantClinicSection: React.FC = () => {
         description: description,
         region: region,
         symptoms: selectedSymptoms,
-        user_name: 'Bạn (Chủ Vườn)'
+        user_name: 'Bạn (Chủ Vườn)',
+        images: questionImages
       });
 
       if (savedQ) {
@@ -95,7 +131,7 @@ export const PlantClinicSection: React.FC = () => {
           plant_name_hint: plantHint || 'Chưa rõ loài',
           region: region,
           symptoms: selectedSymptoms,
-          images: ['https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/Psidium_guajava_fruit.jpg/330px-Psidium_guajava_fruit.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail'],
+          images: questionImages.length > 0 ? questionImages : ['https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/Psidium_guajava_fruit.jpg/330px-Psidium_guajava_fruit.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail'],
           ai_instant_diagnosis: `Phân tích AI tức thì (khu vực ${regionText}): Cây biểu hiện ${symptomsText}. Tạm ngưng tưới đẫm, kiểm tra độ thoát nước đáy chậu và xịt phòng dung dịch sinh học hữu cơ.`,
           answers: [],
           status: 'visible',
@@ -110,6 +146,7 @@ export const PlantClinicSection: React.FC = () => {
       setDescription('');
       setPlantHint('');
       setSelectedSymptoms([]);
+      setUploadedImageUrl(null);
       localStorage.removeItem('ytc_clinic_desc');
       localStorage.removeItem('ytc_clinic_hint');
     }
@@ -152,15 +189,11 @@ export const PlantClinicSection: React.FC = () => {
     setActiveReplyId(null);
   };
 
-  const handleReport = (questionId: string) => {
-    alert('Đã gửi báo cáo vi phạm. Nếu có 3 thành viên cùng báo cáo, bài đăng sẽ tự động được ẩn vào hàng đợi kiểm duyệt để bảo vệ an toàn cộng đồng!');
-    setQuestions((prev) =>
-      prev.map((q) =>
-        q.id === questionId
-          ? { ...q, reports_count: (q.reports_count || 0) + 1 }
-          : q,
-      ),
-    );
+  const handleReport = (question: ClinicQuestion) => {
+    setReportTarget({
+      id: question.id,
+      title: question.title,
+    });
   };
 
   return (
@@ -284,16 +317,73 @@ export const PlantClinicSection: React.FC = () => {
                 />
               </div>
 
-              {/* Upload Box */}
-              <div className="border border-dashed border-forest-200 rounded-xl p-4 text-center bg-white hover:border-herbal-500 transition cursor-pointer">
-                <Upload className="w-5 h-5 text-forest-400 mx-auto mb-1" />
-                <p className="text-[11px] font-medium text-forest-900">
-                  Chụp hoặc tải ảnh lá bệnh
-                </p>
-                <p className="text-[10px] text-gray-400">
-                  (Đã bật cơ chế tự động xóa sạch GPS ảnh)
-                </p>
-              </div>
+              {/* Upload Box Thực Tế (M5: Xóa EXIF GPS, chuyển WebP an toàn) */}
+              <input
+                type="file"
+                ref={fileInputRef}
+                accept="image/jpeg,image/png,image/webp"
+                className="hidden"
+                onChange={handleImageFileChange}
+              />
+
+              {uploadedImageUrl ? (
+                <div className="relative rounded-2xl overflow-hidden border border-herbal-200 bg-herbal-50/50 p-2.5 flex items-center justify-between">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <img
+                      src={uploadedImageUrl}
+                      alt="Ảnh lá bệnh đã tải"
+                      className="w-12 h-12 object-cover rounded-xl border border-white shrink-0 shadow-xs"
+                    />
+                    <div className="min-w-0">
+                      <p className="text-[11px] font-bold text-herbal-900 truncate">
+                        Ảnh đã tải lên an toàn
+                      </p>
+                      <p className="text-[10px] text-herbal-600">
+                        Đã tẩy sạch EXIF GPS • Chuẩn WebP
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setUploadedImageUrl(null)}
+                    className="p-1.5 rounded-full hover:bg-white text-gray-500 hover:text-rose-600 transition"
+                    title="Xóa ảnh này"
+                  >
+                    <CloseIcon className="w-4 h-4" />
+                  </button>
+                </div>
+              ) : (
+                <div>
+                  <div
+                    onClick={() => fileInputRef.current?.click()}
+                    className={`border border-dashed rounded-xl p-3.5 text-center transition cursor-pointer ${
+                      isUploadingImage
+                        ? 'border-herbal-400 bg-herbal-50/30'
+                        : 'border-forest-200 bg-white hover:border-herbal-500 hover:bg-forest-50/30'
+                    }`}
+                  >
+                    {isUploadingImage ? (
+                      <div className="flex items-center justify-center gap-2 text-herbal-700 py-1">
+                        <Loader2 className="w-4 h-4 animate-spin text-herbal-600" />
+                        <span className="text-xs font-semibold">Đang xử lý & tẩy EXIF GPS...</span>
+                      </div>
+                    ) : (
+                      <>
+                        <Upload className="w-5 h-5 text-forest-400 mx-auto mb-1" />
+                        <p className="text-[11px] font-bold text-forest-900">
+                          Chụp hoặc chọn ảnh lá bệnh từ máy
+                        </p>
+                        <p className="text-[10px] text-gray-400">
+                          (Tối đa 5MB • Tự động xóa sạch vị trí GPS & chuyển WebP)
+                        </p>
+                      </>
+                    )}
+                  </div>
+                  {uploadError && (
+                    <p className="text-[10px] text-rose-600 mt-1 font-medium">{uploadError}</p>
+                  )}
+                </div>
+              )}
 
               {/* Submit */}
               <button
@@ -350,7 +440,7 @@ export const PlantClinicSection: React.FC = () => {
                   </div>
 
                   <button
-                    onClick={() => handleReport(q.id)}
+                    onClick={() => handleReport(q)}
                     title="Báo cáo nội dung vi phạm"
                     className="p-1.5 rounded-lg text-gray-400 hover:text-red-600 hover:bg-red-50 transition"
                   >
@@ -465,6 +555,17 @@ export const PlantClinicSection: React.FC = () => {
         </div>
 
       </div>
+
+      {/* Modal Báo Cáo Vi Phạm (M6 - H6, H9) */}
+      {reportTarget && (
+        <ReportModal
+          isOpen={true}
+          onClose={() => setReportTarget(null)}
+          targetType="clinic_question"
+          targetId={reportTarget.id}
+          targetTitle={reportTarget.title}
+        />
+      )}
     </section>
   );
 };
