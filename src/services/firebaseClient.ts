@@ -24,6 +24,15 @@ export interface FirebaseCustomConfig {
 
 const STORAGE_KEY = 'ytc_firebase_config';
 
+const DEFAULT_FIREBASE_CONFIG: FirebaseCustomConfig = {
+  apiKey: 'AIzaSyCmecyUWkszm0ynHPd2qrs__5Wf4L-N-IU',
+  authDomain: 'yeutrongcay-c814a.firebaseapp.com',
+  projectId: 'yeutrongcay-c814a',
+  storageBucket: 'yeutrongcay-c814a.firebasestorage.app',
+  messagingSenderId: '839896782795',
+  appId: '1:839896782795:web:2254c2f053c4ad4518884e',
+};
+
 export function getSavedFirebaseConfig(): FirebaseCustomConfig | null {
   // 1. Kiểm tra Vite Environment variables trước
   const envApiKey = import.meta.env.VITE_FIREBASE_API_KEY;
@@ -51,7 +60,8 @@ export function getSavedFirebaseConfig(): FirebaseCustomConfig | null {
     console.error('Error reading saved Firebase config:', e);
   }
 
-  return null;
+  // 3. Fallback mặc định dự án yeutrongcay-c814a
+  return DEFAULT_FIREBASE_CONFIG;
 }
 
 export function saveFirebaseConfig(config: FirebaseCustomConfig): void {
