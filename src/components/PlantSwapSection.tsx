@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import { SwapOffer, SwapOfferType } from '../types/index.ts';
 import { SEED_SWAP_OFFERS } from '../data/swapOffers.ts';
-import { uploadPlantImage } from '../services/apiService.ts';
+import { uploadPlantImage, getSwapOffers, submitSwapOffer } from '../services/apiService.ts';
 import { ReportModal } from './ReportModal.tsx';
 
 export const PlantSwapSection: React.FC = () => {
@@ -34,6 +34,19 @@ export const PlantSwapSection: React.FC = () => {
     }
     return SEED_SWAP_OFFERS;
   });
+
+  // Tải danh sách tin trao đổi thời gian thực từ MySQL
+  React.useEffect(() => {
+    let isMounted = true;
+    getSwapOffers().then(({ offers: liveOffers }) => {
+      if (isMounted && liveOffers && liveOffers.length > 0) {
+        setOffers(liveOffers);
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const [selectedRegion, setSelectedRegion] = useState<'all' | 'north' | 'central' | 'south'>('all');
   const [selectedType, setSelectedType] = useState<'all' | SwapOfferType>('all');
@@ -119,6 +132,13 @@ export const PlantSwapSection: React.FC = () => {
       created_at: 'Vừa xong',
       contact_note: newContact || 'Nhắn tin trực tiếp qua diễn đàn',
     };
+
+    // Đẩy tin đăng lên máy chủ MySQL qua Edge API
+    submitSwapOffer(createdOffer).then((res) => {
+      if (res.success && res.data) {
+        setOffers((prev) => [res.data!, ...prev.filter((item) => item.id !== createdOffer.id && item.id !== res.data!.id)]);
+      }
+    });
 
     const updated = [createdOffer, ...offers];
     setOffers(updated);

@@ -8,9 +8,10 @@
  * - Đảm bảo trải nghiệm người dùng luôn mượt mà 100%, không bao giờ bị trắng trang
  */
 
-import { Plant, ClinicQuestion } from '../types/index.ts';
+import { Plant, ClinicQuestion, SwapOffer } from '../types/index.ts';
 import { SEED_PLANTS } from '../data/plants.ts';
 import { INITIAL_CLINIC_QUESTIONS } from '../data/clinicCases.ts';
+import { SEED_SWAP_OFFERS } from '../data/swapOffers.ts';
 
 const API_BASE = '/api';
 
@@ -242,6 +243,97 @@ export async function submitReport(payload: {
     return {
       success: false,
       message: 'Không thể gửi báo cáo lúc này do lỗi mạng.',
+    };
+  }
+}
+
+/**
+ * Lấy danh sách tin trao đổi cây & hạt giống (có hỗ trợ lọc theo miền, loại tin, từ khóa)
+ */
+export async function getSwapOffers(
+  region?: string,
+  type?: string,
+  query?: string
+): Promise<{ offers: SwapOffer[]; isLive: boolean }> {
+  try {
+    const params = new URLSearchParams();
+    if (region && region !== 'all') params.append('region', region);
+    if (type && type !== 'all') params.append('type', type);
+    if (query) params.append('q', query);
+
+    const res = await fetch(`${API_BASE}/swap.php?${params.toString()}`, {
+      headers: { 'Accept': 'application/json' },
+    });
+
+    if (res.ok) {
+      const json = await res.json();
+      if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+        // Hợp nhất tin mới nhất từ MySQL với SEED_SWAP_OFFERS
+        const liveOffers: SwapOffer[] = json.data;
+        const liveIds = new Set(liveOffers.map((o) => o.id));
+        const filteredSeeds = SEED_SWAP_OFFERS.filter((s) => !liveIds.has(s.id));
+
+        return { offers: [...liveOffers, ...filteredSeeds], isLive: true };
+      }
+    }
+  } catch (err) {
+    console.warn('API swap.php unreachable, using local fallback:', err);
+  }
+
+  // Fallback cục bộ
+  let fallback = SEED_SWAP_OFFERS;
+  if (region && region !== 'all') {
+    fallback = fallback.filter((item) => item.region_zone === region);
+  }
+  if (type && type !== 'all') {
+    fallback = fallback.filter((item) => item.offer_type === type);
+  }
+  if (query) {
+    const qLower = query.toLowerCase();
+    fallback = fallback.filter(
+      (item) =>
+        item.plant_name.toLowerCase().includes(qLower) ||
+        item.location_name.toLowerCase().includes(qLower) ||
+        item.description.toLowerCase().includes(qLower)
+    );
+  }
+
+  return { offers: fallback, isLive: false };
+}
+
+/**
+ * Đăng tin trao đổi / tặng giống cây mới lên MySQL
+ */
+export async function submitSwapOffer(payload: Partial<SwapOffer>): Promise<{
+  success: boolean;
+  message?: string;
+  data?: SwapOffer;
+}> {
+  try {
+    const res = await fetch(`${API_BASE}/swap.php`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    const json = await res.json();
+    if (res.ok && json.success) {
+      return {
+        success: true,
+        message: json.message,
+        data: json.data,
+      };
+    } else {
+      return {
+        success: false,
+        message: json.message || 'Lỗi khi đăng tin trao đổi cây.',
+      };
+    }
+  } catch (err) {
+    console.error('Error submitting swap offer to MySQL:', err);
+    return {
+      success: false,
+      message: 'Không thể kết nối đến máy chủ. Vui lòng thử lại.',
     };
   }
 }
