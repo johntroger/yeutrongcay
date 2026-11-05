@@ -24,6 +24,7 @@ import {
 
 interface HomePageProps {
   activeMode: PlantCategory;
+  onModeChange?: (mode: PlantCategory) => void;
   searchQuery: string;
   onClearSearch: () => void;
   onScrollToSection?: (id: string) => void;
@@ -31,6 +32,7 @@ interface HomePageProps {
 
 export const HomePage: React.FC<HomePageProps> = ({
   activeMode,
+  onModeChange,
   searchQuery,
   onClearSearch,
 }) => {
@@ -199,6 +201,48 @@ export const HomePage: React.FC<HomePageProps> = ({
 
       {/* 4. Plants Catalog Grid */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 flex-1 w-full">
+        {/* Garden Mode Switcher Pills - Đặt tại Trang Chủ, giải phóng cho menu */}
+        <div className="flex items-center justify-start sm:justify-center gap-2.5 pb-6 mb-6 border-b border-forest-100/80 dark:border-forest-900/60 overflow-x-auto no-scrollbar">
+          <button
+            onClick={() => onModeChange?.('herb')}
+            className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition flex items-center gap-2 shrink-0 ${
+              activeMode === 'herb'
+                ? 'bg-forest-900 dark:bg-herbal-700 text-white shadow-md ring-2 ring-herbal-500/30'
+                : 'bg-white dark:bg-charcoal-800 text-forest-800 dark:text-forest-200 hover:bg-forest-50 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-800 hover:border-herbal-400'
+            }`}
+            title={t('categories.herbDesc')}
+          >
+            <span className="text-base">🌿</span>
+            <span>{t('categories.herb')}</span>
+          </button>
+
+          <button
+            onClick={() => onModeChange?.('fruit')}
+            className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition flex items-center gap-2 shrink-0 ${
+              activeMode === 'fruit'
+                ? 'bg-forest-900 dark:bg-herbal-700 text-white shadow-md ring-2 ring-amber-500/30'
+                : 'bg-white dark:bg-charcoal-800 text-forest-800 dark:text-forest-200 hover:bg-forest-50 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-800 hover:border-amber-400'
+            }`}
+            title={t('categories.fruitDesc')}
+          >
+            <span className="text-base">🍋</span>
+            <span>{t('categories.fruit')}</span>
+          </button>
+
+          <button
+            onClick={() => onModeChange?.('ornamental')}
+            className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition flex items-center gap-2 shrink-0 ${
+              activeMode === 'ornamental'
+                ? 'bg-forest-900 dark:bg-herbal-700 text-white shadow-md ring-2 ring-purple-500/30'
+                : 'bg-white dark:bg-charcoal-800 text-forest-800 dark:text-forest-200 hover:bg-forest-50 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-800 hover:border-purple-400'
+            }`}
+            title={t('categories.ornamentalDesc')}
+          >
+            <span className="text-base">🌸</span>
+            <span>{t('categories.ornamental')}</span>
+          </button>
+        </div>
+
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-8 pb-4 border-b border-forest-100">
           <div>
             <h2 className="text-2xl sm:text-3xl font-serif font-bold text-forest-900 dark:text-cream-50 tracking-tight">

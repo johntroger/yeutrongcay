@@ -23,8 +23,7 @@ import { useLanguage } from '../context/LanguageContext.tsx';
 import { useTheme } from '../context/ThemeContext.tsx';
 
 interface NavbarProps {
-  activeMode: PlantCategory;
-  onModeChange: (mode: PlantCategory) => void;
+  onModeChange?: (mode: PlantCategory) => void;
   searchQuery: string;
   onSearchChange: (q: string) => void;
   onOpenClinic?: () => void;
@@ -39,7 +38,6 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
-  activeMode,
   onModeChange,
   searchQuery,
   onSearchChange,
@@ -83,7 +81,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Official Brand Logo -> Link to Home */}
           <Link
             to="/"
-            onClick={() => onModeChange('herb')}
+            onClick={() => onModeChange?.('herb')}
             className="flex items-center cursor-pointer py-1 shrink-0"
             title={t('common.siteName') + ' - ' + t('common.tagline')}
           >
@@ -534,54 +532,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               <Mic className="w-3.5 h-3.5" />
             </button>
           </div>
-        </div>
-
-        {/* Garden Mode Switcher - 3 Distinct Category URLs (Mở sang tab mới) */}
-        <div className="flex items-center justify-start sm:justify-center gap-2 py-2 px-1 sm:px-0 border-t border-forest-50 dark:border-forest-900/60 overflow-x-auto no-scrollbar">
-          <Link
-            to="/thao-duoc"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition flex items-center gap-2 shrink-0 ${
-              activeMode === 'herb'
-                ? 'bg-forest-900 dark:bg-herbal-700 text-white shadow-sm'
-                : 'bg-white dark:bg-charcoal-800 text-forest-800 dark:text-forest-200 hover:bg-forest-50 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-800 hover:border-herbal-400'
-            }`}
-            title={t('categories.herbDesc')}
-          >
-            <span>🌿</span>
-            <span>{t('categories.herb')}</span>
-          </Link>
-
-          <Link
-            to="/cay-an-trai"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition flex items-center gap-2 shrink-0 ${
-              activeMode === 'fruit'
-                ? 'bg-forest-900 dark:bg-herbal-700 text-white shadow-sm'
-                : 'bg-white dark:bg-charcoal-800 text-forest-800 dark:text-forest-200 hover:bg-forest-50 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-800 hover:border-amber-400'
-            }`}
-            title={t('categories.fruitDesc')}
-          >
-            <span>🍋</span>
-            <span>{t('categories.fruit')}</span>
-          </Link>
-
-          <Link
-            to="/cay-canh"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition flex items-center gap-2 shrink-0 ${
-              activeMode === 'ornamental'
-                ? 'bg-forest-900 dark:bg-herbal-700 text-white shadow-sm'
-                : 'bg-white dark:bg-charcoal-800 text-forest-800 dark:text-forest-200 hover:bg-forest-50 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-800 hover:border-purple-400'
-            }`}
-            title={t('categories.ornamentalDesc')}
-          >
-            <span>🌸</span>
-            <span>{t('categories.ornamental')}</span>
-          </Link>
         </div>
       </div>
     </header>

@@ -140,7 +140,6 @@ export default function App() {
     <div className="min-h-screen bg-cream-100 dark:bg-charcoal-950 text-charcoal-900 dark:text-cream-100 flex flex-col font-sans transition-colors duration-200">
       {/* 1. Header Navigation */}
       <Navbar
-        activeMode={activeMode}
         onModeChange={(mode) => {
           setActiveMode(mode);
           setSearchQuery('');
@@ -179,6 +178,7 @@ export default function App() {
             element={
               <HomePage
                 activeMode={activeMode}
+                onModeChange={setActiveMode}
                 searchQuery={searchQuery}
                 onClearSearch={() => setSearchQuery('')}
               />
