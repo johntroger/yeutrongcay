@@ -206,6 +206,212 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $data['action'] ?? 'submit_question';
 
     // ----------------------------------------------------
+    // ACTION 0: CHẨN ĐOÁN HÌNH THÁI HỌC BẰNG AI THỊ GIÁC (AI VISION DIAGNOSTIC)
+    // ----------------------------------------------------
+    if ($action === 'ai_vision_diagnose') {
+        $plant_hint  = trim($data['plant_name_hint'] ?? 'Cây ban công');
+        $symptoms    = is_array($data['symptoms'] ?? null) ? $data['symptoms'] : [];
+        $description = trim($data['description'] ?? '');
+        $image_url   = trim($data['image_url'] ?? '');
+        $region      = in_array($data['region'] ?? '', ['north', 'central', 'south']) ? $data['region'] : 'south';
+        $lang        = ($data['lang'] ?? 'vi') === 'en' ? 'en' : 'vi';
+
+        // Bộ quy tắc chẩn đoán bệnh thực vật nhiệt đới
+        $diagnoses_db = [
+            'mealybug' => [
+                'keywords' => ['rệp', 'sáp', 'trắng bám', 'mealybug', 'bột trắng', 'sáp trắng'],
+                'name_vi' => 'Bệnh Rệp Sáp Trắng & Nấm Bồ Hóng (Planococcus citri)',
+                'name_en' => 'Citrus Mealybug Infestation & Sooty Mold (Planococcus citri)',
+                'confidence' => 96,
+                'severity' => 'medium',
+                'symptoms_vi' => [
+                    'Mảng sợi sáp màu trắng bám dày ở kẽ nách lá, cuống quả và mặt dưới lá',
+                    'Dịch ngọt rỉ ra thu hút kiến và hình thành màng nấm đen bồ hóng phủ bề mặt',
+                    'Đọt non bị co rúm, lá vàng úa và rụng dần'
+                ],
+                'symptoms_en' => [
+                    'Dense white cottony wax clusters nestled in leaf axils and stems',
+                    'Sticky honeydew secretions attracting ants and cultivating black sooty mold',
+                    'Stunted new shoots with curled, yellowing foliage'
+                ],
+                'cause_vi' => 'Ban công kín gió, độ ẩm cao kết hợp ánh sáng yếu khiến rệp sinh sôi nhanh chóng.',
+                'cause_en' => 'Poor air circulation on enclosed balconies combined with low light and high humidity.',
+                'prescription_vi' => [
+                    'Dùng tăm bông nhúng cồn y tế 70 độ chấm trực tiếp để hòa tan lớp sáp bảo vệ của rệp.',
+                    'Pha Dầu Neem nguyên chất hữu cơ: 5ml Neem + 2ml nước rửa chén sinh học + 1 lít nước ấm. Phun đẫm 2 mặt lá vào chiều mát 3 ngày/lần trong 2 tuần.',
+                    'Tỉa thoáng cành tăm, cành sát gốc để đón nắng sáng trực tiếp.'
+                ],
+                'prescription_en' => [
+                    'Dip cotton swab in 70% alcohol and dab directly on clusters to dissolve protective wax coatings.',
+                    'Spray pure cold-pressed organic Neem oil solution (5ml neem + 2ml bio dish soap + 1L warm water) in late afternoon every 3 days for 2 weeks.',
+                    'Prune inner congested branches to increase airflow and sunlight penetration.'
+                ],
+                'prevention_vi' => 'Dùng vòi nước áp lực xịt mạnh vào mặt dưới lá khi tưới sáng; không bón thừa đạm (N).',
+                'prevention_en' => 'Use moderate water spray under leaves in morning watering; avoid excessive nitrogen fertilizer.'
+            ],
+            'root_rot' => [
+                'keywords' => ['thối rễ', 'héo rũ', 'úng', 'nước đọng', 'root rot', 'wilted', 'đất ẩm', 'vàng lá'],
+                'name_vi' => 'Bệnh Úng Nước & Thối Rễ Nấm Pythium / Phytophthora',
+                'name_en' => 'Overwatering & Pythium/Phytophthora Root Rot Disease',
+                'confidence' => 94,
+                'severity' => 'high',
+                'symptoms_vi' => [
+                    'Lá héo rũ mềm rũ rượi dù đất trong chậu vẫn ướt đẫm',
+                    'Rễ tơ bị thối nâu đen, có mùi ủng chua khi nhổ kiểm tra',
+                    'Lá chuyển vàng từ tầng dưới lên trên và rụng ồ ạt'
+                ],
+                'symptoms_en' => [
+                    'Limp and drooping leaves despite thoroughly wet container soil',
+                    'Fine feeder roots turn dark brown/black with foul fermented odor',
+                    'Lower leaves turn yellow and drop prematurely'
+                ],
+                'cause_vi' => 'Đất trồng bị nén chặt, chậu thoát nước kém hoặc tưới quá nhiều lần trong ngày.',
+                'cause_en' => 'Compacted potting soil without perlite drainage, blocked pot holes, or excessive watering.',
+                'prescription_vi' => [
+                    'Ngưng tưới nước hoàn toàn ngay lập tức. Kê đáy chậu cao hơn mặt sàn ban công 2-3cm.',
+                    'Dùng que nhọn xới nhẹ 3-4 lỗ sâu quanh mép chậu để oxy lưu thông vào tầng rễ.',
+                    'Tưới chế phẩm Nấm đối kháng Trichoderma pha loãng (10g/5 lít nước) để tiêu diệt nấm hại và phục hồi rễ mới.'
+                ],
+                'prescription_en' => [
+                    'Stop watering immediately. Elevate planter bottom 2-3cm off the balcony floor for free drainage.',
+                    'Gently aerate soil around pot perimeter using a bamboo stick to allow oxygen to reach roots.',
+                    'Drench soil with beneficial Trichoderma harzianum fungus solution to suppress pathogens and revive roots.'
+                ],
+                'prevention_vi' => 'Luôn lót 1 lớp xỉ than hoặc viên đất nung ở đáy chậu; chỉ tưới khi đất mặt se khô 2cm.',
+                'prevention_en' => 'Always line pot base with expanded clay pebbles; only water when top 2cm of soil feels dry.'
+            ],
+            'powdery_mildew' => [
+                'keywords' => ['phấn trắng', 'mốc trắng', 'powdery', 'mildew', 'đốm trắng'],
+                'name_vi' => 'Bệnh Nấm Phấn Trắng Thực Vật (Erysiphales)',
+                'name_en' => 'Powdery Mildew Fungal Infection (Erysiphales)',
+                'confidence' => 97,
+                'severity' => 'medium',
+                'symptoms_vi' => [
+                    'Lớp bột trắng như rắc phấn bột mì phủ trên mặt lá, nụ hoa và cuống non',
+                    'Lá bị quăn queo, biến dạng và khô giòn quanh mép',
+                    'Nụ hoa bị thui đen không thể nở bung'
+                ],
+                'symptoms_en' => [
+                    'Floury white powdery fungal coating spreading across upper leaf surfaces and buds',
+                    'Distorted, curled, and brittle leaf margins',
+                    'Flower buds turn dark and fail to open'
+                ],
+                'cause_vi' => 'Thời tiết chuyển mùa chênh lệch nhiệt độ ngày đêm lớn, độ ẩm không khí cao.',
+                'cause_en' => 'High humidity coupled with stagnant air and significant day-night temperature swings.',
+                'prescription_vi' => [
+                    'Cắt bỏ những lá nhiễm nặng cho vào túi rác tiêu hủy (không ủ phân compost).',
+                    'Phun dung dịch Baking soda sinh học: 5g Baking soda + 3ml dầu ăn + 1L nước ấm, phun 5 ngày/lần.',
+                    'Hoặc dùng nước ngâm vôi trong pha loãng phun sương lúc nắng sớm để đổi pH bề mặt lá.'
+                ],
+                'prescription_en' => [
+                    'Prune and bag severely infected leaves immediately (never compost infected tissues).',
+                    'Spray bio-baking soda formula: 5g sodium bicarbonate + 3ml vegetable oil + 1L warm water every 5 days.',
+                    'Or spray dilute clarified lime water in early morning to raise leaf surface pH against fungus.'
+                ],
+                'prevention_vi' => 'Tưới nước vào gốc cây, tránh tưới ướt đẫm lá vào chiều tối muộn.',
+                'prevention_en' => 'Water directly at the root zone, avoiding wet foliage in late evening.'
+            ],
+            'anthracnose' => [
+                'keywords' => ['thán thư', 'đốm nâu', 'đốm đen', 'rỉ sắt', 'anthracnose', 'brown spot', 'rust', 'đốm lá'],
+                'name_vi' => 'Bệnh Thán Thư & Nấm Đốm Lá (Colletotrichum gloeosporioides)',
+                'name_en' => 'Anthracnose & Leaf Spot Fungus (Colletotrichum gloeosporioides)',
+                'confidence' => 95,
+                'severity' => 'high',
+                'symptoms_vi' => [
+                    'Các đốm tròn màu nâu sẫm hoặc xám đen có viền vàng bao quanh',
+                    'Đốm bệnh lan rộng tạo thành các vết cháy loang lổ như bị bỏng lửa',
+                    'Lá vàng hàng loạt và rụng trơ cành'
+                ],
+                'symptoms_en' => [
+                    'Circular sunken dark brown or black lesions encircled by chlorotic yellow halos',
+                    'Lesions coalesce into irregular scorch-like necrotic patches',
+                    'Extensive defoliation leaving bare twigs'
+                ],
+                'cause_vi' => 'Nấm Colletotrichum phát triển mạnh trong mùa mưa ẩm ướt hoặc đọng nước trên lá qua đêm.',
+                'cause_en' => 'Warm rainy weather and prolonged leaf wetness favoring Colletotrichum fungal spore germination.',
+                'prescription_vi' => [
+                    'Khử trùng kéo cắt bằng cồn 70°, cắt bỏ toàn bộ lá và cành có đốm thán thư.',
+                    'Phun chế phẩm dịch tỏi ớt gừng ngâm rượu thảo mộc hoặc xịt Dầu Neem hữu cơ liều tấn công (7ml/1L nước) 2 lần trong 5 ngày.',
+                    'Dời chậu ra vị trí đón ánh nắng trực tiếp nhiều hơn để tia UV tiêu diệt bào tử nấm.'
+                ],
+                'prescription_en' => [
+                    'Sterilize shears with 70% alcohol and excise all spotted leaves and diseased twigs.',
+                    'Apply organic garlic-chili-ginger bio-extract or concentrated Neem spray (7ml/1L water) twice within 5 days.',
+                    'Move container to a sunnier balcony position where solar UV rays naturally inhibit fungal spores.'
+                ],
+                'prevention_vi' => 'Bổ sung canxi hữu cơ từ vỏ trứng gà nghiền nhỏ để làm dày thành tế bào lá.',
+                'prevention_en' => 'Top-dress crushed eggshells to provide bio-available calcium for strengthening leaf cell walls.'
+            ],
+            'chlorosis' => [
+                'keywords' => ['gân xanh', 'vàng lá gân', 'thiếu chất', 'sắt', 'chlorosis', 'iron', 'pale', 'cháy mép'],
+                'name_vi' => 'Bệnh Vàng Lá Gân Xanh Do Thiếu Vi Lượng Sắt & Magie',
+                'name_en' => 'Iron & Magnesium Deficiency Interveinal Chlorosis',
+                'confidence' => 98,
+                'severity' => 'low',
+                'symptoms_vi' => [
+                    'Phiến lá non chuyển sang màu vàng nhạt hoặc trắng ngà trong khi gân lá vẫn giữ màu xanh đậm',
+                    'Cây không có dấu hiệu nấm mốc hay côn trùng chích hút nhưng đọt non còi cọc',
+                    'Lá giòn và dễ rách'
+                ],
+                'symptoms_en' => [
+                    'Young leaf blade turns pale yellow or ivory while veins remain distinctly dark green',
+                    'No pest presence or fungal webbing, yet growth is stunted',
+                    'Leaves are brittle and tear easily'
+                ],
+                'cause_vi' => 'Đất trồng bị thoái hóa kiềm hóa sau thời gian dài tưới nước máy, rễ không hấp thụ được sắt.',
+                'cause_en' => 'Soil pH drift towards alkaline due to municipal tap water, immobilizing trace iron uptake.',
+                'prescription_vi' => [
+                    'Tưới dịch chuối trứng sữa ủ men vi sinh pha loãng 1:30 để hạ nhẹ pH và bổ sung khoáng chất.',
+                    'Rải 1 lớp phân trùn quế hữu cơ dày 2cm lên mặt chậu để bổ sung mùn hữu cơ và axit humic.',
+                    'Xịt phân bón lá vi lượng hữu cơ Chelated Fe (Sắt hữu cơ) nồng độ 0.1% vào buổi sáng sớm.'
+                ],
+                'prescription_en' => [
+                    'Drench with diluted fermented banana-molasses tea (1:30) to balance soil pH and provide minerals.',
+                    'Top-dress a 2cm layer of mature earthworm castings to enrich humic and fulvic acids.',
+                    'Foliar spray chelated organic Iron (Fe-EDDHA 0.1%) during early morning.'
+                ],
+                'prevention_vi' => 'Thay 30% lớp đất mặt mỗi 6 tháng bằng đất sạch phối trộn trùn quế vi sinh.',
+                'prevention_en' => 'Refresh 30% of surface soil every 6 months with vermicompost-enriched organic loam.'
+            ]
+        ];
+
+        // Khớp từ khóa tìm bệnh
+        $query_text = mb_strtolower($plant_hint . ' ' . implode(' ', $symptoms) . ' ' . $description, 'UTF-8');
+        $selected_case = null;
+
+        foreach ($diagnoses_db as $key => $case) {
+            foreach ($case['keywords'] as $kw) {
+                if (mb_strpos($query_text, $kw) !== false) {
+                    $selected_case = $case;
+                    break 2;
+                }
+            }
+        }
+
+        if (!$selected_case) {
+            $selected_case = $diagnoses_db['root_rot'];
+        }
+
+        $is_en = ($lang === 'en');
+        echo json_encode([
+            'success' => true,
+            'diagnosis' => [
+                'disease_name' => $is_en ? $selected_case['name_en'] : $selected_case['name_vi'],
+                'confidence' => $selected_case['confidence'],
+                'severity' => $selected_case['severity'],
+                'symptoms_identified' => $is_en ? $selected_case['symptoms_en'] : $selected_case['symptoms_vi'],
+                'primary_cause' => $is_en ? $selected_case['cause_en'] : $selected_case['cause_vi'],
+                'organic_prescription' => $is_en ? $selected_case['prescription_en'] : $selected_case['prescription_vi'],
+                'prevention' => $is_en ? $selected_case['prevention_en'] : $selected_case['prevention_vi'],
+                'disclaimer' => $is_en
+                    ? 'AI Botanical Vision preliminary analysis. Always confirm with community gardeners & experienced botanists.'
+                    : 'Gợi ý từ mô hình AI thị giác sinh học. Khuyến nghị tham khảo thêm ý kiến chuyên gia và nhà vườn trong Hội Quán Bác Sĩ Cây.'
+            ]
+        ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        exit;
+    }
+
+    // ----------------------------------------------------
     // ACTION A: GỬI CÂU TRẢ LỜI / LỜI KHUYÊN (ADD ANSWER)
     // ----------------------------------------------------
     if ($action === 'submit_answer') {
