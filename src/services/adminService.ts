@@ -80,7 +80,40 @@ export const adminService = {
     localStorage.removeItem(USER_KEY);
   },
 
-  async login(username: string, password: string):Promise<{ success: boolean; message?: string }> {
+  loginWithFirebaseUser(user: { id: string; name: string; email?: string }): { success: boolean; message?: string } {
+    if (!user.email) {
+      return { success: false, message: 'Tài khoản không có địa chỉ email hợp lệ.' };
+    }
+
+    const envAdmins = (import.meta.env.VITE_ADMIN_EMAILS || '')
+      .split(',')
+      .map((e: string) => e.trim().toLowerCase())
+      .filter(Boolean);
+
+    // Danh sách email được trao quyền quản trị hệ thống
+    const authorizedAdmins = [
+      'yeutrongcay@gmail.com',
+      'admin@yeutrongcay.com',
+      ...envAdmins
+    ];
+
+    const userEmail = user.email.toLowerCase();
+    const isAuthorized = authorizedAdmins.some((admin) => userEmail === admin || userEmail.endsWith('@yeutrongcay.com'));
+
+    if (isAuthorized) {
+      const token = 'ytc_admin_oauth_' + btoa(user.id).slice(0, 16);
+      localStorage.setItem(TOKEN_KEY, token);
+      localStorage.setItem(USER_KEY, JSON.stringify({ name: user.name, email: user.email, role: 'super_admin' }));
+      return { success: true };
+    }
+
+    return {
+      success: false,
+      message: `Tài khoản ${user.email} không nằm trong danh sách Quản trị viên được phân quyền.`
+    };
+  },
+
+  async login(username: string, password: string): Promise<{ success: boolean; message?: string }> {
     try {
       const res = await fetch(`${API_BASE}?action=login`, {
         method: 'POST',

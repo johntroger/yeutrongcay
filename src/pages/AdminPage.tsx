@@ -18,11 +18,19 @@ import {
 } from 'lucide-react';
 import { adminService, AdminStats, AdminReport, AdminClinicCase, AdminSwapOffer } from '../services/adminService.ts';
 import { useSEO } from '../utils/useSEO.ts';
+import { useLanguage } from '../context/LanguageContext';
+import { loginWithGoogle } from '../services/firebaseClient.ts';
 
 export const AdminPage: React.FC = () => {
+  const { isEn } = useLanguage();
+
   useSEO({
-    title: 'Cổng Quản Trị & Kiểm Duyệt Nội Dung | Yêu Trồng Cây',
-    description: 'Bảng điều khiển quản trị viên hệ thống Yêu Trồng Cây. Kiểm duyệt báo cáo vi phạm, quản lý ca bệnh và tin trao đổi cây.'
+    title: isEn
+      ? 'Admin & Moderation Portal | Yêu Trồng Cây'
+      : 'Cổng Quản Trị & Kiểm Duyệt Nội Dung | Yêu Trồng Cây',
+    description: isEn
+      ? 'Botanical system administration portal. Moderate community reports, diagnose cases, and plant swap offers.'
+      : 'Bảng điều khiển quản trị viên hệ thống Yêu Trồng Cây. Kiểm duyệt báo cáo vi phạm, quản lý ca bệnh và tin trao đổi cây.'
   });
 
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(adminService.isAuthenticated());
@@ -76,7 +84,25 @@ export const AdminPage: React.FC = () => {
     if (result.success) {
       setIsAuthenticated(true);
     } else {
-      setLoginError(result.message || 'Đăng nhập không thành công');
+      setLoginError(result.message || (isEn ? 'Login failed' : 'Đăng nhập không thành công'));
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setLoginError('');
+    setIsLoggingIn(true);
+    try {
+      const user = await loginWithGoogle();
+      const result = adminService.loginWithFirebaseUser(user);
+      if (result.success) {
+        setIsAuthenticated(true);
+      } else {
+        setLoginError(result.message || (isEn ? 'Unauthorized admin account' : 'Tài khoản chưa được phân quyền quản trị'));
+      }
+    } catch (err: any) {
+      setLoginError(err?.message || (isEn ? 'Google authentication failed' : 'Đăng nhập Google thất bại'));
+    } finally {
+      setIsLoggingIn(false);
     }
   };
 
@@ -88,7 +114,7 @@ export const AdminPage: React.FC = () => {
   const handleUpdateReport = async (ticketId: string, status: string, hideTarget: boolean) => {
     const ok = await adminService.updateReport(ticketId, status, hideTarget);
     if (ok) {
-      setActionSuccess(`Đã cập nhật báo cáo ${ticketId} thành công.`);
+      setActionSuccess(isEn ? `Report ${ticketId} updated successfully.` : `Đã cập nhật báo cáo ${ticketId} thành công.`);
       setTimeout(() => setActionSuccess(null), 3500);
       loadData();
     }
@@ -98,7 +124,7 @@ export const AdminPage: React.FC = () => {
     const nextStatus = currentStatus === 'visible' ? 'hidden' : 'visible';
     const ok = await adminService.toggleClinicStatus(id, nextStatus);
     if (ok) {
-      setActionSuccess(`Đã chuyển trạng thái ca bệnh ${id} thành "${nextStatus}".`);
+      setActionSuccess(isEn ? `Clinic case ${id} switched to "${nextStatus}".` : `Đã chuyển trạng thái ca bệnh ${id} thành "${nextStatus}".`);
       setTimeout(() => setActionSuccess(null), 3000);
       loadData();
     }
@@ -108,7 +134,7 @@ export const AdminPage: React.FC = () => {
     const nextStatus = currentStatus === 'visible' ? 'hidden' : 'visible';
     const ok = await adminService.toggleSwapStatus(id, nextStatus);
     if (ok) {
-      setActionSuccess(`Đã chuyển trạng thái tin đổi cây ${id} thành "${nextStatus}".`);
+      setActionSuccess(isEn ? `Swap offer ${id} switched to "${nextStatus}".` : `Đã chuyển trạng thái tin đổi cây ${id} thành "${nextStatus}".`);
       setTimeout(() => setActionSuccess(null), 3000);
       loadData();
     }
@@ -128,9 +154,11 @@ export const AdminPage: React.FC = () => {
             <div className="w-14 h-14 bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
               <Lock className="w-7 h-7" />
             </div>
-            <h1 className="text-2xl font-serif font-bold text-cream-50">Cổng Quản Trị Viên</h1>
+            <h1 className="text-2xl font-serif font-bold text-cream-50">
+              {isEn ? 'System Admin Portal' : 'Cổng Quản Trị Viên'}
+            </h1>
             <p className="text-xs text-forest-200/80 mt-1">
-              Hệ thống Kiểm duyệt & Vận hành Yêu Trồng Cây
+              {isEn ? 'Moderation & Botanical Operations Control' : 'Hệ thống Kiểm duyệt & Vận hành Yêu Trồng Cây'}
             </p>
           </div>
 
@@ -141,10 +169,34 @@ export const AdminPage: React.FC = () => {
             </div>
           )}
 
+          {/* 1. Đăng nhập nhanh bằng tài khoản Google Quản trị */}
+          <button
+            type="button"
+            onClick={handleGoogleLogin}
+            disabled={isLoggingIn}
+            className="w-full py-3 bg-white hover:bg-slate-50 text-slate-800 rounded-xl text-xs font-semibold shadow-md transition flex items-center justify-center gap-2 mb-4 border border-slate-200"
+          >
+            <svg className="w-4 h-4" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span>{isEn ? 'Sign in with Google Admin' : 'Đăng nhập nhanh với Google Admin'}</span>
+          </button>
+
+          <div className="relative my-4 flex items-center justify-center">
+            <div className="border-t border-forest-800 w-full"></div>
+            <span className="bg-charcoal-900 px-3 text-[11px] text-forest-300 font-medium shrink-0">
+              {isEn ? 'or use master credentials' : 'hoặc dùng tài khoản quản trị'}
+            </span>
+            <div className="border-t border-forest-800 w-full"></div>
+          </div>
+
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
               <label className="block text-xs font-semibold text-cream-200 mb-1.5">
-                Tài khoản Quản trị
+                {isEn ? 'Admin Username' : 'Tài khoản Quản trị'}
               </label>
               <input
                 type="text"
@@ -158,7 +210,7 @@ export const AdminPage: React.FC = () => {
 
             <div>
               <label className="block text-xs font-semibold text-cream-200 mb-1.5">
-                Mật khẩu Quản trị (Admin Secret)
+                {isEn ? 'Admin Secret / Password' : 'Mật khẩu Quản trị'}
               </label>
               <input
                 type="password"
@@ -178,27 +230,24 @@ export const AdminPage: React.FC = () => {
               {isLoggingIn ? (
                 <>
                   <RefreshCw className="w-4 h-4 animate-spin" />
-                  <span>Đang xác thực...</span>
+                  <span>{isEn ? 'Verifying...' : 'Đang xác thực...'}</span>
                 </>
               ) : (
                 <>
                   <ShieldCheck className="w-4 h-4" />
-                  <span>Đăng Nhập Quản Trị</span>
+                  <span>{isEn ? 'Log In to Console' : 'Đăng Nhập Quản Trị'}</span>
                 </>
               )}
             </button>
           </form>
 
           <div className="mt-6 pt-4 border-t border-forest-800/80 text-center">
-            <p className="text-[11px] text-forest-300/70">
-              Mã quản trị mặc định: <code className="bg-forest-900 px-1.5 py-0.5 rounded text-emerald-400 font-mono">ytc_admin_master_2026</code>
-            </p>
             <Link
               to="/"
-              className="inline-flex items-center gap-1 text-xs text-forest-300 hover:text-emerald-400 transition mt-3"
+              className="inline-flex items-center gap-1 text-xs text-forest-300 hover:text-emerald-400 transition"
             >
               <Home className="w-3.5 h-3.5" />
-              <span>Quay về Trang chủ</span>
+              <span>{isEn ? 'Back to Homepage' : 'Quay về Trang chủ'}</span>
             </Link>
           </div>
         </div>
