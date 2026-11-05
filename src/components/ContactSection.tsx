@@ -1,5 +1,17 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send, CheckCircle2, HeartHandshake, ShieldCheck, Sparkles, AlertCircle } from 'lucide-react';
+import {
+  Mail,
+  MapPin,
+  Send,
+  CheckCircle2,
+  HeartHandshake,
+  ShieldCheck,
+  Sparkles,
+  AlertCircle,
+  Facebook,
+  Youtube,
+  ExternalLink
+} from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext.tsx';
 
 export const ContactSection: React.FC = () => {
@@ -115,34 +127,57 @@ export const ContactSection: React.FC = () => {
 
               <div className="space-y-4 text-xs sm:text-sm">
                 
-                {/* Email */}
+                {/* Email Chính Thức */}
                 <div className="flex items-start gap-3.5">
                   <div className="w-10 h-10 rounded-2xl bg-forest-50 text-herbal-700 flex items-center justify-center shrink-0 border border-forest-100">
-                    <Mail className="w-4 h-4" />
+                    <Mail className="w-4 h-4 text-emerald-600" />
                   </div>
                   <div>
-                    <span className="block text-gray-500 text-xs">{isEn ? 'Electronic Mail (Email)' : 'Thư điện tử (Email)'}</span>
+                    <span className="block text-gray-500 text-xs">{isEn ? 'Official Email' : 'Thư điện tử chính thức'}</span>
                     <a
-                      href="mailto:contact@yeutrongcay.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-semibold text-forest-900 hover:text-herbal-700 transition"
+                      href="mailto:yeutrongcay@gmail.com"
+                      className="font-bold text-forest-900 hover:text-emerald-700 transition"
                     >
-                      contact@yeutrongcay.com
+                      yeutrongcay@gmail.com
                     </a>
                   </div>
                 </div>
 
-                {/* Hotline & Zalo */}
+                {/* Facebook Fanpage */}
                 <div className="flex items-start gap-3.5">
-                  <div className="w-10 h-10 rounded-2xl bg-forest-50 text-herbal-700 flex items-center justify-center shrink-0 border border-forest-100">
-                    <Phone className="w-4 h-4" />
+                  <div className="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 border border-blue-100">
+                    <Facebook className="w-4 h-4 text-blue-600" />
                   </div>
                   <div>
-                    <span className="block text-gray-500 text-xs">{isEn ? 'Community Hotline / Chat' : 'Hotline / Zalo Cộng Đồng'}</span>
-                    <span className="font-semibold text-forest-900">
-                      098 888 2026 <span className="text-[11px] text-gray-400 font-normal">{isEn ? '(8:00 - 18:00 daily)' : '(8:00 - 18:00 hàng ngày)'}</span>
-                    </span>
+                    <span className="block text-gray-500 text-xs">{isEn ? 'Facebook Community' : 'Kênh Facebook Yêu Trồng Cây'}</span>
+                    <a
+                      href="https://www.facebook.com/yeutrongcay"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-bold text-forest-900 hover:text-blue-600 transition flex items-center gap-1"
+                    >
+                      <span>facebook.com/yeutrongcay</span>
+                      <ExternalLink className="w-3 h-3 text-blue-500" />
+                    </a>
+                  </div>
+                </div>
+
+                {/* Youtube Channel */}
+                <div className="flex items-start gap-3.5">
+                  <div className="w-10 h-10 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center shrink-0 border border-red-100">
+                    <Youtube className="w-4 h-4 text-red-600" />
+                  </div>
+                  <div>
+                    <span className="block text-gray-500 text-xs">{isEn ? 'YouTube Channel' : 'Kênh Video YouTube'}</span>
+                    <a
+                      href="https://www.youtube.com/@yeutrongcay"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-bold text-forest-900 hover:text-red-600 transition flex items-center gap-1"
+                    >
+                      <span>youtube.com/@yeutrongcay</span>
+                      <ExternalLink className="w-3 h-3 text-red-500" />
+                    </a>
                   </div>
                 </div>
 
@@ -152,7 +187,7 @@ export const ContactSection: React.FC = () => {
                     <MapPin className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="block text-gray-500 text-xs">{isEn ? 'Network Hubs' : 'Mạng lưới kết nối'}</span>
+                    <span className="block text-gray-500 text-xs">{isEn ? 'Network Hubs' : 'Mạng lưới trạm bảo tồn'}</span>
                     <span className="font-semibold text-forest-900 leading-snug block">
                       {isEn ? 'Hanoi · Da Nang · Ho Chi Minh City · Can Tho' : 'Hà Nội · Đà Nẵng · TP. Hồ Chí Minh · Cần Thơ'}
                     </span>

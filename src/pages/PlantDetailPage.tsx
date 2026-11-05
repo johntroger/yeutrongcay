@@ -270,6 +270,11 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
       publisher: {
         '@type': 'Organization',
         name: isEn ? 'Yeu Trong Cay' : 'Yêu Trồng Cây',
+        url: 'https://yeutrongcay.com',
+        sameAs: [
+          'https://www.facebook.com/yeutrongcay',
+          'https://www.youtube.com/@yeutrongcay'
+        ],
         logo: {
           '@type': 'ImageObject',
           url: 'https://yeutrongcay.com/logo.jpg',

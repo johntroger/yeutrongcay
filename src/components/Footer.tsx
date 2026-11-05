@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ShieldCheck, ArrowUpRight } from 'lucide-react';
+import { ShieldCheck, ArrowUpRight, Mail, Facebook, Youtube } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext.tsx';
 
 interface FooterProps {
@@ -29,6 +29,40 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy, onOpenContact }) 
             <p className="text-forest-200/80 leading-relaxed text-xs">
               {t('footer.aboutBrand')}
             </p>
+
+            {/* Official Contact Info */}
+            <div className="pt-2 space-y-2 border-t border-forest-900/80 text-xs">
+              <a
+                href="mailto:yeutrongcay@gmail.com"
+                className="text-forest-300 hover:text-emerald-400 transition flex items-center gap-1.5"
+                title="Gửi thư điện tử tới Yêu Trồng Cây"
+              >
+                <Mail className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                <span className="font-mono text-xs">yeutrongcay@gmail.com</span>
+              </a>
+
+              <div className="flex items-center gap-2 pt-1">
+                <a
+                  href="https://www.facebook.com/yeutrongcay"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 rounded-xl bg-forest-900 hover:bg-blue-600 text-forest-300 hover:text-white flex items-center justify-center transition border border-forest-800"
+                  title="Facebook Yêu Trồng Cây"
+                >
+                  <Facebook className="w-4 h-4" />
+                </a>
+
+                <a
+                  href="https://www.youtube.com/@yeutrongcay"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 rounded-xl bg-forest-900 hover:bg-red-600 text-forest-300 hover:text-white flex items-center justify-center transition border border-forest-800"
+                  title="Kênh YouTube @yeutrongcay"
+                >
+                  <Youtube className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
           </div>
 
           {/* Col 2 */}
