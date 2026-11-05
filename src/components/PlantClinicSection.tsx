@@ -49,6 +49,7 @@ import { useLanguage } from '../context/LanguageContext.tsx';
 export const PlantClinicSection: React.FC = () => {
   const { t, isEn } = useLanguage();
   const [questions, setQuestions] = useState<ClinicQuestion[]>(INITIAL_CLINIC_QUESTIONS);
+  const [activeClinicTab, setActiveClinicTab] = useState<'studio' | 'community'>('studio');
   const [region, setRegion] = useState<'north' | 'central' | 'south'>('south');
   const [plantHint, setPlantHint] = useState('');
   const [description, setDescription] = useState('');
@@ -254,6 +255,7 @@ export const PlantClinicSection: React.FC = () => {
           savedQ.ai_instant_diagnosis = instantDiagnosisText;
         }
         setQuestions((prev) => [savedQ, ...prev]);
+        setActiveClinicTab('community'); // Chuyển sang xem ca bệnh vừa đăng
       } else {
         const fallbackQ: ClinicQuestion = {
           id: `case-${Date.now()}`,
@@ -275,6 +277,7 @@ export const PlantClinicSection: React.FC = () => {
           created_at: isEn ? 'Just now' : 'Vừa xong',
         };
         setQuestions((prev) => [fallbackQ, ...prev]);
+        setActiveClinicTab('community');
       }
     } catch (err) {
       console.warn('Submit clinic question error:', err);
@@ -363,433 +366,468 @@ export const PlantClinicSection: React.FC = () => {
     });
   };
 
-  // Nội dung cộng đồng đăng tải (câu hỏi, câu trả lời) được giữ nguyên bản gốc theo yêu cầu người dùng
   const localizedQuestions = questions;
 
   return (
-    <section id="clinic" className="py-16 bg-white dark:bg-charcoal-900 border-y border-forest-100 dark:border-charcoal-800 transition-colors duration-200">
+    <section id="clinic" className="py-6 sm:py-8 bg-white dark:bg-charcoal-900 border-y border-forest-100 dark:border-charcoal-800 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-herbal-50 dark:bg-emerald-950/50 text-herbal-700 dark:text-emerald-300 text-xs font-semibold mb-3 border border-herbal-200 dark:border-emerald-800/60 shadow-xs">
-            <Zap className="w-3.5 h-3.5 text-herbal-600 dark:text-emerald-400" />
-            <span>{t('clinic.badge')}</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-forest-900 dark:text-cream-50 tracking-tight mb-3">
-            {t('clinic.title')}
-          </h2>
-          <p className="text-sm sm:text-base text-charcoal-800 dark:text-charcoal-300 font-sans">
-            {t('clinic.description')}
-          </p>
-        </div>
-
-        {/* Two-column layout: Form on left, Live Cases on right */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
-          {/* Left Column: Ask Form */}
-          <div className="lg:col-span-5 bg-white dark:bg-charcoal-850 rounded-3xl p-6 border border-forest-100 dark:border-charcoal-800 shadow-sm static lg:sticky lg:top-28 z-10 space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-forest-50 dark:border-charcoal-800">
-              <h3 className="font-serif font-bold text-forest-900 dark:text-cream-50 text-lg flex items-center gap-2">
-                <Stethoscope className="w-5 h-5 text-herbal-600 dark:text-emerald-400" />
-                <span>{isEn ? 'AI Plant Clinic & Diagnosis' : 'Bác Sĩ Cây Trồng AI & Cộng Đồng'}</span>
-              </h3>
-              {draftSaved && (
-                <span className="text-[11px] font-medium text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
-                  <Check className="w-3 h-3" /> {isEn ? 'Draft saved' : 'Đã lưu nháp'}
+        {/* Compact Header Bar with Mode Switcher & Personal Key status */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-forest-100/80 dark:border-charcoal-800">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-2xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 flex items-center justify-center shrink-0 shadow-2xs">
+              <Stethoscope className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h2 className="text-xl sm:text-2xl font-serif font-bold text-forest-900 dark:text-cream-50 tracking-tight">
+                  {isEn ? 'AI Plant Clinic & Gardeners Club' : 'Bác Sĩ Cây Trồng AI & Hội Quán'}
+                </h2>
+                <span className="hidden md:inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 text-[10px] font-semibold border border-emerald-200 dark:border-emerald-800/60">
+                  <Zap className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
+                  <span>{isEn ? 'Vision AI 3s' : 'AI Thị Giác 3s'}</span>
                 </span>
-              )}
+              </div>
+              <p className="text-xs text-charcoal-600 dark:text-charcoal-300">
+                {isEn
+                  ? 'Multimodal vision diagnostics & organic biological remedies (100% H15 safe)'
+                  : 'Chẩn đoán bệnh lá qua AI Thị Giác & Phác đồ điều trị sinh học 100% không độc hại'}
+              </p>
+            </div>
+          </div>
+
+          {/* Mode Switcher & Personal AI Key Pill */}
+          <div className="flex items-center gap-2 flex-wrap">
+            <div className="bg-forest-100/70 dark:bg-charcoal-800 p-1 rounded-2xl flex items-center gap-1 border border-forest-200/60 dark:border-charcoal-700 text-xs">
+              <button
+                type="button"
+                onClick={() => setActiveClinicTab('studio')}
+                className={`px-3 py-1.5 rounded-xl font-semibold transition flex items-center gap-1.5 ${
+                  activeClinicTab === 'studio'
+                    ? 'bg-white dark:bg-charcoal-700 text-forest-900 dark:text-cream-50 shadow-xs'
+                    : 'text-charcoal-600 dark:text-charcoal-300 hover:text-forest-900 dark:hover:text-cream-100'
+                }`}
+              >
+                <Sparkles className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                <span>{isEn ? 'AI Clinic Studio' : 'Phòng Khám AI (1 Màn Hình)'}</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveClinicTab('community')}
+                className={`px-3 py-1.5 rounded-xl font-semibold transition flex items-center gap-1.5 ${
+                  activeClinicTab === 'community'
+                    ? 'bg-white dark:bg-charcoal-700 text-forest-900 dark:text-cream-50 shadow-xs'
+                    : 'text-charcoal-600 dark:text-charcoal-300 hover:text-forest-900 dark:hover:text-cream-100'
+                }`}
+              >
+                <MessageSquare className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                <span>{isEn ? `Community Cases (${localizedQuestions.length})` : `Ca Bệnh Cộng Đồng (${localizedQuestions.length})`}</span>
+              </button>
             </div>
 
-            <form onSubmit={handleSubmitQuestion} className="space-y-4 text-xs">
-              {/* BYOK: Trạng Thái API Key Cá Nhân của Người Dùng */}
-              <div className="p-3 rounded-2xl bg-forest-50/80 dark:bg-charcoal-800/90 border border-forest-100 dark:border-charcoal-700 space-y-2">
-                <div className="flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-2 min-w-0">
-                    <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${userAIConfig.apiKey ? 'bg-emerald-500 animate-pulse' : 'bg-amber-400'}`} />
-                    <span className="text-[11px] font-bold text-forest-900 dark:text-cream-100 truncate">
-                      {userAIConfig.apiKey
-                        ? (userAIConfig.provider === 'gemini'
-                            ? (isEn ? 'Personal Gemini API Key active' : 'Đang dùng Gemini API cá nhân của bạn')
-                            : (isEn ? 'Personal OpenAI API Key active' : 'Đang dùng OpenAI API cá nhân của bạn'))
-                        : (isEn ? 'Personal AI Key: Not configured' : 'API Key cá nhân: Chưa thiết lập')}
-                    </span>
+            <button
+              type="button"
+              onClick={() => setIsKeyModalOpen(true)}
+              className={`px-3 py-1.5 rounded-2xl border text-xs font-semibold flex items-center gap-1.5 transition shadow-2xs ${
+                userAIConfig.apiKey
+                  ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300'
+                  : 'bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-800 text-amber-800 dark:text-amber-300'
+              }`}
+            >
+              <Key className="w-3.5 h-3.5" />
+              <span>
+                {userAIConfig.apiKey
+                  ? (userAIConfig.provider === 'gemini' ? 'Gemini Key ✓' : 'OpenAI Key ✓')
+                  : (isEn ? 'Setup Key (Free)' : 'Cài Key Miễn Phí')}
+              </span>
+            </button>
+          </div>
+        </div>
+
+        {/* Tab 1: Studio Mode - Thiết Kế 1 Màn Hình Không Kéo Xuống */}
+        {activeClinicTab === 'studio' && (
+          <div className="bg-white dark:bg-charcoal-850 rounded-3xl p-4 sm:p-5 border border-forest-100 dark:border-charcoal-800 shadow-sm">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+              
+              {/* Left Column: Form Info & Symptoms (6 cols) */}
+              <div className="lg:col-span-6 flex flex-col justify-between space-y-3">
+                <div className="space-y-3">
+                  {/* Row 1: Region & Plant Hint side-by-side */}
+                  <div className="grid grid-cols-1 sm:grid-cols-12 gap-2.5">
+                    <div className="sm:col-span-5">
+                      <label className="block font-bold text-forest-800 dark:text-charcoal-200 text-xs mb-1 flex items-center gap-1">
+                        <MapPin className="w-3.5 h-3.5 text-herbal-600 dark:text-emerald-400" /> {t('clinic.regionLabel')}:
+                      </label>
+                      <div className="grid grid-cols-3 gap-1">
+                        {[
+                          { id: 'north', label: isEn ? 'North' : 'Bắc' },
+                          { id: 'central', label: isEn ? 'Central' : 'Trung' },
+                          { id: 'south', label: isEn ? 'South' : 'Nam' },
+                        ].map((r) => (
+                          <button
+                            key={r.id}
+                            type="button"
+                            onClick={() => setRegion(r.id as 'north' | 'central' | 'south')}
+                            className={`py-1.5 px-1 text-xs rounded-xl font-medium transition text-center ${
+                              region === r.id
+                                ? 'bg-forest-900 text-white dark:bg-emerald-600 shadow-xs font-semibold'
+                                : 'bg-white dark:bg-charcoal-800 text-forest-900 dark:text-charcoal-300 hover:bg-forest-50 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-charcoal-700'
+                            }`}
+                          >
+                            {r.label}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="sm:col-span-7">
+                      <label className="block font-bold text-forest-800 dark:text-charcoal-200 text-xs mb-1">
+                        {t('clinic.plantNameHintLabel')}:
+                      </label>
+                      <input
+                        type="text"
+                        value={plantHint}
+                        onChange={(e) => {
+                          setPlantHint(e.target.value);
+                          localStorage.setItem('ytc_clinic_hint', e.target.value);
+                        }}
+                        placeholder={t('clinic.plantNamePlaceholder')}
+                        className="w-full px-3 py-1.5 bg-white dark:bg-charcoal-800 border border-forest-100 dark:border-charcoal-700 text-forest-950 dark:text-cream-100 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-herbal-500"
+                      />
+                    </div>
                   </div>
+
+                  {/* Row 2: Symptoms Pills (compact 3 cols) */}
+                  <div>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="block font-bold text-forest-800 dark:text-charcoal-200 text-xs">
+                        {t('clinic.symptomsLabel')}:
+                      </label>
+                      {selectedSymptoms.length > 0 && (
+                        <button
+                          type="button"
+                          onClick={() => setSelectedSymptoms([])}
+                          className="text-[10px] text-gray-400 hover:text-rose-600 font-normal"
+                        >
+                          {isEn ? 'Clear' : 'Bỏ chọn'}
+                        </button>
+                      )}
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
+                      {symptomList.map((s) => (
+                        <button
+                          key={s}
+                          type="button"
+                          onClick={() => toggleSymptom(s)}
+                          className={`p-1.5 rounded-xl text-[11px] font-medium text-left transition flex items-center justify-between ${
+                            selectedSymptoms.includes(s)
+                              ? 'bg-herbal-50 dark:bg-emerald-950/60 text-herbal-800 dark:text-emerald-300 border border-herbal-300 dark:border-emerald-700 font-semibold'
+                              : 'bg-white dark:bg-charcoal-800 text-charcoal-800 dark:text-charcoal-300 border border-forest-100 dark:border-charcoal-700 hover:bg-forest-50 dark:hover:bg-charcoal-700'
+                          }`}
+                        >
+                          <span className="truncate">{s}</span>
+                          {selectedSymptoms.includes(s) && (
+                            <CheckCircle2 className="w-3.5 h-3.5 text-herbal-600 dark:text-emerald-400 shrink-0 ml-1" />
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Row 3: Description */}
+                  <div>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="block font-bold text-forest-800 dark:text-charcoal-200 text-xs">
+                        {t('clinic.descriptionLabel')}:
+                      </label>
+                      {draftSaved && (
+                        <span className="text-[10px] font-medium text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                          <Check className="w-3 h-3" /> {isEn ? 'Draft saved' : 'Đã lưu nháp'}
+                        </span>
+                      )}
+                    </div>
+                    <textarea
+                      rows={2}
+                      value={description}
+                      onChange={(e) => handleDescChange(e.target.value)}
+                      placeholder={t('clinic.descriptionPlaceholder')}
+                      className="w-full px-3 py-1.5 bg-white dark:bg-charcoal-800 border border-forest-100 dark:border-charcoal-700 text-forest-950 dark:text-cream-100 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-herbal-500"
+                    />
+                  </div>
+                </div>
+
+                {/* Submit to Community */}
+                <div className="pt-2 border-t border-forest-50 dark:border-charcoal-800 flex items-center justify-between gap-2">
                   <button
                     type="button"
-                    onClick={() => setIsKeyModalOpen(true)}
-                    className="px-2.5 py-1 rounded-xl bg-white dark:bg-charcoal-700 hover:bg-emerald-50 dark:hover:bg-charcoal-600 border border-forest-200 dark:border-charcoal-600 text-forest-900 dark:text-cream-100 text-[10px] font-semibold flex items-center gap-1 shrink-0 transition shadow-2xs"
+                    onClick={handleSubmitQuestion}
+                    disabled={isAnalyzing || !description.trim()}
+                    className="flex-1 py-2 px-3 rounded-xl bg-forest-100 dark:bg-charcoal-700 hover:bg-forest-200 dark:hover:bg-charcoal-600 text-forest-900 dark:text-cream-100 font-semibold text-xs flex items-center justify-center gap-1.5 transition disabled:opacity-40"
                   >
-                    <Key className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
-                    <span>{userAIConfig.apiKey ? (isEn ? 'Change Key' : 'Đổi key') : (isEn ? 'Setup Key (Free)' : 'Cài key miễn phí')}</span>
+                    <Send className="w-3.5 h-3.5 text-herbal-600 dark:text-emerald-400" />
+                    <span>{isEn ? 'Ask Community Gardeners' : 'Hỏi Thêm Ý Kiến Nhà Vườn'}</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveClinicTab('community')}
+                    className="text-xs text-herbal-700 dark:text-emerald-400 hover:underline flex items-center gap-1 font-semibold"
+                  >
+                    <span>{isEn ? 'View Live Cases' : 'Xem ca bệnh'} ({localizedQuestions.length}) →</span>
                   </button>
                 </div>
-                {!userAIConfig.apiKey && (
-                  <p className="text-[10px] text-charcoal-500 dark:text-charcoal-400 leading-tight">
-                    {isEn
-                      ? '💡 Website is non-profit and requires your free Gemini API key to diagnose.'
-                      : '💡 Website phi lợi nhuận & không dùng API của web. Bấm để lấy API Key Gemini miễn phí.'}
-                  </p>
-                )}
               </div>
 
-              {/* Region */}
-              <div>
-                <label className="block font-bold text-forest-800 dark:text-charcoal-200 mb-1.5 flex items-center gap-1">
-                  <MapPin className="w-3.5 h-3.5 text-herbal-600 dark:text-emerald-400" /> {t('clinic.regionLabel')}:
-                </label>
-                <div className="grid grid-cols-3 gap-1.5">
-                  {[
-                    { id: 'north', label: isEn ? 'North' : 'Miền Bắc' },
-                    { id: 'central', label: isEn ? 'Central' : 'Miền Trung' },
-                    { id: 'south', label: isEn ? 'South' : 'Miền Nam' },
-                  ].map((r) => (
-                    <button
-                      key={r.id}
-                      type="button"
-                      onClick={() => setRegion(r.id as 'north' | 'central' | 'south')}
-                      className={`py-2 px-1 text-xs rounded-xl font-medium transition text-center ${
-                        region === r.id
-                          ? 'bg-forest-900 text-white dark:bg-emerald-600 shadow-sm font-semibold'
-                          : 'bg-white dark:bg-charcoal-800 text-forest-900 dark:text-charcoal-300 hover:bg-forest-50 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-charcoal-700'
-                      }`}
-                    >
-                      {r.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Plant Name Hint */}
-              <div>
-                <label className="block font-bold text-forest-800 dark:text-charcoal-200 mb-1">
-                  {t('clinic.plantNameHintLabel')}:
-                </label>
+              {/* Right Column: Leaf Photo & AI Vision Result (6 cols) */}
+              <div className="lg:col-span-6 flex flex-col justify-between space-y-3">
                 <input
-                  type="text"
-                  value={plantHint}
-                  onChange={(e) => {
-                    setPlantHint(e.target.value);
-                    localStorage.setItem('ytc_clinic_hint', e.target.value);
-                  }}
-                  placeholder={t('clinic.plantNamePlaceholder')}
-                  className="w-full px-3.5 py-2.5 bg-white dark:bg-charcoal-800 border border-forest-100 dark:border-charcoal-700 text-forest-950 dark:text-cream-100 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-herbal-500"
+                  type="file"
+                  ref={fileInputRef}
+                  accept="image/jpeg,image/png,image/webp"
+                  className="hidden"
+                  onChange={handleImageFileChange}
                 />
-              </div>
 
-              {/* Symptoms */}
-              <div>
-                <label className="block font-bold text-forest-800 dark:text-charcoal-200 mb-1">
-                  {t('clinic.symptomsLabel')}:
-                </label>
-                <div className="grid grid-cols-2 gap-1.5">
-                  {symptomList.map((s) => (
-                    <button
-                      key={s}
-                      type="button"
-                      onClick={() => toggleSymptom(s)}
-                      className={`p-2 rounded-xl text-[11px] font-medium text-left transition flex items-center justify-between ${
-                        selectedSymptoms.includes(s)
-                          ? 'bg-herbal-50 dark:bg-emerald-950/60 text-herbal-800 dark:text-emerald-300 border border-herbal-300 dark:border-emerald-700 font-semibold'
-                          : 'bg-white dark:bg-charcoal-800 text-charcoal-800 dark:text-charcoal-300 border border-forest-100 dark:border-charcoal-700 hover:bg-forest-50 dark:hover:bg-charcoal-700'
-                      }`}
-                    >
-                      <span className="truncate">{s}</span>
-                      {selectedSymptoms.includes(s) && (
-                        <CheckCircle2 className="w-3.5 h-3.5 text-herbal-600 dark:text-emerald-400 shrink-0 ml-1" />
-                      )}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Description */}
-              <div>
-                <label className="block font-bold text-forest-800 dark:text-charcoal-200 mb-1">
-                  {t('clinic.descriptionLabel')}:
-                </label>
-                <textarea
-                  rows={3}
-                  value={description}
-                  onChange={(e) => handleDescChange(e.target.value)}
-                  placeholder={t('clinic.descriptionPlaceholder')}
-                  className="w-full px-3.5 py-2 bg-white dark:bg-charcoal-800 border border-forest-100 dark:border-charcoal-700 text-forest-950 dark:text-cream-100 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-herbal-500"
-                  required
-                />
-              </div>
-
-              {/* Upload Box */}
-              <input
-                type="file"
-                ref={fileInputRef}
-                accept="image/jpeg,image/png,image/webp"
-                className="hidden"
-                onChange={handleImageFileChange}
-              />
-
-              {uploadedImageUrl ? (
-                <div className="relative rounded-2xl overflow-hidden border border-herbal-200 dark:border-emerald-800/80 bg-herbal-50/50 dark:bg-emerald-950/30 p-2.5 flex items-center justify-between">
-                  <div className="flex items-center gap-2.5 min-w-0">
-                    <div className="relative">
-                      <img
-                        src={uploadedImageUrl}
-                        alt="Uploaded diseased leaf"
-                        className="w-12 h-12 object-cover rounded-xl border border-white dark:border-charcoal-700 shrink-0 shadow-xs"
-                      />
-                      {isVisionScanning && (
-                        <div className="absolute inset-0 bg-emerald-500/30 rounded-xl flex items-center justify-center animate-pulse">
-                          <Activity className="w-4 h-4 text-white animate-spin" />
+                {/* If AI result is NOT ready: show Upload & Trigger Button */}
+                {!visionDiagnosis ? (
+                  <div className="flex-1 flex flex-col justify-between space-y-3">
+                    {uploadedImageUrl ? (
+                      <div className="relative rounded-2xl overflow-hidden border border-herbal-200 dark:border-emerald-800/80 bg-herbal-50/50 dark:bg-emerald-950/30 p-3 flex items-center justify-between">
+                        <div className="flex items-center gap-3 min-w-0">
+                          <div className="relative">
+                            <img
+                              src={uploadedImageUrl}
+                              alt="Uploaded diseased leaf"
+                              className="w-16 h-16 object-cover rounded-xl border border-white dark:border-charcoal-700 shrink-0 shadow-xs"
+                            />
+                            {isVisionScanning && (
+                              <div className="absolute inset-0 bg-emerald-500/30 rounded-xl flex items-center justify-center animate-pulse">
+                                <Activity className="w-5 h-5 text-white animate-spin" />
+                              </div>
+                            )}
+                          </div>
+                          <div className="min-w-0">
+                            <p className="text-xs font-bold text-herbal-900 dark:text-emerald-200 truncate">
+                              {isEn ? 'Leaf photo analyzed & GPS EXIF cleaned' : 'Ảnh lá đã khử EXIF GPS • Chuẩn WebP'}
+                            </p>
+                            <p className="text-[11px] text-herbal-600 dark:text-emerald-400 mt-0.5">
+                              {isEn ? 'Ready for multi-modal AI vision scan' : 'Sẵn sàng chẩn đoán AI Thị Giác tức thì'}
+                            </p>
+                          </div>
                         </div>
-                      )}
-                    </div>
-                    <div className="min-w-0">
-                      <p className="text-[11px] font-bold text-herbal-900 dark:text-emerald-200 truncate">
-                        {isEn ? 'Photo uploaded & watermarked' : 'Ảnh lá đã khử EXIF & gắn mộc'}
-                      </p>
-                      <p className="text-[10px] text-herbal-600 dark:text-emerald-400">
-                        {isEn ? 'Ready for instant AI Vision analysis' : 'Sẵn sàng chẩn đoán AI Thị Giác'}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1">
+                        <div className="flex items-center gap-1">
+                          <button
+                            type="button"
+                            onClick={() => fileInputRef.current?.click()}
+                            className="px-2.5 py-1 rounded-lg bg-white dark:bg-charcoal-800 hover:bg-forest-50 dark:hover:bg-charcoal-700 text-forest-900 dark:text-cream-100 font-semibold text-[11px] border border-forest-200 dark:border-charcoal-700"
+                          >
+                            {isEn ? 'Change' : 'Đổi ảnh'}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setUploadedImageUrl(null);
+                              setSelectedImageFile(null);
+                            }}
+                            className="p-1.5 rounded-full hover:bg-white dark:hover:bg-charcoal-700 text-gray-400 hover:text-rose-600"
+                            title={t('common.cancel')}
+                          >
+                            <CloseIcon className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div
+                        onClick={() => fileInputRef.current?.click()}
+                        className={`border-2 border-dashed rounded-2xl p-4 text-center transition cursor-pointer flex flex-col items-center justify-center min-h-[140px] ${
+                          isUploadingImage
+                            ? 'border-herbal-400 bg-herbal-50/30 dark:bg-emerald-950/20'
+                            : 'border-forest-200 dark:border-charcoal-700 bg-white dark:bg-charcoal-800 hover:border-herbal-500 hover:bg-forest-50/30 dark:hover:bg-charcoal-700/50'
+                        }`}
+                      >
+                        {isUploadingImage ? (
+                          <div className="flex flex-col items-center justify-center gap-2 text-herbal-700 dark:text-emerald-300 py-3">
+                            <Loader2 className="w-6 h-6 animate-spin text-herbal-600 dark:text-emerald-400" />
+                            <span className="text-xs font-semibold">
+                              {isEn ? 'Watermarking & stripping GPS...' : 'Đang khử EXIF GPS & chuyển WebP...'}
+                            </span>
+                          </div>
+                        ) : (
+                          <>
+                            <Upload className="w-7 h-7 text-forest-400 dark:text-charcoal-400 mb-1.5" />
+                            <p className="text-xs font-bold text-forest-900 dark:text-cream-100">
+                              {isEn ? 'Click or drop diseased leaf photo here' : 'Bấm để chụp hoặc chọn ảnh lá bệnh'}
+                            </p>
+                            <p className="text-[11px] text-gray-400 dark:text-charcoal-400 mt-0.5">
+                              {isEn ? '(Free Gemini Vision • Automatic EXIF GPS strip)' : '(Dùng Gemini Vision miễn phí • Tự động xóa GPS bảo mật)'}
+                            </p>
+                          </>
+                        )}
+                      </div>
+                    )}
+
+                    {uploadError && (
+                      <p className="text-[11px] text-rose-600 font-medium">{uploadError}</p>
+                    )}
+
+                    {/* Scanning Animation Progress */}
+                    {isVisionScanning && (
+                      <div className="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-400/40 text-xs space-y-1.5 animate-pulse">
+                        <div className="flex items-center gap-2 text-emerald-800 dark:text-emerald-300 font-bold text-xs">
+                          <Loader2 className="w-4 h-4 animate-spin text-emerald-600 dark:text-emerald-400" />
+                          <span>{isEn ? 'Scanning leaf cell pathology with your AI key (3s)...' : 'AI đang phân tích triệu chứng tế bào lá (3 giây)...'}</span>
+                        </div>
+                        <div className="h-1.5 w-full bg-emerald-100 dark:bg-emerald-900/60 rounded-full overflow-hidden">
+                          <div className="h-full bg-emerald-600 animate-[pulse_1s_infinite] w-4/5"></div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Large Primary AI Diagnose Button */}
                     <button
                       type="button"
                       onClick={() => handleRunVisionDiagnosis()}
-                      disabled={isVisionScanning}
-                      className="px-2.5 py-1 rounded-lg bg-emerald-600 text-white font-semibold text-[10px] flex items-center gap-1 hover:bg-emerald-700 transition"
-                      title={isEn ? 'Scan again' : 'Quét lại'}
+                      disabled={isVisionScanning || (!uploadedImageUrl && !plantHint && selectedSymptoms.length === 0)}
+                      className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md transition disabled:opacity-40"
                     >
-                      <Sparkles className="w-3 h-3" />
-                      <span>{isVisionScanning ? 'Scanning...' : 'AI Quét'}</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setUploadedImageUrl(null);
-                        setVisionDiagnosis(null);
-                      }}
-                      className="p-1.5 rounded-full hover:bg-white dark:hover:bg-charcoal-700 text-gray-500 dark:text-charcoal-400 hover:text-rose-600 transition"
-                      title={t('common.cancel')}
-                    >
-                      <CloseIcon className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <div>
-                  <div
-                    onClick={() => fileInputRef.current?.click()}
-                    className={`border border-dashed rounded-xl p-3.5 text-center transition cursor-pointer ${
-                      isUploadingImage
-                        ? 'border-herbal-400 bg-herbal-50/30 dark:bg-emerald-950/20'
-                        : 'border-forest-200 dark:border-charcoal-700 bg-white dark:bg-charcoal-800 hover:border-herbal-500 hover:bg-forest-50/30 dark:hover:bg-charcoal-700/50'
-                    }`}
-                  >
-                    {isUploadingImage ? (
-                      <div className="flex items-center justify-center gap-2 text-herbal-700 dark:text-emerald-300 py-1">
-                        <Loader2 className="w-4 h-4 animate-spin text-herbal-600 dark:text-emerald-400" />
-                        <span className="text-xs font-semibold">
-                          {isEn ? 'Processing & stripping GPS EXIF...' : 'Đang xử lý & tẩy EXIF GPS...'}
-                        </span>
-                      </div>
-                    ) : (
-                      <>
-                        <Upload className="w-5 h-5 text-forest-400 dark:text-charcoal-400 mx-auto mb-1" />
-                        <p className="text-[11px] font-bold text-forest-900 dark:text-cream-100">
-                          {isEn ? 'Take or select diseased leaf photo' : 'Chụp hoặc chọn ảnh lá bệnh từ máy'}
-                        </p>
-                        <p className="text-[10px] text-gray-400 dark:text-charcoal-400">
-                          {isEn ? '(Max 5MB • GPS location automatically stripped)' : '(Tối đa 5MB • Tự động xóa sạch GPS & chẩn đoán AI 3s)'}
-                        </p>
-                      </>
-                    )}
-                  </div>
-                  {uploadError && (
-                    <p className="text-[10px] text-rose-600 mt-1 font-medium">{uploadError}</p>
-                  )}
-                </div>
-              )}
-
-              {/* Nút bấm Quét AI Thị Giác chủ động nếu đã có triệu chứng / tên cây */}
-              {!uploadedImageUrl && (
-                <button
-                  type="button"
-                  onClick={() => handleRunVisionDiagnosis()}
-                  disabled={isVisionScanning || (!plantHint && selectedSymptoms.length === 0)}
-                  className="w-full py-2 px-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-800/60 text-emerald-900 dark:text-emerald-200 font-semibold text-xs flex items-center justify-center gap-1.5 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition disabled:opacity-50"
-                >
-                  <Sparkles className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                  <span>
-                    {isVisionScanning
-                      ? (isEn ? 'AI Scanning & Analyzing...' : 'AI Đang Quét Sinh Học...')
-                      : (isEn ? 'Instant AI Diagnosis (No Photo Needed)' : '⚡ Chẩn Đoán Bằng AI Thị Giác & Triệu Chứng (3s)')}
-                  </span>
-                </button>
-              )}
-
-              {/* Khối Hiển Thị Kết Quả AI Thị Giác Tức Thì (MS6) */}
-              {isVisionScanning && (
-                <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-400/40 text-xs space-y-2 animate-pulse">
-                  <div className="flex items-center gap-2 text-emerald-800 dark:text-emerald-300 font-bold">
-                    <Loader2 className="w-4 h-4 animate-spin text-emerald-600 dark:text-emerald-400" />
-                    <span>{isEn ? 'Deep botanical neural scan in progress...' : 'Đang quét mô hình AI thị giác sinh học (3s)...'}</span>
-                  </div>
-                  <div className="h-1.5 w-full bg-emerald-100 dark:bg-emerald-900/60 rounded-full overflow-hidden">
-                    <div className="h-full bg-emerald-600 animate-[pulse_1s_infinite] w-3/4"></div>
-                  </div>
-                </div>
-              )}
-
-              {visionDiagnosis && (
-                <div className="p-4 rounded-2xl bg-gradient-to-br from-emerald-50/90 via-teal-50/50 to-white dark:from-emerald-950/50 dark:via-charcoal-800 dark:to-charcoal-850 border border-emerald-300 dark:border-emerald-700/80 text-xs space-y-3 shadow-xs">
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-1.5 font-bold text-emerald-950 dark:text-emerald-200">
-                      <Bot className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                      <span>{isEn ? 'AI Vision Diagnosis Result' : 'Kết Quả AI Thị Giác Chẩn Đoán'}</span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-600 text-white flex items-center gap-1">
-                        <Sparkles className="w-2.5 h-2.5" />
-                        {visionDiagnosis.confidence}% {isEn ? 'Match' : 'Khớp'}
+                      <Sparkles className="w-4 h-4" />
+                      <span>
+                        {isVisionScanning
+                          ? (isEn ? 'AI Scanning in progress...' : 'AI Đang Quét Sinh Học...')
+                          : (isEn ? '⚡ Scan & Diagnose with AI Vision (3 Seconds)' : '⚡ Chẩn Đoán Bằng AI Thị Giác (Quét Trong 3 Giây)')}
                       </span>
-                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                        visionDiagnosis.severity === 'high'
-                          ? 'bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300'
-                          : visionDiagnosis.severity === 'medium'
-                          ? 'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300'
-                          : 'bg-blue-100 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300'
-                      }`}>
-                        {visionDiagnosis.severity === 'high'
-                          ? (isEn ? 'High Risk' : 'Nguy cơ cao')
-                          : visionDiagnosis.severity === 'medium'
-                          ? (isEn ? 'Moderate' : 'Trung bình')
-                          : (isEn ? 'Mild' : 'Mức độ nhẹ')}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div>
-                    <h4 className="text-sm font-serif font-bold text-forest-950 dark:text-cream-50">
-                      {visionDiagnosis.disease_name}
-                    </h4>
-                    {diagnosedByProvider && (
-                      <div className="flex items-center gap-1.5 text-[10px] text-emerald-800 dark:text-emerald-300 bg-emerald-100/60 dark:bg-emerald-900/40 px-2 py-0.5 rounded-md font-medium w-fit mt-1">
-                        <ShieldCheck className="w-3 h-3 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                        <span>
-                          {diagnosedByProvider === 'user_gemini'
-                            ? (isEn ? 'Processed via your personal Google Gemini API' : 'Chẩn đoán trực tiếp qua Google Gemini API cá nhân của bạn')
-                            : diagnosedByProvider === 'user_openai'
-                            ? (isEn ? 'Processed via your personal OpenAI API' : 'Chẩn đoán trực tiếp qua OpenAI API cá nhân của bạn')
-                            : (isEn ? 'Local botanical database rules' : 'Chẩn đoán qua cơ sở tri thức cục bộ')}
-                        </span>
-                      </div>
-                    )}
-                    <p className="text-[11px] text-charcoal-700 dark:text-charcoal-300 mt-1 leading-relaxed">
-                      <strong>{isEn ? 'Root Cause: ' : 'Nguyên nhân gốc rễ: '}</strong>
-                      {visionDiagnosis.primary_cause}
-                    </p>
-                  </div>
-
-                  {/* Triệu chứng nhận diện */}
-                  {visionDiagnosis.symptoms_identified.length > 0 && (
-                    <div className="flex flex-wrap gap-1">
-                      {visionDiagnosis.symptoms_identified.map((symp, idx) => (
-                        <span
-                          key={idx}
-                          className="px-2 py-0.5 rounded-md text-[10px] bg-white dark:bg-charcoal-800 text-charcoal-700 dark:text-charcoal-300 border border-emerald-200 dark:border-emerald-800/60"
-                        >
-                          ✓ {symp}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Phác đồ hữu cơ 3 bước */}
-                  <div className="p-2.5 rounded-xl bg-white dark:bg-charcoal-800/90 border border-emerald-200/80 dark:border-charcoal-700 space-y-1.5">
-                    <p className="font-bold text-forest-900 dark:text-emerald-300 text-[11px] flex items-center gap-1">
-                      <ShieldAlert className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                      <span>{isEn ? '100% Organic 3-Step Treatment Protocol (H15 Compliant):' : 'Phác Đồ Điều Trị Sinh Học Hữu Cơ 3 Bước (Chuẩn H15):'}</span>
-                    </p>
-                    <ol className="list-decimal list-inside space-y-1 text-[11px] text-charcoal-800 dark:text-charcoal-200 leading-relaxed pl-1">
-                      {visionDiagnosis.organic_prescription.map((step, idx) => (
-                        <li key={idx} className="marker:text-emerald-600 dark:marker:text-emerald-400 marker:font-bold">
-                          {step}
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
-
-                  {/* Phòng ngừa & Lời nhắc an toàn */}
-                  <div className="text-[10px] text-charcoal-600 dark:text-charcoal-400 space-y-1 border-t border-emerald-100 dark:border-charcoal-700 pt-2">
-                    <p>
-                      <strong>{isEn ? 'Long-term care: ' : 'Phòng ngừa lâu dài: '}</strong>
-                      {visionDiagnosis.prevention}
-                    </p>
-                    <p className="italic text-emerald-800 dark:text-emerald-400">
-                      ℹ {visionDiagnosis.disclaimer}
-                    </p>
-                  </div>
-
-                  {/* Action buttons */}
-                  <div className="grid grid-cols-2 gap-2 pt-1">
-                    <button
-                      type="button"
-                      onClick={handleApplyDiagnosisToDescription}
-                      className="py-1.5 px-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[11px] flex items-center justify-center gap-1 transition"
-                    >
-                      <Check className="w-3.5 h-3.5" />
-                      <span>{isEn ? 'Apply to Question' : 'Chèn vào mô tả'}</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={handleCopyPrescription}
-                      className="py-1.5 px-2 rounded-lg bg-white dark:bg-charcoal-800 hover:bg-forest-50 dark:hover:bg-charcoal-700 text-forest-900 dark:text-cream-100 border border-forest-200 dark:border-charcoal-700 font-semibold text-[11px] flex items-center justify-center gap-1 transition"
-                    >
-                      {copiedPrescription ? (
-                        <>
-                          <CheckCheck className="w-3.5 h-3.5 text-emerald-600" />
-                          <span className="text-emerald-600">{isEn ? 'Copied!' : 'Đã chép!'}</span>
-                        </>
-                      ) : (
-                        <>
-                          <Copy className="w-3.5 h-3.5" />
-                          <span>{isEn ? 'Copy Protocol' : 'Sao chép phác đồ'}</span>
-                        </>
-                      )}
                     </button>
                   </div>
-                </div>
-              )}
-
-              {/* Submit */}
-              <button
-                type="submit"
-                disabled={isAnalyzing}
-                className="w-full py-3 rounded-xl bg-forest-900 dark:bg-emerald-600 hover:bg-forest-800 dark:hover:bg-emerald-500 text-white font-medium text-xs flex items-center justify-center gap-2 shadow-sm transition disabled:opacity-50"
-              >
-                {isAnalyzing ? (
-                  <>
-                    <RefreshCw className="w-3.5 h-3.5 animate-spin text-herbal-400 text-white" />
-                    <span>{isEn ? 'Submitting & Consulting Community...' : 'Đang Đăng Ca Bệnh & Hỏi Ý Kiến Nhà Vườn...'}</span>
-                  </>
                 ) : (
-                  <>
-                    <Zap className="w-3.5 h-3.5 text-herbal-400" />
-                    <span>{t('clinic.submitDiagnosis')}</span>
-                  </>
-                )}
-              </button>
-            </form>
-          </div>
+                  /* If AI Diagnosis result is READY: show it right here! */
+                  <div className="p-3.5 rounded-2xl bg-gradient-to-br from-emerald-50/90 via-teal-50/50 to-white dark:from-emerald-950/50 dark:via-charcoal-800 dark:to-charcoal-850 border border-emerald-300 dark:border-emerald-700/80 text-xs space-y-2.5 shadow-xs">
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-1.5 font-bold text-emerald-950 dark:text-emerald-200 text-xs">
+                        <Bot className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                        <span>{isEn ? 'Diagnosis Result' : 'Kết Quả AI Thị Giác Chẩn Đoán'}</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-600 text-white flex items-center gap-1">
+                          <Sparkles className="w-2.5 h-2.5" />
+                          {visionDiagnosis.confidence}% {isEn ? 'Match' : 'Khớp'}
+                        </span>
+                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                          visionDiagnosis.severity === 'high'
+                            ? 'bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300'
+                            : visionDiagnosis.severity === 'medium'
+                            ? 'bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300'
+                            : 'bg-blue-100 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300'
+                        }`}>
+                          {visionDiagnosis.severity === 'high'
+                            ? (isEn ? 'High Risk' : 'Nguy cơ cao')
+                            : visionDiagnosis.severity === 'medium'
+                            ? (isEn ? 'Moderate' : 'Trung bình')
+                            : (isEn ? 'Mild' : 'Mức độ nhẹ')}
+                        </span>
+                      </div>
+                    </div>
 
-          {/* Right Column: Live Feed of Clinic Cases */}
-          <div className="lg:col-span-7 space-y-6">
+                    <div>
+                      <h4 className="text-sm font-serif font-bold text-forest-950 dark:text-cream-50">
+                        {visionDiagnosis.disease_name}
+                      </h4>
+                      {diagnosedByProvider && (
+                        <div className="flex items-center gap-1.5 text-[10px] text-emerald-800 dark:text-emerald-300 bg-emerald-100/60 dark:bg-emerald-900/40 px-2 py-0.5 rounded-md font-medium w-fit mt-0.5">
+                          <ShieldCheck className="w-3 h-3 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                          <span>
+                            {diagnosedByProvider === 'user_gemini'
+                              ? (isEn ? 'via your personal Gemini API' : 'Qua Google Gemini API cá nhân của bạn')
+                              : diagnosedByProvider === 'user_openai'
+                              ? (isEn ? 'via your personal OpenAI API' : 'Qua OpenAI API cá nhân của bạn')
+                              : (isEn ? 'via local botanical rules' : 'Qua cơ sở tri thức cục bộ')}
+                          </span>
+                        </div>
+                      )}
+                      <p className="text-[11px] text-charcoal-700 dark:text-charcoal-300 mt-1 leading-relaxed">
+                        <strong>{isEn ? 'Root Cause: ' : 'Nguyên nhân: '}</strong>
+                        {visionDiagnosis.primary_cause}
+                      </p>
+                    </div>
+
+                    {/* 3-Step Protocol */}
+                    <div className="p-2.5 rounded-xl bg-white dark:bg-charcoal-800/90 border border-emerald-200/80 dark:border-charcoal-700 space-y-1">
+                      <p className="font-bold text-forest-900 dark:text-emerald-300 text-[11px] flex items-center gap-1">
+                        <ShieldAlert className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                        <span>{isEn ? 'Organic 3-Step Treatment Protocol (H15):' : 'Phác Đồ Hữu Cơ 3 Bước (Chuẩn H15):'}</span>
+                      </p>
+                      <ol className="list-decimal list-inside space-y-0.5 text-[11px] text-charcoal-800 dark:text-charcoal-200 leading-relaxed pl-1">
+                        {visionDiagnosis.organic_prescription.map((step, idx) => (
+                          <li key={idx} className="marker:text-emerald-600 dark:marker:text-emerald-400 marker:font-bold">
+                            {step}
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
+
+                    {/* Action buttons */}
+                    <div className="grid grid-cols-3 gap-1.5 pt-0.5">
+                      <button
+                        type="button"
+                        onClick={handleApplyDiagnosisToDescription}
+                        className="py-1.5 px-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[10px] flex items-center justify-center gap-1 transition"
+                      >
+                        <Check className="w-3 h-3" />
+                        <span>{isEn ? 'Apply' : 'Chèn mô tả'}</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleCopyPrescription}
+                        className="py-1.5 px-1.5 rounded-xl bg-white dark:bg-charcoal-800 hover:bg-forest-50 dark:hover:bg-charcoal-700 text-forest-900 dark:text-cream-100 border border-forest-200 dark:border-charcoal-700 font-semibold text-[10px] flex items-center justify-center gap-1 transition"
+                      >
+                        {copiedPrescription ? (
+                          <>
+                            <CheckCheck className="w-3 h-3 text-emerald-600" />
+                            <span className="text-emerald-600">{isEn ? 'Copied' : 'Đã chép'}</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="w-3 h-3" />
+                            <span>{isEn ? 'Copy Rx' : 'Sao chép'}</span>
+                          </>
+                        )}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setVisionDiagnosis(null);
+                          setUploadedImageUrl(null);
+                          setSelectedImageFile(null);
+                        }}
+                        className="py-1.5 px-1.5 rounded-xl bg-forest-100 dark:bg-charcoal-700 hover:bg-forest-200 dark:hover:bg-charcoal-600 text-forest-900 dark:text-cream-100 font-semibold text-[10px] flex items-center justify-center gap-1 transition"
+                      >
+                        <RefreshCw className="w-3 h-3" />
+                        <span>{isEn ? 'New Scan' : 'Quét ca mới'}</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+              </div>
+
+            </div>
+          </div>
+        )}
+
+        {/* Tab 2: Community Feed */}
+        {activeClinicTab === 'community' && (
+          <div className="space-y-6">
             <div className="flex items-center justify-between pb-2 border-b border-forest-100 dark:border-charcoal-800">
               <span className="text-sm font-bold text-forest-900 dark:text-cream-50 flex items-center gap-2">
                 <MessageSquare className="w-4 h-4 text-herbal-600 dark:text-emerald-400" />
                 {isEn ? `Latest Cases Supported by Community (${localizedQuestions.length})` : `Ca Bệnh Mới Nhất Được Cộng Đồng Hỗ Trợ (${localizedQuestions.length})`}
               </span>
-              <span className="text-xs text-forest-600 dark:text-charcoal-400">{isEn ? 'Real-time' : 'Thời gian thực'}</span>
+              <button
+                type="button"
+                onClick={() => setActiveClinicTab('studio')}
+                className="text-xs text-herbal-700 dark:text-emerald-400 hover:underline font-semibold"
+              >
+                ← {isEn ? 'Back to AI Clinic Studio' : 'Quay lại Phòng Khám AI'}
+              </button>
             </div>
 
             {localizedQuestions.map((q) => (
@@ -952,8 +990,7 @@ export const PlantClinicSection: React.FC = () => {
               </div>
             ))}
           </div>
-
-        </div>
+        )}
 
       </div>
 
@@ -1000,6 +1037,7 @@ export const PlantClinicSection: React.FC = () => {
           </div>
         </div>
       )}
+
       {/* Modal Cài Đặt API Key Cá Nhân (BYOK) */}
       <AIKeyModal
         isOpen={isKeyModalOpen}
