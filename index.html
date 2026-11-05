@@ -44,6 +44,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Google tag (gtag.js) - Google Analytics 4 -->
+    <!-- THAY THẾ 'G-XXXXXXXXXX' bằng Mã Đo Lường (Measurement ID) GA4 của bạn (VD: G-XXXXXXXXXX) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      // Cấu hình GA4 ban đầu
+      gtag('config', 'G-XXXXXXXXXX', {
+        send_page_view: true
+      });
+    </script>
   </head>
   <body class="bg-cream-100 text-charcoal-900 antialiased selection:bg-herbal-500 selection:text-white min-h-screen">
     <div id="root"></div>

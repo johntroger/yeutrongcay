@@ -16,6 +16,7 @@ import { AuthModal } from './components/AuthModal.tsx';
 import { MyGardenModal } from './components/MyGardenModal.tsx';
 import { PrivacyModal } from './components/PrivacyModal.tsx';
 import { OfflineBanner } from './components/OfflineBanner.tsx';
+import { trackPageView } from './utils/analytics.ts';
 
 // Wrapper xử lý danh mục động
 function DynamicCategoryWrapper({
@@ -110,7 +111,10 @@ export default function App() {
     } else if (path === '/web3-sandbox') {
       document.title = 'Hộ Chiếu Cây Số Web3 Sandbox | Yêu Trồng Cây';
     }
-  }, [location.pathname]);
+
+    // Gửi sự kiện Page View về Google Analytics 4 cho SPA khi chuyển trang
+    trackPageView(location.pathname + location.search, document.title);
+  }, [location.pathname, location.search]);
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
