@@ -12,6 +12,7 @@ import { Web3Page } from './pages/Web3Page.tsx';
 import { ContactPage } from './pages/ContactPage.tsx';
 import { GardenPage } from './pages/GardenPage.tsx';
 import { PlantDetailPage } from './pages/PlantDetailPage.tsx';
+import { AdminPage } from './pages/AdminPage.tsx';
 import { AuthModal } from './components/AuthModal.tsx';
 import { MyGardenModal } from './components/MyGardenModal.tsx';
 import { PrivacyModal } from './components/PrivacyModal.tsx';
@@ -252,6 +253,7 @@ export default function App() {
           <Route path="/kiem-tien-tu-vuon" element={<MonetizationPage />} />
           <Route path="/web3-sandbox" element={<Web3Page />} />
           <Route path="/lien-he" element={<ContactPage />} />
+          <Route path="/admin" element={<AdminPage />} />
 
           {/* 404 Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />

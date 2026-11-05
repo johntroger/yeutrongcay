@@ -140,6 +140,14 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy, onOpenContact }) 
                 {t('footer.contactLink')}
               </Link>
             )}
+            <Link
+              to="/admin"
+              className="hover:text-emerald-400 transition flex items-center gap-1 opacity-70 hover:opacity-100"
+              title="Cổng quản trị viên & kiểm duyệt"
+            >
+              <ShieldCheck className="w-3.5 h-3.5" />
+              <span>Admin</span>
+            </Link>
           </div>
         </div>
 
