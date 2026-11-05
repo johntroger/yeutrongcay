@@ -1518,52 +1518,52 @@ export const SEED_PLANTS: Plant[] = [
   },
   {
     id: 'herb-24',
-    slug: 'ngai-cuu',
-    common_name: 'Ngải Cứu (Ngải Diệp)',
-    scientific_name: 'Artemisia vulgaris',
-    aliases: ['Cây Thuốc Cứu', 'Thuốc Cao', 'Ngải Cứu Nếp'],
+    slug: 'mach-mon-dong',
+    common_name: 'Mạch Môn (Mạch Môn Đông)',
+    scientific_name: 'Ophiopogon japonicus',
+    aliases: ['Mạch Môn Đông', 'Củ Lan Chi', 'Duyên Mạch Đông'],
     category: 'herb',
-    description: 'Cây thuốc quý điều kinh bổ huyết, an thai, trị đau đầu tiền đình, đau bụng lạnh và trừ phong hàn. Mùi thơm nồng đặc trưng giúp xua đuổi côn trùng và ruồi muỗi quanh ban công.',
-    quick_answer: 'Ngải cứu dễ trồng nhất trần đời, chỉ cần cắm 1 nhánh già xuống đất ẩm là sau 1 tuần đã đâm chồi non mơn mởn. Thu hoạch bằng cách cắt ngọn để kích cây đẻ nhánh thành bụi sum sê.',
+    description: 'Vị thuốc quý dưỡng âm nhuận phế, thanh tâm trừ phiền, trị ho khan lâu ngày, khản tiếng mất giọng, táo bón và nóng trong người. Dáng cây bụi cỏ viền xanh bóng quanh năm, cực kỳ đẹp mắt khi trồng viền chậu ban công.',
+    quick_answer: 'Mạch môn đông là cây thân thảo sống lâu năm, sinh trưởng bằng chùm củ mập mạp dưới đất. Cây ưa bóng râm mát hoặc nắng tán xạ nhẹ, chịu hạn tốt và có hoa nhỏ màu tím nhạt thanh tao.',
     botanical_details: {
-      family: 'Asteraceae (Họ Cúc)',
-      native_range: 'Bắc bán cầu ôn đới & nhiệt đới châu Á',
-      active_compounds: ['Cineol', 'Thujone', 'Dehydro matricaria este', 'Flavonoid'],
-      soil_ph: '6.0 - 7.0',
+      family: 'Asparagaceae (Họ Măng tây)',
+      native_range: 'Đông Á, phân bố tự nhiên và trồng trọt lâu đời ở Việt Nam',
+      active_compounds: ['Ophiopogonin A, B, C, D', 'Ruscogenin', 'Polysaccharide', 'Sitosterol'],
+      soil_ph: '6.0 - 7.0 (Đất mùn tơi xốp pha cát thoát nước)',
       ideal_temp: '18°C - 30°C',
-      pot_size: '25cm - 35cm'
+      pot_size: '20cm - 30cm (Chậu nông rộng miệng)'
     },
-    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Artemisia_vulgaris_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-016.jpg/960px-Artemisia_vulgaris_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-016.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
-    sunlight: 'full_sun',
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Ophiopogon_japonicus_Kyoto.jpg/960px-Ophiopogon_japonicus_Kyoto.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    sunlight: 'partial_shade',
     watering: 'moderate',
     propagation_difficulty: 1,
-    growth_time: '20 ngày hái đọt non ăn trứng gà rán',
+    growth_time: '12 - 18 tháng thu hoạch củ múp mọng',
     container_suitable: true,
     seasonality: {
-      north: 'Mùa xuân phát triển mơn mởn nhất năm',
-      central: 'Trồng quanh năm',
-      south: 'Trồng nơi thoáng mát nắng sáng',
-      best_months: [1, 2, 3, 4, 9, 10]
+      north: 'Trồng tháng 2 - 4, thu hoạch củ vào mùa thu đông',
+      central: 'Phát triển tốt nơi râm mát dưới tán cây lớn',
+      south: 'Trồng tốt quanh năm ở ban công hướng Đông hoặc Bắc',
+      best_months: [2, 3, 4, 10, 11]
     },
     medical_info: {
-      uses: ['Điều hòa kinh nguyệt, giảm đau bụng kinh', 'An thai, trị động thai ra máu', 'Trị đau đầu hoa mắt chóng mặt, rối loạn tiền đình'],
+      uses: ['Trị ho khan, ho lâu ngày đờm dính khó khạc, khản tiếng', 'Sinh tân dịch trị khát nước, khô họng, sốt nóng', 'Nhuận tràng trị táo bón do âm hư huyết nhiệt'],
       folk_remedies: [
-        'Ngải cứu 20g + Trứng gà 2 quả rán ăn nóng hỗ trợ tuần hoàn máu não và giảm đau đầu.',
-        'Lá ngải cứu khô cứu ấm huyệt đạo (ngải châm) trị phong tê thấp lạnh khớp.'
+        'Mạch môn 12g + Thiên môn 12g + Cát cánh 8g sắc nước uống trị viêm họng hạt và ho khan dai dẳng.',
+        'Mạch môn 10g + Huyền sâm 12g + Sinh địa 12g sắc uống dưỡng âm thanh nhiệt nhuận tràng.'
       ],
-      preparation: ['Trứng rán ngải cứu', 'Hầm gà bồi bổ sau sinh', 'Phơi khô làm điếu ngải cứu huyệt'],
-      toxicity_warning: 'Không nên ăn quá nhiều hàng ngày liên tục trên 2 tuần. Phụ nữ mang thai 3 tháng đầu cần hỏi ý kiến thầy thuốc chuyên môn.',
-      disclaimer: 'Dược điển Việt Nam V. Tham khảo bác sĩ chuyên khoa phụ sản.'
+      preparation: ['Rửa sạch rút bỏ lõi tim củ phơi khô hãm trà', 'Nấu chè sâm dưỡng nhan bổ phổi'],
+      toxicity_warning: 'Lành tính, không độc. Người tỳ vị hư hàn, đang tiêu chảy hoặc có đờm loãng phong hàn không nên dùng đơn độc.',
+      disclaimer: 'Dược điển Việt Nam V. Tham khảo bác sĩ y học cổ truyền.'
     },
     academic_citations: [
-      'Dược điển Việt Nam V',
-      'Cây thuốc và vị thuốc Việt Nam - GS. Đỗ Tất Lợi'
+      'Dược điển Việt Nam V (Tập 2)',
+      'Những cây thuốc và vị thuốc Việt Nam - GS. Đỗ Tất Lợi (trang 730)'
     ],
     monetization_tips: [
-      'Bán bầu ngải cứu hữu cơ 20k/bầu.',
-      'Sấy khô ngải cứu làm túi chườm mắt thảo dược thư giãn cho dân văn phòng.'
+      'Bán chậu cây mạch môn cỏ viền cảnh phong thủy kiêm cây thuốc 35k - 50k/chậu.',
+      'Sấy khô củ mạch môn rút tim đóng gói trà dưỡng âm bổ phế.'
     ],
-    tags: ['Bổ máu', 'Trị đau đầu', 'Điều kinh', 'Gà hầm ngải cứu']
+    tags: ['Nhuận phế', 'Trị ho khan', 'Cỏ viền chậu', 'Dưỡng âm']
   },
   {
     id: 'herb-25',

@@ -1556,43 +1556,43 @@ export const PLANT_ENGLISH_MAP: Record<string, LocalizedPlantData> = {
   },
 
   'herb-24': {
-    common_name: 'Common Mugwort (Ngai Cuu)',
-    aliases: ['Artemisia Vulgaris', 'Moxa Herb', 'Vietnamese Ngai Diep'],
-    description: 'An ancient revered women’s tonic and neurovascular restorative. Promotes pelvic blood circulation, relieves menstrual cramps, soothes vestibular migraines, and expels cold dampness. Its aromatic camphor fragrance keeps household balconies pest-free.',
-    quick_answer: 'Mugwort is among the hardiest urban herbs. Push a single stem into moist soil and it sprouts vigorous fragrant shoots within a week. Pinch tips regularly to induce a bushy, highly productive container.',
-    growth_time: '20 days to harvest tender shoots for cooking',
+    common_name: 'Dwarf Lilyturf / Mondo Grass (Mach Mon Dong)',
+    aliases: ['Ophiopogon Japonicus', 'Mondo Grass Tuber', 'Mai Men Dong'],
+    description: 'A classical Asian lung and heart restorative herb. Nourishes Yin moisture, clears chronic dry hacking coughs, soothes hoarseness, relieves dry mouth, and eases heat-induced constipation. Its evergreen fountain-like grassy tufts make it a gorgeous balcony border plant.',
+    quick_answer: 'Dwarf Lilyturf (Ophiopogon japonicus) is a hardy perennial clumping herb producing plump underground medicinal tubers. It loves partial shade, tolerates drought, and produces delicate pale lilac flowers.',
+    growth_time: '12 - 18 months to harvest mature succulent medicinal tubers',
     seasonality: {
-      north: 'Spring produces the most tender, emerald, nutrient-packed leaves',
-      central: 'Perennial year-round growth in partial sun',
-      south: 'Grows best in breezy morning light with moderate watering',
-      best_months: [1, 2, 3, 4, 9, 10]
+      north: 'Plant in spring (Feb-Apr); harvest tubers in late autumn and winter',
+      central: 'Flourishes beneath shady canopies of larger potted fruit trees',
+      south: 'Evergreen perennial thriving on morning-sun East or North balconies',
+      best_months: [2, 3, 4, 10, 11]
     },
     medical_info: {
-      uses: ['Regulates menstrual cycles, relieves severe dysmenorrhea', 'Nourishes brain circulation, eases vestibular dizziness and migraines', 'Traditional moxibustion acupuncture heating therapy'],
+      uses: ['Moistens dry lungs, stops chronic hacking coughs and hoarse voice', 'Generates body fluids to relieve intense thirst and dry throat', 'Gently lubricates intestines for Yin-deficiency constipation'],
       folk_remedies: [
-        'Pan-fry 20g fresh mugwort with 2 eggs to stimulate cerebral blood flow and alleviate tension headaches.',
-        'Simmer with organic free-range chicken and ginger for postpartum vitality and blood restoration.'
+        'Simmer 12g Ophiopogon with 12g Asparagus cochinchinensis and 8g Platycodon for chronic dry bronchial coughs.',
+        'Decoct 10g Ophiopogon with 12g Scrophularia and 12g Rehmannia to clear internal fever and nourish dry mucous membranes.'
       ],
-      preparation: ['Herb omelette', 'Chicken postpartum herbal soup', 'Moxa sticks for acupuncture points'],
-      toxicity_warning: 'Avoid consuming excessively in concentrated doses for more than 2 consecutive weeks. Pregnant women in their first trimester must consult a doctor.',
-      disclaimer: 'Pharmacopoeia of Vietnam V. For complementary home health guidance.'
+      preparation: ['De-cored dried tuber herbal tea', 'Lung-nourishing sweet bird-nest tonic soup'],
+      toxicity_warning: 'Non-toxic and gentle. Those with spleen-stomach deficiency diarrhea or cold phlegm should not use alone.',
+      disclaimer: 'Pharmacopoeia of Vietnam V. For traditional oriental medicine reference.'
     },
     botanical_details: {
-      family: 'Asteraceae (Daisy Family)',
-      native_range: 'Temperate and subtropical Eurasia',
-      active_compounds: ['Cineol', 'Thujone', 'Flavonoids', 'Sesquiterpene Lactones'],
+      family: 'Asparagaceae (Asparagus Family)',
+      native_range: 'East Asia, naturalized and cultivated widely across Vietnam',
+      active_compounds: ['Ophiopogonins A-D', 'Ruscogenin', 'Polysaccharides', 'Sterols'],
       soil_ph: '6.0 - 7.0',
       ideal_temp: '18°C - 30°C',
-      pot_size: '25cm - 35cm pot'
+      pot_size: '20cm - 30cm shallow wide planter'
     },
     how_to_grow_steps: [
-      { step: 1, title: 'Prune for Bushiness', instruction: 'Cut the top 5cm off main stalks to force rapid lateral branching.' }
+      { step: 1, title: 'Separate Clump Divisions', instruction: 'Divide rooted clumps and plant 3-4 shoots per cluster into well-drained sandy loam.' }
     ],
     faqs: [
-      { question: 'Can I dry mugwort leaves for winter tea?', answer: 'Yes, shade-dry fresh stems on wire mesh to preserve volatile cineol essential oils.' }
+      { question: 'Why must the inner green core of the tuber be removed?', answer: 'Traditional pharmacopoeias recommend removing the fibrous central core before drying to avoid mild heat-vexation.' }
     ],
-    monetization_tips: ['Produce relaxing herbal eye pillows filled with dried mugwort and sea salt for office workers.'],
-    tags: ['Blood Circulation', 'Migraine Relief', 'Women Tonic', 'Super Hardy']
+    monetization_tips: ['Sell aesthetic live grassy border pots and hand-prepared de-cored dried tubers for premium wellness teas.'],
+    tags: ['Lung Moistener', 'Dry Cough Cure', 'Grassy Border', 'Yin Tonic']
   },
 
   'herb-25': {
