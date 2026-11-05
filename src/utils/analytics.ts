@@ -11,7 +11,7 @@ declare global {
 }
 
 // Đọc mã đo lường từ biến môi trường Vite hoặc fallback
-export const GA_MEASUREMENT_ID = ((import.meta as any).env?.VITE_GA_MEASUREMENT_ID as string) || 'G-XXXXXXXXXX';
+export const GA_MEASUREMENT_ID = (import.meta.env.VITE_GA_MEASUREMENT_ID as string) || 'G-N2LQSJLPCY';
 
 /**
  * Gửi sự kiện xem trang (Page View) cho React Router SPA
