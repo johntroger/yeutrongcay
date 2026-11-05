@@ -13,11 +13,22 @@ import {
   Check,
   Award,
   Loader2,
+  ShieldCheck,
+  AlertTriangle,
   X as CloseIcon
 } from 'lucide-react';
 import { ClinicQuestion } from '../types/index.ts';
 import { INITIAL_CLINIC_QUESTIONS } from '../data/clinicCases.ts';
-import { getClinicQuestions, submitClinicQuestion, uploadPlantImage } from '../services/apiService.ts';
+import {
+  getClinicQuestions,
+  submitClinicQuestion,
+  uploadPlantImage,
+  submitClinicAnswer,
+  verifyClinicAnswer,
+  upvoteClinicAnswer
+} from '../services/apiService.ts';
+import { checkCommunityModeration } from '../utils/moderation.ts';
+import { applyWatermarkAndStripExif } from '../utils/watermark.ts';
 import { ReportModal } from './ReportModal.tsx';
 
 export const PlantClinicSection: React.FC = () => {
@@ -31,11 +42,18 @@ export const PlantClinicSection: React.FC = () => {
   const [replyText, setReplyText] = useState('');
   const [draftSaved, setDraftSaved] = useState(false);
 
-  // Upload ảnh thực tế
+  // Upload ảnh thực tế kèm Watermark & EXIF Clean (H7)
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(null);
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
+
+  // Cảnh báo kiểm duyệt tự động Sách Đỏ / Loài xâm hại / Thuốc cấm (H6, H15)
+  const [moderationAlert, setModerationAlert] = useState<{
+    title: string;
+    reason: string;
+    suggestion: string;
+  } | null>(null);
 
   // Modal Báo Cáo Vi Phạm (M6 - H6, H9)
   const [reportTarget, setReportTarget] = useState<{ id: string; title: string } | null>(null);
@@ -88,19 +106,41 @@ export const PlantClinicSection: React.FC = () => {
     setUploadError(null);
     setIsUploadingImage(true);
 
-    const res = await uploadPlantImage(file);
-    setIsUploadingImage(false);
+    try {
+      // Đóng dấu Watermark bản quyền & tẩy sạch EXIF GPS (H7)
+      const watermarkedFile = await applyWatermarkAndStripExif(file, {
+        authorName: 'Chủ Vườn Phố',
+        brandText: 'yeutrongcay.com'
+      });
 
-    if (res.success && res.url) {
-      setUploadedImageUrl(res.url);
-    } else {
-      setUploadError(res.error || 'Lỗi khi tải ảnh lên máy chủ');
+      const res = await uploadPlantImage(watermarkedFile);
+      if (res.success && res.url) {
+        setUploadedImageUrl(res.url);
+      } else {
+        setUploadError(res.error || 'Lỗi khi tải ảnh lên máy chủ');
+      }
+    } catch (err: any) {
+      setUploadError(err.message || 'Lỗi khi xử lý hình ảnh');
+    } finally {
+      setIsUploadingImage(false);
     }
   };
 
   const handleSubmitQuestion = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!description.trim()) return;
+
+    // Kiểm tra kiểm duyệt Sách Đỏ, loài xâm hại nguy hiểm, hóa chất cấm (H6, H15)
+    const combinedInput = `${plantHint} ${description}`;
+    const modCheck = checkCommunityModeration(combinedInput);
+    if (modCheck.isBlocked) {
+      setModerationAlert({
+        title: 'Cảnh Báo Sách Đỏ & Loài Cấm (H6, H15)',
+        reason: modCheck.reason || 'Nội dung nằm trong danh mục cấm/xâm hại nguy hiểm.',
+        suggestion: modCheck.suggestion || 'Vui lòng kiểm tra lại thông tin.'
+      });
+      return;
+    }
 
     setIsAnalyzing(true);
 
@@ -152,7 +192,7 @@ export const PlantClinicSection: React.FC = () => {
     }
   };
 
-  const handleUpvote = (questionId: string, answerId: string) => {
+  const handleUpvote = async (questionId: string, answerId: string) => {
     setQuestions((prev) =>
       prev.map((q) => {
         if (q.id !== questionId) return q;
@@ -164,26 +204,66 @@ export const PlantClinicSection: React.FC = () => {
         };
       }),
     );
+    await upvoteClinicAnswer(answerId);
   };
 
-  const handleAddReply = (questionId: string) => {
+  // Xác nhận câu trả lời hiệu quả (Verified Answer - MS5)
+  const handleVerifyAnswer = async (questionId: string, answerId: string) => {
+    setQuestions((prev) =>
+      prev.map((q) => {
+        if (q.id !== questionId) return q;
+        const updated = q.answers.map((a) =>
+          a.id === answerId ? { ...a, is_verified: true } : a
+        );
+        // Ghim câu trả lời đã xác nhận lên đầu
+        updated.sort((a, b) => (b.is_verified ? 1 : 0) - (a.is_verified ? 1 : 0));
+        return { ...q, answers: updated };
+      })
+    );
+    await verifyClinicAnswer({ question_id: questionId, answer_id: answerId });
+  };
+
+  // Gửi lời khuyên mới
+  const handleAddReply = async (questionId: string) => {
     if (!replyText.trim()) return;
 
-    const newAnswer = {
-      id: `ans-${Date.now()}`,
+    // Kiểm tra kiểm duyệt nội dung lời khuyên
+    const modCheck = checkCommunityModeration(replyText);
+    if (modCheck.isBlocked) {
+      setModerationAlert({
+        title: 'Cảnh Báo Nội Dung Không Phù Hợp',
+        reason: modCheck.reason || 'Nội dung chứa từ khóa vi phạm quy định cộng đồng.',
+        suggestion: modCheck.suggestion || 'Vui lòng kiểm tra lại trước khi gửi.'
+      });
+      return;
+    }
+
+    const payload = {
       question_id: questionId,
-      author_name: 'Bạn (Thành Viên)',
-      author_badge: 'Cộng Đồng Chia Sẻ',
       content: replyText.trim(),
-      upvotes: 1,
-      created_at: 'Vừa xong',
+      author_name: 'Bạn (Thành Viên)',
+      author_badge: 'Cộng Đồng Chia Sẻ'
     };
 
-    setQuestions((prev) =>
-      prev.map((q) =>
-        q.id === questionId ? { ...q, answers: [...q.answers, newAnswer] } : q,
-      ),
-    );
+    const res = await submitClinicAnswer(payload);
+    if (res.success && res.data) {
+      const newAnswer = {
+        id: res.data.id,
+        question_id: questionId,
+        author_name: res.data.author_name || 'Bạn (Thành Viên)',
+        author_badge: res.data.author_badge || 'Cộng Đồng Chia Sẻ',
+        content: res.data.content,
+        upvotes: res.data.upvotes || 0,
+        is_verified: false,
+        created_at: 'Vừa xong'
+      };
+
+      setQuestions((prev) =>
+        prev.map((q) =>
+          q.id === questionId ? { ...q, answers: [...q.answers, newAnswer] } : q
+        )
+      );
+    }
 
     setReplyText('');
     setActiveReplyId(null);
@@ -494,14 +574,24 @@ export const PlantClinicSection: React.FC = () => {
                   {q.answers.map((ans) => (
                     <div
                       key={ans.id}
-                      className="bg-white p-3.5 rounded-2xl border border-forest-100 text-xs space-y-2 shadow-2xs"
+                      className={`p-3.5 rounded-2xl border text-xs space-y-2 shadow-2xs transition ${
+                        ans.is_verified
+                          ? 'bg-emerald-50/70 border-emerald-300 ring-1 ring-emerald-200'
+                          : 'bg-white border-forest-100'
+                      }`}
                     >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
+                      <div className="flex items-center justify-between flex-wrap gap-2">
+                        <div className="flex items-center gap-2 flex-wrap">
                           <span className="font-bold text-forest-900">
                             {ans.author_name}
                           </span>
-                          {ans.author_badge && (
+                          {ans.is_verified && (
+                            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-600 text-white flex items-center gap-1 shadow-2xs">
+                              <CheckCircle2 className="w-3 h-3 text-white" />
+                              <span>Đã Xác Nhận Hiệu Quả</span>
+                            </span>
+                          )}
+                          {ans.author_badge && !ans.is_verified && (
                             <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-terracotta-50 text-terracotta-700 border border-terracotta-100 flex items-center gap-1">
                               <Award className="w-3 h-3 text-terracotta-600" />
                               {ans.author_badge}
@@ -512,13 +602,27 @@ export const PlantClinicSection: React.FC = () => {
                           </span>
                         </div>
 
-                        <button
-                          onClick={() => handleUpvote(q.id, ans.id)}
-                          className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-forest-50 hover:bg-forest-100 text-forest-800 text-[11px] font-semibold border border-forest-100 transition"
-                        >
-                          <ThumbsUp className="w-3 h-3 text-herbal-600" />
-                          <span>Hữu ích ({ans.upvotes})</span>
-                        </button>
+                        <div className="flex items-center gap-1.5">
+                          {!ans.is_verified && (
+                            <button
+                              type="button"
+                              onClick={() => handleVerifyAnswer(q.id, ans.id)}
+                              className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-[10px] font-semibold border border-emerald-200 transition"
+                              title="Xác nhận cách chữa này hiệu quả (Thưởng +25 điểm Karma cho tác giả)"
+                            >
+                              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                              <span>Xác nhận hiệu quả</span>
+                            </button>
+                          )}
+                          <button
+                            type="button"
+                            onClick={() => handleUpvote(q.id, ans.id)}
+                            className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-forest-50 hover:bg-forest-100 text-forest-800 text-[11px] font-semibold border border-forest-100 transition"
+                          >
+                            <ThumbsUp className="w-3 h-3 text-herbal-600" />
+                            <span>Hữu ích ({ans.upvotes})</span>
+                          </button>
+                        </div>
                       </div>
 
                       <p className="text-charcoal-800 leading-relaxed font-sans">
@@ -538,6 +642,7 @@ export const PlantClinicSection: React.FC = () => {
                         className="flex-1 px-3.5 py-2 bg-white border border-forest-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-herbal-500"
                       />
                       <button
+                        type="button"
                         onClick={() => handleAddReply(q.id)}
                         className="px-4 py-2 bg-forest-900 hover:bg-forest-800 text-white rounded-xl text-xs font-medium flex items-center gap-1 shadow-sm transition"
                       >
@@ -565,6 +670,42 @@ export const PlantClinicSection: React.FC = () => {
           targetId={reportTarget.id}
           targetTitle={reportTarget.title}
         />
+      )}
+
+      {/* Modal Cảnh Báo Kiểm Duyệt Sách Đỏ & Loài Cấm (H6, H15) */}
+      {moderationAlert && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-charcoal-900/60 backdrop-blur-xs animate-fade-in">
+          <div className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-rose-100 space-y-4">
+            <div className="flex items-center gap-3 text-rose-600">
+              <div className="p-2.5 rounded-2xl bg-rose-50 border border-rose-100">
+                <AlertTriangle className="w-6 h-6" />
+              </div>
+              <h3 className="font-bold text-forest-900 text-base leading-snug">
+                {moderationAlert.title}
+              </h3>
+            </div>
+
+            <div className="space-y-2 text-xs text-charcoal-800 leading-relaxed bg-rose-50/50 p-3.5 rounded-2xl border border-rose-100">
+              <p className="font-semibold text-rose-900">
+                Lý do từ chối / lưu ý:
+              </p>
+              <p>{moderationAlert.reason}</p>
+            </div>
+
+            <div className="text-xs text-forest-800 bg-forest-50 p-3.5 rounded-2xl border border-forest-100">
+              <p className="font-bold mb-1">Khuyến nghị từ Yêu Trồng Cây:</p>
+              <p>{moderationAlert.suggestion}</p>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setModerationAlert(null)}
+              className="w-full py-2.5 bg-forest-900 hover:bg-forest-800 text-white rounded-xl text-xs font-semibold transition"
+            >
+              Tôi đã hiểu & sẽ điều chỉnh
+            </button>
+          </div>
+        </div>
       )}
     </section>
   );

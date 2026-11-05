@@ -201,11 +201,123 @@ foreach ($seedSwapOffers as $offer) {
     }
 }
 
+// 3. Seed ca bệnh và câu trả lời đã xác minh (MS5: Verified Answers)
+$clinicAnswerCount = 0;
+try {
+    $pdo->exec("CREATE TABLE IF NOT EXISTS clinic_answers (
+        id VARCHAR(50) PRIMARY KEY,
+        question_id VARCHAR(36) NOT NULL,
+        user_id VARCHAR(50) NOT NULL,
+        author_name VARCHAR(150) NOT NULL,
+        author_badge VARCHAR(100) DEFAULT NULL,
+        content TEXT NOT NULL,
+        upvotes INT DEFAULT 0,
+        is_verified BOOLEAN DEFAULT FALSE,
+        status ENUM('visible', 'pending', 'hidden') DEFAULT 'visible',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        INDEX idx_question (question_id),
+        INDEX idx_user (user_id),
+        INDEX idx_verified (is_verified)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+
+    // Khởi tạo bảng câu hỏi nếu cần
+    $pdo->exec("CREATE TABLE IF NOT EXISTS clinic_questions (
+        id VARCHAR(36) PRIMARY KEY,
+        user_id VARCHAR(36) NOT NULL,
+        user_name VARCHAR(150) NOT NULL,
+        title VARCHAR(255) NOT NULL,
+        description TEXT NOT NULL,
+        plant_name_hint VARCHAR(150) DEFAULT NULL,
+        region ENUM('north', 'central', 'south') NOT NULL,
+        symptoms_json JSON DEFAULT NULL,
+        images_json JSON DEFAULT NULL,
+        ai_instant_diagnosis TEXT DEFAULT NULL,
+        status ENUM('visible', 'pending', 'hidden') DEFAULT 'visible',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        INDEX idx_region (region),
+        INDEX idx_status (status)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+
+    // Seed câu hỏi mẫu
+    $qStmt = $pdo->prepare("INSERT INTO clinic_questions (id, user_id, user_name, title, description, plant_name_hint, region, symptoms_json, images_json, ai_instant_diagnosis, status)
+                           VALUES (:id, :uid, :uname, :title, :desc, :hint, :region, :sym, :img, :ai, 'visible')
+                           ON DUPLICATE KEY UPDATE title = VALUES(title)");
+    $qStmt->execute([
+        ':id'     => 'case-01',
+        ':uid'    => 'usr-101',
+        ':uname'  => 'Bác Ba Làm Vườn',
+        ':title'  => 'Cây ổi lê trồng chậu 50L bị lớp phấn trắng bám dưới mặt lá và rụng nụ non',
+        ':desc'   => 'Tôi trồng chậu trên sân thượng nắng gắt, mấy hôm nay thấy dưới gân lá có nhiều bọ nhỏ li ti phủ phấn trắng, kiến bu nhiều quanh ngọn và nụ non bắt đầu thâm đen rụng dần.',
+        ':hint'   => 'Ổi Lê Đài Loan',
+        ':region' => 'south',
+        ':sym'    => json_encode(['Rệp sáp trắng bám thân', 'Rụng hoa/trái non'], JSON_UNESCAPED_UNICODE),
+        ':img'    => json_encode(['https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Psidium_guajava_fruit.jpg/330px-Psidium_guajava_fruit.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail']),
+        ':ai'     => 'Phân tích sơ bộ từ AI (Miền Nam): Khả năng 95% cây bị rệp sáp bông (Pseudococcidae) cộng sinh với kiến đen. Rệp hút nhựa làm kiệt đọt non và rụng nụ. Khuyến cáo cấp tốc: Pha nước rửa chén hữu cơ hoặc cồn y tế 70 độ xịt trực tiếp vào ổ rệp vào lúc chiều mát, sáng hôm sau xịt nước mạnh rửa trôi.'
+    ]);
+
+    $qStmt->execute([
+        ':id'     => 'case-02',
+        ':uid'    => 'usr-102',
+        ':uname'  => 'Thu Trang (Căn Hộ Ecopark)',
+        ':title'  => 'Bụi Đinh Lăng nếp mới giâm cành bị vàng rũ lá dưới gốc dù đất vẫn ướt sũng',
+        ':desc'   => 'Em mới xin cành giâm về cắm vào chậu đất thịt trộn phân bò, tưới ngày 2 lần đẫm nước. Sau 1 tuần thì lá chân vàng ươm, nhấc nhẹ cành lên thấy phần gốc cắm dưới đất thâm đen có mùi úng.',
+        ':hint'   => 'Đinh Lăng Nếp Lá Nhỏ',
+        ':region' => 'north',
+        ':sym'    => json_encode(['Lá héo rũ dù đất ẩm', 'Vàng lá đốm nâu'], JSON_UNESCAPED_UNICODE),
+        ':img'    => json_encode(['https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Polyscias_fruticosa%2C_Hong_Kong_Park%2C_December_2019_16.jpg/330px-Polyscias_fruticosa%2C_Hong_Kong_Park%2C_December_2019_16.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail']),
+        ':ai'     => 'Phân tích sơ bộ từ AI (Miền Bắc): Đinh lăng bị thối đen gốc do úng rễ (Pythium). Đất thịt quá chặt bí khí kết hợp tưới đẫm làm cành thiếu oxy nghẹt rễ. Cần nhổ cành, cắt bỏ đoạn đen, rửa nước vôi và chuyển sang giá thể xơ dừa + đá perlite tơi xốp.'
+    ]);
+
+    // Seed câu trả lời đã xác nhận (Verified Answers)
+    $ansStmt = $pdo->prepare("INSERT INTO clinic_answers (id, question_id, user_id, author_name, author_badge, content, upvotes, is_verified, status)
+                             VALUES (:id, :qid, :uid, :name, :badge, :content, :upvotes, :is_ver, 'visible')
+                             ON DUPLICATE KEY UPDATE content = VALUES(content), is_verified = VALUES(is_verified)");
+    
+    $ansStmt->execute([
+        ':id'      => 'ans-101',
+        ':qid'     => 'case-01',
+        ':uid'     => 'usr-ks-lam',
+        ':name'    => 'Kỹ Sư Nông Nghiệp Lâm',
+        ':badge'   => 'Nhà Vườn Kinh Nghiệm',
+        ':content' => 'Bác lấy 1 củ tỏi + 3 quả ớt + 1 nhánh gừng giã nhuyễn ngâm với 1 lít rượu trắng trong 2 ngày. Lọc lấy nước cốt pha tỷ lệ 1:20 với nước lã và 1 giọt dầu rửa chén xịt 2 lần cách nhau 3 ngày là rệp sáp sạch bóng, hoàn toàn an toàn cho trái ăn!',
+        ':upvotes' => 18,
+        ':is_ver'  => 1
+    ]);
+    $clinicAnswerCount++;
+
+    $ansStmt->execute([
+        ':id'      => 'ans-102',
+        ':qid'     => 'case-01',
+        ':uid'     => 'usr-minh-thao',
+        ':name'    => 'Minh Thảo (Q.7)',
+        ':badge'   => 'Thành Viên Tích Cực',
+        ':content' => 'Bác nhớ rắc thêm một ít vôi bột quanh mép chậu để chặn đường kiến đen tha rệp từ dưới đất lên nữa nhé bác!',
+        ':upvotes' => 7,
+        ':is_ver'  => 0
+    ]);
+    $clinicAnswerCount++;
+
+    $ansStmt->execute([
+        ':id'      => 'ans-201',
+        ':qid'     => 'case-02',
+        ':uid'     => 'usr-ly-cuong',
+        ':name'    => 'Lương Y Nguyễn Văn Cường',
+        ':badge'   => 'Dược Sĩ Cổ Truyền',
+        ':content' => 'Sai lầm phổ biến khi giâm đinh lăng là dùng đất thịt có phân. Giai đoạn cành chưa có rễ tuyệt đối không bón phân. Cháu nên cắm cành vào cát xây dựng ẩm hoặc dớn trắng ẩm, để chỗ râm mát 20 ngày tự khắc rễ tơ trắng bật tua tủa!',
+        ':upvotes' => 24,
+        ':is_ver'  => 1
+    ]);
+    $clinicAnswerCount++;
+} catch (PDOException $e) {
+    error_log('Seeding clinic answers error: ' . $e->getMessage());
+}
+
 echo json_encode([
     'success' => true,
     'total_in_file' => count($plants),
     'seeded_count' => $successCount,
     'swap_offers_seeded' => $swapSuccessCount,
+    'clinic_answers_seeded' => $clinicAnswerCount,
     'errors_count' => count($errors),
     'errors' => $errors,
     'server_time' => date('Y-m-d H:i:s')

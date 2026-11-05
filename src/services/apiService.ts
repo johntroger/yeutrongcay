@@ -127,13 +127,22 @@ export async function getClinicQuestions(): Promise<{ questions: ClinicQuestion[
           symptoms: item.symptoms || [],
           images: item.images || [],
           ai_instant_diagnosis: item.ai_instant_diagnosis,
-          answers: [],
+          answers: Array.isArray(item.answers) ? item.answers.map((a: any) => ({
+            id: a.id,
+            question_id: a.question_id,
+            author_name: a.author_name,
+            author_badge: a.author_badge,
+            content: a.content,
+            upvotes: Number(a.upvotes || 0),
+            created_at: a.created_at,
+            is_verified: Boolean(a.is_verified)
+          })) : [],
           status: item.status || 'visible',
           created_at: item.created_at
         }));
 
-        // Ghép câu hỏi mới nhất từ database lên đầu danh sách mẫu
-        return { questions: [...liveQuestions, ...INITIAL_CLINIC_QUESTIONS], isLive: true };
+        // Nếu database đã có câu hỏi, ưu tiên danh sách từ database
+        return { questions: liveQuestions, isLive: true };
       }
     }
   } catch (err) {
@@ -172,6 +181,133 @@ export async function submitClinicQuestion(payload: {
     }
   } catch (err) {
     console.error('Error submitting clinic question to MySQL:', err);
+  }
+  return null;
+}
+
+/**
+ * Gửi lời khuyên / câu trả lời cho ca bệnh cây trồng (MS5 - Verified Answers & Karma)
+ */
+export async function submitClinicAnswer(payload: {
+  question_id: string;
+  content: string;
+  user_id?: string;
+  author_name?: string;
+  author_badge?: string;
+}): Promise<{ success: boolean; data?: any; moderation_warning?: string | null; message?: string }> {
+  try {
+    const res = await fetch(`${API_BASE}/clinic.php`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'submit_answer',
+        ...payload
+      })
+    });
+
+    if (res.ok) {
+      const json = await res.json();
+      return json;
+    }
+  } catch (err) {
+    console.warn('API clinic.php submit_answer failed, falling back:', err);
+  }
+
+  // Fallback offline / local
+  return {
+    success: true,
+    data: {
+      id: `ans-local-${Date.now()}`,
+      question_id: payload.question_id,
+      user_id: payload.user_id || 'usr-local',
+      author_name: payload.author_name || 'Chủ Vườn',
+      author_badge: payload.author_badge || 'Thành Viên Tích Cực',
+      content: payload.content,
+      upvotes: 0,
+      is_verified: false,
+      status: 'visible',
+      created_at: 'Vừa xong'
+    }
+  };
+}
+
+/**
+ * Xác nhận câu trả lời hiệu quả (Verified Answer - MS5)
+ */
+export async function verifyClinicAnswer(payload: {
+  question_id: string;
+  answer_id: string;
+  user_id?: string;
+}): Promise<boolean> {
+  try {
+    const res = await fetch(`${API_BASE}/clinic.php`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'verify_answer',
+        ...payload
+      })
+    });
+
+    if (res.ok) {
+      const json = await res.json();
+      return Boolean(json.success && json.is_verified);
+    }
+  } catch (err) {
+    console.warn('API verify_answer error:', err);
+  }
+  return true; // Cho phép tương tác local mượt mà
+}
+
+/**
+ * Thích / Bầu chọn câu trả lời hữu ích (Upvote Answer)
+ */
+export async function upvoteClinicAnswer(answerId: string): Promise<number | null> {
+  try {
+    const res = await fetch(`${API_BASE}/clinic.php`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'upvote_answer',
+        answer_id: answerId
+      })
+    });
+
+    if (res.ok) {
+      const json = await res.json();
+      if (json.success && typeof json.upvotes === 'number') {
+        return json.upvotes;
+      }
+    }
+  } catch (err) {
+    console.warn('API upvote_answer error:', err);
+  }
+  return null;
+}
+
+/**
+ * Lấy điểm uy tín Karma và huy hiệu đóng góp của người dùng (H9)
+ */
+export async function getUserKarma(userId?: string): Promise<{
+  total_karma: number;
+  badge: { title: string; tier: number; icon: string; color: string };
+  events: any[];
+} | null> {
+  try {
+    const url = userId ? `${API_BASE}/karma.php?user_id=${encodeURIComponent(userId)}` : `${API_BASE}/karma.php`;
+    const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+    if (res.ok) {
+      const json = await res.json();
+      if (json.success) {
+        return {
+          total_karma: json.total_karma,
+          badge: json.badge,
+          events: json.events || []
+        };
+      }
+    }
+  } catch (err) {
+    console.warn('API karma.php error:', err);
   }
   return null;
 }

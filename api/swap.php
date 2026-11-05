@@ -197,16 +197,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = 'swap-' . time() . '-' . rand(100, 999);
     $user_id = 'usr-' . substr(md5($ip), 0, 8);
 
-    // M6 (H6): Danh sách từ khóa cấm / loài cấm mua bán
+    // M6 (H6, H15): Danh sách từ khóa cấm, Sách Đỏ (Nhóm IA/IIA) và loài xâm hại nguy hiểm
     $status = 'visible';
-    $blacklist = [
-        'cần sa', 'thuốc phiện', 'cây anh túc', 'lá khát', 'mai dương',
-        'cá độ', 'lô đề', 'kubet', 'shbet', 'thu tiền', 'bán giá rẻ', 'ép mua'
+    $mod_warning = null;
+    $banned_terms = [
+        'cần sa' => 'Cây có chứa chất ma túy bị nghiêm cấm hoàn toàn.',
+        'thuốc phiện' => 'Cây thuốc phiện bị nghiêm cấm theo luật pháp.',
+        'cây anh túc' => 'Cây anh túc bị nghiêm cấm lưu hành và gieo trồng.',
+        'mai dương' => 'Cây mai dương (trinh nữ móc gai) là loài ngoại lai xâm hại nguy hiểm cấm nhân giống/phát tán.',
+        'trinh nữ móc gai' => 'Loài xâm hại sinh thái cấm lưu hành.',
+        'mimosa pigra' => 'Cây mai dương cấm phát tán theo Thông tư 35/2018/TT-BTNMT.',
+        'ốc bươu vàng' => 'Loài phá hoại nông nghiệp nghiêm cấm chia sẻ phát tán.',
+        'cúc bò lan' => 'Loài xâm lấn cấm nhân rộng.',
+        'lan hài việt nam' => 'Lan hài tự nhiên thuộc Nhóm IA Sách Đỏ cấm khai thác, mua bán hoang dã.',
+        'lan hài' => 'Lan hài tự nhiên thuộc danh mục bảo vệ nguồn gen đặc biệt.',
+        'lan kim tuyến rừng' => 'Lan gấm kim tuyến rừng tự nhiên thuộc Nhóm IA nghiêm cấm mua bán trái phép.',
+        'paraquat' => 'Chất diệt cỏ cực độc đã bị cấm hoàn toàn tại Việt Nam.',
+        '2,4-d' => 'Hóa chất BVTV bị cấm lưu hành.',
+        'cá độ' => 'Nội dung spam cờ bạc bị chặn tự động.',
+        'kubet' => 'Spam cờ bạc bị chặn tự động.'
     ];
+
     $combined_text = mb_strtolower($plant_name . ' ' . $description . ' ' . $contact_note, 'UTF-8');
-    foreach ($blacklist as $bad_word) {
-        if (mb_strpos($combined_text, $bad_word) !== false) {
+    foreach ($banned_terms as $kw => $msg) {
+        if (mb_strpos($combined_text, $kw) !== false) {
             $status = 'pending';
+            $mod_warning = $msg;
             break;
         }
     }
@@ -245,12 +261,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } catch (PDOException $e) {
             error_log("Failed to insert swap offer into MySQL: " . $e->getMessage());
         }
+
+        // Thưởng điểm Karma cho hành động chia sẻ mầm xanh (+15 điểm)
+        if ($status === 'visible') {
+            try {
+                $evt = $pdo->prepare("INSERT INTO user_events (user_id, event_type, points, reference_id, metadata_json)
+                                      VALUES (:uid, 'share_seed', 15, :ref, :meta)");
+                $evt->execute([
+                    ':uid'  => $user_id,
+                    ':ref'  => $id,
+                    ':meta' => json_encode(['plant_name' => $plant_name, 'location_name' => $location_name], JSON_UNESCAPED_UNICODE)
+                ]);
+            } catch (Exception $e) {
+                // bỏ qua lỗi log event
+            }
+        }
     }
 
     echo json_encode([
         'success' => true,
+        'moderation_warning' => $mod_warning,
         'message' => $status === 'pending'
-            ? 'Tin đăng của bạn chứa từ khóa cần xem xét và sẽ hiển thị sau khi Ban kiểm duyệt xác minh.'
+            ? 'Tin đăng của bạn chứa từ khóa cần xem xét (' . ($mod_warning ?: 'kiểm duyệt') . ') và sẽ hiển thị sau khi Ban kiểm duyệt xác minh.'
             : 'Đăng tin trao đổi mầm xanh thành công!',
         'data' => [
             'id'                => $id,

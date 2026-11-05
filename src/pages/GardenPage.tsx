@@ -23,8 +23,10 @@ import {
   getGardenData,
   addGardenPlant,
   addPlantDiaryEntry,
-  uploadPlantImage
+  uploadPlantImage,
+  getUserKarma
 } from '../services/apiService.ts';
+import { applyWatermarkAndStripExif } from '../utils/watermark.ts';
 import { useSEO } from '../utils/useSEO.ts';
 
 export const GardenPage: React.FC = () => {
@@ -38,6 +40,13 @@ export const GardenPage: React.FC = () => {
   const [diaries, setDiaries] = useState<PlantDiaryEntry[]>([]);
   const [activeTab, setActiveTab] = useState<'plants' | 'timeline'>('plants');
   const [selectedPlantId, setSelectedPlantId] = useState<string | null>(null);
+
+  // Điểm Karma & Huy Hiệu Đóng Góp (MS5 - H9)
+  const [karmaData, setKarmaData] = useState<{
+    total_karma: number;
+    badge: { title: string; tier: number; icon: string; color: string };
+    events: any[];
+  } | null>(null);
 
   // Modal: Thêm Cây Mới
   const [isAddPlantOpen, setIsAddPlantOpen] = useState(false);
@@ -74,6 +83,13 @@ export const GardenPage: React.FC = () => {
         }
       }
     });
+
+    getUserKarma().then((k) => {
+      if (isMounted && k) {
+        setKarmaData(k);
+      }
+    });
+
     return () => {
       isMounted = false;
     };
@@ -90,27 +106,45 @@ export const GardenPage: React.FC = () => {
     }
   };
 
-  // Upload ảnh cây đại diện
+  // Upload ảnh cây đại diện kèm Watermark & EXIF Clean (H7)
   const handlePlantCoverUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     setIsUploadingPlantCover(true);
-    const res = await uploadPlantImage(file);
-    setIsUploadingPlantCover(false);
-    if (res.success && res.url) {
-      setPlantCoverUrl(res.url);
+    try {
+      const cleanFile = await applyWatermarkAndStripExif(file, {
+        authorName: garden?.garden_name || 'Vườn Phố',
+        brandText: 'yeutrongcay.com'
+      });
+      const res = await uploadPlantImage(cleanFile);
+      if (res.success && res.url) {
+        setPlantCoverUrl(res.url);
+      }
+    } catch (err) {
+      console.warn('Upload plant cover error:', err);
+    } finally {
+      setIsUploadingPlantCover(false);
     }
   };
 
-  // Upload ảnh nhật ký
+  // Upload ảnh nhật ký kèm Watermark & EXIF Clean (H7)
   const handleDiaryPhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     setIsUploadingDiary(true);
-    const res = await uploadPlantImage(file);
-    setIsUploadingDiary(false);
-    if (res.success && res.url) {
-      setDiaryImageUrl(res.url);
+    try {
+      const cleanFile = await applyWatermarkAndStripExif(file, {
+        authorName: garden?.garden_name || 'Vườn Phố',
+        brandText: 'yeutrongcay.com'
+      });
+      const res = await uploadPlantImage(cleanFile);
+      if (res.success && res.url) {
+        setDiaryImageUrl(res.url);
+      }
+    } catch (err) {
+      console.warn('Upload diary photo error:', err);
+    } finally {
+      setIsUploadingDiary(false);
     }
   };
 
@@ -273,10 +307,44 @@ export const GardenPage: React.FC = () => {
             <div className="bg-forest-50/60 p-4 rounded-2xl border border-forest-100">
               <span className="text-[11px] font-semibold text-forest-700">Tuân Thủ An Toàn H7</span>
               <p className="text-sm font-bold text-emerald-800 mt-1.5 flex items-center gap-1">
-                <Check className="w-4 h-4 text-emerald-600" /> Tẩy EXIF Sạch Sẽ
+                <Check className="w-4 h-4 text-emerald-600" /> Tẩy EXIF & Watermark
               </p>
             </div>
           </div>
+
+          {/* Karma & Community Standing Box (MS5 - H9) */}
+          {karmaData && (
+            <div className="mt-6 p-4 rounded-2xl bg-linear-to-r from-forest-900 via-forest-850 to-forest-950 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm border border-forest-800">
+              <div className="flex items-center gap-3.5">
+                <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-xs flex items-center justify-center text-2xl shrink-0 border border-white/15">
+                  {karmaData.badge.icon}
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="font-bold text-sm tracking-wide text-white">
+                      {karmaData.badge.title}
+                    </span>
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-400 text-forest-950">
+                      Cấp {karmaData.badge.tier}
+                    </span>
+                  </div>
+                  <p className="text-xs text-forest-200 mt-0.5">
+                    Huy hiệu tín nhiệm cộng đồng dựa trên lịch sử đóng góp và chia sẻ mầm cây (H9)
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4 bg-white/10 px-4 py-2.5 rounded-xl border border-white/10 shrink-0">
+                <div className="text-right">
+                  <span className="text-[10px] uppercase font-bold text-forest-300 tracking-wider block">Điểm Uy Tín Karma</span>
+                  <span className="text-xl font-bold font-serif text-amber-300">+{karmaData.total_karma} pts</span>
+                </div>
+                <div className="w-8 h-8 rounded-full bg-amber-400/20 text-amber-300 flex items-center justify-center font-bold">
+                  ★
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* 3. Navigation Tabs: Cây Trong Vườn vs Dòng Thời Gian Nhật Ký */}

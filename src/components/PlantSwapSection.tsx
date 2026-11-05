@@ -17,6 +17,8 @@ import {
 import { SwapOffer, SwapOfferType } from '../types/index.ts';
 import { SEED_SWAP_OFFERS } from '../data/swapOffers.ts';
 import { uploadPlantImage, getSwapOffers, submitSwapOffer } from '../services/apiService.ts';
+import { checkCommunityModeration } from '../utils/moderation.ts';
+import { applyWatermarkAndStripExif } from '../utils/watermark.ts';
 import { ReportModal } from './ReportModal.tsx';
 
 export const PlantSwapSection: React.FC = () => {
@@ -70,6 +72,13 @@ export const PlantSwapSection: React.FC = () => {
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
 
+  // Cảnh báo kiểm duyệt tự động Sách Đỏ / Loài xâm hại / Thuốc cấm (H6, H15)
+  const [moderationAlert, setModerationAlert] = useState<{
+    title: string;
+    reason: string;
+    suggestion: string;
+  } | null>(null);
+
   // Modal Báo Cáo Vi Phạm
   const [reportTarget, setReportTarget] = useState<{ id: string; title: string } | null>(null);
 
@@ -99,13 +108,23 @@ export const PlantSwapSection: React.FC = () => {
     setUploadError(null);
     setIsUploadingImage(true);
 
-    const res = await uploadPlantImage(file);
-    setIsUploadingImage(false);
+    try {
+      // Đóng dấu watermark mờ bản quyền & tẩy EXIF GPS (H7)
+      const watermarkedFile = await applyWatermarkAndStripExif(file, {
+        authorName: 'Trạm Đổi Cây',
+        brandText: 'yeutrongcay.com'
+      });
 
-    if (res.success && res.url) {
-      setUploadedImageUrl(res.url);
-    } else {
-      setUploadError(res.error || 'Lỗi khi tải ảnh lên máy chủ');
+      const res = await uploadPlantImage(watermarkedFile);
+      if (res.success && res.url) {
+        setUploadedImageUrl(res.url);
+      } else {
+        setUploadError(res.error || 'Lỗi khi tải ảnh lên máy chủ');
+      }
+    } catch (err: any) {
+      setUploadError(err.message || 'Lỗi xử lý ảnh');
+    } finally {
+      setIsUploadingImage(false);
     }
   };
 
@@ -113,6 +132,18 @@ export const PlantSwapSection: React.FC = () => {
     e.preventDefault();
     if (!newPlantName.trim() || !newLocation.trim() || !pledgedQuarantine) {
       alert('Vui lòng điền đủ thông tin và xác nhận cam kết cách ly 7 ngày an toàn.');
+      return;
+    }
+
+    // Kiểm tra kiểm duyệt loài Sách Đỏ, loài ngoại lai xâm hại (H6, H15)
+    const combinedInput = `${newPlantName} ${newDescription} ${newContact}`;
+    const modCheck = checkCommunityModeration(combinedInput);
+    if (modCheck.isBlocked) {
+      setModerationAlert({
+        title: 'Cảnh Báo Loài Cấm / Ngoại Lai Xâm Hại (H6, H15)',
+        reason: modCheck.reason || 'Nội dung nằm trong danh mục cấm/xâm hại nguy hiểm.',
+        suggestion: modCheck.suggestion || 'Vui lòng không chia sẻ giống loài nguy hại.'
+      });
       return;
     }
 
@@ -662,6 +693,42 @@ export const PlantSwapSection: React.FC = () => {
           targetId={reportTarget.id}
           targetTitle={reportTarget.title}
         />
+      )}
+
+      {/* Modal Cảnh Báo Kiểm Duyệt Sách Đỏ & Loài Cấm (H6, H15) */}
+      {moderationAlert && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-charcoal-900/60 backdrop-blur-xs animate-fade-in">
+          <div className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-rose-100 space-y-4">
+            <div className="flex items-center gap-3 text-rose-600">
+              <div className="p-2.5 rounded-2xl bg-rose-50 border border-rose-100">
+                <AlertTriangle className="w-6 h-6" />
+              </div>
+              <h3 className="font-bold text-forest-900 text-base leading-snug">
+                {moderationAlert.title}
+              </h3>
+            </div>
+
+            <div className="space-y-2 text-xs text-charcoal-800 leading-relaxed bg-rose-50/50 p-3.5 rounded-2xl border border-rose-100">
+              <p className="font-semibold text-rose-900">
+                Lý do từ chối / cảnh báo:
+              </p>
+              <p>{moderationAlert.reason}</p>
+            </div>
+
+            <div className="text-xs text-forest-800 bg-forest-50 p-3.5 rounded-2xl border border-forest-100">
+              <p className="font-bold mb-1">Quy định từ Yêu Trồng Cây:</p>
+              <p>{moderationAlert.suggestion}</p>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setModerationAlert(null)}
+              className="w-full py-2.5 bg-forest-900 hover:bg-forest-800 text-white rounded-xl text-xs font-semibold transition"
+            >
+              Tôi đã hiểu & cam kết tuân thủ
+            </button>
+          </div>
+        </div>
       )}
     </section>
   );
