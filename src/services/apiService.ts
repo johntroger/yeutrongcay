@@ -8,7 +8,14 @@
  * - Đảm bảo trải nghiệm người dùng luôn mượt mà 100%, không bao giờ bị trắng trang
  */
 
-import { Plant, ClinicQuestion, SwapOffer } from '../types/index.ts';
+import {
+  Plant,
+  ClinicQuestion,
+  SwapOffer,
+  UserGarden,
+  GardenPlant,
+  PlantDiaryEntry
+} from '../types/index.ts';
 import { SEED_PLANTS } from '../data/plants.ts';
 import { INITIAL_CLINIC_QUESTIONS } from '../data/clinicCases.ts';
 import { SEED_SWAP_OFFERS } from '../data/swapOffers.ts';
@@ -335,5 +342,196 @@ export async function submitSwapOffer(payload: Partial<SwapOffer>): Promise<{
       success: false,
       message: 'Không thể kết nối đến máy chủ. Vui lòng thử lại.',
     };
+  }
+}
+
+// ==========================================
+// DỊCH VỤ VƯỜN SỐ CÁ NHÂN & NHẬT KÝ (MS4)
+// ==========================================
+
+export const SEED_GARDEN: UserGarden = {
+  id: 'gdn-default-01',
+  user_id: 'usr-local-me',
+  user_name: 'Bạn (Chủ Vườn Đô Thị)',
+  garden_name: 'Vườn Ban Công Ban Mai',
+  garden_type: 'balcony',
+  city: 'TP. Hồ Chí Minh',
+  description: 'Góc vườn ban công tầng 12 hướng Đông Nam đón nắng sớm, chuyên trồng thảo dược trị ho và cây ăn trái lùn.',
+  created_at: '2026-10-01'
+};
+
+export const SEED_GARDEN_PLANTS: GardenPlant[] = [
+  {
+    id: 'gp-01',
+    garden_id: 'gdn-default-01',
+    plant_id: 'fruit-01',
+    custom_name: 'Ổi Lê Đài Loan Cây Mẹ',
+    species_name: 'Psidium guajava',
+    planted_date: '2026-06-15',
+    pot_type: 'Chậu thông minh 50L',
+    current_status: 'fruiting',
+    cover_image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Psidium_guajava_fruit.jpg/330px-Psidium_guajava_fruit.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    notes: 'Tự chiết cành từ vườn nhà ngoại, bón phân trùn quế định kỳ 20 ngày/lần. Đang đậu lứa quả thứ 2.'
+  },
+  {
+    id: 'gp-02',
+    garden_id: 'gdn-default-01',
+    plant_id: 'herb-01',
+    custom_name: 'Khóm Húng Chanh Trị Ho',
+    species_name: 'Plectranthus amboinicus',
+    planted_date: '2026-08-01',
+    pot_type: 'Chậu treo ban công 25cm',
+    current_status: 'healthy',
+    cover_image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Leaf_-pani_koorkka.JPG/330px-Leaf_-pani_koorkka.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    notes: 'Lá dày mọng nước, dùng hấp đường phèn mỗi khi gia đình có người ho khan.'
+  }
+];
+
+export const SEED_PLANT_DIARIES: PlantDiaryEntry[] = [
+  {
+    id: 'dir-01',
+    garden_plant_id: 'gp-01',
+    user_id: 'usr-local-me',
+    entry_date: '2026-10-25',
+    stage: 'Đậu quả non',
+    note: 'Bao bọc quả bằng túi vải không dệt chống ruồi vàng đục trái. Cây đậu 8 trái non mập mạp.',
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Psidium_guajava_fruit.jpg/330px-Psidium_guajava_fruit.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    status: 'visible'
+  },
+  {
+    id: 'dir-02',
+    garden_plant_id: 'gp-01',
+    user_id: 'usr-local-me',
+    entry_date: '2026-08-10',
+    stage: 'Bấm ngọn kích chồi',
+    note: 'Bấm đọt đầu cành 50cm, tưới bổ sung dịch chuối ủ men. Sau 10 ngày bật hàng loạt mắt hoa.',
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Leaf_-pani_koorkka.JPG/330px-Leaf_-pani_koorkka.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    status: 'visible'
+  }
+];
+
+/**
+ * Lấy toàn bộ dữ liệu vườn, cây và nhật ký
+ */
+export async function getGardenData(userId: string = 'usr-local-me'): Promise<{
+  garden: UserGarden;
+  plants: GardenPlant[];
+  diaries: PlantDiaryEntry[];
+  isLive: boolean;
+}> {
+  try {
+    const res = await fetch(`${API_BASE}/garden.php?user_id=${encodeURIComponent(userId)}`, {
+      headers: { 'Accept': 'application/json' },
+    });
+    if (res.ok) {
+      const json = await res.json();
+      if (json.success && json.garden) {
+        return {
+          garden: json.garden,
+          plants: json.plants || [],
+          diaries: json.diaries || [],
+          isLive: true,
+        };
+      }
+    }
+  } catch (err) {
+    console.warn('API garden.php unreachable, using local storage fallback:', err);
+  }
+
+  // Fallback cục bộ
+  try {
+    const savedPlants = localStorage.getItem('ytc_garden_plants');
+    const savedDiaries = localStorage.getItem('ytc_garden_diaries');
+    const savedGarden = localStorage.getItem('ytc_garden_profile');
+
+    return {
+      garden: savedGarden ? JSON.parse(savedGarden) : SEED_GARDEN,
+      plants: savedPlants ? JSON.parse(savedPlants) : SEED_GARDEN_PLANTS,
+      diaries: savedDiaries ? JSON.parse(savedDiaries) : SEED_PLANT_DIARIES,
+      isLive: false,
+    };
+  } catch {
+    return {
+      garden: SEED_GARDEN,
+      plants: SEED_GARDEN_PLANTS,
+      diaries: SEED_PLANT_DIARIES,
+      isLive: false,
+    };
+  }
+}
+
+/**
+ * Cập nhật thông tin vườn
+ */
+export async function updateGardenProfile(garden: Partial<UserGarden>): Promise<{ success: boolean; message?: string }> {
+  try {
+    const res = await fetch(`${API_BASE}/garden.php?action=update_garden`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(garden),
+    });
+    const json = await res.json();
+    return { success: json.success, message: json.message || json.error };
+  } catch {
+    return { success: true, message: 'Đã lưu cấu hình vườn trên trình duyệt (Offline)' };
+  }
+}
+
+/**
+ * Thêm cây mới vào vườn
+ */
+export async function addGardenPlant(plant: Partial<GardenPlant>): Promise<{ success: boolean; data?: GardenPlant; message?: string }> {
+  try {
+    const res = await fetch(`${API_BASE}/garden.php?action=add_plant`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(plant),
+    });
+    const json = await res.json();
+    return { success: json.success, data: json.data, message: json.message || json.error };
+  } catch {
+    const fallbackPlant: GardenPlant = {
+      id: plant.id || `gp-${Date.now()}`,
+      garden_id: plant.garden_id || 'gdn-default-01',
+      plant_id: plant.plant_id,
+      custom_name: plant.custom_name || 'Cây Trồng Mới',
+      species_name: plant.species_name,
+      planted_date: plant.planted_date || new Date().toISOString().split('T')[0],
+      pot_type: plant.pot_type || 'Chậu nhựa 35cm',
+      current_status: plant.current_status || 'healthy',
+      cover_image_url: plant.cover_image_url || 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Leaf_-pani_koorkka.JPG/330px-Leaf_-pani_koorkka.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+      notes: plant.notes,
+      created_at: new Date().toISOString()
+    };
+    return { success: true, data: fallbackPlant, message: 'Đã lưu cây vào bộ nhớ máy (Offline)' };
+  }
+}
+
+/**
+ * Thêm nhật ký ảnh mới
+ */
+export async function addPlantDiaryEntry(diary: Partial<PlantDiaryEntry>): Promise<{ success: boolean; data?: PlantDiaryEntry; message?: string }> {
+  try {
+    const res = await fetch(`${API_BASE}/garden.php?action=add_diary`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(diary),
+    });
+    const json = await res.json();
+    return { success: json.success, data: json.data, message: json.message || json.error };
+  } catch {
+    const fallbackDiary: PlantDiaryEntry = {
+      id: diary.id || `dir-${Date.now()}`,
+      garden_plant_id: diary.garden_plant_id || 'gp-01',
+      user_id: diary.user_id || 'usr-local-me',
+      entry_date: diary.entry_date || new Date().toISOString().split('T')[0],
+      stage: diary.stage || 'Đang sinh trưởng',
+      note: diary.note || 'Cây phát triển tốt',
+      image_url: diary.image_url || 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Leaf_-pani_koorkka.JPG/330px-Leaf_-pani_koorkka.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+      image_sha256: diary.image_sha256,
+      status: 'visible',
+      created_at: new Date().toISOString()
+    };
+    return { success: true, data: fallbackDiary, message: 'Đã lưu nhật ký trên máy (Offline)' };
   }
 }

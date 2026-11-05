@@ -51,6 +51,12 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy, onOpenContact }) 
                 </Link>
               </li>
               <li>
+                <Link to="/vuon-cua-toi" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition flex items-center gap-1 font-semibold text-herbal-400">
+                  <span>• Vườn Số Của Tôi (Nhật Ký Ảnh)</span>
+                  <ArrowUpRight className="w-3 h-3 text-emerald-400 opacity-70" />
+                </Link>
+              </li>
+              <li>
                 <Link to="/kiem-tien-tu-vuon" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition flex items-center gap-1">
                   <span>• Cẩm Nang Làm Kinh Tế Vườn</span>
                   <ArrowUpRight className="w-3 h-3 text-emerald-400 opacity-70" />

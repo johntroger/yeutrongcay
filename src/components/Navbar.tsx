@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Search, ShieldCheck, HeartHandshake, Mic, User, MapPin, Type, MessageCircle } from 'lucide-react';
+import { Search, ShieldCheck, HeartHandshake, Mic, User, MapPin, Type, MessageCircle, Leaf } from 'lucide-react';
 import { PlantCategory, UserProfile } from '../types/index.ts';
 
 interface NavbarProps {
@@ -130,6 +130,19 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <ShieldCheck className="w-4 h-4 text-terracotta-600" />
               <span>Web3 Sandbox</span>
+            </Link>
+
+            {/* Vườn Số Cá Nhân (MS4) */}
+            <Link
+              to="/vuon-cua-toi"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold bg-forest-900 hover:bg-forest-950 text-white flex items-center gap-1.5 shadow-xs transition"
+              title="Vườn số của tôi & Nhật ký ảnh (Mở tab mới)"
+            >
+              <Leaf className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-herbal-400" />
+              <span className="hidden sm:inline">Vườn Của Tôi</span>
+              <span className="sm:hidden text-[11px]">Vườn Số</span>
             </Link>
 
             {/* Accessibility Font Size Toggle (A- / A+) */}

@@ -280,98 +280,122 @@ export const HomePage: React.FC<HomePageProps> = ({
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {/* Box 1: Bác sĩ cây trồng */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            {/* Box 1: Vườn Số Của Tôi (MS4) */}
+            <Link
+              to="/vuon-cua-toi"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-5 rounded-3xl bg-forest-950/80 border border-forest-700 hover:border-herbal-400 hover:bg-forest-950 transition group flex flex-col justify-between shadow-lg"
+            >
+              <div>
+                <div className="w-10 h-10 rounded-2xl bg-herbal-500/20 text-herbal-400 flex items-center justify-center mb-3.5">
+                  <span className="text-xl">🏡</span>
+                </div>
+                <h3 className="font-serif font-bold text-base text-white group-hover:text-herbal-300 transition">
+                  Vườn Số Của Tôi
+                </h3>
+                <p className="text-xs text-forest-300/80 mt-1 leading-relaxed">
+                  Quản lý từng chậu cây ban công, lưu ảnh dòng thời gian trước & sau lớn lên.
+                </p>
+              </div>
+              <div className="pt-3.5 mt-3.5 border-t border-forest-800/80 flex items-center justify-between text-xs font-semibold text-herbal-400">
+                <span>Mở Vườn Số</span>
+                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
+              </div>
+            </Link>
+
+            {/* Box 2: Bác sĩ cây trồng */}
             <Link
               to="/bac-si-cay-trong"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-6 rounded-3xl bg-forest-950/60 border border-forest-800 hover:border-herbal-400 hover:bg-forest-950 transition group flex flex-col justify-between"
+              className="p-5 rounded-3xl bg-forest-950/60 border border-forest-800 hover:border-herbal-400 hover:bg-forest-950 transition group flex flex-col justify-between"
             >
               <div>
-                <div className="w-10 h-10 rounded-2xl bg-herbal-500/10 text-herbal-400 flex items-center justify-center mb-4">
+                <div className="w-10 h-10 rounded-2xl bg-herbal-500/10 text-herbal-400 flex items-center justify-center mb-3.5">
                   <Stethoscope className="w-5 h-5" />
                 </div>
                 <h3 className="font-serif font-bold text-base text-white group-hover:text-herbal-300 transition">
                   Bác Sĩ Cây Trồng
                 </h3>
-                <p className="text-xs text-forest-300/80 mt-1.5 leading-relaxed">
+                <p className="text-xs text-forest-300/80 mt-1 leading-relaxed">
                   Chẩn đoán tức thì 3 giây bệnh vàng lá, rệp sáp, thối rễ kèm bài thuốc sinh học.
                 </p>
               </div>
-              <div className="pt-4 mt-4 border-t border-forest-800/60 flex items-center justify-between text-xs font-semibold text-herbal-400">
+              <div className="pt-3.5 mt-3.5 border-t border-forest-800/60 flex items-center justify-between text-xs font-semibold text-herbal-400">
                 <span>Mở Phòng Khám</span>
                 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
               </div>
             </Link>
 
-            {/* Box 2: Trạm Đổi Cây */}
+            {/* Box 3: Trạm Đổi Cây */}
             <Link
               to="/trao-doi-cay"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-6 rounded-3xl bg-forest-950/60 border border-forest-800 hover:border-emerald-400 hover:bg-forest-950 transition group flex flex-col justify-between"
+              className="p-5 rounded-3xl bg-forest-950/60 border border-forest-800 hover:border-emerald-400 hover:bg-forest-950 transition group flex flex-col justify-between"
             >
               <div>
-                <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-4">
+                <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-3.5">
                   <MapPin className="w-5 h-5" />
                 </div>
                 <h3 className="font-serif font-bold text-base text-white group-hover:text-emerald-300 transition">
                   Trạm Trao Đổi Cây
                 </h3>
-                <p className="text-xs text-forest-300/80 mt-1.5 leading-relaxed">
+                <p className="text-xs text-forest-300/80 mt-1 leading-relaxed">
                   Kết nối tặng hạt giống, đổi cành giâm an toàn ba miền với cam kết cách ly 7 ngày.
                 </p>
               </div>
-              <div className="pt-4 mt-4 border-t border-forest-800/60 flex items-center justify-between text-xs font-semibold text-emerald-400">
+              <div className="pt-3.5 mt-3.5 border-t border-forest-800/60 flex items-center justify-between text-xs font-semibold text-emerald-400">
                 <span>Mở Trạm Đổi Cây</span>
                 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
               </div>
             </Link>
 
-            {/* Box 3: Kiếm Tiền Từ Vườn */}
+            {/* Box 4: Kiếm Tiền Từ Vườn */}
             <Link
               to="/kiem-tien-tu-vuon"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-6 rounded-3xl bg-forest-950/60 border border-forest-800 hover:border-amber-400 hover:bg-forest-950 transition group flex flex-col justify-between"
+              className="p-5 rounded-3xl bg-forest-950/60 border border-forest-800 hover:border-amber-400 hover:bg-forest-950 transition group flex flex-col justify-between"
             >
               <div>
-                <div className="w-10 h-10 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-4">
+                <div className="w-10 h-10 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-3.5">
                   <Coins className="w-5 h-5" />
                 </div>
                 <h3 className="font-serif font-bold text-base text-white group-hover:text-amber-300 transition">
                   Bí Quyết Làm Kinh Tế
                 </h3>
-                <p className="text-xs text-forest-300/80 mt-1.5 leading-relaxed">
+                <p className="text-xs text-forest-300/80 mt-1 leading-relaxed">
                   Chiến lược tạo thu nhập bền vững từ chiết cành, ươm giống và chế biến thảo mộc.
                 </p>
               </div>
-              <div className="pt-4 mt-4 border-t border-forest-800/60 flex items-center justify-between text-xs font-semibold text-amber-400">
+              <div className="pt-3.5 mt-3.5 border-t border-forest-800/60 flex items-center justify-between text-xs font-semibold text-amber-400">
                 <span>Xem Cẩm Nang</span>
                 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
               </div>
             </Link>
 
-            {/* Box 4: Kênh Liên Hệ & Hợp Tác */}
+            {/* Box 5: Kênh Liên Hệ & Hợp Tác */}
             <Link
               to="/lien-he"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-6 rounded-3xl bg-forest-950/60 border border-forest-800 hover:border-forest-400 hover:bg-forest-950 transition group flex flex-col justify-between"
+              className="p-5 rounded-3xl bg-forest-950/60 border border-forest-800 hover:border-forest-400 hover:bg-forest-950 transition group flex flex-col justify-between"
             >
               <div>
-                <div className="w-10 h-10 rounded-2xl bg-forest-500/10 text-forest-300 flex items-center justify-center mb-4">
+                <div className="w-10 h-10 rounded-2xl bg-forest-500/10 text-forest-300 flex items-center justify-center mb-3.5">
                   <MessageCircle className="w-5 h-5" />
                 </div>
                 <h3 className="font-serif font-bold text-base text-white group-hover:text-forest-200 transition">
                   Liên Hệ & Hợp Tác
                 </h3>
-                <p className="text-xs text-forest-300/80 mt-1.5 leading-relaxed">
+                <p className="text-xs text-forest-300/80 mt-1 leading-relaxed">
                   Gửi yêu cầu hỗ trợ, đóng góp bài thuốc dân gian hoặc đăng ký đối tác nhà vườn.
                 </p>
               </div>
-              <div className="pt-4 mt-4 border-t border-forest-800/60 flex items-center justify-between text-xs font-semibold text-forest-300">
+              <div className="pt-3.5 mt-3.5 border-t border-forest-800/60 flex items-center justify-between text-xs font-semibold text-forest-300">
                 <span>Gửi Tin Nhắn</span>
                 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
               </div>

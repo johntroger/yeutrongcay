@@ -10,6 +10,7 @@ import { ClinicPage } from './pages/ClinicPage.tsx';
 import { MonetizationPage } from './pages/MonetizationPage.tsx';
 import { Web3Page } from './pages/Web3Page.tsx';
 import { ContactPage } from './pages/ContactPage.tsx';
+import { GardenPage } from './pages/GardenPage.tsx';
 import { PlantDetailPage } from './pages/PlantDetailPage.tsx';
 import { AuthModal } from './components/AuthModal.tsx';
 import { MyGardenModal } from './components/MyGardenModal.tsx';
@@ -255,6 +256,7 @@ export default function App() {
           />
 
           {/* Các Tính Năng Chuyên Sâu Độc Lập - Giải Phóng Cho Trang Chủ */}
+          <Route path="/vuon-cua-toi" element={<GardenPage />} />
           <Route path="/trao-doi-cay" element={<SwapPage />} />
           <Route path="/bac-si-cay-trong" element={<ClinicPage />} />
           <Route path="/kiem-tien-tu-vuon" element={<MonetizationPage />} />

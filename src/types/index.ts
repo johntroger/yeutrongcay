@@ -169,3 +169,52 @@ export interface SwapOffer {
   created_at: string;
   contact_note?: string;
 }
+
+// ==========================================
+// MÔ HÌNH VƯỜN SỐ & NHẬT KÝ CÂY TRỒNG (MS4 - H1, H5, H7)
+// ==========================================
+export type GardenType = 'balcony' | 'rooftop' | 'backyard' | 'indoor_window';
+export type PlantGrowthStatus = 'healthy' | 'flowering' | 'fruiting' | 'recovering' | 'dormant';
+
+export interface UserGarden {
+  id: string;
+  user_id: string;
+  user_name: string;
+  garden_name: string;
+  garden_type: GardenType;
+  city: string;
+  description?: string;
+  created_at?: string;
+}
+
+export interface GardenPlant {
+  id: string;
+  garden_id: string;
+  plant_id?: string;
+  custom_name: string;
+  species_name?: string;
+  planted_date: string; // YYYY-MM-DD
+  pot_type: string;
+  current_status: PlantGrowthStatus;
+  cover_image_url: string;
+  notes?: string;
+  created_at?: string;
+}
+
+export interface PlantDiaryEntry {
+  id: string;
+  garden_plant_id: string;
+  user_id: string;
+  entry_date: string; // YYYY-MM-DD
+  stage: string;
+  note: string;
+  image_url: string;
+  image_sha256?: string;
+  metrics?: {
+    height_cm?: number;
+    fruit_count?: number;
+    health_score?: number;
+  };
+  status: ContentStatus;
+  created_at?: string;
+}
