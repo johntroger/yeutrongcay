@@ -75,8 +75,8 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <header className="sticky top-0 z-40 bg-cream-100 dark:bg-charcoal-900/95 backdrop-blur-md border-b border-forest-100 dark:border-forest-900 shadow-sm transition-colors duration-200">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 relative">
-        <div className="flex items-center justify-between h-16 sm:h-20 gap-2 sm:gap-4">
+      <div className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 relative">
+        <div className="flex items-center justify-between h-14 sm:h-16 gap-2 sm:gap-4">
           
           {/* Official Brand Logo -> Link to Home */}
           <Link
@@ -88,7 +88,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <img
               src="/logo.jpg"
               alt={t('common.siteName') + ' - ' + t('common.tagline')}
-              className="h-10 sm:h-12 md:h-14 w-auto object-contain hover:opacity-95 transition rounded-lg"
+              className="h-9 sm:h-10 md:h-11 w-auto object-contain hover:opacity-95 transition rounded-lg"
             />
           </Link>
 

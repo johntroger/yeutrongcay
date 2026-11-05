@@ -226,458 +226,463 @@ export const Web3SandboxSection: React.FC = () => {
   };
 
   return (
-    <section id="web3" className="py-12 sm:py-16 bg-forest-950 text-white relative overflow-hidden transition-colors">
+    <section id="web3" className="py-3 sm:py-5 bg-forest-950 text-white relative overflow-hidden transition-colors flex-1 flex flex-col justify-start">
       {/* Decorative gradient glow */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-10">
+      <div className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 relative z-10 w-full space-y-4">
         
-        {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center space-y-3">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-900/60 text-emerald-300 text-xs font-semibold border border-emerald-700/50 shadow-2xs">
-            <ShieldCheck className="w-4 h-4 text-emerald-400" />
-            <span>{isEn ? 'Milestone MS8: Real Web3 Wallet & Botanical Provenance (100% Free Testnet)' : 'Milestone MS8: Kết Nối Ví Web3 & Bảo Tồn Nguồn Gen Cây Bản Địa (Testnet)'}</span>
+        {/* Sleek Integrated Header & Wallet Control Row */}
+        <div className="bg-charcoal-900/95 rounded-2xl p-3 sm:p-4 border border-forest-800 shadow-xl backdrop-blur-xl flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+          {/* Left: Title & Concept Spine */}
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-2xl bg-emerald-950 text-emerald-400 border border-emerald-700/60 flex items-center justify-center shrink-0 shadow-sm">
+              <ShieldCheck className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2 flex-wrap">
+                <h1 className="text-base sm:text-lg font-serif font-bold text-white tracking-tight">
+                  {isEn ? 'Web3 Plant Passport & Genetic Provenance' : 'Hộ Chiếu Cây Trồng Số & Web3 Sandbox'}
+                </h1>
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-900/60 text-emerald-300 text-[10px] font-semibold border border-emerald-700/50">
+                  <Sparkles className="w-3 h-3 text-emerald-400" />
+                  <span>Base Sepolia Testnet (0đ Gas)</span>
+                </span>
+              </div>
+              <p className="text-[11px] text-forest-300 line-clamp-1">
+                {isEn
+                  ? 'Cryptographically sign plant records with SHA-256 hashes on Base Sepolia. 100% free testnet.'
+                  : 'Ký số cá nhân xác thực cây trồng & lưu giữ mã băm SHA-256 bất biến trên sổ cái Base Sepolia.'}
+              </p>
+            </div>
           </div>
 
-          <h2 className="text-2xl sm:text-4xl font-serif font-bold text-white tracking-tight">
-            {isEn ? 'Connect Web3 Wallet & Mint Plant Passports' : 'Kết Nối Ví Web3 & Đúc Hộ Chiếu Thực Vật'}
-          </h2>
-
-          <p className="text-xs sm:text-sm text-forest-200/80 font-sans max-w-2xl mx-auto leading-relaxed">
-            {isEn
-              ? 'Connect your real MetaMask wallet or generate a free testnet keypair. Cryptographically sign your plant records with SHA-256 hashes on Base Sepolia. Zero gas fees, zero real money.'
-              : 'Kết nối trực tiếp ví MetaMask của bạn hoặc khởi tạo ví thử nghiệm miễn phí. Sử dụng chữ ký số cá nhân để xác thực cây trồng và lưu giữ mã băm SHA-256 bất biến trên sổ cái Base Sepolia.'}
-          </p>
-        </div>
-
-        {/* 1. WALLET CONNECTION STATUS BAR */}
-        <div className="max-w-4xl mx-auto bg-charcoal-900/90 rounded-3xl p-5 sm:p-6 border border-forest-800 shadow-2xl backdrop-blur-xl">
-          {walletError && (
-            <div className="mb-4 p-3 rounded-xl bg-red-950/80 border border-red-800 text-xs text-red-200 flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
-              <span>{walletError}</span>
-            </div>
-          )}
-
-          {!wallet || !wallet.isConnected ? (
-            /* TRẠNG THÁI CHƯA KẾT NỐI VÍ */
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="space-y-1 text-center sm:text-left">
-                <div className="flex items-center justify-center sm:justify-start gap-2 text-sm font-bold text-white">
-                  <Wallet className="w-4 h-4 text-amber-400" />
-                  <span>{isEn ? 'No Web3 Wallet Connected' : 'Chưa Kết Nối Ví Web3'}</span>
-                </div>
-                <p className="text-xs text-forest-300">
-                  {isEn
-                    ? 'Connect MetaMask or create an instant embedded testnet wallet to sign transactions.'
-                    : 'Kết nối ví MetaMask hoặc tạo ví thử nghiệm tích hợp sẵn để thực hiện ký số và đúc hộ chiếu.'}
-                </p>
-              </div>
-
-              <div className="flex items-center gap-2.5 shrink-0 flex-wrap justify-center">
+          {/* Right: Wallet Connection Status / Actions */}
+          <div className="flex items-center gap-2.5 flex-wrap justify-start lg:justify-end">
+            {!wallet || !wallet.isConnected ? (
+              <div className="flex items-center gap-2 flex-wrap">
                 <button
                   onClick={handleConnectMetaMask}
                   disabled={isConnecting}
-                  className="px-4 py-2.5 rounded-2xl bg-amber-500 hover:bg-amber-400 active:scale-[0.99] text-forest-950 font-bold text-xs flex items-center gap-2 shadow-lg transition"
+                  className="px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 active:scale-[0.99] text-forest-950 font-bold text-xs flex items-center gap-1.5 shadow-md transition"
                 >
                   {isConnecting ? (
-                    <RefreshCw className="w-4 h-4 animate-spin" />
+                    <RefreshCw className="w-3.5 h-3.5 animate-spin" />
                   ) : (
-                    <span className="text-base">🦊</span>
+                    <span className="text-sm">🦊</span>
                   )}
                   <span>{isEn ? 'Connect MetaMask' : 'Kết Nối Ví MetaMask'}</span>
                 </button>
 
                 <button
                   onClick={handleConnectEmbedded}
-                  className="px-4 py-2.5 rounded-2xl bg-forest-800 hover:bg-forest-700 active:scale-[0.99] text-white font-semibold text-xs border border-forest-700 flex items-center gap-1.5 transition"
+                  className="px-3 py-1.5 rounded-xl bg-forest-800 hover:bg-forest-700 active:scale-[0.99] text-white font-semibold text-xs border border-forest-700 flex items-center gap-1.5 transition"
                   title="Tạo nhanh ví thử nghiệm không cần cài tiện ích"
                 >
                   <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>{isEn ? 'Create Test Wallet' : 'Tạo Ví Thử Nghiệm'}</span>
+                  <span>{isEn ? 'Instant Test Wallet' : 'Tạo Ví Thử Nghiệm'}</span>
                 </button>
               </div>
-            </div>
-          ) : (
-            /* TRẠNG THÁI ĐÃ KẾT NỐI VÍ */
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-              <div className="space-y-1.5">
-                <div className="flex items-center gap-2.5 flex-wrap">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                  <span className="text-xs font-bold text-white">
-                    {wallet.isMetaMask ? 'MetaMask Đã Kết Nối' : 'Ví Thử Nghiệm Tích Hợp'}
+            ) : (
+              <div className="flex items-center gap-2 flex-wrap">
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-forest-950 border border-forest-800 text-xs">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span className="font-semibold text-white text-[11px]">
+                    {wallet.isMetaMask ? 'MetaMask' : 'Ví Thử Nghiệm'}
                   </span>
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-950 text-emerald-300 border border-emerald-700/60">
-                    {wallet.networkName}
-                  </span>
-                  {wallet.balanceEth && (
-                    <span className="text-xs font-mono text-amber-300">
-                      {wallet.balanceEth} ETH
-                    </span>
-                  )}
-                </div>
-
-                <div className="flex items-center gap-2 text-xs text-forest-200">
-                  <span>Địa chỉ ví:</span>
-                  <span className="font-mono bg-forest-950 px-2.5 py-1 rounded-lg border border-forest-800 text-emerald-300 select-all">
-                    {wallet.address ? `${wallet.address.slice(0, 8)}...${wallet.address.slice(-6)}` : ''}
+                  <span className="font-mono text-emerald-300 text-[11px]">
+                    {wallet.address ? `${wallet.address.slice(0, 6)}...${wallet.address.slice(-4)}` : ''}
                   </span>
                   <button
                     onClick={handleCopyAddress}
-                    className="p-1.5 rounded-lg hover:bg-forest-800 text-gray-400 hover:text-white transition"
+                    className="p-1 hover:text-white text-gray-400 transition"
                     title="Sao chép địa chỉ ví"
                   >
-                    {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                    {copied ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                  </button>
+                </div>
+
+                {/* Network Switches */}
+                <div className="flex items-center gap-1">
+                  <button
+                    onClick={() => handleSwitchNetwork('Base Sepolia')}
+                    className={`px-2.5 py-1 rounded-lg text-[10px] font-bold border transition ${
+                      selectedNetwork === 'Base Sepolia'
+                        ? 'bg-emerald-600 text-white border-emerald-500'
+                        : 'bg-forest-900 text-forest-300 border-forest-800 hover:bg-forest-800'
+                    }`}
+                  >
+                    Base Sepolia
+                  </button>
+                  <button
+                    onClick={() => handleSwitchNetwork('Polygon Amoy')}
+                    className={`px-2.5 py-1 rounded-lg text-[10px] font-bold border transition ${
+                      selectedNetwork === 'Polygon Amoy'
+                        ? 'bg-purple-600 text-white border-purple-500'
+                        : 'bg-forest-900 text-forest-300 border-forest-800 hover:bg-forest-800'
+                    }`}
+                  >
+                    Polygon Amoy
+                  </button>
+                </div>
+
+                <button
+                  onClick={handleDisconnect}
+                  className="p-1.5 rounded-lg bg-red-950/60 hover:bg-red-900 text-red-200 border border-red-800/80 transition"
+                  title="Ngắt kết nối ví"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Error notification if any */}
+        {walletError && (
+          <div className="p-2.5 rounded-xl bg-red-950/80 border border-red-800 text-xs text-red-200 flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
+              <span>{walletError}</span>
+            </div>
+            <button onClick={() => setWalletError(null)} className="text-red-300 hover:text-white text-xs">✕</button>
+          </div>
+        )}
+
+        {/* Main 12-Column Dashboard - Tận Dụng Toàn Bộ Không Gian Màn Hình */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
+          
+          {/* Left Column (lg:col-span-4): Faucet & Escrow Simulator */}
+          <div className="lg:col-span-4 space-y-4">
+            
+            {/* Card 1: Faucet */}
+            <div className="bg-charcoal-900/90 rounded-2xl p-4 sm:p-5 border border-forest-800 shadow-xl space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
+                  <Gift className="w-4 h-4" /> {isEn ? 'Token Faucet' : 'Vòi Cấp Token'}
+                </span>
+                <span className="text-xs font-mono bg-forest-950 px-2.5 py-0.5 rounded-full text-emerald-300 border border-forest-800">
+                  {testBalance} Mầm Xanh
+                </span>
+              </div>
+
+              <div>
+                <h3 className="text-sm sm:text-base font-serif font-bold text-white">
+                  {isEn ? 'Claim 100 Free Testnet Seed Tokens' : 'Cấp 100 Token "Mầm Xanh" Vào Ví'}
+                </h3>
+                <p className="text-[11px] text-forest-300 mt-1 leading-relaxed">
+                  {isEn
+                    ? '100 sandbox tokens daily to test community tips and smart contract plant swaps.'
+                    : 'Cấp 100 token thử nghiệm mỗi ngày để làm quen thao tác thưởng quà (Tip) và đổi cây an toàn.'}
+                </p>
+              </div>
+
+              {wallet?.address && (
+                <div className="p-2 rounded-xl bg-forest-950 border border-forest-800 text-[10px] font-mono text-gray-400 truncate">
+                  Ví nhận: <span className="text-emerald-300">{wallet.address.slice(0, 10)}...{wallet.address.slice(-6)}</span>
+                </div>
+              )}
+
+              <button
+                onClick={handleClaimFaucet}
+                disabled={faucetClaimed}
+                className={`w-full py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 transition ${
+                  faucetClaimed
+                    ? 'bg-forest-900 text-emerald-400 border border-forest-800 cursor-not-allowed'
+                    : 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-md active:scale-[0.99]'
+                }`}
+              >
+                {faucetClaimed ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>{isEn ? 'Claimed (24h Cooldown)' : 'Đã Cấp Vào Ví (Hồi Chiêu 24h)'}</span>
+                  </>
+                ) : (
+                  <>
+                    <Gift className="w-3.5 h-3.5" />
+                    <span>{isEn ? 'Claim 100 Seed Tokens' : 'Bấm Nhận 100 Mầm Xanh (0đ)'}</span>
+                  </>
+                )}
+              </button>
+            </div>
+
+            {/* Card 2: Escrow Simulator */}
+            <div className="bg-charcoal-900/90 rounded-2xl p-4 sm:p-5 border border-forest-800 shadow-xl space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold uppercase tracking-wider text-teal-400 flex items-center gap-1.5">
+                  <FileCheck2 className="w-4 h-4" /> {isEn ? 'Escrow Simulator' : 'Mô Phỏng Smart Contract Đổi Cây'}
+                </span>
+                <button
+                  onClick={handleRunEscrowStep}
+                  disabled={isEscrowSimulating}
+                  className="px-2.5 py-1 rounded-lg bg-teal-600 hover:bg-teal-500 text-white text-[11px] font-bold transition flex items-center gap-1 shadow-xs"
+                >
+                  {isEscrowSimulating ? (
+                    <RefreshCw className="w-3 h-3 animate-spin" />
+                  ) : (
+                    <>
+                      <span>{escrowStep === 3 ? 'Lặp lại' : `Bước ${escrowStep}/3`}</span>
+                      <ArrowRight className="w-3 h-3" />
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {/* 3 Steps */}
+              <div className="space-y-2 text-xs">
+                {/* Step 1 */}
+                <div className={`p-2.5 rounded-xl border transition ${
+                  escrowStep === 1
+                    ? 'bg-teal-950/70 border-teal-500 text-white shadow-xs'
+                    : escrowStep > 1
+                    ? 'bg-forest-900/40 border-forest-800 text-forest-300 opacity-80'
+                    : 'bg-forest-900/20 border-forest-800 text-gray-500'
+                }`}>
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-[11px] text-cream-100 flex items-center gap-1.5">
+                      <span className="w-4 h-4 rounded-full bg-teal-600 text-white inline-flex items-center justify-center text-[10px]">1</span>
+                      Khóa Cọc Hạt Giống (20 Mầm Xanh)
+                    </span>
+                    {escrowStep > 1 && <Check className="w-3 h-3 text-teal-400" />}
+                  </div>
+                  <p className="text-[10px] text-forest-300 mt-1 leading-normal">
+                    Hai bên khóa 20 Mầm Xanh vào Smart Contract làm tin trước khi chuyển cây.
+                  </p>
+                </div>
+
+                {/* Step 2 */}
+                <div className={`p-2.5 rounded-xl border transition ${
+                  escrowStep === 2
+                    ? 'bg-teal-950/70 border-teal-500 text-white shadow-xs'
+                    : escrowStep > 2
+                    ? 'bg-forest-900/40 border-forest-800 text-forest-300 opacity-80'
+                    : 'bg-forest-900/20 border-forest-800 text-gray-500'
+                }`}>
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-[11px] text-cream-100 flex items-center gap-1.5">
+                      <span className="w-4 h-4 rounded-full bg-teal-600 text-white inline-flex items-center justify-center text-[10px]">2</span>
+                      Giao Nhận & 7 Ngày Cách Ly
+                    </span>
+                    {escrowStep > 2 && <Check className="w-3 h-3 text-teal-400" />}
+                  </div>
+                  <p className="text-[10px] text-forest-300 mt-1 leading-normal">
+                    Chuyển phát cây & áp dụng cách ly 7 ngày phòng dịch mầm bệnh lây chéo.
+                  </p>
+                </div>
+
+                {/* Step 3 */}
+                <div className={`p-2.5 rounded-xl border transition ${
+                  escrowStep === 3
+                    ? 'bg-emerald-950/80 border-emerald-500 text-white shadow-xs'
+                    : 'bg-forest-900/20 border-forest-800 text-gray-500'
+                }`}>
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-[11px] text-cream-100 flex items-center gap-1.5">
+                      <span className="w-4 h-4 rounded-full bg-emerald-600 text-white inline-flex items-center justify-center text-[10px]">3</span>
+                      Nghiệm Thu & Thưởng Karma
+                    </span>
+                    {escrowStep === 3 && <Check className="w-3 h-3 text-emerald-400" />}
+                  </div>
+                  <p className="text-[10px] text-forest-300 mt-1 leading-normal">
+                    Bấm "Cây sống khỏe", hoàn trả 20 Mầm Xanh và cộng +15 Karma uy tín cho người tặng.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Right Column (lg:col-span-8): Dynamic NFT Plant Passport Studio */}
+          <div className="lg:col-span-8 space-y-4">
+            <div className="bg-charcoal-900/90 rounded-2xl p-4 sm:p-5 border border-forest-800 shadow-xl space-y-4">
+              <div className="flex items-center justify-between pb-3 border-b border-forest-800 flex-wrap gap-2">
+                <div className="flex items-center gap-2">
+                  <Award className="w-4 h-4 text-amber-400" />
+                  <h3 className="text-sm sm:text-base font-serif font-bold text-white">
+                    {isEn ? 'Digital Plant Passport Minting Studio (Dynamic NFT)' : 'Xưởng Đúc Hộ Chiếu Thực Vật Bản Địa (Dynamic NFT)'}
+                  </h3>
+                </div>
+                <div className="flex items-center gap-2 text-[10px] font-mono">
+                  <span className="px-2.5 py-0.5 rounded-full bg-forest-950 text-emerald-300 border border-forest-800">
+                    Sổ cái: {selectedNetwork}
+                  </span>
+                  <span className="px-2.5 py-0.5 rounded-full bg-amber-950/80 text-amber-300 border border-amber-800/60">
+                    Giai đoạn {evolutionStage}/3
+                  </span>
+                </div>
+              </div>
+
+              {/* Mint Controls Form: Grid 12 cols */}
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+                
+                {/* Plant Thumbnail & SHA-256 Preview (md:col-span-5) */}
+                <div className="md:col-span-5 bg-forest-950 rounded-2xl p-3 border border-forest-800 space-y-2.5">
+                  <div className="relative rounded-xl overflow-hidden aspect-video bg-charcoal-900 border border-forest-800">
+                    <img
+                      src={SAMPLE_MINT_PLANTS[selectedPlantIndex].image}
+                      alt={SAMPLE_MINT_PLANTS[selectedPlantIndex].name_vi}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute top-2 left-2 px-2 py-0.5 rounded-full text-[10px] font-bold bg-forest-950/80 backdrop-blur-xs text-emerald-300 border border-emerald-700/60">
+                      Giai đoạn {evolutionStage}/3
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-xs text-white">
+                      {isEn ? SAMPLE_MINT_PLANTS[selectedPlantIndex].name_en : SAMPLE_MINT_PLANTS[selectedPlantIndex].name_vi}
+                    </h4>
+                    <p className="font-mono italic text-[10px] text-emerald-400">
+                      {SAMPLE_MINT_PLANTS[selectedPlantIndex].scientific}
+                    </p>
+                  </div>
+                  <div className="p-2 rounded-lg bg-charcoal-900/90 border border-forest-800 text-[10px] font-mono text-gray-400">
+                    <span className="text-gray-300 font-semibold block">Mã băm SHA-256 bất biến:</span>
+                    <span className="text-emerald-300 truncate block">
+                      sha256:{SAMPLE_MINT_PLANTS[selectedPlantIndex].id}...stage{evolutionStage}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Selectors & Mint Action (md:col-span-7) */}
+                <div className="md:col-span-7 space-y-3">
+                  <div>
+                    <label className="text-[11px] font-semibold text-forest-300 block mb-1">
+                      {isEn ? 'Select Plant Species to Certify:' : 'Chọn giống cây bản địa muốn cấp hộ chiếu:'}
+                    </label>
+                    <select
+                      value={selectedPlantIndex}
+                      onChange={(e) => setSelectedPlantIndex(Number(e.target.value))}
+                      className="w-full px-3 py-2 bg-forest-950 border border-forest-800 rounded-xl text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                    >
+                      {SAMPLE_MINT_PLANTS.map((p, idx) => (
+                        <option key={p.id} value={idx}>
+                          {isEn ? p.name_en : p.name_vi} ({p.scientific})
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div>
+                      <label className="text-[11px] font-semibold text-forest-300 block mb-1">
+                        {isEn ? 'Growth Stage:' : 'Giai đoạn sinh trưởng:'}
+                      </label>
+                      <select
+                        value={evolutionStage}
+                        onChange={(e) => setEvolutionStage(Number(e.target.value) as 1 | 2 | 3)}
+                        className="w-full px-2.5 py-1.5 bg-forest-950 border border-forest-800 rounded-xl text-xs text-white"
+                      >
+                        <option value={1}>{isEn ? 'Stage 1: Seedling' : '1. Mầm non gieo ươm'}</option>
+                        <option value={2}>{isEn ? 'Stage 2: Vegetative' : '2. Sinh trưởng phân cành'}</option>
+                        <option value={3}>{isEn ? 'Stage 3: Flowering/Fruit' : '3. Đơm hoa kết trái'}</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="text-[11px] font-semibold text-forest-300 block mb-1">
+                        {isEn ? 'Blockchain Ledger:' : 'Sổ cái chuỗi khối:'}
+                      </label>
+                      <select
+                        value={selectedNetwork}
+                        onChange={(e) => setSelectedNetwork(e.target.value as 'Base Sepolia' | 'Polygon Amoy')}
+                        className="w-full px-2.5 py-1.5 bg-forest-950 border border-forest-800 rounded-xl text-xs text-white"
+                      >
+                        <option value="Base Sepolia">Base Sepolia (L2)</option>
+                        <option value="Polygon Amoy">Polygon Amoy</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <p className="text-[11px] text-forest-300/80 leading-relaxed">
+                    Mỗi hộ chiếu gắn liền chữ ký số ví của bạn, bất biến trên chuỗi khối, bảo vệ bản quyền giống cây và phòng chống gian lận nguồn gốc (H1, H7).
+                  </p>
+
+                  <button
+                    onClick={handleDemoMint}
+                    disabled={isMinting}
+                    className={`w-full py-3 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg transition active:scale-[0.99] disabled:opacity-50 ${
+                      !wallet?.isConnected
+                        ? 'bg-amber-600 hover:bg-amber-500 text-white'
+                        : 'bg-emerald-600 hover:bg-emerald-500 text-white'
+                    }`}
+                  >
+                    {isMinting ? (
+                      <>
+                        <RefreshCw className="w-4 h-4 animate-spin text-white" />
+                        <span>{isEn ? 'Requesting Wallet Signature & Minting...' : 'Đang Yêu Cầu Ký Số Trên Ví & Đúc...'}</span>
+                      </>
+                    ) : !wallet?.isConnected ? (
+                      <>
+                        <Wallet className="w-4 h-4" />
+                        <span>{isEn ? 'Connect Wallet to Mint' : 'Cần Kết Nối Ví Để Đúc Hộ Chiếu'}</span>
+                      </>
+                    ) : (
+                      <>
+                        <Award className="w-4 h-4" />
+                        <span>{isEn ? 'Sign & Mint Plant Passport (0đ Gas)' : 'Ký Số & Đúc Hộ Chiếu Cây (0đ Gas)'}</span>
+                      </>
+                    )}
                   </button>
                 </div>
               </div>
 
-              {/* Network switch & Disconnect */}
-              <div className="flex items-center gap-2 self-end md:self-center shrink-0">
-                <button
-                  onClick={() => handleSwitchNetwork('Base Sepolia')}
-                  className={`px-3 py-1.5 rounded-xl text-[11px] font-bold border transition ${
-                    selectedNetwork === 'Base Sepolia'
-                      ? 'bg-emerald-600 text-white border-emerald-500'
-                      : 'bg-forest-900 text-forest-300 border-forest-800 hover:bg-forest-800'
-                  }`}
-                >
-                  Base Sepolia
-                </button>
-
-                <button
-                  onClick={() => handleSwitchNetwork('Polygon Amoy')}
-                  className={`px-3 py-1.5 rounded-xl text-[11px] font-bold border transition ${
-                    selectedNetwork === 'Polygon Amoy'
-                      ? 'bg-purple-600 text-white border-purple-500'
-                      : 'bg-forest-900 text-forest-300 border-forest-800 hover:bg-forest-800'
-                  }`}
-                >
-                  Polygon Amoy
-                </button>
-
-                <button
-                  onClick={handleDisconnect}
-                  className="p-2 rounded-xl bg-red-950/60 hover:bg-red-900 text-red-200 border border-red-800/80 transition"
-                  title="Ngắt kết nối ví"
-                >
-                  <LogOut className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* 2 INTERACTIVE CARDS: FAUCET & MINT STUDIO */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
-          
-          {/* Card 1: Faucet */}
-          <div className="bg-charcoal-900/80 rounded-3xl p-6 sm:p-7 border border-forest-800 flex flex-col justify-between shadow-xl">
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
-                  <Gift className="w-4 h-4" /> {isEn ? 'Testnet Token Faucet' : 'Vòi Cấp Token Thử Nghiệm'}
-                </span>
-                <span className="text-xs font-mono bg-forest-900 px-3 py-1 rounded-full text-white border border-forest-800">
-                  {isEn ? `Balance: ${testBalance} Seed Tokens` : `Số dư: ${testBalance} Mầm Xanh`}
-                </span>
-              </div>
-
-              <h3 className="text-base sm:text-lg font-serif font-bold text-white">
-                {isEn ? 'Claim 100 Free Testnet Seed Tokens' : 'Nhận 100 Token "Mầm Xanh" Vào Ví'}
-              </h3>
-
-              <p className="text-xs text-forest-200/80 leading-relaxed">
-                {isEn
-                  ? 'Each wallet receives 100 sandbox tokens daily to test community tips for insightful clinic answers and simulated smart contract plant swaps.'
-                  : 'Mỗi địa chỉ ví được cấp 100 token thử nghiệm mỗi ngày để làm quen với thao tác thưởng quà (Tip) cho người giải đáp bệnh cây hay hoặc tập trao đổi cây qua Smart Contract giả lập.'}
-              </p>
-
-              {wallet?.address && (
-                <div className="p-2.5 rounded-xl bg-forest-950 border border-forest-800 text-[11px] font-mono text-gray-400">
-                  Ví nhận: <span className="text-emerald-300">{wallet.address.slice(0, 12)}...{wallet.address.slice(-6)}</span>
-                </div>
-              )}
-            </div>
-
-            <button
-              onClick={handleClaimFaucet}
-              disabled={faucetClaimed}
-              className={`w-full mt-6 py-3.5 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition ${
-                faucetClaimed
-                  ? 'bg-forest-900 text-emerald-400 border border-forest-800 cursor-not-allowed'
-                  : 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg active:scale-[0.99]'
-              }`}
-            >
-              {faucetClaimed ? (
-                <>
-                  <Check className="w-4 h-4 text-emerald-400" />
-                  <span>{isEn ? 'Claimed 100 Tokens (24h Cooldown)' : 'Đã Cấp 100 Mầm Xanh Vào Ví (Hồi Chiêu 24h)'}</span>
-                </>
-              ) : (
-                <>
-                  <Gift className="w-4 h-4" />
-                  <span>{isEn ? 'Claim 100 Seed Tokens (Testnet)' : 'Bấm Nhận 100 Mầm Xanh (Testnet)'}</span>
-                </>
-              )}
-            </button>
-          </div>
-
-          {/* Card 2: Demo NFT Mint Studio */}
-          <div className="bg-charcoal-900/80 rounded-3xl p-6 sm:p-7 border border-forest-800 flex flex-col justify-between shadow-xl">
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
-                  <Award className="w-4 h-4" /> {isEn ? 'Digital Plant Passport (Dynamic NFT)' : 'Hộ Chiếu Cây Trồng (Dynamic NFT)'}
-                </span>
-                <span className="text-xs font-mono bg-forest-900 px-2.5 py-1 rounded-full text-white border border-forest-800">
-                  {selectedNetwork}
-                </span>
-              </div>
-
-              <h3 className="text-base sm:text-lg font-serif font-bold text-white">
-                {isEn ? 'Mint Digital Plant Passport with Wallet Signature' : 'Ký Số & Đúc Hộ Chiếu Thực Vật Bản Địa'}
-              </h3>
-
-              {/* Plant selection row */}
-              <div className="space-y-1.5">
-                <label className="text-[11px] font-semibold text-forest-300">
-                  {isEn ? 'Select Plant Species to Certify:' : 'Chọn giống cây bản địa muốn cấp hộ chiếu:'}
-                </label>
-                <select
-                  value={selectedPlantIndex}
-                  onChange={(e) => setSelectedPlantIndex(Number(e.target.value))}
-                  className="w-full px-3 py-2 bg-forest-950 border border-forest-800 rounded-xl text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
-                >
-                  {SAMPLE_MINT_PLANTS.map((p, idx) => (
-                    <option key={p.id} value={idx}>
-                      {isEn ? p.name_en : p.name_vi} ({p.scientific})
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Stage & Network selector */}
-              <div className="grid grid-cols-2 gap-2 text-xs">
-                <div>
-                  <label className="text-[11px] font-semibold text-forest-300 block mb-1">
-                    {isEn ? 'Growth Stage:' : 'Giai đoạn sinh trưởng:'}
-                  </label>
-                  <select
-                    value={evolutionStage}
-                    onChange={(e) => setEvolutionStage(Number(e.target.value) as 1 | 2 | 3)}
-                    className="w-full px-2.5 py-1.5 bg-forest-950 border border-forest-800 rounded-xl text-xs text-white"
-                  >
-                    <option value={1}>{isEn ? 'Stage 1: Seedling' : '1. Mầm non gieo ươm'}</option>
-                    <option value={2}>{isEn ? 'Stage 2: Vegetative' : '2. Sinh trưởng phân cành'}</option>
-                    <option value={3}>{isEn ? 'Stage 3: Flowering/Fruit' : '3. Đơm hoa kết trái'}</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="text-[11px] font-semibold text-forest-300 block mb-1">
-                    {isEn ? 'Blockchain Ledger:' : 'Sổ cái chuỗi khối:'}
-                  </label>
-                  <select
-                    value={selectedNetwork}
-                    onChange={(e) => setSelectedNetwork(e.target.value as 'Base Sepolia' | 'Polygon Amoy')}
-                    className="w-full px-2.5 py-1.5 bg-forest-950 border border-forest-800 rounded-xl text-xs text-white"
-                  >
-                    <option value="Base Sepolia">Base Sepolia (L2)</option>
-                    <option value="Polygon Amoy">Polygon Amoy</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <button
-              onClick={handleDemoMint}
-              disabled={isMinting}
-              className={`w-full mt-6 py-3.5 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg transition active:scale-[0.99] disabled:opacity-50 ${
-                !wallet?.isConnected
-                  ? 'bg-amber-600 hover:bg-amber-500 text-white'
-                  : 'bg-emerald-600 hover:bg-emerald-500 text-white'
-              }`}
-            >
-              {isMinting ? (
-                <>
-                  <RefreshCw className="w-4 h-4 animate-spin text-white" />
-                  <span>{isEn ? 'Requesting Wallet Signature & Minting...' : 'Đang Yêu Cầu Ký Số Trên Ví & Đúc...'}</span>
-                </>
-              ) : !wallet?.isConnected ? (
-                <>
-                  <Wallet className="w-4 h-4" />
-                  <span>{isEn ? 'Connect Wallet to Mint' : 'Cần Kết Nối Ví Để Đúc Hộ Chiếu'}</span>
-                </>
-              ) : (
-                <>
-                  <Award className="w-4 h-4" />
-                  <span>{isEn ? 'Sign & Mint Plant Passport (Free Gas)' : 'Ký Số & Đúc Hộ Chiếu Cây (0đ Gas)'}</span>
-                </>
-              )}
-            </button>
-          </div>
-
-        </div>
-
-        {/* 3. MINTED PASSPORT SUCCESS PREVIEW CARD */}
-        {mintedPassport && (
-          <div className="max-w-2xl mx-auto bg-charcoal-900/95 rounded-3xl p-6 sm:p-7 border border-emerald-500/60 shadow-2xl space-y-4 animate-in fade-in slide-in-from-bottom-3 duration-200">
-            <div className="flex items-center justify-between pb-3 border-b border-forest-800">
-              <span className="flex items-center gap-2 text-xs font-bold text-emerald-400 uppercase tracking-wider">
-                <Check className="w-4 h-4" />
-                <span>{isEn ? 'Digital Plant Passport Successfully Minted!' : 'Hộ Chiếu Cây Trồng Số Đã Được Cấp Thành Công!'}</span>
-              </span>
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-950 text-emerald-300 border border-emerald-700">
-                Token ID: {mintedPassport.token_id}
-              </span>
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-5 items-center">
-              <img
-                src={mintedPassport.image_url}
-                alt={mintedPassport.plant_name}
-                className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl object-cover border border-forest-700 shadow-md shrink-0"
-              />
-              <div className="space-y-1.5 text-xs text-forest-200 w-full">
-                <div className="flex items-center justify-between">
-                  <h4 className="text-base font-serif font-bold text-white">
-                    {mintedPassport.plant_name}
-                  </h4>
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-900/80 text-amber-300">
-                    Giai đoạn {mintedPassport.evolution_stage}/3
-                  </span>
-                </div>
-                <p className="font-mono italic text-[11px] text-emerald-400">
-                  {mintedPassport.scientific_name}
-                </p>
-                <p className="text-[11px] text-forest-300">
-                  {isEn ? 'Owner Wallet:' : 'Địa chỉ ví sở hữu:'} <span className="font-mono text-emerald-300 font-bold">{mintedPassport.owner_address}</span>
-                </p>
-                <div className="p-2 rounded-xl bg-forest-950/80 border border-forest-800 text-[10px] font-mono space-y-0.5">
-                  <div className="text-gray-400 truncate">
-                    Bằng chứng ảnh gốc (SHA-256): <span className="text-emerald-300">{mintedPassport.image_sha256}</span>
-                  </div>
-                  {mintSignature && (
-                    <div className="text-gray-400 truncate">
-                      Chữ ký số (Signature): <span className="text-amber-300">{mintSignature.slice(0, 24)}...</span>
+              {/* Minted Passport Success Preview Card (Rendered neatly inside when available) */}
+              {mintedPassport && (
+                <div className="bg-forest-950/90 rounded-2xl p-4 border border-emerald-500/70 shadow-2xl space-y-3 animate-in fade-in duration-200">
+                  <div className="flex items-center justify-between pb-2 border-b border-forest-800">
+                    <span className="flex items-center gap-1.5 text-xs font-bold text-emerald-400">
+                      <Check className="w-4 h-4" />
+                      <span>{isEn ? 'Digital Plant Passport Successfully Minted!' : 'Hộ Chiếu Cây Trồng Số Đã Được Cấp Thành Công!'}</span>
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-950 text-emerald-300 border border-emerald-700">
+                        Token ID: {mintedPassport.token_id}
+                      </span>
+                      <button
+                        onClick={() => window.print()}
+                        className="px-2.5 py-1 rounded-lg bg-forest-800 hover:bg-forest-700 text-white text-[11px] font-semibold flex items-center gap-1 transition"
+                      >
+                        <Printer className="w-3 h-3" />
+                        <span>In Thẻ Cây</span>
+                      </button>
                     </div>
-                  )}
-                  <div className="text-gray-400">
-                    Thời gian chứng thực: <span className="text-white">{mintedPassport.minted_at}</span>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row gap-3 items-center">
+                    <img
+                      src={mintedPassport.image_url}
+                      alt={mintedPassport.plant_name}
+                      className="w-20 h-20 rounded-xl object-cover border border-forest-700 shrink-0"
+                    />
+                    <div className="space-y-1 text-xs text-forest-200 w-full">
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-white text-sm">
+                          {mintedPassport.plant_name} ({mintedPassport.scientific_name})
+                        </span>
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-900/80 text-amber-300">
+                          Giai đoạn {mintedPassport.evolution_stage}/3
+                        </span>
+                      </div>
+                      <div className="text-[10px] font-mono text-gray-400 flex flex-wrap gap-x-4 gap-y-0.5">
+                        <span>Ví sở hữu: <span className="text-emerald-300">{mintedPassport.owner_address}</span></span>
+                        <span>Sổ cái: <span className="text-white">{mintedPassport.network}</span></span>
+                        <span>Tx: <span className="text-amber-300">{mintedPassport.transaction_hash}</span></span>
+                      </div>
+                      <div className="p-1.5 rounded-lg bg-charcoal-900 border border-forest-800 text-[10px] font-mono truncate text-gray-400">
+                        SHA-256: <span className="text-emerald-300">{mintedPassport.image_sha256}</span>
+                        {mintSignature && (
+                          <span className="ml-2 text-amber-300">| Chữ ký: {mintSignature.slice(0, 16)}...</span>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
-
-                <div className="pt-2 flex items-center justify-between text-[11px] text-emerald-300">
-                  <span>{isEn ? 'Network:' : 'Sổ cái:'} {mintedPassport.network}</span>
-                  <span className="font-mono text-amber-300">
-                    Tx: {mintedPassport.transaction_hash}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-3 border-t border-forest-800 flex items-center justify-between text-xs">
-              <span className="text-[11px] text-gray-400">
-                Chứng nhận bảo tồn nguồn gen bản địa phi lợi nhuận (H1, H7)
-              </span>
-              <button
-                onClick={() => window.print()}
-                className="px-3 py-1.5 rounded-xl bg-forest-800 hover:bg-forest-700 text-white text-xs font-semibold flex items-center gap-1.5 transition"
-              >
-                <Printer className="w-3.5 h-3.5" />
-                <span>In Thẻ Cây</span>
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* 4. SMART CONTRACT ESCROW WALKTHROUGH SIMULATOR */}
-        <div className="max-w-4xl mx-auto bg-charcoal-900/90 rounded-3xl p-6 sm:p-8 border border-forest-800 shadow-xl space-y-6">
-          <div className="flex items-center justify-between flex-wrap gap-2">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-teal-400 flex items-center gap-1.5">
-                <FileCheck2 className="w-4 h-4" /> {isEn ? 'Interactive Escrow Simulator' : 'Mô Phỏng Smart Contract Trao Đổi Cây An Toàn'}
-              </span>
-              <h3 className="text-lg font-serif font-bold text-white mt-1">
-                {isEn ? 'How Smart Contract Protects Plant Swaps Between Cities' : 'Cách Hợp Đồng Thông Minh Giữ Cam Kết Giữa 2 Người Đổi Cây'}
-              </h3>
-            </div>
-            <button
-              onClick={handleRunEscrowStep}
-              disabled={isEscrowSimulating}
-              className="px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm"
-            >
-              {isEscrowSimulating ? (
-                <>
-                  <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                  <span>Đang thực thi...</span>
-                </>
-              ) : (
-                <>
-                  <span>{escrowStep === 3 ? 'Bắt đầu lại' : 'Chạy bước tiếp theo'}</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </>
               )}
-            </button>
+
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 text-xs">
-            
-            {/* Step 1 */}
-            <div className={`p-4 rounded-2xl border transition ${
-              escrowStep === 1
-                ? 'bg-teal-950/60 border-teal-500 text-white shadow-md'
-                : escrowStep > 1
-                ? 'bg-forest-900/40 border-forest-800 text-forest-300 opacity-80'
-                : 'bg-forest-900/20 border-forest-800 text-gray-500'
-            }`}>
-              <div className="flex items-center justify-between mb-2">
-                <span className="w-6 h-6 rounded-full bg-teal-600 text-white flex items-center justify-center font-bold text-xs">1</span>
-                {escrowStep > 1 && <Check className="w-4 h-4 text-teal-400" />}
-              </div>
-              <h4 className="font-bold mb-1 text-sm text-cream-100">Khóa Cọc Hạt Giống</h4>
-              <p className="text-[11px] leading-relaxed">
-                Người gửi A và người nhận B đồng ý trao đổi cành chiết Đinh lăng. Cả hai khóa tạm 20 Mầm Xanh từ ví của mình vào Smart Contract làm tin.
-              </p>
-            </div>
-
-            {/* Step 2 */}
-            <div className={`p-4 rounded-2xl border transition ${
-              escrowStep === 2
-                ? 'bg-teal-950/60 border-teal-500 text-white shadow-md'
-                : escrowStep > 2
-                ? 'bg-forest-900/40 border-forest-800 text-forest-300 opacity-80'
-                : 'bg-forest-900/20 border-forest-800 text-gray-500'
-            }`}>
-              <div className="flex items-center justify-between mb-2">
-                <span className="w-6 h-6 rounded-full bg-teal-600 text-white flex items-center justify-center font-bold text-xs">2</span>
-                {escrowStep > 2 && <Check className="w-4 h-4 text-teal-400" />}
-              </div>
-              <h4 className="font-bold mb-1 text-sm text-cream-100">Giao Nhận & 7 Ngày Cách Ly</h4>
-              <p className="text-[11px] leading-relaxed">
-                Cành chiết được chuyển phát nhanh. Người nhận áp dụng quy trình cách ly mầm bệnh 7 ngày để đảm bảo không mang sâu bệnh vào vườn.
-              </p>
-            </div>
-
-            {/* Step 3 */}
-            <div className={`p-4 rounded-2xl border transition ${
-              escrowStep === 3
-                ? 'bg-emerald-950/70 border-emerald-500 text-white shadow-md'
-                : 'bg-forest-900/20 border-forest-800 text-gray-500'
-            }`}>
-              <div className="flex items-center justify-between mb-2">
-                <span className="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">3</span>
-                {escrowStep === 3 && <Check className="w-4 h-4 text-emerald-400" />}
-              </div>
-              <h4 className="font-bold mb-1 text-sm text-cream-100">Nghiệm Thu & Thưởng Karma</h4>
-              <p className="text-[11px] leading-relaxed">
-                Người nhận bấm "Cây sống khỏe", Smart Contract tự động hoàn trả cọc 20 Mầm Xanh về ví và cộng +15 điểm uy tín Karma cho người tặng.
-              </p>
-            </div>
-
-          </div>
         </div>
 
       </div>
