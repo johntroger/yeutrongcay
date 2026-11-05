@@ -7,6 +7,7 @@ import { useSEO } from '../utils/useSEO.ts';
 import { Hero } from '../components/Hero.tsx';
 import { MedicalDisclaimer } from '../components/MedicalDisclaimer.tsx';
 import { PlantCard } from '../components/PlantCard.tsx';
+import { SeasonalCalendarSection } from '../components/SeasonalCalendarSection.tsx';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { PLANT_ENGLISH_MAP } from '../i18n/plantTranslations.ts';
 import {
@@ -16,7 +17,8 @@ import {
   Stethoscope,
   Coins,
   MessageCircle,
-  ArrowUpRight
+  ArrowUpRight,
+  Calendar
 } from 'lucide-react';
 
 interface HomePageProps {
@@ -304,7 +306,12 @@ export const HomePage: React.FC<HomePageProps> = ({
         )}
       </main>
 
-      {/* 5. Hệ Sinh Thái Tính Năng Riêng Biệt (Mở Tab Mới Giải Phóng Trang Chủ) */}
+      {/* 5. Lịch Nông Vụ Đô Thị 3 Miền Chuẩn Tiết Khí (H4) */}
+      <div className="border-t border-forest-100 dark:border-forest-900 bg-cream-50 dark:bg-charcoal-900/40">
+        <SeasonalCalendarSection />
+      </div>
+
+      {/* 6. Hệ Sinh Thái Tính Năng Riêng Biệt (Mở Tab Mới Giải Phóng Trang Chủ) */}
       <section className="bg-forest-900 text-white py-14 border-t border-forest-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-10">
@@ -321,8 +328,34 @@ export const HomePage: React.FC<HomePageProps> = ({
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            {/* Box 1: Vườn Số Của Tôi (MS4) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {/* Box 1: Lịch Nông Vụ Đô Thị 3 Miền */}
+            <Link
+              to="/lich-nong-vu"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-5 rounded-3xl bg-forest-950/80 border border-teal-500/50 hover:border-teal-400 hover:bg-forest-950 transition group flex flex-col justify-between shadow-lg"
+            >
+              <div>
+                <div className="w-10 h-10 rounded-2xl bg-teal-500/20 text-teal-400 flex items-center justify-center mb-3.5">
+                  <Calendar className="w-5 h-5" />
+                </div>
+                <h3 className="font-serif font-bold text-base text-white group-hover:text-teal-300 transition">
+                  {isEn ? 'Seasonal Calendar' : 'Lịch Nông Vụ 3 Miền'}
+                </h3>
+                <p className="text-xs text-forest-300/80 mt-1 leading-relaxed">
+                  {isEn
+                    ? '12-month urban farming timetable for North, Central, and South Vietnam with weather and pest alerts.'
+                    : 'Thời khóa biểu gieo trồng 12 tháng chuẩn tiết khí 3 miền Bắc - Trung - Nam, lịch tưới & phòng trừ sâu bệnh.'}
+                </p>
+              </div>
+              <div className="pt-3.5 mt-3.5 border-t border-forest-800/80 flex items-center justify-between text-xs font-semibold text-teal-400">
+                <span>{isEn ? 'Open Calendar' : 'Xem Lịch Nông Vụ'}</span>
+                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
+              </div>
+            </Link>
+
+            {/* Box 2: Vườn Số Của Tôi (MS4) */}
             <Link
               to="/vuon-cua-toi"
               target="_blank"
@@ -348,7 +381,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               </div>
             </Link>
 
-            {/* Box 2: Bác sĩ cây trồng */}
+            {/* Box 3: Bác sĩ cây trồng AI */}
             <Link
               to="/bac-si-cay-trong"
               target="_blank"
@@ -374,7 +407,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               </div>
             </Link>
 
-            {/* Box 3: Trạm Đổi Cây */}
+            {/* Box 4: Trạm Đổi Cây */}
             <Link
               to="/trao-doi-cay"
               target="_blank"
@@ -400,7 +433,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               </div>
             </Link>
 
-            {/* Box 4: Kiếm Tiền Từ Vườn */}
+            {/* Box 5: Kiếm Tiền Từ Vườn */}
             <Link
               to="/kiem-tien-tu-vuon"
               target="_blank"
@@ -426,7 +459,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               </div>
             </Link>
 
-            {/* Box 5: Kênh Liên Hệ & Hợp Tác */}
+            {/* Box 6: Kênh Liên Hệ & Hợp Tác */}
             <Link
               to="/lien-he"
               target="_blank"

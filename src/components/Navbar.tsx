@@ -15,7 +15,8 @@ import {
   Menu,
   X,
   Sparkles,
-  ChevronRight
+  ChevronRight,
+  Calendar
 } from 'lucide-react';
 import { PlantCategory, UserProfile } from '../types/index.ts';
 import { useLanguage } from '../context/LanguageContext.tsx';
@@ -139,6 +140,18 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <HeartHandshake className="w-4 h-4 text-herbal-600 dark:text-emerald-400" />
               <span>{t('nav.clinic')}</span>
+            </Link>
+
+            {/* Lịch Nông Vụ Đô Thị 3 Miền (H4) */}
+            <Link
+              to="/lich-nong-vu"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-2 rounded-xl text-xs font-semibold bg-teal-50 hover:bg-teal-100 dark:bg-teal-950/40 dark:hover:bg-teal-900/60 text-teal-900 dark:text-teal-300 flex items-center gap-1.5 border border-teal-200 dark:border-teal-800/60 transition shadow-2xs"
+              title={isEn ? 'Seasonal Urban Farming Calendar' : 'Lịch nông vụ đô thị 3 miền chuẩn tiết khí'}
+            >
+              <Calendar className="w-4 h-4 text-teal-600 dark:text-teal-400" />
+              <span>{isEn ? 'Calendar' : 'Lịch Nông Vụ'}</span>
             </Link>
 
             {/* Vườn Số Cá Nhân (MS4) */}
@@ -345,6 +358,33 @@ export const Navbar: React.FC<NavbarProps> = ({
                     </div>
                     <p className="text-[11px] text-charcoal-600 dark:text-charcoal-300">
                       {isEn ? 'Instant vision diagnosis & organic recipes' : 'Chẩn đoán ảnh bệnh & phác đồ hữu cơ H15'}
+                    </p>
+                  </div>
+                </div>
+                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-forest-900 dark:group-hover:text-cream-100" />
+              </Link>
+
+              {/* Lịch Nông Vụ Đô Thị 3 Miền (H4) */}
+              <Link
+                to="/lich-nong-vu"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setIsMenuOpen(false)}
+                className="p-3 rounded-2xl bg-teal-50/60 hover:bg-teal-100/70 dark:bg-charcoal-800 dark:hover:bg-charcoal-700 border border-teal-200 dark:border-forest-700 flex items-center justify-between transition group"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-xl bg-teal-600 text-white flex items-center justify-center shrink-0">
+                    <Calendar className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="font-bold text-forest-950 dark:text-cream-50 group-hover:text-teal-700 dark:group-hover:text-teal-400">
+                        {isEn ? 'Seasonal Calendar' : 'Lịch Nông Vụ 3 Miền'}
+                      </span>
+                      <span className="px-1.5 py-0.2 rounded-full text-[9px] font-bold bg-teal-600 text-white">12 Tháng</span>
+                    </div>
+                    <p className="text-[11px] text-charcoal-600 dark:text-charcoal-300">
+                      {isEn ? 'Monthly sowing schedule, weather & pest alerts' : 'Thời khóa biểu gieo trồng, tưới nước & phòng sâu bệnh'}
                     </p>
                   </div>
                 </div>
