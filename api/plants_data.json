@@ -1029,5 +1029,649 @@
       "Tiểu cảnh",
       "Chịu hạn"
     ]
+  },
+  {
+    "id": "fruit-11",
+    "slug": "dau-tam-ngot-dai-loan",
+    "common_name": "Dâu Tằm Ngọt F1 Đài Loan",
+    "scientific_name": "Morus alba",
+    "aliases": [
+      "Dâu Trái Dài",
+      "Dâu Quả Ngọt Trồng Chậu",
+      "Tang Thầm"
+    ],
+    "category": "fruit",
+    "description": "Giống dâu tằm quả dài ngọt lịm không chua, năng suất cực cao khi trồng chậu ban công. Lá dùng hãm trà thanh nhiệt bổ phổi, quả chín tím đen chứa hàm lượng anthocyanin và resveratrol chống lão hóa vượt trội.",
+    "quick_answer": "Dâu tằm ngọt F1 Đài Loan trồng chậu tối thiểu 40L, ưa nắng trực tiếp 6-8 tiếng/ngày. Cây ra quả sau 4-5 tháng trồng từ cành chiết. Bấm đọt và tỉa lá định kỳ sau mỗi đợt thu hoạch để kích chồi hoa mới quanh năm.",
+    "botanical_details": {
+      "family": "Moraceae (Họ Dâu tằm)",
+      "native_range": "Đông Á, thích nghi hoàn hảo khí hậu 3 miền Việt Nam",
+      "active_compounds": [
+        "Anthocyanin",
+        "Resveratrol",
+        "Vitamin C",
+        "Flavonoid"
+      ],
+      "soil_ph": "6.0 - 7.0 (Đất mùn tơi xốp thoát nước nhanh)",
+      "ideal_temp": "22°C - 35°C",
+      "pot_size": "Đường kính 40cm - 60cm"
+    },
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Rosales_-_Morus_alba_-_3.jpg/960px-Rosales_-_Morus_alba_-_3.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 1,
+    "growth_time": "4 - 5 tháng cho lứa quả ngọt đầu tiên",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Trồng mùa xuân (tháng 2-4), tỉa cành đón quả đầu hè",
+      "central": "Tránh tháng mưa bão ngập úng gốc",
+      "south": "Phát triển và cho trái rải rác quanh năm",
+      "best_months": [
+        2,
+        3,
+        4,
+        9,
+        10
+      ],
+      "warning": "Tránh để chậu úng nước khi mưa dầm kéo dài"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Chuẩn bị giá thể",
+        "instruction": "Phối trộn 40% đất thịt, 30% xơ dừa hoai mục, 20% phân trùn quế và 10% đá perlite để rễ thông thoáng."
+      },
+      {
+        "step": 2,
+        "title": "Trồng và cố định",
+        "instruction": "Đặt bầu cây vào chậu sâu ít nhất 35cm, nén nhẹ đất và cắm cọc tre định hình cành non trước gió mạnh sân thượng."
+      },
+      {
+        "step": 3,
+        "title": "Bấm đọt kích quả",
+        "instruction": "Khi cành đạt độ dài 50-60cm, bấm ngọn và tuốt bớt lá già. Các mắt ngủ sẽ đồng loạt bung hoa và quả con sau 10-14 ngày."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Dâu tằm Đài Loan trồng ban công chung cư có ngọt không?",
+        "answer": "Cây cần ít nhất 4 tiếng nắng gắt mỗi ngày và bón bổ sung kali hữu cơ (tro trấu hun hoặc dịch chuối) khi nuôi quả để đạt độ ngọt sắc 18-20 độ Brix."
+      },
+      {
+        "question": "Có cần thụ phấn nhân tạo cho dâu tằm không?",
+        "answer": "Không, dâu tằm là giống tự thụ phấn nhờ gió và côn trùng tự nhiên, trồng 1 cây vẫn đậu quả trĩu cành."
+      }
+    ],
+    "monetization_tips": [
+      "Bán cành giâm giống dâu quả dài F1 giá 35.000đ - 60.000đ/cành.",
+      "Sản xuất siro dâu tằm đường phèn lên men thủ công và lá dâu sấy lạnh làm trà thảo mộc."
+    ],
+    "tags": [
+      "Cực sai quả",
+      "Chống lão hóa",
+      "Dễ trồng chậu",
+      "Trà thảo mộc"
+    ]
+  },
+  {
+    "id": "fruit-12",
+    "slug": "quat-canh-tu-quy",
+    "common_name": "Quất Cảnh Tứ Quý Trồng Chậu",
+    "scientific_name": "Citrus japonica",
+    "aliases": [
+      "Tắc Tứ Quý",
+      "Hạnh Bonsai",
+      "Kim Quất"
+    ],
+    "category": "fruit",
+    "description": "Biểu tượng của sung túc và trường thọ. Cây vừa là cây cảnh ban công bốn mùa hoa thơm ngát, vừa cho quả mọng nước giàu vitamin C làm nước ép giải nhiệt, ngâm mật ong trị ho và làm gia vị bếp.",
+    "quick_answer": "Quất tứ quý là cây ưa nắng toàn phần, tưới nước mỗi sáng khi mặt đất khô ráo. Trồng chậu thoát nước tốt với đất phù sa trộn phân hữu cơ vi sinh. Cây ra hoa kết trái liên tục cả 4 mùa trong năm.",
+    "botanical_details": {
+      "family": "Rutaceae (Họ Cửu lý hương / Cam chanh)",
+      "native_range": "Đông Nam Á và Nam Á",
+      "active_compounds": [
+        "Limonene",
+        "Citric Acid",
+        "Hesperidin",
+        "Vitamin C"
+      ],
+      "soil_ph": "5.5 - 6.5",
+      "ideal_temp": "20°C - 32°C",
+      "pot_size": "35cm - 50cm"
+    },
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Kumquat_from_Spain.jpg/960px-Kumquat_from_Spain.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "sunlight": "full_sun",
+    "watering": "daily",
+    "propagation_difficulty": 2,
+    "growth_time": "3 - 4 tháng ra lứa hoa mới",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Tháng 1-2 đón quả vàng rực đón Tết, tháng 3 bắt đầu tỉa dưỡng lứa mới",
+      "central": "Tưới đều đặn vào mùa khô nắng hạn",
+      "south": "Cho quả vàng rải đều 12 tháng",
+      "best_months": [
+        1,
+        2,
+        3,
+        7,
+        8
+      ]
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Chọn cây giống",
+        "instruction": "Chọn cây chiết hoặc ghép cành khỏe, tán xòe đều, rễ chùm phát triển trắng mịn."
+      },
+      {
+        "step": 2,
+        "title": "Bón phân hữu cơ",
+        "instruction": "Định kỳ 20 ngày bón 1 muỗng phân trùn quế hoặc phân gà ủ hoai mục quanh mép chậu."
+      },
+      {
+        "step": 3,
+        "title": "Tỉa tót đón hoa",
+        "instruction": "Tỉa bỏ cành vượt, cành tăm khuất nắng để dưỡng dinh dưỡng nuôi hoa búp mập mạp."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Làm sao để quất đậu quả đúng dịp Tết Nguyên Đán?",
+        "answer": "Ở miền Bắc, siết nước nhẹ vào tháng 6 âm lịch để cây rụng bớt lá và bật nụ hoa đồng loạt, sau đó tưới đẫm và bón thúc kali nuôi quả lớn đều."
+      }
+    ],
+    "monetization_tips": [
+      "Tạo tác bonsai quất mini ôm đá để bàn làm việc ngày Tết giá từ 300.000đ đến hơn 1 triệu.",
+      "Sản xuất tắc chưng đường phèn mật ong hữu cơ sạch nhà làm."
+    ],
+    "tags": [
+      "Tài lộc",
+      "Hoa thơm",
+      "Trị ho",
+      "Bonsai phố"
+    ]
+  },
+  {
+    "id": "fruit-13",
+    "slug": "viet-quat-xu-nong",
+    "common_name": "Việt Quất Xứ Nóng Ban Công",
+    "scientific_name": "Vaccinium corymbosum",
+    "aliases": [
+      "Việt Quất Nhiệt Đới",
+      "Southern Highbush Blueberry"
+    ],
+    "category": "fruit",
+    "description": "Giống việt quất lai nhiệt đới chịu nắng gắt cực giỏi, sinh trưởng mạnh mẽ trong chậu ban công. Quả tròn màu tím than mọng nước, vị ngọt thanh mát, đứng đầu bảng siêu thực phẩm chống oxy hóa não bộ.",
+    "quick_answer": "Việt quất xứ nóng bắt buộc phải trồng trong giá thể đất chua (pH 4.5 - 5.5) từ rêu than bùn (peat moss) trộn đá perlite. Cần tưới nước sạch không nhiễm kiềm/vôi và đặt nơi nhiều ánh sáng tự nhiên.",
+    "botanical_details": {
+      "family": "Ericaceae (Họ Thạch nam)",
+      "native_range": "Bắc Mỹ, đã thuần hóa giống nhiệt đới cho Đông Nam Á",
+      "active_compounds": [
+        "Anthocyanin",
+        "Pterostilbene",
+        "Polyphenol",
+        "Vitamin K"
+      ],
+      "soil_ph": "4.5 - 5.2 (Đất chua bắt buộc)",
+      "ideal_temp": "18°C - 35°C",
+      "pot_size": "35cm - 50cm"
+    },
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/15/Blueberries.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 3,
+    "growth_time": "6 - 8 tháng bắt đầu cho chùm quả đầu tiên",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Trổ hoa đầu xuân, quả chín tháng 4 - 6",
+      "central": "Cần lưới che giảm nắng gắt 30% vào buổi trưa tháng 6-7",
+      "south": "Phát triển tốt quanh năm nếu giữ ẩm rễ mát",
+      "best_months": [
+        2,
+        3,
+        4,
+        10,
+        11
+      ]
+    },
+    "tags": [
+      "Siêu thực phẩm",
+      "Chống oxy hóa",
+      "Đất chua",
+      "Quả tím"
+    ]
+  },
+  {
+    "id": "fruit-14",
+    "slug": "dua-luoi-trong-chau",
+    "common_name": "Dưa Lưới VietGAP Trồng Chậu",
+    "scientific_name": "Cucumis melo",
+    "aliases": [
+      "Dưa Lưới Kim Cô Nương",
+      "Dưa Vân Lưới Nhật"
+    ],
+    "category": "fruit",
+    "description": "Thú vui làm vườn đô thị đẳng cấp nhất hiện nay. Chỉ với 1 chậu 20L trên ban công hoặc sân thượng, sau 75 ngày bạn đã có thể thu hoạch quả dưa lưới thơm lừng, vân lưới nổi đều tăm tắp, ruột cam ngọt đậm đà.",
+    "quick_answer": "Dưa lưới trồng chậu cần giá thể xốp nhẹ, bón phân hữu cơ đậm đà và thụ phấn nhân tạo lúc sáng sớm (7h - 9h). Mỗi cây chỉ giữ duy nhất 1 quả đẹp nhất để tập trung dinh dưỡng nuôi quả ngọt giòn.",
+    "botanical_details": {
+      "family": "Cucurbitaceae (Họ Bầu bí)",
+      "native_range": "Tây Nam Á và Địa Trung Hải",
+      "active_compounds": [
+        "Beta-Carotene",
+        "Citrulline",
+        "Kali",
+        "Vitamin A"
+      ],
+      "soil_ph": "6.0 - 6.8",
+      "ideal_temp": "25°C - 35°C",
+      "pot_size": "20L - 30L / cây"
+    },
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Meloen_vrucht_met_bloem.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "sunlight": "full_sun",
+    "watering": "daily",
+    "propagation_difficulty": 2,
+    "growth_time": "65 - 75 ngày từ gieo hạt đến thu hoạch",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Vụ 1: Tháng 3 - 5; Vụ 2: Tháng 8 - 10",
+      "central": "Trồng tháng 2 - 8, tránh mùa mưa bão",
+      "south": "Trồng được quanh năm, vụ mùa khô cho quả ngọt nhất",
+      "best_months": [
+        2,
+        3,
+        4,
+        8,
+        9
+      ]
+    },
+    "tags": [
+      "75 ngày thu hoạch",
+      "Ngọt thơm",
+      "Tự thụ phấn",
+      "Sân thượng"
+    ]
+  },
+  {
+    "id": "fruit-15",
+    "slug": "du-du-lun-ruot-do",
+    "common_name": "Đu Đủ Lùn F1 Ruột Đỏ",
+    "scientific_name": "Carica papaya",
+    "aliases": [
+      "Đu Đủ Lùn Thái Lan",
+      "Đu Đủ Trồng Thùng Xốp"
+    ],
+    "category": "fruit",
+    "description": "Giống đu đủ lùn quả đóng sát mặt đất chỉ từ 40cm, cuống ngắn chịu gió bão cực tốt trên sân thượng. Thịt quả màu đỏ cam đậm, thơm dẻo không hạt, thu hoạch liên tục hàng chục trái mỗi năm.",
+    "quick_answer": "Đu đủ lùn F1 cần thùng xốp hoặc chậu sâu ít nhất 50cm, đáy đục nhiều lỗ thoát nước vì rễ cây rất kỵ ngập úng. Cây ưa nắng 100%, bón thúc NPK hữu cơ và tro củi để quả ngọt lịm chắc thịt.",
+    "botanical_details": {
+      "family": "Caricaceae (Họ Đu đủ)",
+      "native_range": "Trung Mỹ, phổ biến khắp các vùng nhiệt đới",
+      "active_compounds": [
+        "Papain enzyme",
+        "Lycopene",
+        "Vitamin C",
+        "Carotenoid"
+      ],
+      "soil_ph": "6.0 - 6.5",
+      "ideal_temp": "24°C - 33°C",
+      "pot_size": "50L - 80L (Thùng xốp lớn)"
+    },
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Carica_papaya_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-029.jpg/960px-Carica_papaya_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-029.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 1,
+    "growth_time": "6 - 7 tháng cho lứa quả chín đầu tiên",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Trồng tháng 2 - 4 tránh rét buốt",
+      "central": "Che chắn gió mạnh khi giông lốc",
+      "south": "Cho trái quanh năm, thu hoạch liên tục",
+      "best_months": [
+        2,
+        3,
+        4,
+        8,
+        9
+      ]
+    },
+    "tags": [
+      "Lùn dễ trồng",
+      "Ruột đỏ ngọt",
+      "Papain tiêu hóa",
+      "Thùng xốp"
+    ]
+  },
+  {
+    "id": "orn-06",
+    "slug": "trau-ba-thanh-xuan",
+    "common_name": "Trầu Bà Thanh Xuân",
+    "scientific_name": "Philodendron bipinnatifidum",
+    "aliases": [
+      "Trầu Bà Tay Phật",
+      "Rồng Xanh Ban Công"
+    ],
+    "category": "ornamental",
+    "description": "Nữ hoàng lá xẻ mang vẻ đẹp nhiệt đới quyền quý. Bản lá to xẻ thùy sâu nghệ thuật, tỏa tinh dầu nhẹ hút bức xạ máy tính, giảm căng thẳng thị giác và thanh lọc formaldehyde hiệu quả trong nhà.",
+    "quick_answer": "Trầu bà thanh xuân ưa ánh sáng tán xạ hoặc bóng râm bán phần, rất kỵ nắng gắt chiếu trực tiếp cháy mép lá. Tưới nước 2-3 lần/tuần khi mặt chậu khô nhẹ, lau bụi trên lá định kỳ để cây quang hợp tối đa.",
+    "botanical_details": {
+      "family": "Araceae (Họ Ráy)",
+      "native_range": "Rừng nhiệt đới Nam Mỹ",
+      "active_compounds": [
+        "Chlorophyll",
+        "Flavonoid"
+      ],
+      "soil_ph": "5.5 - 6.5",
+      "ideal_temp": "18°C - 30°C",
+      "pot_size": "30cm - 45cm"
+    },
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Tree1.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "sunlight": "partial_shade",
+    "watering": "moderate",
+    "propagation_difficulty": 2,
+    "growth_time": "Cây bền sống nhiều năm, nhảy cây con quanh gốc",
+    "container_suitable": true,
+    "tags": [
+      "Lá xẻ sang trọng",
+      "Hút bức xạ",
+      "Bán râm",
+      "Nhiệt đới"
+    ]
+  },
+  {
+    "id": "orn-07",
+    "slug": "luoi-ho-vien-vang",
+    "common_name": "Lưỡi Hổ Viền Vàng",
+    "scientific_name": "Dracaena trifasciata",
+    "aliases": [
+      "Lưỡi Cọp",
+      "Sansevieria Laurentii",
+      "Hổ Vĩ Lan"
+    ],
+    "category": "ornamental",
+    "description": "Cây lọc không khí số một được NASA chứng nhận. Đặc biệt có cơ chế quang hợp CAM nhả khí oxy tinh khiết vào ban đêm, hút sạch 107 độc tố bay hơi trong phòng ngủ và hóa giải vận xui phong thủy.",
+    "quick_answer": "Lưỡi hổ là cây mọng nước cực kỳ chịu hạn, chỉ cần tưới 1-2 lần mỗi tháng khi đất khô cong. Đặt được mọi vị trí từ phòng ngủ thiếu sáng đến ban công nắng nhẹ, không tốn công chăm sóc.",
+    "botanical_details": {
+      "family": "Asparagaceae (Họ Măng tây)",
+      "native_range": "Tây Phi",
+      "active_compounds": [
+        "Saponin",
+        "Glycoside"
+      ],
+      "soil_ph": "6.0 - 7.5",
+      "ideal_temp": "16°C - 35°C",
+      "pot_size": "20cm - 35cm"
+    },
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Snake_Plant_%28Sansevieria_trifasciata_%27Laurentii%27%29.jpg/960px-Snake_Plant_%28Sansevieria_trifasciata_%27Laurentii%27%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "sunlight": "indoor",
+    "watering": "drought_tolerant",
+    "propagation_difficulty": 1,
+    "growth_time": "Tách bụi nhân giống sau 3 tháng",
+    "container_suitable": true,
+    "tags": [
+      "Nhả oxy ban đêm",
+      "Phòng ngủ",
+      "Cực dễ sống",
+      "Trừ tà khí"
+    ]
+  },
+  {
+    "id": "orn-08",
+    "slug": "lan-y-hoa-trang",
+    "common_name": "Lan Ý Hoa Trắng",
+    "scientific_name": "Spathiphyllum wallisii",
+    "aliases": [
+      "Bạch Môn",
+      "Vỹ Hoa Trắng",
+      "Peace Lily"
+    ],
+    "category": "ornamental",
+    "description": "Hoa trắng thanh khiết vươn cao kiêu hãnh tượng trưng cho bình yên và thuận buồm xuôi gió. Cây có khả năng hấp thụ sóng điện từ của điện thoại, máy in và loại bỏ nấm mốc trôi nổi trong không khí.",
+    "quick_answer": "Lan ý ưa ẩm mát và ánh sáng gián tiếp trong nhà. Khi cây thiếu nước, lá sẽ rũ nhẹ xuống báo hiệu và phục hồi tươi tắn chỉ sau 30 phút được tưới. Trồng được cả trong đất và thủy canh để bàn.",
+    "botanical_details": {
+      "family": "Araceae (Họ Ráy)",
+      "native_range": "Trung và Nam Mỹ",
+      "soil_ph": "5.8 - 6.5",
+      "ideal_temp": "18°C - 28°C",
+      "pot_size": "20cm - 30cm"
+    },
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Spathiphyllum_cochlearispathum_RTBG.jpg/960px-Spathiphyllum_cochlearispathum_RTBG.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "sunlight": "indoor",
+    "watering": "daily",
+    "propagation_difficulty": 1,
+    "growth_time": "Nở hoa quanh năm liên tục",
+    "container_suitable": true,
+    "tags": [
+      "Bình an",
+      "Hoa trắng",
+      "Lọc nấm mốc",
+      "Thủy canh"
+    ]
+  },
+  {
+    "id": "orn-09",
+    "slug": "bang-singapore-mini",
+    "common_name": "Bàng Singapore Mini",
+    "scientific_name": "Ficus lyrata",
+    "aliases": [
+      "Bàng Sing",
+      "Fiddle-Leaf Fig Lùn"
+    ],
+    "category": "ornamental",
+    "description": "Biểu tượng kiến trúc nội thất hiện đại Scandinavian. Bản lá to hình cây đàn vĩ cầm màu xanh đậm bóng bẩy, thân thẳng vươn cao mang khí chất chính trực kiên định và tài lộc vững bền.",
+    "quick_answer": "Bàng Singapore cần vị trí sáng cạnh cửa sổ có nắng sớm tán xạ. Tưới đẫm khi 2 đốt ngón tay đất mặt đã khô, tránh tưới quá nhiều gây thối rễ đen lá. Dùng khăn ẩm lau lá sạch bụi mỗi tuần.",
+    "botanical_details": {
+      "family": "Moraceae (Họ Dâu tằm)",
+      "native_range": "Tây Phi",
+      "soil_ph": "6.0 - 7.0",
+      "ideal_temp": "18°C - 30°C",
+      "pot_size": "30cm - 40cm"
+    },
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Starr_031108-0130_Ficus_lyrata.jpg/960px-Starr_031108-0130_Ficus_lyrata.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "sunlight": "partial_shade",
+    "watering": "moderate",
+    "propagation_difficulty": 2,
+    "growth_time": "Phát triển ổn định lâu năm",
+    "container_suitable": true,
+    "tags": [
+      "Sang trọng",
+      "Bản lá to",
+      "Nội thất hiện đại",
+      "Cạnh cửa sổ"
+    ]
+  },
+  {
+    "id": "orn-10",
+    "slug": "da-bup-do-cam-thach",
+    "common_name": "Đa Búp Đỏ Cẩm Thạch",
+    "scientific_name": "Ficus elastica",
+    "aliases": [
+      "Cây Cao Su Cảnh",
+      "Rubber Plant",
+      "Đa Búp Đỏ"
+    ],
+    "category": "ornamental",
+    "description": "Sắc lá đỏ tía kết hợp viền cẩm thạch tuyệt mỹ. Lá dày bóng bẩy như tráng sáp có khả năng bẫy bụi mịn trong không khí đô thị, búp non nhọn hoắt màu đỏ rực như ngọn lửa tượng trưng cho may mắn thịnh vượng.",
+    "quick_answer": "Đa búp đỏ rất dễ chăm, ưa nắng nhẹ buổi sớm hoặc ánh sáng gián tiếp. Đất trồng thoát nước tốt, tưới khi mặt đất se khô. Cây chịu hạn tốt hơn chịu úng, ngắt ngọn sẽ kích thích phân nhánh xòe tròn.",
+    "botanical_details": {
+      "family": "Moraceae (Họ Dâu tằm)",
+      "native_range": "Ấn Độ và Malaysia",
+      "soil_ph": "5.5 - 6.5",
+      "ideal_temp": "20°C - 32°C",
+      "pot_size": "25cm - 40cm"
+    },
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Ficus_elastica_leaves_02.JPG/960px-Ficus_elastica_leaves_02.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "sunlight": "partial_shade",
+    "watering": "moderate",
+    "propagation_difficulty": 2,
+    "growth_time": "2 tháng ra 3-4 cặp lá mới",
+    "container_suitable": true,
+    "tags": [
+      "Hút bụi mịn",
+      "Lá bóng sáp",
+      "Búp đỏ rực",
+      "Phong thủy may mắn"
+    ]
+  },
+  {
+    "id": "orn-11",
+    "slug": "bach-ma-hoang-tu",
+    "common_name": "Bạch Mã Hoàng Tử",
+    "scientific_name": "Aglaonema commutatum",
+    "aliases": [
+      "Vạn Niên Thanh Trắng",
+      "Cây Bạch Mã"
+    ],
+    "category": "ornamental",
+    "description": "Dáng cây thanh thoát với sống lá và thân màu trắng muốt như chàng hoàng tử bạch mã. Cây biểu trưng cho sự thăng tiến hanh thông trong công việc, bền bỉ sống tốt trong môi trường máy lạnh điều hòa.",
+    "quick_answer": "Bạch mã hoàng tử là lựa chọn số 1 cho bàn làm việc văn phòng. Cây sống khỏe dưới ánh đèn huỳnh quang, chỉ cần tưới 1-2 lần/tuần và xịt phun sương làm mát tán lá.",
+    "botanical_details": {
+      "family": "Araceae (Họ Ráy)",
+      "native_range": "Đông Nam Á nhiệt đới",
+      "soil_ph": "5.6 - 6.5",
+      "ideal_temp": "18°C - 28°C",
+      "pot_size": "20cm - 30cm"
+    },
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Aglaonema_commutatum_kz1.jpg/960px-Aglaonema_commutatum_kz1.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "sunlight": "indoor",
+    "watering": "moderate",
+    "propagation_difficulty": 1,
+    "growth_time": "Sống bền quanh năm trong nhà",
+    "container_suitable": true,
+    "tags": [
+      "Thăng tiến",
+      "Bàn làm việc",
+      "Thân trắng muốt",
+      "Văn phòng"
+    ]
+  },
+  {
+    "id": "orn-12",
+    "slug": "sen-da-mong-rong",
+    "common_name": "Sen Đá Móng Rồng",
+    "scientific_name": "Haworthiopsis fasciata",
+    "aliases": [
+      "Xương Rồng Móng Rồng",
+      "Haworthia Ngựa Vằn"
+    ],
+    "category": "ornamental",
+    "description": "Các cánh lá thuôn nhọn vuốt cong xếp thành hình móng rồng quyền lực, điểm xuyết các sọc vân trắng nổi gồ ghề như ngựa vằn. Cây mang ý nghĩa bảo vệ chủ nhân khỏi thị phi tiểu nhân và xua tan vận rủi.",
+    "quick_answer": "Sen đá móng rồng chịu hạn siêu việt, 2-3 tuần mới cần tưới 1 lần vào gốc (tránh đọng nước ở kẽ lá). Ưa nắng sớm ban mai 2-3 tiếng, đất trồng cần 70% là sỏi nhẹ pumice hoặc đá perlite thoát nước.",
+    "botanical_details": {
+      "family": "Asphodelaceae (Họ Lan nhật quang)",
+      "native_range": "Nam Phi",
+      "soil_ph": "6.0 - 7.0",
+      "ideal_temp": "15°C - 32°C",
+      "pot_size": "10cm - 15cm (Chậu gốm mini)"
+    },
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/1_Haworthia_fasciata_-MBB_Kabeljouws_River.jpg/960px-1_Haworthia_fasciata_-MBB_Kabeljouws_River.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "sunlight": "partial_shade",
+    "watering": "drought_tolerant",
+    "propagation_difficulty": 1,
+    "growth_time": "Đẻ cây con xung quanh sau 4 tháng",
+    "container_suitable": true,
+    "tags": [
+      "Chịu hạn giỏi",
+      "Bảo vệ gia chủ",
+      "Tiểu cảnh mini",
+      "Sọc ngựa vằn"
+    ]
+  },
+  {
+    "id": "orn-13",
+    "slug": "cau-tieu-tram",
+    "common_name": "Cau Tiểu Trâm Để Bàn",
+    "scientific_name": "Chamaedorea elegans",
+    "aliases": [
+      "Dừa Parlor",
+      "Cau Mini Lọc Khí"
+    ],
+    "category": "ornamental",
+    "description": "Thu nhỏ cả một rừng cọ nhiệt đới xanh mướt trên bàn làm việc. Tán lá thanh mảnh xòe tơ mềm mại, có khả năng làm tăng độ ẩm không khí tự nhiên trong phòng máy lạnh và trừ tà khí tiêu cực.",
+    "quick_answer": "Cau tiểu trâm ưa bóng râm hoặc nắng tán xạ nhẹ, chịu được điều kiện thiếu sáng kéo dài. Tưới nước giữ đất hơi ẩm nhẹ, tuyệt đối không để chậu đọng nước gây úng thối rễ.",
+    "botanical_details": {
+      "family": "Arecaceae (Họ Cau dừa)",
+      "native_range": "Rừng nhiệt đới Mexico và Guatemala",
+      "soil_ph": "6.0 - 7.0",
+      "ideal_temp": "18°C - 28°C",
+      "pot_size": "15cm - 25cm"
+    },
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Chamaedorea_elegans_Mart.JPG/960px-Chamaedorea_elegans_Mart.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "sunlight": "indoor",
+    "watering": "moderate",
+    "propagation_difficulty": 2,
+    "growth_time": "Cây bền sống nhiều năm trong nhà",
+    "container_suitable": true,
+    "tags": [
+      "Tạo ẩm phòng lạnh",
+      "Lá tơ mảnh",
+      "Trừ tà",
+      "Bàn làm việc"
+    ]
+  },
+  {
+    "id": "orn-14",
+    "slug": "kim-ngan-tam-tai",
+    "common_name": "Kim Ngân Thắt Bím Tam Tài",
+    "scientific_name": "Pachira aquatica",
+    "aliases": [
+      "Cây Tiền",
+      "Money Tree",
+      "Kim Ngân 3 Thân"
+    ],
+    "category": "ornamental",
+    "description": "Thân cây bện xoắn 3 nhánh tượng trưng cho Thiên - Địa - Nhân hòa hợp và phúc lộc tài trọn vẹn. Mỗi cành xòe 5 lá đại diện cho ngũ hành Kim - Mộc - Thủy - Hỏa - Thổ cân bằng phong thủy đỉnh cao.",
+    "quick_answer": "Kim ngân tích nước ở thân phình to nên rất sợ thừa nước. Chỉ tưới khi đất khô hoàn toàn (khoảng 7-10 ngày/lần). Đặt ở phòng khách hoặc quầy thu ngân nơi có ánh sáng tự nhiên dịu nhẹ.",
+    "botanical_details": {
+      "family": "Malvaceae (Họ Cẩm quỳ)",
+      "native_range": "Trung và Nam Mỹ",
+      "soil_ph": "6.0 - 7.0",
+      "ideal_temp": "18°C - 32°C",
+      "pot_size": "25cm - 40cm"
+    },
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Flickr_-_archer10_%28Dennis%29_-_Guatemala-1376.jpg/960px-Flickr_-_archer10_%28Dennis%29_-_Guatemala-1376.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "sunlight": "indoor",
+    "watering": "moderate",
+    "propagation_difficulty": 2,
+    "growth_time": "Phát triển xanh tốt quanh năm",
+    "container_suitable": true,
+    "tags": [
+      "Chiêu tài tụ lộc",
+      "Thắt bím tam tài",
+      "Ngũ hành cân bằng",
+      "Khai trương"
+    ]
+  },
+  {
+    "id": "orn-15",
+    "slug": "truc-phu-quy-thuy-sinh",
+    "common_name": "Trúc Phú Quý Thủy Sinh",
+    "scientific_name": "Dracaena sanderiana",
+    "aliases": [
+      "Trúc May Mắn",
+      "Lucky Bamboo",
+      "Phát Dụ Trúc"
+    ],
+    "category": "ornamental",
+    "description": "Thân trúc xanh mướt phân từng đốt thanh nhã, cắm bình nước thủy sinh rễ đỏ bung tỏa như phượng múa. Tượng trưng cho ý chí vươn lên kiên cường, đem lại bình an may mắn và cát tường cho gia đình.",
+    "quick_answer": "Trúc phú quý trồng thủy sinh cực kỳ nhàn nhã, chỉ cần châm thêm nước sạch đã khử clo và nhỏ 2-3 giọt dinh dưỡng thủy canh mỗi tháng. Thay nước hoàn toàn khi nước có dấu hiệu đục rêu.",
+    "botanical_details": {
+      "family": "Asparagaceae (Họ Măng tây)",
+      "native_range": "Trung Phi",
+      "soil_ph": "6.0 - 6.5 (Hoặc nước lọc pH trung tính)",
+      "ideal_temp": "18°C - 30°C",
+      "pot_size": "Bình thủy tinh cao 25cm - 35cm"
+    },
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/TD_311-Dracaena_braunii_%40_TK_08-05-2008_2008bg00032-3_Theo_Damen.jpg/960px-TD_311-Dracaena_braunii_%40_TK_08-05-2008_2008bg00032-3_Theo_Damen.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "sunlight": "indoor",
+    "watering": "daily",
+    "propagation_difficulty": 1,
+    "growth_time": "Ra rễ sau 10 ngày cắm nước",
+    "container_suitable": true,
+    "tags": [
+      "Thủy sinh",
+      "May mắn cát tường",
+      "Dễ chăm nhất",
+      "Bàn thờ Thần Tài"
+    ]
   }
 ]

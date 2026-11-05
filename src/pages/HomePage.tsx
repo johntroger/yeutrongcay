@@ -139,7 +139,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 Trái Ngọt Phố (Cây Ăn Quả)
               </h3>
               <p className="text-xs text-forest-700/80 mt-1 line-clamp-2">
-                10 giống cây ăn trái lùn nhanh cho quả trồng chậu ban công và sân thượng.
+                15 giống cây ăn trái lùn nhanh cho quả trồng chậu ban công và sân thượng.
               </p>
             </div>
           </Link>
@@ -161,7 +161,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 Cây Cảnh & Thư Thái
               </h3>
               <p className="text-xs text-forest-700/80 mt-1 line-clamp-2">
-                Thanh lọc không khí, nghệ thuật bonsai hoa thơm và cây phong thủy tài lộc.
+                15 loài thanh lọc không khí, nghệ thuật bonsai hoa thơm và cây phong thủy tài lộc.
               </p>
             </div>
           </Link>

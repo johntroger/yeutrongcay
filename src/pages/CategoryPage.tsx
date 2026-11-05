@@ -7,7 +7,16 @@ import { useSEO } from '../utils/useSEO.ts';
 import { Hero } from '../components/Hero.tsx';
 import { MedicalDisclaimer } from '../components/MedicalDisclaimer.tsx';
 import { PlantCard } from '../components/PlantCard.tsx';
-import { Home, ChevronRight, Filter, Sparkles } from 'lucide-react';
+import {
+  Home,
+  ChevronRight,
+  Filter,
+  Sparkles,
+  Sun,
+  Droplets,
+  Award,
+  RotateCcw
+} from 'lucide-react';
 
 interface CategoryPageProps {
   category: PlantCategory;
@@ -21,6 +30,11 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({
   onClearSearch,
 }) => {
   const [allPlants, setAllPlants] = useState<Plant[]>(SEED_PLANTS);
+
+  // Bộ lọc chuyên sâu MS3
+  const [sunlightFilter, setSunlightFilter] = useState<'all' | 'full_sun' | 'partial_shade' | 'indoor'>('all');
+  const [wateringFilter, setWateringFilter] = useState<'all' | 'daily' | 'moderate' | 'drought_tolerant'>('all');
+  const [difficultyFilter, setDifficultyFilter] = useState<'all' | 'easy' | 'medium' | 'hard'>('all');
 
   useEffect(() => {
     let isMounted = true;
@@ -36,20 +50,20 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({
 
   const meta = {
     herb: {
-      title: 'Tủ Thuốc Xanh - Thảo Dược Bản Địa Việt Nam | Yêu Trồng Cây',
+      title: 'Tủ Thuốc Xanh - 20 Loài Thảo Dược Bản Địa Việt Nam | Yêu Trồng Cây',
       description: 'Tra cứu 20 loài thảo dược bản địa Việt Nam: công dụng trị ho, giải cảm, bổ huyết, liều dùng an toàn và bài thuốc dân gian.',
       name: 'Tủ Thuốc Xanh (Thảo Dược Bản Địa)',
       icon: '🌿',
     },
     fruit: {
-      title: 'Trái Ngọt Phố - Cây Ăn Quả Ban Công Sân Thượng | Yêu Trồng Cây',
-      description: 'Cẩm nang trồng 10 giống cây ăn trái lùn đô thị: ổi lê, cóc Thái, sung Mỹ, chanh tứ quý trĩu quả quanh năm.',
+      title: 'Trái Ngọt Phố - 15 Cây Ăn Quả Ban Công Sân Thượng | Yêu Trồng Cây',
+      description: 'Cẩm nang trồng 15 giống cây ăn trái lùn đô thị: ổi lê, cóc Thái, sung Mỹ, dâu tằm F1, chanh tứ quý trĩu quả quanh năm.',
       name: 'Trái Ngọt Phố (Cây Ăn Quả Đô Thị)',
       icon: '🍋',
     },
     ornamental: {
-      title: 'Cây Cảnh & Bonsai Thư Thái - Phong Thủy Tài Lộc | Yêu Trồng Cây',
-      description: 'Top các loài cây cảnh thanh lọc không khí, nghệ thuật tạo tác bonsai phong thủy và cây phong thủy hút tài lộc.',
+      title: 'Cây Cảnh & Bonsai Thư Thái - 15 Loài Lọc Khí & Phong Thủy | Yêu Trồng Cây',
+      description: 'Top 15 loài cây cảnh thanh lọc không khí theo NASA, nghệ thuật tạo tác bonsai phong thủy và cây phong thủy hút tài lộc.',
       name: 'Cây Cảnh & Thư Thái (Bonsai/Hoa)',
       icon: '🌸',
     },
@@ -64,18 +78,33 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({
     return allPlants.filter((plant) => {
       const matchesCategory = plant.category === category;
       const q = searchQuery.toLowerCase().trim();
-      if (!q) return matchesCategory;
-
-      const matchesSearch =
+      
+      const matchesSearch = !q ||
         plant.common_name.toLowerCase().includes(q) ||
         plant.scientific_name.toLowerCase().includes(q) ||
         plant.aliases.some((a) => a.toLowerCase().includes(q)) ||
         plant.tags.some((t) => t.toLowerCase().includes(q)) ||
         (plant.medical_info?.uses.some((u) => u.toLowerCase().includes(q)) ?? false);
 
-      return matchesCategory && matchesSearch;
+      const matchesSunlight = sunlightFilter === 'all' || plant.sunlight === sunlightFilter;
+      const matchesWatering = wateringFilter === 'all' || plant.watering === wateringFilter;
+      const matchesDifficulty =
+        difficultyFilter === 'all' ||
+        (difficultyFilter === 'easy' && plant.propagation_difficulty <= 2) ||
+        (difficultyFilter === 'medium' && plant.propagation_difficulty === 3) ||
+        (difficultyFilter === 'hard' && plant.propagation_difficulty >= 4);
+
+      return matchesCategory && matchesSearch && matchesSunlight && matchesWatering && matchesDifficulty;
     });
-  }, [allPlants, category, searchQuery]);
+  }, [allPlants, category, searchQuery, sunlightFilter, wateringFilter, difficultyFilter]);
+
+  const hasActiveFilters = sunlightFilter !== 'all' || wateringFilter !== 'all' || difficultyFilter !== 'all';
+
+  const resetFilters = () => {
+    setSunlightFilter('all');
+    setWateringFilter('all');
+    setDifficultyFilter('all');
+  };
 
   return (
     <div className="min-h-screen bg-cream-100 flex flex-col">
@@ -120,6 +149,114 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({
           <div className="self-start sm:self-auto flex items-center gap-2 text-xs font-semibold text-forest-800 bg-white px-3.5 py-2 rounded-xl border border-forest-100 shadow-sm">
             <Filter className="w-4 h-4 text-herbal-600" />
             <span>Chuyên mục độc lập</span>
+          </div>
+        </div>
+
+        {/* Thanh Bộ Lọc Chuyên Sâu (MS3 Advanced Filters) */}
+        <div className="bg-white rounded-3xl p-4 sm:p-5 border border-forest-100 shadow-sm mb-8 space-y-3.5">
+          <div className="flex items-center justify-between flex-wrap gap-2 pb-2.5 border-b border-forest-50">
+            <div className="flex items-center gap-2">
+              <Filter className="w-4 h-4 text-herbal-600" />
+              <span className="text-xs font-bold text-forest-900 uppercase tracking-wider">
+                Bộ Lọc Nông Nghiệp Đô Thị
+              </span>
+              <span className="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-forest-50 text-forest-700 border border-forest-100">
+                {categoryPlants.length} cây phù hợp
+              </span>
+            </div>
+
+            {hasActiveFilters && (
+              <button
+                onClick={resetFilters}
+                className="text-xs font-semibold text-amber-700 hover:text-amber-800 flex items-center gap-1 transition px-2.5 py-1 rounded-lg hover:bg-amber-50"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+                <span>Đặt lại bộ lọc</span>
+              </button>
+            )}
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            {/* Lọc Ánh Sáng */}
+            <div className="space-y-1.5">
+              <label className="text-[11px] font-bold text-forest-700 flex items-center gap-1">
+                <Sun className="w-3.5 h-3.5 text-amber-500" /> Mức Độ Nắng:
+              </label>
+              <div className="flex items-center gap-1 overflow-x-auto no-scrollbar py-0.5">
+                {[
+                  { id: 'all', label: 'Tất cả' },
+                  { id: 'full_sun', label: 'Nắng gắt (6h+)' },
+                  { id: 'partial_shade', label: 'Bán râm' },
+                  { id: 'indoor', label: 'Trong nhà' },
+                ].map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => setSunlightFilter(item.id as any)}
+                    className={`px-2.5 py-1.5 rounded-xl text-xs font-medium shrink-0 transition ${
+                      sunlightFilter === item.id
+                        ? 'bg-forest-900 text-white font-semibold shadow-xs'
+                        : 'bg-cream-50 text-forest-800 hover:bg-forest-50 border border-forest-100'
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Lọc Nước Tưới */}
+            <div className="space-y-1.5">
+              <label className="text-[11px] font-bold text-forest-700 flex items-center gap-1">
+                <Droplets className="w-3.5 h-3.5 text-blue-500" /> Tần Suất Tưới:
+              </label>
+              <div className="flex items-center gap-1 overflow-x-auto no-scrollbar py-0.5">
+                {[
+                  { id: 'all', label: 'Tất cả' },
+                  { id: 'daily', label: 'Hàng ngày' },
+                  { id: 'moderate', label: 'Vừa phải' },
+                  { id: 'drought_tolerant', label: 'Chịu hạn giỏi' },
+                ].map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => setWateringFilter(item.id as any)}
+                    className={`px-2.5 py-1.5 rounded-xl text-xs font-medium shrink-0 transition ${
+                      wateringFilter === item.id
+                        ? 'bg-forest-900 text-white font-semibold shadow-xs'
+                        : 'bg-cream-50 text-forest-800 hover:bg-forest-50 border border-forest-100'
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Lọc Độ Khó Nhân Giống */}
+            <div className="space-y-1.5">
+              <label className="text-[11px] font-bold text-forest-700 flex items-center gap-1">
+                <Award className="w-3.5 h-3.5 text-emerald-600" /> Độ Khó Trồng:
+              </label>
+              <div className="flex items-center gap-1 overflow-x-auto no-scrollbar py-0.5">
+                {[
+                  { id: 'all', label: 'Tất cả' },
+                  { id: 'easy', label: 'Dễ trồng (1-2★)' },
+                  { id: 'medium', label: 'Vừa (3★)' },
+                  { id: 'hard', label: 'Thử thách (4-5★)' },
+                ].map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => setDifficultyFilter(item.id as any)}
+                    className={`px-2.5 py-1.5 rounded-xl text-xs font-medium shrink-0 transition ${
+                      difficultyFilter === item.id
+                        ? 'bg-forest-900 text-white font-semibold shadow-xs'
+                        : 'bg-cream-50 text-forest-800 hover:bg-forest-50 border border-forest-100'
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
