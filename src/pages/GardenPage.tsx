@@ -27,11 +27,13 @@ import {
   Lightbulb,
   CheckSquare,
   RefreshCw,
-  Compass
+  Compass,
+  Printer
 } from 'lucide-react';
 import { UserGarden, GardenPlant, PlantDiaryEntry, PlantGrowthStatus } from '../types/index.ts';
 import { SEED_PLANTS } from '../data/plants.ts';
 import { SEASONAL_CALENDAR_DATA, RegionKey } from '../data/seasonalCalendar.ts';
+import { GardenBookPrintModal } from '../components/GardenBookPrintModal.tsx';
 import {
   getGardenData,
   addGardenPlant,
@@ -118,6 +120,10 @@ export const GardenPage: React.FC = () => {
       return {};
     }
   });
+
+  // Modal: Xuất Sổ Tay Vườn & Hồ Sơ Cây In Ấn (PDF)
+  const [isGardenBookOpen, setIsGardenBookOpen] = useState(false);
+  const [printTargetPlantId, setPrintTargetPlantId] = useState<string | null>(null);
 
   // Tải dữ liệu vườn
   useEffect(() => {
@@ -573,6 +579,16 @@ export const GardenPage: React.FC = () => {
                 <Camera className="w-4 h-4 text-herbal-700 dark:text-herbal-400" />
                 <span>{isEn ? 'Log Photo Entry' : 'Ghi Nhật Ký Ảnh'}</span>
               </button>
+              <button
+                onClick={() => {
+                  setPrintTargetPlantId(null);
+                  setIsGardenBookOpen(true);
+                }}
+                className="px-5 py-2.5 rounded-2xl bg-white dark:bg-charcoal-800 hover:bg-forest-50 dark:hover:bg-charcoal-700 text-forest-900 dark:text-cream-100 text-xs font-bold border border-forest-200 dark:border-forest-700 transition flex items-center gap-1.5 shadow-sm"
+              >
+                <Printer className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                <span>{isEn ? 'Export Garden Book (PDF)' : 'Xuất Sổ Tay Vườn (PDF)'}</span>
+              </button>
             </div>
           </div>
 
@@ -933,6 +949,19 @@ export const GardenPage: React.FC = () => {
                       >
                         <SplitSquareVertical className="w-3.5 h-3.5 text-herbal-700 dark:text-herbal-400" />
                         <span>{isEn ? 'Before/After' : 'So sánh lớn'}</span>
+                      </button>
+
+                      {/* Nút xuất hồ sơ cây PDF */}
+                      <button
+                        onClick={() => {
+                          setPrintTargetPlantId(plant.id);
+                          setIsGardenBookOpen(true);
+                        }}
+                        className="px-2.5 py-1.5 rounded-xl bg-white dark:bg-charcoal-700 border border-forest-200 dark:border-forest-700 text-forest-800 dark:text-forest-200 text-xs font-semibold hover:bg-forest-50 transition flex items-center gap-1"
+                        title={isEn ? 'Print Plant Dossier (PDF)' : 'In Hồ Sơ Cây (PDF)'}
+                      >
+                        <Printer className="w-3.5 h-3.5 text-emerald-600" />
+                        <span>{isEn ? 'PDF' : 'Hồ sơ'}</span>
                       </button>
                     </div>
 
@@ -2008,6 +2037,17 @@ export const GardenPage: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* 9. Modal: Xuất Sổ Tay Vườn & Hồ Sơ Sinh Trưởng In Ấn / Lưu PDF */}
+      <GardenBookPrintModal
+        isOpen={isGardenBookOpen}
+        onClose={() => setIsGardenBookOpen(false)}
+        garden={garden}
+        plants={plants}
+        diaries={diaries}
+        initialPlantId={printTargetPlantId}
+        region={selectedRegion}
+      />
     </div>
   );
 };
