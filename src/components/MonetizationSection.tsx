@@ -16,6 +16,7 @@ import {
   PackageCheck
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext.tsx';
+import { MicroFarmingRoiCalculator } from './MicroFarmingRoiCalculator.tsx';
 
 interface BlueprintDetail {
   id: string;
@@ -491,6 +492,21 @@ export const MonetizationSection: React.FC = () => {
               ? 'No large farm required—generate steady supplemental monthly income from your compact apartment balcony or rooftop patio. Click any card to read the complete actionable blueprint.'
               : 'Không cần đất ruộng rộng lớn, bạn hoàn toàn có thể tạo ra thu nhập thực tế hàng tháng chỉ từ góc ban công hoặc sân thượng nhỏ. Bấm vào từng mô hình để xem trọn bộ kế hoạch chi tiết.'}
           </p>
+        </div>
+
+        {/* Interactive Micro-Farming ROI Calculator */}
+        <div className="mb-16">
+          <MicroFarmingRoiCalculator />
+        </div>
+
+        {/* Sub-header for blueprints */}
+        <div className="max-w-3xl mx-auto text-center mb-8">
+          <span className="text-xs uppercase font-bold text-herbal-700 dark:text-herbal-400 tracking-wider">
+            {isEn ? 'Detailed Business Blueprints' : 'Cẩm Nang Triển Khai 4 Mô Hình Chi Tiết'}
+          </span>
+          <h3 className="text-2xl sm:text-3xl font-serif font-bold text-forest-900 dark:text-cream-50 mt-1">
+            {isEn ? 'Step-by-Step SOPs & Craft Recipes' : 'Quy Trình Chuẩn SOP & Công Thức Chế Biến'}
+          </h3>
         </div>
 
         {/* 4 Blueprints Grid */}
