@@ -166,6 +166,18 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>{t('nav.myGarden')}</span>
             </Link>
 
+            {/* Web3 Hộ Chiếu Cây Trồng (MS8) */}
+            <Link
+              to="/web3-sandbox"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-2 rounded-xl text-xs font-semibold bg-orange-50 hover:bg-orange-100 dark:bg-orange-950/40 dark:hover:bg-orange-900/60 text-orange-900 dark:text-orange-300 flex items-center gap-1.5 border border-orange-200 dark:border-orange-800/60 transition shadow-2xs"
+              title={isEn ? 'Web3 Plant Passport & Genetic Provenance Sandbox' : 'Hộ chiếu cây trồng số & Web3 Sandbox'}
+            >
+              <ShieldCheck className="w-4 h-4 text-orange-600 dark:text-orange-400" />
+              <span>{isEn ? 'Web3' : 'Hộ Chiếu Cây'}</span>
+            </Link>
+
             {/* Language Switcher Button (VI / EN) */}
             <button
               onClick={toggleLanguage}

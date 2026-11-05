@@ -18,7 +18,8 @@ import {
   Coins,
   MessageCircle,
   ArrowUpRight,
-  Calendar
+  Calendar,
+  ShieldCheck
 } from 'lucide-react';
 
 interface HomePageProps {
@@ -328,7 +329,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {/* Box 1: Lịch Nông Vụ Đô Thị 3 Miền */}
             <Link
               to="/lich-nong-vu"
@@ -433,7 +434,36 @@ export const HomePage: React.FC<HomePageProps> = ({
               </div>
             </Link>
 
-            {/* Box 5: Kiếm Tiền Từ Vườn */}
+            {/* Box 5: Web3 Sandbox & Hộ Chiếu Cây Trồng (MS8) */}
+            <Link
+              to="/web3-sandbox"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-5 rounded-3xl bg-forest-950/80 border border-orange-500/50 hover:border-orange-400 hover:bg-forest-950 transition group flex flex-col justify-between shadow-lg"
+            >
+              <div>
+                <div className="w-10 h-10 rounded-2xl bg-orange-500/20 text-orange-400 flex items-center justify-center mb-3.5">
+                  <ShieldCheck className="w-5 h-5" />
+                </div>
+                <div className="flex items-center gap-1.5 mb-1">
+                  <h3 className="font-serif font-bold text-base text-white group-hover:text-orange-300 transition">
+                    {isEn ? 'Web3 & Plant Passport' : 'Hộ Chiếu Cây & Web3'}
+                  </h3>
+                  <span className="px-1.5 py-0.2 rounded-full text-[9px] font-bold bg-orange-600 text-white">MS8</span>
+                </div>
+                <p className="text-xs text-forest-300/80 mt-1 leading-relaxed">
+                  {isEn
+                    ? 'Digital plant passport studio with SHA-256 photo hash and smart contract escrow on Testnet.'
+                    : 'Đúc hộ chiếu thực vật số, mã băm SHA-256 bảo vệ nguồn gen và mô phỏng Smart Contract trên Testnet.'}
+                </p>
+              </div>
+              <div className="pt-3.5 mt-3.5 border-t border-forest-800/80 flex items-center justify-between text-xs font-semibold text-orange-400">
+                <span>{isEn ? 'Open Web3 Studio' : 'Vào Web3 Sandbox'}</span>
+                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
+              </div>
+            </Link>
+
+            {/* Box 6: Kiếm Tiền Từ Vườn */}
             <Link
               to="/kiem-tien-tu-vuon"
               target="_blank"
@@ -459,7 +489,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               </div>
             </Link>
 
-            {/* Box 6: Kênh Liên Hệ & Hợp Tác */}
+            {/* Box 7: Kênh Liên Hệ & Hợp Tác */}
             <Link
               to="/lien-he"
               target="_blank"
