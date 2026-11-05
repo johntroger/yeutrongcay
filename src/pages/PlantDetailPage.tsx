@@ -19,7 +19,6 @@ import {
   Hash,
   Sparkles,
   ChevronRight,
-  Check,
   CheckCircle2,
   Clock,
   Home,
@@ -32,6 +31,7 @@ import {
   Flag
 } from 'lucide-react';
 import { ReportModal } from '../components/ReportModal.tsx';
+import { ShareModal } from '../components/ShareModal.tsx';
 
 interface PlantDetailPageProps {
   onOpenMyGarden?: () => void;
@@ -44,10 +44,10 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const { language, t, isEn } = useLanguage();
-  const [copied, setCopied] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   // Tìm cây theo slug (kết hợp cache tức thì + dữ liệu động từ MySQL)
   const [rawPlant, setRawPlant] = useState<Plant | undefined>(() => SEED_PLANTS.find((p) => p.slug === slug));
@@ -389,12 +389,6 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
     );
   }
 
-  const handleCopyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
-  };
-
   const handleSaveToGarden = () => {
     if (onAddPlantToGarden) {
       onAddPlantToGarden(plant.id);
@@ -440,21 +434,12 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
         <div className="flex items-center gap-2">
           {/* Share Button */}
           <button
-            onClick={handleCopyLink}
+            onClick={() => setIsShareModalOpen(true)}
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-forest-900 bg-white hover:bg-forest-50 px-3.5 py-2 rounded-xl border border-forest-200 shadow-2xs transition"
             title={t('plantDetail.sharePlant')}
           >
-            {copied ? (
-              <>
-                <Check className="w-4 h-4 text-emerald-600" />
-                <span className="text-emerald-700">{t('common.copied')}</span>
-              </>
-            ) : (
-              <>
-                <Share2 className="w-4 h-4 text-forest-600" />
-                <span className="hidden sm:inline">{t('common.share')}</span>
-              </>
-            )}
+            <Share2 className="w-4 h-4 text-emerald-600" />
+            <span className="hidden sm:inline">{t('common.share')}</span>
           </button>
 
           {/* Bookmark Button */}
@@ -925,6 +910,19 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
         </div>
 
       </div>
+
+      {/* Modal Chia Sẻ Mạng Xã Hội */}
+      {isShareModalOpen && plant && (
+        <ShareModal
+          isOpen={true}
+          onClose={() => setIsShareModalOpen(false)}
+          title={isEn ? `${plant.common_name} (${plant.scientific_name}) - Uses & Care Guide` : `${plant.common_name} (${plant.scientific_name}) - Công Dụng & Cách Trồng`}
+          text={quickAnswerText}
+          url={pageUrl}
+          imageUrl={plant.image_url}
+          badge={categoryName}
+        />
+      )}
 
       {/* Modal Báo Cáo Vi Phạm */}
       {isReportModalOpen && plant && (

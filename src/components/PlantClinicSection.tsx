@@ -22,7 +22,8 @@ import {
   Activity,
   ShieldAlert,
   Bot,
-  Key
+  Key,
+  Share2
 } from 'lucide-react';
 import { ClinicQuestion } from '../types/index.ts';
 import { INITIAL_CLINIC_QUESTIONS } from '../data/clinicCases.ts';
@@ -44,6 +45,7 @@ import { AIKeyModal } from './AIKeyModal.tsx';
 import { checkCommunityModeration } from '../utils/moderation.ts';
 import { applyWatermarkAndStripExif } from '../utils/watermark.ts';
 import { ReportModal } from './ReportModal.tsx';
+import { ShareModal } from './ShareModal.tsx';
 import { useLanguage } from '../context/LanguageContext.tsx';
 
 export const PlantClinicSection: React.FC = () => {
@@ -66,6 +68,7 @@ export const PlantClinicSection: React.FC = () => {
   const [visionDiagnosis, setVisionDiagnosis] = useState<AIVisionDiagnosisResult | null>(null);
   const [isVisionScanning, setIsVisionScanning] = useState(false);
   const [copiedPrescription, setCopiedPrescription] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   // Upload ảnh thực tế kèm Watermark & EXIF Clean
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -765,7 +768,7 @@ export const PlantClinicSection: React.FC = () => {
                     </div>
 
                     {/* Action buttons */}
-                    <div className="grid grid-cols-3 gap-1.5 pt-0.5">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 pt-0.5">
                       <button
                         type="button"
                         onClick={handleApplyDiagnosisToDescription}
@@ -790,6 +793,14 @@ export const PlantClinicSection: React.FC = () => {
                             <span>{isEn ? 'Copy Rx' : 'Sao chép'}</span>
                           </>
                         )}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setIsShareModalOpen(true)}
+                        className="py-1.5 px-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-300 dark:border-amber-800/60 font-semibold text-[10px] flex items-center justify-center gap-1 transition"
+                      >
+                        <Share2 className="w-3 h-3" />
+                        <span>{isEn ? 'Share Rx' : 'Chia sẻ'}</span>
                       </button>
                       <button
                         type="button"
@@ -1036,6 +1047,21 @@ export const PlantClinicSection: React.FC = () => {
             </button>
           </div>
         </div>
+      )}
+
+      {/* Modal Chia Sẻ Phác Đồ Bác Sĩ Cây */}
+      {isShareModalOpen && visionDiagnosis && (
+        <ShareModal
+          isOpen={true}
+          onClose={() => setIsShareModalOpen(false)}
+          title={isEn ? `AI Plant Doctor Diagnosis: ${visionDiagnosis.disease_name}` : `Chẩn Đoán Bác Sĩ Cây: ${visionDiagnosis.disease_name}`}
+          text={isEn
+            ? `Cause: ${visionDiagnosis.primary_cause}. Organic prescription: ${visionDiagnosis.organic_prescription.slice(0, 2).join('; ')}`
+            : `Nguyên nhân: ${visionDiagnosis.primary_cause}. Phác đồ: ${visionDiagnosis.organic_prescription.slice(0, 2).join('; ')}`}
+          url="https://yeutrongcay.com/bac-si-cay-trong"
+          imageUrl={uploadedImageUrl || undefined}
+          badge={isEn ? 'AI Plant Clinic' : 'Bác Sĩ Cây Trồng'}
+        />
       )}
 
       {/* Modal Cài Đặt API Key Cá Nhân (BYOK) */}

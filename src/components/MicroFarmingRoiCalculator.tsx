@@ -11,10 +11,12 @@ import {
   Layers,
   ArrowRight,
   ShieldCheck,
-  Zap
+  Zap,
+  Share2
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { Link } from 'react-router-dom';
+import { ShareModal } from './ShareModal.tsx';
 
 export type FarmingModelKey = 'self_sufficient' | 'propagation' | 'syrup_tea' | 'balcony_service';
 
@@ -49,6 +51,7 @@ export const MicroFarmingRoiCalculator: React.FC = () => {
   const [potCount, setPotCount] = useState<number>(14);
   const [useCompostRecycling, setUseCompostRecycling] = useState<boolean>(true);
   const [timeCommitment, setTimeCommitment] = useState<'15m' | '30m' | '60m'>('30m');
+  const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
 
   const models: Record<FarmingModelKey, ModelOption> = {
     self_sufficient: {
@@ -518,8 +521,16 @@ export const MicroFarmingRoiCalculator: React.FC = () => {
               className="w-full sm:flex-1 py-3 px-4 rounded-2xl bg-herbal-600 hover:bg-herbal-500 text-forest-950 font-bold text-xs flex items-center justify-center gap-2 transition shadow-md"
             >
               <Leaf className="w-4 h-4" />
-              <span>{isEn ? 'Set Up in My Digital Garden' : 'Thêm Danh Mục Vào Vườn Số Của Tôi'}</span>
+              <span>{isEn ? 'Set Up in My Digital Garden' : 'Thêm Danh Mục Vào Vườn Số'}</span>
             </Link>
+
+            <button
+              onClick={() => setIsShareModalOpen(true)}
+              className="w-full sm:w-auto py-3 px-4 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition border border-white/20"
+            >
+              <Share2 className="w-3.5 h-3.5 text-herbal-400" />
+              <span>{isEn ? 'Share Plan' : 'Chia Sẻ Kế Hoạch'}</span>
+            </button>
 
             <Link
               to="/trao-doi-cay"
@@ -531,6 +542,18 @@ export const MicroFarmingRoiCalculator: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Modal Chia Sẻ Bài Toán ROI */}
+      <ShareModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        title={isEn ? `Urban Farming ROI Forecast: ${activeModel.titleEn}` : `Kế Hoạch ROI Nông Nghiệp Đô Thị: ${activeModel.titleVi}`}
+        text={isEn
+          ? `Estimated monthly yield: ${formatVND(monthlyNetProfit)} (${annualRoiPercentage}% ROI/yr), breakeven in ${breakEvenMonths} months for ${potCount} pots.`
+          : `Lợi nhuận ròng dự kiến: ${formatVND(monthlyNetProfit)}/tháng (ROI ${annualRoiPercentage}%/năm), hoàn vốn sau ${breakEvenMonths} tháng cho ${potCount} chậu.`}
+        url="https://yeutrongcay.com/kiem-tien-tu-vuon"
+        badge={isEn ? 'Urban Micro-Farming' : 'Nông Nghiệp Đô Thị'}
+      />
 
     </div>
   );
