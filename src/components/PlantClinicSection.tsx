@@ -217,8 +217,8 @@ export const PlantClinicSection: React.FC = () => {
         {/* Two-column layout: Form on left, Live Cases on right */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          {/* Left Column: Ask Form */}
-          <div className="lg:col-span-5 bg-cream-100/70 rounded-3xl p-6 border border-forest-100 shadow-sm sticky top-28">
+          {/* Left Column: Ask Form (Chỉ sticky trên desktop lớn lg, trên mobile cuộn tự nhiên, nền trắng 100% không xuyên thấu) */}
+          <div className="lg:col-span-5 bg-white rounded-3xl p-6 border border-forest-100 shadow-sm static lg:sticky lg:top-28 z-10">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-serif font-bold text-forest-900 text-lg flex items-center gap-2">
                 <Stethoscope className="w-5 h-5 text-herbal-600" />
@@ -419,7 +419,7 @@ export const PlantClinicSection: React.FC = () => {
             {questions.map((q) => (
               <div
                 key={q.id}
-                className="bg-cream-50/60 rounded-3xl p-6 border border-forest-100 shadow-sm space-y-4 hover:border-forest-200 transition"
+                className="bg-white rounded-3xl p-6 border border-forest-100 shadow-sm space-y-4 hover:border-forest-200 transition"
               >
                 {/* Question Header */}
                 <div className="flex items-start justify-between gap-3">
