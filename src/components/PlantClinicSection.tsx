@@ -21,7 +21,8 @@ import {
   CheckCheck,
   Activity,
   ShieldAlert,
-  Bot
+  Bot,
+  Key
 } from 'lucide-react';
 import { ClinicQuestion } from '../types/index.ts';
 import { INITIAL_CLINIC_QUESTIONS } from '../data/clinicCases.ts';
@@ -32,9 +33,14 @@ import {
   submitClinicAnswer,
   verifyClinicAnswer,
   upvoteClinicAnswer,
-  requestAIVisionDiagnosis,
   AIVisionDiagnosisResult
 } from '../services/apiService.ts';
+import {
+  getUserAIConfig,
+  diagnoseWithUserAI,
+  UserAIConfig
+} from '../services/userAIService.ts';
+import { AIKeyModal } from './AIKeyModal.tsx';
 import { checkCommunityModeration } from '../utils/moderation.ts';
 import { applyWatermarkAndStripExif } from '../utils/watermark.ts';
 import { ReportModal } from './ReportModal.tsx';
@@ -52,7 +58,10 @@ export const PlantClinicSection: React.FC = () => {
   const [replyText, setReplyText] = useState('');
   const [draftSaved, setDraftSaved] = useState(false);
 
-  // AI Thị Giác Bác Sĩ Cây Trồng (MS6)
+  // AI Thị Giác Bác Sĩ Cây Trồng - API Người Dùng (BYOK)
+  const [userAIConfig, setUserAIConfig] = useState<UserAIConfig>(getUserAIConfig());
+  const [isKeyModalOpen, setIsKeyModalOpen] = useState(false);
+  const [diagnosedByProvider, setDiagnosedByProvider] = useState<'user_gemini' | 'user_openai' | 'offline_rules' | null>(null);
   const [visionDiagnosis, setVisionDiagnosis] = useState<AIVisionDiagnosisResult | null>(null);
   const [isVisionScanning, setIsVisionScanning] = useState(false);
   const [copiedPrescription, setCopiedPrescription] = useState(false);
@@ -60,6 +69,7 @@ export const PlantClinicSection: React.FC = () => {
   // Upload ảnh thực tế kèm Watermark & EXIF Clean
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(null);
+  const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
 
@@ -117,20 +127,30 @@ export const PlantClinicSection: React.FC = () => {
     );
   };
 
-  const handleRunVisionDiagnosis = async (imgUrl?: string) => {
-    const url = imgUrl || uploadedImageUrl || undefined;
+  const handleRunVisionDiagnosis = async (fileToUse?: File) => {
+    // Kiểm tra cấu hình API cá nhân của người dùng (BYOK)
+    const currentConfig = getUserAIConfig();
+    setUserAIConfig(currentConfig);
+
+    // Nếu người dùng chưa nhập key cá nhân và không phải chế độ offline -> Mở modal hướng dẫn nhập key miễn phí
+    if (!currentConfig.apiKey && currentConfig.provider !== 'offline') {
+      setIsKeyModalOpen(true);
+      return;
+    }
+
     setIsVisionScanning(true);
     try {
-      const res = await requestAIVisionDiagnosis({
-        plant_name_hint: plantHint,
+      const res = await diagnoseWithUserAI({
+        plantName: plantHint,
         symptoms: selectedSymptoms,
         description: description,
-        image_url: url,
+        file: fileToUse || selectedImageFile || undefined,
         region: region,
         lang: isEn ? 'en' : 'vi',
       });
       if (res.success && res.diagnosis) {
         setVisionDiagnosis(res.diagnosis);
+        setDiagnosedByProvider(res.usedProvider);
       }
     } catch (err) {
       console.warn('AI Vision scan error:', err);
@@ -175,11 +195,13 @@ export const PlantClinicSection: React.FC = () => {
         brandText: 'yeutrongcay.com'
       });
 
+      setSelectedImageFile(watermarkedFile);
+
       const res = await uploadPlantImage(watermarkedFile);
       if (res.success && res.url) {
         setUploadedImageUrl(res.url);
-        // Tự động kích hoạt AI thị giác ngay sau khi upload ảnh xong
-        handleRunVisionDiagnosis(res.url);
+        // Tự động kích hoạt AI thị giác cá nhân của người dùng
+        handleRunVisionDiagnosis(watermarkedFile);
       } else {
         setUploadError(res.error || (isEn ? 'Failed to upload photo to server' : 'Lỗi khi tải ảnh lên máy chủ'));
       }
@@ -262,7 +284,9 @@ export const PlantClinicSection: React.FC = () => {
       setPlantHint('');
       setSelectedSymptoms([]);
       setUploadedImageUrl(null);
+      setSelectedImageFile(null);
       setVisionDiagnosis(null);
+      setDiagnosedByProvider(null);
       localStorage.removeItem('ytc_clinic_desc');
       localStorage.removeItem('ytc_clinic_hint');
     }
@@ -378,6 +402,37 @@ export const PlantClinicSection: React.FC = () => {
             </div>
 
             <form onSubmit={handleSubmitQuestion} className="space-y-4 text-xs">
+              {/* BYOK: Trạng Thái API Key Cá Nhân của Người Dùng */}
+              <div className="p-3 rounded-2xl bg-forest-50/80 dark:bg-charcoal-800/90 border border-forest-100 dark:border-charcoal-700 space-y-2">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${userAIConfig.apiKey ? 'bg-emerald-500 animate-pulse' : 'bg-amber-400'}`} />
+                    <span className="text-[11px] font-bold text-forest-900 dark:text-cream-100 truncate">
+                      {userAIConfig.apiKey
+                        ? (userAIConfig.provider === 'gemini'
+                            ? (isEn ? 'Personal Gemini API Key active' : 'Đang dùng Gemini API cá nhân của bạn')
+                            : (isEn ? 'Personal OpenAI API Key active' : 'Đang dùng OpenAI API cá nhân của bạn'))
+                        : (isEn ? 'Personal AI Key: Not configured' : 'API Key cá nhân: Chưa thiết lập')}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setIsKeyModalOpen(true)}
+                    className="px-2.5 py-1 rounded-xl bg-white dark:bg-charcoal-700 hover:bg-emerald-50 dark:hover:bg-charcoal-600 border border-forest-200 dark:border-charcoal-600 text-forest-900 dark:text-cream-100 text-[10px] font-semibold flex items-center gap-1 shrink-0 transition shadow-2xs"
+                  >
+                    <Key className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
+                    <span>{userAIConfig.apiKey ? (isEn ? 'Change Key' : 'Đổi key') : (isEn ? 'Setup Key (Free)' : 'Cài key miễn phí')}</span>
+                  </button>
+                </div>
+                {!userAIConfig.apiKey && (
+                  <p className="text-[10px] text-charcoal-500 dark:text-charcoal-400 leading-tight">
+                    {isEn
+                      ? '💡 Website is non-profit and requires your free Gemini API key to diagnose.'
+                      : '💡 Website phi lợi nhuận & không dùng API của web. Bấm để lấy API Key Gemini miễn phí.'}
+                  </p>
+                )}
+              </div>
+
               {/* Region */}
               <div>
                 <label className="block font-bold text-forest-800 dark:text-charcoal-200 mb-1.5 flex items-center gap-1">
@@ -617,6 +672,18 @@ export const PlantClinicSection: React.FC = () => {
                     <h4 className="text-sm font-serif font-bold text-forest-950 dark:text-cream-50">
                       {visionDiagnosis.disease_name}
                     </h4>
+                    {diagnosedByProvider && (
+                      <div className="flex items-center gap-1.5 text-[10px] text-emerald-800 dark:text-emerald-300 bg-emerald-100/60 dark:bg-emerald-900/40 px-2 py-0.5 rounded-md font-medium w-fit mt-1">
+                        <ShieldCheck className="w-3 h-3 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                        <span>
+                          {diagnosedByProvider === 'user_gemini'
+                            ? (isEn ? 'Processed via your personal Google Gemini API' : 'Chẩn đoán trực tiếp qua Google Gemini API cá nhân của bạn')
+                            : diagnosedByProvider === 'user_openai'
+                            ? (isEn ? 'Processed via your personal OpenAI API' : 'Chẩn đoán trực tiếp qua OpenAI API cá nhân của bạn')
+                            : (isEn ? 'Local botanical database rules' : 'Chẩn đoán qua cơ sở tri thức cục bộ')}
+                        </span>
+                      </div>
+                    )}
                     <p className="text-[11px] text-charcoal-700 dark:text-charcoal-300 mt-1 leading-relaxed">
                       <strong>{isEn ? 'Root Cause: ' : 'Nguyên nhân gốc rễ: '}</strong>
                       {visionDiagnosis.primary_cause}
@@ -933,6 +1000,17 @@ export const PlantClinicSection: React.FC = () => {
           </div>
         </div>
       )}
+      {/* Modal Cài Đặt API Key Cá Nhân (BYOK) */}
+      <AIKeyModal
+        isOpen={isKeyModalOpen}
+        onClose={() => setIsKeyModalOpen(false)}
+        onConfigSaved={(newCfg) => {
+          setUserAIConfig(newCfg);
+          if (newCfg.apiKey || newCfg.provider === 'offline') {
+            handleRunVisionDiagnosis(selectedImageFile || undefined);
+          }
+        }}
+      />
     </section>
   );
 };
