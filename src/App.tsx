@@ -20,6 +20,7 @@ import { PrivacyModal } from './components/PrivacyModal.tsx';
 import { OfflineBanner } from './components/OfflineBanner.tsx';
 import { trackPageView } from './utils/analytics.ts';
 import { useLanguage } from './context/LanguageContext';
+import { subscribeToAuthState } from './services/firebaseClient.ts';
 
 // Wrapper xử lý danh mục động
 function DynamicCategoryWrapper({
@@ -86,6 +87,16 @@ export default function App() {
       localStorage.setItem('ytc_user', JSON.stringify(currentUser));
     }
   }, [currentUser]);
+
+  // Lắng nghe phiên đăng nhập Firebase Auth tự động
+  useEffect(() => {
+    const unsubscribe = subscribeToAuthState((fbUser) => {
+      if (fbUser) {
+        setCurrentUser(fbUser);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   // Cập nhật title SEO theo URL & Ngôn ngữ
   useEffect(() => {
