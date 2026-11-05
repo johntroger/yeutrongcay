@@ -49,10 +49,13 @@ export interface Plant {
   id: string;                   // UUID
   slug: string;                 // URL slug bất biến
   common_name: string;          // Tên phổ biến nhất (Húng chanh)
+  common_name_en?: string;       // Tên Tiếng Anh tự động từ DB
   scientific_name: string;      // Tên khoa học quốc tế chuẩn (Plectranthus amboinicus)
   aliases: string[];            // Tên gọi địa phương (Tần dày lá, rau thơm lông...)
   category: PlantCategory;      // herb | fruit | ornamental
   description: string;          // Mô tả tổng quan
+  description_en?: string;      // Mô tả Tiếng Anh tự động từ DB
+  translations_en?: any;        // Toàn bộ dữ liệu tiếng Anh cấu trúc tự động từ DB
   quick_answer?: string;        // Khối AEO Direct Answer 40-60 từ tối ưu cho AI Overviews / Perplexity
   botanical_details?: PlantBotanicalDetails; // GEO Entity Grounding & Knowledge Graph
   image_url: string;            // Ảnh đại diện chất lượng cao
@@ -199,6 +202,10 @@ export interface GardenPlant {
   cover_image_url: string;
   notes?: string;
   created_at?: string;
+  last_watered_at?: string; // YYYY-MM-DD
+  last_fertilized_at?: string; // YYYY-MM-DD
+  watering_interval_days?: number;
+  fertilizing_interval_days?: number;
 }
 
 export interface PlantDiaryEntry {

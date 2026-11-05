@@ -78,6 +78,20 @@ if ($pdo) {
             INDEX idx_plant_entry (garden_plant_id, entry_date),
             INDEX idx_user_diary (user_id)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+
+        // Tự động nâng cấp bảng garden_plants thêm các trường chu kỳ chăm sóc nếu chưa có
+        try {
+            $pdo->exec("ALTER TABLE garden_plants ADD COLUMN last_watered_at DATE DEFAULT NULL");
+        } catch (PDOException $e) {}
+        try {
+            $pdo->exec("ALTER TABLE garden_plants ADD COLUMN last_fertilized_at DATE DEFAULT NULL");
+        } catch (PDOException $e) {}
+        try {
+            $pdo->exec("ALTER TABLE garden_plants ADD COLUMN watering_interval_days INT DEFAULT 2");
+        } catch (PDOException $e) {}
+        try {
+            $pdo->exec("ALTER TABLE garden_plants ADD COLUMN fertilizing_interval_days INT DEFAULT 14");
+        } catch (PDOException $e) {}
     } catch (PDOException $e) {
         error_log("Failed to auto-create garden tables: " . $e->getMessage());
     }
@@ -335,6 +349,104 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'created_at' => date('Y-m-d H:i:s')
                 ]
             ], JSON_UNESCAPED_UNICODE);
+            exit;
+        } catch (PDOException $e) {
+            http_response_code(500);
+            echo json_encode(['success' => false, 'error' => $e->getMessage()], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+    }
+
+    // Hành động 4: Ghi nhận chăm sóc nhanh (Tưới nước, Bón phân)
+    if ($action === 'care_action') {
+        $plantId = trim($input['plant_id'] ?? '');
+        $careType = trim($input['care_type'] ?? 'water');
+        $date = trim($input['date'] ?? date('Y-m-d'));
+        $note = trim($input['note'] ?? '');
+
+        if (empty($plantId)) {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'Thiếu ID chậu cây'], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
+        try {
+            if ($careType === 'water') {
+                $stmt = $pdo->prepare("UPDATE garden_plants SET last_watered_at = :date WHERE id = :id");
+                $stmt->execute([':date' => $date, ':id' => $plantId]);
+            } else if ($careType === 'fertilize') {
+                $stmt = $pdo->prepare("UPDATE garden_plants SET last_fertilized_at = :date WHERE id = :id");
+                $stmt->execute([':date' => $date, ':id' => $plantId]);
+            }
+
+            // Ghi nhật ký vắn tắt nếu có ghi chú
+            if (!empty($note)) {
+                $diaryId = 'dir-' . uniqid();
+                $diaryStmt = $pdo->prepare("INSERT INTO plant_diaries (id, garden_plant_id, user_id, entry_date, stage, note, image_url, status)
+                    VALUES (:id, :plant_id, :user_id, :date, :stage, :note, '', 'visible')");
+                $diaryStmt->execute([
+                    ':id' => $diaryId,
+                    ':plant_id' => $plantId,
+                    ':user_id' => $input['user_id'] ?? 'usr-local-me',
+                    ':date' => $date,
+                    ':stage' => $careType === 'water' ? 'Tưới nước định kỳ' : 'Bón phân hữu cơ',
+                    ':note' => htmlspecialchars($note, ENT_QUOTES, 'UTF-8')
+                ]);
+            }
+
+            echo json_encode([
+                'success' => true,
+                'message' => 'Ghi nhận chăm sóc cây thành công',
+                'care_type' => $careType,
+                'date' => $date
+            ], JSON_UNESCAPED_UNICODE);
+            exit;
+        } catch (PDOException $e) {
+            http_response_code(500);
+            echo json_encode(['success' => false, 'error' => $e->getMessage()], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+    }
+
+    // Hành động 5: Xóa chậu cây khỏi vườn
+    if ($action === 'delete_plant') {
+        $plantId = trim($input['plant_id'] ?? '');
+        if (empty($plantId)) {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'Thiếu ID cây cần xóa'], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
+        try {
+            $stmt = $pdo->prepare("DELETE FROM garden_plants WHERE id = :id");
+            $stmt->execute([':id' => $plantId]);
+
+            $dStmt = $pdo->prepare("DELETE FROM plant_diaries WHERE garden_plant_id = :id");
+            $dStmt->execute([':id' => $plantId]);
+
+            echo json_encode(['success' => true, 'message' => 'Đã xóa chậu cây khỏi vườn'], JSON_UNESCAPED_UNICODE);
+            exit;
+        } catch (PDOException $e) {
+            http_response_code(500);
+            echo json_encode(['success' => false, 'error' => $e->getMessage()], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+    }
+
+    // Hành động 6: Xóa một mốc nhật ký ảnh
+    if ($action === 'delete_diary') {
+        $diaryId = trim($input['diary_id'] ?? '');
+        if (empty($diaryId)) {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'Thiếu ID nhật ký'], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
+        try {
+            $stmt = $pdo->prepare("DELETE FROM plant_diaries WHERE id = :id");
+            $stmt->execute([':id' => $diaryId]);
+
+            echo json_encode(['success' => true, 'message' => 'Đã xóa mốc nhật ký'], JSON_UNESCAPED_UNICODE);
             exit;
         } catch (PDOException $e) {
             http_response_code(500);

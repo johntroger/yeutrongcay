@@ -17,6 +17,7 @@ import { MyGardenModal } from './components/MyGardenModal.tsx';
 import { PrivacyModal } from './components/PrivacyModal.tsx';
 import { OfflineBanner } from './components/OfflineBanner.tsx';
 import { trackPageView } from './utils/analytics.ts';
+import { useLanguage } from './context/LanguageContext';
 
 // Wrapper xử lý danh mục động
 function DynamicCategoryWrapper({
@@ -41,6 +42,7 @@ function DynamicCategoryWrapper({
 export default function App() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { isEn } = useLanguage();
 
   // Xác định activeMode ban đầu dựa trên URL hiện tại
   const [activeMode, setActiveMode] = useState<PlantCategory>(() => {
@@ -51,13 +53,6 @@ export default function App() {
   });
 
   const [searchQuery, setSearchQuery] = useState('');
-
-  // Cỡ chữ đa thế hệ cho người lớn tuổi (Accessibility 50-75 tuổi)
-  const [fontSize, setFontSize] = useState<'normal' | 'large' | 'xlarge'>('normal');
-
-  const handleToggleFontSize = () => {
-    setFontSize((curr) => (curr === 'normal' ? 'large' : curr === 'large' ? 'xlarge' : 'normal'));
-  };
 
   // Trạng thái Người Dùng & Vườn Của Tôi
   const [currentUser, setCurrentUser] = useState<UserProfile | null>(() => {
@@ -71,10 +66,10 @@ export default function App() {
     }
     return {
       id: 'usr-demo-01',
-      name: 'Trần Tùng',
+      name: isEn ? 'Tran Tung' : 'Trần Tùng',
       email: 'trantung.gardener@gmail.com',
       avatar_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
-      badge: 'Chủ Vườn Tiên Phong',
+      badge: isEn ? 'Pioneer Gardener' : 'Chủ Vườn Tiên Phong',
       karma_points: 120,
       joined_date: '04/11/2026',
     };
@@ -90,48 +85,57 @@ export default function App() {
     }
   }, [currentUser]);
 
-  // Cập nhật title SEO theo URL
+  // Cập nhật title SEO theo URL & Ngôn ngữ
   useEffect(() => {
     const path = location.pathname;
     if (path === '/' || path === '/thao-duoc') {
-      document.title = 'Tủ Thuốc Xanh (Thảo Dược Bản Địa) | Yêu Trồng Cây';
+      document.title = isEn
+        ? 'Green Pharmacy (Native Herbs) | Yeu Trong Cay'
+        : 'Tủ Thuốc Xanh (Thảo Dược Bản Địa) | Yêu Trồng Cây';
       setActiveMode('herb');
     } else if (path === '/cay-an-trai') {
-      document.title = 'Trái Ngọt Phố (Cây Ăn Quả Ban Công) | Yêu Trồng Cây';
+      document.title = isEn
+        ? 'Urban Sweet Fruit (Balcony Fruit Trees) | Yeu Trong Cay'
+        : 'Trái Ngọt Phố (Cây Ăn Quả Ban Công) | Yêu Trồng Cây';
       setActiveMode('fruit');
     } else if (path === '/cay-canh') {
-      document.title = 'Cây Cảnh & Bonsai Thư Thái | Yêu Trồng Cây';
+      document.title = isEn
+        ? 'Ornamentals & Bonsai Serenity | Yeu Trong Cay'
+        : 'Cây Cảnh & Bonsai Thư Thái | Yêu Trồng Cây';
       setActiveMode('ornamental');
     } else if (path === '/trao-doi-cay') {
-      document.title = 'Trạm Trao Đổi Cây & Hạt Giống | Yêu Trồng Cây';
+      document.title = isEn
+        ? 'Plant & Seed Community Swap Station | Yeu Trong Cay'
+        : 'Trạm Trao Đổi Cây & Hạt Giống | Yêu Trồng Cây';
     } else if (path === '/bac-si-cay-trong') {
-      document.title = 'Hội Quán Bác Sĩ Cây Trồng (AI 3s) | Yêu Trồng Cây';
+      document.title = isEn
+        ? 'AI Plant Clinic (Instant Diagnostics) | Yeu Trong Cay'
+        : 'Hội Quán Bác Sĩ Cây Trồng (AI 3s) | Yêu Trồng Cây';
     } else if (path === '/lien-he') {
-      document.title = 'Liên Hệ & Đóng Góp Tri Thức | Yêu Trồng Cây';
+      document.title = isEn
+        ? 'Contact & Community Knowledge Hub | Yeu Trong Cay'
+        : 'Liên Hệ & Đóng Góp Tri Thức | Yêu Trồng Cây';
     } else if (path === '/web3-sandbox') {
-      document.title = 'Hộ Chiếu Cây Số Web3 Sandbox | Yêu Trồng Cây';
+      document.title = isEn
+        ? 'Digital Plant Passport Web3 Sandbox | Yeu Trong Cay'
+        : 'Hộ Chiếu Cây Số Web3 Sandbox | Yêu Trồng Cây';
+    } else if (path === '/vuon-cua-toi') {
+      document.title = isEn
+        ? 'My Digital Garden & Urban Diary | Yeu Trong Cay'
+        : 'Vườn Số Của Tôi & Nhật Ký Cây Trồng Đô Thị | Yêu Trồng Cây';
+    } else if (path === '/kiem-tien-tu-vuon') {
+      document.title = isEn
+        ? 'Urban Garden Economics & Monetization | Yeu Trong Cay'
+        : 'Kinh Tế Vườn Ban Công & Khởi Nghiệp Xanh | Yêu Trồng Cây';
     }
 
     // Gửi sự kiện Page View về Google Analytics 4 cho SPA khi chuyển trang
     trackPageView(location.pathname + location.search, document.title);
-  }, [location.pathname, location.search]);
+  }, [location.pathname, location.search, isEn]);
 
-  const scrollToSection = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  // Lớp CSS theo cỡ chữ
-  const fontScaleStyle =
-    fontSize === 'xlarge' ? { fontSize: '118%' } : fontSize === 'large' ? { fontSize: '108%' } : {};
 
   return (
-    <div
-      style={fontScaleStyle}
-      className="min-h-screen bg-cream-100 flex flex-col font-sans transition-all duration-200"
-    >
+    <div className="min-h-screen bg-cream-100 dark:bg-charcoal-950 text-charcoal-900 dark:text-cream-100 flex flex-col font-sans transition-colors duration-200">
       {/* 1. Header Navigation */}
       <Navbar
         activeMode={activeMode}
@@ -142,32 +146,16 @@ export default function App() {
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
         onOpenClinic={() => {
-          if (location.pathname === '/' || location.pathname === '/thao-duoc') {
-            scrollToSection('clinic');
-          } else {
-            navigate('/bac-si-cay-trong');
-          }
+          navigate('/bac-si-cay-trong');
         }}
         onOpenWeb3={() => {
-          if (location.pathname === '/' || location.pathname === '/thao-duoc') {
-            scrollToSection('web3');
-          } else {
-            navigate('/web3-sandbox');
-          }
+          navigate('/web3-sandbox');
         }}
         onOpenSwapMap={() => {
-          if (location.pathname === '/' || location.pathname === '/thao-duoc') {
-            scrollToSection('swap-map');
-          } else {
-            navigate('/trao-doi-cay');
-          }
+          navigate('/trao-doi-cay');
         }}
         onOpenContact={() => {
-          if (location.pathname === '/' || location.pathname === '/thao-duoc') {
-            scrollToSection('contact');
-          } else {
-            navigate('/lien-he');
-          }
+          navigate('/lien-he');
         }}
         currentUser={currentUser}
         onOpenAuth={() => setIsAuthOpen(true)}
@@ -178,8 +166,6 @@ export default function App() {
             setIsAuthOpen(true);
           }
         }}
-        fontSize={fontSize}
-        onToggleFontSize={handleToggleFontSize}
       />
 
       {/* 2. Main Router Pages */}
@@ -276,11 +262,7 @@ export default function App() {
       <Footer
         onOpenPrivacy={() => setIsPrivacyOpen(true)}
         onOpenContact={() => {
-          if (location.pathname === '/' || location.pathname === '/thao-duoc') {
-            scrollToSection('contact');
-          } else {
-            navigate('/lien-he');
-          }
+          navigate('/lien-he');
         }}
       />
 

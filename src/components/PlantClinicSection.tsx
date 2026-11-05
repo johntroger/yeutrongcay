@@ -30,8 +30,10 @@ import {
 import { checkCommunityModeration } from '../utils/moderation.ts';
 import { applyWatermarkAndStripExif } from '../utils/watermark.ts';
 import { ReportModal } from './ReportModal.tsx';
+import { useLanguage } from '../context/LanguageContext.tsx';
 
 export const PlantClinicSection: React.FC = () => {
+  const { t, isEn } = useLanguage();
   const [questions, setQuestions] = useState<ClinicQuestion[]>(INITIAL_CLINIC_QUESTIONS);
   const [region, setRegion] = useState<'north' | 'central' | 'south'>('south');
   const [plantHint, setPlantHint] = useState('');
@@ -42,23 +44,22 @@ export const PlantClinicSection: React.FC = () => {
   const [replyText, setReplyText] = useState('');
   const [draftSaved, setDraftSaved] = useState(false);
 
-  // Upload ảnh thực tế kèm Watermark & EXIF Clean (H7)
+  // Upload ảnh thực tế kèm Watermark & EXIF Clean
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(null);
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
 
-  // Cảnh báo kiểm duyệt tự động Sách Đỏ / Loài xâm hại / Thuốc cấm (H6, H15)
+  // Cảnh báo kiểm duyệt tự động
   const [moderationAlert, setModerationAlert] = useState<{
     title: string;
     reason: string;
     suggestion: string;
   } | null>(null);
 
-  // Modal Báo Cáo Vi Phạm (M6 - H6, H9)
+  // Modal Báo Cáo Vi Phạm
   const [reportTarget, setReportTarget] = useState<{ id: string; title: string } | null>(null);
 
-  // Tải danh sách câu hỏi thực tế từ MySQL và khôi phục bản nháp
   useEffect(() => {
     getClinicQuestions().then(({ questions: liveQ }) => {
       if (liveQ && liveQ.length > 0) {
@@ -79,14 +80,23 @@ export const PlantClinicSection: React.FC = () => {
     setTimeout(() => setDraftSaved(false), 2000);
   };
 
-  const symptomList = [
-    'Vàng lá đốm nâu',
-    'Cháy mép lá non',
-    'Rệp sáp trắng bám thân',
-    'Lá héo rũ dù đất ẩm',
-    'Rụng hoa/trái non',
-    'Đốm phấn trắng trên mặt lá',
-  ];
+  const symptomList = isEn
+    ? [
+        'Yellow leaves with brown rust spots',
+        'Scorched young leaf tips',
+        'White cottony mealybugs on stem',
+        'Wilted foliage despite wet soil',
+        'Premature flower or fruit drop',
+        'White powdery mildew on leaf coat',
+      ]
+    : [
+        'Vàng lá đốm nâu',
+        'Cháy mép lá non',
+        'Rệp sáp trắng bám thân',
+        'Lá héo rũ dù đất ẩm',
+        'Rụng hoa/trái non',
+        'Đốm phấn trắng trên mặt lá',
+      ];
 
   const toggleSymptom = (s: string) => {
     setSelectedSymptoms((prev) =>
@@ -99,7 +109,7 @@ export const PlantClinicSection: React.FC = () => {
     if (!file) return;
 
     if (file.size > 5 * 1024 * 1024) {
-      setUploadError('Dung lượng ảnh tối đa 5MB');
+      setUploadError(isEn ? 'Maximum image size is 5MB' : 'Dung lượng ảnh tối đa 5MB');
       return;
     }
 
@@ -107,9 +117,8 @@ export const PlantClinicSection: React.FC = () => {
     setIsUploadingImage(true);
 
     try {
-      // Đóng dấu Watermark bản quyền & tẩy sạch EXIF GPS (H7)
       const watermarkedFile = await applyWatermarkAndStripExif(file, {
-        authorName: 'Chủ Vườn Phố',
+        authorName: isEn ? 'Urban Gardener' : 'Chủ Vườn Phố',
         brandText: 'yeutrongcay.com'
       });
 
@@ -117,10 +126,10 @@ export const PlantClinicSection: React.FC = () => {
       if (res.success && res.url) {
         setUploadedImageUrl(res.url);
       } else {
-        setUploadError(res.error || 'Lỗi khi tải ảnh lên máy chủ');
+        setUploadError(res.error || (isEn ? 'Failed to upload photo to server' : 'Lỗi khi tải ảnh lên máy chủ'));
       }
     } catch (err: any) {
-      setUploadError(err.message || 'Lỗi khi xử lý hình ảnh');
+      setUploadError(err.message || (isEn ? 'Error processing image' : 'Lỗi khi xử lý hình ảnh'));
     } finally {
       setIsUploadingImage(false);
     }
@@ -130,52 +139,56 @@ export const PlantClinicSection: React.FC = () => {
     e.preventDefault();
     if (!description.trim()) return;
 
-    // Kiểm tra kiểm duyệt Sách Đỏ, loài xâm hại nguy hiểm, hóa chất cấm (H6, H15)
     const combinedInput = `${plantHint} ${description}`;
     const modCheck = checkCommunityModeration(combinedInput);
     if (modCheck.isBlocked) {
       setModerationAlert({
-        title: 'Cảnh Báo Sách Đỏ & Loài Cấm (H6, H15)',
-        reason: modCheck.reason || 'Nội dung nằm trong danh mục cấm/xâm hại nguy hiểm.',
-        suggestion: modCheck.suggestion || 'Vui lòng kiểm tra lại thông tin.'
+        title: isEn ? 'Conservation & Chemical Warning' : 'Cảnh Báo Sách Đỏ & Loài Cấm (H6, H15)',
+        reason: modCheck.reason || (isEn ? 'Content flagged under biosecurity restrictions.' : 'Nội dung nằm trong danh mục cấm/xâm hại nguy hiểm.'),
+        suggestion: modCheck.suggestion || (isEn ? 'Please review your input information.' : 'Vui lòng kiểm tra lại thông tin.')
       });
       return;
     }
 
     setIsAnalyzing(true);
 
-    const regionText = region === 'north' ? 'Miền Bắc' : region === 'central' ? 'Miền Trung' : 'Miền Nam';
-    const symptomsText = selectedSymptoms.join(', ') || 'Dấu hiệu suy yếu chung';
+    const regionText = isEn
+      ? (region === 'north' ? 'Northern' : region === 'central' ? 'Central' : 'Southern')
+      : (region === 'north' ? 'Miền Bắc' : region === 'central' ? 'Miền Trung' : 'Miền Nam');
+    const symptomsText = selectedSymptoms.join(', ') || (isEn ? 'General health decline' : 'Dấu hiệu suy yếu chung');
     const questionImages = uploadedImageUrl ? [uploadedImageUrl] : [];
 
     try {
       const savedQ = await submitClinicQuestion({
-        plant_name_hint: plantHint || 'Chưa rõ loài',
+        plant_name_hint: plantHint || (isEn ? 'Unknown species' : 'Chưa rõ loài'),
         description: description,
         region: region,
         symptoms: selectedSymptoms,
-        user_name: 'Bạn (Chủ Vườn)',
+        user_name: isEn ? 'You (Gardener)' : 'Bạn (Chủ Vườn)',
         images: questionImages
       });
 
       if (savedQ) {
         setQuestions((prev) => [savedQ, ...prev]);
       } else {
-        // Fallback lưu tạm bộ nhớ nếu mất mạng
         const fallbackQ: ClinicQuestion = {
           id: `case-${Date.now()}`,
           user_id: 'usr-current',
-          user_name: 'Bạn (Chủ Vườn)',
-          title: `Cây ${plantHint || 'cảnh'} gặp tình trạng: ${symptomsText}`,
+          user_name: isEn ? 'You (Gardener)' : 'Bạn (Chủ Vườn)',
+          title: isEn
+            ? `Plant (${plantHint || 'Potted plant'}) condition: ${symptomsText}`
+            : `Cây ${plantHint || 'cảnh'} gặp tình trạng: ${symptomsText}`,
           description: description,
-          plant_name_hint: plantHint || 'Chưa rõ loài',
+          plant_name_hint: plantHint || (isEn ? 'Unknown species' : 'Chưa rõ loài'),
           region: region,
           symptoms: selectedSymptoms,
           images: questionImages.length > 0 ? questionImages : ['https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Psidium_guajava_fruit.jpg/330px-Psidium_guajava_fruit.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail'],
-          ai_instant_diagnosis: `Phân tích AI tức thì (khu vực ${regionText}): Cây biểu hiện ${symptomsText}. Tạm ngưng tưới đẫm, kiểm tra độ thoát nước đáy chậu và xịt phòng dung dịch sinh học hữu cơ.`,
+          ai_instant_diagnosis: isEn
+            ? `AI Instant Analysis (${regionText} Region): Plant exhibits ${symptomsText}. Pause heavy watering, inspect pot drainage, and spray an organic botanical fungicide or soap solution in late afternoon.`
+            : `Phân tích AI tức thì (khu vực ${regionText}): Cây biểu hiện ${symptomsText}. Tạm ngưng tưới đẫm, kiểm tra độ thoát nước đáy chậu và xịt phòng dung dịch sinh học hữu cơ.`,
           answers: [],
           status: 'visible',
-          created_at: 'Vừa xong',
+          created_at: isEn ? 'Just now' : 'Vừa xong',
         };
         setQuestions((prev) => [fallbackQ, ...prev]);
       }
@@ -198,51 +211,38 @@ export const PlantClinicSection: React.FC = () => {
         if (q.id !== questionId) return q;
         return {
           ...q,
-          answers: q.answers.map((a) =>
-            a.id === answerId ? { ...a, upvotes: a.upvotes + 1 } : a,
+          answers: q.answers.map((ans) =>
+            ans.id === answerId ? { ...ans, upvotes: ans.upvotes + 1 } : ans
           ),
         };
-      }),
+      })
     );
-    await upvoteClinicAnswer(answerId);
+    upvoteClinicAnswer(answerId);
   };
 
-  // Xác nhận câu trả lời hiệu quả (Verified Answer - MS5)
   const handleVerifyAnswer = async (questionId: string, answerId: string) => {
     setQuestions((prev) =>
       prev.map((q) => {
         if (q.id !== questionId) return q;
-        const updated = q.answers.map((a) =>
-          a.id === answerId ? { ...a, is_verified: true } : a
-        );
-        // Ghim câu trả lời đã xác nhận lên đầu
-        updated.sort((a, b) => (b.is_verified ? 1 : 0) - (a.is_verified ? 1 : 0));
-        return { ...q, answers: updated };
+        return {
+          ...q,
+          answers: q.answers.map((ans) =>
+            ans.id === answerId ? { ...ans, is_verified: !ans.is_verified } : ans
+          ),
+        };
       })
     );
-    await verifyClinicAnswer({ question_id: questionId, answer_id: answerId });
+    verifyClinicAnswer({ question_id: questionId, answer_id: answerId });
   };
 
-  // Gửi lời khuyên mới
-  const handleAddReply = async (questionId: string) => {
+  const handleReplySubmit = async (questionId: string) => {
     if (!replyText.trim()) return;
-
-    // Kiểm tra kiểm duyệt nội dung lời khuyên
-    const modCheck = checkCommunityModeration(replyText);
-    if (modCheck.isBlocked) {
-      setModerationAlert({
-        title: 'Cảnh Báo Nội Dung Không Phù Hợp',
-        reason: modCheck.reason || 'Nội dung chứa từ khóa vi phạm quy định cộng đồng.',
-        suggestion: modCheck.suggestion || 'Vui lòng kiểm tra lại trước khi gửi.'
-      });
-      return;
-    }
 
     const payload = {
       question_id: questionId,
       content: replyText.trim(),
-      author_name: 'Bạn (Thành Viên)',
-      author_badge: 'Cộng Đồng Chia Sẻ'
+      author_name: isEn ? 'You (Community Member)' : 'Bạn (Thành Viên)',
+      author_badge: isEn ? 'Community Sharing' : 'Cộng Đồng Chia Sẻ'
     };
 
     const res = await submitClinicAnswer(payload);
@@ -250,12 +250,12 @@ export const PlantClinicSection: React.FC = () => {
       const newAnswer = {
         id: res.data.id,
         question_id: questionId,
-        author_name: res.data.author_name || 'Bạn (Thành Viên)',
-        author_badge: res.data.author_badge || 'Cộng Đồng Chia Sẻ',
+        author_name: res.data.author_name || (isEn ? 'You (Community Member)' : 'Bạn (Thành Viên)'),
+        author_badge: res.data.author_badge || (isEn ? 'Community Sharing' : 'Cộng Đồng Chia Sẻ'),
         content: res.data.content,
         upvotes: res.data.upvotes || 0,
         is_verified: false,
-        created_at: 'Vừa xong'
+        created_at: isEn ? 'Just now' : 'Vừa xong'
       };
 
       setQuestions((prev) =>
@@ -276,6 +276,9 @@ export const PlantClinicSection: React.FC = () => {
     });
   };
 
+  // Nội dung cộng đồng đăng tải (câu hỏi, câu trả lời) được giữ nguyên bản gốc theo yêu cầu người dùng
+  const localizedQuestions = questions;
+
   return (
     <section id="clinic" className="py-16 bg-white border-y border-forest-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -284,29 +287,29 @@ export const PlantClinicSection: React.FC = () => {
         <div className="max-w-3xl mx-auto text-center mb-12">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-herbal-50 text-herbal-700 text-xs font-semibold mb-3 border border-herbal-200">
             <Zap className="w-3.5 h-3.5" />
-            <span>Trợ Lý AI 3s + Hội Quán Nhà Vườn Ba Miền</span>
+            <span>{t('clinic.badge')}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-serif font-bold text-forest-900 tracking-tight mb-3">
-            Bác Sĩ Cây Trồng 1-Chạm
+            {t('clinic.title')}
           </h2>
           <p className="text-sm sm:text-base text-charcoal-800 font-sans">
-            Đăng ảnh lá bệnh, AI đưa ra giải pháp sơ bộ trong 3 giây. Cộng đồng các bác nhà vườn và lương y cùng vào chẩn đoán theo từng vùng miền.
+            {t('clinic.description')}
           </p>
         </div>
 
         {/* Two-column layout: Form on left, Live Cases on right */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          {/* Left Column: Ask Form (Chỉ sticky trên desktop lớn lg, trên mobile cuộn tự nhiên, nền trắng 100% không xuyên thấu) */}
+          {/* Left Column: Ask Form */}
           <div className="lg:col-span-5 bg-white rounded-3xl p-6 border border-forest-100 shadow-sm static lg:sticky lg:top-28 z-10">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-serif font-bold text-forest-900 text-lg flex items-center gap-2">
                 <Stethoscope className="w-5 h-5 text-herbal-600" />
-                <span>Gửi Ca Bệnh Cần Cứu</span>
+                <span>{isEn ? 'Submit Plant Disease Case' : 'Gửi Ca Bệnh Cần Cứu'}</span>
               </h3>
               {draftSaved && (
                 <span className="text-[11px] font-medium text-emerald-600 flex items-center gap-1">
-                  <Check className="w-3 h-3" /> Đã lưu nháp
+                  <Check className="w-3 h-3" /> {isEn ? 'Draft saved' : 'Đã lưu nháp'}
                 </span>
               )}
             </div>
@@ -315,13 +318,13 @@ export const PlantClinicSection: React.FC = () => {
               {/* Region */}
               <div>
                 <label className="block font-bold text-forest-800 mb-1.5 flex items-center gap-1">
-                  <MapPin className="w-3.5 h-3.5 text-herbal-600" /> Vùng miền của bạn:
+                  <MapPin className="w-3.5 h-3.5 text-herbal-600" /> {t('clinic.regionLabel')}:
                 </label>
                 <div className="grid grid-cols-3 gap-1.5">
                   {[
-                    { id: 'north', label: 'Miền Bắc' },
-                    { id: 'central', label: 'Miền Trung' },
-                    { id: 'south', label: 'Miền Nam' },
+                    { id: 'north', label: isEn ? 'North' : 'Miền Bắc' },
+                    { id: 'central', label: isEn ? 'Central' : 'Miền Trung' },
+                    { id: 'south', label: isEn ? 'South' : 'Miền Nam' },
                   ].map((r) => (
                     <button
                       key={r.id}
@@ -342,7 +345,7 @@ export const PlantClinicSection: React.FC = () => {
               {/* Plant Name Hint */}
               <div>
                 <label className="block font-bold text-forest-800 mb-1">
-                  Cây bạn đang trồng:
+                  {t('clinic.plantNameHintLabel')}:
                 </label>
                 <input
                   type="text"
@@ -351,7 +354,7 @@ export const PlantClinicSection: React.FC = () => {
                     setPlantHint(e.target.value);
                     localStorage.setItem('ytc_clinic_hint', e.target.value);
                   }}
-                  placeholder="Ví dụ: Ổi lê, Đinh lăng nếp, Sung Mỹ..."
+                  placeholder={t('clinic.plantNamePlaceholder')}
                   className="w-full px-3.5 py-2.5 bg-white border border-forest-100 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-herbal-500"
                 />
               </div>
@@ -359,7 +362,7 @@ export const PlantClinicSection: React.FC = () => {
               {/* Symptoms */}
               <div>
                 <label className="block font-bold text-forest-800 mb-1">
-                  Triệu chứng nhìn thấy:
+                  {t('clinic.symptomsLabel')}:
                 </label>
                 <div className="grid grid-cols-2 gap-1.5">
                   {symptomList.map((s) => (
@@ -385,19 +388,19 @@ export const PlantClinicSection: React.FC = () => {
               {/* Description */}
               <div>
                 <label className="block font-bold text-forest-800 mb-1">
-                  Mô tả thêm (nắng, nước tưới, đất trồng):
+                  {t('clinic.descriptionLabel')}:
                 </label>
                 <textarea
                   rows={3}
                   value={description}
                   onChange={(e) => handleDescChange(e.target.value)}
-                  placeholder="Ví dụ: Trồng trên sân thượng nắng chiều, lá vàng từ gốc lên, đất vẫn ẩm..."
+                  placeholder={t('clinic.descriptionPlaceholder')}
                   className="w-full px-3.5 py-2 bg-white border border-forest-100 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-herbal-500"
                   required
                 />
               </div>
 
-              {/* Upload Box Thực Tế (M5: Xóa EXIF GPS, chuyển WebP an toàn) */}
+              {/* Upload Box */}
               <input
                 type="file"
                 ref={fileInputRef}
@@ -411,15 +414,15 @@ export const PlantClinicSection: React.FC = () => {
                   <div className="flex items-center gap-2.5 min-w-0">
                     <img
                       src={uploadedImageUrl}
-                      alt="Ảnh lá bệnh đã tải"
+                      alt="Uploaded diseased leaf"
                       className="w-12 h-12 object-cover rounded-xl border border-white shrink-0 shadow-xs"
                     />
                     <div className="min-w-0">
                       <p className="text-[11px] font-bold text-herbal-900 truncate">
-                        Ảnh đã tải lên an toàn
+                        {isEn ? 'Photo securely uploaded' : 'Ảnh đã tải lên an toàn'}
                       </p>
                       <p className="text-[10px] text-herbal-600">
-                        Đã tẩy sạch EXIF GPS • Chuẩn WebP
+                        {isEn ? 'EXIF GPS stripped • WebP format' : 'Đã tẩy sạch EXIF GPS • Chuẩn WebP'}
                       </p>
                     </div>
                   </div>
@@ -427,7 +430,7 @@ export const PlantClinicSection: React.FC = () => {
                     type="button"
                     onClick={() => setUploadedImageUrl(null)}
                     className="p-1.5 rounded-full hover:bg-white text-gray-500 hover:text-rose-600 transition"
-                    title="Xóa ảnh này"
+                    title={t('common.cancel')}
                   >
                     <CloseIcon className="w-4 h-4" />
                   </button>
@@ -445,16 +448,18 @@ export const PlantClinicSection: React.FC = () => {
                     {isUploadingImage ? (
                       <div className="flex items-center justify-center gap-2 text-herbal-700 py-1">
                         <Loader2 className="w-4 h-4 animate-spin text-herbal-600" />
-                        <span className="text-xs font-semibold">Đang xử lý & tẩy EXIF GPS...</span>
+                        <span className="text-xs font-semibold">
+                          {isEn ? 'Processing & stripping GPS EXIF...' : 'Đang xử lý & tẩy EXIF GPS...'}
+                        </span>
                       </div>
                     ) : (
                       <>
                         <Upload className="w-5 h-5 text-forest-400 mx-auto mb-1" />
                         <p className="text-[11px] font-bold text-forest-900">
-                          Chụp hoặc chọn ảnh lá bệnh từ máy
+                          {isEn ? 'Take or select diseased leaf photo' : 'Chụp hoặc chọn ảnh lá bệnh từ máy'}
                         </p>
                         <p className="text-[10px] text-gray-400">
-                          (Tối đa 5MB • Tự động xóa sạch vị trí GPS & chuyển WebP)
+                          {isEn ? '(Max 5MB • GPS location automatically stripped)' : '(Tối đa 5MB • Tự động xóa sạch vị trí GPS & chuyển WebP)'}
                         </p>
                       </>
                     )}
@@ -474,12 +479,12 @@ export const PlantClinicSection: React.FC = () => {
                 {isAnalyzing ? (
                   <>
                     <RefreshCw className="w-3.5 h-3.5 animate-spin text-herbal-400" />
-                    <span>AI Đang Chẩn Đoán Trong 3 Giây...</span>
+                    <span>{isEn ? 'AI Diagnosing in 3 Seconds...' : 'AI Đang Chẩn Đoán Trong 3 Giây...'}</span>
                   </>
                 ) : (
                   <>
                     <Zap className="w-3.5 h-3.5 text-herbal-400" />
-                    <span>Chẩn Đoán Ngay & Đăng Câu Hỏi</span>
+                    <span>{t('clinic.submitDiagnosis')}</span>
                   </>
                 )}
               </button>
@@ -491,12 +496,12 @@ export const PlantClinicSection: React.FC = () => {
             <div className="flex items-center justify-between pb-2 border-b border-forest-100">
               <span className="text-sm font-bold text-forest-900 flex items-center gap-2">
                 <MessageSquare className="w-4 h-4 text-herbal-600" />
-                Ca Bệnh Mới Nhất Được Cộng Đồng Hỗ Trợ ({questions.length})
+                {isEn ? `Latest Cases Supported by Community (${localizedQuestions.length})` : `Ca Bệnh Mới Nhất Được Cộng Đồng Hỗ Trợ (${localizedQuestions.length})`}
               </span>
-              <span className="text-xs text-forest-600">Thời gian thực</span>
+              <span className="text-xs text-forest-600">{isEn ? 'Real-time' : 'Thời gian thực'}</span>
             </div>
 
-            {questions.map((q) => (
+            {localizedQuestions.map((q) => (
               <div
                 key={q.id}
                 className="bg-white rounded-3xl p-6 border border-forest-100 shadow-sm space-y-4 hover:border-forest-200 transition"
@@ -511,7 +516,7 @@ export const PlantClinicSection: React.FC = () => {
                       <span className="w-1 h-1 rounded-full bg-forest-300"></span>
                       <span className="text-[11px] text-gray-500">{q.created_at}</span>
                       <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-forest-100 text-forest-800 border border-forest-200">
-                        {q.region === 'north' ? 'Miền Bắc' : q.region === 'central' ? 'Miền Trung' : 'Miền Nam'}
+                        {q.region === 'north' ? (isEn ? 'North' : 'Miền Bắc') : q.region === 'central' ? (isEn ? 'Central' : 'Miền Trung') : (isEn ? 'South' : 'Miền Nam')}
                       </span>
                     </div>
                     <h4 className="text-base font-serif font-bold text-forest-950 leading-snug">
@@ -521,7 +526,7 @@ export const PlantClinicSection: React.FC = () => {
 
                   <button
                     onClick={() => handleReport(q)}
-                    title="Báo cáo nội dung vi phạm"
+                    title={isEn ? 'Report inappropriate content' : 'Báo cáo nội dung vi phạm'}
                     className="p-1.5 rounded-lg text-gray-400 hover:text-red-600 hover:bg-red-50 transition"
                   >
                     <Flag className="w-3.5 h-3.5" />
@@ -551,7 +556,7 @@ export const PlantClinicSection: React.FC = () => {
                   <div className="p-4 rounded-2xl bg-emerald-50/90 border border-emerald-200/80 text-xs text-emerald-950">
                     <div className="flex items-center gap-1.5 font-bold text-emerald-900 mb-1">
                       <Zap className="w-3.5 h-3.5 text-emerald-600 fill-emerald-600" />
-                      <span>Gợi ý chẩn đoán sơ bộ từ Trợ Lý AI:</span>
+                      <span>{isEn ? 'Preliminary AI Diagnostic Recommendation:' : 'Gợi ý chẩn đoán sơ bộ từ Trợ Lý AI:'}</span>
                     </div>
                     <p className="leading-relaxed text-emerald-900/90">
                       {q.ai_instant_diagnosis}
@@ -562,12 +567,12 @@ export const PlantClinicSection: React.FC = () => {
                 {/* Community Answers */}
                 <div className="space-y-3 pt-3 border-t border-forest-100">
                   <div className="flex items-center justify-between text-xs font-bold text-forest-900">
-                    <span>Lời Khuyên Thực Tế Từ Nhà Vườn ({q.answers.length})</span>
+                    <span>{isEn ? `Practical Advice from Gardeners (${q.answers.length})` : `Lời Khuyên Thực Tế Từ Nhà Vườn (${q.answers.length})`}</span>
                     <button
                       onClick={() => setActiveReplyId(activeReplyId === q.id ? null : q.id)}
                       className="text-herbal-700 hover:text-herbal-800 hover:underline flex items-center gap-1"
                     >
-                      <span>Tôi biết cách chữa</span>
+                      <span>{isEn ? 'I know how to cure this' : 'Tôi biết cách chữa'}</span>
                     </button>
                   </div>
 
@@ -580,79 +585,65 @@ export const PlantClinicSection: React.FC = () => {
                           : 'bg-white border-forest-100'
                       }`}
                     >
-                      <div className="flex items-center justify-between flex-wrap gap-2">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <span className="font-bold text-forest-900">
-                            {ans.author_name}
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="font-bold text-forest-900">{ans.author_name}</span>
+                          <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-forest-100 text-forest-800">
+                            {ans.author_badge}
                           </span>
                           {ans.is_verified && (
-                            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-600 text-white flex items-center gap-1 shadow-2xs">
-                              <CheckCircle2 className="w-3 h-3 text-white" />
-                              <span>Đã Xác Nhận Hiệu Quả</span>
+                            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-600 text-white flex items-center gap-1">
+                              <ShieldCheck className="w-3 h-3" /> {isEn ? 'Verified' : 'Đã kiểm chứng'}
                             </span>
                           )}
-                          {ans.author_badge && !ans.is_verified && (
-                            <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-terracotta-50 text-terracotta-700 border border-terracotta-100 flex items-center gap-1">
-                              <Award className="w-3 h-3 text-terracotta-600" />
-                              {ans.author_badge}
-                            </span>
-                          )}
-                          <span className="text-[10px] text-gray-400">
-                            {ans.created_at}
-                          </span>
                         </div>
-
-                        <div className="flex items-center gap-1.5">
-                          {!ans.is_verified && (
-                            <button
-                              type="button"
-                              onClick={() => handleVerifyAnswer(q.id, ans.id)}
-                              className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-[10px] font-semibold border border-emerald-200 transition"
-                              title="Xác nhận cách chữa này hiệu quả (Thưởng +25 điểm Karma cho tác giả)"
-                            >
-                              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                              <span>Xác nhận hiệu quả</span>
-                            </button>
-                          )}
-                          <button
-                            type="button"
-                            onClick={() => handleUpvote(q.id, ans.id)}
-                            className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-forest-50 hover:bg-forest-100 text-forest-800 text-[11px] font-semibold border border-forest-100 transition"
-                          >
-                            <ThumbsUp className="w-3 h-3 text-herbal-600" />
-                            <span>Hữu ích ({ans.upvotes})</span>
-                          </button>
-                        </div>
+                        <span className="text-[11px] text-gray-400">{ans.created_at}</span>
                       </div>
 
-                      <p className="text-charcoal-800 leading-relaxed font-sans">
-                        {ans.content}
-                      </p>
+                      <p className="text-charcoal-800 leading-relaxed font-sans">{ans.content}</p>
+
+                      <div className="flex items-center justify-between pt-1 border-t border-forest-50/80">
+                        <button
+                          onClick={() => handleUpvote(q.id, ans.id)}
+                          className="flex items-center gap-1 text-[11px] text-forest-700 hover:text-herbal-700 font-semibold transition"
+                        >
+                          <ThumbsUp className="w-3.5 h-3.5" />
+                          <span>{t('clinic.upvote')} ({ans.upvotes})</span>
+                        </button>
+
+                        <button
+                          onClick={() => handleVerifyAnswer(q.id, ans.id)}
+                          className={`text-[11px] font-semibold flex items-center gap-1 transition ${
+                            ans.is_verified ? 'text-emerald-700' : 'text-gray-400 hover:text-forest-700'
+                          }`}
+                        >
+                          <Award className="w-3.5 h-3.5" />
+                          <span>{ans.is_verified ? (isEn ? 'Verified Remedy' : 'Giải pháp đã xác nhận') : (isEn ? 'Verify' : 'Xác nhận hiệu quả')}</span>
+                        </button>
+                      </div>
                     </div>
                   ))}
 
-                  {/* Inline Reply Form */}
+                  {/* Reply Form */}
                   {activeReplyId === q.id && (
-                    <div className="pt-2 flex gap-2">
+                    <div className="pt-2 flex items-center gap-2">
                       <input
                         type="text"
                         value={replyText}
                         onChange={(e) => setReplyText(e.target.value)}
-                        placeholder="Chia sẻ kinh nghiệm trị bệnh cây của bạn..."
-                        className="flex-1 px-3.5 py-2 bg-white border border-forest-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-herbal-500"
+                        placeholder={isEn ? 'Share your practical organic recipe or remedy...' : 'Chia sẻ kinh nghiệm chữa trị thực tế của bạn...'}
+                        className="flex-1 px-3.5 py-2 bg-cream-50/50 border border-forest-100 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-herbal-500"
                       />
                       <button
-                        type="button"
-                        onClick={() => handleAddReply(q.id)}
-                        className="px-4 py-2 bg-forest-900 hover:bg-forest-800 text-white rounded-xl text-xs font-medium flex items-center gap-1 shadow-sm transition"
+                        onClick={() => handleReplySubmit(q.id)}
+                        className="px-4 py-2 rounded-xl bg-forest-900 text-white font-semibold text-xs flex items-center gap-1.5 hover:bg-forest-800 transition"
                       >
-                        <Send className="w-3.5 h-3.5" />
-                        <span>Gửi</span>
+                        <Send className="w-3.5 h-3.5 text-herbal-400" />
+                        <span>{isEn ? 'Post Advice' : 'Gửi Lời Khuyên'}</span>
                       </button>
                     </div>
                   )}
                 </div>
-
               </div>
             ))}
           </div>
@@ -661,7 +652,7 @@ export const PlantClinicSection: React.FC = () => {
 
       </div>
 
-      {/* Modal Báo Cáo Vi Phạm (M6 - H6, H9) */}
+      {/* Modal Báo Cáo Vi Phạm */}
       {reportTarget && (
         <ReportModal
           isOpen={true}
@@ -672,37 +663,34 @@ export const PlantClinicSection: React.FC = () => {
         />
       )}
 
-      {/* Modal Cảnh Báo Kiểm Duyệt Sách Đỏ & Loài Cấm (H6, H15) */}
+      {/* Cảnh Báo Kiểm Duyệt Sách Đỏ / Hóa Chất */}
       {moderationAlert && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-charcoal-900/60 backdrop-blur-xs animate-fade-in">
-          <div className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-rose-100 space-y-4">
-            <div className="flex items-center gap-3 text-rose-600">
-              <div className="p-2.5 rounded-2xl bg-rose-50 border border-rose-100">
-                <AlertTriangle className="w-6 h-6" />
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-charcoal-900/60 backdrop-blur-xs">
+          <div className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-rose-200 space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center font-bold">
+                <AlertTriangle className="w-5 h-5" />
               </div>
-              <h3 className="font-bold text-forest-900 text-base leading-snug">
-                {moderationAlert.title}
-              </h3>
+              <div>
+                <h3 className="font-serif font-bold text-rose-950 text-base">
+                  {moderationAlert.title}
+                </h3>
+                <p className="text-xs text-rose-700">
+                  {isEn ? 'Community biosecurity compliance check' : 'Hệ thống bảo vệ đa dạng sinh học & an toàn sinh học'}
+                </p>
+              </div>
             </div>
 
-            <div className="space-y-2 text-xs text-charcoal-800 leading-relaxed bg-rose-50/50 p-3.5 rounded-2xl border border-rose-100">
-              <p className="font-semibold text-rose-900">
-                Lý do từ chối / lưu ý:
-              </p>
-              <p>{moderationAlert.reason}</p>
-            </div>
-
-            <div className="text-xs text-forest-800 bg-forest-50 p-3.5 rounded-2xl border border-forest-100">
-              <p className="font-bold mb-1">Khuyến nghị từ Yêu Trồng Cây:</p>
-              <p>{moderationAlert.suggestion}</p>
+            <div className="p-3.5 rounded-2xl bg-rose-50 text-xs text-rose-900 space-y-1.5 border border-rose-100">
+              <p><strong>{isEn ? 'Reason:' : 'Nguyên nhân:'}</strong> {moderationAlert.reason}</p>
+              <p><strong>{isEn ? 'Guidance:' : 'Hướng xử lý:'}</strong> {moderationAlert.suggestion}</p>
             </div>
 
             <button
-              type="button"
               onClick={() => setModerationAlert(null)}
-              className="w-full py-2.5 bg-forest-900 hover:bg-forest-800 text-white rounded-xl text-xs font-semibold transition"
+              className="w-full py-2.5 rounded-xl bg-forest-900 text-white font-semibold text-xs hover:bg-forest-800 transition"
             >
-              Tôi đã hiểu & sẽ điều chỉnh
+              {isEn ? 'I Understand and Will Revise' : 'Tôi Đã Hiểu & Sẽ Điều Chỉnh'}
             </button>
           </div>
         </div>

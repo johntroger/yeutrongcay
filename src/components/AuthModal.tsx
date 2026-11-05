@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, LogIn, Mail, Sparkles } from 'lucide-react';
 import { UserProfile } from '../types/index.ts';
+import { useLanguage } from '../context/LanguageContext.tsx';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -9,6 +10,7 @@ interface AuthModalProps {
 }
 
 export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLoginSuccess }) => {
+  const { t, isEn } = useLanguage();
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -16,15 +18,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLoginSu
 
   const handleGoogleLogin = () => {
     setIsLoading(true);
-    // Giả lập đăng nhập Supabase Google OAuth an toàn
     setTimeout(() => {
       setIsLoading(false);
       onLoginSuccess({
         id: 'usr-google-8899',
-        name: 'Trần Tùng (Chủ Vườn Số)',
+        name: isEn ? 'Tran Tung (Digital Gardener)' : 'Trần Tùng (Chủ Vườn Số)',
         email: 'trantung.gardener@gmail.com',
         avatar_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
-        badge: 'Nhà Vườn Tiên Phong',
+        badge: isEn ? 'Pioneer Gardener' : 'Nhà Vườn Tiên Phong',
         karma_points: 120,
         joined_date: '04/11/2026',
       });
@@ -43,7 +44,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLoginSu
         name: email.split('@')[0],
         email: email,
         avatar_url: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80',
-        badge: 'Thành Viên Mới',
+        badge: isEn ? 'New Gardener' : 'Thành Viên Mới',
         karma_points: 50,
         joined_date: '04/11/2026',
       });
@@ -68,10 +69,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLoginSu
         </div>
 
         <h3 className="text-xl font-serif font-bold text-forest-900 mb-1">
-          Tham Gia Yêu Trồng Cây
+          {t('modals.authTitle')}
         </h3>
         <p className="text-xs text-gray-500 mb-6">
-          Lưu trữ Vườn số của bạn, theo dõi ngày tưới và giao lưu cùng cộng đồng.
+          {t('modals.authDesc')}
         </p>
 
         {/* 1-Click Google Login Button */}
@@ -98,12 +99,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLoginSu
               d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
             />
           </svg>
-          <span>Tiếp tục với Google</span>
+          <span>{isEn ? 'Continue with Google' : 'Tiếp tục với Google'}</span>
         </button>
 
         <div className="flex items-center my-4">
           <div className="flex-1 border-t border-forest-100"></div>
-          <span className="px-3 text-[11px] text-gray-400 uppercase font-semibold">hoặc</span>
+          <span className="px-3 text-[11px] text-gray-400 uppercase font-semibold">{isEn ? 'or' : 'hoặc'}</span>
           <div className="flex-1 border-t border-forest-100"></div>
         </div>
 
@@ -115,7 +116,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLoginSu
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Nhập địa chỉ email của bạn..."
+              placeholder={isEn ? 'Enter your email address...' : 'Nhập địa chỉ email của bạn...'}
               className="w-full pl-10 pr-4 py-2.5 bg-cream-50 border border-forest-100 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-herbal-500"
               required
             />
@@ -127,12 +128,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLoginSu
             className="w-full py-2.5 rounded-xl bg-forest-900 hover:bg-forest-800 text-white font-medium text-xs flex items-center justify-center gap-1.5 shadow-sm transition disabled:opacity-50"
           >
             <Sparkles className="w-3.5 h-3.5 text-herbal-400" />
-            <span>Đăng Nhập Bằng Email</span>
+            <span>{isEn ? 'Sign In with Email' : 'Đăng Nhập Bằng Email'}</span>
           </button>
         </form>
 
         <p className="text-[11px] text-gray-400 mt-5 leading-normal">
-          Bằng việc đăng nhập, bạn đồng ý với Quy chuẩn an toàn sinh học và Điều khoản bảo vệ quyền riêng tư của Yêu Trồng Cây.
+          {isEn
+            ? 'By signing in, you agree to our Biosecurity Standards and Community Privacy Terms.'
+            : 'Bằng việc đăng nhập, bạn đồng ý với Quy chuẩn an toàn sinh học và Điều khoản bảo vệ quyền riêng tư của Yêu Trồng Cây.'}
         </p>
 
       </div>

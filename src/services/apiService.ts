@@ -671,3 +671,59 @@ export async function addPlantDiaryEntry(diary: Partial<PlantDiaryEntry>): Promi
     return { success: true, data: fallbackDiary, message: 'Đã lưu nhật ký trên máy (Offline)' };
   }
 }
+
+/**
+ * Ghi nhận hành động chăm sóc (tưới nước, bón phân)
+ */
+export async function logCareAction(
+  plantId: string,
+  careType: 'water' | 'fertilize' | 'prune',
+  date: string = new Date().toISOString().split('T')[0],
+  note?: string
+): Promise<{ success: boolean; message?: string }> {
+  try {
+    const res = await fetch(`${API_BASE}/garden.php?action=care_action`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ plant_id: plantId, care_type: careType, date, note }),
+    });
+    const json = await res.json();
+    return { success: json.success, message: json.message || json.error };
+  } catch {
+    return { success: true, message: 'Đã lưu lịch chăm sóc trên máy (Offline)' };
+  }
+}
+
+/**
+ * Xóa chậu cây khỏi vườn
+ */
+export async function deleteGardenPlant(plantId: string): Promise<{ success: boolean; message?: string }> {
+  try {
+    const res = await fetch(`${API_BASE}/garden.php?action=delete_plant`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ plant_id: plantId }),
+    });
+    const json = await res.json();
+    return { success: json.success, message: json.message || json.error };
+  } catch {
+    return { success: true, message: 'Đã xóa chậu cây (Offline)' };
+  }
+}
+
+/**
+ * Xóa mốc nhật ký
+ */
+export async function deletePlantDiary(diaryId: string): Promise<{ success: boolean; message?: string }> {
+  try {
+    const res = await fetch(`${API_BASE}/garden.php?action=delete_diary`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ diary_id: diaryId }),
+    });
+    const json = await res.json();
+    return { success: json.success, message: json.message || json.error };
+  } catch {
+    return { success: true, message: 'Đã xóa mốc nhật ký (Offline)' };
+  }
+}

@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send, MessageSquare, CheckCircle2, HeartHandshake, ShieldCheck, Sparkles, AlertCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle2, HeartHandshake, ShieldCheck, Sparkles, AlertCircle } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext.tsx';
 
 export const ContactSection: React.FC = () => {
+  const { t, isEn } = useLanguage();
   const [fullname, setFullname] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [topic, setTopic] = useState('Đóng góp tri thức / Bài thuốc thảo dược');
   const [message, setMessage] = useState('');
-  const [honeypot, setHoneypot] = useState(''); // Anti-bot
+  const [honeypot, setHoneypot] = useState('');
 
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -17,7 +19,7 @@ export const ContactSection: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!fullname.trim() || (!phone.trim() && !email.trim()) || !message.trim()) {
-      setErrorMessage('Vui lòng điền họ tên, phương thức liên hệ và nội dung lời nhắn.');
+      setErrorMessage(isEn ? 'Please fill in your name, contact method, and message details.' : 'Vui lòng điền họ tên, phương thức liên hệ và nội dung lời nhắn.');
       return;
     }
 
@@ -30,7 +32,7 @@ export const ContactSection: React.FC = () => {
       email,
       topic,
       message,
-      website_url: honeypot, // Honeypot
+      website_url: honeypot,
     };
 
     try {
@@ -48,11 +50,9 @@ export const ContactSection: React.FC = () => {
         setIsSubmitted(true);
         setTicketId(result.ticket_id || `YTC-${Date.now().toString().slice(-6)}`);
       } else {
-        // Fallback lưu local nếu server offline
         saveOfflineContact(payload);
       }
     } catch {
-      // Khi chạy local hoặc lỗi mạng: Lưu offline an toàn
       saveOfflineContact(payload);
     } finally {
       setIsLoading(false);
@@ -92,13 +92,13 @@ export const ContactSection: React.FC = () => {
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-forest-100 text-forest-900 text-xs font-semibold mb-3">
             <HeartHandshake className="w-4 h-4 text-herbal-600" />
-            <span>Kết Nối & Hợp Tác Sinh Thái</span>
+            <span>{t('contact.badge')}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-serif font-bold text-forest-950 tracking-tight">
-            Liên Hệ & Đóng Góp Tri Thức Cây Trồng
+            {t('contact.title')}
           </h2>
           <p className="text-sm sm:text-base text-forest-800 mt-3 leading-relaxed">
-            Bạn có bài thuốc gia truyền muốn bảo tồn, muốn đăng ký làm Trạm Trao Đổi Cây tại địa phương, hay hợp tác phát triển vườn sinh thái? Ban Quản Trị luôn sẵn lòng đồng hành cùng bạn!
+            {t('contact.description')}
           </p>
         </div>
 
@@ -110,7 +110,7 @@ export const ContactSection: React.FC = () => {
             {/* Box 1: Thông tin kênh liên hệ */}
             <div className="bg-white rounded-3xl p-6 sm:p-8 border border-forest-100 shadow-sm space-y-6">
               <h3 className="text-lg font-serif font-bold text-forest-950 border-b border-forest-50 pb-3">
-                Kênh Tiếp Nhận Chính Thức
+                {isEn ? 'Official Communication Channels' : 'Kênh Tiếp Nhận Chính Thức'}
               </h3>
 
               <div className="space-y-4 text-xs sm:text-sm">
@@ -121,7 +121,7 @@ export const ContactSection: React.FC = () => {
                     <Mail className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="block text-gray-500 text-xs">Thư điện tử (Email)</span>
+                    <span className="block text-gray-500 text-xs">{isEn ? 'Electronic Mail (Email)' : 'Thư điện tử (Email)'}</span>
                     <a
                       href="mailto:contact@yeutrongcay.com"
                       target="_blank"
@@ -139,9 +139,9 @@ export const ContactSection: React.FC = () => {
                     <Phone className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="block text-gray-500 text-xs">Hotline / Zalo Cộng Đồng</span>
+                    <span className="block text-gray-500 text-xs">{isEn ? 'Community Hotline / Chat' : 'Hotline / Zalo Cộng Đồng'}</span>
                     <span className="font-semibold text-forest-900">
-                      098 888 2026 <span className="text-[11px] text-gray-400 font-normal">(8:00 - 18:00 hàng ngày)</span>
+                      098 888 2026 <span className="text-[11px] text-gray-400 font-normal">{isEn ? '(8:00 - 18:00 daily)' : '(8:00 - 18:00 hàng ngày)'}</span>
                     </span>
                   </div>
                 </div>
@@ -152,9 +152,9 @@ export const ContactSection: React.FC = () => {
                     <MapPin className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="block text-gray-500 text-xs">Mạng lưới kết nối</span>
+                    <span className="block text-gray-500 text-xs">{isEn ? 'Network Hubs' : 'Mạng lưới kết nối'}</span>
                     <span className="font-semibold text-forest-900 leading-snug block">
-                      Hà Nội · Đà Nẵng · TP. Hồ Chí Minh · Cần Thơ
+                      {isEn ? 'Hanoi · Da Nang · Ho Chi Minh City · Can Tho' : 'Hà Nội · Đà Nẵng · TP. Hồ Chí Minh · Cần Thơ'}
                     </span>
                   </div>
                 </div>
@@ -165,7 +165,7 @@ export const ContactSection: React.FC = () => {
               <div className="pt-4 border-t border-forest-50 flex items-start gap-2.5 text-xs text-forest-800">
                 <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                 <p className="leading-relaxed">
-                  <strong>Cam kết bảo mật:</strong> Mọi thông tin của bạn chỉ dùng để hỗ trợ kết nối cây trồng, không bán dữ liệu và tuyệt đối không gửi thư rác.
+                  <strong>{isEn ? 'Privacy Assurance:' : 'Cam kết bảo mật:'}</strong> {isEn ? 'Your details are solely used for botanical networking, never sold or spammed.' : 'Mọi thông tin của bạn chỉ dùng để hỗ trợ kết nối cây trồng, không bán dữ liệu và tuyệt đối không gửi thư rác.'}
                 </p>
               </div>
 
@@ -176,13 +176,15 @@ export const ContactSection: React.FC = () => {
               <div className="relative z-10 space-y-2">
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-800/80 text-emerald-200 text-[11px] font-semibold">
                   <Sparkles className="w-3 h-3 text-emerald-300" />
-                  <span>Sứ Mệnh 2026 - 2030</span>
+                  <span>{isEn ? 'Mission 2026 - 2030' : 'Sứ Mệnh 2026 - 2030'}</span>
                 </div>
                 <h4 className="text-base font-serif font-bold text-white">
-                  Cùng Phủ Xanh 10.000 Ban Công & Lưu Giữ Nguồn Gen Dược Liệu
+                  {isEn ? 'Greening 10,000 Balconies & Preserving Indigenous Flora Genetics' : 'Cùng Phủ Xanh 10.000 Ban Công & Lưu Giữ Nguồn Gen Dược Liệu'}
                 </h4>
                 <p className="text-xs text-emerald-200/90 leading-relaxed pt-1">
-                  Nếu bạn là lương y, kỹ sư nông nghiệp hoặc người có khu vườn giống quý, hãy liên hệ để cùng xây dựng kho tri thức thực vật chuẩn hóa của người Việt.
+                  {isEn
+                    ? 'If you are an herbalist, agronomist, or cultivator of rare native cultivars, connect with us to build a standardized botanical knowledge repository.'
+                    : 'Nếu bạn là lương y, kỹ sư nông nghiệp hoặc người có khu vườn giống quý, hãy liên hệ để cùng xây dựng kho tri thức thực vật chuẩn hóa của người Việt.'}
                 </p>
               </div>
             </div>
@@ -194,20 +196,21 @@ export const ContactSection: React.FC = () => {
             <div className="bg-white rounded-3xl p-6 sm:p-10 border border-forest-100 shadow-sm relative">
               
               {isSubmitted ? (
-                /* Màn hình gửi thành công */
                 <div className="text-center py-12 space-y-5 animate-fade-in">
                   <div className="w-16 h-16 rounded-3xl bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-inner">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
                   <div>
                     <h3 className="text-xl sm:text-2xl font-serif font-bold text-forest-950">
-                      Gửi Thông Tin Thành Công!
+                      {isEn ? 'Message Sent Successfully!' : 'Gửi Thông Tin Thành Công!'}
                     </h3>
                     <p className="text-xs sm:text-sm text-forest-800 mt-2 max-w-md mx-auto leading-relaxed">
-                      Cảm ơn tấm lòng của bạn với mầm xanh! Ban Quản Trị đã nhận được thông tin và sẽ phản hồi trong vòng 24 giờ.
+                      {isEn
+                        ? 'Thank you for caring for our green environment! The editorial board has received your message and will respond within 24 hours.'
+                        : 'Cảm ơn tấm lòng của bạn với mầm xanh! Ban Quản Trị đã nhận được thông tin và sẽ phản hồi trong vòng 24 giờ.'}
                     </p>
                     <div className="mt-4 inline-block bg-forest-50 px-3.5 py-1.5 rounded-xl border border-forest-100 text-xs font-mono text-forest-700">
-                      Mã tiếp nhận: <strong>{ticketId}</strong>
+                      {isEn ? 'Ticket ID:' : 'Mã tiếp nhận:'} <strong>{ticketId}</strong>
                     </div>
                   </div>
                   <div className="pt-4">
@@ -215,146 +218,134 @@ export const ContactSection: React.FC = () => {
                       onClick={resetForm}
                       className="px-6 py-2.5 rounded-xl bg-forest-900 hover:bg-forest-800 text-white text-xs font-semibold transition shadow-xs"
                     >
-                      Gửi Lời Nhắn Khác
+                      {isEn ? 'Send Another Message' : 'Gửi Lời Nhắn Khác'}
                     </button>
                   </div>
                 </div>
               ) : (
-                /* Form nhập liệu */
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div>
-                    <h3 className="text-xl font-serif font-bold text-forest-950 flex items-center gap-2">
-                      <MessageSquare className="w-5 h-5 text-herbal-600" />
-                      <span>Gửi Lời Nhắn Đến Ban Quản Trị</span>
-                    </h3>
-                    <p className="text-xs text-forest-700 mt-1">
-                      Chúng tôi đọc và phản hồi tất cả các góp ý của cộng đồng.
-                    </p>
-                  </div>
-
-                  {errorMessage && (
-                    <div className="p-3 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center gap-2">
-                      <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
-                      <span>{errorMessage}</span>
-                    </div>
-                  )}
-
-                  {/* Honeypot field (hidden from real users) */}
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  
+                  {/* Honeypot chống bot */}
                   <div className="hidden">
-                    <label>Website URL</label>
+                    <label htmlFor="website_url">Website</label>
                     <input
                       type="text"
-                      tabIndex={-1}
-                      autoComplete="off"
+                      id="website_url"
+                      name="website_url"
                       value={honeypot}
                       onChange={(e) => setHoneypot(e.target.value)}
+                      tabIndex={-1}
+                      autoComplete="off"
                     />
                   </div>
 
-                  {/* Họ tên */}
-                  <div>
-                    <label className="block text-xs font-bold text-forest-900 mb-1.5">
-                      Họ và Tên của bạn <span className="text-rose-500">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="Ví dụ: Nguyễn Văn An"
-                      value={fullname}
-                      onChange={(e) => setFullname(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-2xl border border-forest-200 text-xs sm:text-sm text-forest-950 focus:outline-hidden focus:ring-2 focus:ring-herbal-500 transition"
-                    />
-                  </div>
-
-                  {/* Số điện thoại / Zalo & Email */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* Họ và tên */}
                     <div>
-                      <label className="block text-xs font-bold text-forest-900 mb-1.5">
-                        Số điện thoại / Zalo <span className="text-rose-500">*</span>
+                      <label className="block text-xs font-bold text-forest-900 mb-1">
+                        {t('contact.formName')} <span className="text-rose-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={fullname}
+                        onChange={(e) => setFullname(e.target.value)}
+                        placeholder={isEn ? 'e.g., Jane Doe' : 'Ví dụ: Nguyễn Văn An'}
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-forest-200 text-xs sm:text-sm text-forest-950 focus:outline-hidden focus:ring-2 focus:ring-herbal-500"
+                      />
+                    </div>
+
+                    {/* Số điện thoại */}
+                    <div>
+                      <label className="block text-xs font-bold text-forest-900 mb-1">
+                        {isEn ? 'Phone / Messaging' : 'Số điện thoại / Zalo'} <span className="text-gray-400 font-normal">({isEn ? 'optional' : 'tùy chọn'})</span>
                       </label>
                       <input
                         type="tel"
-                        required
-                        placeholder="Ví dụ: 0912 345 678"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
-                        className="w-full px-4 py-2.5 rounded-2xl border border-forest-200 text-xs sm:text-sm text-forest-950 focus:outline-hidden focus:ring-2 focus:ring-herbal-500 transition"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-bold text-forest-900 mb-1.5">
-                        Địa chỉ Email <span className="text-gray-400 font-normal">(Tùy chọn)</span>
-                      </label>
-                      <input
-                        type="email"
-                        placeholder="nguyenan@gmail.com"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="w-full px-4 py-2.5 rounded-2xl border border-forest-200 text-xs sm:text-sm text-forest-950 focus:outline-hidden focus:ring-2 focus:ring-herbal-500 transition"
+                        placeholder={isEn ? 'e.g., +84 988 888 202' : 'Ví dụ: 0912 345 678'}
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-forest-200 text-xs sm:text-sm text-forest-950 focus:outline-hidden focus:ring-2 focus:ring-herbal-500"
                       />
                     </div>
                   </div>
 
-                  {/* Chủ đề liên hệ */}
+                  {/* Email */}
                   <div>
-                    <label className="block text-xs font-bold text-forest-900 mb-1.5">
-                      Mục đích liên hệ <span className="text-rose-500">*</span>
+                    <label className="block text-xs font-bold text-forest-900 mb-1">
+                      {t('contact.formEmail')} <span className="text-rose-500">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder={isEn ? 'gardener@example.com' : 'nhavuon@gmail.com'}
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-forest-200 text-xs sm:text-sm text-forest-950 focus:outline-hidden focus:ring-2 focus:ring-herbal-500"
+                    />
+                  </div>
+
+                  {/* Chủ đề */}
+                  <div>
+                    <label className="block text-xs font-bold text-forest-900 mb-1">
+                      {t('contact.formTopic')} <span className="text-rose-500">*</span>
                     </label>
                     <select
                       value={topic}
                       onChange={(e) => setTopic(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-2xl border border-forest-200 text-xs sm:text-sm text-forest-950 bg-white focus:outline-hidden focus:ring-2 focus:ring-herbal-500 transition"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-forest-200 text-xs sm:text-sm text-forest-950 bg-white focus:outline-hidden focus:ring-2 focus:ring-herbal-500"
                     >
                       <option value="Đóng góp tri thức / Bài thuốc thảo dược">
-                        🌿 Đóng góp tri thức / Bài thuốc thảo dược dân gian
+                        {t('contact.topicFolkHerb')}
                       </option>
-                      <option value="Đăng ký làm Trạm Trao Đổi Cây địa phương">
-                        🔄 Đăng ký làm Trạm Trao Đổi Cây (Plant Swap Hub)
+                      <option value="Góp ý mẹo trị sâu bệnh hữu cơ">
+                        {t('contact.topicPestTip')}
                       </option>
-                      <option value="Chia sẻ giống cây ăn trái đô thị">
-                        🍋 Chia sẻ giống cây ăn trái trồng chậu F1
+                      <option value="Hợp tác vườn ươm & dự án nông nghiệp xanh">
+                        {t('contact.topicPartnership')}
                       </option>
-                      <option value="Liên hệ cố vấn bệnh cây / Bác sĩ cây trồng">
-                        🩺 Liên hệ cố vấn bệnh cây / Bác sĩ cây trồng
-                      </option>
-                      <option value="Góp ý tính năng & Báo lỗi kỹ thuật">
-                        💡 Góp ý cải thiện giao diện & Báo lỗi kỹ thuật
-                      </option>
-                      <option value="Hợp tác truyền thông / Phát triển nông nghiệp">
-                        🤝 Hợp tác truyền thông / Dự án xanh
+                      <option value="Ý kiến đóng góp khác">
+                        {t('contact.topicOther')}
                       </option>
                     </select>
                   </div>
 
-                  {/* Nội dung lời nhắn */}
+                  {/* Nội dung tin nhắn */}
                   <div>
-                    <label className="block text-xs font-bold text-forest-900 mb-1.5">
-                      Nội dung lời nhắn chi tiết <span className="text-rose-500">*</span>
+                    <label className="block text-xs font-bold text-forest-900 mb-1">
+                      {t('contact.formMessage')} <span className="text-rose-500">*</span>
                     </label>
                     <textarea
                       required
-                      rows={4}
-                      placeholder="Mô tả chi tiết mong muốn của bạn, giống cây bạn muốn chia sẻ hoặc câu hỏi cần giải đáp..."
+                      rows={5}
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-2xl border border-forest-200 text-xs sm:text-sm text-forest-950 focus:outline-hidden focus:ring-2 focus:ring-herbal-500 transition"
+                      placeholder={isEn ? 'Share details of your folk remedy, nursery location, or question...' : 'Chia sẻ chi tiết bài thuốc thảo dược gia truyền, kinh nghiệm thực tế hoặc nội dung bạn cần kết nối...'}
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-forest-200 text-xs sm:text-sm text-forest-950 focus:outline-hidden focus:ring-2 focus:ring-herbal-500 leading-relaxed"
                     />
                   </div>
 
-                  {/* Nút gửi */}
+                  {/* Error message */}
+                  {errorMessage && (
+                    <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-700 flex items-center gap-2">
+                      <AlertCircle className="w-4 h-4 shrink-0" />
+                      <span>{errorMessage}</span>
+                    </div>
+                  )}
+
+                  {/* Submit Button */}
                   <div className="pt-2">
                     <button
                       type="submit"
                       disabled={isLoading}
-                      className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-forest-900 hover:bg-forest-800 disabled:opacity-50 text-white text-xs sm:text-sm font-bold flex items-center justify-center gap-2 shadow-md transition"
+                      className="w-full py-3.5 rounded-2xl bg-forest-900 hover:bg-forest-800 text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition disabled:opacity-50"
                     >
                       {isLoading ? (
-                        <span>Đang gửi thông tin...</span>
+                        <span>{t('common.submitting')}</span>
                       ) : (
                         <>
                           <Send className="w-4 h-4 text-herbal-400" />
-                          <span>Gửi Lời Nhắn / Đóng Góp Tri Thức</span>
+                          <span>{t('contact.submitMessage')}</span>
                         </>
                       )}
                     </button>

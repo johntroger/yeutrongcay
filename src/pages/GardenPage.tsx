@@ -15,7 +15,13 @@ import {
   Loader2,
   X,
   ArrowRight,
-  MapPin
+  MapPin,
+  Droplets,
+  Sprout,
+  CheckCircle2,
+  Trash2,
+  SplitSquareVertical,
+  Sliders
 } from 'lucide-react';
 import { UserGarden, GardenPlant, PlantDiaryEntry, PlantGrowthStatus } from '../types/index.ts';
 import { SEED_PLANTS } from '../data/plants.ts';
@@ -24,22 +30,34 @@ import {
   addGardenPlant,
   addPlantDiaryEntry,
   uploadPlantImage,
-  getUserKarma
+  getUserKarma,
+  logCareAction,
+  deleteGardenPlant,
+  deletePlantDiary
 } from '../services/apiService.ts';
 import { applyWatermarkAndStripExif } from '../utils/watermark.ts';
 import { useSEO } from '../utils/useSEO.ts';
+import { useLanguage } from '../context/LanguageContext';
+import { localizePlant } from '../i18n/plantTranslations';
 
 export const GardenPage: React.FC = () => {
+  const { language, isEn } = useLanguage();
+
   useSEO({
-    title: 'Vườn Số Của Tôi & Nhật Ký Cây Trồng Đô Thị | Yêu Trồng Cây',
-    description: 'Quản lý khu vườn ban công sân thượng cá nhân: theo dõi sự lớn lên của từng chậu cây qua dòng thời gian ảnh Before/After và lưu trữ nhật ký chăm sóc bền vững.',
+    title: isEn
+      ? 'My Digital Garden & Urban Plant Diary | Yeu Trong Cay'
+      : 'Vườn Số Của Tôi & Nhật Ký Cây Trồng Đô Thị | Yêu Trồng Cây',
+    description: isEn
+      ? 'Manage your personal balcony and rooftop garden: track individual pot growth through Before/After photo timelines and maintain sustainable urban gardening records.'
+      : 'Quản lý khu vườn ban công sân thượng cá nhân: theo dõi sự lớn lên của từng chậu cây qua dòng thời gian ảnh Before/After và lưu trữ nhật ký chăm sóc bền vững.',
   });
 
   const [garden, setGarden] = useState<UserGarden | null>(null);
   const [plants, setPlants] = useState<GardenPlant[]>([]);
   const [diaries, setDiaries] = useState<PlantDiaryEntry[]>([]);
-  const [activeTab, setActiveTab] = useState<'plants' | 'timeline'>('plants');
+  const [activeTab, setActiveTab] = useState<'plants' | 'timeline' | 'tasks'>('plants');
   const [selectedPlantId, setSelectedPlantId] = useState<string | null>(null);
+  const [actionNotice, setActionNotice] = useState<string | null>(null);
 
   // Điểm Karma & Huy Hiệu Đóng Góp (MS5 - H9)
   const [karmaData, setKarmaData] = useState<{
@@ -55,6 +73,7 @@ export const GardenPage: React.FC = () => {
   const [newPlantedDate, setNewPlantedDate] = useState(new Date().toISOString().split('T')[0]);
   const [newPotType, setNewPotType] = useState('Chậu nhựa thông minh 35cm');
   const [newPlantStatus, setNewPlantStatus] = useState<PlantGrowthStatus>('healthy');
+  const [newWateringInterval, setNewWateringInterval] = useState(1);
   const [newNotes, setNewNotes] = useState('');
   const [plantCoverUrl, setPlantCoverUrl] = useState('');
   const [isUploadingPlantCover, setIsUploadingPlantCover] = useState(false);
@@ -69,6 +88,11 @@ export const GardenPage: React.FC = () => {
   const [diaryImageUrl, setDiaryImageUrl] = useState('');
   const [isUploadingDiary, setIsUploadingDiary] = useState(false);
   const diaryFileInputRef = useRef<HTMLInputElement>(null);
+
+  // Modal: So Sánh Ảnh Trước / Sau (Before / After Comparison)
+  const [comparisonPlant, setComparisonPlant] = useState<GardenPlant | null>(null);
+  const [sliderPos, setSliderPos] = useState(50);
+  const [comparisonMode, setComparisonMode] = useState<'sideBySide' | 'slider'>('sideBySide');
 
   // Tải dữ liệu vườn
   useEffect(() => {
@@ -95,14 +119,23 @@ export const GardenPage: React.FC = () => {
     };
   }, []);
 
-  // Tự động điền ảnh và tên loài khi chọn từ danh mục 50 loài chuẩn
+  const triggerNotice = (msg: string) => {
+    setActionNotice(msg);
+    setTimeout(() => {
+      setActionNotice(null);
+    }, 4000);
+  };
+
+  // Tự động điền ảnh và tên loài khi chọn từ danh mục loài chuẩn
   const handleSelectSeedPlant = (seedId: string) => {
     setNewSelectedSeedId(seedId);
     if (!seedId) return;
-    const found = SEED_PLANTS.find((p) => p.id === seedId);
-    if (found) {
-      if (!newCustomName) setNewCustomName(found.common_name);
-      setPlantCoverUrl(found.image_url);
+    const rawPlant = SEED_PLANTS.find((p) => p.id === seedId);
+    if (rawPlant) {
+      const locPlant = localizePlant(rawPlant, language);
+      if (!newCustomName) setNewCustomName(locPlant.common_name);
+      setPlantCoverUrl(rawPlant.image_url);
+      setNewWateringInterval(rawPlant.watering === 'daily' ? 1 : 2);
     }
   };
 
@@ -113,7 +146,7 @@ export const GardenPage: React.FC = () => {
     setIsUploadingPlantCover(true);
     try {
       const cleanFile = await applyWatermarkAndStripExif(file, {
-        authorName: garden?.garden_name || 'Vườn Phố',
+        authorName: garden?.garden_name || (isEn ? 'Urban Garden' : 'Vườn Phố'),
         brandText: 'yeutrongcay.com'
       });
       const res = await uploadPlantImage(cleanFile);
@@ -134,7 +167,7 @@ export const GardenPage: React.FC = () => {
     setIsUploadingDiary(true);
     try {
       const cleanFile = await applyWatermarkAndStripExif(file, {
-        authorName: garden?.garden_name || 'Vườn Phố',
+        authorName: garden?.garden_name || (isEn ? 'Urban Garden' : 'Vườn Phố'),
         brandText: 'yeutrongcay.com'
       });
       const res = await uploadPlantImage(cleanFile);
@@ -152,7 +185,7 @@ export const GardenPage: React.FC = () => {
   const handleSubmitNewPlant = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newCustomName.trim()) {
-      alert('Vui lòng nhập tên cho cây của bạn.');
+      alert(isEn ? 'Please enter a name for your plant.' : 'Vui lòng nhập tên cho cây của bạn.');
       return;
     }
 
@@ -164,6 +197,10 @@ export const GardenPage: React.FC = () => {
       planted_date: newPlantedDate,
       pot_type: newPotType,
       current_status: newPlantStatus,
+      watering_interval_days: newWateringInterval,
+      fertilizing_interval_days: 14,
+      last_watered_at: newPlantedDate,
+      last_fertilized_at: newPlantedDate,
       cover_image_url: plantCoverUrl || 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Leaf_-pani_koorkka.JPG/330px-Leaf_-pani_koorkka.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
       notes: newNotes,
     };
@@ -177,6 +214,7 @@ export const GardenPage: React.FC = () => {
       setNewCustomName('');
       setNewNotes('');
       setPlantCoverUrl('');
+      triggerNotice(isEn ? 'Added new plant to your digital garden!' : 'Đã thêm chậu cây mới vào vườn số!');
     }
   };
 
@@ -184,7 +222,7 @@ export const GardenPage: React.FC = () => {
   const handleSubmitNewDiary = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!diaryPlantId || !diaryNote.trim() || !diaryImageUrl) {
-      alert('Vui lòng chọn cây, nhập ghi chú và tải ảnh nhật ký.');
+      alert(isEn ? 'Please select a plant, enter a note, and upload a diary photo.' : 'Vui lòng chọn cây, nhập ghi chú và tải ảnh nhật ký.');
       return;
     }
 
@@ -205,67 +243,198 @@ export const GardenPage: React.FC = () => {
       setIsAddDiaryOpen(false);
       setDiaryNote('');
       setDiaryImageUrl('');
+      triggerNotice(isEn ? 'Logged new photo growth milestone!' : 'Đã lưu mốc nhật ký sinh trưởng!');
     }
   };
 
-  // Tính số ngày đã trồng
-  const calculateDaysPlanted = (dateStr: string) => {
+  // Xóa cây
+  const handleDeletePlant = async (plantId: string, plantName: string) => {
+    const confirmMsg = isEn
+      ? `Are you sure you want to remove "${plantName}" from your garden?`
+      : `Bạn có chắc muốn xóa chậu cây "${plantName}" khỏi vườn?`;
+    if (!window.confirm(confirmMsg)) return;
+
+    await deleteGardenPlant(plantId);
+    const updatedPlants = plants.filter((p) => p.id !== plantId);
+    const updatedDiaries = diaries.filter((d) => d.garden_plant_id !== plantId);
+    setPlants(updatedPlants);
+    setDiaries(updatedDiaries);
+    localStorage.setItem('ytc_garden_plants', JSON.stringify(updatedPlants));
+    localStorage.setItem('ytc_garden_diaries', JSON.stringify(updatedDiaries));
+    triggerNotice(isEn ? `Removed "${plantName}" from garden.` : `Đã xóa chậu cây "${plantName}".`);
+  };
+
+  // Xóa nhật ký
+  const handleDeleteDiary = async (diaryId: string) => {
+    const confirmMsg = isEn
+      ? 'Are you sure you want to delete this diary entry?'
+      : 'Bạn có chắc muốn xóa mốc nhật ký này?';
+    if (!window.confirm(confirmMsg)) return;
+
+    await deletePlantDiary(diaryId);
+    const updatedDiaries = diaries.filter((d) => d.id !== diaryId);
+    setDiaries(updatedDiaries);
+    localStorage.setItem('ytc_garden_diaries', JSON.stringify(updatedDiaries));
+    triggerNotice(isEn ? 'Deleted photo diary entry.' : 'Đã xóa mốc nhật ký.');
+  };
+
+  // Xử lý Chăm sóc nhanh 1-Click (Tưới nước / Bón phân)
+  const handleCareAction = async (plant: GardenPlant, type: 'water' | 'fertilize') => {
+    const today = new Date().toISOString().split('T')[0];
+    await logCareAction(plant.id, type, today);
+
+    const updatedPlants = plants.map((p) => {
+      if (p.id === plant.id) {
+        return {
+          ...p,
+          last_watered_at: type === 'water' ? today : p.last_watered_at,
+          last_fertilized_at: type === 'fertilize' ? today : p.last_fertilized_at,
+        };
+      }
+      return p;
+    });
+
+    setPlants(updatedPlants);
+    localStorage.setItem('ytc_garden_plants', JSON.stringify(updatedPlants));
+
+    const msg = type === 'water'
+      ? (isEn ? `Watered "${plant.custom_name}" 💧` : `Đã tưới nước cho "${plant.custom_name}" 💧`)
+      : (isEn ? `Fertilized "${plant.custom_name}" with organic worm castings 🌿` : `Đã bón phân trùn quế cho "${plant.custom_name}" 🌿`);
+    triggerNotice(msg);
+  };
+
+  // Tính số ngày đã trôi qua kể từ một ngày
+  const calculateDaysSince = (dateStr?: string) => {
+    if (!dateStr) return 999;
     try {
-      const planted = new Date(dateStr).getTime();
+      const past = new Date(dateStr).getTime();
       const now = new Date().getTime();
-      const diff = Math.max(0, Math.floor((now - planted) / (1000 * 60 * 60 * 24)));
-      return diff;
+      return Math.max(0, Math.floor((now - past) / (1000 * 60 * 60 * 24)));
     } catch {
-      return 0;
+      return 999;
     }
   };
 
-  const statusLabelMap: Record<PlantGrowthStatus, { label: string; color: string }> = {
-    healthy: { label: 'Đang phát triển xanh tốt', color: 'bg-emerald-100 text-emerald-800 border-emerald-200' },
-    flowering: { label: 'Đang trổ hoa bói', color: 'bg-pink-100 text-pink-800 border-pink-200' },
-    fruiting: { label: 'Đang đậu quả mọng', color: 'bg-amber-100 text-amber-800 border-amber-200' },
-    recovering: { label: 'Hồi phục sau bệnh', color: 'bg-blue-100 text-blue-800 border-blue-200' },
-    dormant: { label: 'Nghỉ đông / Chờ đâm chồi', color: 'bg-gray-100 text-gray-800 border-gray-200' },
+  const calculateDaysPlanted = (dateStr: string) => {
+    return calculateDaysSince(dateStr);
   };
+
+  // Danh sách công việc hôm nay (Today's Care Tasks)
+  const careTasks = plants.map((p) => {
+    const daysSinceWater = calculateDaysSince(p.last_watered_at || p.planted_date);
+    const daysSinceFertilize = calculateDaysSince(p.last_fertilized_at || p.planted_date);
+    const waterInterval = p.watering_interval_days || 1;
+    const fertilizeInterval = p.fertilizing_interval_days || 14;
+
+    const needsWater = daysSinceWater >= waterInterval;
+    const needsFertilize = daysSinceFertilize >= fertilizeInterval;
+
+    return {
+      plant: p,
+      daysSinceWater,
+      daysSinceFertilize,
+      needsWater,
+      needsFertilize,
+    };
+  });
+
+  const pendingWaterTasks = careTasks.filter((t) => t.needsWater);
+  const pendingFertilizeTasks = careTasks.filter((t) => t.needsFertilize);
+  const totalPendingTasks = pendingWaterTasks.length + pendingFertilizeTasks.length;
+
+  const statusLabelMap: Record<PlantGrowthStatus, { labelVi: string; labelEn: string; color: string }> = {
+    healthy: {
+      labelVi: 'Đang phát triển xanh tốt',
+      labelEn: 'Thriving & Healthy',
+      color: 'bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800'
+    },
+    flowering: {
+      labelVi: 'Đang trổ hoa bói',
+      labelEn: 'Flowering Stage',
+      color: 'bg-pink-100 dark:bg-pink-950/60 text-pink-800 dark:text-pink-300 border-pink-200 dark:border-pink-800'
+    },
+    fruiting: {
+      labelVi: 'Đang đậu quả mọng',
+      labelEn: 'Fruiting Stage',
+      color: 'bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border-amber-200 dark:border-amber-800'
+    },
+    recovering: {
+      labelVi: 'Hồi phục sau bệnh',
+      labelEn: 'Recovering Post-Pest',
+      color: 'bg-blue-100 dark:bg-blue-950/60 text-blue-800 dark:text-blue-300 border-blue-200 dark:border-blue-800'
+    },
+    dormant: {
+      labelVi: 'Nghỉ đông / Chờ đâm chồi',
+      labelEn: 'Dormant / Awaiting Shoots',
+      color: 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-300 border-gray-200 dark:border-gray-700'
+    },
+  };
+
+  const stageOptions = [
+    { vi: 'Mới trồng / Cắm cành', en: 'Freshly Planted / Cutting' },
+    { vi: 'Đâm chồi nảy lộc', en: 'Sprouting New Shoots' },
+    { vi: 'Bấm ngọn kích nhánh', en: 'Pruning / Branch Pinching' },
+    { vi: 'Trổ hoa bói', en: 'First Flowering' },
+    { vi: 'Đậu quả non', en: 'Young Fruit Set' },
+    { vi: 'Thu hoạch đợt 1', en: 'First Harvest' },
+    { vi: 'Hồi sức sau cắt tỉa', en: 'Post-Pruning Recovery' },
+  ];
 
   return (
-    <div className="min-h-screen bg-cream-100 flex flex-col">
+    <div className="min-h-screen bg-cream-100 dark:bg-charcoal-950 flex flex-col transition-colors">
+      
+      {/* Toast Notification Alert */}
+      {actionNotice && (
+        <div className="fixed top-20 right-4 z-50 bg-forest-900 text-white px-5 py-3 rounded-2xl shadow-xl flex items-center gap-2 text-xs font-semibold border border-herbal-400 animate-slide-up">
+          <CheckCircle2 className="w-4 h-4 text-herbal-400 shrink-0" />
+          <span>{actionNotice}</span>
+        </div>
+      )}
+
       {/* 1. Breadcrumb Navigation */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 w-full">
-        <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-forest-700">
-          <Link to="/" target="_blank" rel="noopener noreferrer" className="hover:text-forest-950 flex items-center gap-1 transition">
+        <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-forest-700 dark:text-forest-400">
+          <Link to="/" target="_blank" rel="noopener noreferrer" className="hover:text-forest-950 dark:hover:text-cream-100 flex items-center gap-1 transition">
             <Home className="w-3.5 h-3.5" />
-            <span>Trang Chủ</span>
+            <span>{isEn ? 'Home' : 'Trang Chủ'}</span>
           </Link>
           <ChevronRight className="w-3 h-3 text-forest-400 shrink-0" />
-          <span className="font-bold text-forest-950 flex items-center gap-1">
-            <Leaf className="w-3.5 h-3.5 text-herbal-600" />
-            <span>Vườn Số Của Tôi (Digital Garden)</span>
+          <span className="font-bold text-forest-950 dark:text-cream-100 flex items-center gap-1">
+            <Leaf className="w-3.5 h-3.5 text-herbal-600 dark:text-herbal-400" />
+            <span>{isEn ? 'My Digital Garden' : 'Vườn Số Của Tôi (Digital Garden)'}</span>
           </span>
         </nav>
       </div>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 flex-1 w-full space-y-8">
+        
         {/* 2. Garden Hero & Stats Header */}
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-forest-100 shadow-sm relative overflow-hidden">
+        <div className="bg-white dark:bg-charcoal-900 rounded-3xl p-6 sm:p-8 border border-forest-100 dark:border-forest-800 shadow-sm relative overflow-hidden transition-colors">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             <div className="space-y-2">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-herbal-50 text-herbal-800 text-xs font-semibold border border-herbal-200">
-                <Sparkles className="w-3.5 h-3.5 text-herbal-600" />
-                <span>Hồ Sơ Nông Nghiệp Đô Thị</span>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-herbal-50 dark:bg-herbal-950/60 text-herbal-800 dark:text-herbal-300 text-xs font-semibold border border-herbal-200 dark:border-herbal-800">
+                <Sparkles className="w-3.5 h-3.5 text-herbal-600 dark:text-herbal-400" />
+                <span>{isEn ? 'Urban Agriculture Profile' : 'Hồ Sơ Nông Nghiệp Đô Thị'}</span>
               </div>
-              <h1 className="text-2xl sm:text-3xl font-serif font-bold text-forest-950 tracking-tight">
-                {garden?.garden_name || 'Vườn Ban Công Của Tôi'}
+              <h1 className="text-2xl sm:text-3xl font-serif font-bold text-forest-950 dark:text-cream-50 tracking-tight">
+                {garden?.garden_name || (isEn ? 'My Balcony Garden' : 'Vườn Ban Công Của Tôi')}
               </h1>
-              <p className="text-xs sm:text-sm text-forest-700 max-w-2xl leading-relaxed">
-                {garden?.description || 'Khu vườn nhỏ phủ xanh ban công đô thị, theo dõi hành trình lớn lên của từng mầm cây qua ảnh chụp thời gian thực.'}
+              <p className="text-xs sm:text-sm text-forest-700 dark:text-forest-300 max-w-2xl leading-relaxed">
+                {garden?.description || (isEn
+                  ? 'A cozy green retreat on an urban balcony, tracking growth journeys of individual plants via real-time photo logs and daily care schedules.'
+                  : 'Khu vườn nhỏ phủ xanh ban công đô thị, theo dõi hành trình lớn lên của từng mầm cây qua ảnh chụp thời gian thực và lịch nhắc chăm sóc hàng ngày.')}
               </p>
-              <div className="flex items-center gap-3 pt-1 text-xs text-forest-600">
+              <div className="flex items-center gap-3 pt-1 text-xs text-forest-600 dark:text-forest-400">
                 <span className="flex items-center gap-1">
-                  <MapPin className="w-3.5 h-3.5 text-emerald-600" /> {garden?.city || 'TP. Hồ Chí Minh'}
+                  <MapPin className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> {garden?.city || (isEn ? 'Ho Chi Minh City' : 'TP. Hồ Chí Minh')}
                 </span>
                 <span className="w-1 h-1 rounded-full bg-forest-300"></span>
-                <span>Loại vườn: {garden?.garden_type === 'balcony' ? 'Ban công chung cư' : 'Sân thượng'}</span>
+                <span>
+                  {isEn ? 'Garden type: ' : 'Loại vườn: '}
+                  {garden?.garden_type === 'balcony'
+                    ? (isEn ? 'Apartment Balcony' : 'Ban công chung cư')
+                    : (isEn ? 'Rooftop Terrace' : 'Sân thượng')}
+                </span>
               </div>
             </div>
 
@@ -276,38 +445,49 @@ export const GardenPage: React.FC = () => {
                 className="px-5 py-2.5 rounded-2xl bg-forest-900 hover:bg-forest-950 text-white text-xs font-bold shadow-md hover:shadow-lg transition flex items-center gap-1.5"
               >
                 <Plus className="w-4 h-4 text-herbal-400" />
-                <span>Thêm Cây Mới</span>
+                <span>{isEn ? 'Add New Plant' : 'Thêm Cây Mới'}</span>
               </button>
               <button
                 onClick={() => setIsAddDiaryOpen(true)}
-                className="px-5 py-2.5 rounded-2xl bg-herbal-50 hover:bg-herbal-100 text-herbal-900 text-xs font-bold border border-herbal-200 transition flex items-center gap-1.5"
+                className="px-5 py-2.5 rounded-2xl bg-herbal-50 dark:bg-charcoal-800 hover:bg-herbal-100 dark:hover:bg-charcoal-700 text-herbal-900 dark:text-herbal-300 text-xs font-bold border border-herbal-200 dark:border-forest-800 transition flex items-center gap-1.5"
               >
-                <Camera className="w-4 h-4 text-herbal-700" />
-                <span>Ghi Nhật Ký Ảnh</span>
+                <Camera className="w-4 h-4 text-herbal-700 dark:text-herbal-400" />
+                <span>{isEn ? 'Log Photo Entry' : 'Ghi Nhật Ký Ảnh'}</span>
               </button>
             </div>
           </div>
 
           {/* Quick Metrics Bar */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-6 border-t border-forest-50">
-            <div className="bg-forest-50/60 p-4 rounded-2xl border border-forest-100">
-              <span className="text-[11px] font-semibold text-forest-700">Tổng Số Cây Đang Trồng</span>
-              <p className="text-2xl font-serif font-bold text-forest-950 mt-0.5">{plants.length}</p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-6 border-t border-forest-50 dark:border-forest-800">
+            <div className="bg-forest-50/60 dark:bg-charcoal-800/80 p-4 rounded-2xl border border-forest-100 dark:border-forest-800">
+              <span className="text-[11px] font-semibold text-forest-700 dark:text-forest-300">
+                {isEn ? 'Total Plants Grown' : 'Tổng Số Cây Đang Trồng'}
+              </span>
+              <p className="text-2xl font-serif font-bold text-forest-950 dark:text-cream-50 mt-0.5">{plants.length}</p>
             </div>
-            <div className="bg-forest-50/60 p-4 rounded-2xl border border-forest-100">
-              <span className="text-[11px] font-semibold text-forest-700">Cây Đậu Quả / Trổ Hoa</span>
-              <p className="text-2xl font-serif font-bold text-amber-700 mt-0.5">
-                {plants.filter((p) => p.current_status === 'fruiting' || p.current_status === 'flowering').length}
+
+            <div className="bg-forest-50/60 dark:bg-charcoal-800/80 p-4 rounded-2xl border border-forest-100 dark:border-forest-800">
+              <span className="text-[11px] font-semibold text-forest-700 dark:text-forest-300">
+                {isEn ? 'Tasks Pending Today' : 'Việc Cần Chăm Hôm Nay'}
+              </span>
+              <p className={`text-2xl font-serif font-bold mt-0.5 ${totalPendingTasks > 0 ? 'text-terracotta-600 dark:text-terracotta-400' : 'text-emerald-700 dark:text-emerald-400'}`}>
+                {totalPendingTasks > 0 ? `${totalPendingTasks} việc` : (isEn ? 'Done ✨' : 'Đã xong ✨')}
               </p>
             </div>
-            <div className="bg-forest-50/60 p-4 rounded-2xl border border-forest-100">
-              <span className="text-[11px] font-semibold text-forest-700">Mốc Nhật Ký Đã Lưu</span>
-              <p className="text-2xl font-serif font-bold text-herbal-700 mt-0.5">{diaries.length}</p>
+
+            <div className="bg-forest-50/60 dark:bg-charcoal-800/80 p-4 rounded-2xl border border-forest-100 dark:border-forest-800">
+              <span className="text-[11px] font-semibold text-forest-700 dark:text-forest-300">
+                {isEn ? 'Saved Diary Milestones' : 'Mốc Nhật Ký Đã Lưu'}
+              </span>
+              <p className="text-2xl font-serif font-bold text-herbal-700 dark:text-herbal-400 mt-0.5">{diaries.length}</p>
             </div>
-            <div className="bg-forest-50/60 p-4 rounded-2xl border border-forest-100">
-              <span className="text-[11px] font-semibold text-forest-700">Tuân Thủ An Toàn H7</span>
-              <p className="text-sm font-bold text-emerald-800 mt-1.5 flex items-center gap-1">
-                <Check className="w-4 h-4 text-emerald-600" /> Tẩy EXIF & Watermark
+
+            <div className="bg-forest-50/60 dark:bg-charcoal-800/80 p-4 rounded-2xl border border-forest-100 dark:border-forest-800">
+              <span className="text-[11px] font-semibold text-forest-700 dark:text-forest-300">
+                {isEn ? 'Safety Standard H7' : 'Tuân Thủ An Toàn H7'}
+              </span>
+              <p className="text-sm font-bold text-emerald-800 dark:text-emerald-300 mt-1.5 flex items-center gap-1">
+                <Check className="w-4 h-4 text-emerald-600 dark:text-emerald-400" /> {isEn ? 'EXIF Strip & Watermark' : 'Tẩy EXIF & Watermark'}
               </p>
             </div>
           </div>
@@ -325,18 +505,22 @@ export const GardenPage: React.FC = () => {
                       {karmaData.badge.title}
                     </span>
                     <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-400 text-forest-950">
-                      Cấp {karmaData.badge.tier}
+                      {isEn ? `Tier ${karmaData.badge.tier}` : `Cấp ${karmaData.badge.tier}`}
                     </span>
                   </div>
                   <p className="text-xs text-forest-200 mt-0.5">
-                    Huy hiệu tín nhiệm cộng đồng dựa trên lịch sử đóng góp và chia sẻ mầm cây (H9)
+                    {isEn
+                      ? 'Community trust badge based on sharing history and helpful garden contributions (H9)'
+                      : 'Huy hiệu tín nhiệm cộng đồng dựa trên lịch sử đóng góp và chia sẻ mầm cây (H9)'}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-center gap-4 bg-white/10 px-4 py-2.5 rounded-xl border border-white/10 shrink-0">
                 <div className="text-right">
-                  <span className="text-[10px] uppercase font-bold text-forest-300 tracking-wider block">Điểm Uy Tín Karma</span>
+                  <span className="text-[10px] uppercase font-bold text-forest-300 tracking-wider block">
+                    {isEn ? 'Karma Standing' : 'Điểm Uy Tín Karma'}
+                  </span>
                   <span className="text-xl font-bold font-serif text-amber-300">+{karmaData.total_karma} pts</span>
                 </div>
                 <div className="w-8 h-8 rounded-full bg-amber-400/20 text-amber-300 flex items-center justify-center font-bold">
@@ -347,18 +531,138 @@ export const GardenPage: React.FC = () => {
           )}
         </div>
 
-        {/* 3. Navigation Tabs: Cây Trong Vườn vs Dòng Thời Gian Nhật Ký */}
-        <div className="flex items-center gap-2 border-b border-forest-100 pb-3">
+        {/* 3. Lịch Nhắc Chăm Sóc Cây Hàng Ngày (Today's Care Tasks Widget) */}
+        <div className="p-6 rounded-3xl bg-white dark:bg-charcoal-900 border border-forest-100 dark:border-forest-800 shadow-sm transition-colors">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse"></span>
+                <h2 className="text-lg font-serif font-bold text-forest-950 dark:text-cream-50 flex items-center gap-2">
+                  <Droplets className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                  <span>{isEn ? "Today's Urban Garden Care Checklist" : 'Lịch Nhắc Chăm Sóc Vườn Hôm Nay'}</span>
+                </h2>
+              </div>
+              <p className="text-xs text-forest-700 dark:text-forest-300 mt-1">
+                {isEn
+                  ? 'Personalized daily care tasks based on each species watering cycles and nutritional phases.'
+                  : 'Tự động tính toán chu kỳ tưới và bón phân hữu cơ cho từng chậu cây trên ban công.'}
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-forest-50 dark:bg-charcoal-800 text-forest-800 dark:text-forest-200 border border-forest-100 dark:border-forest-800">
+                {new Date().toLocaleDateString(isEn ? 'en-US' : 'vi-VN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+              </span>
+            </div>
+          </div>
+
+          {totalPendingTasks === 0 ? (
+            <div className="p-6 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-500 text-white flex items-center justify-center text-2xl shrink-0 shadow-sm">
+                🌱
+              </div>
+              <div>
+                <h4 className="font-bold text-sm text-emerald-950 dark:text-emerald-100">
+                  {isEn ? 'All plants are nurtured and hydrated!' : 'Tuyệt vời! Toàn bộ chậu cây đã được chăm sóc đầy đủ!'}
+                </h4>
+                <p className="text-xs text-emerald-800/80 dark:text-emerald-300 mt-0.5">
+                  {isEn
+                    ? 'No watering or fertilizing tasks pending for today. Keep observing new leaves and basking sunlight.'
+                    : 'Không còn cây nào bị khát nước hay trễ lịch bón phân hôm nay. Hãy tiếp tục ngắm nhìn chồi non lớn lên.'}
+                </p>
+              </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Cần tưới nước */}
+              {pendingWaterTasks.map(({ plant, daysSinceWater }) => (
+                <div
+                  key={`water-${plant.id}`}
+                  className="p-4 rounded-2xl bg-blue-50/60 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800/80 flex items-center justify-between gap-4"
+                >
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={plant.cover_image_url}
+                      alt={plant.custom_name}
+                      className="w-12 h-12 rounded-xl object-cover border border-blue-200 dark:border-blue-700 shrink-0"
+                    />
+                    <div>
+                      <h4 className="font-bold text-xs sm:text-sm text-forest-950 dark:text-cream-50">
+                        {plant.custom_name}
+                      </h4>
+                      <p className="text-[11px] text-blue-700 dark:text-blue-300 flex items-center gap-1 mt-0.5">
+                        <Droplets className="w-3 h-3" />
+                        <span>
+                          {daysSinceWater === 999
+                            ? (isEn ? 'Needs initial watering' : 'Chưa ghi nhận lần tưới nào')
+                            : (isEn ? `Watered ${daysSinceWater} days ago (Due now)` : `Đã qua ${daysSinceWater} ngày chưa tưới`)}
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => handleCareAction(plant, 'water')}
+                    className="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold flex items-center gap-1.5 shadow-sm transition shrink-0"
+                  >
+                    <Check className="w-3.5 h-3.5" />
+                    <span>{isEn ? 'Watered 💧' : 'Đã tưới 💧'}</span>
+                  </button>
+                </div>
+              ))}
+
+              {/* Cần bón phân */}
+              {pendingFertilizeTasks.map(({ plant, daysSinceFertilize }) => (
+                <div
+                  key={`fert-${plant.id}`}
+                  className="p-4 rounded-2xl bg-amber-50/60 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/80 flex items-center justify-between gap-4"
+                >
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={plant.cover_image_url}
+                      alt={plant.custom_name}
+                      className="w-12 h-12 rounded-xl object-cover border border-amber-200 dark:border-amber-700 shrink-0"
+                    />
+                    <div>
+                      <h4 className="font-bold text-xs sm:text-sm text-forest-950 dark:text-cream-50">
+                        {plant.custom_name}
+                      </h4>
+                      <p className="text-[11px] text-amber-800 dark:text-amber-300 flex items-center gap-1 mt-0.5">
+                        <Sprout className="w-3 h-3" />
+                        <span>
+                          {daysSinceFertilize === 999
+                            ? (isEn ? 'Due for organic fertilizer' : 'Đến hạn bón thúc định kỳ')
+                            : (isEn ? `Last fed ${daysSinceFertilize} days ago` : `Đã ${daysSinceFertilize} ngày chưa bón phân`)}
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => handleCareAction(plant, 'fertilize')}
+                    className="px-3.5 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold flex items-center gap-1.5 shadow-sm transition shrink-0"
+                  >
+                    <Check className="w-3.5 h-3.5" />
+                    <span>{isEn ? 'Fed 🌿' : 'Đã bón 🌿'}</span>
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* 4. Navigation Tabs: Cây Trong Vườn vs Dòng Thời Gian Nhật Ký */}
+        <div className="flex items-center gap-2 border-b border-forest-100 dark:border-forest-800 pb-3">
           <button
             onClick={() => setActiveTab('plants')}
             className={`px-4 py-2 rounded-2xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 ${
               activeTab === 'plants'
                 ? 'bg-forest-900 text-white shadow-xs'
-                : 'bg-white text-forest-800 hover:bg-forest-50 border border-forest-100'
+                : 'bg-white dark:bg-charcoal-800 text-forest-800 dark:text-forest-200 hover:bg-forest-50 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-800'
             }`}
           >
             <Layers className="w-4 h-4" />
-            <span>Cây Trong Vườn ({plants.length})</span>
+            <span>{isEn ? `Garden Plants (${plants.length})` : `Cây Trong Vườn (${plants.length})`}</span>
           </button>
 
           <button
@@ -366,25 +670,26 @@ export const GardenPage: React.FC = () => {
             className={`px-4 py-2 rounded-2xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 ${
               activeTab === 'timeline'
                 ? 'bg-forest-900 text-white shadow-xs'
-                : 'bg-white text-forest-800 hover:bg-forest-50 border border-forest-100'
+                : 'bg-white dark:bg-charcoal-800 text-forest-800 dark:text-forest-200 hover:bg-forest-50 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-800'
             }`}
           >
             <Clock className="w-4 h-4" />
-            <span>Dòng Thời Gian Ảnh Before/After ({diaries.length})</span>
+            <span>{isEn ? `Before/After Photo Timeline (${diaries.length})` : `Dòng Thời Gian Ảnh Before/After (${diaries.length})`}</span>
           </button>
         </div>
 
-        {/* 4. Tab 1: Plants Grid */}
+        {/* 5. Tab 1: Plants Grid */}
         {activeTab === 'plants' && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {plants.map((plant) => {
               const days = calculateDaysPlanted(plant.planted_date);
               const plantDiaries = diaries.filter((d) => d.garden_plant_id === plant.id);
+              const statusInfo = statusLabelMap[plant.current_status];
 
               return (
                 <div
                   key={plant.id}
-                  className="bg-white rounded-3xl overflow-hidden border border-forest-100 shadow-sm hover:shadow-md transition flex flex-col justify-between group"
+                  className="bg-white dark:bg-charcoal-900 rounded-3xl overflow-hidden border border-forest-100 dark:border-forest-800 shadow-sm hover:shadow-md transition flex flex-col justify-between group"
                 >
                   <div>
                     {/* Plant Image & Status */}
@@ -397,59 +702,90 @@ export const GardenPage: React.FC = () => {
                       <div className="absolute top-3 left-3">
                         <span
                           className={`px-2.5 py-1 rounded-full text-[10px] font-bold shadow-xs border ${
-                            statusLabelMap[plant.current_status]?.color || 'bg-white text-forest-900'
+                            statusInfo?.color || 'bg-white text-forest-900'
                           }`}
                         >
-                          {statusLabelMap[plant.current_status]?.label}
+                          {isEn ? statusInfo?.labelEn : statusInfo?.labelVi}
                         </span>
                       </div>
+
+                      {/* Nút Xóa Chậu Cây */}
+                      <button
+                        onClick={() => handleDeletePlant(plant.id, plant.custom_name)}
+                        title={isEn ? 'Remove plant' : 'Xóa chậu cây'}
+                        className="absolute top-3 right-3 p-1.5 rounded-full bg-forest-950/70 hover:bg-red-600 text-white transition backdrop-blur-xs"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+
                       <div className="absolute bottom-3 right-3 px-2 py-0.5 rounded-full bg-forest-950/80 backdrop-blur-xs text-white text-[10px] font-semibold">
-                        Đã trồng {days} ngày
+                        {isEn ? `Planted ${days} days ago` : `Đã trồng ${days} ngày`}
                       </div>
                     </div>
 
                     {/* Plant Info */}
                     <div className="p-5 space-y-2.5">
-                      <h3 className="font-serif font-bold text-lg text-forest-950 leading-snug">
-                        {plant.custom_name}
-                      </h3>
-                      {plant.species_name && (
-                        <p className="text-xs italic text-herbal-700 font-serif">
-                          {plant.species_name}
-                        </p>
-                      )}
-                      <p className="text-xs text-forest-700/80 line-clamp-2 leading-relaxed">
-                        {plant.notes || 'Cây được chăm sóc tự nhiên trong chậu ban công.'}
+                      <div className="flex items-start justify-between gap-2">
+                        <div>
+                          <h3 className="font-serif font-bold text-lg text-forest-950 dark:text-cream-50 leading-snug">
+                            {plant.custom_name}
+                          </h3>
+                          {plant.species_name && (
+                            <p className="text-xs italic text-herbal-700 dark:text-herbal-400 font-serif">
+                              {plant.species_name}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+
+                      <p className="text-xs text-forest-700/80 dark:text-forest-300 line-clamp-2 leading-relaxed">
+                        {plant.notes || (isEn ? 'Naturally tended in an urban balcony container.' : 'Cây được chăm sóc tự nhiên trong chậu ban công.')}
                       </p>
 
-                      <div className="pt-2 text-[11px] text-forest-600 flex items-center justify-between border-t border-forest-50">
-                        <span>Chậu: {plant.pot_type}</span>
-                        <span>{plantDiaries.length} mốc ảnh</span>
+                      <div className="pt-2 text-[11px] text-forest-600 dark:text-forest-400 flex items-center justify-between border-t border-forest-50 dark:border-forest-800">
+                        <span>{isEn ? `Pot: ${plant.pot_type}` : `Chậu: ${plant.pot_type}`}</span>
+                        <span className="font-medium text-herbal-700 dark:text-herbal-400">
+                          {isEn ? `${plantDiaries.length} photo logs` : `${plantDiaries.length} mốc ảnh`}
+                        </span>
                       </div>
                     </div>
                   </div>
 
                   {/* Card Actions */}
-                  <div className="p-4 bg-cream-50/50 border-t border-forest-100 flex items-center justify-between gap-2">
-                    <button
-                      onClick={() => {
-                        setDiaryPlantId(plant.id);
-                        setIsAddDiaryOpen(true);
-                      }}
-                      className="px-3.5 py-1.5 rounded-xl bg-forest-900 text-white text-xs font-semibold hover:bg-forest-950 transition flex items-center gap-1"
-                    >
-                      <Camera className="w-3.5 h-3.5 text-herbal-400" />
-                      <span>Thêm ảnh</span>
-                    </button>
+                  <div className="p-4 bg-cream-50/50 dark:bg-charcoal-800/60 border-t border-forest-100 dark:border-forest-800 flex flex-wrap items-center justify-between gap-2">
+                    <div className="flex items-center gap-1.5">
+                      <button
+                        onClick={() => {
+                          setDiaryPlantId(plant.id);
+                          setIsAddDiaryOpen(true);
+                        }}
+                        className="px-3 py-1.5 rounded-xl bg-forest-900 text-white text-xs font-semibold hover:bg-forest-950 transition flex items-center gap-1 shadow-xs"
+                      >
+                        <Camera className="w-3.5 h-3.5 text-herbal-400" />
+                        <span>{isEn ? 'Log Photo' : 'Chụp ảnh'}</span>
+                      </button>
+
+                      {/* Nút so sánh Before / After */}
+                      <button
+                        onClick={() => {
+                          setComparisonPlant(plant);
+                        }}
+                        className="px-3 py-1.5 rounded-xl bg-herbal-50 dark:bg-charcoal-700 border border-herbal-200 dark:border-forest-700 text-herbal-900 dark:text-herbal-300 text-xs font-semibold hover:bg-herbal-100 transition flex items-center gap-1"
+                        title={isEn ? 'Compare growth Before/After' : 'So sánh ảnh lớn lên Trước/Sau'}
+                      >
+                        <SplitSquareVertical className="w-3.5 h-3.5 text-herbal-700 dark:text-herbal-400" />
+                        <span>{isEn ? 'Before/After' : 'So sánh lớn'}</span>
+                      </button>
+                    </div>
 
                     <button
                       onClick={() => {
                         setSelectedPlantId(plant.id);
                         setActiveTab('timeline');
                       }}
-                      className="px-3.5 py-1.5 rounded-xl bg-white border border-forest-200 text-forest-900 text-xs font-semibold hover:bg-forest-50 transition flex items-center gap-1"
+                      className="px-3 py-1.5 rounded-xl bg-white dark:bg-charcoal-800 border border-forest-200 dark:border-forest-700 text-forest-900 dark:text-cream-100 text-xs font-semibold hover:bg-forest-50 dark:hover:bg-charcoal-700 transition flex items-center gap-1"
                     >
-                      <span>Xem nhật ký</span>
+                      <span>{isEn ? 'Timeline' : 'Nhật ký'}</span>
                       <ArrowRight className="w-3.5 h-3.5 text-forest-500" />
                     </button>
                   </div>
@@ -459,19 +795,21 @@ export const GardenPage: React.FC = () => {
           </div>
         )}
 
-        {/* 5. Tab 2: Chronological Photo Timeline & Progression */}
+        {/* 6. Tab 2: Chronological Photo Timeline & Progression */}
         {activeTab === 'timeline' && (
           <div className="space-y-6">
             {selectedPlantId && (
-              <div className="p-4 rounded-2xl bg-herbal-50 border border-herbal-200 flex items-center justify-between">
-                <span className="text-xs font-bold text-herbal-900">
-                  Đang lọc nhật ký của: {plants.find((p) => p.id === selectedPlantId)?.custom_name}
+              <div className="p-4 rounded-2xl bg-herbal-50 dark:bg-herbal-950/60 border border-herbal-200 dark:border-herbal-800 flex items-center justify-between">
+                <span className="text-xs font-bold text-herbal-900 dark:text-herbal-300">
+                  {isEn
+                    ? `Filtering diary for: ${plants.find((p) => p.id === selectedPlantId)?.custom_name}`
+                    : `Đang lọc nhật ký của: ${plants.find((p) => p.id === selectedPlantId)?.custom_name}`}
                 </span>
                 <button
                   onClick={() => setSelectedPlantId(null)}
-                  className="text-xs text-herbal-700 hover:text-herbal-900 font-semibold underline"
+                  className="text-xs text-herbal-700 dark:text-herbal-400 hover:text-herbal-900 font-semibold underline"
                 >
-                  Xem tất cả cây
+                  {isEn ? 'Show All Plants' : 'Xem tất cả cây'}
                 </button>
               </div>
             )}
@@ -485,40 +823,47 @@ export const GardenPage: React.FC = () => {
                   return (
                     <div
                       key={entry.id}
-                      className="bg-white rounded-3xl p-6 border border-forest-100 shadow-sm flex flex-col md:flex-row gap-6 items-start hover:border-forest-200 transition"
+                      className="bg-white dark:bg-charcoal-900 rounded-3xl p-6 border border-forest-100 dark:border-forest-800 shadow-sm flex flex-col md:flex-row gap-6 items-start hover:border-forest-200 transition"
                     >
                       {/* Photo */}
-                      <div className="w-full md:w-64 aspect-[4/3] rounded-2xl overflow-hidden bg-forest-900 shrink-0">
+                      <div className="w-full md:w-64 aspect-[4/3] rounded-2xl overflow-hidden bg-forest-900 shrink-0 relative group">
                         <img
                           src={entry.image_url}
                           alt={entry.stage}
                           className="w-full h-full object-cover"
                         />
+                        <button
+                          onClick={() => handleDeleteDiary(entry.id)}
+                          title={isEn ? 'Delete entry' : 'Xóa mốc nhật ký'}
+                          className="absolute top-2 right-2 p-1.5 rounded-full bg-forest-950/80 hover:bg-red-600 text-white transition opacity-0 group-hover:opacity-100"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
                       </div>
 
                       {/* Content */}
                       <div className="flex-1 space-y-2">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-herbal-100 text-herbal-900 border border-herbal-200">
+                          <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-herbal-100 dark:bg-herbal-950/80 text-herbal-900 dark:text-herbal-300 border border-herbal-200 dark:border-herbal-800">
                             {entry.stage}
                           </span>
-                          <span className="text-xs text-gray-500 flex items-center gap-1">
+                          <span className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
                             <Calendar className="w-3.5 h-3.5" /> {entry.entry_date}
                           </span>
                           {targetPlant && (
-                            <span className="text-xs font-bold text-forest-900 bg-forest-50 px-2.5 py-0.5 rounded-full border border-forest-100">
+                            <span className="text-xs font-bold text-forest-900 dark:text-cream-100 bg-forest-50 dark:bg-charcoal-800 px-2.5 py-0.5 rounded-full border border-forest-100 dark:border-forest-800">
                               {targetPlant.custom_name}
                             </span>
                           )}
                         </div>
 
-                        <p className="text-sm text-forest-800 leading-relaxed pt-1">
+                        <p className="text-sm text-forest-800 dark:text-forest-200 leading-relaxed pt-1">
                           {entry.note}
                         </p>
 
-                        <div className="pt-2 text-[11px] text-gray-400 flex items-center gap-1">
-                          <Check className="w-3.5 h-3.5 text-emerald-600" />
-                          <span>Đã lưu vết ảnh sạch EXIF (Móc nối H7)</span>
+                        <div className="pt-2 text-[11px] text-gray-400 dark:text-gray-500 flex items-center gap-1">
+                          <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                          <span>{isEn ? 'Verified clean EXIF data (Standard H7)' : 'Đã lưu vết ảnh sạch EXIF (Móc nối H7)'}</span>
                         </div>
                       </div>
                     </div>
@@ -529,99 +874,316 @@ export const GardenPage: React.FC = () => {
         )}
       </main>
 
-      {/* 6. Modal: Thêm Cây Vào Vườn */}
+      {/* 7. Modal: So Sánh Ảnh Lớn Lên Trước & Sau (Before / After Comparison) */}
+      {comparisonPlant && (
+        <div className="fixed inset-0 z-50 bg-forest-950/80 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-white dark:bg-charcoal-900 rounded-3xl max-w-4xl w-full p-6 shadow-2xl border border-forest-100 dark:border-forest-800 space-y-6 max-h-[95vh] overflow-y-auto">
+            
+            {/* Modal Header */}
+            <div className="flex items-center justify-between pb-4 border-b border-forest-100 dark:border-forest-800">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-herbal-50 dark:bg-charcoal-800 flex items-center justify-center">
+                  <SplitSquareVertical className="w-5 h-5 text-herbal-600 dark:text-herbal-400" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-serif font-bold text-forest-950 dark:text-cream-50">
+                    {isEn ? `Growth Journey: ${comparisonPlant.custom_name}` : `Hành Trình Lớn Lên: ${comparisonPlant.custom_name}`}
+                  </h3>
+                  <p className="text-xs text-forest-700 dark:text-forest-300">
+                    {isEn ? 'Compare planting day with latest growth milestone' : 'So sánh ảnh ngày đầu trồng với mốc sinh trưởng mới nhất'}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setComparisonMode(comparisonMode === 'sideBySide' ? 'slider' : 'sideBySide')}
+                  className="px-3 py-1.5 rounded-xl border border-forest-200 dark:border-forest-700 text-xs font-semibold text-forest-800 dark:text-forest-200 hover:bg-forest-50 dark:hover:bg-charcoal-800 transition flex items-center gap-1.5"
+                >
+                  <Sliders className="w-3.5 h-3.5 text-herbal-600" />
+                  <span>{comparisonMode === 'sideBySide' ? (isEn ? 'Split Slider' : 'Thanh trượt') : (isEn ? 'Side by Side' : 'Song song')}</span>
+                </button>
+
+                <button
+                  onClick={() => setComparisonPlant(null)}
+                  className="p-1.5 rounded-xl text-gray-400 hover:text-gray-700 dark:hover:text-cream-100 hover:bg-forest-50 dark:hover:bg-charcoal-800"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Comparison Body */}
+            {(() => {
+              const plantLogs = diaries.filter((d) => d.garden_plant_id === comparisonPlant.id);
+              const initialPhoto = comparisonPlant.cover_image_url;
+              const initialDate = comparisonPlant.planted_date;
+              const latestEntry = plantLogs.length > 0 ? plantLogs[0] : null;
+              const latestPhoto = latestEntry ? latestEntry.image_url : initialPhoto;
+              const latestDate = latestEntry ? latestEntry.entry_date : initialDate;
+              const totalDays = calculateDaysPlanted(initialDate);
+
+              return (
+                <div className="space-y-6">
+                  {/* Stats banner */}
+                  <div className="p-4 rounded-2xl bg-cream-50 dark:bg-charcoal-800 border border-forest-100 dark:border-forest-700 flex flex-wrap items-center justify-between gap-4">
+                    <div className="flex items-center gap-2">
+                      <span className="px-3 py-1 rounded-full bg-herbal-100 dark:bg-herbal-900/60 text-herbal-900 dark:text-herbal-200 font-bold text-xs">
+                        +{totalDays} {isEn ? 'days of growth' : 'ngày chăm sóc'}
+                      </span>
+                      <span className="text-xs text-forest-700 dark:text-forest-300">
+                        {isEn ? `Planted on ${initialDate} → Latest log ${latestDate}` : `Từ ngày trồng ${initialDate} → Mốc mới nhất ${latestDate}`}
+                      </span>
+                    </div>
+
+                    <span className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 flex items-center gap-1">
+                      <CheckCircle2 className="w-4 h-4" />
+                      {isEn ? 'Vigorous leaf & root expansion' : 'Bộ rễ và cành nhánh phát triển khỏe mạnh'}
+                    </span>
+                  </div>
+
+                  {/* Mode 1: Side by Side */}
+                  {comparisonMode === 'sideBySide' ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between text-xs font-bold text-forest-900 dark:text-cream-100">
+                          <span className="flex items-center gap-1">
+                            <span className="w-2 h-2 rounded-full bg-amber-500"></span>
+                            {isEn ? 'Before: Day 1 (Planted)' : 'Trước: Ngày đầu mới trồng'}
+                          </span>
+                          <span className="text-gray-500 font-normal">{initialDate}</span>
+                        </div>
+                        <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-forest-950 border border-forest-200 dark:border-forest-800 shadow-sm">
+                          <img
+                            src={initialPhoto}
+                            alt="Before planting"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <p className="text-xs text-gray-500 italic">
+                          {isEn ? 'Initial seedling stage in coco peat container.' : 'Giai đoạn cắm cành / ươm giống ban đầu.'}
+                        </p>
+                      </div>
+
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between text-xs font-bold text-forest-900 dark:text-cream-100">
+                          <span className="flex items-center gap-1">
+                            <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                            {isEn ? 'After: Current Milestone' : 'Sau: Hiện tại phát triển'}
+                          </span>
+                          <span className="text-emerald-600 font-bold">{latestDate}</span>
+                        </div>
+                        <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-forest-950 border border-forest-200 dark:border-forest-800 shadow-sm">
+                          <img
+                            src={latestPhoto}
+                            alt="Current growth"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <p className="text-xs text-emerald-700 dark:text-emerald-400 font-medium">
+                          {latestEntry?.stage || (isEn ? 'Thriving in full balcony light.' : 'Cây phát triển sum suê dưới nắng ban công.')}
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    /* Mode 2: Interactive Split Slider */
+                    <div className="space-y-3">
+                      <div className="relative aspect-[16/10] max-h-[500px] rounded-2xl overflow-hidden select-none border border-forest-200 dark:border-forest-800 shadow-lg bg-forest-950">
+                        {/* Background: After Image */}
+                        <img
+                          src={latestPhoto}
+                          alt="After growth"
+                          className="absolute inset-0 w-full h-full object-cover"
+                        />
+                        <div className="absolute top-3 right-3 px-3 py-1 rounded-full bg-forest-950/80 backdrop-blur-xs text-white text-xs font-bold">
+                          {isEn ? `After (${latestDate})` : `Hiện tại (${latestDate})`}
+                        </div>
+
+                        {/* Foreground: Before Image clipped */}
+                        <div
+                          className="absolute inset-0 overflow-hidden"
+                          style={{ width: `${sliderPos}%` }}
+                        >
+                          <img
+                            src={initialPhoto}
+                            alt="Before planting"
+                            className="absolute inset-0 w-full h-full object-cover max-w-none"
+                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                          />
+                          <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-forest-950/80 backdrop-blur-xs text-white text-xs font-bold">
+                            {isEn ? `Before (${initialDate})` : `Ngày đầu (${initialDate})`}
+                          </div>
+                        </div>
+
+                        {/* Divider Line & Handle */}
+                        <div
+                          className="absolute top-0 bottom-0 w-1 bg-white shadow-xl cursor-ew-resize flex items-center justify-center"
+                          style={{ left: `${sliderPos}%` }}
+                        >
+                          <div className="w-8 h-8 rounded-full bg-white text-forest-900 shadow-lg flex items-center justify-center font-bold text-xs border border-forest-200">
+                            ↔
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Slider Input */}
+                      <div className="flex items-center gap-4 px-2">
+                        <span className="text-xs font-bold text-gray-500">0% (Sau)</span>
+                        <input
+                          type="range"
+                          min="0"
+                          max="100"
+                          value={sliderPos}
+                          onChange={(e) => setSliderPos(Number(e.target.value))}
+                          className="w-full h-2 bg-forest-200 rounded-lg appearance-none cursor-pointer accent-herbal-600"
+                        />
+                        <span className="text-xs font-bold text-gray-500">100% (Trước)</span>
+                      </div>
+                    </div>
+                  )}
+
+                </div>
+              );
+            })()}
+
+            {/* Modal Footer */}
+            <div className="pt-4 border-t border-forest-100 dark:border-forest-800 flex justify-end">
+              <button
+                onClick={() => setComparisonPlant(null)}
+                className="px-6 py-2 rounded-xl bg-forest-900 hover:bg-forest-950 text-white text-xs font-semibold"
+              >
+                {isEn ? 'Close Comparison' : 'Đóng So Sánh'}
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
+
+      {/* 8. Modal: Thêm Cây Vào Vườn */}
       {isAddPlantOpen && (
         <div className="fixed inset-0 z-50 bg-forest-950/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-forest-100 space-y-5 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between pb-3 border-b border-forest-100">
-              <h3 className="text-lg font-serif font-bold text-forest-950 flex items-center gap-2">
+          <div className="bg-white dark:bg-charcoal-900 rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-forest-100 dark:border-forest-800 space-y-5 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between pb-3 border-b border-forest-100 dark:border-forest-800">
+              <h3 className="text-lg font-serif font-bold text-forest-950 dark:text-cream-50 flex items-center gap-2">
                 <Leaf className="w-5 h-5 text-herbal-600" />
-                <span>Thêm Cây Mới Vào Vườn</span>
+                <span>{isEn ? 'Add New Plant to Garden' : 'Thêm Cây Mới Vào Vườn'}</span>
               </h3>
               <button
                 onClick={() => setIsAddPlantOpen(false)}
-                className="p-1 rounded-xl text-gray-400 hover:text-gray-700 hover:bg-forest-50"
+                className="p-1 rounded-xl text-gray-400 hover:text-gray-700 dark:hover:text-cream-100 hover:bg-forest-50 dark:hover:bg-charcoal-800"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             <form onSubmit={handleSubmitNewPlant} className="space-y-4 text-xs">
-              {/* Chọn cây từ 50 loài có sẵn */}
+              {/* Chọn cây từ danh mục có sẵn */}
               <div>
-                <label className="block font-bold text-forest-900 mb-1">
-                  Chọn từ danh mục 50 loài chuẩn hóa (hoặc tự nhập bên dưới):
+                <label className="block font-bold text-forest-900 dark:text-cream-100 mb-1">
+                  {isEn
+                    ? 'Select from botanical catalog (or enter custom name below):'
+                    : 'Chọn từ danh mục 50 loài chuẩn hóa (hoặc tự nhập bên dưới):'}
                 </label>
                 <select
                   value={newSelectedSeedId}
                   onChange={(e) => handleSelectSeedPlant(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-xl border border-forest-200 text-xs text-forest-950 bg-white"
+                  className="w-full px-3 py-2.5 rounded-xl border border-forest-200 dark:border-forest-700 text-xs text-forest-950 dark:text-cream-100 bg-white dark:bg-charcoal-800"
                 >
-                  <option value="">-- Tự nhập cây riêng của tôi --</option>
-                  {SEED_PLANTS.map((p) => (
-                    <option key={p.id} value={p.id}>
-                      {p.common_name} ({p.scientific_name})
-                    </option>
-                  ))}
+                  <option value="">{isEn ? '-- Enter custom plant --' : '-- Tự nhập cây riêng của tôi --'}</option>
+                  {SEED_PLANTS.map((p) => {
+                    const loc = localizePlant(p, language);
+                    return (
+                      <option key={p.id} value={p.id}>
+                        {loc.common_name} ({p.scientific_name})
+                      </option>
+                    );
+                  })}
                 </select>
               </div>
 
               {/* Tên thân mật đặt cho cây */}
               <div>
-                <label className="block font-bold text-forest-900 mb-1">
-                  Tên cây của bạn *
+                <label className="block font-bold text-forest-900 dark:text-cream-100 mb-1">
+                  {isEn ? 'Your Plant Name *' : 'Tên cây của bạn *'}
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder="VD: Chậu Ổi Lê Ban Công, Khóm Húng Chanh Trị Ho..."
+                  placeholder={isEn ? 'e.g. Balcony Guava Tree, Indian Borage Pot...' : 'VD: Chậu Ổi Lê Ban Công, Khóm Húng Chanh Trị Ho...'}
                   value={newCustomName}
                   onChange={(e) => setNewCustomName(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-forest-200 text-xs text-forest-950"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-forest-200 dark:border-forest-700 text-xs text-forest-950 dark:text-cream-100 bg-white dark:bg-charcoal-800"
                 />
               </div>
 
               {/* Ngày trồng & Loại chậu */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-forest-900 mb-1">Ngày bắt đầu trồng</label>
+                  <label className="block font-bold text-forest-900 dark:text-cream-100 mb-1">
+                    {isEn ? 'Date Planted' : 'Ngày bắt đầu trồng'}
+                  </label>
                   <input
                     type="date"
                     value={newPlantedDate}
                     onChange={(e) => setNewPlantedDate(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-xl border border-forest-200 text-xs text-forest-950 bg-white"
+                    className="w-full px-3 py-2.5 rounded-xl border border-forest-200 dark:border-forest-700 text-xs text-forest-950 dark:text-cream-100 bg-white dark:bg-charcoal-800"
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-forest-900 mb-1">Loại chậu trồng</label>
+                  <label className="block font-bold text-forest-900 dark:text-cream-100 mb-1">
+                    {isEn ? 'Container / Pot Type' : 'Loại chậu trồng'}
+                  </label>
                   <input
                     type="text"
                     value={newPotType}
                     onChange={(e) => setNewPotType(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-xl border border-forest-200 text-xs text-forest-950"
+                    placeholder={isEn ? 'e.g. Smart Planter 35cm' : 'Chậu nhựa thông minh 35cm'}
+                    className="w-full px-3 py-2.5 rounded-xl border border-forest-200 dark:border-forest-700 text-xs text-forest-950 dark:text-cream-100 bg-white dark:bg-charcoal-800"
                   />
                 </div>
               </div>
 
+              {/* Chu kỳ tưới nước */}
+              <div>
+                <label className="block font-bold text-forest-900 dark:text-cream-100 mb-1">
+                  {isEn ? 'Watering Frequency' : 'Chu kỳ tưới nước'}
+                </label>
+                <select
+                  value={newWateringInterval}
+                  onChange={(e) => setNewWateringInterval(Number(e.target.value))}
+                  className="w-full px-3 py-2.5 rounded-xl border border-forest-200 dark:border-forest-700 text-xs text-forest-950 dark:text-cream-100 bg-white dark:bg-charcoal-800"
+                >
+                  <option value={1}>{isEn ? 'Daily (1 time / day)' : 'Hàng ngày (1 lần/ngày)'}</option>
+                  <option value={2}>{isEn ? 'Every 2 days' : 'Mỗi 2 ngày/lần'}</option>
+                  <option value={3}>{isEn ? 'Every 3 days' : 'Mỗi 3 ngày/lần'}</option>
+                  <option value={7}>{isEn ? 'Weekly (Drought-tolerant)' : 'Mỗi tuần/lần (Cây chịu hạn)'}</option>
+                </select>
+              </div>
+
               {/* Trạng thái sinh trưởng */}
               <div>
-                <label className="block font-bold text-forest-900 mb-1">Trạng thái hiện tại</label>
+                <label className="block font-bold text-forest-900 dark:text-cream-100 mb-1">
+                  {isEn ? 'Current Growth Status' : 'Trạng thái hiện tại'}
+                </label>
                 <select
                   value={newPlantStatus}
                   onChange={(e) => setNewPlantStatus(e.target.value as any)}
-                  className="w-full px-3 py-2.5 rounded-xl border border-forest-200 text-xs text-forest-950 bg-white"
+                  className="w-full px-3 py-2.5 rounded-xl border border-forest-200 dark:border-forest-700 text-xs text-forest-950 dark:text-cream-100 bg-white dark:bg-charcoal-800"
                 >
-                  <option value="healthy">Đang phát triển xanh tốt</option>
-                  <option value="flowering">Đang trổ hoa bói</option>
-                  <option value="fruiting">Đang đậu quả mọng</option>
-                  <option value="recovering">Hồi phục sau bệnh</option>
-                  <option value="dormant">Nghỉ đông / Chờ đâm chồi</option>
+                  <option value="healthy">{isEn ? 'Thriving & Healthy' : 'Đang phát triển xanh tốt'}</option>
+                  <option value="flowering">{isEn ? 'Flowering Stage' : 'Đang trổ hoa bói'}</option>
+                  <option value="fruiting">{isEn ? 'Fruiting Stage' : 'Đang đậu quả mọng'}</option>
+                  <option value="recovering">{isEn ? 'Recovering Post-Pest' : 'Hồi phục sau bệnh'}</option>
+                  <option value="dormant">{isEn ? 'Dormant / Awaiting Shoots' : 'Nghỉ đông / Chờ đâm chồi'}</option>
                 </select>
               </div>
 
               {/* Ảnh đại diện */}
               <div>
-                <label className="block font-bold text-forest-900 mb-1">Ảnh đại diện chậu cây</label>
+                <label className="block font-bold text-forest-900 dark:text-cream-100 mb-1">
+                  {isEn ? 'Plant Cover Photo' : 'Ảnh đại diện chậu cây'}
+                </label>
                 <div className="flex items-center gap-3">
                   <input
                     type="file"
@@ -634,18 +1196,18 @@ export const GardenPage: React.FC = () => {
                     type="button"
                     onClick={() => plantFileInputRef.current?.click()}
                     disabled={isUploadingPlantCover}
-                    className="px-4 py-2 rounded-xl bg-forest-50 hover:bg-forest-100 border border-forest-200 text-forest-800 text-xs font-semibold flex items-center gap-1.5"
+                    className="px-4 py-2 rounded-xl bg-forest-50 dark:bg-charcoal-800 hover:bg-forest-100 dark:hover:bg-charcoal-700 border border-forest-200 dark:border-forest-700 text-forest-800 dark:text-forest-200 text-xs font-semibold flex items-center gap-1.5"
                   >
                     {isUploadingPlantCover ? (
                       <Loader2 className="w-3.5 h-3.5 animate-spin text-herbal-600" />
                     ) : (
                       <Upload className="w-3.5 h-3.5 text-herbal-600" />
                     )}
-                    <span>Tải ảnh từ máy (Tự tẩy EXIF)</span>
+                    <span>{isEn ? 'Upload Photo (Auto EXIF Strip)' : 'Tải ảnh từ máy (Tự tẩy EXIF)'}</span>
                   </button>
                   {plantCoverUrl && (
                     <span className="text-[11px] text-emerald-600 font-medium flex items-center gap-1">
-                      <Check className="w-3 h-3" /> Đã có ảnh
+                      <Check className="w-3 h-3" /> {isEn ? 'Photo selected' : 'Đã có ảnh'}
                     </span>
                   )}
                 </div>
@@ -653,13 +1215,15 @@ export const GardenPage: React.FC = () => {
 
               {/* Ghi chú */}
               <div>
-                <label className="block font-bold text-forest-900 mb-1">Ghi chú về nguồn gốc / dinh dưỡng</label>
+                <label className="block font-bold text-forest-900 dark:text-cream-100 mb-1">
+                  {isEn ? 'Notes on origin & fertilizers' : 'Ghi chú về nguồn gốc / dinh dưỡng'}
+                </label>
                 <textarea
                   rows={2}
-                  placeholder="VD: Cành giâm xin từ bạn Minh Hiệp Bình Chánh, bón trùn quế..."
+                  placeholder={isEn ? 'e.g. Cutting from friend, potted with vermicompost...' : 'VD: Cành giâm xin từ bạn Minh, bón phân trùn quế...'}
                   value={newNotes}
                   onChange={(e) => setNewNotes(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl border border-forest-200 text-xs text-forest-950"
+                  className="w-full px-3 py-2 rounded-xl border border-forest-200 dark:border-forest-700 text-xs text-forest-950 dark:text-cream-100 bg-white dark:bg-charcoal-800"
                 />
               </div>
 
@@ -668,15 +1232,15 @@ export const GardenPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setIsAddPlantOpen(false)}
-                  className="px-4 py-2 rounded-xl border border-forest-200 text-xs font-semibold text-forest-800"
+                  className="px-4 py-2 rounded-xl border border-forest-200 dark:border-forest-700 text-xs font-semibold text-forest-800 dark:text-forest-300"
                 >
-                  Hủy
+                  {isEn ? 'Cancel' : 'Hủy'}
                 </button>
                 <button
                   type="submit"
                   className="px-6 py-2.5 rounded-xl bg-forest-900 hover:bg-forest-950 text-white text-xs font-bold shadow-md"
                 >
-                  Lưu Vào Vườn
+                  {isEn ? 'Save to Garden' : 'Lưu Vào Vườn'}
                 </button>
               </div>
             </form>
@@ -684,18 +1248,18 @@ export const GardenPage: React.FC = () => {
         </div>
       )}
 
-      {/* 7. Modal: Ghi Nhật Ký Ảnh */}
+      {/* 9. Modal: Ghi Nhật Ký Ảnh */}
       {isAddDiaryOpen && (
         <div className="fixed inset-0 z-50 bg-forest-950/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-forest-100 space-y-5 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between pb-3 border-b border-forest-100">
-              <h3 className="text-lg font-serif font-bold text-forest-950 flex items-center gap-2">
+          <div className="bg-white dark:bg-charcoal-900 rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-forest-100 dark:border-forest-800 space-y-5 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between pb-3 border-b border-forest-100 dark:border-forest-800">
+              <h3 className="text-lg font-serif font-bold text-forest-950 dark:text-cream-50 flex items-center gap-2">
                 <Camera className="w-5 h-5 text-herbal-600" />
-                <span>Ghi Nhật Ký Ảnh Theo Dõi Cây</span>
+                <span>{isEn ? 'Log Plant Photo Diary' : 'Ghi Nhật Ký Ảnh Theo Dõi Cây'}</span>
               </h3>
               <button
                 onClick={() => setIsAddDiaryOpen(false)}
-                className="p-1 rounded-xl text-gray-400 hover:text-gray-700 hover:bg-forest-50"
+                className="p-1 rounded-xl text-gray-400 hover:text-gray-700 dark:hover:text-cream-100 hover:bg-forest-50 dark:hover:bg-charcoal-800"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -704,11 +1268,13 @@ export const GardenPage: React.FC = () => {
             <form onSubmit={handleSubmitNewDiary} className="space-y-4 text-xs">
               {/* Chọn cây ghi nhật ký */}
               <div>
-                <label className="block font-bold text-forest-900 mb-1">Chọn cây theo dõi *</label>
+                <label className="block font-bold text-forest-900 dark:text-cream-100 mb-1">
+                  {isEn ? 'Select Plant to Track *' : 'Chọn cây theo dõi *'}
+                </label>
                 <select
                   value={diaryPlantId}
                   onChange={(e) => setDiaryPlantId(e.target.value)}
-                  className="w-full px-3 py-2.5 rounded-xl border border-forest-200 text-xs text-forest-950 bg-white"
+                  className="w-full px-3 py-2.5 rounded-xl border border-forest-200 dark:border-forest-700 text-xs text-forest-950 dark:text-cream-100 bg-white dark:bg-charcoal-800"
                 >
                   {plants.map((p) => (
                     <option key={p.id} value={p.id}>
@@ -721,35 +1287,39 @@ export const GardenPage: React.FC = () => {
               {/* Ngày & Giai đoạn */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-forest-900 mb-1">Ngày ghi nhật ký</label>
+                  <label className="block font-bold text-forest-900 dark:text-cream-100 mb-1">
+                    {isEn ? 'Log Date' : 'Ngày ghi nhật ký'}
+                  </label>
                   <input
                     type="date"
                     value={diaryDate}
                     onChange={(e) => setDiaryDate(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-xl border border-forest-200 text-xs text-forest-950 bg-white"
+                    className="w-full px-3 py-2.5 rounded-xl border border-forest-200 dark:border-forest-700 text-xs text-forest-950 dark:text-cream-100 bg-white dark:bg-charcoal-800"
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-forest-900 mb-1">Giai đoạn</label>
+                  <label className="block font-bold text-forest-900 dark:text-cream-100 mb-1">
+                    {isEn ? 'Stage' : 'Giai đoạn'}
+                  </label>
                   <select
                     value={diaryStage}
                     onChange={(e) => setDiaryStage(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-xl border border-forest-200 text-xs text-forest-950 bg-white"
+                    className="w-full px-3 py-2.5 rounded-xl border border-forest-200 dark:border-forest-700 text-xs text-forest-950 dark:text-cream-100 bg-white dark:bg-charcoal-800"
                   >
-                    <option value="Mới trồng / Cắm cành">Mới trồng / Cắm cành</option>
-                    <option value="Đâm chồi nảy lộc">Đâm chồi nảy lộc</option>
-                    <option value="Bấm ngọn kích nhánh">Bấm ngọn kích nhánh</option>
-                    <option value="Trổ hoa bói">Trổ hoa bói</option>
-                    <option value="Đậu quả non">Đậu quả non</option>
-                    <option value="Thu hoạch đợt 1">Thu hoạch đợt 1</option>
-                    <option value="Hồi sức sau cắt tỉa">Hồi sức sau cắt tỉa</option>
+                    {stageOptions.map((stg) => (
+                      <option key={stg.vi} value={stg.vi}>
+                        {isEn ? stg.en : stg.vi}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
 
               {/* Tải ảnh nhật ký */}
               <div>
-                <label className="block font-bold text-forest-900 mb-1">Ảnh chụp tiến triển *</label>
+                <label className="block font-bold text-forest-900 dark:text-cream-100 mb-1">
+                  {isEn ? 'Progress Photo *' : 'Ảnh chụp tiến triển *'}
+                </label>
                 <div className="flex items-center gap-3">
                   <input
                     type="file"
@@ -762,18 +1332,18 @@ export const GardenPage: React.FC = () => {
                     type="button"
                     onClick={() => diaryFileInputRef.current?.click()}
                     disabled={isUploadingDiary}
-                    className="px-4 py-2 rounded-xl bg-forest-50 hover:bg-forest-100 border border-forest-200 text-forest-800 text-xs font-semibold flex items-center gap-1.5"
+                    className="px-4 py-2 rounded-xl bg-forest-50 dark:bg-charcoal-800 hover:bg-forest-100 dark:hover:bg-charcoal-700 border border-forest-200 dark:border-forest-700 text-forest-800 dark:text-forest-200 text-xs font-semibold flex items-center gap-1.5"
                   >
                     {isUploadingDiary ? (
                       <Loader2 className="w-3.5 h-3.5 animate-spin text-herbal-600" />
                     ) : (
                       <Upload className="w-3.5 h-3.5 text-herbal-600" />
                     )}
-                    <span>Tải ảnh lá / quả (Tự tẩy EXIF)</span>
+                    <span>{isEn ? 'Upload Photo (Auto EXIF Strip)' : 'Tải ảnh lá / quả (Tự tẩy EXIF)'}</span>
                   </button>
                   {diaryImageUrl && (
                     <span className="text-[11px] text-emerald-600 font-medium flex items-center gap-1">
-                      <Check className="w-3 h-3" /> Đã tải ảnh lên
+                      <Check className="w-3 h-3" /> {isEn ? 'Photo uploaded' : 'Đã tải ảnh lên'}
                     </span>
                   )}
                 </div>
@@ -781,14 +1351,16 @@ export const GardenPage: React.FC = () => {
 
               {/* Ghi chú nhật ký */}
               <div>
-                <label className="block font-bold text-forest-900 mb-1">Ghi chú tình trạng & phân bón *</label>
+                <label className="block font-bold text-forest-900 dark:text-cream-100 mb-1">
+                  {isEn ? 'Notes on condition & nutrients *' : 'Ghi chú tình trạng & phân bón *'}
+                </label>
                 <textarea
                   rows={3}
                   required
-                  placeholder="VD: Cây bật đọt non rất nhanh sau đợt mưa, đã tưới thêm dịch chuối pha loãng 1:20..."
+                  placeholder={isEn ? 'e.g. Rapid new shoot emergence after rain, watered with 1:20 diluted compost tea...' : 'VD: Cây bật đọt non rất nhanh sau đợt mưa, đã tưới thêm dịch chuối pha loãng 1:20...'}
                   value={diaryNote}
                   onChange={(e) => setDiaryNote(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl border border-forest-200 text-xs text-forest-950"
+                  className="w-full px-3 py-2 rounded-xl border border-forest-200 dark:border-forest-700 text-xs text-forest-950 dark:text-cream-100 bg-white dark:bg-charcoal-800"
                 />
               </div>
 
@@ -797,16 +1369,16 @@ export const GardenPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setIsAddDiaryOpen(false)}
-                  className="px-4 py-2 rounded-xl border border-forest-200 text-xs font-semibold text-forest-800"
+                  className="px-4 py-2 rounded-xl border border-forest-200 dark:border-forest-700 text-xs font-semibold text-forest-800 dark:text-forest-300"
                 >
-                  Hủy
+                  {isEn ? 'Cancel' : 'Hủy'}
                 </button>
                 <button
                   type="submit"
                   disabled={!diaryImageUrl || !diaryNote.trim()}
                   className="px-6 py-2.5 rounded-xl bg-forest-900 hover:bg-forest-950 disabled:opacity-50 text-white text-xs font-bold shadow-md"
                 >
-                  Lưu Nhật Ký
+                  {isEn ? 'Save Diary Entry' : 'Lưu Nhật Ký'}
                 </button>
               </div>
             </form>

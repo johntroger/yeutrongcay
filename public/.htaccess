@@ -9,6 +9,9 @@
     Header set X-XSS-Protection "1; mode=block"
   </IfModule>
 
+  # Dynamic Sitemap: Tự động đồng bộ URL mới từ database thời gian thực
+  RewriteRule ^sitemap\.xml$ api/sitemap.php [L]
+
   # SPA Routing: Route non-existing files/directories to index.html
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d

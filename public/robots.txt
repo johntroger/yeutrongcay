@@ -1,0 +1,13 @@
+# https://www.robotstxt.org/robotstxt.html
+# robots.txt cho website Yêu Trồng Cây (yeutrongcay.com)
+
+User-agent: *
+Allow: /
+
+# Chặn bot quét các thư mục API backend và uploads nội bộ
+Disallow: /api/
+Disallow: /uploads/
+Disallow: /*?*q=
+
+# Sitemap index
+Sitemap: https://yeutrongcay.com/sitemap.xml

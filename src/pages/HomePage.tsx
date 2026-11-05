@@ -7,6 +7,8 @@ import { useSEO } from '../utils/useSEO.ts';
 import { Hero } from '../components/Hero.tsx';
 import { MedicalDisclaimer } from '../components/MedicalDisclaimer.tsx';
 import { PlantCard } from '../components/PlantCard.tsx';
+import { useLanguage } from '../context/LanguageContext.tsx';
+import { PLANT_ENGLISH_MAP } from '../i18n/plantTranslations.ts';
 import {
   Filter,
   Sparkles,
@@ -29,6 +31,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   searchQuery,
   onClearSearch,
 }) => {
+  const { t, isEn } = useLanguage();
   const [allPlants, setAllPlants] = useState<Plant[]>(SEED_PLANTS);
   const [visibleCount, setVisibleCount] = useState(6);
 
@@ -50,26 +53,33 @@ export const HomePage: React.FC<HomePageProps> = ({
     setVisibleCount(6);
   }, [activeMode]);
 
-  // Lọc cây theo chế độ vườn đang chọn và từ khóa tìm kiếm
+  // Lọc cây theo chế độ vườn đang chọn và từ khóa tìm kiếm (hỗ trợ cả tiếng Anh lẫn tiếng Việt)
   const filteredPlants = useMemo(() => {
     return allPlants.filter((plant) => {
       const matchesCategory = plant.category === activeMode;
       const q = searchQuery.toLowerCase().trim();
       if (!q) return matchesCategory;
 
+      const enData = PLANT_ENGLISH_MAP[plant.id];
+      const enCommon = enData?.common_name.toLowerCase() || '';
+      const enAliases = enData?.aliases.map((a) => a.toLowerCase()) || [];
+      const enTags = enData?.tags.map((t) => t.toLowerCase()) || [];
+
       const matchesSearch =
         plant.common_name.toLowerCase().includes(q) ||
         plant.scientific_name.toLowerCase().includes(q) ||
         plant.aliases.some((a) => a.toLowerCase().includes(q)) ||
         plant.tags.some((t) => t.toLowerCase().includes(q)) ||
+        enCommon.includes(q) ||
+        enAliases.some((a) => a.includes(q)) ||
+        enTags.some((t) => t.includes(q)) ||
         (plant.medical_info?.uses.some((u) => u.toLowerCase().includes(q)) ?? false);
 
       return matchesCategory && matchesSearch;
     });
   }, [allPlants, activeMode, searchQuery]);
 
-  // Danh sách hiển thị: nếu đang tìm kiếm thì hiển thị toàn bộ kết quả khớp,
-  // nếu ở chế độ mặc định chỉ hiển thị số lượng minh họa (6 cây) để trang chủ gọn gàng
+  // Danh sách hiển thị
   const displayedPlants = useMemo(() => {
     if (searchQuery.trim()) {
       return filteredPlants;
@@ -78,18 +88,31 @@ export const HomePage: React.FC<HomePageProps> = ({
   }, [filteredPlants, searchQuery, visibleCount]);
 
   const categoryInfoMap: Record<PlantCategory, { path: string; name: string }> = {
-    herb: { path: '/thao-duoc', name: 'Tủ Thuốc Xanh (Thảo Dược Bản Địa)' },
-    fruit: { path: '/cay-an-trai', name: 'Trái Ngọt Phố (Cây Ăn Quả Đô Thị)' },
-    ornamental: { path: '/cay-canh', name: 'Cây Cảnh & Không Gian Thư Thái' },
+    herb: {
+      path: '/thao-duoc',
+      name: isEn ? 'Green Pharmacy (Native Medicinal Herbs)' : 'Tủ Thuốc Xanh (Thảo Dược Bản Địa)',
+    },
+    fruit: {
+      path: '/cay-an-trai',
+      name: isEn ? 'Balcony Fruits (Urban Orchards)' : 'Trái Ngọt Phố (Cây Ăn Quả Đô Thị)',
+    },
+    ornamental: {
+      path: '/cay-canh',
+      name: isEn ? 'Bonsai & Calming Living Spaces' : 'Cây Cảnh & Không Gian Thư Thái',
+    },
   };
 
   useSEO({
-    title: 'Yêu Trồng Cây - Nền Tảng Thực Vật Bản Địa & Cây Trồng Đô Thị Việt Nam',
-    description: 'Bách khoa tri thức thực vật, tủ thuốc thảo dược gia đình, bí quyết trồng cây ăn quả ban công và trạm trao đổi hạt giống an toàn ba miền.',
+    title: isEn
+      ? 'Yeu Trong Cay - Native Herbs & Urban Balcony Gardening'
+      : 'Yêu Trồng Cây - Nền Tảng Thực Vật Bản Địa & Cây Trồng Đô Thị Việt Nam',
+    description: isEn
+      ? 'Botanical knowledge base, family herbal pharmacy, balcony container fruit tree secrets, and biosecure seed exchange.'
+      : 'Bách khoa tri thức thực vật, tủ thuốc thảo dược gia đình, bí quyết trồng cây ăn quả ban công và trạm trao đổi hạt giống an toàn ba miền.',
   });
 
   return (
-    <div className="min-h-screen bg-cream-100 flex flex-col">
+    <div className="min-h-screen bg-cream-100 dark:bg-charcoal-950 text-charcoal-900 dark:text-cream-100 flex flex-col transition-colors duration-200">
       {/* 1. Hero Banner */}
       <Hero
         activeMode={activeMode}
@@ -104,20 +127,20 @@ export const HomePage: React.FC<HomePageProps> = ({
             to="/thao-duoc"
             target="_blank"
             rel="noopener noreferrer"
-            className="p-5 rounded-3xl bg-white border border-forest-100 shadow-md hover:shadow-xl hover:border-herbal-400 transition group flex flex-col justify-between"
+            className="p-5 rounded-3xl bg-white dark:bg-charcoal-900 border border-forest-100 dark:border-forest-900 shadow-md hover:shadow-xl hover:border-herbal-400 dark:hover:border-herbal-500 transition group flex flex-col justify-between"
           >
             <div>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-2xl">🌿</span>
-                <span className="text-[11px] font-semibold text-herbal-700 bg-herbal-50 px-2.5 py-1 rounded-full flex items-center gap-1">
-                  Mở Tab Mới <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
+                <span className="text-[11px] font-semibold text-herbal-700 dark:text-herbal-300 bg-herbal-50 dark:bg-herbal-950/60 px-2.5 py-1 rounded-full flex items-center gap-1 border border-herbal-200/50 dark:border-herbal-800/40">
+                  {t('common.openTab')} <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
                 </span>
               </div>
-              <h3 className="text-base font-serif font-bold text-forest-950 group-hover:text-herbal-700 transition">
-                Tủ Thuốc Xanh (Thảo Dược)
+              <h3 className="text-base font-serif font-bold text-forest-950 dark:text-cream-50 group-hover:text-herbal-700 dark:group-hover:text-herbal-400 transition">
+                {t('categories.herb')}
               </h3>
-              <p className="text-xs text-forest-700/80 mt-1 line-clamp-2">
-                20 loài thảo dược bản địa trị ho, giải cảm, bổ khí huyết và bài thuốc an toàn.
+              <p className="text-xs text-forest-700/80 dark:text-forest-300 mt-1 line-clamp-2">
+                {t('categories.herbDesc')}
               </p>
             </div>
           </Link>
@@ -126,20 +149,20 @@ export const HomePage: React.FC<HomePageProps> = ({
             to="/cay-an-trai"
             target="_blank"
             rel="noopener noreferrer"
-            className="p-5 rounded-3xl bg-white border border-forest-100 shadow-md hover:shadow-xl hover:border-amber-400 transition group flex flex-col justify-between"
+            className="p-5 rounded-3xl bg-white dark:bg-charcoal-900 border border-forest-100 dark:border-forest-900 shadow-md hover:shadow-xl hover:border-amber-400 dark:hover:border-amber-500 transition group flex flex-col justify-between"
           >
             <div>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-2xl">🍋</span>
-                <span className="text-[11px] font-semibold text-amber-800 bg-amber-50 px-2.5 py-1 rounded-full flex items-center gap-1">
-                  Mở Tab Mới <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
+                <span className="text-[11px] font-semibold text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 px-2.5 py-1 rounded-full flex items-center gap-1 border border-amber-200/50 dark:border-amber-800/40">
+                  {t('common.openTab')} <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
                 </span>
               </div>
-              <h3 className="text-base font-serif font-bold text-forest-950 group-hover:text-amber-800 transition">
-                Trái Ngọt Phố (Cây Ăn Quả)
+              <h3 className="text-base font-serif font-bold text-forest-950 dark:text-cream-50 group-hover:text-amber-800 dark:group-hover:text-amber-400 transition">
+                {t('categories.fruit')}
               </h3>
-              <p className="text-xs text-forest-700/80 mt-1 line-clamp-2">
-                15 giống cây ăn trái lùn nhanh cho quả trồng chậu ban công và sân thượng.
+              <p className="text-xs text-forest-700/80 dark:text-forest-300 mt-1 line-clamp-2">
+                {t('categories.fruitDesc')}
               </p>
             </div>
           </Link>
@@ -148,20 +171,20 @@ export const HomePage: React.FC<HomePageProps> = ({
             to="/cay-canh"
             target="_blank"
             rel="noopener noreferrer"
-            className="p-5 rounded-3xl bg-white border border-forest-100 shadow-md hover:shadow-xl hover:border-purple-400 transition group flex flex-col justify-between"
+            className="p-5 rounded-3xl bg-white dark:bg-charcoal-900 border border-forest-100 dark:border-forest-900 shadow-md hover:shadow-xl hover:border-purple-400 dark:hover:border-purple-500 transition group flex flex-col justify-between"
           >
             <div>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-2xl">🌸</span>
-                <span className="text-[11px] font-semibold text-purple-800 bg-purple-50 px-2.5 py-1 rounded-full flex items-center gap-1">
-                  Mở Tab Mới <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
+                <span className="text-[11px] font-semibold text-purple-800 dark:text-purple-300 bg-purple-50 dark:bg-purple-950/60 px-2.5 py-1 rounded-full flex items-center gap-1 border border-purple-200/50 dark:border-purple-800/40">
+                  {t('common.openTab')} <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
                 </span>
               </div>
-              <h3 className="text-base font-serif font-bold text-forest-950 group-hover:text-purple-800 transition">
-                Cây Cảnh & Thư Thái
+              <h3 className="text-base font-serif font-bold text-forest-950 dark:text-cream-50 group-hover:text-purple-800 dark:group-hover:text-purple-400 transition">
+                {t('categories.ornamental')}
               </h3>
-              <p className="text-xs text-forest-700/80 mt-1 line-clamp-2">
-                15 loài thanh lọc không khí, nghệ thuật bonsai hoa thơm và cây phong thủy tài lộc.
+              <p className="text-xs text-forest-700/80 dark:text-forest-300 mt-1 line-clamp-2">
+                {t('categories.ornamentalDesc')}
               </p>
             </div>
           </Link>
@@ -175,23 +198,33 @@ export const HomePage: React.FC<HomePageProps> = ({
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 flex-1 w-full">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-8 pb-4 border-b border-forest-100">
           <div>
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-forest-900 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-forest-900 dark:text-cream-50 tracking-tight">
               {activeMode === 'herb'
-                ? 'Bách Khoa Thảo Dược Bản Địa'
+                ? isEn
+                  ? 'Native Medicinal Herbs Encyclopedia'
+                  : 'Bách Khoa Thảo Dược Bản Địa'
                 : activeMode === 'fruit'
-                ? 'Bách Khoa Cây Ăn Trái Đô Thị'
+                ? isEn
+                  ? 'Urban Balcony Fruit Trees Encyclopedia'
+                  : 'Bách Khoa Cây Ăn Trái Đô Thị'
+                : isEn
+                ? 'Bonsai & Ornamental Botanical Encyclopedia'
                 : 'Bách Khoa Cây Cảnh & Bonsai'}
             </h2>
-            <p className="text-xs sm:text-sm text-forest-700 mt-1">
+            <p className="text-xs sm:text-sm text-forest-700 dark:text-forest-300 mt-1">
               {searchQuery
-                ? `Tìm thấy ${filteredPlants.length} cây phù hợp từ khóa "${searchQuery}"`
-                : `Hiển thị ${displayedPlants.length} / ${filteredPlants.length} cây minh họa tiêu biểu (Mỗi bài viết mở tab mới)`}
+                ? isEn
+                  ? `Found ${filteredPlants.length} plants matching "${searchQuery}"`
+                  : `Tìm thấy ${filteredPlants.length} cây phù hợp từ khóa "${searchQuery}"`
+                : isEn
+                ? `Showing ${displayedPlants.length} of ${filteredPlants.length} curated botanical varieties (Each opens in a new tab)`
+                : `Hiển thị ${displayedPlants.length} / ${filteredPlants.length} giống cây tuyển chọn trong bách khoa toàn thư (Mỗi bài viết mở tab mới)`}
             </p>
           </div>
 
-          <div className="self-start sm:self-auto flex items-center gap-2 text-xs font-semibold text-forest-800 bg-white px-3.5 py-2 rounded-xl border border-forest-100 shadow-sm">
-            <Filter className="w-4 h-4 text-herbal-600" />
-            <span className="hidden sm:inline">Phân Loại:</span>
+          <div className="self-start sm:self-auto flex items-center gap-2 text-xs font-semibold text-forest-800 dark:text-cream-100 bg-white dark:bg-charcoal-900 px-3.5 py-2 rounded-xl border border-forest-100 dark:border-forest-800 shadow-sm">
+            <Filter className="w-4 h-4 text-herbal-600 dark:text-herbal-400" />
+            <span className="hidden sm:inline">{t('common.category')}:</span>
             <span className="capitalize">{activeMode}</span>
           </div>
         </div>
@@ -210,16 +243,18 @@ export const HomePage: React.FC<HomePageProps> = ({
 
             {/* Thanh điều hướng xem thêm & mở toàn bộ bách khoa sang tab mới */}
             {!searchQuery && (
-              <div className="mt-10 p-6 rounded-3xl bg-white border border-forest-100 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="mt-10 p-6 rounded-3xl bg-white dark:bg-charcoal-900 border border-forest-100 dark:border-forest-900 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="inline-block w-2 h-2 rounded-full bg-herbal-500 animate-pulse"></span>
-                    <p className="text-xs uppercase tracking-wider font-bold text-herbal-800">
-                      Bách Khoa Chuyên Sâu
+                    <p className="text-xs uppercase tracking-wider font-bold text-herbal-800 dark:text-herbal-400">
+                      {isEn ? 'In-Depth Botanical Guide' : 'Bách Khoa Chuyên Sâu'}
                     </p>
                   </div>
-                  <p className="text-xs sm:text-sm font-semibold text-forest-900 mt-0.5">
-                    Đang hiển thị {displayedPlants.length} / {filteredPlants.length} cây minh họa. Bạn có thể xem thêm hoặc mở chuyên mục đầy đủ trong tab mới.
+                  <p className="text-xs sm:text-sm font-semibold text-forest-900 dark:text-cream-100 mt-0.5">
+                    {isEn
+                      ? `Displaying ${displayedPlants.length} of ${filteredPlants.length} curated botanical varieties. Explore more below or open the full catalog.`
+                      : `Đang hiển thị ${displayedPlants.length} / ${filteredPlants.length} giống cây tuyển chọn. Bạn có thể xem thêm hoặc mở chuyên mục đầy đủ trong tab mới.`}
                   </p>
                 </div>
 
@@ -227,9 +262,11 @@ export const HomePage: React.FC<HomePageProps> = ({
                   {visibleCount < filteredPlants.length && (
                     <button
                       onClick={() => setVisibleCount((prev) => Math.min(prev + 6, filteredPlants.length))}
-                      className="flex-1 sm:flex-initial px-5 py-2.5 rounded-2xl bg-forest-50 hover:bg-forest-100 text-forest-900 text-xs font-semibold border border-forest-200 transition text-center"
+                      className="flex-1 sm:flex-initial px-5 py-2.5 rounded-2xl bg-forest-50 dark:bg-charcoal-800 hover:bg-forest-100 dark:hover:bg-charcoal-700 text-forest-900 dark:text-cream-100 text-xs font-semibold border border-forest-200 dark:border-forest-700 transition text-center"
                     >
-                      Xem Thêm 6 Cây ({filteredPlants.length - visibleCount} cây còn lại)
+                      {isEn
+                        ? `Show 6 More Plants (${filteredPlants.length - visibleCount} remaining)`
+                        : `Xem Thêm 6 Cây (${filteredPlants.length - visibleCount} cây còn lại)`}
                     </button>
                   )}
 
@@ -239,7 +276,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                     rel="noopener noreferrer"
                     className="flex-1 sm:flex-initial px-5 py-2.5 rounded-2xl bg-forest-900 hover:bg-forest-950 text-white text-xs font-semibold shadow-md hover:shadow-lg transition flex items-center justify-center gap-1.5"
                   >
-                    <span>Mở Toàn Bộ Chuyên Mục (Tab Mới)</span>
+                    <span>{isEn ? 'Open Full Category (New Tab)' : 'Mở Toàn Bộ Chuyên Mục (Tab Mới)'}</span>
                     <ArrowUpRight className="w-4 h-4 text-herbal-400" />
                   </Link>
                 </div>
@@ -250,16 +287,18 @@ export const HomePage: React.FC<HomePageProps> = ({
           <div className="text-center py-16 bg-white rounded-3xl border border-forest-100 p-8 max-w-md mx-auto">
             <Sparkles className="w-10 h-10 text-forest-400 mx-auto mb-3" />
             <h3 className="text-base font-bold text-forest-900 mb-1">
-              Không tìm thấy cây phù hợp
+              {isEn ? 'No matching plants found' : 'Không tìm thấy cây phù hợp'}
             </h3>
             <p className="text-xs text-gray-500 mb-4">
-              Thử tìm kiếm với tên khác hoặc mở chuyên mục riêng.
+              {isEn
+                ? 'Try searching with another name or browse the full category.'
+                : 'Thử tìm kiếm với tên khác hoặc mở chuyên mục riêng.'}
             </p>
             <button
               onClick={onClearSearch}
               className="px-4 py-2 bg-forest-900 text-white rounded-xl text-xs font-medium"
             >
-              Xem tất cả cây
+              {isEn ? 'View all plants' : 'Xem tất cả cây'}
             </button>
           </div>
         )}
@@ -270,13 +309,15 @@ export const HomePage: React.FC<HomePageProps> = ({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-10">
             <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-herbal-500/20 text-herbal-300 border border-herbal-400/30 mb-2">
-              Hệ Sinh Thái Tính Năng
+              {isEn ? 'Feature Ecosystem' : 'Hệ Sinh Thái Tính Năng'}
             </span>
             <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
-              Khám Phá Các Tiện Ích Chuyên Sâu
+              {isEn ? 'Explore Dedicated Garden Spaces' : 'Khám Phá Các Tiện Ích Chuyên Sâu'}
             </h2>
             <p className="text-xs sm:text-sm text-forest-200/80 mt-2">
-              Mỗi tính năng được tối ưu thành một không gian độc lập, mở sang tab mới giúp bạn vừa tra cứu vừa thao tác mượt mà.
+              {isEn
+                ? 'Each tool is crafted as an independent workspace opening in a new tab for seamless multi-tasking.'
+                : 'Mỗi tính năng được tối ưu thành một không gian độc lập, mở sang tab mới giúp bạn vừa tra cứu vừa thao tác mượt mà.'}
             </p>
           </div>
 
@@ -293,14 +334,16 @@ export const HomePage: React.FC<HomePageProps> = ({
                   <span className="text-xl">🏡</span>
                 </div>
                 <h3 className="font-serif font-bold text-base text-white group-hover:text-herbal-300 transition">
-                  Vườn Số Của Tôi
+                  {t('nav.myGarden')}
                 </h3>
                 <p className="text-xs text-forest-300/80 mt-1 leading-relaxed">
-                  Quản lý từng chậu cây ban công, lưu ảnh dòng thời gian trước & sau lớn lên.
+                  {isEn
+                    ? 'Manage balcony plants and preserve before-and-after photo milestones.'
+                    : 'Quản lý từng chậu cây ban công, lưu ảnh dòng thời gian trước & sau lớn lên.'}
                 </p>
               </div>
               <div className="pt-3.5 mt-3.5 border-t border-forest-800/80 flex items-center justify-between text-xs font-semibold text-herbal-400">
-                <span>Mở Vườn Số</span>
+                <span>{isEn ? 'Open Garden' : 'Mở Vườn Số'}</span>
                 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
               </div>
             </Link>
@@ -317,14 +360,16 @@ export const HomePage: React.FC<HomePageProps> = ({
                   <Stethoscope className="w-5 h-5" />
                 </div>
                 <h3 className="font-serif font-bold text-base text-white group-hover:text-herbal-300 transition">
-                  Bác Sĩ Cây Trồng
+                  {t('nav.clinicShort')}
                 </h3>
                 <p className="text-xs text-forest-300/80 mt-1 leading-relaxed">
-                  Chẩn đoán tức thì 3 giây bệnh vàng lá, rệp sáp, thối rễ kèm bài thuốc sinh học.
+                  {isEn
+                    ? 'Instant 3-second diagnosis for yellow leaves, mealybugs, and root rot with organic remedies.'
+                    : 'Chẩn đoán tức thì 3 giây bệnh vàng lá, rệp sáp, thối rễ kèm bài thuốc sinh học.'}
                 </p>
               </div>
               <div className="pt-3.5 mt-3.5 border-t border-forest-800/60 flex items-center justify-between text-xs font-semibold text-herbal-400">
-                <span>Mở Phòng Khám</span>
+                <span>{isEn ? 'Open Clinic' : 'Mở Phòng Khám'}</span>
                 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
               </div>
             </Link>
@@ -341,14 +386,16 @@ export const HomePage: React.FC<HomePageProps> = ({
                   <MapPin className="w-5 h-5" />
                 </div>
                 <h3 className="font-serif font-bold text-base text-white group-hover:text-emerald-300 transition">
-                  Trạm Trao Đổi Cây
+                  {t('nav.swap')}
                 </h3>
                 <p className="text-xs text-forest-300/80 mt-1 leading-relaxed">
-                  Kết nối tặng hạt giống, đổi cành giâm an toàn ba miền với cam kết cách ly 7 ngày.
+                  {isEn
+                    ? 'Share seeds and exchange rooted cuttings safely with 7-day quarantine.'
+                    : 'Kết nối tặng hạt giống, đổi cành giâm an toàn ba miền với cam kết cách ly 7 ngày.'}
                 </p>
               </div>
               <div className="pt-3.5 mt-3.5 border-t border-forest-800/60 flex items-center justify-between text-xs font-semibold text-emerald-400">
-                <span>Mở Trạm Đổi Cây</span>
+                <span>{isEn ? 'Open Swap Station' : 'Mở Trạm Đổi Cây'}</span>
                 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
               </div>
             </Link>
@@ -365,14 +412,16 @@ export const HomePage: React.FC<HomePageProps> = ({
                   <Coins className="w-5 h-5" />
                 </div>
                 <h3 className="font-serif font-bold text-base text-white group-hover:text-amber-300 transition">
-                  Bí Quyết Làm Kinh Tế
+                  {t('nav.monetization')}
                 </h3>
                 <p className="text-xs text-forest-300/80 mt-1 leading-relaxed">
-                  Chiến lược tạo thu nhập bền vững từ chiết cành, ươm giống và chế biến thảo mộc.
+                  {isEn
+                    ? 'Strategies for sustainable revenue from propagation, starter pots, and herbal crafting.'
+                    : 'Chiến lược tạo thu nhập bền vững từ chiết cành, ươm giống và chế biến thảo mộc.'}
                 </p>
               </div>
               <div className="pt-3.5 mt-3.5 border-t border-forest-800/60 flex items-center justify-between text-xs font-semibold text-amber-400">
-                <span>Xem Cẩm Nang</span>
+                <span>{isEn ? 'View Guide' : 'Xem Cẩm Nang'}</span>
                 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
               </div>
             </Link>
@@ -389,14 +438,16 @@ export const HomePage: React.FC<HomePageProps> = ({
                   <MessageCircle className="w-5 h-5" />
                 </div>
                 <h3 className="font-serif font-bold text-base text-white group-hover:text-forest-200 transition">
-                  Liên Hệ & Hợp Tác
+                  {t('nav.contact')}
                 </h3>
                 <p className="text-xs text-forest-300/80 mt-1 leading-relaxed">
-                  Gửi yêu cầu hỗ trợ, đóng góp bài thuốc dân gian hoặc đăng ký đối tác nhà vườn.
+                  {isEn
+                    ? 'Send feedback, contribute folk remedies, or register nursery partnerships.'
+                    : 'Gửi yêu cầu hỗ trợ, đóng góp bài thuốc dân gian hoặc đăng ký đối tác nhà vườn.'}
                 </p>
               </div>
               <div className="pt-3.5 mt-3.5 border-t border-forest-800/60 flex items-center justify-between text-xs font-semibold text-forest-300">
-                <span>Gửi Tin Nhắn</span>
+                <span>{isEn ? 'Send Message' : 'Gửi Tin Nhắn'}</span>
                 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
               </div>
             </Link>

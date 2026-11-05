@@ -2,12 +2,19 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { MonetizationSection } from '../components/MonetizationSection.tsx';
 import { useSEO } from '../utils/useSEO.ts';
+import { useLanguage } from '../context/LanguageContext.tsx';
 import { Home, ChevronRight, Coins } from 'lucide-react';
 
 export const MonetizationPage: React.FC = () => {
+  const { t, isEn } = useLanguage();
+
   useSEO({
-    title: 'Bí Quyết Khởi Nghiệp & Tạo Thu Nhập Từ Vườn Đô Thị | Yêu Trồng Cây',
-    description: 'Chiến lược tạo thu nhập bền vững từ nông nghiệp ban công sân thượng: bán cành giâm, nhân giống dược liệu, sấy thảo mộc và tư vấn thiết kế vườn.',
+    title: isEn
+      ? 'Balcony Garden Monetization & Sustainable Income Guide | Yeu Trong Cay'
+      : 'Bí Quyết Khởi Nghiệp & Tạo Thu Nhập Từ Vườn Đô Thị | Yêu Trồng Cây',
+    description: isEn
+      ? 'Strategies for generating sustainable revenue from urban rooftop and balcony agriculture: stem propagation, artisanal syrups, and planter setups.'
+      : 'Chiến lược tạo thu nhập bền vững từ nông nghiệp ban công sân thượng: bán cành giâm, nhân giống dược liệu, sấy thảo mộc và tư vấn thiết kế vườn.',
   });
 
   return (
@@ -17,12 +24,12 @@ export const MonetizationPage: React.FC = () => {
         <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-forest-700">
           <Link to="/" target="_blank" rel="noopener noreferrer" className="hover:text-forest-950 flex items-center gap-1 transition">
             <Home className="w-3.5 h-3.5" />
-            <span>Trang Chủ</span>
+            <span>{t('plantDetail.breadcrumbHome')}</span>
           </Link>
           <ChevronRight className="w-3 h-3 text-forest-400 shrink-0" />
           <span className="font-bold text-forest-950 flex items-center gap-1">
             <Coins className="w-3.5 h-3.5 text-terracotta-600" />
-            <span>Bí Quyết Kiếm Tiền Từ Vườn</span>
+            <span>{isEn ? 'Garden Economics Guide' : 'Bí Quyết Kiếm Tiền Từ Vườn'}</span>
           </span>
         </nav>
       </div>

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { WifiOff, CheckCircle2 } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export const OfflineBanner: React.FC = () => {
   const [isOnline, setIsOnline] = useState<boolean>(navigator.onLine);
   const [showReconnected, setShowReconnected] = useState<boolean>(false);
+  const { isEn } = useLanguage();
 
   useEffect(() => {
     const handleOnline = () => {
@@ -52,19 +54,23 @@ export const OfflineBanner: React.FC = () => {
           {!isOnline ? (
             <>
               <h4 className="font-bold text-sm text-white mb-0.5">
-                Đang ở góc ban công sóng yếu (Ngoại tuyến)
+                {isEn ? 'Weak Signal on Balcony (Offline Mode)' : 'Đang ở góc ban công sóng yếu (Ngoại tuyến)'}
               </h4>
               <p className="text-amber-100/90 leading-relaxed">
-                Đừng lo! Mọi nội dung hỏi đáp và nhật ký bạn vừa nhập đã được lưu tạm an toàn trong bộ nhớ máy. Khi có mạng lại, hệ thống sẽ tự động đồng bộ.
+                {isEn
+                  ? 'Do not worry! Any consultation drafts or garden diaries you just logged have been saved locally. The app will sync automatically once connection is restored.'
+                  : 'Đừng lo! Mọi nội dung hỏi đáp và nhật ký bạn vừa nhập đã được lưu tạm an toàn trong bộ nhớ máy. Khi có mạng lại, hệ thống sẽ tự động đồng bộ.'}
               </p>
             </>
           ) : (
             <>
               <h4 className="font-bold text-sm text-white mb-0.5">
-                Đã kết nối lại Internet
+                {isEn ? 'Internet Connection Restored' : 'Đã kết nối lại Internet'}
               </h4>
               <p className="text-emerald-100/90">
-                Kết nối mạng đã ổn định. Dữ liệu làm vườn của bạn đang sẵn sàng!
+                {isEn
+                  ? 'Your network is back online. Your garden logs are up-to-date and ready!'
+                  : 'Kết nối mạng đã ổn định. Dữ liệu làm vườn của bạn đang sẵn sàng!'}
               </p>
             </>
           )}
