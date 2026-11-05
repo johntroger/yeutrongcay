@@ -1,19 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { Routes, Route, useLocation, useNavigate, useParams, Navigate } from 'react-router-dom';
+import { Sprout } from 'lucide-react';
 import { PlantCategory, UserProfile } from './types/index.ts';
 import { Navbar } from './components/Navbar.tsx';
 import { Footer } from './components/Footer.tsx';
 import { HomePage } from './pages/HomePage.tsx';
-import { CategoryPage } from './pages/CategoryPage.tsx';
-import { SwapPage } from './pages/SwapPage.tsx';
-import { ClinicPage } from './pages/ClinicPage.tsx';
-import { MonetizationPage } from './pages/MonetizationPage.tsx';
-import { Web3Page } from './pages/Web3Page.tsx';
-import { ContactPage } from './pages/ContactPage.tsx';
-import { GardenPage } from './pages/GardenPage.tsx';
-import { PlantDetailPage } from './pages/PlantDetailPage.tsx';
-import { AdminPage } from './pages/AdminPage.tsx';
-import { SeasonalCalendarPage } from './pages/SeasonalCalendarPage.tsx';
 import { AuthModal } from './components/AuthModal.tsx';
 import { MyGardenModal } from './components/MyGardenModal.tsx';
 import { PrivacyModal } from './components/PrivacyModal.tsx';
@@ -21,6 +12,38 @@ import { OfflineBanner } from './components/OfflineBanner.tsx';
 import { trackPageView } from './utils/analytics.ts';
 import { useLanguage } from './context/LanguageContext';
 import { subscribeToAuthState, logoutFirebase } from './services/firebaseClient.ts';
+
+// Code-splitting các trang thứ cấp để giảm bundle khởi tạo và tăng tốc độ tải
+const CategoryPage = lazy(() => import('./pages/CategoryPage.tsx').then((m) => ({ default: m.CategoryPage })));
+const SwapPage = lazy(() => import('./pages/SwapPage.tsx').then((m) => ({ default: m.SwapPage })));
+const ClinicPage = lazy(() => import('./pages/ClinicPage.tsx').then((m) => ({ default: m.ClinicPage })));
+const MonetizationPage = lazy(() => import('./pages/MonetizationPage.tsx').then((m) => ({ default: m.MonetizationPage })));
+const Web3Page = lazy(() => import('./pages/Web3Page.tsx').then((m) => ({ default: m.Web3Page })));
+const ContactPage = lazy(() => import('./pages/ContactPage.tsx').then((m) => ({ default: m.ContactPage })));
+const GardenPage = lazy(() => import('./pages/GardenPage.tsx').then((m) => ({ default: m.GardenPage })));
+const PlantDetailPage = lazy(() => import('./pages/PlantDetailPage.tsx').then((m) => ({ default: m.PlantDetailPage })));
+const AdminPage = lazy(() => import('./pages/AdminPage.tsx').then((m) => ({ default: m.AdminPage })));
+const SeasonalCalendarPage = lazy(() => import('./pages/SeasonalCalendarPage.tsx').then((m) => ({ default: m.SeasonalCalendarPage })));
+
+// Loading fallback chuẩn botanical cho Suspense
+function PageLoadingFallback({ isEn }: { isEn: boolean }) {
+  return (
+    <div className="min-h-[50vh] flex flex-col items-center justify-center p-8 text-center">
+      <div className="relative mb-4">
+        <div className="w-14 h-14 rounded-full bg-emerald-100 dark:bg-emerald-950/60 flex items-center justify-center text-emerald-600 animate-pulse">
+          <Sprout className="w-7 h-7" />
+        </div>
+        <div className="absolute inset-0 rounded-full border-2 border-emerald-500 border-t-transparent animate-spin" />
+      </div>
+      <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">
+        {isEn ? 'Loading botanical interface...' : 'Đang tải dữ liệu thực vật học...'}
+      </p>
+      <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+        {isEn ? 'Preparing your digital garden' : 'Chuẩn bị không gian vườn số'}
+      </p>
+    </div>
+  );
+}
 
 // Wrapper xử lý danh mục động
 function DynamicCategoryWrapper({
@@ -186,97 +209,99 @@ export default function App() {
         }}
       />
 
-      {/* 2. Main Router Pages */}
+      {/* 2. Main Router Pages với Suspense code-splitting */}
       <div className="flex-1">
-        <Routes>
-          {/* Trang chủ mặc định */}
-          <Route
-            path="/"
-            element={
-              <HomePage
-                activeMode={activeMode}
-                onModeChange={setActiveMode}
-                searchQuery={searchQuery}
-                onClearSearch={() => setSearchQuery('')}
-              />
-            }
-          />
+        <Suspense fallback={<PageLoadingFallback isEn={isEn} />}>
+          <Routes>
+            {/* Trang chủ mặc định */}
+            <Route
+              path="/"
+              element={
+                <HomePage
+                  activeMode={activeMode}
+                  onModeChange={setActiveMode}
+                  searchQuery={searchQuery}
+                  onClearSearch={() => setSearchQuery('')}
+                />
+              }
+            />
 
-          {/* 3 URL Danh mục riêng biệt (Mở tab độc lập giải phóng trang chủ) */}
-          <Route
-            path="/thao-duoc"
-            element={
-              <CategoryPage
-                category="herb"
-                searchQuery={searchQuery}
-                onClearSearch={() => setSearchQuery('')}
-              />
-            }
-          />
-          <Route
-            path="/cay-an-trai"
-            element={
-              <CategoryPage
-                category="fruit"
-                searchQuery={searchQuery}
-                onClearSearch={() => setSearchQuery('')}
-              />
-            }
-          />
-          <Route
-            path="/cay-canh"
-            element={
-              <CategoryPage
-                category="ornamental"
-                searchQuery={searchQuery}
-                onClearSearch={() => setSearchQuery('')}
-              />
-            }
-          />
+            {/* 3 URL Danh mục riêng biệt (Mở tab độc lập giải phóng trang chủ) */}
+            <Route
+              path="/thao-duoc"
+              element={
+                <CategoryPage
+                  category="herb"
+                  searchQuery={searchQuery}
+                  onClearSearch={() => setSearchQuery('')}
+                />
+              }
+            />
+            <Route
+              path="/cay-an-trai"
+              element={
+                <CategoryPage
+                  category="fruit"
+                  searchQuery={searchQuery}
+                  onClearSearch={() => setSearchQuery('')}
+                />
+              }
+            />
+            <Route
+              path="/cay-canh"
+              element={
+                <CategoryPage
+                  category="ornamental"
+                  searchQuery={searchQuery}
+                  onClearSearch={() => setSearchQuery('')}
+                />
+              }
+            />
 
-          {/* Alias /danh-muc/:cat */}
-          <Route
-            path="/danh-muc/:cat"
-            element={
-              <DynamicCategoryWrapper
-                setCategory={setActiveMode}
-                render={(cat) => (
-                  <CategoryPage
-                    category={cat}
-                    searchQuery={searchQuery}
-                    onClearSearch={() => setSearchQuery('')}
-                  />
-                )}
-              />
-            }
-          />
+            {/* Alias /danh-muc/:cat */}
+            <Route
+              path="/danh-muc/:cat"
+              element={
+                <DynamicCategoryWrapper
+                  setCategory={setActiveMode}
+                  render={(cat) => (
+                    <CategoryPage
+                      category={cat}
+                      searchQuery={searchQuery}
+                      onClearSearch={() => setSearchQuery('')}
+                    />
+                  )}
+                />
+              }
+            />
 
-          {/* URL Riêng Biệt Cho Mỗi Bài Viết / Loài Cây */}
-          <Route
-            path="/cay/:slug"
-            element={
-              <PlantDetailPage
-                onOpenMyGarden={() => setIsMyGardenOpen(true)}
-                onAddPlantToGarden={(plantId) => {
-                  console.log('Added plant to garden:', plantId);
-                }}
-              />
-            }
-          />
+            {/* URL Riêng Biệt Cho Mỗi Bài Viết / Loài Cây */}
+            <Route
+              path="/cay/:slug"
+              element={
+                <PlantDetailPage
+                  onOpenMyGarden={() => setIsMyGardenOpen(true)}
+                  onAddPlantToGarden={(plantId) => {
+                    console.log('Added plant to garden:', plantId);
+                  }}
+                />
+              }
+            />
 
-          {/* Các Tính Năng Chuyên Sâu Độc Lập - Giải Phóng Cho Trang Chủ */}
-          <Route path="/vuon-cua-toi" element={<GardenPage />} />
-          <Route path="/trao-doi-cay" element={<SwapPage />} />
-          <Route path="/bac-si-cay-trong" element={<ClinicPage />} />
-          <Route path="/kiem-tien-tu-vuon" element={<MonetizationPage />} />
-          <Route path="/web3-sandbox" element={<Web3Page />} />
-          <Route path="/lien-he" element={<ContactPage />} />
-          <Route path="/lich-nong-vu" element={<SeasonalCalendarPage />} />
-          <Route path="/admin" element={<AdminPage />} />
+            {/* Các Tính Năng Chuyên Sâu Độc Lập - Giải Phóng Cho Trang Chủ */}
+            <Route path="/vuon-cua-toi" element={<GardenPage />} />
+            <Route path="/trao-doi-cay" element={<SwapPage />} />
+            <Route path="/bac-si-cay-trong" element={<ClinicPage />} />
+            <Route path="/kiem-tien-tu-vuon" element={<MonetizationPage />} />
+            <Route path="/web3-sandbox" element={<Web3Page />} />
+            <Route path="/lien-he" element={<ContactPage />} />
+            <Route path="/lich-nong-vu" element={<SeasonalCalendarPage />} />
+            <Route path="/admin" element={<AdminPage />} />
 
-          {/* 404 Fallback */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+            {/* 404 Fallback */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </Suspense>
       </div>
 
       {/* 3. Footer */}
