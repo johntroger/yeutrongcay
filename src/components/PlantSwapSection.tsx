@@ -22,11 +22,12 @@ import { ReportModal } from './ReportModal.tsx';
 export const PlantSwapSection: React.FC = () => {
   const [offers, setOffers] = useState<SwapOffer[]>(() => {
     try {
-      // Dọn dẹp cache phiên bản cũ chứa link ảnh placeholder không phù hợp
+      // Dọn dẹp triệt để các phiên bản cache cũ
       localStorage.removeItem('ytc_swap_offers');
-      const saved = localStorage.getItem('ytc_swap_offers_v2');
+      localStorage.removeItem('ytc_swap_offers_v2');
+      const saved = localStorage.getItem('ytc_user_swap_offers_v3');
       if (saved) {
-        const userCreatedOffers = JSON.parse(saved).filter((item: SwapOffer) => !item.id.startsWith('swap-'));
+        const userCreatedOffers = JSON.parse(saved).filter((item: SwapOffer) => item.id.startsWith('usr-swap-'));
         return [...userCreatedOffers, ...SEED_SWAP_OFFERS];
       }
     } catch {
@@ -116,7 +117,7 @@ export const PlantSwapSection: React.FC = () => {
     }
 
     const createdOffer: SwapOffer = {
-      id: `swap-${Date.now()}`,
+      id: `usr-swap-${Date.now()}`,
       user_id: 'usr-local-me',
       user_name: 'Bạn (Thành Viên Vườn)',
       user_avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
@@ -142,7 +143,8 @@ export const PlantSwapSection: React.FC = () => {
 
     const updated = [createdOffer, ...offers];
     setOffers(updated);
-    localStorage.setItem('ytc_swap_offers_v2', JSON.stringify(updated));
+    const userOnly = [createdOffer, ...offers.filter((item) => item.id.startsWith('usr-swap-'))];
+    localStorage.setItem('ytc_user_swap_offers_v3', JSON.stringify(userOnly));
 
     // Reset form
     setNewPlantName('');
