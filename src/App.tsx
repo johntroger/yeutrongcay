@@ -289,7 +289,7 @@ export default function App() {
             />
 
             {/* Các Tính Năng Chuyên Sâu Độc Lập - Giải Phóng Cho Trang Chủ */}
-            <Route path="/vuon-cua-toi" element={<GardenPage />} />
+            <Route path="/vuon-cua-toi" element={<GardenPage currentUser={currentUser} />} />
             <Route path="/trao-doi-cay" element={<SwapPage />} />
             <Route path="/bac-si-cay-trong" element={<ClinicPage />} />
             <Route path="/kiem-tien-tu-vuon" element={<MonetizationPage />} />

@@ -30,7 +30,7 @@ import {
   Compass,
   Printer
 } from 'lucide-react';
-import { UserGarden, GardenPlant, PlantDiaryEntry, PlantGrowthStatus } from '../types/index.ts';
+import { UserGarden, GardenPlant, PlantDiaryEntry, PlantGrowthStatus, UserProfile } from '../types/index.ts';
 import { SEED_PLANTS } from '../data/plants.ts';
 import { SEASONAL_CALENDAR_DATA, RegionKey } from '../data/seasonalCalendar.ts';
 import { GardenBookPrintModal } from '../components/GardenBookPrintModal.tsx';
@@ -49,8 +49,30 @@ import { useSEO } from '../utils/useSEO.ts';
 import { useLanguage } from '../context/LanguageContext';
 import { localizePlant } from '../i18n/plantTranslations';
 
-export const GardenPage: React.FC = () => {
+export interface GardenPageProps {
+  currentUser?: UserProfile | null;
+}
+
+export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser }) => {
   const { language, isEn } = useLanguage();
+
+  const [currentUser, setCurrentUser] = useState<UserProfile | null>(() => {
+    if (propUser) return propUser;
+    try {
+      const saved = localStorage.getItem('ytc_user');
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
+  });
+
+  useEffect(() => {
+    if (propUser !== undefined) {
+      setCurrentUser(propUser);
+    }
+  }, [propUser]);
+
+  const currentUserId = currentUser?.id || 'usr-local-me';
 
   useSEO({
     title: isEn
@@ -128,7 +150,7 @@ export const GardenPage: React.FC = () => {
   // Tải dữ liệu vườn
   useEffect(() => {
     let isMounted = true;
-    getGardenData().then(({ garden: g, plants: p, diaries: d }) => {
+    getGardenData(currentUserId).then(({ garden: g, plants: p, diaries: d }) => {
       if (isMounted) {
         setGarden(g);
         setPlants(p);
@@ -139,7 +161,7 @@ export const GardenPage: React.FC = () => {
       }
     });
 
-    getUserKarma().then((k) => {
+    getUserKarma(currentUserId).then((k) => {
       if (isMounted && k) {
         setKarmaData(k);
       }
@@ -148,7 +170,7 @@ export const GardenPage: React.FC = () => {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [currentUserId]);
 
   const triggerNotice = (msg: string) => {
     setActionNotice(msg);
@@ -259,7 +281,7 @@ export const GardenPage: React.FC = () => {
 
     const payload: Partial<PlantDiaryEntry> = {
       garden_plant_id: diaryPlantId,
-      user_id: garden?.user_id || 'usr-local-me',
+      user_id: currentUserId,
       entry_date: diaryDate,
       stage: diaryStage,
       note: diaryNote.trim(),
