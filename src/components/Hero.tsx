@@ -57,12 +57,12 @@ export const Hero: React.FC<HeroProps> = ({
           </p>
 
           {/* Call to action buttons (Mở sang tab mới để giải phóng trang chủ) */}
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-10">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 mb-10 max-w-lg sm:max-w-none mx-auto">
             <a
               href="/bac-si-cay-trong"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3.5 rounded-2xl bg-forest-900 hover:bg-forest-800 text-white font-medium text-sm sm:text-base flex items-center gap-2 shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-forest-900 hover:bg-forest-800 text-white font-medium text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5 text-center"
             >
               <Leaf className="w-5 h-5 text-herbal-500" />
               <span>Chẩn Đoán Bệnh Cây (3s)</span>
@@ -72,7 +72,7 @@ export const Hero: React.FC<HeroProps> = ({
               href="/kiem-tien-tu-vuon"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3.5 rounded-2xl bg-white hover:bg-terracotta-50 text-terracotta-700 font-medium text-sm sm:text-base border border-terracotta-200 flex items-center gap-2 shadow-sm hover:shadow transition"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white hover:bg-terracotta-50 text-terracotta-700 font-medium text-sm sm:text-base border border-terracotta-200 flex items-center justify-center gap-2 shadow-sm hover:shadow transition text-center"
             >
               <Coins className="w-5 h-5 text-terracotta-600" />
               <span>Bí Quyết Kiếm Tiền Từ Vườn</span>
@@ -80,7 +80,7 @@ export const Hero: React.FC<HeroProps> = ({
           </div>
 
           {/* Highlights */}
-          <div className="flex items-center justify-center gap-6 text-xs sm:text-sm text-forest-800 font-medium">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm text-forest-800 font-medium">
             <span className="flex items-center gap-1.5">
               <Shield className="w-4 h-4 text-herbal-600" />
               <span>{modeData.stat1}</span>

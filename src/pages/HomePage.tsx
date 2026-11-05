@@ -172,8 +172,8 @@ export const HomePage: React.FC<HomePageProps> = ({
       {activeMode === 'herb' && <MedicalDisclaimer />}
 
       {/* 4. Plants Catalog Grid */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 w-full">
-        <div className="flex items-center justify-between mb-8 pb-4 border-b border-forest-100">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 flex-1 w-full">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-8 pb-4 border-b border-forest-100">
           <div>
             <h2 className="text-2xl sm:text-3xl font-serif font-bold text-forest-900 tracking-tight">
               {activeMode === 'herb'
@@ -189,7 +189,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             </p>
           </div>
 
-          <div className="flex items-center gap-2 text-xs font-semibold text-forest-800 bg-white px-3.5 py-2 rounded-xl border border-forest-100 shadow-sm">
+          <div className="self-start sm:self-auto flex items-center gap-2 text-xs font-semibold text-forest-800 bg-white px-3.5 py-2 rounded-xl border border-forest-100 shadow-sm">
             <Filter className="w-4 h-4 text-herbal-600" />
             <span className="hidden sm:inline">Phân Loại:</span>
             <span className="capitalize">{activeMode}</span>

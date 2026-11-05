@@ -42,24 +42,24 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <header className="sticky top-0 z-40 bg-cream-100/90 backdrop-blur-md border-b border-forest-100/60 shadow-sm transition-all">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20 gap-4">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 sm:h-20 gap-2 sm:gap-4">
           
           {/* Official Brand Logo -> Link to Home */}
           <Link
             to="/"
             onClick={() => onModeChange('herb')}
-            className="flex items-center cursor-pointer py-1"
+            className="flex items-center cursor-pointer py-1 shrink-0"
             title="Yêu Trồng Cây - Design your life"
           >
             <img
               src="/logo.jpg"
               alt="Yêu Trồng Cây - Design your life"
-              className="h-12 sm:h-14 w-auto object-contain hover:opacity-95 transition"
+              className="h-10 sm:h-12 md:h-14 w-auto object-contain hover:opacity-95 transition"
             />
           </Link>
 
-          {/* Search Bar with Voice */}
+          {/* Desktop Search Bar with Voice (md+) */}
           <div className="hidden md:flex flex-1 max-w-md items-center relative">
             <Search className="w-4 h-4 text-forest-700 absolute left-3.5 pointer-events-none" />
             <input
@@ -81,17 +81,17 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Action Buttons */}
-          <div className="flex items-center gap-1.5 sm:gap-2">
+          <div className="flex items-center gap-1 sm:gap-2">
             
             {/* Swap Map Link */}
             <Link
               to="/trao-doi-cay"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-2.5 sm:px-3 py-2 rounded-xl text-xs sm:text-sm font-medium bg-emerald-50 hover:bg-emerald-100 text-emerald-900 flex items-center gap-1.5 border border-emerald-200 transition"
+              className="px-2 sm:px-3 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-medium bg-emerald-50 hover:bg-emerald-100 text-emerald-900 flex items-center gap-1 sm:gap-1.5 border border-emerald-200 transition"
               title="Trạm Trao Đổi Cây & Hạt Giống (Mở tab mới)"
             >
-              <MapPin className="w-4 h-4 text-emerald-600" />
+              <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600" />
               <span className="hidden sm:inline">Đổi Cây</span>
             </Link>
 
@@ -100,12 +100,12 @@ export const Navbar: React.FC<NavbarProps> = ({
               to="/bac-si-cay-trong"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-2.5 sm:px-3 py-2 rounded-xl text-xs sm:text-sm font-medium bg-forest-50 hover:bg-forest-100 text-forest-900 flex items-center gap-1.5 border border-forest-200 transition"
+              className="px-2 sm:px-3 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-medium bg-forest-50 hover:bg-forest-100 text-forest-900 flex items-center gap-1 sm:gap-1.5 border border-forest-200 transition"
               title="Bác Sĩ Cây Trồng (Mở tab mới)"
             >
-              <HeartHandshake className="w-4 h-4 text-herbal-600" />
+              <HeartHandshake className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-herbal-600" />
               <span className="hidden sm:inline">Bác Sĩ Cây (3s)</span>
-              <span className="sm:hidden">Bác Sĩ</span>
+              <span className="sm:hidden text-[11px]">Bác Sĩ</span>
             </Link>
 
             {/* Contact Button */}
@@ -136,7 +136,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               onClick={onToggleFontSize}
               title="Phóng to / Thu nhỏ cỡ chữ (Cho người lớn tuổi)"
-              className="px-2.5 py-2 rounded-xl text-xs font-bold bg-white hover:bg-forest-50 text-forest-800 border border-forest-200 flex items-center gap-1 transition"
+              className="px-2 sm:px-2.5 py-1.5 sm:py-2 rounded-xl text-xs font-bold bg-white hover:bg-forest-50 text-forest-800 border border-forest-200 flex items-center gap-1 transition"
             >
               <Type className="w-3.5 h-3.5 text-forest-600" />
               <span>{fontSize === 'normal' ? 'A' : fontSize === 'large' ? 'A+' : 'A++'}</span>
@@ -146,29 +146,52 @@ export const Navbar: React.FC<NavbarProps> = ({
             {currentUser ? (
               <button
                 onClick={onOpenMyGarden}
-                className="px-2.5 sm:px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium bg-herbal-50 hover:bg-herbal-100 text-herbal-900 flex items-center gap-2 border border-herbal-200 transition shadow-2xs"
+                className="px-2 sm:px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium bg-herbal-50 hover:bg-herbal-100 text-herbal-900 flex items-center gap-1.5 border border-herbal-200 transition shadow-2xs"
               >
                 <img
                   src={currentUser.avatar_url}
                   alt={currentUser.name}
-                  className="w-6 h-6 rounded-full object-cover"
+                  className="w-5 h-5 sm:w-6 sm:h-6 rounded-full object-cover"
                 />
                 <span className="hidden md:inline font-semibold">Vườn Của Tôi</span>
               </button>
             ) : (
               <button
                 onClick={onOpenAuth}
-                className="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium bg-forest-900 hover:bg-forest-800 text-white flex items-center gap-1.5 shadow-sm transition"
+                className="px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-medium bg-forest-900 hover:bg-forest-800 text-white flex items-center gap-1.5 shadow-sm transition"
               >
-                <User className="w-4 h-4 text-herbal-400" />
-                <span>Đăng Nhập</span>
+                <User className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-herbal-400" />
+                <span className="text-[11px] sm:text-xs">Đăng Nhập</span>
               </button>
             )}
           </div>
         </div>
 
+        {/* Mobile Search Bar (< md screens) */}
+        <div className="flex md:hidden px-1 pb-2.5 w-full">
+          <div className="flex flex-1 items-center relative">
+            <Search className="w-3.5 h-3.5 text-forest-700 absolute left-3 pointer-events-none" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => onSearchChange(e.target.value)}
+              placeholder="Tìm theo tên cây, bệnh lá, tên khoa học..."
+              className="w-full pl-8 pr-8 py-2 bg-white border border-forest-100 rounded-full text-xs text-charcoal-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-herbal-500 shadow-inner"
+            />
+            <button
+              onClick={handleVoiceSearch}
+              title="Tìm kiếm bằng giọng nói"
+              className={`absolute right-1.5 p-1 rounded-full transition ${
+                isListening ? 'bg-red-100 text-red-600 animate-pulse' : 'text-forest-700 hover:bg-forest-50'
+              }`}
+            >
+              <Mic className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
+
         {/* Garden Mode Switcher - 3 Distinct Category URLs (Mở sang tab mới) */}
-        <div className="flex items-center justify-center gap-2 py-2 border-t border-forest-50 overflow-x-auto no-scrollbar">
+        <div className="flex items-center justify-start sm:justify-center gap-2 py-2 px-1 sm:px-0 border-t border-forest-50 overflow-x-auto no-scrollbar">
           <Link
             to="/thao-duoc"
             target="_blank"
