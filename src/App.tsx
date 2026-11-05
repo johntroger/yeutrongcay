@@ -20,7 +20,7 @@ import { PrivacyModal } from './components/PrivacyModal.tsx';
 import { OfflineBanner } from './components/OfflineBanner.tsx';
 import { trackPageView } from './utils/analytics.ts';
 import { useLanguage } from './context/LanguageContext';
-import { subscribeToAuthState } from './services/firebaseClient.ts';
+import { subscribeToAuthState, logoutFirebase } from './services/firebaseClient.ts';
 
 // Wrapper xử lý danh mục động
 function DynamicCategoryWrapper({
@@ -57,30 +57,35 @@ export default function App() {
 
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Trạng thái Người Dùng & Vườn Của Tôi
+  // Trạng thái Người Dùng & Vườn Của Tôi (Mặc định null để hiển thị nút Đăng Nhập)
   const [currentUser, setCurrentUser] = useState<UserProfile | null>(() => {
     const saved = localStorage.getItem('ytc_user');
     if (saved) {
       try {
-        return JSON.parse(saved);
+        const u = JSON.parse(saved);
+        if (u && u.id && !u.id.includes('demo-01')) {
+          return u;
+        }
       } catch {
         // Fallback
       }
     }
-    return {
-      id: 'usr-demo-01',
-      name: isEn ? 'Tran Tung' : 'Trần Tùng',
-      email: 'trantung.gardener@gmail.com',
-      avatar_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
-      badge: isEn ? 'Pioneer Gardener' : 'Chủ Vườn Tiên Phong',
-      karma_points: 120,
-      joined_date: '04/11/2026',
-    };
+    return null;
   });
 
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isMyGardenOpen, setIsMyGardenOpen] = useState(false);
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
+
+  const handleLogout = async () => {
+    try {
+      await logoutFirebase();
+    } catch (err) {
+      console.error('Logout error:', err);
+    }
+    localStorage.removeItem('ytc_user');
+    setCurrentUser(null);
+  };
 
   useEffect(() => {
     if (currentUser) {
@@ -171,6 +176,7 @@ export default function App() {
         }}
         currentUser={currentUser}
         onOpenAuth={() => setIsAuthOpen(true)}
+        onLogout={handleLogout}
         onOpenMyGarden={() => {
           if (currentUser) {
             setIsMyGardenOpen(true);

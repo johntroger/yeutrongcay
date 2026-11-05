@@ -16,7 +16,9 @@ import {
   X,
   Sparkles,
   ChevronRight,
-  Calendar
+  Calendar,
+  ChevronDown,
+  LogOut
 } from 'lucide-react';
 import { PlantCategory, UserProfile } from '../types/index.ts';
 import { useLanguage } from '../context/LanguageContext.tsx';
@@ -32,6 +34,7 @@ interface NavbarProps {
   onOpenContact?: () => void;
   currentUser: UserProfile | null;
   onOpenAuth: () => void;
+  onLogout?: () => void;
   onOpenMyGarden: () => void;
   fontSize?: 'normal' | 'large' | 'xlarge';
   onToggleFontSize?: () => void;
@@ -43,27 +46,31 @@ export const Navbar: React.FC<NavbarProps> = ({
   onSearchChange,
   currentUser,
   onOpenAuth,
+  onLogout,
   onOpenMyGarden,
 }) => {
   const { language, toggleLanguage, t, isEn } = useLanguage();
   const { toggleTheme, isDark } = useTheme();
   const [isListening, setIsListening] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const userMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsMenuOpen(false);
       }
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setIsUserMenuOpen(false);
+      }
     };
-    if (isMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isMenuOpen]);
+  }, []);
 
   const handleVoiceSearch = () => {
     setIsListening(true);
@@ -207,23 +214,71 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* User Profile / Login */}
             {currentUser ? (
-              <button
-                onClick={onOpenMyGarden}
-                className="px-3 py-1.5 rounded-xl text-xs font-medium bg-herbal-50 dark:bg-charcoal-800 hover:bg-herbal-100 dark:hover:bg-charcoal-700 text-herbal-900 dark:text-cream-100 flex items-center gap-1.5 border border-herbal-200 dark:border-forest-800 transition shadow-2xs"
-              >
-                <img
-                  src={currentUser.avatar_url}
-                  alt={currentUser.name}
-                  className="w-6 h-6 rounded-full object-cover"
-                />
-                <span className="font-semibold">{t('nav.myGarden')}</span>
-              </button>
+              <div className="relative" ref={userMenuRef}>
+                <button
+                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                  className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white dark:bg-charcoal-800 hover:bg-forest-50 dark:hover:bg-charcoal-700 text-forest-900 dark:text-cream-100 flex items-center gap-2 border border-forest-200 dark:border-forest-800 transition shadow-2xs"
+                  title="Tài khoản của tôi"
+                >
+                  <img
+                    src={currentUser.avatar_url}
+                    alt={currentUser.name}
+                    className="w-5 h-5 rounded-full object-cover ring-1 ring-emerald-500/50"
+                  />
+                  <span className="max-w-[110px] truncate">{currentUser.name}</span>
+                  <ChevronDown className="w-3.5 h-3.5 text-gray-500" />
+                </button>
+
+                {/* Dropdown Menu */}
+                {isUserMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-56 rounded-2xl bg-white dark:bg-charcoal-900 border border-forest-100 dark:border-forest-800 shadow-xl py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+                    <div className="px-4 py-2.5 border-b border-forest-100 dark:border-forest-800">
+                      <p className="font-bold text-xs text-forest-950 dark:text-white truncate">{currentUser.name}</p>
+                      <p className="text-[10px] text-gray-500 dark:text-gray-400 truncate">{currentUser.email || 'Thành viên Yêu Trồng Cây'}</p>
+                      <span className="inline-block mt-1 px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60">
+                        {currentUser.badge}
+                      </span>
+                    </div>
+
+                    <Link
+                      to="/vuon-cua-toi"
+                      onClick={() => setIsUserMenuOpen(false)}
+                      className="w-full text-left px-4 py-2 text-xs text-forest-800 dark:text-forest-200 hover:bg-forest-50 dark:hover:bg-charcoal-800 flex items-center gap-2 transition"
+                    >
+                      <Leaf className="w-3.5 h-3.5 text-emerald-500" />
+                      <span>{t('nav.myGarden')}</span>
+                    </Link>
+
+                    <button
+                      onClick={() => {
+                        setIsUserMenuOpen(false);
+                        onOpenAuth();
+                      }}
+                      className="w-full text-left px-4 py-2 text-xs text-forest-800 dark:text-forest-200 hover:bg-forest-50 dark:hover:bg-charcoal-800 flex items-center gap-2 transition"
+                    >
+                      <User className="w-3.5 h-3.5 text-amber-500" />
+                      <span>Cài Đặt Firebase / Đổi Nick</span>
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        setIsUserMenuOpen(false);
+                        onLogout?.();
+                      }}
+                      className="w-full text-left px-4 py-2 text-xs text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 flex items-center gap-2 border-t border-forest-100 dark:border-forest-800 mt-1 transition"
+                    >
+                      <LogOut className="w-3.5 h-3.5" />
+                      <span>Đăng Xuất</span>
+                    </button>
+                  </div>
+                )}
+              </div>
             ) : (
               <button
                 onClick={onOpenAuth}
-                className="px-3.5 py-2 rounded-xl text-xs font-medium bg-forest-900 dark:bg-herbal-600 hover:bg-forest-800 dark:hover:bg-herbal-500 text-white flex items-center gap-1.5 shadow-sm transition"
+                className="px-4 py-2 rounded-xl text-xs font-bold bg-forest-900 dark:bg-emerald-600 hover:bg-forest-800 dark:hover:bg-emerald-500 text-white flex items-center gap-1.5 shadow-md transition active:scale-[0.98]"
               >
-                <User className="w-4 h-4 text-herbal-400 dark:text-white" />
+                <User className="w-4 h-4 text-emerald-300 dark:text-white" />
                 <span>{t('nav.login')}</span>
               </button>
             )}
@@ -496,15 +551,26 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </button>
               </div>
 
-              {!currentUser && (
+              {!currentUser ? (
                 <button
                   onClick={() => {
                     setIsMenuOpen(false);
                     onOpenAuth();
                   }}
-                  className="px-3.5 py-1.5 rounded-xl bg-forest-900 dark:bg-emerald-600 text-white text-xs font-semibold"
+                  className="px-3.5 py-1.5 rounded-xl bg-forest-900 dark:bg-emerald-600 text-white text-xs font-semibold shadow-xs"
                 >
                   {t('nav.login')}
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    onLogout?.();
+                  }}
+                  className="px-3 py-1.5 rounded-xl bg-red-100 dark:bg-red-950/60 text-red-600 dark:text-red-300 text-xs font-semibold flex items-center gap-1 border border-red-200 dark:border-red-800"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                  <span>Đăng xuất</span>
                 </button>
               )}
             </div>
