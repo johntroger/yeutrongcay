@@ -28,12 +28,22 @@ import {
   CheckSquare,
   RefreshCw,
   Compass,
-  Printer
+  Printer,
+  Bell,
+  BellRing
 } from 'lucide-react';
 import { UserGarden, GardenPlant, PlantDiaryEntry, PlantGrowthStatus, UserProfile } from '../types/index.ts';
 import { SEED_PLANTS } from '../data/plants.ts';
 import { SEASONAL_CALENDAR_DATA, RegionKey } from '../data/seasonalCalendar.ts';
 import { GardenBookPrintModal } from '../components/GardenBookPrintModal.tsx';
+import {
+  isNotificationSupported,
+  isCareReminderEnabled,
+  setCareReminderEnabled,
+  requestNotificationPermission,
+  sendBotanicalNotification,
+  checkAndNotifyCareTasks
+} from '../services/notificationService.ts';
 import {
   getGardenData,
   addGardenPlant,
@@ -147,6 +157,9 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
   const [isGardenBookOpen, setIsGardenBookOpen] = useState(false);
   const [printTargetPlantId, setPrintTargetPlantId] = useState<string | null>(null);
 
+  // Chuông thông báo nhắc lịch chăm sóc cây (Web Notification API)
+  const [reminderActive, setReminderActive] = useState<boolean>(() => isCareReminderEnabled());
+
   // Tải dữ liệu vườn
   useEffect(() => {
     let isMounted = true;
@@ -157,6 +170,9 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
         setDiaries(d);
         if (p.length > 0 && !diaryPlantId) {
           setDiaryPlantId(p[0].id);
+        }
+        if (p.length > 0) {
+          checkAndNotifyCareTasks(p, isEn);
         }
       }
     });
@@ -170,7 +186,7 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
     return () => {
       isMounted = false;
     };
-  }, [currentUserId]);
+  }, [currentUserId, isEn]);
 
   const triggerNotice = (msg: string) => {
     setActionNotice(msg);
@@ -489,6 +505,41 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
     setIsAddPlantOpen(true);
   };
 
+  const handleToggleCareReminder = async () => {
+    if (!isNotificationSupported()) {
+      alert(isEn ? 'Your browser does not support Web Notifications.' : 'Trình duyệt của bạn hiện chưa hỗ trợ tính năng thông báo Notification API.');
+      return;
+    }
+
+    if (reminderActive) {
+      setCareReminderEnabled(false);
+      setReminderActive(false);
+      triggerNotice(isEn ? 'Turned off daily plant care reminders.' : 'Đã tắt chuông nhắc lịch chăm cây hàng ngày.');
+    } else {
+      const granted = await requestNotificationPermission();
+      if (granted) {
+        setCareReminderEnabled(true);
+        setReminderActive(true);
+        sendBotanicalNotification(
+          isEn ? '🌱 Yêu Trồng Cây: Care Reminders Active!' : '🌱 Yêu Trồng Cây: Đã Kích Hoạt Nhắc Lịch Tưới Cây!',
+          {
+            body: isEn
+              ? 'You will receive gentle morning reminders when your plants need hydration or fertilizing.'
+              : 'Bạn sẽ nhận được thông báo nhắc nhở mỗi sáng khi các chậu cây đến hạn tưới nước hoặc bón phân.',
+            onClickUrl: '/vuon-cua-toi'
+          }
+        );
+        triggerNotice(isEn ? 'Activated daily plant care reminders! 🔔' : 'Đã kích hoạt chuông nhắc lịch chăm sóc cây! 🔔');
+      } else {
+        alert(
+          isEn
+            ? 'Notification permission was denied. Please allow notifications in your browser site settings.'
+            : 'Quyền gửi thông báo đã bị chặn. Vui lòng mở Cài đặt trang web trên trình duyệt và Cho phép (Allow) thông báo cho yeutrongcay.com.'
+        );
+      }
+    }
+  };
+
   const statusLabelMap: Record<PlantGrowthStatus, { labelVi: string; labelEn: string; color: string }> = {
     healthy: {
       labelVi: 'Đang phát triển xanh tốt',
@@ -610,6 +661,27 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
               >
                 <Printer className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                 <span>{isEn ? 'Export Garden Book (PDF)' : 'Xuất Sổ Tay Vườn (PDF)'}</span>
+              </button>
+              <button
+                onClick={handleToggleCareReminder}
+                className={`px-4 py-2.5 rounded-2xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm border ${
+                  reminderActive
+                    ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800'
+                    : 'bg-white dark:bg-charcoal-800 hover:bg-forest-50 dark:hover:bg-charcoal-700 text-forest-800 dark:text-forest-200 border-forest-200 dark:border-forest-700'
+                }`}
+                title={isEn ? 'Daily care reminder notification' : 'Bật/Tắt chuông nhắc tưới cây hàng ngày'}
+              >
+                {reminderActive ? (
+                  <>
+                    <BellRing className="w-4 h-4 text-emerald-600 animate-pulse" />
+                    <span>{isEn ? 'Reminders Active' : 'Đang Bật Nhắc'}</span>
+                  </>
+                ) : (
+                  <>
+                    <Bell className="w-4 h-4 text-forest-500" />
+                    <span>{isEn ? 'Care Reminders' : 'Nhắc Lịch Tưới'}</span>
+                  </>
+                )}
               </button>
             </div>
           </div>
