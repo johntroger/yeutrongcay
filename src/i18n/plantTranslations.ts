@@ -1429,6 +1429,659 @@ export const PLANT_ENGLISH_MAP: Record<string, LocalizedPlantData> = {
     ],
     monetization_tips: ['Create custom artisanal stone succulent bowls for mindfulness meditation gifts.'],
     tags: ['Meditation Lotus', 'Drought Champion', 'Terracotta Art', 'Geometric Beauty']
+  },
+
+  // ==========================================
+  // BILINGUAL TRANSLATIONS FOR PRIZED VIETNAMESE HERBS (MS10)
+  // ==========================================
+  'herb-21': {
+    common_name: 'Red Onion Ginseng (Sam Dai Hanh)',
+    aliases: ['Eleutherine Bulb', 'Red Garlic Herb', 'Lao Garlic'],
+    description: 'A prized Vietnamese medicinal bulb with ruby-red cloves. Rich in naphthoquinone derivatives (eleutherin, isoeleutherin) showing potent antimicrobial activity against Staphylococcus aureus, nourishing red blood cells, and healing respiratory infections.',
+    quick_answer: 'Red Onion Ginseng (Eleutherine bulbosa) thrives in balcony pots from clove division. It prefers loose humus-rich soil and bright filtered morning sun. Harvest medicinal bulbs in 6-8 months when foliage naturally dies back.',
+    growth_time: '6 - 8 months to harvest mature medicinal bulbs',
+    seasonality: {
+      north: 'Plant in spring (Feb-Apr); harvest bulbs in late autumn (Oct-Dec)',
+      central: 'Year-round cultivation; maintain well-drained substrate during monsoon season',
+      south: 'Thrives vigorously year-round under filtered canopy light',
+      best_months: [2, 3, 4, 10, 11]
+    },
+    medical_info: {
+      uses: ['Tonifies blood, remedies anemia and physical fatigue', 'Natural antibiotic for pharyngitis and bronchitis', 'Relieves boils, bruises, and promotes wound hemostasis'],
+      folk_remedies: [
+        'Decoct 12g dried red bulb with 12g Drynaria rhizome and 10g Angelica sinensis for rheumatic aches and anemia.',
+        'Crush fresh cloves with a pinch of sea salt and apply as a poultice on inflamed carbuncles to rapidly draw pus.'
+      ],
+      preparation: ['Steep in rice wine as a blood-building tonic', 'Sun-dry and grind into fine daily medicinal powder'],
+      toxicity_warning: 'Non-toxic and gentle. Individuals experiencing high fever or excessive internal heat should use in moderate doses.',
+      disclaimer: 'Referenced from Pharmacopoeia of Vietnam V. Traditional folklore does not substitute professional medical diagnosis.'
+    },
+    botanical_details: {
+      family: 'Iridaceae (Iris Family)',
+      native_range: 'Tropical Americas, naturalized as a classical Vietnamese medicinal herb',
+      active_compounds: ['Eleutherin', 'Isoeleutherin', 'Eleutherol', 'Flavonoids'],
+      soil_ph: '6.0 - 6.8',
+      ideal_temp: '20°C - 32°C',
+      pot_size: '25cm - 35cm container'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Separate Clove Bulbs', instruction: 'Gently split individual cloves from mother bulb clusters and let calluses dry for 24 hours.' },
+      { step: 2, title: 'Plant Upright', instruction: 'Bury cloves 3cm deep in fluffy organic potting mix with the pointed tip facing upwards.' }
+    ],
+    faqs: [
+      { question: 'Can I grow Red Onion Ginseng in shallow apartment planters?', answer: 'Yes, any container with 20cm depth and drainage holes will yield 8-12 new daughter bulbs per clove.' }
+    ],
+    monetization_tips: ['Sell organic heirloom bulb starters at $1.50 - $2.50 each to home herbalists.'],
+    tags: ['Blood Tonic', 'Natural Antibiotic', 'Balcony Bulb', 'Precious Folk Herb']
+  },
+
+  'herb-22': {
+    common_name: 'Indian Camphorweed (Cuc Tan)',
+    aliases: ['Pluchea Indica', 'False Camphor', 'Southern Sai Ho'],
+    description: 'A celebrated Southeast Asian restorative herb for breaking wind-cold fevers, relieving spinal osteoarthritis, and soothing hemorrhoids. Leaves exude an invigorating lemongrass-camphor aroma and tolerate scorching west-facing balconies effortlessly.',
+    quick_answer: 'Indian Camphorweed roots 100% reliably from semi-hardwood stem cuttings in balcony pots. It loves intense direct sunlight and drought, creating a natural green acoustic and heat privacy hedge.',
+    growth_time: 'Harvest fresh tender tips in 25 days continuously',
+    seasonality: {
+      north: 'Vigorous flush in spring and summer; leaves tint slightly golden in winter',
+      central: 'Highly tolerant to coastal sea spray and windy balconies',
+      south: 'Perennial evergreen lush growth all 12 months',
+      best_months: [2, 3, 4, 5, 8, 9]
+    },
+    medical_info: {
+      uses: ['Dispels wind-cold, lowers headache and acute fevers', 'Alleviates lower back pain, sciatica, and joint stiffness', 'Herbal steam wash for hemorrhoids and antiseptic skin rinse'],
+      folk_remedies: [
+        'Boil 20g fresh leaves with 10g lemongrass and 10g lime leaves into a restorative facial steam to induce cleansing sweat.',
+        'Pan-roast fresh leaves with coarse sea salt and wrap in a cotton towel for a therapeutic hot back compress.'
+      ],
+      preparation: ['Herbal sweat steam therapy', 'Medicinal salt hot compress', 'Tender shoots raw culinary aromatic'],
+      toxicity_warning: 'Safe and non-toxic. Do not use steam baths when the patient is excessively dehydrated or suffering from heat stroke.',
+      disclaimer: 'Referenced from Pharmacopoeia of Vietnam IV. For traditional home therapy guidance.'
+    },
+    botanical_details: {
+      family: 'Asteraceae (Daisy Family)',
+      native_range: 'Indigenous to Vietnam and Southeast Asian wetlands and coasts',
+      active_compounds: ['Sesquiterpenes', 'Cineol', 'Limonene', 'Flavonoids'],
+      soil_ph: '6.0 - 7.5',
+      ideal_temp: '22°C - 36°C',
+      pot_size: '30cm - 45cm planter'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Take 15cm Cuttings', instruction: 'Strip bottom foliage and insert into damp coco peat; new roots appear in 10-14 days.' }
+    ],
+    faqs: [
+      { question: 'Does Pluchea indica repel mosquitoes?', answer: 'Yes, crushing its essential-oil-rich leaves releases natural camphor that repels mosquitoes and gnats.' }
+    ],
+    monetization_tips: ['Sell rooted hedge starter pots and artisanal botanical foot soak salt pouches.'],
+    tags: ['Fever Relief', 'Joint Therapy', 'West Balcony Champion', 'Living Green Wall']
+  },
+
+  'herb-23': {
+    common_name: 'Purple Skunkvine (Mo Long Tia)',
+    aliases: ['Paederia Foetida', 'Chinese Fever Vine', 'King of Gut Herbs'],
+    description: 'The premier botanical remedy for amoebic dysentery, spastic colitis, and irritable bowel syndrome (IBS) in Vietnamese culinary medicine. Bi-colored velvety leaves (green top, purple underside) contain paederin which cleanses bacterial infections and regenerates gut lining.',
+    quick_answer: 'Purple Skunkvine is an energetic balcony trellis vine that loves partial shade. Its hallmark culinary remedy—omelette steamed in banana leaf without cooking oil—is a clinical dietary staple for digestive recovery.',
+    growth_time: '30 days to start picking climbing leaves',
+    seasonality: {
+      north: 'Plant Feb-May; dense green foliage wraps trellises all through summer and fall',
+      central: 'Adapts wonderfully to high ambient humidity',
+      south: 'Perennial vigorous vine with year-round leaf production',
+      best_months: [2, 3, 4, 8, 9]
+    },
+    medical_info: {
+      uses: ['Cures amoebic dysentery, bacterial diarrhea, and IBS spasms', 'Soothes chronic ulcerative colitis inflammation', 'Clears pinworms gently in pediatric health'],
+      folk_remedies: [
+        'Finely chop 30g fresh leaves with 1 organic egg, wrap in banana leaves and dry-pan roast without oil; consume warm daily for 5 days.',
+        'Crush fresh leaves in warm water, strain, and sip on an empty morning stomach to expel pinworms.'
+      ],
+      preparation: ['Dry-pan egg omelette wrap', 'Fresh pressed therapeutic juice'],
+      toxicity_warning: 'Completely safe, nutritious, and gentle as a daily culinary dish.',
+      disclaimer: 'Traditional functional culinary guidance as recorded by Prof. Do Tat Loi.'
+    },
+    botanical_details: {
+      family: 'Rubiaceae (Coffee Family)',
+      native_range: 'Native to tropical Asia; cherished staple in Vietnamese herb gardens',
+      active_compounds: ['Paederin', 'Methyl Mercaptan', 'Scandoside', 'Iridoids'],
+      soil_ph: '5.5 - 6.5',
+      ideal_temp: '20°C - 32°C',
+      pot_size: '30cm - 40cm container with climbing trellis'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Trellis Setup', instruction: 'Provide vertical twine or a bamboo lattice; vines will climb up to 3 meters quickly.' }
+    ],
+    faqs: [
+      { question: 'Why does the vine have a sulfur smell when crushed?', answer: 'The pungent aroma comes from natural methyl mercaptan, the very compound responsible for eradicating gut pathogens.' }
+    ],
+    monetization_tips: ['Supply fresh organic culinary leaves to neighborhood families suffering from chronic gut sensitivity.'],
+    tags: ['Colitis Savior', 'Gut Health', 'Balcony Trellis', 'Superfood Omelette']
+  },
+
+  'herb-24': {
+    common_name: 'Common Mugwort (Ngai Cuu)',
+    aliases: ['Artemisia Vulgaris', 'Moxa Herb', 'Vietnamese Ngai Diep'],
+    description: 'An ancient revered women’s tonic and neurovascular restorative. Promotes pelvic blood circulation, relieves menstrual cramps, soothes vestibular migraines, and expels cold dampness. Its aromatic camphor fragrance keeps household balconies pest-free.',
+    quick_answer: 'Mugwort is among the hardiest urban herbs. Push a single stem into moist soil and it sprouts vigorous fragrant shoots within a week. Pinch tips regularly to induce a bushy, highly productive container.',
+    growth_time: '20 days to harvest tender shoots for cooking',
+    seasonality: {
+      north: 'Spring produces the most tender, emerald, nutrient-packed leaves',
+      central: 'Perennial year-round growth in partial sun',
+      south: 'Grows best in breezy morning light with moderate watering',
+      best_months: [1, 2, 3, 4, 9, 10]
+    },
+    medical_info: {
+      uses: ['Regulates menstrual cycles, relieves severe dysmenorrhea', 'Nourishes brain circulation, eases vestibular dizziness and migraines', 'Traditional moxibustion acupuncture heating therapy'],
+      folk_remedies: [
+        'Pan-fry 20g fresh mugwort with 2 eggs to stimulate cerebral blood flow and alleviate tension headaches.',
+        'Simmer with organic free-range chicken and ginger for postpartum vitality and blood restoration.'
+      ],
+      preparation: ['Herb omelette', 'Chicken postpartum herbal soup', 'Moxa sticks for acupuncture points'],
+      toxicity_warning: 'Avoid consuming excessively in concentrated doses for more than 2 consecutive weeks. Pregnant women in their first trimester must consult a doctor.',
+      disclaimer: 'Pharmacopoeia of Vietnam V. For complementary home health guidance.'
+    },
+    botanical_details: {
+      family: 'Asteraceae (Daisy Family)',
+      native_range: 'Temperate and subtropical Eurasia',
+      active_compounds: ['Cineol', 'Thujone', 'Flavonoids', 'Sesquiterpene Lactones'],
+      soil_ph: '6.0 - 7.0',
+      ideal_temp: '18°C - 30°C',
+      pot_size: '25cm - 35cm pot'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Prune for Bushiness', instruction: 'Cut the top 5cm off main stalks to force rapid lateral branching.' }
+    ],
+    faqs: [
+      { question: 'Can I dry mugwort leaves for winter tea?', answer: 'Yes, shade-dry fresh stems on wire mesh to preserve volatile cineol essential oils.' }
+    ],
+    monetization_tips: ['Produce relaxing herbal eye pillows filled with dried mugwort and sea salt for office workers.'],
+    tags: ['Blood Circulation', 'Migraine Relief', 'Women Tonic', 'Super Hardy']
+  },
+
+  'herb-25': {
+    common_name: 'Stevia Sweetleaf (Co Ngot)',
+    aliases: ['Stevia Rebaudiana', 'Sweet Daisy', 'Zero-Calorie Sugar Plant'],
+    description: 'Nature’s miraculous zero-calorie sweetener. Leaves are up to 300 times sweeter than cane sugar without triggering blood glucose or insulin spikes, making it the supreme natural sweetener for diabetics, keto dieters, and healthy weight management.',
+    quick_answer: 'Stevia thrives in balcony containers with gentle morning sunlight and consistently moist, well-aerated soil. Snip fresh or dried leaves to naturally sweeten tea blends without refined sugar.',
+    growth_time: '35 days to begin picking intensely sweet leaves',
+    seasonality: {
+      north: 'Thrives from March to September; rests during chilly northern winter',
+      central: 'Flourishes during mild spring and autumn months',
+      south: 'Grows continuously year-round in bright, sheltered patio spots',
+      best_months: [2, 3, 4, 8, 9]
+    },
+    medical_info: {
+      uses: ['Natural 0-calorie sweetener for diabetic dietary control', 'Mildly regulates high blood pressure and cardiac tone', 'Inhibits oral bacteria and prevents dental cavities'],
+      folk_remedies: [
+        'Infuse 3 fresh stevia leaves with 10 dried chamomile blossoms in boiling water for 5 minutes for a calming, sweet sugar-free evening brew.',
+        'Brew with mint and Indian borage to sweeten homemade children’s cough syrups safely without refined sugar.'
+      ],
+      preparation: ['Fresh or dried leaf tea infusion', 'Concentrated liquid stevia extract'],
+      toxicity_warning: 'Recognized as universally safe by FDA and WHO. Those with hypotension should avoid drinking overly concentrated stevia tea.',
+      disclaimer: 'Scientific guidance in accordance with National Institute of Nutrition and FDA GRAS.'
+    },
+    botanical_details: {
+      family: 'Asteraceae (Daisy Family)',
+      native_range: 'South America (Paraguay & Brazil), domesticated in Vietnam institutes',
+      active_compounds: ['Stevioside', 'Rebaudioside A', 'Dulcoside A', 'Flavonoids'],
+      soil_ph: '6.5 - 7.5',
+      ideal_temp: '20°C - 30°C',
+      pot_size: '20cm - 30cm container'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Avoid Flowering', instruction: 'Pinch off flower buds immediately when they appear to channel maximum sweetness into the foliage.' }
+    ],
+    faqs: [
+      { question: 'Does Stevia raise blood sugar?', answer: 'No, steviol glycosides pass through the digestive tract without caloric absorption, leaving blood glucose completely unchanged.' }
+    ],
+    monetization_tips: ['Pack artisanal loose-leaf stevia blends mixed with dried rosebuds and peppermint for health boutiques.'],
+    tags: ['Zero Calorie', 'Diabetic Safe', 'Pure Natural Sweet', 'Artisanal Tea']
+  },
+
+  // ==========================================
+  // BILINGUAL TRANSLATIONS FOR URBAN FRUIT PLANTS (MS3)
+  // ==========================================
+  'fruit-11': {
+    common_name: 'Taiwan Sweet Mulberry F1',
+    aliases: ['Long Fruit Mulberry', 'Sweet Container Mulberry', 'Tang Tham'],
+    description: 'An extraordinary high-yielding long-fruit mulberry bred for compact balcony planters. Yields prolific finger-length berries with 18-20° Brix sweetness and zero sourness. Dark purple ripe fruit is loaded with anti-aging anthocyanin and resveratrol.',
+    quick_answer: 'Taiwan Sweet Mulberry flourishes in a minimum 40L container with 6-8 hours of direct sun. Prune tips and strip old leaves after each harvest to trigger continuous flushes of sweet fruit all year.',
+    growth_time: '4 - 5 months for the first prolific harvest of sweet berries',
+    seasonality: {
+      north: 'Plant in spring (Feb-Apr); prune for early summer berry flushes',
+      central: 'Ensure quick drainage during severe tropical downpours',
+      south: 'Perennial vigorous growth and continuous fruiting flushes all 12 months',
+      best_months: [2, 3, 4, 9, 10],
+      warning: 'Prevent root rot during prolonged monsoons by using perlite-rich substrate'
+    },
+    botanical_details: {
+      family: 'Moraceae (Mulberry Family)',
+      native_range: 'East Asia, fully adapted to tropical climates',
+      active_compounds: ['Anthocyanins', 'Resveratrol', 'Vitamin C', 'Flavonoids'],
+      soil_ph: '6.0 - 7.0 (Loose humus soil)',
+      ideal_temp: '22°C - 35°C',
+      pot_size: '40cm - 60cm wide container'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Mix Rich Substrate', instruction: 'Combine 40% garden soil, 30% aged coco coir, 20% worm castings, and 10% perlite.' },
+      { step: 2, title: 'Prune for Fruit Flush', instruction: 'When branches reach 50cm, tip-prune and strip 60% of foliage to wake latent fruiting buds in 10-14 days.' }
+    ],
+    faqs: [
+      { question: 'Do I need two trees to cross-pollinate?', answer: 'No, Taiwan Sweet Mulberry is self-fertile via natural wind; a single pot will bear fruit profusely.' }
+    ],
+    monetization_tips: ['Propagate rooted stem cuttings for $2 - $3 each; craft artisanal fermented mulberry syrup jars.'],
+    tags: ['Hyper Prolific', 'Anti-Aging', 'Easy Balcony Pot', 'Herbal Berry']
+  },
+
+  'fruit-12': {
+    common_name: 'Four Seasons Bonsai Calamondin',
+    aliases: ['Container Kumquat', 'Lucky Citrus Bonsai', 'Golden Tangerine'],
+    description: 'The ultimate symbol of prosperity and vitality for city dwellings. Features fragrant white blossoms and golden juicy citrus fruit all four seasons. Rich in vitamin C and limonene for soothing winter throat ailments and zesty cooking.',
+    quick_answer: 'Calamondin thrives in full sun with daily morning watering. Plant in well-draining rich loam amended with organic biochar. Blooms and sets golden fruit continuously throughout the year.',
+    growth_time: 'Sets new fragrant blossom flushes every 3-4 months',
+    seasonality: {
+      north: 'Bears heavy golden fruit in Jan-Feb for Lunar New Year; prune in March',
+      central: 'Water consistently during dry sunny spells',
+      south: 'Produces continuous fruit flushes all 12 months',
+      best_months: [1, 2, 3, 7, 8]
+    },
+    botanical_details: {
+      family: 'Rutaceae (Citrus Family)',
+      native_range: 'Southeast Asia and South Asia',
+      active_compounds: ['Limonene', 'Citric Acid', 'Hesperidin', 'Vitamin C'],
+      soil_ph: '5.5 - 6.5',
+      ideal_temp: '20°C - 32°C',
+      pot_size: '35cm - 50cm planter'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Organic Feeding', instruction: 'Apply worm castings or composted poultry manure every 20 days around pot perimeter.' }
+    ],
+    faqs: [
+      { question: 'How to time heavy golden fruit for holiday display?', answer: 'Gently restrict water for 10 days in early summer to induce simultaneous blossom budding, then resume deep feeding.' }
+    ],
+    monetization_tips: ['Create desk-sized fruiting mini bonsai specimens selling for $25 - $60 each during festive seasons.'],
+    tags: ['Wealth Symbol', 'Fragrant Blooms', 'Natural Cough Remedy', 'Patio Bonsai']
+  },
+
+  'fruit-13': {
+    common_name: 'Southern Highbush Blueberry',
+    aliases: ['Heat-Tolerant Blueberry', 'Tropical Balcony Blueberry'],
+    description: 'An elite low-chill blueberry cultivar specially bred to flourish under intense tropical and subtropical heat. Yields plump, powdery-blue berry clusters with a refreshing sweet-tart flavor, ranking at the top of cognitive superfoods.',
+    quick_answer: 'Southern Highbush Blueberries strictly require acidic soil (pH 4.5 - 5.2) composed of peat moss and perlite. Water with chlorine-free water and provide maximum bright sunlight on rooftop patios.',
+    growth_time: '6 - 8 months to yield the first cluster of ripe blue berries',
+    seasonality: {
+      north: 'Flowers in late winter; berries ripen from April to June',
+      central: 'Provide 30% afternoon shade cloth during scorching midsummer heat',
+      south: 'Thrives year-round if roots are kept cool with organic pine bark mulch',
+      best_months: [2, 3, 4, 10, 11]
+    },
+    botanical_details: {
+      family: 'Ericaceae (Heath Family)',
+      native_range: 'North America, bred for subtropical Asian performance',
+      active_compounds: ['Anthocyanins', 'Pterostilbene', 'Polyphenols', 'Vitamin K'],
+      soil_ph: '4.5 - 5.2 (Strictly acidic peat required)',
+      ideal_temp: '18°C - 35°C',
+      pot_size: '35cm - 50cm pot'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Acidic Potting Mix', instruction: 'Blend 60% Canadian peat moss with 30% perlite and 10% aged pine bark. Never add lime or alkaline compost.' }
+    ],
+    faqs: [
+      { question: 'Why are leaves turning pale yellow with green veins?', answer: 'Iron chlorosis due to elevated pH. Apply diluted pine vinegar or organic sulfur to lower pH below 5.0 immediately.' }
+    ],
+    monetization_tips: ['Sell specialized acidic blueberry potting kit refills to city container growers.'],
+    tags: ['Superfood', 'Antioxidant King', 'Acid Soil Plant', 'Blue Pearl']
+  },
+
+  'fruit-14': {
+    common_name: 'Container Cantaloupe Melon',
+    aliases: ['Sweet Honey Melon', 'Japanese Netted Melon', 'Kim Co Nuong'],
+    description: 'The pinnacle of urban gardening satisfaction. In a single 20L container on a sunny balcony or rooftop, 75 days reward you with a magnificent netted melon bursting with honey-sweet orange flesh and irresistible aroma.',
+    quick_answer: 'Container cantaloupes need fluffy potting mix, generous organic feeding, and early morning hand pollination (7am-9am). Retain only the single best-shaped fruit per vine to concentrate maximum sweetness.',
+    growth_time: '65 - 75 days from seed germination to harvest',
+    seasonality: {
+      north: 'Crop 1: March-May; Crop 2: August-October',
+      central: 'Plant Feb-August; avoid stormy typhoon season',
+      south: 'Cultivate year-round; dry sunny months produce peak 15° Brix sweetness',
+      best_months: [2, 3, 4, 8, 9]
+    },
+    botanical_details: {
+      family: 'Cucurbitaceae (Gourd Family)',
+      native_range: 'Southwest Asia and the Mediterranean',
+      active_compounds: ['Beta-Carotene', 'Citrulline', 'Potassium', 'Vitamin A'],
+      soil_ph: '6.0 - 6.8',
+      ideal_temp: '25°C - 35°C',
+      pot_size: '20L - 30L pot per vine'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Hand Pollination', instruction: 'Touch a freshly opened male blossom stamen directly onto the female flower stigma between 7am and 9am.' }
+    ],
+    faqs: [
+      { question: 'When is the melon ready to pick?', answer: 'When netting fully surfaces, a fragrant sweet aroma wafts around the pot, and the stem collar shows fine radial cracks.' }
+    ],
+    monetization_tips: ['Supply premium gift-wrapped organic rooftop netted melons at $8 - $12 per melon.'],
+    tags: ['75-Day Harvest', 'Honey Sweet', 'Rooftop Trophy', 'Net Melon']
+  },
+
+  'fruit-15': {
+    common_name: 'Dwarf Red Papaya F1',
+    aliases: ['Red Lady Dwarf Papaya', 'Container Papaya', 'Sweet Lady F1'],
+    description: 'A remarkable dwarf papaya cultivar that sets heavy fruit just 40cm above the soil. Features stout wind-resistant stems perfect for windy apartment rooftops, yielding dozens of sweet, seedless, vibrant red-orange fruit annually.',
+    quick_answer: 'Dwarf Red Papaya needs a deep 50L container or large cooler with multiple drainage holes, as roots dislike standing water. Requires full sun and organic potassium feeding for dense, candy-sweet fruit.',
+    growth_time: '6 - 7 months from transplanting to ripe sweet harvest',
+    seasonality: {
+      north: 'Plant Feb-April to bypass winter cold snaps',
+      central: 'Anchor containers against strong coastal storm gusts',
+      south: 'Continuous harvest all 12 months in tropical warmth',
+      best_months: [2, 3, 4, 8, 9]
+    },
+    botanical_details: {
+      family: 'Caricaceae (Papaya Family)',
+      native_range: 'Central America, now grown across all tropical zones',
+      active_compounds: ['Papain enzyme', 'Lycopene', 'Vitamin C', 'Carotenoids'],
+      soil_ph: '6.0 - 6.5',
+      ideal_temp: '24°C - 33°C',
+      pot_size: '50L - 80L large planter box'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Drainage Holes', instruction: 'Drill 8-10 perimeter drainage holes around the base of the planter to prevent root waterlogging.' }
+    ],
+    faqs: [
+      { question: 'Can papaya grow in a styrofoam box?', answer: 'Yes, a standard large 60x40x40cm styrofoam box is the most economical container for dwarf papaya.' }
+    ],
+    monetization_tips: ['Sell organically ripened tree-sweetened red papayas to health-conscious condo neighbors.'],
+    tags: ['Dwarf Heavy Bearer', 'Red Sweet Flesh', 'Papain Enzyme', 'Rooftop Planter']
+  },
+
+  // ==========================================
+  // BILINGUAL TRANSLATIONS FOR ORNAMENTAL AIR-PURIFIERS (MS3)
+  // ==========================================
+  'orn-06': {
+    common_name: 'Split-Leaf Tree Philodendron',
+    aliases: ['Philodendron Bipinnatifidum', 'Hope Selloum', 'Tree Philodendron'],
+    description: 'The majestic queen of deeply lobed tropical foliage. Features expansive, sculpted glossy green fronds that neutralize indoor radiation, reduce eye strain, and vigorously scrub airborne formaldehyde and VOCs.',
+    quick_answer: 'Tree Philodendron flourishes in filtered indirect light or gentle morning sun. Water thoroughly when the top 3cm of soil dries out, and gently wipe broad leaves with a damp cloth to maximize photosynthesis.',
+    growth_time: 'Maintains lush evergreen architectural beauty year-round',
+    seasonality: {
+      north: 'Thrives in warm humid seasons; shelter indoors during cold winters',
+      central: 'Thrives in bright sheltered courtyards',
+      south: 'Luxuriant growth year-round in bright shaded balconies',
+      best_months: [3, 4, 5, 8, 9, 10]
+    },
+    botanical_details: {
+      family: 'Araceae (Arum Family)',
+      native_range: 'Tropical South American rainforests',
+      active_compounds: ['Chlorophyll', 'Flavonoids', 'Air-Filtering Enzymes'],
+      soil_ph: '5.5 - 6.5',
+      ideal_temp: '18°C - 30°C',
+      pot_size: '30cm - 45cm pot'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Wipe Foliage', instruction: 'Clean broad leaves monthly with a soft damp cloth to keep air-purifying pores clear of city dust.' }
+    ],
+    faqs: [
+      { question: 'Why are leaf tips turning brown?', answer: 'Usually low ambient humidity or tap water fluoride. Mist surrounding air or switch to filtered water.' }
+    ],
+    monetization_tips: ['Propagate architectural specimen plants for upscale interior design staging.'],
+    tags: ['Clean Air Champion', 'Tropical Luxury', 'Eye Comfort', 'Shade Lover']
+  },
+
+  'orn-07': {
+    common_name: 'Fiddle-Leaf Fig (Bang Singapore)',
+    aliases: ['Ficus Lyrata', 'Singapore Fig', 'Violin Leaf Fig'],
+    description: 'The iconic darling of modern interior architecture. Showcases dramatic violin-shaped leathery leaves that command attention in living rooms and high-ceiling foyers while actively absorbing airborne toxins.',
+    quick_answer: 'Fiddle-Leaf Figs crave consistent bright indirect sunlight and dislike being moved around. Water only when the top half of soil feels dry, and ensure zero standing water in the drip tray.',
+    growth_time: 'Steadily produces 2-4 massive new glossy leaves every month in warm weather',
+    seasonality: {
+      north: 'Spring and summer produce dramatic growth flushes; rests in winter',
+      central: 'Maintain in bright airy verandas',
+      south: 'Flourishes vigorously year-round under bright skylights',
+      best_months: [3, 4, 5, 6, 9, 10]
+    },
+    botanical_details: {
+      family: 'Moraceae (Fig Family)',
+      native_range: 'Lowland tropical rainforests of Western Africa',
+      soil_ph: '6.0 - 7.0',
+      ideal_temp: '18°C - 32°C',
+      pot_size: '35cm - 50cm ceramic pot'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Rotate Container', instruction: 'Turn the pot 90 degrees every week so all sides receive balanced light and grow upright.' }
+    ],
+    faqs: [
+      { question: 'Why is my Fiddle-Leaf dropping green leaves?', answer: 'Classic shock from sudden drafts, relocation, or overwatering. Keep in one bright spot and stabilize watering.' }
+    ],
+    monetization_tips: ['Sell mature trained single-trunk indoor tree specimens for $40 - $90.'],
+    tags: ['Interior Icon', 'Sculptural Foliage', 'Modern Decor', 'Air Purifier']
+  },
+
+  'orn-08': {
+    common_name: 'ZZ Plant (Kim Tien)',
+    aliases: ['Zamioculcas Zamiifolia', 'Eternity Plant', 'Fortune Plant'],
+    description: 'The ultimate indestructible houseplant. Waxy, mirror-gloss emerald leaflets emerge like wands from thick water-storing rhizomes. Symbolizes financial abundance, steady career prosperity, and serene resilience in low-light condos.',
+    quick_answer: 'ZZ Plant tolerates extreme neglect, surviving weeks without water in dark office corners. Water once every 2-3 weeks only when bone-dry; overwatering is its sole vulnerability.',
+    growth_time: 'Shoots up vigorous new lime-green spears in spring and summer',
+    seasonality: {
+      north: 'Evergreen all 12 months; drastically reduce water during cold damp winters',
+      central: 'Ideal for indoor offices away from humid monsoons',
+      south: 'Perennial hardy grower in ambient room temperatures',
+      best_months: [1, 2, 3, 4, 10, 11]
+    },
+    botanical_details: {
+      family: 'Araceae (Arum Family)',
+      native_range: 'Drought-prone Eastern Africa (Kenya to South Africa)',
+      soil_ph: '6.0 - 7.0',
+      ideal_temp: '16°C - 32°C',
+      pot_size: '25cm - 35cm pot'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Free Draining Soil', instruction: 'Use a succulent-grade potting mix amended with 30% perlite to protect bulbous rhizomes.' }
+    ],
+    faqs: [
+      { question: 'Can ZZ Plant survive in rooms with no windows?', answer: 'Yes, it thrives comfortably under standard fluorescent or LED office lighting.' }
+    ],
+    monetization_tips: ['Divide rhizome clusters into feng-shui desktop arrangements for housewarming gifts.'],
+    tags: ['Indestructible', 'Low Light Champion', 'Wealth Attractor', 'Neglect Tolerant']
+  },
+
+  'orn-09': {
+    common_name: 'Variegated Golden Snake Plant',
+    aliases: ['Sansevieria Trifasciata Laurentii', 'Mother-in-Law Tongue', 'Luoi Ho Vang'],
+    description: 'NASA’s top-ranked bedroom air purifier. Rigid sword-shaped upright leaves bordered with brilliant gold bands absorb carbon dioxide and emit clean oxygen during nighttime hours via Crassulacean Acid Metabolism (CAM).',
+    quick_answer: 'Snake Plants thrive on minimal care. Place in any lighting from full sun to dim bedroom corners. Water once a month in winter and every 10 days in summer when soil is completely dry.',
+    growth_time: 'Produces fresh underground rhizome pup clusters every 2-3 months',
+    seasonality: {
+      north: 'Zero leaf drop even during chilly northern winters',
+      central: 'Thrives in dry airy indoor living rooms',
+      south: 'Vigorous year-round pup propagation',
+      best_months: [1, 2, 3, 4, 5, 10]
+    },
+    botanical_details: {
+      family: 'Asparagaceae (Asparagus Family)',
+      native_range: 'Tropical West Africa from Nigeria east to the Congo',
+      soil_ph: '6.0 - 7.5',
+      ideal_temp: '15°C - 35°C',
+      pot_size: '20cm - 30cm pot'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Separate Pups', instruction: 'Slice daughter rhizome offsets with a clean knife and repot into fresh sandy loam.' }
+    ],
+    faqs: [
+      { question: 'Is it true Snake Plants release oxygen at night?', answer: 'Yes, through CAM photosynthesis, stomata open exclusively at night to absorb CO2 and release oxygen.' }
+    ],
+    monetization_tips: ['Sell paired bedroom clean-air planter sets with care warranty cards.'],
+    tags: ['Night Oxygen', 'NASA Air Purifier', 'Bedroom Plant', 'Zero Effort']
+  },
+
+  'orn-10': {
+    common_name: 'Hydroponic Peace Lily',
+    aliases: ['Spathiphyllum Wallisii', 'White Flag Lily', 'Lan Y Thuy Canh'],
+    description: 'An elegant air purifier famous for scrubbing acetone, benzene, and trichloroethylene. Pure white sail-like spathes rise gracefully above emerald foliage, growing cleanly in glass vessels of nutrient water without soil mess.',
+    quick_answer: 'Hydroponic Peace Lilies require bright indirect light and clean dechlorinated water changed every 2 weeks. Add 2 drops of gentle hydroponic fertilizer monthly to trigger continuous white blooms.',
+    growth_time: 'Produces striking white floral spathes every 6-8 weeks',
+    seasonality: {
+      north: 'Prefers warm room temperatures; keep away from icy winter draft windows',
+      central: 'Flourishes indoors in coastal cities',
+      south: 'Perennial year-round white blooms in air-conditioned apartments',
+      best_months: [2, 3, 4, 9, 10, 11]
+    },
+    botanical_details: {
+      family: 'Araceae (Arum Family)',
+      native_range: 'Tropical Central and South America',
+      soil_ph: 'Water pH 5.8 - 6.5',
+      ideal_temp: '18°C - 28°C',
+      pot_size: 'Clear glass hydroponic vase (20cm - 30cm)'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Wash Roots Clean', instruction: 'Gently rinse all soil off roots under tepid running water before placing into clean glassware.' }
+    ],
+    faqs: [
+      { question: 'Why are leaf tips drooping dramatically?', answer: 'Peace lilies are dramatic communicators. In water culture, ensure water level submerges 60% of roots; foliage perks back within 2 hours.' }
+    ],
+    monetization_tips: ['Create upscale hydroponic desk displays in Scandinavian-style glass decanters.'],
+    tags: ['Hydroponic Clean', 'White Blossom', 'Formaldehyde Scrubber', 'Desktop Luxury']
+  },
+
+  'orn-11': {
+    common_name: 'Burgundy Rubber Tree (Da Bup Do)',
+    aliases: ['Ficus Elastica Burgundy', 'Black Prince Rubber Plant', 'Da Bup Do'],
+    description: 'A striking ornamental tree boasting glossy deep burgundy-black leathery leaves. Young emerging leaves are sheathed in vibrant crimson caps, offering powerful feng-shui protection, grounding energy, and remarkable dust absorption.',
+    quick_answer: 'Burgundy Rubber Plants thrive in bright, indirect sunlight which preserves their rich dark color. Water when the top half of soil feels dry, and prune tall stalks to encourage a bushy, branched canopy.',
+    growth_time: 'Unfurls a fresh crimson-capped leaf every 10-14 days in warm weather',
+    seasonality: {
+      north: 'Rapid growth in spring and summer; holds thick foliage through winter',
+      central: 'Ideal for bright balconies sheltered from monsoons',
+      south: 'Year-round vigorous growth under bright balcony awnings',
+      best_months: [2, 3, 4, 5, 8, 9]
+    },
+    botanical_details: {
+      family: 'Moraceae (Fig Family)',
+      native_range: 'Eastern South Asia and Southeast Asia',
+      soil_ph: '6.0 - 7.0',
+      ideal_temp: '18°C - 32°C',
+      pot_size: '30cm - 45cm planter'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Notch for Branches', instruction: 'Make a shallow cut above a dormant node to stimulate lush lateral branches.' }
+    ],
+    faqs: [
+      { question: 'Why are new leaves green instead of deep burgundy?', answer: 'Insufficient light. Move closer to a bright window to restore rich dark pigmentation.' }
+    ],
+    monetization_tips: ['Air-layer top branches to create rooted desktop rubber tree gifts.'],
+    tags: ['Burgundy Drama', 'Feng Shui Shield', 'Dust Magnet', 'Hardy Foliage']
+  },
+
+  'orn-12': {
+    common_name: 'China Doll Tree (Cay Hanh Phuc)',
+    aliases: ['Radermachera Sinica', 'Emerald Tree', 'Happiness Tree'],
+    description: 'The tree of joyful harmony and domestic bliss. Adorned with delicate, glossy emerald bipinnate leaves that form a dense, feathery canopy. Brings a tranquil forest ambiance into compact apartment living rooms.',
+    quick_answer: 'China Doll Trees prefer bright, indirect sunlight and consistently moist but well-drained soil. They flourish when pruned lightly every couple of months to maintain a compact, bushy tree silhouette.',
+    growth_time: 'Fast grower; dense emerald foliage flushes every 2-3 weeks',
+    seasonality: {
+      north: 'Lush spring flush; place in warm bright rooms in winter',
+      central: 'Thrives in sheltered, humid verandas',
+      south: 'Evergreen feathery canopy flourishing all 12 months',
+      best_months: [2, 3, 4, 5, 9, 10]
+    },
+    botanical_details: {
+      family: 'Bignoniaceae (Bignonia Family)',
+      native_range: 'Subtropical mountainous regions of Southern China and Taiwan',
+      soil_ph: '6.0 - 6.8',
+      ideal_temp: '18°C - 28°C',
+      pot_size: '25cm - 40cm container'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Prune for Density', instruction: 'Snip leggy stems back by one-third to promote tight, lush emerald foliage.' }
+    ],
+    faqs: [
+      { question: 'Why are leaves suddenly dropping when brought home?', answer: 'China Doll Trees react to sudden light changes. Keep in a consistent bright location and avoid drafts; new shoots emerge quickly.' }
+    ],
+    monetization_tips: ['Sell tabletop braided happiness bonsai trees for wedding and new home gifts.'],
+    tags: ['Harmony Tree', 'Feathery Emerald', 'Living Room Bonsai', 'Air Cleanser']
+  },
+
+  'orn-13': {
+    common_name: 'Chinese Evergreen (Ngoc Ngan)',
+    aliases: ['Aglaonema Costatum', 'Valentine Plant', 'Silver Queen'],
+    description: 'The romantic botanical token of pure love and career fortune. Oval leaves are artfully splashed with snowflake-white and creamy-ivory speckles across deep emerald borders. Extremely forgiving in low-light condo bedrooms.',
+    quick_answer: 'Chinese Evergreen tolerates low ambient light and air-conditioned spaces easily. Water once a week when the soil surface is dry, and mist foliage occasionally to prevent dry tip edges.',
+    growth_time: 'Sprouts fresh variegated cluster shoots continuously all year',
+    seasonality: {
+      north: 'Year-round indoor beauty; keep away from cold exterior windows in Dec-Jan',
+      central: 'Thrives indoors without direct sun',
+      south: 'Perennial lush variegation in room temperatures',
+      best_months: [1, 2, 3, 4, 9, 10]
+    },
+    botanical_details: {
+      family: 'Araceae (Arum Family)',
+      native_range: 'Tropical rainforest floors of Southeast Asia',
+      soil_ph: '5.5 - 6.5',
+      ideal_temp: '18°C - 30°C',
+      pot_size: '20cm - 30cm pot'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Divide Clumps', instruction: 'Separate rooted side shoots during spring repotting to multiply into new pots.' }
+    ],
+    faqs: [
+      { question: 'Can Chinese Evergreen grow in water without soil?', answer: 'Yes, it adapts effortlessly to glass vase hydroponics with clean dechlorinated water.' }
+    ],
+    monetization_tips: ['Market paired Valentine desk arrangements with white ceramic pots.'],
+    tags: ['Variegated Beauty', 'Pure Love Symbol', 'Condo Friendly', 'Low Light']
+  },
+
+  'orn-14': {
+    common_name: 'Braided Money Tree (Kim Ngan Tam Tai)',
+    aliases: ['Pachira Aquatica', 'Malabar Chestnut', 'Guiana Chestnut', 'Money Tree'],
+    description: 'The quintessential symbol of wealth accumulation and harmonious fortune. Features five-fingered umbrella leaves representing the five natural elements (Metal, Wood, Water, Fire, Earth) atop an artfully braided three-stem trunk.',
+    quick_answer: 'Money Trees store water in their swollen trunk bases and resent overwatering. Water thoroughly only when soil is completely dry (every 7-10 days). Place in bright, indirect light near entrance foyers.',
+    growth_time: 'Unfurls fresh five-leafed emerald crowns continuously',
+    seasonality: {
+      north: 'Evergreen all year; minimize watering during cool damp winters',
+      central: 'Ideal for indoor offices and living rooms',
+      south: 'Lush canopy development year-round',
+      best_months: [1, 2, 3, 4, 10, 11]
+    },
+    botanical_details: {
+      family: 'Malvaceae (Mallow Family)',
+      native_range: 'Central and South American wetlands',
+      soil_ph: '6.0 - 7.0',
+      ideal_temp: '18°C - 32°C',
+      pot_size: '25cm - 40cm pot'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Keep Trunk Braided', instruction: 'Gently weave pliable young green stems as they grow upward to maintain the elegant braided trunk.' }
+    ],
+    faqs: [
+      { question: 'Why is the trunk base feeling soft?', answer: 'Root and stem rot caused by chronic overwatering. Withhold water immediately and let soil aerate.' }
+    ],
+    monetization_tips: ['Supply braided fortune trees for business grand openings and corporate gifts.'],
+    tags: ['Wealth Tree', 'Braided Trunk', 'Five Elements Balance', 'Feng Shui Essential']
+  },
+
+  'orn-15': {
+    common_name: 'Lucky Bamboo (Truc Phu Quy)',
+    aliases: ['Dracaena Sanderiana', 'Ribbon Dracaena', 'Water Bamboo'],
+    description: 'An elegant Asian emblem of resilience, serene peace, and noble virtue. Slender segmented green stalks thrive in clear glass vases of water, unfurling delicate ribbon-like foliage that creates an instant Zen sanctuary on desks.',
+    quick_answer: 'Lucky Bamboo in water culture is virtually effortless. Fill vase with clean filtered water, submerge roots, and refresh monthly. Add 2 drops of mild liquid fertilizer every month for rich green leaves.',
+    growth_time: 'Roots vigorously in water within 10-14 days',
+    seasonality: {
+      north: 'Keep in warm interior rooms; avoid freezing window drafts in winter',
+      central: 'Flourishes indoors in glass vases year-round',
+      south: 'Perennial lush growth in room temperatures',
+      best_months: [1, 2, 3, 4, 11, 12]
+    },
+    botanical_details: {
+      family: 'Asparagaceae (Asparagus Family)',
+      native_range: 'Central African rainforests',
+      soil_ph: 'Water pH 6.0 - 6.5 (Clean dechlorinated water)',
+      ideal_temp: '18°C - 30°C',
+      pot_size: '25cm - 35cm tall glass vase'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Use Chlorine-Free Water', instruction: 'Let tap water stand for 24 hours before filling vases to let chlorine evaporate naturally.' }
+    ],
+    faqs: [
+      { question: 'Why are stalks turning yellow from the bottom?', answer: 'Too much direct sunlight, chlorinated water, or excessive fertilizer. Switch to clean filtered water and indirect light.' }
+    ],
+    monetization_tips: ['Assemble tied red-ribbon lucky bamboo arrangements for Lunar New Year altars.'],
+    tags: ['Zen Bamboo', 'Water Culture', 'Zero Soil', 'Prosperity Token']
   }
 };
 

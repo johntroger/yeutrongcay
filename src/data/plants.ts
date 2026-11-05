@@ -1364,5 +1364,254 @@ export const SEED_PLANTS: Plant[] = [
       "Dễ chăm nhất",
       "Bàn thờ Thần Tài"
     ]
+  },
+
+  // ==========================================
+  // BỔ SUNG CÁC GIỐNG DƯỢC LIỆU QUÝ BẢN ĐỊA VIỆT NAM (MS10)
+  // ==========================================
+  {
+    id: 'herb-21',
+    slug: 'sam-dai-hanh',
+    common_name: 'Sâm Đại Hành (Tỏi Đỏ)',
+    scientific_name: 'Eleutherine bulbosa',
+    aliases: ['Tỏi Lào', 'Hành Đỏ', 'Củ Rẻ Quạt'],
+    category: 'herb',
+    description: 'Dược thảo quý củ đỏ như tỏi, vị ngọt nhạt tính ấm. Chứa các dẫn chất naphthoquinone (eleutherin, isoeleutherin) có tác dụng kháng khuẩn tụ cầu vàng, bổ huyết, trị thiếu máu, cầm máu và viêm đường hô hấp.',
+    quick_answer: 'Sâm đại hành là cây củ dễ trồng trong chậu từ tép củ mẹ. Cây ưa đất xốp giàu mùn, ánh sáng tán xạ hoặc nắng ban mai. Thu hoạch củ sau 6-8 tháng trồng khi lá bắt đầu tàn.',
+    botanical_details: {
+      family: 'Iridaceae (Họ Diên vĩ)',
+      native_range: 'Nam Mỹ, di thực và phát triển thành vị thuốc quý lâu đời tại Việt Nam',
+      active_compounds: ['Eleutherin', 'Isoeleutherin', 'Eleutherol', 'Flavonoid'],
+      soil_ph: '6.0 - 6.8',
+      ideal_temp: '20°C - 32°C',
+      pot_size: '25cm - 35cm'
+    },
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Eleutherine_bulbosa_1.jpg/960px-Eleutherine_bulbosa_1.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    sunlight: 'partial_shade',
+    watering: 'moderate',
+    propagation_difficulty: 1,
+    growth_time: '6 - 8 tháng thu hoạch củ dược liệu',
+    container_suitable: true,
+    seasonality: {
+      north: 'Trồng mùa xuân tháng 2-4, thu củ tháng 10-12',
+      central: 'Trồng quanh năm, giữ rễ ráo nước mùa mưa',
+      south: 'Phát triển tốt quanh năm',
+      best_months: [2, 3, 4, 10, 11]
+    },
+    medical_info: {
+      uses: ['Bổ máu, trị da xanh xao mệt mỏi', 'Kháng sinh tự nhiên trị viêm họng, viêm phế quản', 'Giảm đau mụn nhọt, cầm máu vết thương'],
+      folk_remedies: [
+        'Sâm đại hành 12g + Cốt toái bổ 12g + Đương quy 10g sắc uống trị đau nhức xương khớp và thiếu máu.',
+        'Củ tươi giã nát đắp lên vết lở loét, mụn nhọt gom mủ nhanh.'
+      ],
+      preparation: ['Ngâm rượu sâm đại hành tỏi đỏ bổ huyết', 'Phơi khô sao vàng tán bột uống'],
+      toxicity_warning: 'Lành tính, không độc hại. Người cơ địa huyết nhiệt hoặc đang sốt cao nên dùng liều lượng vừa phải.',
+      disclaimer: 'Tham khảo Dược điển Việt Nam V. Thông tin dân gian không thay thế chẩn đoán y khoa.'
+    },
+    academic_citations: [
+      'Dược điển Việt Nam V (Tập 2)',
+      'Những cây thuốc và vị thuốc Việt Nam - GS. Đỗ Tất Lợi (trang 812)'
+    ],
+    monetization_tips: [
+      'Bán củ giống sâm đại hành cho các gia đình thích tự trồng thảo dược sạch.',
+      'Chế biến lát sâm sấy khô đóng túi trà bổ huyết dưỡng nhan.'
+    ],
+    tags: ['Bổ máu', 'Kháng khuẩn', 'Dễ trồng chậu', 'Dược liệu quý']
+  },
+  {
+    id: 'herb-22',
+    slug: 'cuc-tan',
+    common_name: 'Cúc Tần (Từ Bi Nam)',
+    scientific_name: 'Pluchea indica',
+    aliases: ['Sài Hồ Nam', 'Cây Từ Bi', 'Cúc Tần Đô Thị'],
+    category: 'herb',
+    description: 'Cây thuốc dân gian trứ danh trị cảm sốt, nhức đầu nghẹt mũi, phong thấp đau nhức xương khớp và viêm trĩ. Lá tỏa hương thơm nồng ấm mùi tinh dầu sả chanh, chịu nắng chịu hạn ban công hướng Tây cực tốt.',
+    quick_answer: 'Cúc tần giâm cành bén rễ 100% trong chậu ban công. Cây ưa nắng gắt, phát triển thành bụi xanh mát che nắng nóng mùa hè. Hái đọt non ăn sống với cá kho hoặc nấu canh giải cảm.',
+    botanical_details: {
+      family: 'Asteraceae (Họ Cúc)',
+      native_range: 'Bản địa Việt Nam và Đông Nam Á',
+      active_compounds: ['Sesquiterpene', 'Cineol', 'Limonene', 'Flavonoid'],
+      soil_ph: '6.0 - 7.5',
+      ideal_temp: '22°C - 36°C',
+      pot_size: '30cm - 45cm'
+    },
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Pluchea_indica_W_IMG_0096.jpg/960px-Pluchea_indica_W_IMG_0096.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    sunlight: 'full_sun',
+    watering: 'moderate',
+    propagation_difficulty: 1,
+    growth_time: '25 ngày cắt tỉa đọt non liên tục',
+    container_suitable: true,
+    seasonality: {
+      north: 'Phát triển mạnh xuân hè thu, mùa đông lá chuyển vàng nhẹ',
+      central: 'Chịu gió mặn ven biển tốt',
+      south: 'Xanh tốt quanh năm',
+      best_months: [2, 3, 4, 5, 8, 9]
+    },
+    medical_info: {
+      uses: ['Giải cảm mạo phong hàn, hạ sốt nhức đầu', 'Chữa đau lưng, gai cột sống, phong tê thấp', 'Xông ngâm trĩ và sát trùng vết thương'],
+      folk_remedies: [
+        'Lá cúc tần 20g + Sả 10g + Lá chanh 10g: Nấu nồi nước xông giải cảm toát mồ hôi.',
+        'Lá cúc tần sao nóng với muối hột bọc khăn chườm lên vùng lưng đau nhức.'
+      ],
+      preparation: ['Xông hơi lá tươi', 'Nấu canh đọt non hoặc chườm muối nóng'],
+      toxicity_warning: 'Lành tính, không độc. Không dùng nồi nước xông khi người bệnh đang ra quá nhiều mồ hôi hoặc mất nước.',
+      disclaimer: 'Tham khảo Dược điển Việt Nam IV. Thông tin mang tính tham khảo y học cổ truyền.'
+    },
+    academic_citations: [
+      'Dược điển Việt Nam IV',
+      'Cây thuốc và động vật làm thuốc ở Việt Nam - Viện Dược liệu'
+    ],
+    monetization_tips: [
+      'Bán cành giống cúc tần 20k/cành làm hàng rào xanh ban công.',
+      'Chế biến gói thảo mộc xông cảm và muối ngâm chân cúc tần thảo dược.'
+    ],
+    tags: ['Giải cảm', 'Đau xương khớp', 'Chịu nắng Tây', 'Hàng rào xanh']
+  },
+  {
+    id: 'herb-23',
+    slug: 'mo-long-tia',
+    common_name: 'Mơ Lông Tía (Mơ Tam Thể)',
+    scientific_name: 'Paederia foetida',
+    aliases: ['Dây Mơ Lông', 'Mơ Tròn', 'Ngưu Bì Đống'],
+    category: 'herb',
+    description: 'Vị thuốc số 1 cho đường ruột và đại tràng trong y học cổ truyền. Lá hai màu (mặt trên xanh, mặt dưới tím tía phủ lông nhung mịn). Chứa tinh dầu methyl mercaptan đặc trưng và paederin có tác dụng tiêu diệt amip kiết lỵ, phục hồi niêm mạc đại tràng tổn thương.',
+    quick_answer: 'Mơ lông leo giàn ban công cực khỏe, thích nắng nhẹ hoặc bóng râm buổi chiều. Rất thích hợp giâm cành vào mùa mưa. Món trứng gà rán lá mơ cuộn lá chuối nướng là bài thuốc thực dưỡng vàng cho người viêm đại tràng.',
+    botanical_details: {
+      family: 'Rubiaceae (Họ Cà phê)',
+      native_range: 'Bản địa vùng nhiệt đới châu Á, mọc hoang và thuần dưỡng rộng rãi tại Việt Nam',
+      active_compounds: ['Paederin', 'Methyl Mercaptan', 'Scandoside', 'Flavonoid'],
+      soil_ph: '5.5 - 6.5',
+      ideal_temp: '20°C - 32°C',
+      pot_size: '30cm - 40cm'
+    },
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Paederia_foetida_leaves.jpg/960px-Paederia_foetida_leaves.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    sunlight: 'partial_shade',
+    watering: 'moderate',
+    propagation_difficulty: 1,
+    growth_time: '30 ngày bắt đầu hái lá cuốn giàn',
+    container_suitable: true,
+    seasonality: {
+      north: 'Trồng tháng 2-5, leo giàn xanh ngắt suốt mùa hè thu',
+      central: 'Thích nghi tốt khí hậu ẩm',
+      south: 'Sinh trưởng quanh năm',
+      best_months: [2, 3, 4, 8, 9]
+    },
+    medical_info: {
+      uses: ['Đặc trị kiết lỵ, tiêu chảy do nhiễm khuẩn amip', 'Hỗ trợ viêm đại tràng co thắt, hội chứng ruột kích thích (IBS)', 'Tẩy giun kim cho trẻ em'],
+      folk_remedies: [
+        'Lá mơ lông 30g băm nhỏ trộn với 1 quả trứng gà ta, lót lá chuối nướng chảo khô (không dùng dầu mỡ) ăn liên tục 3-5 ngày.',
+        'Nước cốt lá mơ lông tươi giã với nước ấm lọc uống trị giun kim lúc sáng sớm đói bụng.'
+      ],
+      preparation: ['Trứng rán lá mơ nướng không dầu', 'Giã vắt lấy nước cốt tươi'],
+      toxicity_warning: 'Hoàn toàn lành tính, an toàn tuyệt đối khi sử dụng như món ăn hàng ngày.',
+      disclaimer: 'Thông tin thực dưỡng dân gian theo GS Đỗ Tất Lợi.'
+    },
+    academic_citations: [
+      'Những cây thuốc và vị thuốc Việt Nam - GS. Đỗ Tất Lợi (trang 145)',
+      'Cây thuốc trị bệnh đường tiêu hóa - NXB Y học'
+    ],
+    monetization_tips: [
+      'Bán cành giống leo ban công 25k - 35k/chậu.',
+      'Cung cấp lá mơ tươi hữu cơ giao tận nhà cho các gia đình phố.'
+    ],
+    tags: ['Đặc trị đại tràng', 'Ruột kích thích', 'Dễ leo giàn', 'Trứng rán lá mơ']
+  },
+  {
+    id: 'herb-24',
+    slug: 'ngai-cuu',
+    common_name: 'Ngải Cứu (Ngải Diệp)',
+    scientific_name: 'Artemisia vulgaris',
+    aliases: ['Cây Thuốc Cứu', 'Thuốc Cao', 'Ngải Cứu Nếp'],
+    category: 'herb',
+    description: 'Cây thuốc quý điều kinh bổ huyết, an thai, trị đau đầu tiền đình, đau bụng lạnh và trừ phong hàn. Mùi thơm nồng đặc trưng giúp xua đuổi côn trùng và ruồi muỗi quanh ban công.',
+    quick_answer: 'Ngải cứu dễ trồng nhất trần đời, chỉ cần cắm 1 nhánh già xuống đất ẩm là sau 1 tuần đã đâm chồi non mơn mởn. Thu hoạch bằng cách cắt ngọn để kích cây đẻ nhánh thành bụi sum sê.',
+    botanical_details: {
+      family: 'Asteraceae (Họ Cúc)',
+      native_range: 'Bắc bán cầu ôn đới & nhiệt đới châu Á',
+      active_compounds: ['Cineol', 'Thujone', 'Dehydro matricaria este', 'Flavonoid'],
+      soil_ph: '6.0 - 7.0',
+      ideal_temp: '18°C - 30°C',
+      pot_size: '25cm - 35cm'
+    },
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Artemisia_vulgaris_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-016.jpg/960px-Artemisia_vulgaris_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-016.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    sunlight: 'full_sun',
+    watering: 'moderate',
+    propagation_difficulty: 1,
+    growth_time: '20 ngày hái đọt non ăn trứng gà rán',
+    container_suitable: true,
+    seasonality: {
+      north: 'Mùa xuân phát triển mơn mởn nhất năm',
+      central: 'Trồng quanh năm',
+      south: 'Trồng nơi thoáng mát nắng sáng',
+      best_months: [1, 2, 3, 4, 9, 10]
+    },
+    medical_info: {
+      uses: ['Điều hòa kinh nguyệt, giảm đau bụng kinh', 'An thai, trị động thai ra máu', 'Trị đau đầu hoa mắt chóng mặt, rối loạn tiền đình'],
+      folk_remedies: [
+        'Ngải cứu 20g + Trứng gà 2 quả rán ăn nóng hỗ trợ tuần hoàn máu não và giảm đau đầu.',
+        'Lá ngải cứu khô cứu ấm huyệt đạo (ngải châm) trị phong tê thấp lạnh khớp.'
+      ],
+      preparation: ['Trứng rán ngải cứu', 'Hầm gà bồi bổ sau sinh', 'Phơi khô làm điếu ngải cứu huyệt'],
+      toxicity_warning: 'Không nên ăn quá nhiều hàng ngày liên tục trên 2 tuần. Phụ nữ mang thai 3 tháng đầu cần hỏi ý kiến thầy thuốc chuyên môn.',
+      disclaimer: 'Dược điển Việt Nam V. Tham khảo bác sĩ chuyên khoa phụ sản.'
+    },
+    academic_citations: [
+      'Dược điển Việt Nam V',
+      'Cây thuốc và vị thuốc Việt Nam - GS. Đỗ Tất Lợi'
+    ],
+    monetization_tips: [
+      'Bán bầu ngải cứu hữu cơ 20k/bầu.',
+      'Sấy khô ngải cứu làm túi chườm mắt thảo dược thư giãn cho dân văn phòng.'
+    ],
+    tags: ['Bổ máu', 'Trị đau đầu', 'Điều kinh', 'Gà hầm ngải cứu']
+  },
+  {
+    id: 'herb-25',
+    slug: 'co-ngot-stevia',
+    common_name: 'Cỏ Ngọt Stevia (Cúc Ngọt)',
+    scientific_name: 'Stevia rebaudiana',
+    aliases: ['Cỏ Mật', 'Cúc Đường', 'Stevia'],
+    category: 'herb',
+    description: 'Chất làm ngọt tự nhiên không calo kỳ diệu. Lá ngọt gấp 300 lần đường mía nhưng hoàn toàn không làm tăng chỉ số đường huyết, là cứu tinh số 1 cho bệnh nhân tiểu đường, người ăn kiêng keto và giảm cân.',
+    quick_answer: 'Cỏ ngọt Stevia trồng chậu ban công ưa nắng nhẹ buổi sáng và đất ẩm tơi xốp. Hái lá tươi hoặc phơi khô pha cùng trà hoa cúc, trà tía tô tạo vị ngọt thanh dịu mát không cần dùng đường tinh luyện.',
+    botanical_details: {
+      family: 'Asteraceae (Họ Cúc)',
+      native_range: 'Nam Mỹ, di thực và trồng thành công tại các viện dược liệu Việt Nam',
+      active_compounds: ['Stevioside', 'Rebaudioside A', 'Dulcoside A', 'Flavonoid'],
+      soil_ph: '6.5 - 7.5',
+      ideal_temp: '20°C - 30°C',
+      pot_size: '20cm - 30cm'
+    },
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Stevia_rebaudiana0.jpg/960px-Stevia_rebaudiana0.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    sunlight: 'partial_shade',
+    watering: 'moderate',
+    propagation_difficulty: 2,
+    growth_time: '35 ngày bắt đầu thu hoạch lá ngọt',
+    container_suitable: true,
+    seasonality: {
+      north: 'Trồng tháng 3-9, mùa đông ngủ nghỉ',
+      central: 'Thích nghi tốt vụ xuân hè',
+      south: 'Phát triển quanh năm nơi mát mẻ',
+      best_months: [2, 3, 4, 8, 9]
+    },
+    medical_info: {
+      uses: ['Chất tạo ngọt tự nhiên 0 calo cho người tiểu đường', 'Hạ huyết áp nhẹ, hỗ trợ tim mạch', 'Ngăn ngừa sâu răng và mảng bám vi khuẩn miệng'],
+      folk_remedies: [
+        'Lá cỏ ngọt 3-5 lá + Trà hoa cúc 10 bông: Hãm nước sôi 5 phút uống thanh nhiệt, hạ huyết áp và làm dịu thần kinh.',
+        'Nấu nước lá cỏ ngọt pha siro ho cho trẻ em không gây sâu răng.'
+      ],
+      preparation: ['Hãm trà lá tươi hoặc khô', 'Nấu nước cốt làm ngọt tự nhiên cho đồ uống'],
+      toxicity_warning: 'An toàn theo chứng nhận FDA và WHO. Người huyết áp quá thấp không nên uống nước cỏ ngọt quá đậm đặc.',
+      disclaimer: 'Thông tin khoa học theo Viện Dinh Dưỡng Quốc Gia và Dược điển.'
+    },
+    academic_citations: [
+      'Viện Dược Liệu Quốc Gia Việt Nam',
+      'FDA Generally Recognized as Safe (GRAS) - Steviol Glycosides'
+    ],
+    monetization_tips: [
+      'Bán chậu cỏ ngọt ban công 35.000đ - 50.000đ cho người lớn tuổi.',
+      'Đóng gói trà lá cỏ ngọt sấy lạnh mix hoa quả thảo mộc cao cấp.'
+    ],
+    tags: ['Không calo', 'Tiểu đường', 'Ngọt tự nhiên', 'Pha trà']
   }
 ];
