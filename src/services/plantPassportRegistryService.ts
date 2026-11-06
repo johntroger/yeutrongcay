@@ -36,9 +36,10 @@ const REGISTRY_STORAGE_KEY = 'ytc_botanical_nft_registry';
 
 /**
  * Rút gọn và chuẩn hóa username từ email (VD: tranthanhtung37@gmail.com -> tranthanhtung37)
+ * Nếu chưa có email (chưa đăng nhập) -> trả về chuỗi rỗng
  */
 export function getUsernameFromEmail(email?: string | null): string {
-  if (!email) return 'tranthanhtung37';
+  if (!email || !email.includes('@')) return '';
   return email.split('@')[0].toLowerCase().replace(/[^a-z0-9_-]/g, '');
 }
 
@@ -279,11 +280,7 @@ export const plantPassportRegistryService = {
         return true;
       }
 
-      // Nếu chưa có tài khoản nào đăng nhập và chưa kết nối ví -> xem bản ghi thử nghiệm mặc định
-      if (!cleanWallet && !userId && !cleanHandle && p.creator_user_id === 'usr-local-me') {
-        return true;
-      }
-
+      // Nếu chưa đăng nhập (không có email, không có id) và chưa kết nối ví -> không có NFT cá nhân
       return false;
     });
   },

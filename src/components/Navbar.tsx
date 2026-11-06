@@ -58,7 +58,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const userMenuRef = useRef<HTMLDivElement>(null);
-  const userHandle = currentUser?.email ? getUsernameFromEmail(currentUser.email) : 'tranthanhtung37';
+  const userHandle = currentUser?.email ? getUsernameFromEmail(currentUser.email) : '';
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
