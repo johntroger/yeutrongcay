@@ -75,8 +75,8 @@ export const PLANT_PASSPORT_ABI = [
  * Khi người dùng deploy contract qua Remix/Script, dán địa chỉ contract vào đây
  */
 export const CONTRACT_ADDRESSES: Record<string, `0x${string}` | string> = {
-  // Ethereum Sepolia Testnet (Chain ID 11155111 / 0xaa36a7)
-  sepolia: '0x99A3141f9775f0f3531b4028b0561578a1E59fe7', // Sẽ được cập nhật khi deploy contract
+  // Ethereum Sepolia Testnet (Chain ID 11155111 / 0xaa36a7) - Deploy bởi người dùng
+  sepolia: '0x05c59ff29a361ac200decd5d9aa378844535164e',
   // Base Sepolia Testnet (Chain ID 84532 / 0x14a34)
-  baseSepolia: '0x99A3141f9775f0f3531b4028b0561578a1E59fe7'
+  baseSepolia: '0x05c59ff29a361ac200decd5d9aa378844535164e'
 };
