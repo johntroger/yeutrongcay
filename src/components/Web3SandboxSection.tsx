@@ -438,6 +438,23 @@ export const Web3SandboxSection: React.FC = () => {
     // 1. CHẾ ĐỘ 1: ĐÚC NFT ON-CHAIN THẬT (Gửi transaction gọi Smart Contract qua MetaMask)
     if (mintMode === 'onchain') {
       try {
+        // Tự động kiểm tra và chuyển MetaMask sang đúng mạng với Sổ cái đã chọn
+        if (targetLedger === 'Ethereum Sepolia') {
+          const currentChain = wallet.chainId?.toLowerCase();
+          if (currentChain !== '0xaa36a7' && currentChain !== '11155111') {
+            await web3WalletService.switchToSepolia();
+            const fresh = await web3WalletService.syncCurrentWalletState();
+            if (fresh) setWallet(fresh);
+          }
+        } else if (targetLedger === 'Base Sepolia') {
+          const currentChain = wallet.chainId?.toLowerCase();
+          if (currentChain !== '0x14a34' && currentChain !== '84532') {
+            await web3WalletService.switchToBaseSepolia();
+            const fresh = await web3WalletService.syncCurrentWalletState();
+            if (fresh) setWallet(fresh);
+          }
+        }
+
         const targetContract = (contractAddress.trim() || web3WalletService.getContractAddressForChain(wallet.chainId)) as `0x${string}`;
 
         // Chuẩn bị Metadata JSON chuẩn ERC-721
