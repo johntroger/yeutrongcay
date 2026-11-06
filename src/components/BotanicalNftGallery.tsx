@@ -16,12 +16,14 @@ import { web3WalletService, WalletState } from '../services/web3WalletService';
 
 interface BotanicalNftGalleryProps {
   currentUserId?: string;
+  userEmail?: string;
   isEn?: boolean;
   onNavigateToMint?: () => void;
 }
 
 export const BotanicalNftGallery: React.FC<BotanicalNftGalleryProps> = ({
   currentUserId = 'usr-local-me',
+  userEmail,
   isEn = false,
   onNavigateToMint
 }) => {
@@ -31,9 +33,9 @@ export const BotanicalNftGallery: React.FC<BotanicalNftGalleryProps> = ({
   const [selectedPassport, setSelectedPassport] = useState<RegisteredPlantPassport | null>(null);
   const [isSyncingWallet, setIsSyncingWallet] = useState<boolean>(false);
 
-  // Tải danh bạ NFT độc bản của người dùng
+  // Tải danh bạ NFT độc bản của người dùng đăng nhập hiện tại
   const loadGallery = () => {
-    const list = plantPassportRegistryService.getUserVerifiedGallery(wallet?.address, currentUserId);
+    const list = plantPassportRegistryService.getUserVerifiedGallery(wallet?.address, currentUserId, userEmail);
     setPassports(list);
   };
 
@@ -48,7 +50,7 @@ export const BotanicalNftGallery: React.FC<BotanicalNftGalleryProps> = ({
     return () => {
       window.removeEventListener('ytc_passport_registry_updated', handleRegistryUpdate);
     };
-  }, [wallet?.address, currentUserId]);
+  }, [wallet?.address, currentUserId, userEmail]);
 
   // Đồng bộ lại ví MetaMask thật
   const handleConnectOrSyncWallet = async () => {
@@ -56,7 +58,7 @@ export const BotanicalNftGallery: React.FC<BotanicalNftGalleryProps> = ({
     try {
       const state = await web3WalletService.connectRealWallet();
       setWallet(state);
-      const updatedList = plantPassportRegistryService.getUserVerifiedGallery(state.address, currentUserId);
+      const updatedList = plantPassportRegistryService.getUserVerifiedGallery(state.address, currentUserId, userEmail);
       setPassports(updatedList);
     } catch {
       // Handle silently

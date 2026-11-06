@@ -106,7 +106,7 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
   const [plants, setPlants] = useState<GardenPlant[]>([]);
   const [diaries, setDiaries] = useState<PlantDiaryEntry[]>([]);
   const [activeTab, setActiveTab] = useState<'plants' | 'timeline' | 'tasks' | 'nft_gallery'>(initialTab);
-  const [galleryCount, setGalleryCount] = useState<number>(() => plantPassportRegistryService.getUserVerifiedGallery().length);
+  const [galleryCount, setGalleryCount] = useState<number>(() => plantPassportRegistryService.getUserVerifiedGallery(undefined, currentUserId, currentUser?.email).length);
   const [selectedPlantId, setSelectedPlantId] = useState<string | null>(null);
   const [actionNotice, setActionNotice] = useState<string | null>(null);
 
@@ -223,7 +223,7 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
 
     const handlePassportUpdate = () => {
       if (isMounted) {
-        setGalleryCount(plantPassportRegistryService.getUserVerifiedGallery().length);
+        setGalleryCount(plantPassportRegistryService.getUserVerifiedGallery(undefined, currentUserId, currentUser?.email).length);
       }
     };
     window.addEventListener('ytc_passport_registry_updated', handlePassportUpdate);
@@ -670,8 +670,28 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
                 <span>{isEn ? 'Urban Agriculture Profile' : 'Hồ Sơ Nông Nghiệp Đô Thị'}</span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-serif font-bold text-forest-950 dark:text-cream-50 tracking-tight">
-                {garden?.garden_name || (isEn ? 'My Balcony Garden' : 'Vườn Ban Công Của Tôi')}
+                {currentUser?.name ? `Vườn Của ${currentUser.name}` : (garden?.garden_name || (isEn ? 'My Balcony Garden' : 'Vườn Ban Công Của Tôi'))}
               </h1>
+
+              {/* Thông tin tài khoản người dùng đăng nhập */}
+              {currentUser && (
+                <div className="flex items-center gap-2 pt-0.5 flex-wrap">
+                  <img
+                    src={currentUser.avatar_url}
+                    alt={currentUser.name}
+                    className="w-6 h-6 rounded-full object-cover ring-2 ring-emerald-500/70"
+                  />
+                  <span className="text-xs font-bold text-forest-900 dark:text-cream-100">
+                    {currentUser.name}
+                  </span>
+                  <span className="text-[11px] text-gray-500 font-mono">
+                    ({currentUser.email || `@${userHandle}`})
+                  </span>
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700">
+                    {currentUser.badge}
+                  </span>
+                </div>
+              )}
               <p className="text-xs sm:text-sm text-forest-700 dark:text-forest-300 max-w-2xl leading-relaxed">
                 {garden?.description || (isEn
                   ? 'A cozy green retreat on an urban balcony, tracking growth journeys of individual plants via real-time photo logs and daily care schedules.'
@@ -1722,6 +1742,7 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
           <div className="animate-in fade-in duration-300">
             <BotanicalNftGallery
               currentUserId={currentUserId}
+              userEmail={currentUser?.email}
               isEn={isEn}
               onNavigateToMint={() => {
                 navigate('/web3-sandbox');
