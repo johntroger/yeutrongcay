@@ -7,9 +7,8 @@ import { useSEO } from '../utils/useSEO.ts';
 import { Hero } from '../components/Hero.tsx';
 import { MedicalDisclaimer } from '../components/MedicalDisclaimer.tsx';
 import { PlantCard } from '../components/PlantCard.tsx';
-import { PlantFilterBar, FilterState } from '../components/PlantFilterBar.tsx';
+import { PlantFilterBar, FilterState, ActiveFilterPills, MobileFilterDrawer } from '../components/PlantFilterBar.tsx';
 import { CollectionsShowcase } from '../components/CollectionsShowcase.tsx';
-import { TagCloudBar } from '../components/TagCloudBar.tsx';
 import { SeasonalCalendarSection } from '../components/SeasonalCalendarSection.tsx';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { PLANT_ENGLISH_MAP } from '../i18n/plantTranslations.ts';
@@ -45,6 +44,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   const [searchParams, setSearchParams] = useSearchParams();
   const [allPlants, setAllPlants] = useState<Plant[]>(SEED_PLANTS);
   const [visibleCount, setVisibleCount] = useState(9);
+  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
 
   // Bộ lọc đa tiêu chí đồng bộ URL
   const [filters, setFilters] = useState<FilterState>(() => {
@@ -330,136 +330,175 @@ export const HomePage: React.FC<HomePageProps> = ({
       {activeMode === 'herb' && <MedicalDisclaimer />}
 
       {/* 4. Plants Catalog Grid with Smart Filter & Collections */}
-      <main className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-10 flex-1 w-full space-y-6">
+      <main className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-10 flex-1 w-full space-y-8">
         {/* Bộ Sưu Tập Cây Trồng Theo Giải Pháp */}
         <CollectionsShowcase
           selectedCollectionSlug={filters.collection}
           onSelectCollection={(colSlug) => handleFilterChange({ ...filters, collection: colSlug })}
         />
 
-        {/* Bộ Lọc Thông Minh Đa Tiêu Chí */}
-        <PlantFilterBar
-          filters={filters}
-          onFilterChange={handleFilterChange}
-          totalCount={allPlants.length}
-          filteredCount={filteredPlants.length}
-          onReset={handleResetFilters}
-        />
-
-        {/* Đám Mây Thẻ Từ Khóa (Tag Cloud) */}
-        <TagCloudBar
-          selectedTag={filters.tag}
-          onSelectTag={(tag) => handleFilterChange({ ...filters, tag })}
-          availableTags={availableTags}
-        />
-
-        {/* Tiêu đề & Thống kê kết quả lọc */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-4 pb-4 border-b border-forest-100 dark:border-forest-800">
-          <div>
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-forest-900 dark:text-cream-50 tracking-tight">
-              {filters.category === 'all'
-                ? isEn ? 'Comprehensive Botanical Encyclopedia (55 Varieties)' : 'Bách Khoa Thực Vật Đô Thị Toàn Diện (55 Giống Cây)'
-                : filters.category === 'herb'
-                ? isEn ? 'Native Medicinal Herbs Encyclopedia (25 Varieties)' : 'Bách Khoa Thảo Dược Bản Địa (25 Giống Cây)'
-                : filters.category === 'fruit'
-                ? isEn ? 'Urban Balcony Fruit Trees Encyclopedia (15 Varieties)' : 'Bách Khoa Cây Ăn Trái Đô Thị (15 Giống Cây)'
-                : isEn ? 'Bonsai & Ornamental Botanical Encyclopedia (15 Varieties)' : 'Bách Khoa Cây Cảnh & Bonsai (15 Giống Cây)'}
-            </h2>
-            <p className="text-xs sm:text-sm text-forest-700 dark:text-forest-300 mt-1">
-              {searchQuery
-                ? isEn
-                  ? `Found ${filteredPlants.length} plants matching "${searchQuery}"`
-                  : `Tìm thấy ${filteredPlants.length} cây phù hợp từ khóa "${searchQuery}"`
-                : isEn
-                ? `Showing ${displayedPlants.length} of ${filteredPlants.length} curated botanical varieties matching active filters`
-                : `Hiển thị ${displayedPlants.length} / ${filteredPlants.length} giống cây tuyển chọn phù hợp bộ lọc hiện tại`}
-            </p>
-          </div>
-
-          <div className="self-start sm:self-auto flex items-center gap-2 text-xs font-semibold text-forest-800 dark:text-cream-100 bg-white dark:bg-charcoal-900 px-3.5 py-2 rounded-xl border border-forest-100 dark:border-forest-800 shadow-sm">
-            <Filter className="w-4 h-4 text-herbal-600 dark:text-herbal-400" />
-            <span className="hidden sm:inline">{t('common.category')}:</span>
-            <span className="capitalize">{filters.category}</span>
-          </div>
+        {/* Nút Mở Bộ Lọc Cho Màn Hình Di Động (< lg) */}
+        <div className="lg:hidden flex items-center justify-between gap-3 p-3 bg-white dark:bg-charcoal-900 rounded-2xl border border-forest-100 dark:border-forest-800 shadow-2xs">
+          <button
+            onClick={() => setIsMobileFilterOpen(true)}
+            className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-forest-900 text-white dark:bg-herbal-700 text-xs font-semibold shadow-xs hover:bg-forest-950 transition"
+          >
+            <Filter className="w-4 h-4" />
+            <span>{isEn ? 'Open Filter Sidebar' : 'Mở Bộ Lọc Cây Trồng'}</span>
+            <span className="ml-1 px-2 py-0.5 rounded-full bg-white/20 text-[11px]">
+              {filteredPlants.length} {isEn ? 'plants' : 'cây'}
+            </span>
+          </button>
         </div>
 
-        {/* Grid display */}
-        {displayedPlants.length > 0 ? (
-          <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-7">
-              {displayedPlants.map((plant) => (
-                <PlantCard
-                  key={plant.id}
-                  plant={plant}
-                  onTagClick={(tag) => handleFilterChange({ ...filters, tag })}
-                />
-              ))}
+        {/* Mobile Slide-Over Drawer */}
+        <MobileFilterDrawer
+          isOpen={isMobileFilterOpen}
+          onClose={() => setIsMobileFilterOpen(false)}
+          filteredCount={filteredPlants.length}
+        >
+          <PlantFilterBar
+            filters={filters}
+            onFilterChange={handleFilterChange}
+            totalCount={allPlants.length}
+            filteredCount={filteredPlants.length}
+            onReset={handleResetFilters}
+            availableTags={availableTags}
+          />
+        </MobileFilterDrawer>
+
+        {/* GIAO DIỆN 2 CỘT CHUẨN THƯƠNG MẠI ĐIỆN TỬ: TRÁI LÀ BỘ LỌC, PHẢI LÀ NỘI DUNG */}
+        <div className="flex flex-col lg:flex-row gap-8 items-start">
+          {/* CỘT TRÁI: BỘ LỌC SIDEBAR CỐ ĐỊNH (DESKTOP STICKY) */}
+          <aside className="hidden lg:block w-72 xl:w-80 shrink-0 sticky top-24 self-start max-h-[calc(100vh-7rem)] overflow-y-auto overscroll-contain pr-1">
+            <PlantFilterBar
+              filters={filters}
+              onFilterChange={handleFilterChange}
+              totalCount={allPlants.length}
+              filteredCount={filteredPlants.length}
+              onReset={handleResetFilters}
+              availableTags={availableTags}
+            />
+          </aside>
+
+          {/* CỘT PHẢI: NỘI DUNG SẢN PHẨM & BÁCH KHOA CÂY TRỒNG */}
+          <div className="flex-1 min-w-0 space-y-6 w-full">
+            {/* Tiêu đề & Thống kê kết quả lọc */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-forest-100 dark:border-forest-800">
+              <div>
+                <h2 className="text-xl sm:text-2xl lg:text-3xl font-serif font-bold text-forest-900 dark:text-cream-50 tracking-tight">
+                  {filters.category === 'all'
+                    ? isEn ? 'Comprehensive Botanical Encyclopedia (55 Varieties)' : 'Bách Khoa Thực Vật Đô Thị (55 Giống Cây)'
+                    : filters.category === 'herb'
+                    ? isEn ? 'Native Medicinal Herbs Encyclopedia (25 Varieties)' : 'Bách Khoa Thảo Dược Bản Địa (25 Giống Cây)'
+                    : filters.category === 'fruit'
+                    ? isEn ? 'Urban Balcony Fruit Trees Encyclopedia (15 Varieties)' : 'Bách Khoa Cây Ăn Trái Đô Thị (15 Giống Cây)'
+                    : isEn ? 'Bonsai & Ornamental Botanical Encyclopedia (15 Varieties)' : 'Bách Khoa Cây Cảnh & Bonsai (15 Giống Cây)'}
+                </h2>
+                <p className="text-xs sm:text-sm text-forest-700 dark:text-forest-300 mt-1">
+                  {searchQuery
+                    ? isEn
+                      ? `Found ${filteredPlants.length} plants matching "${searchQuery}"`
+                      : `Tìm thấy ${filteredPlants.length} cây phù hợp từ khóa "${searchQuery}"`
+                    : isEn
+                    ? `Showing ${displayedPlants.length} of ${filteredPlants.length} curated botanical varieties matching active filters`
+                    : `Hiển thị ${displayedPlants.length} / ${filteredPlants.length} giống cây tuyển chọn phù hợp bộ lọc hiện tại`}
+                </p>
+              </div>
+
+              <div className="self-start sm:self-auto flex items-center gap-2 text-xs font-semibold text-forest-800 dark:text-cream-100 bg-white dark:bg-charcoal-900 px-3.5 py-2 rounded-xl border border-forest-100 dark:border-forest-800 shadow-2xs">
+                <Filter className="w-4 h-4 text-herbal-600 dark:text-herbal-400" />
+                <span className="hidden sm:inline">{t('common.category')}:</span>
+                <span className="capitalize">{filters.category}</span>
+              </div>
             </div>
 
-            {/* Thanh điều hướng xem thêm & mở toàn bộ bách khoa sang tab mới */}
-            {!searchQuery && (
-              <div className="mt-10 p-6 rounded-3xl bg-white dark:bg-charcoal-900 border border-forest-100 dark:border-forest-900 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="inline-block w-2 h-2 rounded-full bg-herbal-500 animate-pulse"></span>
-                    <p className="text-xs uppercase tracking-wider font-bold text-herbal-800 dark:text-herbal-400">
-                      {isEn ? 'In-Depth Botanical Guide' : 'Bách Khoa Chuyên Sâu'}
-                    </p>
+            {/* Thanh hiển thị các điều kiện đang lọc (Active filter chips kiểu Shopee/Tiki) */}
+            <ActiveFilterPills
+              filters={filters}
+              onFilterChange={handleFilterChange}
+              onReset={handleResetFilters}
+            />
+
+            {/* Grid hiển thị sản phẩm cây trồng */}
+            {displayedPlants.length > 0 ? (
+              <>
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                  {displayedPlants.map((plant) => (
+                    <PlantCard
+                      key={plant.id}
+                      plant={plant}
+                      onTagClick={(tag) => handleFilterChange({ ...filters, tag })}
+                    />
+                  ))}
+                </div>
+
+                {/* Thanh điều hướng xem thêm & mở toàn bộ bách khoa sang tab mới */}
+                {!searchQuery && (
+                  <div className="mt-8 p-6 rounded-3xl bg-white dark:bg-charcoal-900 border border-forest-100 dark:border-forest-900 shadow-2xs flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="inline-block w-2 h-2 rounded-full bg-herbal-500 animate-pulse"></span>
+                        <p className="text-xs uppercase tracking-wider font-bold text-herbal-800 dark:text-herbal-400">
+                          {isEn ? 'In-Depth Botanical Guide' : 'Bách Khoa Chuyên Sâu'}
+                        </p>
+                      </div>
+                      <p className="text-xs sm:text-sm font-semibold text-forest-900 dark:text-cream-100 mt-0.5">
+                        {isEn
+                          ? `Displaying ${displayedPlants.length} of ${filteredPlants.length} curated botanical varieties. Explore more below or open the full catalog.`
+                          : `Đang hiển thị ${displayedPlants.length} / ${filteredPlants.length} giống cây tuyển chọn. Bạn có thể xem thêm hoặc mở chuyên mục đầy đủ trong tab mới.`}
+                      </p>
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto justify-end">
+                      {visibleCount < filteredPlants.length && (
+                        <button
+                          onClick={() => setVisibleCount((prev) => Math.min(prev + 6, filteredPlants.length))}
+                          className="flex-1 sm:flex-initial px-5 py-2.5 rounded-2xl bg-forest-50 dark:bg-charcoal-800 hover:bg-forest-100 dark:hover:bg-charcoal-700 text-forest-900 dark:text-cream-100 text-xs font-semibold border border-forest-200 dark:border-forest-700 transition text-center"
+                        >
+                          {isEn
+                            ? `Show 6 More Plants (${filteredPlants.length - visibleCount} remaining)`
+                            : `Xem Thêm 6 Cây (${filteredPlants.length - visibleCount} cây còn lại)`}
+                        </button>
+                      )}
+
+                      {filters.category !== 'all' && (
+                        <Link
+                          to={categoryInfoMap[filters.category].path}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1 sm:flex-initial px-5 py-2.5 rounded-2xl bg-forest-900 hover:bg-forest-950 text-white text-xs font-semibold shadow-md hover:shadow-lg transition flex items-center justify-center gap-1.5"
+                        >
+                          <span>{isEn ? 'Open Full Category (New Tab)' : 'Mở Toàn Bộ Chuyên Mục (Tab Mới)'}</span>
+                          <ArrowUpRight className="w-4 h-4 text-herbal-400" />
+                        </Link>
+                      )}
+                    </div>
                   </div>
-                  <p className="text-xs sm:text-sm font-semibold text-forest-900 dark:text-cream-100 mt-0.5">
-                    {isEn
-                      ? `Displaying ${displayedPlants.length} of ${filteredPlants.length} curated botanical varieties. Explore more below or open the full catalog.`
-                      : `Đang hiển thị ${displayedPlants.length} / ${filteredPlants.length} giống cây tuyển chọn. Bạn có thể xem thêm hoặc mở chuyên mục đầy đủ trong tab mới.`}
-                  </p>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto justify-end">
-                  {visibleCount < filteredPlants.length && (
-                    <button
-                      onClick={() => setVisibleCount((prev) => Math.min(prev + 6, filteredPlants.length))}
-                      className="flex-1 sm:flex-initial px-5 py-2.5 rounded-2xl bg-forest-50 dark:bg-charcoal-800 hover:bg-forest-100 dark:hover:bg-charcoal-700 text-forest-900 dark:text-cream-100 text-xs font-semibold border border-forest-200 dark:border-forest-700 transition text-center"
-                    >
-                      {isEn
-                        ? `Show 6 More Plants (${filteredPlants.length - visibleCount} remaining)`
-                        : `Xem Thêm 6 Cây (${filteredPlants.length - visibleCount} cây còn lại)`}
-                    </button>
-                  )}
-
-                  {filters.category !== 'all' && (
-                    <Link
-                      to={categoryInfoMap[filters.category].path}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 sm:flex-initial px-5 py-2.5 rounded-2xl bg-forest-900 hover:bg-forest-950 text-white text-xs font-semibold shadow-md hover:shadow-lg transition flex items-center justify-center gap-1.5"
-                    >
-                      <span>{isEn ? 'Open Full Category (New Tab)' : 'Mở Toàn Bộ Chuyên Mục (Tab Mới)'}</span>
-                      <ArrowUpRight className="w-4 h-4 text-herbal-400" />
-                    </Link>
-                  )}
-                </div>
+                )}
+              </>
+            ) : (
+              <div className="text-center py-16 bg-white dark:bg-charcoal-900 rounded-3xl border border-forest-100 dark:border-forest-800 p-8 max-w-md mx-auto shadow-sm">
+                <Sparkles className="w-10 h-10 text-herbal-600 dark:text-herbal-400 mx-auto mb-3" />
+                <h3 className="text-base font-bold text-forest-900 dark:text-cream-50 mb-1">
+                  {isEn ? 'No matching plants found' : 'Không tìm thấy cây phù hợp bộ lọc'}
+                </h3>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
+                  {isEn
+                    ? 'Try removing some filter conditions or resetting the tags.'
+                    : 'Thử bỏ bớt một số điều kiện lọc hoặc đặt lại bộ lọc để xem toàn bộ danh mục.'}
+                </p>
+                <button
+                  onClick={handleResetFilters}
+                  className="px-4 py-2 bg-forest-900 dark:bg-herbal-700 text-white rounded-xl text-xs font-medium hover:bg-forest-950 transition flex items-center gap-1.5 mx-auto"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  <span>{isEn ? 'Reset all filters' : 'Đặt lại toàn bộ bộ lọc'}</span>
+                </button>
               </div>
             )}
-          </>
-        ) : (
-          <div className="text-center py-16 bg-white dark:bg-charcoal-900 rounded-3xl border border-forest-100 dark:border-forest-800 p-8 max-w-md mx-auto shadow-sm">
-            <Sparkles className="w-10 h-10 text-herbal-600 dark:text-herbal-400 mx-auto mb-3" />
-            <h3 className="text-base font-bold text-forest-900 dark:text-cream-50 mb-1">
-              {isEn ? 'No matching plants found' : 'Không tìm thấy cây phù hợp bộ lọc'}
-            </h3>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
-              {isEn
-                ? 'Try removing some filter conditions or resetting the tags.'
-                : 'Thử bỏ bớt một số điều kiện lọc hoặc đặt lại bộ lọc để xem toàn bộ danh mục.'}
-            </p>
-            <button
-              onClick={handleResetFilters}
-              className="px-4 py-2 bg-forest-900 dark:bg-herbal-700 text-white rounded-xl text-xs font-medium hover:bg-forest-950 transition flex items-center gap-1.5 mx-auto"
-            >
-              <RotateCcw className="w-3.5 h-3.5" />
-              <span>{isEn ? 'Reset all filters' : 'Đặt lại toàn bộ bộ lọc'}</span>
-            </button>
           </div>
-        )}
+        </div>
       </main>
 
       {/* 5. Lịch Nông Vụ Đô Thị 3 Miền Chuẩn Tiết Khí (H4) */}
