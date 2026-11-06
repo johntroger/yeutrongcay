@@ -54,6 +54,7 @@ import {
   deleteGardenPlant,
   deletePlantDiary
 } from '../services/apiService.ts';
+import { getKarmaState } from '../services/karmaService.ts';
 import { applyWatermarkAndStripExif } from '../utils/watermark.ts';
 import { useSEO } from '../utils/useSEO.ts';
 import { useLanguage } from '../context/LanguageContext';
@@ -177,14 +178,39 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
       }
     });
 
+    const localKarma = getKarmaState(isEn);
+    setKarmaData({
+      total_karma: localKarma.total_karma,
+      badge: localKarma.badge,
+      events: localKarma.events
+    });
+
     getUserKarma(currentUserId).then((k) => {
       if (isMounted && k) {
-        setKarmaData(k);
+        const total = Math.max(k.total_karma, localKarma.total_karma);
+        setKarmaData({
+          ...k,
+          total_karma: total,
+          badge: localKarma.badge
+        });
       }
     });
 
+    const handleKarmaLiveUpdate = () => {
+      if (isMounted) {
+        const updated = getKarmaState(isEn);
+        setKarmaData({
+          total_karma: updated.total_karma,
+          badge: updated.badge,
+          events: updated.events
+        });
+      }
+    };
+    window.addEventListener('ytc_karma_awarded', handleKarmaLiveUpdate);
+
     return () => {
       isMounted = false;
+      window.removeEventListener('ytc_karma_awarded', handleKarmaLiveUpdate);
     };
   }, [currentUserId, isEn]);
 

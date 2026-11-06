@@ -14,6 +14,7 @@ Chào mừng bạn đến với **Yêu Trồng Cây Web3 Academy** — Không gi
 3. Biết cách đi "hứng nước" (Faucet) lấy crypto thử nghiệm từ các tập đoàn lớn như Coinbase, Google.
 4. Đúc một Hộ chiếu thực vật số (Dynamic NFT) bảo vệ nguồn gen cho chậu cây ban công nhà mình.
 5. Hiểu cách Hợp đồng thông minh (Smart Contract) bảo vệ người làm vườn khi đổi giống cây online.
+6. Tích lũy Điểm Uy Tín Karma (+10đ Faucet, +25đ Mint Passport, +15đ Escrow) cộng dồn trực tiếp vào tài khoản nhà vườn khi thực hành trên mạng thử nghiệm Testnet.
 
 ---
 

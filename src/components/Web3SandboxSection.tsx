@@ -21,6 +21,7 @@ import {
 import { Web3TestnetPassport } from '../types/index.ts';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { web3WalletService, WalletState, BASE_SEPOLIA_CONFIG } from '../services/web3WalletService.ts';
+import { awardKarmaPoints, getKarmaState, KarmaState } from '../services/karmaService.ts';
 
 // 4 giống cây quý bản địa mẫu để cấp hộ chiếu thực vật số
 const SAMPLE_MINT_PLANTS = [
@@ -110,6 +111,22 @@ export const Web3SandboxSection: React.FC = () => {
   // Trạng thái Escrow Simulator
   const [escrowStep, setEscrowStep] = useState<number>(1);
   const [isEscrowSimulating, setIsEscrowSimulating] = useState(false);
+
+  // Trạng thái Điểm Uy Tín Karma & Thông Báo Thưởng (Testnet Learn-to-Earn)
+  const [karmaState, setKarmaState] = useState<KarmaState>(() => getKarmaState(isEn));
+  const [rewardNotice, setRewardNotice] = useState<{ points: number; title: string; desc: string } | null>(null);
+  const [hasClaimedFaucetReward, setHasClaimedFaucetReward] = useState(false);
+
+  // Lắng nghe cập nhật điểm thưởng Karma toàn hệ thống
+  useEffect(() => {
+    const handleKarmaUpdate = () => {
+      setKarmaState(getKarmaState(isEn));
+    };
+    window.addEventListener('ytc_karma_awarded', handleKarmaUpdate);
+    return () => {
+      window.removeEventListener('ytc_karma_awarded', handleKarmaUpdate);
+    };
+  }, [isEn]);
 
   // Lắng nghe sự kiện chuyển tài khoản hoặc đổi mạng trên ví thật
   useEffect(() => {
@@ -206,6 +223,24 @@ export const Web3SandboxSection: React.FC = () => {
       navigator.clipboard.writeText(wallet.address);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
+
+      // Thưởng điểm học tập Faucet 0đ (1 lần trong phiên)
+      if (!hasClaimedFaucetReward) {
+        awardKarmaPoints(
+          10,
+          'Khám phá vòi Faucet lấy crypto thử nghiệm (0đ Gas Testnet)',
+          'Claimed for exploring Testnet Faucets (0đ Gas Testnet)',
+          { isTestnet: true, isEn }
+        );
+        setHasClaimedFaucetReward(true);
+        setRewardNotice({
+          points: 10,
+          title: isEn ? 'Testnet Explorer Reward (+10 Karma)' : 'Thưởng Khám Phá Faucet Testnet (+10 Karma)',
+          desc: isEn
+            ? 'You learned how to copy your address to request 0đ Testnet ETH from faucets!'
+            : 'Bạn vừa học cách sao chép địa chỉ ví để nhận ETH Testnet 0đ từ các vòi Faucet quốc tế!'
+        });
+      }
     }
   };
 
@@ -256,6 +291,21 @@ export const Web3SandboxSection: React.FC = () => {
         transaction_hash: simulatedTx,
         is_testnet: true,
       });
+
+      // Tự động thưởng Điểm Karma Uy Tín khi ký số & đúc Hộ Chiếu thành công trên Testnet
+      awardKarmaPoints(
+        25,
+        `Đúc thành công Hộ Chiếu Cây Số ${chosen.name_vi} (Base Sepolia Testnet 0đ)`,
+        `Minted Digital Plant Passport for ${chosen.name_en} (Base Sepolia Testnet 0đ)`,
+        { isTestnet: true, isEn, txHash: simulatedTx }
+      );
+      setRewardNotice({
+        points: 25,
+        title: isEn ? 'Passport Minting Reward (+25 Karma)' : 'Thưởng Đúc Hộ Chiếu Cây Testnet (+25 Karma)',
+        desc: isEn
+          ? 'You successfully signed with your real wallet to create a digital genetic plant passport!'
+          : 'Bạn đã dùng ví thật ký số mật mã học thành công cấp Hộ Chiếu Cây trên mạng thử nghiệm Base Sepolia!'
+      });
     } catch (err: unknown) {
       const e = err as { message?: string };
       setWalletError(e.message || (isEn ? 'Wallet signature rejected or failed.' : 'Ký số trên ví thất bại hoặc đã hủy.'));
@@ -269,7 +319,25 @@ export const Web3SandboxSection: React.FC = () => {
       setIsEscrowSimulating(true);
       setTimeout(() => {
         setIsEscrowSimulating(false);
-        setEscrowStep((prev) => prev + 1);
+        const nextStep = escrowStep + 1;
+        setEscrowStep(nextStep);
+
+        // Khi bước 3 hoàn tất (Nghiệm thu thành công, cây sống tốt -> Hoàn trả cọc & Thưởng Karma)
+        if (nextStep === 3) {
+          awardKarmaPoints(
+            15,
+            'Nghiệm thu thành công hợp đồng Escrow chia sẻ giống cây (Mạng Thử Nghiệm 0đ)',
+            'Completed Escrow Plant Delivery Inspection (Testnet 0đ)',
+            { isTestnet: true, isEn }
+          );
+          setRewardNotice({
+            points: 15,
+            title: isEn ? 'Escrow Delivery Inspection Reward (+15 Karma)' : 'Thưởng Nghiệm Thu Escrow Hợp Đồng (+15 Karma)',
+            desc: isEn
+              ? 'The receiver confirmed the plant is healthy, testnet deposit returned, and reputation rewarded!'
+              : 'Bên nhận đã xác nhận cây xanh tốt, tiền cọc thử nghiệm được hoàn trả và bạn được cộng +15 Điểm Uy Tín Karma!'
+          });
+        }
       }, 1000);
     } else {
       setEscrowStep(1);
@@ -313,8 +381,24 @@ export const Web3SandboxSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Right: Trạng thái Kết nối Ví Thật */}
+          {/* Right: Trạng thái Kết nối Ví Thật & Điểm Uy Tín Karma */}
           <div className="flex items-center gap-2.5 flex-wrap">
+            {/* Badge Điểm Uy Tín Karma (Học Testnet Nhận Thưởng) */}
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-forest-950/90 border border-amber-500/40 text-xs shadow-sm">
+              <span className="text-base leading-none">{karmaState.badge.icon}</span>
+              <div>
+                <span className="text-[10px] text-amber-200/80 font-medium block leading-none">
+                  {isEn ? 'Karma Standing' : 'Uy Tín Nhà Vườn'}
+                </span>
+                <span className="font-bold text-amber-300 font-mono text-xs leading-none">
+                  +{karmaState.total_karma} pts
+                </span>
+              </div>
+              <span className="text-[9px] px-1.5 py-0.5 rounded-md bg-amber-400/20 text-amber-300 font-semibold border border-amber-400/30 shrink-0">
+                Testnet 0đ
+              </span>
+            </div>
+
             {!wallet || !wallet.isConnected ? (
               <div className="flex items-center gap-2 flex-wrap">
                 <button
@@ -397,6 +481,36 @@ export const Web3SandboxSection: React.FC = () => {
               <span>{walletError}</span>
             </div>
             <button onClick={() => setWalletError(null)} className="text-red-300 hover:text-white font-bold text-xs">✕</button>
+          </div>
+        )}
+
+        {/* Banner Chúc Mừng Thưởng Điểm Karma (Hiển thị khi giao dịch Testnet thành công) */}
+        {rewardNotice && (
+          <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-950 via-forest-900 to-emerald-950 border-2 border-amber-400 text-white shadow-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 animate-in fade-in slide-in-from-top-2">
+            <div className="flex items-center gap-3.5">
+              <div className="w-11 h-11 rounded-2xl bg-amber-400 text-forest-950 flex items-center justify-center font-bold text-2xl shadow-md shrink-0">
+                ★
+              </div>
+              <div>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="px-2.5 py-0.5 rounded-full bg-amber-400 text-forest-950 text-[10px] font-black uppercase tracking-wider">
+                    +{rewardNotice.points} Karma Testnet
+                  </span>
+                  <h4 className="text-xs sm:text-sm font-bold text-white font-serif">
+                    {rewardNotice.title}
+                  </h4>
+                </div>
+                <p className="text-xs text-amber-200/90 mt-1 leading-relaxed">
+                  {rewardNotice.desc}
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={() => setRewardNotice(null)}
+              className="px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 active:scale-95 text-forest-950 text-xs font-bold transition shrink-0 shadow-sm"
+            >
+              {isEn ? 'Got it!' : 'Tuyệt vời, đã nhận!'}
+            </button>
           </div>
         )}
 
