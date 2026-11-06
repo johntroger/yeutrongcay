@@ -5,6 +5,7 @@ site:
     - type: space
       key: web3-academy
       title: Web3 Academy
-      path: ""
+      path: academy
+      default: true
       content:
         directory: ./docs
