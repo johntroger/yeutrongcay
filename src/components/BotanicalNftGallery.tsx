@@ -41,6 +41,7 @@ export const BotanicalNftGallery: React.FC<BotanicalNftGalleryProps> = ({
 
   useEffect(() => {
     loadGallery();
+    plantPassportRegistryService.syncWithCloud().then(() => loadGallery()).catch(() => {});
 
     const handleRegistryUpdate = () => {
       loadGallery();

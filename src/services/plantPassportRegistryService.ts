@@ -7,7 +7,12 @@
  * 2. Người đúc đầu tiên (First Minter) là chủ nhân độc quyền trong thế giới yeutrongcay.com.
  * 3. Nếu người khác cố tình đúc lại: Hệ thống sẽ chặn trước khi đúc, hoặc gắn cờ DUPLICATE_REJECTED 
  *    và KHÔNG CHO HIỂN THỊ trong Hồ Sơ Cá Nhân / Vườn của tôi để bảo vệ 100% quyền độc bản.
+ * 4. Đồng bộ Real-time qua Firebase Cloud Firestore để mọi người dùng trên toàn cầu cùng chia sẻ 1 nguồn sự thật.
+ * 5. Tích hợp thuật toán Fuzzy Matching (Levenshtein Distance >= 85%) và khử sạch hậu tố phân loại thực vật để chống lách luật.
  */
+
+import { getFirestoreInstance } from './firebaseClient.ts';
+import { collection, doc, getDocs, setDoc } from 'firebase/firestore';
 
 export interface RegisteredPlantPassport {
   id: string;
@@ -33,6 +38,44 @@ export interface RegisteredPlantPassport {
 }
 
 const REGISTRY_STORAGE_KEY = 'ytc_botanical_nft_registry';
+const FIRESTORE_COLLECTION = 'botanical_passports';
+
+/**
+ * Thuật toán tính độ tương đồng xâu ký tự theo Levenshtein Distance (0.0 -> 1.0)
+ * Giúp phát hiện các chiêu trò cố tình gõ sai chính tả nhẹ hoặc thêm bớt ký tự để lách kiểm tra độc bản
+ */
+export function calculateSimilarity(str1: string, str2: string): number {
+  const s1 = str1.toLowerCase().trim();
+  const s2 = str2.toLowerCase().trim();
+  if (s1 === s2) return 1.0;
+  if (!s1 || !s2) return 0.0;
+
+  const m = s1.length;
+  const n = s2.length;
+  const matrix: number[][] = [];
+
+  for (let i = 0; i <= m; i++) {
+    matrix[i] = [i];
+  }
+  for (let j = 0; j <= n; j++) {
+    matrix[0][j] = j;
+  }
+
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      const cost = s1[i - 1] === s2[j - 1] ? 0 : 1;
+      matrix[i][j] = Math.min(
+        matrix[i - 1][j] + 1,        // xóa
+        matrix[i][j - 1] + 1,        // chèn
+        matrix[i - 1][j - 1] + cost  // thay thế
+      );
+    }
+  }
+
+  const distance = matrix[m][n];
+  const maxLen = Math.max(m, n);
+  return 1 - distance / maxLen;
+}
 
 /**
  * Rút gọn và chuẩn hóa username từ email (VD: tranthanhtung37@gmail.com -> tranthanhtung37)
@@ -70,9 +113,11 @@ const DEFAULT_SEED_REGISTRY: RegisteredPlantPassport[] = [
   }
 ];
 
+let hasCloudSynced = false;
+
 export const plantPassportRegistryService = {
   /**
-   * Chuẩn hóa khóa nhận diện cây (bỏ dấu, thường, gạch nối)
+   * Chuẩn hóa khóa nhận diện cây (bỏ dấu, thường, gạch nối, loại bỏ hậu tố phân loại học)
    */
   normalizePlantKey(plantName: string, scientificName?: string): string {
     const raw = (scientificName && scientificName.trim().length > 3)
@@ -83,14 +128,21 @@ export const plantPassportRegistryService = {
       .toLowerCase()
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
+      // Loại bỏ các tiền tố / hậu tố danh pháp thực vật thường được dùng để lách luật
+      .replace(/\b(var|subsp|sp|ssp|f|forma|linnaeus|harms|mill|urb|l)\b\.?/gi, '')
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-+|-+$/g, '');
   },
 
   /**
-   * Lấy toàn bộ danh bạ NFT trong hệ thống yeutrongcay.com
+   * Lấy toàn bộ danh bạ NFT trong hệ thống yeutrongcay.com (Tích hợp LocalStorage + Trigger Cloud Sync)
    */
   getAllRegistrations(): RegisteredPlantPassport[] {
+    // Kích hoạt đồng bộ đám mây ngầm nếu chưa sync lần nào
+    if (!hasCloudSynced) {
+      this.syncWithCloud().catch(() => {});
+    }
+
     try {
       const saved = localStorage.getItem(REGISTRY_STORAGE_KEY);
       if (!saved) {
@@ -110,8 +162,78 @@ export const plantPassportRegistryService = {
   },
 
   /**
-   * KIỂM TRA ĐỘC BẢN TRƯỚC KHI ĐÚC (Pre-mint Exclusivity Check)
-   * Kiểm tra xem giống cây này hoặc mã băm SHA-256 đã có ai sở hữu Hộ Chiếu Độc Bản chưa.
+   * ĐỒNG BỘ SỔ CÁI REAL-TIME TỪ FIREBASE CLOUD FIRESTORE
+   * Giúp mọi người dùng ở khắp nơi trên thế giới đều chia sẻ chung một nguồn dữ liệu độc bản duy nhất
+   */
+  async syncWithCloud(): Promise<RegisteredPlantPassport[]> {
+    hasCloudSynced = true;
+    const db = getFirestoreInstance();
+    if (!db) {
+      return this.getAllRegistrations();
+    }
+
+    try {
+      const snap = await getDocs(collection(db, FIRESTORE_COLLECTION));
+      const cloudList: RegisteredPlantPassport[] = [];
+      snap.forEach(docSnap => {
+        cloudList.push(docSnap.data() as RegisteredPlantPassport);
+      });
+
+      // Nếu đám mây chưa có token #1 -> tự động tải lên để khởi tạo sổ cái chung
+      if (!cloudList.some(p => p.token_id === '1')) {
+        await this.uploadToCloud(DEFAULT_SEED_REGISTRY[0]);
+        cloudList.unshift(DEFAULT_SEED_REGISTRY[0]);
+      }
+
+      // Hợp nhất dữ liệu giữa Cloud và Local
+      const localList = this.getAllRegistrations();
+      const mergedMap = new Map<string, RegisteredPlantPassport>();
+
+      // Đưa local vào trước
+      localList.forEach(p => {
+        const uniqueKey = `${p.contract_address.toLowerCase()}_${p.token_id}`;
+        mergedMap.set(uniqueKey, p);
+      });
+
+      // Ghi đè bằng dữ liệu Cloud (Nguồn sự thật chính thức)
+      cloudList.forEach(p => {
+        const uniqueKey = `${p.contract_address.toLowerCase()}_${p.token_id}`;
+        mergedMap.set(uniqueKey, p);
+      });
+
+      const mergedList = Array.from(mergedMap.values());
+      localStorage.setItem(REGISTRY_STORAGE_KEY, JSON.stringify(mergedList));
+
+      // Phát sự kiện cập nhật giao diện
+      window.dispatchEvent(new CustomEvent('ytc_passport_registry_updated'));
+      return mergedList;
+    } catch (err) {
+      console.warn('Lưu ý: Không thể đồng bộ Sổ cái từ Firestore (dùng dữ liệu bộ nhớ đệm):', err);
+      return this.getAllRegistrations();
+    }
+  },
+
+  /**
+   * Lưu 1 bản ghi Hộ chiếu lên Firestore Cloud
+   */
+  async uploadToCloud(passport: RegisteredPlantPassport): Promise<void> {
+    const db = getFirestoreInstance();
+    if (!db) return;
+
+    try {
+      const docId = `${passport.contract_address.toLowerCase()}_${passport.token_id}`;
+      await setDoc(doc(db, FIRESTORE_COLLECTION, docId), passport);
+    } catch (err) {
+      console.warn('Lỗi ghi Hộ chiếu lên Firestore:', err);
+    }
+  },
+
+  /**
+   * KIỂM TRA ĐỘC BẢN CHẶT CHẼ TRƯỚC KHI ĐÚC (Pre-mint Exclusivity Check)
+   * 3 TẦNG BẢO VỆ TUYỆT ĐỐI:
+   * 1. Mã băm SHA-256 (Dấu vân tay số học)
+   * 2. Khóa loài cây chuẩn hóa (`plant_key`)
+   * 3. Thuật toán Fuzzy Matching (Levenshtein Distance >= 85%) chống chiêu trò gõ chệch ký tự
    */
   checkPlantExclusivity(params: {
     plantName: string;
@@ -127,7 +249,7 @@ export const plantPassportRegistryService = {
     const key = this.normalizePlantKey(params.plantName, params.scientificName);
     const userWallet = params.walletAddress?.toLowerCase().trim();
 
-    // 1. Kiểm tra trùng khớp mã băm SHA-256 (Dấu vân tay hình ảnh số)
+    // TẦNG 1: Kiểm tra trùng khớp mã băm SHA-256 (Dấu vân tay hình ảnh số)
     if (params.sha256) {
       const matchSha = all.find(
         p => p.status === 'ACTIVE_ORIGINAL' && p.image_sha256.toLowerCase() === params.sha256!.toLowerCase()
@@ -148,23 +270,51 @@ export const plantPassportRegistryService = {
       }
     }
 
-    // 2. Kiểm tra trùng khớp Giống Cây / Tên Khoa Học
-    const matchKey = all.find(
+    // TẦNG 2: Kiểm tra trùng khớp chính xác Giống Cây / Tên Khoa Học chuẩn hóa (`plant_key`)
+    const matchExactKey = all.find(
       p => p.status === 'ACTIVE_ORIGINAL' && p.plant_key === key
     );
-    if (matchKey) {
-      if (userWallet && matchKey.creator_wallet.toLowerCase() === userWallet) {
+    if (matchExactKey) {
+      if (userWallet && matchExactKey.creator_wallet.toLowerCase() === userWallet) {
         return {
           isAllowed: false,
-          existingPassport: matchKey,
-          reason: `Bạn đã sở hữu Hộ Chiếu Độc Bản của loài cây này (Token #${matchKey.token_id}). Hãy nâng cấp giai đoạn sinh trưởng thay vì đúc mới!`
+          existingPassport: matchExactKey,
+          reason: `Bạn đã sở hữu Hộ Chiếu Độc Bản của loài cây này (Token #${matchExactKey.token_id}). Hãy nâng cấp giai đoạn sinh trưởng thay vì đúc mới!`
         };
       }
       return {
         isAllowed: false,
-        existingPassport: matchKey,
-        reason: `Loài cây "${params.plantName}" đã được đúc Hộ Chiếu Độc Bản bởi ví ${matchKey.creator_wallet.slice(0, 6)}...${matchKey.creator_wallet.slice(-4)}. Theo quy tắc Độc Bản của Yêu Trồng Cây, mỗi giống cây chỉ có 1 Hộ Chiếu Số duy nhất!`
+        existingPassport: matchExactKey,
+        reason: `Loài cây "${matchExactKey.plant_name}" đã được đúc Hộ Chiếu Độc Bản bởi ví ${matchExactKey.creator_wallet.slice(0, 6)}...${matchExactKey.creator_wallet.slice(-4)}. Theo quy tắc Độc Bản của Yêu Trồng Cây, mỗi giống cây chỉ có 1 Hộ Chiếu Số duy nhất!`
       };
+    }
+
+    // TẦNG 3: Thuật toán Fuzzy Matching (Đo khoảng cách xâu Levenshtein >= 85%)
+    // Phát hiện các trường hợp cố tình viết thêm bớt ký tự (ví dụ: "Polyscias-fruticosaa" hay "Polyscias fruticosa L.")
+    for (const existing of all) {
+      if (existing.status !== 'ACTIVE_ORIGINAL') continue;
+
+      const simKey = calculateSimilarity(existing.plant_key, key);
+      const simSci = params.scientificName
+        ? calculateSimilarity(existing.scientific_name, params.scientificName)
+        : 0;
+      const simName = calculateSimilarity(existing.plant_name, params.plantName);
+
+      // Nếu độ tương đồng vượt ngưỡng 85%
+      if (simKey >= 0.85 || simSci >= 0.85 || simName >= 0.88) {
+        if (userWallet && existing.creator_wallet.toLowerCase() === userWallet) {
+          return {
+            isAllowed: false,
+            existingPassport: existing,
+            reason: `Loài cây này tương đồng ${Math.round(Math.max(simKey, simSci, simName) * 100)}% với Hộ Chiếu Token #${existing.token_id} mà bạn đang sở hữu. Vui lòng cập nhật cây hiện tại thay vì đúc trùng!`
+          };
+        }
+        return {
+          isAllowed: false,
+          existingPassport: existing,
+          reason: `Phát hiện giống cây "${params.plantName}" tương đồng ${Math.round(Math.max(simKey, simSci, simName) * 100)}% với Hộ Chiếu Độc Bản của cây "${existing.plant_name}" (Token #${existing.token_id}) đã thuộc về ví ${existing.creator_wallet.slice(0, 6)}...${existing.creator_wallet.slice(-4)}!`
+        };
+      }
     }
 
     return { isAllowed: true };
@@ -175,6 +325,7 @@ export const plantPassportRegistryService = {
    * Tự động áp dụng cơ chế xác thực Độc Bản:
    * - Nếu hợp lệ -> ACTIVE_ORIGINAL (Được phép hiển thị)
    * - Nếu phát hiện trùng lặp -> DUPLICATE_REJECTED (Loại khỏi hồ sơ cá nhân)
+   * - Đồng thời ghi danh lên Firestore Cloud Database
    */
   registerPassport(passport: Omit<RegisteredPlantPassport, 'id' | 'status' | 'plant_key' | 'creator_wallet'> & { creator_wallet?: string }): {
     success: boolean;
@@ -186,13 +337,16 @@ export const plantPassportRegistryService = {
     const key = this.normalizePlantKey(passport.plant_name, passport.scientific_name);
     const cleanTokenId = passport.token_id.replace('#', '').trim();
 
-    // Kiểm tra xem đã có ai đúc trước chưa
-    const existing = all.find(
-      p => p.status === 'ACTIVE_ORIGINAL' &&
-      (p.plant_key === key || (passport.image_sha256 && p.image_sha256 === passport.image_sha256))
-    );
+    // Kiểm tra xem đã có ai đúc trước chưa qua pre-check
+    const exclusivityCheck = this.checkPlantExclusivity({
+      plantName: passport.plant_name,
+      scientificName: passport.scientific_name,
+      sha256: passport.image_sha256,
+      walletAddress: passport.owner_address
+    });
 
-    const isDuplicate = !!existing && existing.creator_wallet.toLowerCase() !== passport.owner_address.toLowerCase();
+    const isDuplicate = !exclusivityCheck.isAllowed && !!exclusivityCheck.existingPassport &&
+      exclusivityCheck.existingPassport.creator_wallet.toLowerCase() !== passport.owner_address.toLowerCase();
 
     // Tự động nhận diện username từ phiên đăng nhập nếu chưa truyền
     let autoUsername = passport.creator_username;
@@ -222,13 +376,16 @@ export const plantPassportRegistryService = {
       creator_email: autoEmail || 'tranthanhtung37@gmail.com',
       status: isDuplicate ? 'DUPLICATE_REJECTED' : 'ACTIVE_ORIGINAL',
       rejection_reason: isDuplicate
-        ? `Trùng lặp với Hộ Chiếu Độc Bản gốc (Token #${existing!.token_id}) của chủ vườn ${existing!.creator_wallet}. Không được phép hiển thị trong hồ sơ cá nhân.`
+        ? exclusivityCheck.reason || `Trùng lặp với Hộ Chiếu Độc Bản gốc. Không được phép hiển thị trong hồ sơ cá nhân.`
         : undefined
     };
 
-    // Lưu vào danh bạ
+    // Lưu vào danh bạ LocalStorage
     const updated = [newRecord, ...all.filter(p => p.token_id !== cleanTokenId || p.contract_address.toLowerCase() !== passport.contract_address.toLowerCase())];
     localStorage.setItem(REGISTRY_STORAGE_KEY, JSON.stringify(updated));
+
+    // Đẩy lên Firestore Cloud đồng bộ toàn cầu
+    this.uploadToCloud(newRecord).catch(() => {});
 
     // Phát sự kiện toàn ứng dụng
     window.dispatchEvent(new CustomEvent('ytc_passport_registry_updated', { detail: newRecord }));

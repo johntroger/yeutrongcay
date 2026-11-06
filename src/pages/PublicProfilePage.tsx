@@ -57,6 +57,9 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
   useEffect(() => {
     const list = plantPassportRegistryService.getUserVerifiedGalleryByUsername(cleanHandle);
     setPassports(list);
+    plantPassportRegistryService.syncWithCloud().then(() => {
+      setPassports(plantPassportRegistryService.getUserVerifiedGalleryByUsername(cleanHandle));
+    }).catch(() => {});
 
     const handleUpdate = () => {
       const updated = plantPassportRegistryService.getUserVerifiedGalleryByUsername(cleanHandle);

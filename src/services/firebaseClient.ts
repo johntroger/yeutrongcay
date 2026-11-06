@@ -10,6 +10,7 @@ import {
   User as FirebaseUser,
   Auth
 } from 'firebase/auth';
+import { getFirestore, Firestore } from 'firebase/firestore';
 import { UserProfile } from '../types/index.ts';
 
 export interface FirebaseCustomConfig {
@@ -75,6 +76,7 @@ export function clearFirebaseConfig(): void {
 // Khởi tạo Firebase App an toàn
 let app: FirebaseApp | null = null;
 let auth: Auth | null = null;
+let firestore: Firestore | null = null;
 
 export function initFirebase(): { app: FirebaseApp | null; auth: Auth | null } {
   if (auth) return { app, auth };
@@ -95,6 +97,19 @@ export function initFirebase(): { app: FirebaseApp | null; auth: Auth | null } {
   } catch (err) {
     console.error('Lỗi khởi tạo Firebase:', err);
     return { app: null, auth: null };
+  }
+}
+
+export function getFirestoreInstance(): Firestore | null {
+  if (firestore) return firestore;
+  const { app: currentApp } = initFirebase();
+  if (!currentApp) return null;
+  try {
+    firestore = getFirestore(currentApp);
+    return firestore;
+  } catch (err) {
+    console.error('Lỗi khởi tạo Firestore:', err);
+    return null;
   }
 }
 
