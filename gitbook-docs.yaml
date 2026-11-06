@@ -1,0 +1,10 @@
+$schema: https://api.gitbook.com/gitbook-docs.yaml
+site:
+  title: Yêu Trồng Cây Web3 Academy
+  structure:
+    - type: space
+      key: web3-academy
+      title: Web3 Academy
+      path: ""
+      content:
+        directory: ./docs
