@@ -18,7 +18,8 @@ import {
   ChevronRight,
   Calendar,
   ChevronDown,
-  LogOut
+  LogOut,
+  Settings
 } from 'lucide-react';
 import { PlantCategory, UserProfile } from '../types/index.ts';
 import { useLanguage } from '../context/LanguageContext.tsx';
@@ -58,7 +59,9 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const userMenuRef = useRef<HTMLDivElement>(null);
-  const userHandle = currentUser?.email ? getUsernameFromEmail(currentUser.email) : '';
+  const userHandle = currentUser?.email
+    ? getUsernameFromEmail(currentUser.email)
+    : (currentUser?.id ? currentUser.id.replace(/^usr-/, '') : 'tranthanhtung37');
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -234,44 +237,26 @@ export const Navbar: React.FC<NavbarProps> = ({
 
                 {/* Dropdown Menu */}
                 {isUserMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-64 rounded-2xl bg-white dark:bg-charcoal-900 border border-forest-100 dark:border-forest-800 shadow-xl py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-                    <Link
-                      to={`/${userHandle}`}
-                      onClick={() => setIsUserMenuOpen(false)}
-                      className="block px-4 py-2.5 border-b border-forest-100 dark:border-forest-800 hover:bg-forest-50 dark:hover:bg-charcoal-800 transition group"
-                      title="Xem hồ sơ cá nhân và bộ sưu tập NFT công khai của bạn"
-                    >
-                      <div className="flex items-center justify-between">
-                        <p className="font-bold text-xs text-forest-950 dark:text-white truncate group-hover:text-emerald-600 dark:group-hover:text-emerald-400">
-                          {currentUser.name}
-                        </p>
-                        <span className="text-[10px] text-emerald-600 dark:text-emerald-400 flex items-center gap-0.5 font-medium shrink-0">
-                          <span>Xem hồ sơ</span>
-                          <ChevronRight className="w-3 h-3" />
-                        </span>
-                      </div>
+                  <div className="absolute right-0 mt-2 w-60 rounded-2xl bg-white dark:bg-charcoal-900 border border-forest-100 dark:border-forest-800 shadow-xl py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+                    <div className="px-4 py-2.5 border-b border-forest-100 dark:border-forest-800">
+                      <p className="font-bold text-xs text-forest-950 dark:text-white truncate">{currentUser.name}</p>
                       <p className="text-[10px] text-gray-500 dark:text-gray-400 truncate">{currentUser.email || 'Thành viên Yêu Trồng Cây'}</p>
-                      <div className="flex items-center gap-1.5 mt-1">
-                        <span className="inline-block px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60">
-                          {currentUser.badge}
-                        </span>
-                        <span className="text-[10px] font-mono text-amber-600 dark:text-amber-400">
-                          /{userHandle}
-                        </span>
-                      </div>
-                    </Link>
+                      <span className="inline-block mt-1 px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60">
+                        {currentUser.badge}
+                      </span>
+                    </div>
 
-                    {/* Mục 1: Hồ Sơ Cá Nhân & Bộ Sưu Tập NFT */}
+                    {/* Mục 1: Trang Cá Nhân */}
                     <Link
                       to={`/${userHandle}`}
                       onClick={() => setIsUserMenuOpen(false)}
-                      className="w-full text-left px-4 py-2.5 text-xs font-semibold text-amber-800 dark:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-950/40 flex items-center justify-between transition group"
+                      className="w-full text-left px-4 py-2 text-xs font-semibold text-emerald-800 dark:text-emerald-300 hover:bg-forest-50 dark:hover:bg-charcoal-800 flex items-center justify-between transition group"
                     >
                       <div className="flex items-center gap-2">
-                        <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-                        <span>Hồ Sơ & NFT Gallery</span>
+                        <User className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                        <span>Trang Cá Nhân</span>
                       </div>
-                      <span className="text-[10px] font-mono text-gray-400 group-hover:text-amber-600 dark:group-hover:text-amber-300">
+                      <span className="text-[10px] font-mono text-gray-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400">
                         /{userHandle}
                       </span>
                     </Link>
@@ -286,7 +271,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       <span>{t('nav.myGarden')}</span>
                     </Link>
 
-                    {/* Mục 3: Cài Đặt */}
+                    {/* Mục 3: Cài Đặt Firebase / Đổi Nick */}
                     <button
                       onClick={() => {
                         setIsUserMenuOpen(false);
@@ -294,7 +279,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       }}
                       className="w-full text-left px-4 py-2 text-xs text-forest-800 dark:text-forest-200 hover:bg-forest-50 dark:hover:bg-charcoal-800 flex items-center gap-2 transition"
                     >
-                      <User className="w-3.5 h-3.5 text-amber-500" />
+                      <Settings className="w-3.5 h-3.5 text-amber-500" />
                       <span>Cài Đặt Firebase / Đổi Nick</span>
                     </button>
 
