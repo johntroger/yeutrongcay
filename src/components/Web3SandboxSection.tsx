@@ -174,6 +174,10 @@ export const Web3SandboxSection: React.FC = () => {
   const [isMobileTabDrawerOpen, setIsMobileTabDrawerOpen] = useState(false);
 
   // Trạng thái đúc hộ chiếu
+  const [mintMode, setMintMode] = useState<'onchain' | 'signature'>('onchain');
+  const [contractAddress, setContractAddress] = useState<string>(() => web3WalletService.getContractAddressForChain(null));
+  const [showContractConfig, setShowContractConfig] = useState(false);
+  const [addedToMetaMask, setAddedToMetaMask] = useState(false);
   const [plantSource, setPlantSource] = useState<'sample' | 'custom'>('sample');
   const [selectedPlantIndex, setSelectedPlantIndex] = useState(0);
   const [customPlantName, setCustomPlantName] = useState('');
@@ -410,7 +414,7 @@ export const Web3SandboxSection: React.FC = () => {
     }
   };
 
-  // Ký số xác nhận và Đúc Hộ Chiếu (BẮT BUỘC VÍ THẬT KÝ XÁC NHẬN)
+  // Ký số xác nhận hoặc Đúc Hộ Chiếu On-chain thật
   const handleMintWithRealWallet = async () => {
     if (!wallet || !wallet.isConnected) {
       setWalletError(isEn ? 'Please connect your real Web3 wallet first!' : 'Vui lòng kết nối ví Web3 thật trước khi ký số!');
@@ -419,6 +423,7 @@ export const Web3SandboxSection: React.FC = () => {
 
     setWalletError(null);
     setIsMinting(true);
+    setAddedToMetaMask(false);
     const isCustom = plantSource === 'custom' && !!customImage;
     const chosenSample = SAMPLE_MINT_PLANTS[selectedPlantIndex];
     const plantNameVi = isCustom ? (customPlantName.trim() || 'Cây Trồng Của Tôi') : chosenSample.name_vi;
@@ -428,10 +433,81 @@ export const Web3SandboxSection: React.FC = () => {
     const timestampStr = new Date().toISOString();
     const sha = (isCustom && customImageSha) ? customImageSha : await generateSha256(scientificName + timestampStr + evolutionStage + wallet.address);
     const randomToken = Math.floor(1000 + Math.random() * 9000);
+    const activeNetwork = targetLedger || wallet.networkName || 'Ethereum Sepolia';
+
+    // 1. CHẾ ĐỘ 1: ĐÚC NFT ON-CHAIN THẬT (Gửi transaction gọi Smart Contract qua MetaMask)
+    if (mintMode === 'onchain') {
+      try {
+        const targetContract = (contractAddress.trim() || web3WalletService.getContractAddressForChain(wallet.chainId)) as `0x${string}`;
+
+        // Chuẩn bị Metadata JSON chuẩn ERC-721
+        const metadataJson = JSON.stringify({
+          name: `${plantNameVi} #${randomToken}`,
+          description: `Hộ Chiếu Cây Trồng Số On-chain - Yêu Trồng Cây (yeutrongcay.com). Mã SHA-256: ${sha}`,
+          image: plantImg,
+          attributes: [
+            { trait_type: 'Loài Cây', value: plantNameVi },
+            { trait_type: 'Tên Khoa Học', value: scientificName },
+            { trait_type: 'Giai Đoạn', value: `${evolutionStage}/3` },
+            { trait_type: 'Bằng Chứng SHA-256', value: sha },
+            { trait_type: 'Sổ Cái', value: activeNetwork }
+          ]
+        });
+        const tokenURI = `data:application/json;utf8,${encodeURIComponent(metadataJson)}`;
+
+        // Gửi transaction on-chain thật lên MetaMask
+        const realTxHash = await web3WalletService.mintPassportOnChain({
+          contractAddress: targetContract,
+          userAddress: wallet.address as `0x${string}`,
+          plantName: plantNameVi,
+          scientificName: scientificName,
+          stage: evolutionStage,
+          sha256Proof: sha,
+          uri: tokenURI
+        });
+
+        setMintedPassport({
+          token_id: `#${randomToken}`,
+          plant_name: isEn ? plantNameEn : plantNameVi,
+          scientific_name: scientificName,
+          owner_address: wallet.address,
+          minted_at: new Date().toLocaleString('vi-VN'),
+          image_url: plantImg,
+          image_sha256: sha,
+          network: activeNetwork,
+          evolution_stage: evolutionStage,
+          transaction_hash: realTxHash,
+          is_testnet: true,
+          is_onchain: true,
+          contract_address: targetContract
+        });
+
+        awardKarmaPoints(
+          50,
+          `Đúc thành công NFT Hộ Chiếu Cây On-chain trên ${activeNetwork}`,
+          `Minted Real On-chain NFT Plant Passport on ${activeNetwork}`,
+          { isTestnet: true, isEn, txHash: realTxHash }
+        );
+        setRewardNotice({
+          points: 50,
+          title: isEn ? 'Real On-chain NFT Minted! (+50 Karma)' : 'Đúc Thành Công NFT On-chain Thật! (+50 Karma)',
+          desc: isEn
+            ? `Your plant passport NFT is live on blockchain! Tx: ${realTxHash.slice(0, 10)}...`
+            : `Hộ Chiếu Cây Trồng Số của bạn đã ghi nhận on-chain thành công! Tx: ${realTxHash.slice(0, 10)}...`
+        });
+      } catch (err: unknown) {
+        const e = err as { message?: string };
+        setWalletError(e.message || (isEn ? 'On-chain NFT transaction rejected or failed' : 'Giao dịch đúc NFT trên blockchain bị từ chối hoặc thất bại'));
+      } finally {
+        setIsMinting(false);
+      }
+      return;
+    }
+
+    // 2. CHẾ ĐỘ 2: KÝ SỐ MẬT MÃ HỌC 0Đ GAS (Cryptographic Signature Proof)
     const simulatedTx = '0x' + Array.from({ length: 8 }, () => Math.floor(Math.random() * 16).toString(16)).join('') + '...' + Array.from({ length: 4 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
 
     try {
-      const activeNetwork = targetLedger || wallet.networkName || 'Ethereum Sepolia';
       // Yêu cầu ví thật ký xác nhận thông điệp mật mã học (personal_sign)
       const signMsg = `Yêu Trồng Cây - Đúc Hộ Chiếu Thực Vật Số\nLoài Cây: ${plantNameVi} (${scientificName})\nGiai Đoạn: ${evolutionStage}/3\nBằng Chứng SHA-256: ${sha}\nVí Sở Hữu Thật: ${wallet.address}\nSổ Cái Blockchain: ${activeNetwork} (0đ Gas)\nThời Gian Ký: ${new Date().toLocaleString('vi-VN')}`;
       
@@ -450,6 +526,7 @@ export const Web3SandboxSection: React.FC = () => {
         evolution_stage: evolutionStage,
         transaction_hash: simulatedTx,
         is_testnet: true,
+        is_onchain: false
       });
 
       // Tự động thưởng Điểm Karma Uy Tín khi ký số & đúc Hộ Chiếu thành công trên Testnet
@@ -1280,24 +1357,112 @@ export const Web3SandboxSection: React.FC = () => {
                   </select>
                 </div>
 
+                {/* Lựa chọn phương thức đúc: On-chain thật hay Ký số 0đ */}
+                <div className="p-3 rounded-xl bg-forest-950 border border-forest-800 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-semibold text-white flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                      <span>{isEn ? 'Minting Method:' : 'Phương thức đúc Hộ Chiếu:'}</span>
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => setShowContractConfig(!showContractConfig)}
+                      className="text-[11px] text-emerald-400 hover:text-emerald-300 underline cursor-pointer"
+                    >
+                      {showContractConfig ? 'Ẩn cấu hình Contract' : '⚙️ Cấu hình Contract'}
+                    </button>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <button
+                      type="button"
+                      onClick={() => setMintMode('onchain')}
+                      className={`p-2.5 rounded-xl border text-left font-semibold transition cursor-pointer ${
+                        mintMode === 'onchain'
+                          ? 'bg-emerald-950 border-emerald-500 text-white shadow-sm ring-1 ring-emerald-500'
+                          : 'bg-charcoal-900 border-forest-800 text-forest-300 hover:text-white'
+                      }`}
+                    >
+                      <div className="flex items-center gap-1.5 text-emerald-400 font-bold">
+                        <span>🚀 Đúc On-chain Thật</span>
+                      </div>
+                      <div className="text-[10px] text-forest-300 mt-0.5">Gọi Smart Contract ERC-721 thật qua MetaMask</div>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setMintMode('signature')}
+                      className={`p-2.5 rounded-xl border text-left font-semibold transition cursor-pointer ${
+                        mintMode === 'signature'
+                          ? 'bg-emerald-950 border-emerald-500 text-white shadow-sm ring-1 ring-emerald-500'
+                          : 'bg-charcoal-900 border-forest-800 text-forest-300 hover:text-white'
+                      }`}
+                    >
+                      <div className="flex items-center gap-1.5 text-amber-400 font-bold">
+                        <span>✍️ Ký Số 0đ Gas</span>
+                      </div>
+                      <div className="text-[10px] text-forest-300 mt-0.5">Ký mật mã EIP-191, không tốn gas testnet</div>
+                    </button>
+                  </div>
+
+                  {/* Cấu hình địa chỉ hợp đồng Smart Contract NFT */}
+                  {showContractConfig && (
+                    <div className="p-2.5 rounded-xl bg-charcoal-900 border border-forest-800 text-xs space-y-2 mt-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[11px] text-forest-300 font-semibold">Địa chỉ Contract NFT ({targetLedger}):</span>
+                        <a
+                          href="https://remix.ethereum.org"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[10px] text-amber-300 hover:underline flex items-center gap-1"
+                        >
+                          <span>Mở Remix IDE deploy ↗</span>
+                        </a>
+                      </div>
+                      <input
+                        type="text"
+                        value={contractAddress}
+                        onChange={(e) => setContractAddress(e.target.value)}
+                        placeholder="0x..."
+                        className="w-full px-3 py-1.5 bg-forest-950 border border-forest-700 rounded-lg text-xs font-mono text-emerald-300 focus:outline-none"
+                      />
+                      <p className="text-[10px] text-gray-400 leading-relaxed">
+                        Mã nguồn contract có sẵn tại <span className="font-mono text-emerald-300">contracts/PlantPassportNFT.sol</span>. Bạn có thể dán vào Remix, bấm Deploy bằng MetaMask với 0.05 SepoliaETH, sau đó dán địa chỉ contract vào đây.
+                      </p>
+                    </div>
+                  )}
+                </div>
+
                 <div className="p-3.5 rounded-xl bg-forest-950 border border-forest-800/80 text-xs text-forest-200/90 leading-relaxed">
-                  💡 <span className="font-semibold text-white">Yêu cầu chữ ký ví thật:</span> Khi bấm nút, ví Web3 của bạn sẽ mở popup yêu cầu ký xác nhận thông điệp. Chữ ký số này chứng minh quyền sở hữu độc bản và không thể bị sửa đổi trên sổ cái <span className="font-bold text-emerald-300 font-mono">{targetLedger}</span>.
+                  💡 <span className="font-semibold text-white">Xác thực ví thật:</span>{' '}
+                  {mintMode === 'onchain'
+                    ? `Khi bấm nút, MetaMask sẽ mở popup yêu cầu xác nhận giao dịch ghi vào Smart Contract NFT trên sổ cái ${targetLedger}. Giao dịch này sử dụng gas testnet và tạo ra NFT thật có thể tra cứu trên Blockchain Explorer.`
+                    : `Khi bấm nút, ví Web3 của bạn sẽ mở popup yêu cầu ký xác nhận thông điệp EIP-191. Chữ ký số này chứng minh quyền sở hữu độc bản và hoàn toàn 0đ gas.`}
                 </div>
 
                 <button
                   onClick={handleMintWithRealWallet}
                   disabled={isMinting || !wallet?.isConnected}
-                  className="w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg transition active:scale-[0.99] disabled:opacity-50 bg-emerald-600 hover:bg-emerald-500 text-white"
+                  className={`w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg transition active:scale-[0.99] disabled:opacity-50 text-white ${
+                    mintMode === 'onchain'
+                      ? 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 shadow-emerald-900/40 cursor-pointer'
+                      : 'bg-emerald-600 hover:bg-emerald-500 cursor-pointer'
+                  }`}
                 >
                   {isMinting ? (
                     <>
                       <RefreshCw className="w-4 h-4 animate-spin text-white" />
-                      <span>{isEn ? 'Please Sign on Your Wallet...' : 'Vui Lòng Mở Ví & Ký Xác Nhận...'}</span>
+                      <span>{isEn ? 'Please Confirm on Your Wallet...' : 'Vui Lòng Mở MetaMask & Xác Nhận...'}</span>
                     </>
                   ) : !wallet?.isConnected ? (
                     <>
                       <Wallet className="w-4 h-4" />
-                      <span>{isEn ? 'Connect Real Wallet to Mint' : 'Cần Kết Nối Ví Thật Để Ký Số'}</span>
+                      <span>{isEn ? 'Connect Real Wallet to Mint' : 'Cần Kết Nối Ví Thật Để Đúc'}</span>
+                    </>
+                  ) : mintMode === 'onchain' ? (
+                    <>
+                      <Sparkles className="w-4 h-4 text-amber-300" />
+                      <span>{isEn ? 'Mint Real On-chain NFT (MetaMask Confirm)' : 'Đúc NFT Thật Lên Blockchain (MetaMask Xác Nhận)'}</span>
                     </>
                   ) : (
                     <>
@@ -1313,17 +1478,44 @@ export const Web3SandboxSection: React.FC = () => {
             {mintedPassport && (
               <div className="mt-5 bg-forest-950 rounded-2xl p-5 border border-emerald-500 shadow-2xl space-y-3 animate-in fade-in">
                 <div className="flex items-center justify-between pb-3 border-b border-forest-800 flex-wrap gap-2">
-                  <span className="flex items-center gap-2 text-xs sm:text-sm font-bold text-emerald-400">
-                    <Check className="w-5 h-5" />
-                    <span>{isEn ? 'Digital Plant Passport Successfully Minted!' : 'Hộ Chiếu Cây Trồng Số Đã Cấp Thành Công!'}</span>
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="flex items-center gap-1.5 text-xs sm:text-sm font-bold text-emerald-400">
+                      <Check className="w-5 h-5" />
+                      <span>{isEn ? 'Digital Plant Passport Successfully Minted!' : 'Hộ Chiếu Cây Trồng Số Đã Cấp Thành Công!'}</span>
+                    </span>
+                    {mintedPassport.is_onchain && (
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-900 text-emerald-300 border border-emerald-600 flex items-center gap-1">
+                        <Sparkles className="w-3 h-3 text-amber-300" />
+                        <span>ON-CHAIN THẬT</span>
+                      </span>
+                    )}
+                  </div>
+
                   <div className="flex items-center gap-2">
                     <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-emerald-950 text-emerald-300 border border-emerald-700">
                       Token ID: {mintedPassport.token_id}
                     </span>
+
+                    {mintedPassport.is_onchain && mintedPassport.contract_address && (
+                      <button
+                        onClick={async () => {
+                          const res = await web3WalletService.addNftToMetaMask(
+                            mintedPassport.contract_address!,
+                            mintedPassport.token_id.replace('#', '')
+                          );
+                          if (res) setAddedToMetaMask(true);
+                        }}
+                        className="px-3 py-1 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/50 text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer"
+                        title="Thêm thẻ NFT này vào danh sách quản lý của MetaMask"
+                      >
+                        <Sparkles className="w-3.5 h-3.5" />
+                        <span>{addedToMetaMask ? 'Đã thêm vào ví' : 'Thêm NFT vào MetaMask'}</span>
+                      </button>
+                    )}
+
                     <button
                       onClick={() => window.print()}
-                      className="px-3 py-1 rounded-xl bg-forest-800 hover:bg-forest-700 text-white text-xs font-semibold flex items-center gap-1.5 transition"
+                      className="px-3 py-1 rounded-xl bg-forest-800 hover:bg-forest-700 text-white text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer"
                     >
                       <Printer className="w-3.5 h-3.5" />
                       <span>{isEn ? 'Print Plant Tag' : 'In Thẻ Cây'}</span>
@@ -1350,6 +1542,9 @@ export const Web3SandboxSection: React.FC = () => {
                     <div className="text-[11px] font-mono text-gray-400 flex flex-wrap gap-x-4 gap-y-1 pt-1">
                       <span>Ví sở hữu thật: <span className="text-emerald-300">{mintedPassport.owner_address}</span></span>
                       <span>Sổ cái: <span className="text-white">{mintedPassport.network}</span></span>
+                      {mintedPassport.contract_address && (
+                        <span>Contract: <span className="text-amber-300 font-mono">{mintedPassport.contract_address.slice(0, 8)}...</span></span>
+                      )}
                     </div>
 
                     <div className="p-2 rounded-xl bg-charcoal-900 border border-forest-800 text-[10px] font-mono text-gray-400 flex flex-wrap items-center justify-between gap-2">
@@ -1359,15 +1554,28 @@ export const Web3SandboxSection: React.FC = () => {
                           <span className="ml-2 text-amber-300 block sm:inline">Chữ ký ví: {mintSignature.slice(0, 16)}...{mintSignature.slice(-8)}</span>
                         )}
                       </div>
-                      <a
-                        href={`https://sepolia.basescan.org/address/${mintedPassport.owner_address}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-amber-300 hover:text-amber-200 underline flex items-center gap-1 font-semibold"
-                      >
-                        <span>Xem ví trên BaseScan Sepolia</span>
-                        <ExternalLink className="w-3 h-3" />
-                      </a>
+                      
+                      {mintedPassport.network.includes('Sepolia') && !mintedPassport.network.includes('Base') ? (
+                        <a
+                          href={`https://sepolia.etherscan.io/tx/${mintedPassport.transaction_hash}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-amber-300 hover:text-amber-200 underline flex items-center gap-1 font-semibold"
+                        >
+                          <span>Xem giao dịch trên Sepolia Etherscan</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      ) : (
+                        <a
+                          href={`https://sepolia.basescan.org/tx/${mintedPassport.transaction_hash}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-amber-300 hover:text-amber-200 underline flex items-center gap-1 font-semibold"
+                        >
+                          <span>Xem giao dịch trên BaseScan Sepolia</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      )}
                     </div>
                   </div>
                 </div>

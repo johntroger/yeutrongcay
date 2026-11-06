@@ -5,6 +5,9 @@
  * Môi trường: 100% Testnet (Base Sepolia / Polygon Amoy) - Học tập & trải nghiệm 0đ tiền thật
  */
 
+import { encodeFunctionData } from 'viem';
+import { PLANT_PASSPORT_ABI, CONTRACT_ADDRESSES } from '../contracts/PlantPassportABI.ts';
+
 declare global {
   interface Window {
     ethereum?: {
@@ -293,6 +296,91 @@ export const web3WalletService = {
       }
       throw new Error(e.message || 'Lỗi khi yêu cầu ví ký số.');
     }
+  },
+
+  /**
+   * Đúc NFT Hộ Chiếu Thực Vật Số ON-CHAIN THẬT (Gửi transaction gọi Smart Contract qua MetaMask)
+   */
+  async mintPassportOnChain(params: {
+    contractAddress: `0x${string}`;
+    userAddress: `0x${string}`;
+    plantName: string;
+    scientificName: string;
+    stage: number;
+    sha256Proof: string;
+    uri: string;
+  }): Promise<string> {
+    if (!window.ethereum) {
+      throw new Error('Không phát hiện tiện ích ví Web3 để thực hiện giao dịch on-chain.');
+    }
+
+    try {
+      // 1. Mã hóa dữ liệu gọi hàm mintPassport theo chuẩn ABI
+      const callData = encodeFunctionData({
+        abi: PLANT_PASSPORT_ABI,
+        functionName: 'mintPassport',
+        args: [
+          params.plantName,
+          params.scientificName,
+          params.stage,
+          params.sha256Proof,
+          params.uri
+        ]
+      });
+
+      // 2. Gửi transaction lên MetaMask để người dùng duyệt và ký xác nhận on-chain
+      const txHash = (await window.ethereum.request({
+        method: 'eth_sendTransaction',
+        params: [
+          {
+            from: params.userAddress,
+            to: params.contractAddress,
+            data: callData
+          }
+        ]
+      })) as string;
+
+      return txHash;
+    } catch (err: unknown) {
+      const e = err as { code?: number; message?: string };
+      if (e.code === 4001) {
+        throw new Error('Bạn đã hủy phê duyệt giao dịch trên MetaMask.');
+      }
+      throw new Error(e.message || 'Lỗi khi gửi giao dịch đúc NFT lên blockchain.');
+    }
+  },
+
+  /**
+   * Yêu cầu MetaMask thêm NFT vừa đúc vào tab NFTs của ví (EIP-747)
+   */
+  async addNftToMetaMask(contractAddress: string, tokenId: string): Promise<boolean> {
+    if (!window.ethereum) return false;
+    try {
+      const wasAdded = (await window.ethereum.request({
+        method: 'wallet_watchAsset',
+        params: {
+          type: 'ERC721',
+          options: {
+            address: contractAddress,
+            tokenId: tokenId
+          }
+        }
+      })) as boolean;
+      return wasAdded;
+    } catch {
+      return false;
+    }
+  },
+
+  /**
+   * Lấy địa chỉ contract NFT theo mạng
+   */
+  getContractAddressForChain(chainId: string | null): `0x${string}` {
+    const hex = chainId?.toLowerCase();
+    if (hex === BASE_SEPOLIA_CHAIN_ID_HEX.toLowerCase() || hex === '84532') {
+      return (CONTRACT_ADDRESSES.baseSepolia || CONTRACT_ADDRESSES.sepolia) as `0x${string}`;
+    }
+    return CONTRACT_ADDRESSES.sepolia as `0x${string}`;
   },
 
   /**
