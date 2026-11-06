@@ -207,7 +207,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({
   return (
     <div className="min-h-screen bg-cream-100 flex flex-col">
       {/* Breadcrumb Navigation */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 w-full">
+      <div className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 pt-6 w-full">
         <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-forest-700">
           <Link to="/" target="_blank" rel="noopener noreferrer" className="hover:text-forest-950 flex items-center gap-1 transition">
             <Home className="w-3.5 h-3.5" />
@@ -232,8 +232,8 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({
       {category === 'herb' && <MedicalDisclaimer />}
 
       {/* Plant Grid */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 flex-1 w-full">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-8 pb-4 border-b border-forest-100">
+      <main className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-10 flex-1 w-full space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-4 border-b border-forest-100">
           <div>
             <h2 className="text-2xl sm:text-3xl font-serif font-bold text-forest-900 tracking-tight flex items-center gap-2">
               <span>{meta.icon}</span>
@@ -278,7 +278,7 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({
         {/* Danh Sách Bài Viết Cây Trồng */}
         <div className="pt-2">
           {categoryPlants.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-7">
               {categoryPlants.map((plant) => (
                 <PlantCard
                   key={plant.id}

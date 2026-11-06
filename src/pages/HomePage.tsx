@@ -256,7 +256,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       />
 
       {/* 2. Bộ 3 Chuyên Mục Lớn Mở Tab Riêng Biệt */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-20 w-full">
+      <section className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 -mt-6 relative z-20 w-full">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Link
             to="/thao-duoc"
@@ -330,7 +330,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       {activeMode === 'herb' && <MedicalDisclaimer />}
 
       {/* 4. Plants Catalog Grid with Smart Filter & Collections */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 flex-1 w-full space-y-6">
+      <main className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-10 flex-1 w-full space-y-6">
         {/* Bộ Sưu Tập Cây Trồng Theo Giải Pháp */}
         <CollectionsShowcase
           selectedCollectionSlug={filters.collection}
@@ -386,7 +386,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         {/* Grid display */}
         {displayedPlants.length > 0 ? (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-7">
               {displayedPlants.map((plant) => (
                 <PlantCard
                   key={plant.id}
@@ -469,7 +469,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
       {/* 6. Hệ Sinh Thái Tính Năng Riêng Biệt (Mở Tab Mới Giải Phóng Trang Chủ) */}
       <section className="bg-forest-900 text-white py-14 border-t border-forest-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-10">
             <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-herbal-500/20 text-herbal-300 border border-herbal-400/30 mb-2">
               {isEn ? 'Feature Ecosystem' : 'Hệ Sinh Thái Tính Năng'}

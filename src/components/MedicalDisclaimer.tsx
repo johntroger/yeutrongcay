@@ -6,7 +6,7 @@ export const MedicalDisclaimer: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-6">
+    <div className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 my-6">
       <div className="bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-800/50 rounded-2xl p-4 sm:p-5 flex items-start gap-3.5 shadow-sm transition-colors">
         <AlertTriangle className="w-5 h-5 text-amber-700 dark:text-amber-400 shrink-0 mt-0.5" />
         <div className="text-xs sm:text-sm text-amber-900 dark:text-amber-200/90 leading-relaxed">

@@ -210,7 +210,7 @@ export const PlantSwapSection: React.FC = () => {
 
   return (
     <section id="swap-map" className="py-12 bg-cream-100 dark:bg-charcoal-950 border-t border-forest-100 dark:border-forest-900 transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">

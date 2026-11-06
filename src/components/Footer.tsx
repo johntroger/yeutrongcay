@@ -13,7 +13,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy, onOpenContact }) 
 
   return (
     <footer className="bg-forest-950 text-white border-t border-forest-900 pt-16 pb-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8">
         
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-forest-900 text-xs sm:text-sm">
           

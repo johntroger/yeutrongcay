@@ -98,7 +98,7 @@ export const ContactSection: React.FC = () => {
 
   return (
     <section id="contact" className="py-20 bg-cream-100 border-t border-forest-100 scroll-mt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">

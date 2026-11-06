@@ -48,7 +48,7 @@ export const SeasonalCalendarSection: React.FC<SeasonalCalendarSectionProps> = (
 
   return (
     <section className={`w-full ${standalone ? 'py-6 sm:py-10' : 'py-12 sm:py-16'} transition-colors duration-200`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <div className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 space-y-8">
         
         {/* Header Block */}
         <div className="text-center max-w-3xl mx-auto space-y-3">

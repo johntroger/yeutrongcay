@@ -616,7 +616,7 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
       )}
 
       {/* 1. Breadcrumb Navigation */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 w-full">
+      <div className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 pt-6 w-full">
         <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-forest-700 dark:text-forest-400">
           <Link to="/" target="_blank" rel="noopener noreferrer" className="hover:text-forest-950 dark:hover:text-cream-100 flex items-center gap-1 transition">
             <Home className="w-3.5 h-3.5" />
@@ -630,7 +630,7 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
         </nav>
       </div>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 flex-1 w-full space-y-8">
+      <main className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-10 flex-1 w-full space-y-8">
         
         {/* 2. Garden Hero & Stats Header */}
         <div className="bg-white dark:bg-charcoal-900 rounded-3xl p-6 sm:p-8 border border-forest-100 dark:border-forest-800 shadow-sm relative overflow-hidden transition-colors">

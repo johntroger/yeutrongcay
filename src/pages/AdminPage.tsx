@@ -262,7 +262,7 @@ export const AdminPage: React.FC = () => {
     <div className="min-h-screen bg-cream-100 dark:bg-charcoal-900 text-charcoal-900 dark:text-cream-100 transition-colors">
       {/* Top Admin Header Bar */}
       <header className="bg-forest-950 text-white border-b border-forest-800 sticky top-0 z-30 shadow-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 bg-emerald-600 text-white rounded-xl flex items-center justify-center font-bold shadow-sm">
               <ShieldCheck className="w-5 h-5" />
@@ -314,7 +314,7 @@ export const AdminPage: React.FC = () => {
       </header>
 
       {/* Main Content Area */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+      <main className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 py-8 space-y-6">
         
         {/* Action feedback toast */}
         {actionSuccess && (

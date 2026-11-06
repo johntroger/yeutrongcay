@@ -373,7 +373,7 @@ export const PlantClinicSection: React.FC = () => {
 
   return (
     <section id="clinic" className="py-6 sm:py-8 bg-white dark:bg-charcoal-900 border-y border-forest-100 dark:border-charcoal-800 transition-colors duration-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8">
         
         {/* Compact Header Bar with Mode Switcher & Personal Key status */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-forest-100/80 dark:border-charcoal-800">

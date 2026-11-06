@@ -476,7 +476,7 @@ export const MonetizationSection: React.FC = () => {
 
   return (
     <section id="monetization" className="py-16 bg-cream-100 dark:bg-charcoal-950 transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="max-w-3xl mx-auto text-center mb-12">
