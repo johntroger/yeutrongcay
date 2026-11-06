@@ -16,7 +16,10 @@ import {
   BookOpen,
   Coins,
   Droplets,
-  KeyRound
+  KeyRound,
+  ChevronDown,
+  ChevronRight,
+  X
 } from 'lucide-react';
 import { Web3TestnetPassport } from '../types/index.ts';
 import { useLanguage } from '../context/LanguageContext.tsx';
@@ -91,6 +94,62 @@ const REAL_FAUCETS = [
   }
 ];
 
+// 4 Phân khu học tập Web3 Testnet
+const LEARNING_TABS = [
+  {
+    id: 'learn' as const,
+    num: '1',
+    nameVi: '1. Vỡ Lòng Web3 Trong 3 Phút',
+    nameEn: '1. Web3 101 for Gardeners',
+    shortVi: 'Vỡ Lòng Web3',
+    shortEn: 'Web3 101',
+    descVi: 'Khái niệm ví cá nhân, mã băm SHA-256 và chữ ký số an toàn',
+    descEn: 'Core concepts: wallets, SHA-256 hashing & cryptographic signatures',
+    icon: BookOpen,
+    badgeVi: 'Học 3 Phút',
+    badgeEn: '3-min Read',
+  },
+  {
+    id: 'faucet' as const,
+    num: '2',
+    nameVi: '2. Hướng Dẫn Lấy ETH Testnet (Faucet 0đ)',
+    nameEn: '2. Claim Free Testnet ETH (Faucet)',
+    shortVi: 'Lấy ETH Testnet',
+    shortEn: 'Testnet Faucet',
+    descVi: 'Nhận 0.1 ETH miễn phí mỗi ngày từ Coinbase, Google Cloud',
+    descEn: 'Get free daily testnet ETH from Coinbase & Google Cloud',
+    icon: Droplets,
+    badgeVi: '+10 Karma',
+    badgeEn: '+10 Karma',
+  },
+  {
+    id: 'mint' as const,
+    num: '3',
+    nameVi: '3. Ký Số & Đúc Hộ Chiếu Cây',
+    nameEn: '3. Mint Plant Passport (Real Signature)',
+    shortVi: 'Đúc Hộ Chiếu Cây',
+    shortEn: 'Mint Passport',
+    descVi: 'Ký số cá nhân với ví thật để tạo căn cước công dân số cho cây',
+    descEn: 'Sign with your real wallet to issue a tamper-proof plant passport',
+    icon: Award,
+    badgeVi: '+25 Karma',
+    badgeEn: '+25 Karma',
+  },
+  {
+    id: 'escrow' as const,
+    num: '4',
+    nameVi: '4. Smart Contract Đổi Cây An Toàn',
+    nameEn: '4. Escrow Plant Swap Simulator',
+    shortVi: 'Escrow Đổi Cây',
+    shortEn: 'Escrow Swap',
+    descVi: 'Mô phỏng hợp đồng thông minh khóa cọc & cách ly 7 ngày trừ rệp sáp',
+    descEn: 'Simulated smart contract escrow with 7-day quarantine inspection',
+    icon: FileCheck2,
+    badgeVi: '+15 Karma',
+    badgeEn: '+15 Karma',
+  }
+];
+
 export const Web3SandboxSection: React.FC = () => {
   const { isEn } = useLanguage();
 
@@ -100,6 +159,7 @@ export const Web3SandboxSection: React.FC = () => {
   const [walletError, setWalletError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [activeTab, setActiveTab] = useState<'learn' | 'mint' | 'faucet' | 'escrow'>('learn');
+  const [isMobileTabDrawerOpen, setIsMobileTabDrawerOpen] = useState(false);
 
   // Trạng thái đúc hộ chiếu
   const [selectedPlantIndex, setSelectedPlantIndex] = useState(0);
@@ -544,54 +604,171 @@ export const Web3SandboxSection: React.FC = () => {
         )}
 
         {/* 2. Thanh Điều Hướng Các Phân Khu Học Tập (Navigation Tabs) */}
-        <div className="flex items-center gap-2 border-b border-forest-800/80 pb-2 overflow-x-auto no-scrollbar">
+        
+        {/* Mobile: Dạng Dropdown Trigger mở Popup / Drawer chọn tab ("bay ra tab mới, có nút X để tắt") */}
+        <div className="md:hidden">
           <button
-            onClick={() => setActiveTab('learn')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 shrink-0 ${
-              activeTab === 'learn'
-                ? 'bg-emerald-600 text-white shadow-md'
-                : 'bg-charcoal-900/60 text-forest-300 hover:bg-charcoal-900 hover:text-white'
-            }`}
+            type="button"
+            onClick={() => setIsMobileTabDrawerOpen(true)}
+            className="w-full p-3.5 rounded-2xl bg-charcoal-900 border border-emerald-500/50 shadow-lg flex items-center justify-between gap-3 text-left transition active:scale-[0.99] hover:border-emerald-400"
           >
-            <BookOpen className="w-4 h-4" />
-            <span>{isEn ? '1. Web3 101 for Gardeners' : '1. Vỡ Lòng Web3 Trong 3 Phút'}</span>
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-10 h-10 rounded-xl bg-emerald-950 text-emerald-400 border border-emerald-700/60 flex items-center justify-center shrink-0 shadow-sm">
+                {React.createElement(
+                  LEARNING_TABS.find((t) => t.id === activeTab)?.icon || BookOpen,
+                  { className: 'w-5 h-5' }
+                )}
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider block">
+                    {isEn ? 'Current Section' : 'Phân khu đang xem'}
+                  </span>
+                  <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30">
+                    {isEn
+                      ? LEARNING_TABS.find((t) => t.id === activeTab)?.badgeEn
+                      : LEARNING_TABS.find((t) => t.id === activeTab)?.badgeVi}
+                  </span>
+                </div>
+                <p className="text-xs font-bold text-white truncate font-serif mt-0.5">
+                  {isEn
+                    ? LEARNING_TABS.find((t) => t.id === activeTab)?.nameEn
+                    : LEARNING_TABS.find((t) => t.id === activeTab)?.nameVi}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shrink-0 shadow-sm transition">
+              <span>{isEn ? 'Switch' : 'Đổi Tab'}</span>
+              <ChevronDown className="w-3.5 h-3.5" />
+            </div>
           </button>
+        </div>
 
-          <button
-            onClick={() => setActiveTab('faucet')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 shrink-0 ${
-              activeTab === 'faucet'
-                ? 'bg-emerald-600 text-white shadow-md'
-                : 'bg-charcoal-900/60 text-forest-300 hover:bg-charcoal-900 hover:text-white'
-            }`}
-          >
-            <Droplets className="w-4 h-4 text-cyan-400" />
-            <span>{isEn ? '2. Claim Free Testnet ETH (Faucet)' : '2. Hướng Dẫn Lấy ETH Testnet (Faucet 0đ)'}</span>
-          </button>
+        {/* Mobile Popup Modal ("Bay ra tab mới, có nút X để tắt đi") */}
+        {isMobileTabDrawerOpen && (
+          <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center md:hidden p-0 sm:p-4">
+            {/* Backdrop */}
+            <div
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
+              onClick={() => setIsMobileTabDrawerOpen(false)}
+            />
 
-          <button
-            onClick={() => setActiveTab('mint')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 shrink-0 ${
-              activeTab === 'mint'
-                ? 'bg-emerald-600 text-white shadow-md'
-                : 'bg-charcoal-900/60 text-forest-300 hover:bg-charcoal-900 hover:text-white'
-            }`}
-          >
-            <Award className="w-4 h-4 text-amber-400" />
-            <span>{isEn ? '3. Mint Plant Passport (Real Signature)' : '3. Ký Số & Đúc Hộ Chiếu Cây'}</span>
-          </button>
+            {/* Modal Box */}
+            <div className="relative w-full max-w-lg bg-charcoal-900 border-t sm:border border-forest-700 rounded-t-3xl sm:rounded-3xl p-5 shadow-2xl text-white max-h-[88vh] overflow-y-auto animate-in slide-in-from-bottom-6 duration-200 z-10 space-y-4">
+              {/* Header with Title and 'X' close button */}
+              <div className="flex items-center justify-between pb-3 border-b border-forest-800">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-xl bg-emerald-950 text-emerald-400 border border-emerald-700/60 flex items-center justify-center font-bold">
+                    <Sparkles className="w-4 h-4 text-amber-400" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold font-serif text-white">
+                      {isEn ? 'Select Learning Section' : 'Chọn Phân Khu Học Tập Web3'}
+                    </h3>
+                    <p className="text-[11px] text-forest-300">
+                      {isEn ? 'Base Sepolia Testnet (100% Free - 0đ)' : 'Mạng Thử Nghiệm Base Sepolia (0đ Gas)'}
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setIsMobileTabDrawerOpen(false)}
+                  className="w-8 h-8 rounded-full bg-forest-800/80 hover:bg-forest-700 flex items-center justify-center text-gray-300 hover:text-white transition shadow-sm"
+                  aria-label="Đóng"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
 
-          <button
-            onClick={() => setActiveTab('escrow')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 shrink-0 ${
-              activeTab === 'escrow'
-                ? 'bg-emerald-600 text-white shadow-md'
-                : 'bg-charcoal-900/60 text-forest-300 hover:bg-charcoal-900 hover:text-white'
-            }`}
-          >
-            <FileCheck2 className="w-4 h-4 text-teal-400" />
-            <span>{isEn ? '4. Escrow Plant Swap Simulator' : '4. Smart Contract Đổi Cây An Toàn'}</span>
-          </button>
+              {/* List of 4 Interactive Learning Modules */}
+              <div className="space-y-2.5">
+                {LEARNING_TABS.map((tab) => {
+                  const Icon = tab.icon;
+                  const isCurrent = activeTab === tab.id;
+                  return (
+                    <button
+                      key={tab.id}
+                      onClick={() => {
+                        setActiveTab(tab.id);
+                        setIsMobileTabDrawerOpen(false);
+                      }}
+                      className={`w-full p-3.5 rounded-2xl text-left transition flex items-center justify-between gap-3 border ${
+                        isCurrent
+                          ? 'bg-emerald-950/90 border-emerald-400 shadow-md ring-1 ring-emerald-400'
+                          : 'bg-forest-950/70 border-forest-800 hover:bg-forest-900 hover:border-forest-700'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div
+                          className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border ${
+                            isCurrent
+                              ? 'bg-emerald-500 text-forest-950 border-emerald-300 font-bold'
+                              : 'bg-forest-900 text-emerald-400 border-forest-800'
+                          }`}
+                        >
+                          <Icon className="w-5 h-5" />
+                        </div>
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="text-xs font-bold text-white font-serif">
+                              {isEn ? tab.nameEn : tab.nameVi}
+                            </span>
+                            <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30">
+                              {isEn ? tab.badgeEn : tab.badgeVi}
+                            </span>
+                          </div>
+                          <p className="text-[11px] text-forest-300/90 mt-1 line-clamp-1">
+                            {isEn ? tab.descEn : tab.descVi}
+                          </p>
+                        </div>
+                      </div>
+
+                      {isCurrent ? (
+                        <span className="px-2.5 py-1 rounded-xl bg-emerald-500 text-forest-950 text-[10px] font-extrabold shrink-0 shadow-xs">
+                          {isEn ? 'Active' : 'Đang Xem ✓'}
+                        </span>
+                      ) : (
+                        <ChevronRight className="w-4 h-4 text-forest-500 shrink-0" />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Close Button at bottom */}
+              <button
+                onClick={() => setIsMobileTabDrawerOpen(false)}
+                className="w-full py-2.5 rounded-xl bg-forest-800 hover:bg-forest-700 text-forest-200 text-xs font-bold transition flex items-center justify-center gap-2"
+              >
+                <X className="w-3.5 h-3.5" />
+                <span>{isEn ? 'Close & Return' : 'Đóng Bảng Chọn (✕)'}</span>
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Desktop: Navigation Tabs ngang đầy đủ */}
+        <div className="hidden md:flex items-center gap-2 border-b border-forest-800/80 pb-2 overflow-x-auto no-scrollbar">
+          {LEARNING_TABS.map((tab) => {
+            const Icon = tab.icon;
+            const isCurrent = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 shrink-0 ${
+                  isCurrent
+                    ? 'bg-emerald-600 text-white shadow-md'
+                    : 'bg-charcoal-900/60 text-forest-300 hover:bg-charcoal-900 hover:text-white'
+                }`}
+              >
+                <Icon className="w-4 h-4" />
+                <span>{isEn ? tab.nameEn : tab.nameVi}</span>
+                <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30">
+                  {isEn ? tab.badgeEn : tab.badgeVi}
+                </span>
+              </button>
+            );
+          })}
         </div>
 
         {/* ============================================================== */}
