@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Plant, PlantCategory } from '../types/index.ts';
 import { SEED_PLANTS } from '../data/plants.ts';
 import { getPlants } from '../services/apiService.ts';
@@ -7,9 +7,13 @@ import { useSEO } from '../utils/useSEO.ts';
 import { Hero } from '../components/Hero.tsx';
 import { MedicalDisclaimer } from '../components/MedicalDisclaimer.tsx';
 import { PlantCard } from '../components/PlantCard.tsx';
+import { PlantFilterBar, FilterState } from '../components/PlantFilterBar.tsx';
+import { CollectionsShowcase } from '../components/CollectionsShowcase.tsx';
+import { TagCloudBar } from '../components/TagCloudBar.tsx';
 import { SeasonalCalendarSection } from '../components/SeasonalCalendarSection.tsx';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { PLANT_ENGLISH_MAP } from '../i18n/plantTranslations.ts';
+import { getPlantSubcategory, getPlantsForCollection } from '../data/collections.ts';
 import {
   Filter,
   Sparkles,
@@ -19,7 +23,8 @@ import {
   MessageCircle,
   ArrowUpRight,
   Calendar,
-  ShieldCheck
+  ShieldCheck,
+  RotateCcw
 } from 'lucide-react';
 
 interface HomePageProps {
@@ -37,8 +42,61 @@ export const HomePage: React.FC<HomePageProps> = ({
   onClearSearch,
 }) => {
   const { t, isEn } = useLanguage();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [allPlants, setAllPlants] = useState<Plant[]>(SEED_PLANTS);
-  const [visibleCount, setVisibleCount] = useState(6);
+  const [visibleCount, setVisibleCount] = useState(9);
+
+  // Bộ lọc đa tiêu chí đồng bộ URL
+  const [filters, setFilters] = useState<FilterState>(() => {
+    return {
+      category: activeMode,
+      subcategory: searchParams.get('subcat') || undefined,
+      tag: searchParams.get('tag') || undefined,
+      collection: searchParams.get('collection') || undefined,
+      sunlight: (searchParams.get('sunlight') as any) || 'all',
+      watering: (searchParams.get('watering') as any) || 'all',
+      difficulty: (searchParams.get('difficulty') as any) || 'all',
+    };
+  });
+
+  // Đồng bộ URL khi filters thay đổi
+  const handleFilterChange = (newFilters: FilterState) => {
+    setFilters(newFilters);
+    const params = new URLSearchParams();
+    if (newFilters.category !== 'all') params.set('cat', newFilters.category);
+    if (newFilters.subcategory) params.set('subcat', newFilters.subcategory);
+    if (newFilters.tag) params.set('tag', newFilters.tag);
+    if (newFilters.collection) params.set('collection', newFilters.collection);
+    if (newFilters.sunlight !== 'all') params.set('sunlight', newFilters.sunlight);
+    if (newFilters.watering !== 'all') params.set('watering', newFilters.watering);
+    if (newFilters.difficulty !== 'all') params.set('difficulty', newFilters.difficulty);
+    setSearchParams(params, { replace: true });
+
+    if (newFilters.category !== 'all' && newFilters.category !== activeMode) {
+      onModeChange?.(newFilters.category);
+    }
+  };
+
+  // Đồng bộ khi activeMode đổi từ Navbar
+  useEffect(() => {
+    setFilters((prev) => ({ ...prev, category: activeMode }));
+    setVisibleCount(9);
+  }, [activeMode]);
+
+  // Đọc params từ URL khi mount hoặc điều hướng
+  useEffect(() => {
+    const tag = searchParams.get('tag') || undefined;
+    const collection = searchParams.get('collection') || undefined;
+    const subcat = searchParams.get('subcat') || undefined;
+    if (tag || collection || subcat) {
+      setFilters((prev) => ({
+        ...prev,
+        tag: tag ?? prev.tag,
+        collection: collection ?? prev.collection,
+        subcategory: subcat ?? prev.subcategory,
+      }));
+    }
+  }, [searchParams]);
 
   // Tải dữ liệu cây thực tế từ MySQL qua Cloudflare Edge API
   useEffect(() => {
@@ -53,24 +111,67 @@ export const HomePage: React.FC<HomePageProps> = ({
     };
   }, []);
 
-  // Đặt lại số lượng hiển thị ban đầu là 6 khi chuyển đổi danh mục
-  useEffect(() => {
-    setVisibleCount(6);
-  }, [activeMode]);
-
-  // Lọc cây theo chế độ vườn đang chọn và từ khóa tìm kiếm (hỗ trợ cả tiếng Anh lẫn tiếng Việt)
+  // Lọc cây đa chiều: Category, Subcategory, Collection, Tag, Điều kiện sinh trưởng, Tìm kiếm
   const filteredPlants = useMemo(() => {
     return allPlants.filter((plant) => {
-      const matchesCategory = plant.category === activeMode;
+      // 1. Lọc theo Category
+      if (filters.category !== 'all' && plant.category !== filters.category) {
+        return false;
+      }
+
+      // 2. Lọc theo Subcategory
+      if (filters.subcategory) {
+        const sub = getPlantSubcategory(plant.id);
+        if (sub?.id !== filters.subcategory) {
+          return false;
+        }
+      }
+
+      // 3. Lọc theo Collection (Bộ sưu tập)
+      if (filters.collection) {
+        const colPlants = getPlantsForCollection(filters.collection, allPlants);
+        if (!colPlants.some((cp) => cp.id === plant.id)) {
+          return false;
+        }
+      }
+
+      // 4. Lọc theo Thẻ Tag
+      if (filters.tag) {
+        const targetTag = filters.tag.toLowerCase();
+        const enData = PLANT_ENGLISH_MAP[plant.id];
+        const enTags = enData?.tags.map((t) => t.toLowerCase()) || [];
+        const viTags = plant.tags.map((t) => t.toLowerCase());
+        const hasTag = viTags.includes(targetTag) || enTags.includes(targetTag);
+        if (!hasTag) return false;
+      }
+
+      // 5. Lọc theo Ánh sáng
+      if (filters.sunlight !== 'all' && plant.sunlight !== filters.sunlight) {
+        return false;
+      }
+
+      // 6. Lọc theo Lịch tưới
+      if (filters.watering !== 'all' && plant.watering !== filters.watering) {
+        return false;
+      }
+
+      // 7. Lọc theo Độ khó
+      if (filters.difficulty !== 'all') {
+        if (filters.difficulty === 'easy' && plant.propagation_difficulty > 1) return false;
+        if (filters.difficulty === 'medium' && (plant.propagation_difficulty < 2 || plant.propagation_difficulty > 3)) return false;
+        if (filters.difficulty === 'hard' && plant.propagation_difficulty < 4) return false;
+      }
+
+      // 8. Lọc theo từ khóa tìm kiếm (Anh & Việt)
       const q = searchQuery.toLowerCase().trim();
-      if (!q) return matchesCategory;
+      if (!q) return true;
 
       const enData = PLANT_ENGLISH_MAP[plant.id];
       const enCommon = enData?.common_name.toLowerCase() || '';
       const enAliases = enData?.aliases.map((a) => a.toLowerCase()) || [];
       const enTags = enData?.tags.map((t) => t.toLowerCase()) || [];
 
-      const matchesSearch =
+      return (
         plant.common_name.toLowerCase().includes(q) ||
         plant.scientific_name.toLowerCase().includes(q) ||
         plant.aliases.some((a) => a.toLowerCase().includes(q)) ||
@@ -78,11 +179,40 @@ export const HomePage: React.FC<HomePageProps> = ({
         enCommon.includes(q) ||
         enAliases.some((a) => a.includes(q)) ||
         enTags.some((t) => t.includes(q)) ||
-        (plant.medical_info?.uses.some((u) => u.toLowerCase().includes(q)) ?? false);
-
-      return matchesCategory && matchesSearch;
+        (plant.medical_info?.uses.some((u) => u.toLowerCase().includes(q)) ?? false)
+      );
     });
-  }, [allPlants, activeMode, searchQuery]);
+  }, [allPlants, filters, searchQuery]);
+
+  // Danh sách tags có sẵn kèm số lượng bài viết
+  const availableTags = useMemo(() => {
+    const counts: Record<string, number> = {};
+    const relevantPlants = filters.category === 'all'
+      ? allPlants
+      : allPlants.filter((p) => p.category === filters.category);
+
+    for (const p of relevantPlants) {
+      for (const t of p.tags || []) {
+        counts[t] = (counts[t] || 0) + 1;
+      }
+    }
+    return Object.entries(counts)
+      .map(([tag, count]) => ({ tag, count }))
+      .sort((a, b) => b.count - a.count);
+  }, [allPlants, filters.category]);
+
+  const handleResetFilters = () => {
+    handleFilterChange({
+      category: activeMode,
+      subcategory: undefined,
+      tag: undefined,
+      collection: undefined,
+      sunlight: 'all',
+      watering: 'all',
+      difficulty: 'all',
+    });
+    onClearSearch();
+  };
 
   // Danh sách hiển thị
   const displayedPlants = useMemo(() => {
@@ -199,64 +329,41 @@ export const HomePage: React.FC<HomePageProps> = ({
       {/* 3. Medical Disclaimer */}
       {activeMode === 'herb' && <MedicalDisclaimer />}
 
-      {/* 4. Plants Catalog Grid */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 flex-1 w-full">
-        {/* Garden Mode Switcher Pills - Đặt tại Trang Chủ, giải phóng cho menu */}
-        <div className="flex items-center justify-start sm:justify-center gap-2.5 pb-6 mb-6 border-b border-forest-100/80 dark:border-forest-900/60 overflow-x-auto no-scrollbar">
-          <button
-            onClick={() => onModeChange?.('herb')}
-            className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition flex items-center gap-2 shrink-0 ${
-              activeMode === 'herb'
-                ? 'bg-forest-900 dark:bg-herbal-700 text-white shadow-md ring-2 ring-herbal-500/30'
-                : 'bg-white dark:bg-charcoal-800 text-forest-800 dark:text-forest-200 hover:bg-forest-50 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-800 hover:border-herbal-400'
-            }`}
-            title={t('categories.herbDesc')}
-          >
-            <span className="text-base">🌿</span>
-            <span>{t('categories.herb')}</span>
-          </button>
+      {/* 4. Plants Catalog Grid with Smart Filter & Collections */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 flex-1 w-full space-y-6">
+        {/* Bộ Sưu Tập Cây Trồng Theo Giải Pháp */}
+        <CollectionsShowcase
+          selectedCollectionSlug={filters.collection}
+          onSelectCollection={(colSlug) => handleFilterChange({ ...filters, collection: colSlug })}
+        />
 
-          <button
-            onClick={() => onModeChange?.('fruit')}
-            className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition flex items-center gap-2 shrink-0 ${
-              activeMode === 'fruit'
-                ? 'bg-forest-900 dark:bg-herbal-700 text-white shadow-md ring-2 ring-amber-500/30'
-                : 'bg-white dark:bg-charcoal-800 text-forest-800 dark:text-forest-200 hover:bg-forest-50 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-800 hover:border-amber-400'
-            }`}
-            title={t('categories.fruitDesc')}
-          >
-            <span className="text-base">🍋</span>
-            <span>{t('categories.fruit')}</span>
-          </button>
+        {/* Bộ Lọc Thông Minh Đa Tiêu Chí */}
+        <PlantFilterBar
+          filters={filters}
+          onFilterChange={handleFilterChange}
+          totalCount={allPlants.length}
+          filteredCount={filteredPlants.length}
+          onReset={handleResetFilters}
+        />
 
-          <button
-            onClick={() => onModeChange?.('ornamental')}
-            className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition flex items-center gap-2 shrink-0 ${
-              activeMode === 'ornamental'
-                ? 'bg-forest-900 dark:bg-herbal-700 text-white shadow-md ring-2 ring-purple-500/30'
-                : 'bg-white dark:bg-charcoal-800 text-forest-800 dark:text-forest-200 hover:bg-forest-50 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-800 hover:border-purple-400'
-            }`}
-            title={t('categories.ornamentalDesc')}
-          >
-            <span className="text-base">🌸</span>
-            <span>{t('categories.ornamental')}</span>
-          </button>
-        </div>
+        {/* Đám Mây Thẻ Từ Khóa (Tag Cloud) */}
+        <TagCloudBar
+          selectedTag={filters.tag}
+          onSelectTag={(tag) => handleFilterChange({ ...filters, tag })}
+          availableTags={availableTags}
+        />
 
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-8 pb-4 border-b border-forest-100">
+        {/* Tiêu đề & Thống kê kết quả lọc */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-4 pb-4 border-b border-forest-100 dark:border-forest-800">
           <div>
             <h2 className="text-2xl sm:text-3xl font-serif font-bold text-forest-900 dark:text-cream-50 tracking-tight">
-              {activeMode === 'herb'
-                ? isEn
-                  ? 'Native Medicinal Herbs Encyclopedia'
-                  : 'Bách Khoa Thảo Dược Bản Địa'
-                : activeMode === 'fruit'
-                ? isEn
-                  ? 'Urban Balcony Fruit Trees Encyclopedia'
-                  : 'Bách Khoa Cây Ăn Trái Đô Thị'
-                : isEn
-                ? 'Bonsai & Ornamental Botanical Encyclopedia'
-                : 'Bách Khoa Cây Cảnh & Bonsai'}
+              {filters.category === 'all'
+                ? isEn ? 'Comprehensive Botanical Encyclopedia (55 Varieties)' : 'Bách Khoa Thực Vật Đô Thị Toàn Diện (55 Giống Cây)'
+                : filters.category === 'herb'
+                ? isEn ? 'Native Medicinal Herbs Encyclopedia (25 Varieties)' : 'Bách Khoa Thảo Dược Bản Địa (25 Giống Cây)'
+                : filters.category === 'fruit'
+                ? isEn ? 'Urban Balcony Fruit Trees Encyclopedia (15 Varieties)' : 'Bách Khoa Cây Ăn Trái Đô Thị (15 Giống Cây)'
+                : isEn ? 'Bonsai & Ornamental Botanical Encyclopedia (15 Varieties)' : 'Bách Khoa Cây Cảnh & Bonsai (15 Giống Cây)'}
             </h2>
             <p className="text-xs sm:text-sm text-forest-700 dark:text-forest-300 mt-1">
               {searchQuery
@@ -264,15 +371,15 @@ export const HomePage: React.FC<HomePageProps> = ({
                   ? `Found ${filteredPlants.length} plants matching "${searchQuery}"`
                   : `Tìm thấy ${filteredPlants.length} cây phù hợp từ khóa "${searchQuery}"`
                 : isEn
-                ? `Showing ${displayedPlants.length} of ${filteredPlants.length} curated botanical varieties (Each opens in a new tab)`
-                : `Hiển thị ${displayedPlants.length} / ${filteredPlants.length} giống cây tuyển chọn trong bách khoa toàn thư (Mỗi bài viết mở tab mới)`}
+                ? `Showing ${displayedPlants.length} of ${filteredPlants.length} curated botanical varieties matching active filters`
+                : `Hiển thị ${displayedPlants.length} / ${filteredPlants.length} giống cây tuyển chọn phù hợp bộ lọc hiện tại`}
             </p>
           </div>
 
           <div className="self-start sm:self-auto flex items-center gap-2 text-xs font-semibold text-forest-800 dark:text-cream-100 bg-white dark:bg-charcoal-900 px-3.5 py-2 rounded-xl border border-forest-100 dark:border-forest-800 shadow-sm">
             <Filter className="w-4 h-4 text-herbal-600 dark:text-herbal-400" />
             <span className="hidden sm:inline">{t('common.category')}:</span>
-            <span className="capitalize">{activeMode}</span>
+            <span className="capitalize">{filters.category}</span>
           </div>
         </div>
 
@@ -284,6 +391,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 <PlantCard
                   key={plant.id}
                   plant={plant}
+                  onTagClick={(tag) => handleFilterChange({ ...filters, tag })}
                 />
               ))}
             </div>
@@ -317,35 +425,38 @@ export const HomePage: React.FC<HomePageProps> = ({
                     </button>
                   )}
 
-                  <Link
-                    to={categoryInfoMap[activeMode].path}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 sm:flex-initial px-5 py-2.5 rounded-2xl bg-forest-900 hover:bg-forest-950 text-white text-xs font-semibold shadow-md hover:shadow-lg transition flex items-center justify-center gap-1.5"
-                  >
-                    <span>{isEn ? 'Open Full Category (New Tab)' : 'Mở Toàn Bộ Chuyên Mục (Tab Mới)'}</span>
-                    <ArrowUpRight className="w-4 h-4 text-herbal-400" />
-                  </Link>
+                  {filters.category !== 'all' && (
+                    <Link
+                      to={categoryInfoMap[filters.category].path}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 sm:flex-initial px-5 py-2.5 rounded-2xl bg-forest-900 hover:bg-forest-950 text-white text-xs font-semibold shadow-md hover:shadow-lg transition flex items-center justify-center gap-1.5"
+                    >
+                      <span>{isEn ? 'Open Full Category (New Tab)' : 'Mở Toàn Bộ Chuyên Mục (Tab Mới)'}</span>
+                      <ArrowUpRight className="w-4 h-4 text-herbal-400" />
+                    </Link>
+                  )}
                 </div>
               </div>
             )}
           </>
         ) : (
-          <div className="text-center py-16 bg-white rounded-3xl border border-forest-100 p-8 max-w-md mx-auto">
-            <Sparkles className="w-10 h-10 text-forest-400 mx-auto mb-3" />
-            <h3 className="text-base font-bold text-forest-900 mb-1">
-              {isEn ? 'No matching plants found' : 'Không tìm thấy cây phù hợp'}
+          <div className="text-center py-16 bg-white dark:bg-charcoal-900 rounded-3xl border border-forest-100 dark:border-forest-800 p-8 max-w-md mx-auto shadow-sm">
+            <Sparkles className="w-10 h-10 text-herbal-600 dark:text-herbal-400 mx-auto mb-3" />
+            <h3 className="text-base font-bold text-forest-900 dark:text-cream-50 mb-1">
+              {isEn ? 'No matching plants found' : 'Không tìm thấy cây phù hợp bộ lọc'}
             </h3>
-            <p className="text-xs text-gray-500 mb-4">
+            <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
               {isEn
-                ? 'Try searching with another name or browse the full category.'
-                : 'Thử tìm kiếm với tên khác hoặc mở chuyên mục riêng.'}
+                ? 'Try removing some filter conditions or resetting the tags.'
+                : 'Thử bỏ bớt một số điều kiện lọc hoặc đặt lại bộ lọc để xem toàn bộ danh mục.'}
             </p>
             <button
-              onClick={onClearSearch}
-              className="px-4 py-2 bg-forest-900 text-white rounded-xl text-xs font-medium"
+              onClick={handleResetFilters}
+              className="px-4 py-2 bg-forest-900 dark:bg-herbal-700 text-white rounded-xl text-xs font-medium hover:bg-forest-950 transition flex items-center gap-1.5 mx-auto"
             >
-              {isEn ? 'View all plants' : 'Xem tất cả cây'}
+              <RotateCcw className="w-3.5 h-3.5" />
+              <span>{isEn ? 'Reset all filters' : 'Đặt lại toàn bộ bộ lọc'}</span>
             </button>
           </div>
         )}

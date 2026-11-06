@@ -71,7 +71,40 @@ export interface Plant {
   faqs?: PlantFAQ[];            // AEO FAQPage Schema
   academic_citations?: string[]; // GEO Authoritative Citations (Dược điển, Sách GS Đỗ Tất Lợi)
   monetization_tips?: string[]; // Gợi ý kiếm tiền từ cây này
+  subcategory?: string;         // Phân nhóm phụ (ví dụ: Trị ho & Hô hấp, Lọc khí NASA, Cam chanh...)
+  collection_slugs?: string[];  // Danh sách slug bộ sưu tập/chuyên đề chứa cây này
   tags: string[];
+}
+
+export interface PlantCollection {
+  id: string;
+  slug: string;
+  title: string;
+  title_en: string;
+  subtitle: string;
+  subtitle_en: string;
+  description: string;
+  description_en: string;
+  icon: string;
+  badge: string;
+  badge_en: string;
+  themeColor: 'emerald' | 'amber' | 'purple' | 'blue' | 'rose' | 'teal';
+  plantIds: string[];
+  benefits: string[];
+  benefits_en: string[];
+  companion_planting_tip?: string;
+  companion_planting_tip_en?: string;
+}
+
+export interface PlantFilterOptions {
+  category?: PlantCategory | 'all';
+  subcategory?: string;
+  tag?: string;
+  collection?: string;
+  sunlight?: 'all' | 'full_sun' | 'partial_shade' | 'indoor';
+  watering?: 'all' | 'daily' | 'moderate' | 'drought_tolerant';
+  difficulty?: 'all' | 'easy' | 'medium' | 'hard';
+  searchQuery?: string;
 }
 
 export type ContentType = 'question' | 'answer' | 'diary' | 'swap_offer';

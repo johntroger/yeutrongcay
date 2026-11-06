@@ -1,6 +1,6 @@
 import React from 'react';
 import { Plant } from '../types/index.ts';
-import { X, Sun, Droplets, AlertTriangle, ShieldCheck, Coins, HelpCircle, Calendar, Hash } from 'lucide-react';
+import { X, Sun, Droplets, AlertTriangle, ShieldCheck, Coins, HelpCircle, Calendar } from 'lucide-react';
 
 interface PlantModalProps {
   plant: Plant | null;
@@ -170,14 +170,6 @@ export const PlantModal: React.FC<PlantModalProps> = ({ plant, onClose }) => {
                   </li>
                 ))}
               </ul>
-            </div>
-          )}
-
-          {/* SHA-256 On-chain Hash Proof */}
-          {plant.image_sha256 && (
-            <div className="text-[11px] font-mono text-gray-500 pt-2 border-t border-forest-50 flex items-center gap-1 truncate">
-              <Hash className="w-3 h-3 text-forest-500 shrink-0" />
-              <span className="truncate">Bằng chứng toàn vẹn số: {plant.image_sha256}</span>
             </div>
           )}
 

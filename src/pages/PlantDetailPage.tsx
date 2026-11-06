@@ -6,6 +6,7 @@ import { getPlantBySlug } from '../services/apiService.ts';
 import { useSEO } from '../utils/useSEO.ts';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { localizePlant } from '../i18n/plantTranslations.ts';
+import { getCollectionsForPlant, getPlantSubcategory } from '../data/collections.ts';
 import {
   ArrowLeft,
   Share2,
@@ -28,7 +29,8 @@ import {
   Layers,
   Thermometer,
   Sprout,
-  Flag
+  Flag,
+  Info
 } from 'lucide-react';
 import { ReportModal } from '../components/ReportModal.tsx';
 import { ShareModal } from '../components/ShareModal.tsx';
@@ -68,6 +70,8 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
 
   // Địa phương hóa toàn bộ dữ liệu cây theo ngôn ngữ hiện tại
   const plant = rawPlant ? localizePlant(rawPlant, language) : undefined;
+  const plantCollections = plant ? getCollectionsForPlant(plant.id) : [];
+  const plantSubcategory = plant ? getPlantSubcategory(plant.id) : undefined;
 
   // Khởi tạo các giá trị AEO / GEO chuẩn hóa
   const categoryName =
@@ -566,26 +570,122 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
           
           {/* Section 1: Overview & Characteristics */}
           <section className="bg-white rounded-3xl p-6 sm:p-8 border border-forest-100 shadow-sm space-y-4">
-            <h2 className="text-lg sm:text-xl font-serif font-bold text-forest-950 border-b border-forest-50 pb-3 flex items-center gap-2">
-              <Sprout className="w-5 h-5 text-herbal-600" />
-              <span>{isEn ? '1. Botanical Profile & Characteristics' : '1. Đặc Điểm Sinh Học & Giá Trị Bản Địa'}</span>
-            </h2>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-forest-50 pb-3">
+              <h2 className="text-lg sm:text-xl font-serif font-bold text-forest-950 flex items-center gap-2">
+                <Sprout className="w-5 h-5 text-herbal-600" />
+                <span>{isEn ? '1. Botanical Profile & Characteristics' : '1. Đặc Điểm Sinh Học & Giá Trị Bản Địa'}</span>
+              </h2>
+              {plantSubcategory && (
+                <span className="self-start sm:self-auto text-xs font-semibold text-herbal-700 bg-herbal-50 px-3 py-1 rounded-full border border-herbal-200/60 flex items-center gap-1.5">
+                  <span>{plantSubcategory.icon}</span>
+                  <span>{isEn ? plantSubcategory.name_en : plantSubcategory.name}</span>
+                </span>
+              )}
+            </div>
+
             <p className="text-sm sm:text-base text-charcoal-900 leading-relaxed font-sans">
               {plant.description}
             </p>
 
-            {/* Tags */}
+            {/* Clickable Tags */}
             <div className="flex flex-wrap gap-2 pt-2">
               {plant.tags.map((tag, idx) => (
-                <span
+                <Link
                   key={idx}
-                  className="px-3 py-1 rounded-full text-xs font-semibold bg-forest-50 text-forest-800 border border-forest-100"
+                  to={`/?tag=${encodeURIComponent(tag)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1 rounded-full text-xs font-semibold bg-forest-50 hover:bg-herbal-100 text-forest-800 hover:text-herbal-900 border border-forest-100 hover:border-herbal-300 transition flex items-center gap-1 group shadow-2xs"
+                  title={isEn ? `Filter all plants tagged #${tag}` : `Lọc tất cả cây có thẻ #${tag}`}
                 >
-                  #{tag}
-                </span>
+                  <Hash className="w-3 h-3 text-herbal-600 group-hover:scale-110 transition" />
+                  <span>{tag}</span>
+                </Link>
               ))}
             </div>
           </section>
+
+          {/* Section 1.5: Thuộc Bộ Sưu Tập & Gợi Ý Trồng Xen (Companion Planting) */}
+          {plantCollections.length > 0 && (
+            <section className="bg-gradient-to-br from-emerald-50/80 via-white to-teal-50/60 rounded-3xl p-6 sm:p-7 border border-emerald-100 shadow-sm space-y-4">
+              <div className="flex items-center justify-between border-b border-emerald-100/60 pb-3">
+                <div className="flex items-center gap-2">
+                  <span className="p-1.5 rounded-lg bg-emerald-600 text-white">
+                    <Layers className="w-4 h-4" />
+                  </span>
+                  <h3 className="text-base sm:text-lg font-serif font-bold text-forest-950">
+                    {isEn ? 'Solution Collections & Companion Set' : 'Bộ Sưu Tập Cây Trồng & Gợi Ý Trồng Xen'}
+                  </h3>
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                {plantCollections.map((col) => {
+                  const companionPlants = SEED_PLANTS.filter(
+                    (p) => col.plantIds.includes(p.id) && p.id !== plant.id
+                  );
+                  return (
+                    <div
+                      key={col.id}
+                      className="p-4 rounded-2xl bg-white border border-emerald-100/80 shadow-2xs space-y-2.5"
+                    >
+                      <div className="flex items-center justify-between flex-wrap gap-2">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xl">{col.icon}</span>
+                          <span className="font-bold text-sm text-forest-950">
+                            {isEn ? col.title_en : col.title}
+                          </span>
+                        </div>
+                        <Link
+                          to={`/?collection=${col.slug}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs font-semibold text-emerald-700 hover:text-emerald-800 hover:underline flex items-center gap-1"
+                        >
+                          <span>{isEn ? 'View all in collection' : 'Xem toàn bộ cây trong bộ'}</span>
+                          <ChevronRight className="w-3.5 h-3.5" />
+                        </Link>
+                      </div>
+
+                      {col.companion_planting_tip && (
+                        <div className="flex items-start gap-1.5 text-xs text-forest-800 bg-emerald-50/60 p-2.5 rounded-xl border border-emerald-100/50">
+                          <Info className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <span>
+                            <strong>{isEn ? 'Companion Tip: ' : 'Mẹo Phối Chậu: '}</strong>
+                            {isEn ? col.companion_planting_tip_en : col.companion_planting_tip}
+                          </span>
+                        </div>
+                      )}
+
+                      {companionPlants.length > 0 && (
+                        <div className="pt-1">
+                          <span className="text-[11px] font-semibold text-forest-700 block mb-1.5">
+                            {isEn ? 'Companion Plants In This Set:' : 'Cây Thường Trồng Cùng Trong Bộ Này:'}
+                          </span>
+                          <div className="flex flex-wrap gap-2">
+                            {companionPlants.slice(0, 4).map((cp) => (
+                              <Link
+                                key={cp.id}
+                                to={`/cay/${cp.slug}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-3 py-1 rounded-xl text-xs font-medium bg-forest-50 hover:bg-forest-100 text-forest-900 border border-forest-100 transition flex items-center gap-1.5"
+                              >
+                                <span className="text-sm">
+                                  {cp.category === 'herb' ? '🌿' : cp.category === 'fruit' ? '🍋' : '🌸'}
+                                </span>
+                                <span>{cp.common_name}</span>
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+          )}
 
           {/* Section 2: GEO HowTo Steps */}
           <section className="bg-white rounded-3xl p-6 sm:p-8 border border-forest-100 shadow-sm space-y-5">
@@ -857,23 +957,7 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
             </div>
           )}
 
-          {/* SHA-256 Web3 Proof Card */}
-          {plant.image_sha256 && (
-            <div className="bg-white rounded-3xl p-6 border border-forest-100 shadow-sm space-y-2">
-              <h3 className="text-xs font-bold text-forest-900 flex items-center gap-1.5 uppercase tracking-wider">
-                <Hash className="w-3.5 h-3.5 text-forest-600" />
-                <span>{isEn ? 'Digital Provenance (Web3 Proof)' : 'Bảo Chứng Số (Web3 Proof)'}</span>
-              </h3>
-              <p className="text-[11px] font-mono text-gray-500 break-all bg-forest-50 p-2.5 rounded-xl border border-forest-100">
-                {plant.image_sha256}
-              </p>
-              <p className="text-[11px] text-forest-700 pt-1">
-                {isEn
-                  ? 'Featured photo is SHA-256 hashed against spoofing and prepared for NFT passport connection.'
-                  : 'Ảnh đại diện đã được băm SHA-256 chống mạo danh và sẵn sàng kết nối Hộ chiếu số NFT.'}
-              </p>
-            </div>
-          )}
+
 
           {/* Related Plants */}
           <div className="bg-white rounded-3xl p-6 border border-forest-100 shadow-sm space-y-4">

@@ -1,18 +1,22 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Plant } from '../types/index.ts';
 import { Sun, Droplets, AlertCircle, ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { localizePlant } from '../i18n/plantTranslations.ts';
+import { getPlantSubcategory } from '../data/collections.ts';
 
 interface PlantCardProps {
   plant: Plant;
   onSelect?: (plant: Plant) => void;
+  onTagClick?: (tag: string) => void;
 }
 
-export const PlantCard: React.FC<PlantCardProps> = ({ plant: rawPlant, onSelect }) => {
-  const { language, t } = useLanguage();
+export const PlantCard: React.FC<PlantCardProps> = ({ plant: rawPlant, onSelect, onTagClick }) => {
+  const navigate = useNavigate();
+  const { language, t, isEn } = useLanguage();
   const plant = localizePlant(rawPlant, language);
+  const subcategory = getPlantSubcategory(plant.id);
 
   const sunlightText = t(`plantCard.sunlight.${plant.sunlight}`, plant.sunlight);
   const wateringText = t(`plantCard.watering.${plant.watering}`, plant.watering);
@@ -23,6 +27,16 @@ export const PlantCard: React.FC<PlantCardProps> = ({ plant: rawPlant, onSelect 
       : plant.category === 'fruit'
       ? `🍋 ${language === 'en' ? 'Balcony Fruits' : 'Cây Ăn Trái'}`
       : `🌸 ${language === 'en' ? 'Ornamentals' : 'Cây Cảnh'}`;
+
+  const handleTagClick = (tag: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (onTagClick) {
+      onTagClick(tag);
+    } else {
+      navigate(`/?tag=${encodeURIComponent(tag)}`);
+    }
+  };
 
   return (
     <Link
@@ -83,17 +97,40 @@ export const PlantCard: React.FC<PlantCardProps> = ({ plant: rawPlant, onSelect 
             <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity text-herbal-600 dark:text-herbal-400" />
           </h3>
 
-          {/* Aliases */}
-          {plant.aliases && plant.aliases.length > 0 && (
-            <p className="text-xs text-gray-500 dark:text-gray-400 mb-3 truncate">
-              {t('plantCard.aliasesPrefix')} {plant.aliases.join(', ')}
-            </p>
-          )}
+          {/* Aliases & Subcategory */}
+          <div className="flex flex-wrap items-center gap-1.5 mb-2.5">
+            {subcategory && (
+              <span className="text-[10px] font-semibold text-herbal-700 dark:text-herbal-300 bg-herbal-50 dark:bg-herbal-950/60 px-2 py-0.5 rounded-full border border-herbal-200/50">
+                {subcategory.icon} {isEn ? subcategory.name_en : subcategory.name}
+              </span>
+            )}
+            {plant.aliases && plant.aliases.length > 0 && (
+              <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                {t('plantCard.aliasesPrefix')} {plant.aliases[0]}
+              </p>
+            )}
+          </div>
 
           {/* Short description */}
-          <p className="text-xs sm:text-sm text-charcoal-800/80 dark:text-forest-200 line-clamp-2 leading-relaxed mb-4">
+          <p className="text-xs sm:text-sm text-charcoal-800/80 dark:text-forest-200 line-clamp-2 leading-relaxed mb-3">
             {plant.description}
           </p>
+
+          {/* Clickable Tags */}
+          {plant.tags && plant.tags.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 mb-3">
+              {plant.tags.slice(0, 3).map((tag, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={(e) => handleTagClick(tag, e)}
+                  className="text-[11px] font-medium px-2 py-0.5 rounded-lg bg-forest-50 hover:bg-herbal-100 dark:bg-charcoal-800 dark:hover:bg-charcoal-700 text-forest-700 hover:text-herbal-800 dark:text-forest-300 dark:hover:text-cream-100 border border-forest-100 dark:border-forest-800 transition"
+                >
+                  #{tag}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Quick Parameters */}
