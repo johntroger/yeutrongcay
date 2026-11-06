@@ -20,7 +20,10 @@ import {
   ChevronDown,
   ChevronRight,
   X,
-  ArrowLeftRight
+  ArrowLeftRight,
+  Upload,
+  Trash2,
+  Camera
 } from 'lucide-react';
 import { Web3TestnetPassport } from '../types/index.ts';
 import { useLanguage } from '../context/LanguageContext.tsx';
@@ -171,7 +174,13 @@ export const Web3SandboxSection: React.FC = () => {
   const [isMobileTabDrawerOpen, setIsMobileTabDrawerOpen] = useState(false);
 
   // Trạng thái đúc hộ chiếu
+  const [plantSource, setPlantSource] = useState<'sample' | 'custom'>('sample');
   const [selectedPlantIndex, setSelectedPlantIndex] = useState(0);
+  const [customPlantName, setCustomPlantName] = useState('');
+  const [customScientific, setCustomScientific] = useState('');
+  const [customImage, setCustomImage] = useState<string | null>(null);
+  const [customImageSha, setCustomImageSha] = useState<string | null>(null);
+  const [targetLedger, setTargetLedger] = useState<'Ethereum Sepolia' | 'Base Sepolia' | 'Polygon Amoy'>('Ethereum Sepolia');
   const [evolutionStage, setEvolutionStage] = useState<1 | 2 | 3>(1);
   const [isMinting, setIsMinting] = useState(false);
   const [mintSignature, setMintSignature] = useState<string | null>(null);
@@ -360,6 +369,47 @@ export const Web3SandboxSection: React.FC = () => {
     }
   };
 
+  // Xử lý tải ảnh cây thật của người dùng
+  const handleCustomImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      setWalletError(isEn ? 'Image size must be under 5MB' : 'Dung lượng ảnh tối đa 5MB');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = async (ev) => {
+      const dataUrl = ev.target?.result as string;
+      setCustomImage(dataUrl);
+      setPlantSource('custom');
+      if (!customPlantName) {
+        const rawName = file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
+        setCustomPlantName(rawName.charAt(0).toUpperCase() + rawName.slice(1));
+      }
+      const hash = await generateSha256(dataUrl.slice(0, 8000) + file.size + file.name);
+      setCustomImageSha(hash);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  // Xử lý chọn sổ cái tùy chọn
+  const handleLedgerSelect = async (newLedger: 'Ethereum Sepolia' | 'Base Sepolia' | 'Polygon Amoy') => {
+    setTargetLedger(newLedger);
+    if (!wallet?.isConnected) return;
+    try {
+      if (newLedger === 'Ethereum Sepolia') {
+        await web3WalletService.switchToSepolia();
+      } else if (newLedger === 'Base Sepolia') {
+        await web3WalletService.switchToBaseSepolia();
+      }
+      const fresh = await web3WalletService.syncCurrentWalletState();
+      if (fresh) setWallet(fresh);
+    } catch (err: unknown) {
+      const e = err as { message?: string };
+      setWalletError(e.message || (isEn ? 'Failed to switch ledger network' : 'Lỗi khi chuyển đổi sổ cái trên ví'));
+    }
+  };
+
   // Ký số xác nhận và Đúc Hộ Chiếu (BẮT BUỘC VÍ THẬT KÝ XÁC NHẬN)
   const handleMintWithRealWallet = async () => {
     if (!wallet || !wallet.isConnected) {
@@ -369,27 +419,32 @@ export const Web3SandboxSection: React.FC = () => {
 
     setWalletError(null);
     setIsMinting(true);
-    const chosen = SAMPLE_MINT_PLANTS[selectedPlantIndex];
+    const isCustom = plantSource === 'custom' && !!customImage;
+    const chosenSample = SAMPLE_MINT_PLANTS[selectedPlantIndex];
+    const plantNameVi = isCustom ? (customPlantName.trim() || 'Cây Trồng Của Tôi') : chosenSample.name_vi;
+    const plantNameEn = isCustom ? (customPlantName.trim() || 'My Botanical Plant') : chosenSample.name_en;
+    const scientificName = isCustom ? (customScientific.trim() || 'Plantae Indigena') : chosenSample.scientific;
+    const plantImg = isCustom ? customImage! : chosenSample.image;
     const timestampStr = new Date().toISOString();
-    const sha = await generateSha256(chosen.scientific + timestampStr + evolutionStage + wallet.address);
+    const sha = (isCustom && customImageSha) ? customImageSha : await generateSha256(scientificName + timestampStr + evolutionStage + wallet.address);
     const randomToken = Math.floor(1000 + Math.random() * 9000);
     const simulatedTx = '0x' + Array.from({ length: 8 }, () => Math.floor(Math.random() * 16).toString(16)).join('') + '...' + Array.from({ length: 4 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
 
     try {
-      const activeNetwork = wallet.networkName || 'Sepolia Testnet';
+      const activeNetwork = targetLedger || wallet.networkName || 'Ethereum Sepolia';
       // Yêu cầu ví thật ký xác nhận thông điệp mật mã học (personal_sign)
-      const signMsg = `Yêu Trồng Cây - Đúc Hộ Chiếu Thực Vật Số\nLoài Cây: ${chosen.name_vi} (${chosen.scientific})\nGiai Đoạn: ${evolutionStage}/3\nBằng Chứng SHA-256: ${sha}\nVí Sở Hữu Thật: ${wallet.address}\nMạng Thử Nghiệm: ${activeNetwork} (0đ Gas)\nThời Gian Ký: ${new Date().toLocaleString('vi-VN')}`;
+      const signMsg = `Yêu Trồng Cây - Đúc Hộ Chiếu Thực Vật Số\nLoài Cây: ${plantNameVi} (${scientificName})\nGiai Đoạn: ${evolutionStage}/3\nBằng Chứng SHA-256: ${sha}\nVí Sở Hữu Thật: ${wallet.address}\nSổ Cái Blockchain: ${activeNetwork} (0đ Gas)\nThời Gian Ký: ${new Date().toLocaleString('vi-VN')}`;
       
       const sig = await web3WalletService.signBotanicalRecord(wallet.address, signMsg);
       setMintSignature(sig);
 
       setMintedPassport({
         token_id: `#${randomToken}`,
-        plant_name: isEn ? chosen.name_en : chosen.name_vi,
-        scientific_name: chosen.scientific,
+        plant_name: isEn ? plantNameEn : plantNameVi,
+        scientific_name: scientificName,
         owner_address: wallet.address,
         minted_at: new Date().toLocaleString('vi-VN'),
-        image_url: chosen.image,
+        image_url: plantImg,
         image_sha256: sha,
         network: activeNetwork,
         evolution_stage: evolutionStage,
@@ -400,8 +455,8 @@ export const Web3SandboxSection: React.FC = () => {
       // Tự động thưởng Điểm Karma Uy Tín khi ký số & đúc Hộ Chiếu thành công trên Testnet
       awardKarmaPoints(
         25,
-        `Đúc thành công Hộ Chiếu Cây Số ${chosen.name_vi} (${activeNetwork} 0đ)`,
-        `Minted Digital Plant Passport for ${chosen.name_en} (${activeNetwork} 0đ)`,
+        `Đúc thành công Hộ Chiếu Cây Số ${plantNameVi} (${activeNetwork} 0đ)`,
+        `Minted Digital Plant Passport for ${plantNameEn} (${activeNetwork} 0đ)`,
         { isTestnet: true, isEn, txHash: simulatedTx }
       );
       setRewardNotice({
@@ -409,7 +464,7 @@ export const Web3SandboxSection: React.FC = () => {
         title: isEn ? 'Passport Minting Reward (+25 Karma)' : 'Thưởng Đúc Hộ Chiếu Cây Testnet (+25 Karma)',
         desc: isEn
           ? `You successfully signed with your real wallet to create a digital genetic plant passport on ${activeNetwork}!`
-          : `Bạn đã dùng ví thật ký số mật mã học thành công cấp Hộ Chiếu Cây trên mạng thử nghiệm ${activeNetwork}!`
+          : `Bạn đã dùng ví thật ký số mật mã học thành công cấp Hộ Chiếu Cây trên sổ cái ${activeNetwork}!`
       });
     } catch (err: unknown) {
       const e = err as { message?: string };
@@ -1031,67 +1086,184 @@ export const Web3SandboxSection: React.FC = () => {
         {/* ============================================================== */}
         {activeTab === 'mint' && (
           <div className="bg-charcoal-900/90 rounded-2xl p-4 sm:p-6 border border-forest-800 shadow-xl space-y-4 animate-in fade-in">
-            <div className="flex items-center justify-between pb-3 border-b border-forest-800 flex-wrap gap-2">
+            <div className="flex items-center justify-between pb-3 border-b border-forest-800 flex-wrap gap-3">
               <div className="flex items-center gap-2">
                 <Award className="w-5 h-5 text-amber-400" />
                 <h3 className="text-base font-serif font-bold text-white">
                   {isEn ? 'Real Wallet Botanical Passport Studio (Dynamic NFT)' : 'Xưởng Ký Số & Cấp Hộ Chiếu Thực Vật Bản Địa (Ví Thật)'}
                 </h3>
               </div>
-              <span className="px-3 py-1 rounded-full bg-forest-950 text-emerald-300 text-xs font-mono border border-forest-800">
-                Sổ cái: Base Sepolia Testnet
-              </span>
+
+              {/* Tùy chọn Sổ cái (Ledger Selector) */}
+              <div className="flex items-center gap-2">
+                <label className="text-xs text-forest-300 font-semibold flex items-center gap-1.5">
+                  <Coins className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>{isEn ? 'Target Ledger:' : 'Sổ cái (Ledger):'}</span>
+                </label>
+                <select
+                  value={targetLedger}
+                  onChange={(e) => handleLedgerSelect(e.target.value as 'Ethereum Sepolia' | 'Base Sepolia' | 'Polygon Amoy')}
+                  className="px-3 py-1.5 bg-forest-950 text-emerald-300 rounded-xl text-xs font-mono font-bold border border-emerald-700/80 focus:outline-none focus:ring-1 focus:ring-emerald-500 cursor-pointer shadow-md"
+                >
+                  <option value="Ethereum Sepolia">Ethereum Sepolia Testnet (0đ)</option>
+                  <option value="Base Sepolia">Base Sepolia Testnet (0đ)</option>
+                  <option value="Polygon Amoy">Polygon Amoy Testnet (0đ)</option>
+                </select>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-start">
-              {/* Preview Cây & Mã Băm SHA-256 (md:col-span-5) */}
+              {/* Preview Cây & Upload Ảnh Thật & Mã Băm SHA-256 (md:col-span-5) */}
               <div className="md:col-span-5 bg-forest-950 rounded-2xl p-4 border border-forest-800 space-y-3">
-                <div className="relative rounded-xl overflow-hidden aspect-video bg-charcoal-900 border border-forest-800">
+                <div className="relative rounded-xl overflow-hidden aspect-video bg-charcoal-900 border border-forest-800 group">
                   <img
-                    src={SAMPLE_MINT_PLANTS[selectedPlantIndex].image}
-                    alt={SAMPLE_MINT_PLANTS[selectedPlantIndex].name_vi}
+                    src={plantSource === 'custom' && customImage ? customImage : SAMPLE_MINT_PLANTS[selectedPlantIndex].image}
+                    alt={plantSource === 'custom' ? (customPlantName || 'Cây của bạn') : SAMPLE_MINT_PLANTS[selectedPlantIndex].name_vi}
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute top-2 left-2 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-forest-950/80 backdrop-blur-xs text-emerald-300 border border-emerald-700/60">
                     Giai đoạn {evolutionStage}/3
                   </div>
+
+                  {plantSource === 'custom' && (
+                    <div className="absolute top-2 right-2 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-950/90 text-amber-300 border border-amber-600/70 shadow-sm flex items-center gap-1">
+                      <Camera className="w-3 h-3 text-amber-400" />
+                      <span>{isEn ? 'Custom Photo' : 'Ảnh Tự Tải'}</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Nút tải ảnh cây thật của bạn lên */}
+                <div className="space-y-1.5">
+                  <label className="w-full py-2.5 px-3 rounded-xl bg-forest-900/90 hover:bg-forest-800 border border-dashed border-emerald-500/80 hover:border-emerald-400 text-emerald-300 text-xs font-bold flex items-center justify-center gap-2 cursor-pointer transition shadow-sm active:scale-[0.99]">
+                    <Upload className="w-4 h-4 text-emerald-400" />
+                    <span>
+                      {plantSource === 'custom' && customImage
+                        ? (isEn ? 'Change Tree Photo' : 'Đổi Ảnh Cây Khác Từ Máy')
+                        : (isEn ? 'Upload Your Own Plant Photo' : '📸 Tải Ảnh Cây Thật Của Bạn Lên')}
+                    </span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleCustomImageUpload}
+                      className="hidden"
+                    />
+                  </label>
+
+                  {plantSource === 'custom' && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setPlantSource('sample');
+                        setCustomImage(null);
+                        setCustomImageSha(null);
+                      }}
+                      className="w-full py-1 text-[11px] text-gray-400 hover:text-red-300 flex items-center justify-center gap-1 transition cursor-pointer"
+                    >
+                      <Trash2 className="w-3 h-3" />
+                      <span>{isEn ? 'Back to sample species' : 'Quay lại dùng giống mẫu'}</span>
+                    </button>
+                  )}
                 </div>
 
                 <div>
                   <h4 className="font-bold text-sm text-white">
-                    {isEn ? SAMPLE_MINT_PLANTS[selectedPlantIndex].name_en : SAMPLE_MINT_PLANTS[selectedPlantIndex].name_vi}
+                    {plantSource === 'custom' && customPlantName
+                      ? customPlantName
+                      : isEn
+                      ? SAMPLE_MINT_PLANTS[selectedPlantIndex].name_en
+                      : SAMPLE_MINT_PLANTS[selectedPlantIndex].name_vi}
                   </h4>
                   <p className="font-mono italic text-xs text-emerald-400 mt-0.5">
-                    {SAMPLE_MINT_PLANTS[selectedPlantIndex].scientific}
+                    {plantSource === 'custom'
+                      ? (customScientific || (isEn ? 'Personal Botanical Specimen' : 'Mẫu thực vật cá nhân'))
+                      : SAMPLE_MINT_PLANTS[selectedPlantIndex].scientific}
                   </p>
                 </div>
 
                 <div className="p-2.5 rounded-xl bg-charcoal-900 border border-forest-800 text-[10px] font-mono text-gray-400 space-y-1">
                   <span className="text-gray-300 font-semibold block">Bằng chứng mật mã học (SHA-256):</span>
                   <span className="text-emerald-300 truncate block">
-                    sha256:{SAMPLE_MINT_PLANTS[selectedPlantIndex].id}...stage{evolutionStage}
+                    {plantSource === 'custom' && customImageSha
+                      ? `sha256:${customImageSha.slice(0, 24)}...stage${evolutionStage}`
+                      : `sha256:${SAMPLE_MINT_PLANTS[selectedPlantIndex].id}...stage${evolutionStage}`}
                   </span>
                 </div>
               </div>
 
               {/* Form Lựa Chọn & Nút Ký Ví Thật (md:col-span-7) */}
               <div className="md:col-span-7 space-y-4">
-                <div>
-                  <label className="text-xs font-semibold text-forest-300 block mb-1.5">
-                    {isEn ? 'Select Plant Species to Certify:' : '1. Chọn giống cây bản địa muốn cấp hộ chiếu:'}
-                  </label>
-                  <select
-                    value={selectedPlantIndex}
-                    onChange={(e) => setSelectedPlantIndex(Number(e.target.value))}
-                    className="w-full px-3.5 py-2.5 bg-forest-950 border border-forest-800 rounded-xl text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                {/* Chuyển đổi giữa giống mẫu hoặc tự tải ảnh cây riêng */}
+                <div className="flex items-center gap-2 p-1 bg-forest-950 rounded-xl border border-forest-800 text-xs">
+                  <button
+                    type="button"
+                    onClick={() => setPlantSource('sample')}
+                    className={`flex-1 py-1.5 px-2 rounded-lg font-semibold transition cursor-pointer ${
+                      plantSource === 'sample'
+                        ? 'bg-emerald-600 text-white shadow-sm'
+                        : 'text-forest-300 hover:text-white'
+                    }`}
                   >
-                    {SAMPLE_MINT_PLANTS.map((p, idx) => (
-                      <option key={p.id} value={idx}>
-                        {isEn ? p.name_en : p.name_vi} ({p.scientific})
-                      </option>
-                    ))}
-                  </select>
+                    🌿 {isEn ? 'Choose Sample Plant' : 'Chọn Cây Mẫu Bản Địa'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setPlantSource('custom')}
+                    className={`flex-1 py-1.5 px-2 rounded-lg font-semibold transition cursor-pointer ${
+                      plantSource === 'custom'
+                        ? 'bg-emerald-600 text-white shadow-sm'
+                        : 'text-forest-300 hover:text-white'
+                    }`}
+                  >
+                    📸 {isEn ? 'Custom Plant & Photo' : 'Tự Up Ảnh & Tên Cây'}
+                  </button>
                 </div>
+
+                {plantSource === 'sample' ? (
+                  <div>
+                    <label className="text-xs font-semibold text-forest-300 block mb-1.5">
+                      {isEn ? 'Select Plant Species to Certify:' : '1. Chọn giống cây bản địa muốn cấp hộ chiếu:'}
+                    </label>
+                    <select
+                      value={selectedPlantIndex}
+                      onChange={(e) => setSelectedPlantIndex(Number(e.target.value))}
+                      className="w-full px-3.5 py-2.5 bg-forest-950 border border-forest-800 rounded-xl text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                    >
+                      {SAMPLE_MINT_PLANTS.map((p, idx) => (
+                        <option key={p.id} value={idx}>
+                          {isEn ? p.name_en : p.name_vi} ({p.scientific})
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    <div>
+                      <label className="text-xs font-semibold text-forest-300 block mb-1.5">
+                        {isEn ? 'Your Plant Name:' : '1. Tên chậu cây của bạn:'}
+                      </label>
+                      <input
+                        type="text"
+                        value={customPlantName}
+                        onChange={(e) => setCustomPlantName(e.target.value)}
+                        placeholder={isEn ? 'e.g. My 5-Petal Golden Apricot, Balcony Guava...' : 'VD: Cây Mai Vàng Cổ Thụ, Chậu Ổi Lùn Ban Công...'}
+                        className="w-full px-3.5 py-2.5 bg-forest-950 border border-forest-800 rounded-xl text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500 placeholder-forest-600"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-xs font-semibold text-forest-300 block mb-1.5">
+                        {isEn ? 'Variety / Provenance (Optional):' : 'Giống cây / Xuất xứ (Tùy chọn):'}
+                      </label>
+                      <input
+                        type="text"
+                        value={customScientific}
+                        onChange={(e) => setCustomScientific(e.target.value)}
+                        placeholder={isEn ? 'e.g. Ochna integerrima / Ba Vi Garden' : 'VD: Ochna integerrima / Vườn nhà Ba Vì'}
+                        className="w-full px-3.5 py-2.5 bg-forest-950 border border-forest-800 rounded-xl text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500 placeholder-forest-600"
+                      />
+                    </div>
+                  </div>
+                )}
 
                 <div>
                   <label className="text-xs font-semibold text-forest-300 block mb-1.5">
@@ -1109,7 +1281,7 @@ export const Web3SandboxSection: React.FC = () => {
                 </div>
 
                 <div className="p-3.5 rounded-xl bg-forest-950 border border-forest-800/80 text-xs text-forest-200/90 leading-relaxed">
-                  💡 <span className="font-semibold text-white">Yêu cầu chữ ký ví thật:</span> Khi bấm nút, ví Web3 của bạn sẽ mở popup yêu cầu ký xác nhận thông điệp. Chữ ký số này chứng minh quyền sở hữu độc bản và không thể bị sửa đổi.
+                  💡 <span className="font-semibold text-white">Yêu cầu chữ ký ví thật:</span> Khi bấm nút, ví Web3 của bạn sẽ mở popup yêu cầu ký xác nhận thông điệp. Chữ ký số này chứng minh quyền sở hữu độc bản và không thể bị sửa đổi trên sổ cái <span className="font-bold text-emerald-300 font-mono">{targetLedger}</span>.
                 </div>
 
                 <button
