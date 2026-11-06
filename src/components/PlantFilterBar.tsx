@@ -55,6 +55,20 @@ const DEFAULT_TAGS = [
   'Sân thượng'
 ];
 
+// Khối thu/gọn mượt mà (animate chiều cao bằng grid-template-rows)
+const Collapse: React.FC<{ open: boolean; children: React.ReactNode }> = ({ open, children }) => (
+  <div
+    aria-hidden={!open}
+    className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
+      open ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+    }`}
+  >
+    <div className={`min-h-0 overflow-hidden transition-[visibility] duration-300 ${open ? 'visible' : 'invisible'}`}>
+      {children}
+    </div>
+  </div>
+);
+
 export const PlantFilterBar: React.FC<PlantFilterBarProps> = ({
   filters,
   onFilterChange,
@@ -156,7 +170,7 @@ export const PlantFilterBar: React.FC<PlantFilterBarProps> = ({
               />
             </button>
 
-            {openSections.categories && (
+            <Collapse open={openSections.categories}>
               <div className="space-y-1.5">
                 {[
                   { id: 'all', label: isEn ? 'All Categories' : 'Tất Cả Danh Mục', icon: '🌿', count: plants.length },
@@ -192,7 +206,7 @@ export const PlantFilterBar: React.FC<PlantFilterBarProps> = ({
                   );
                 })}
               </div>
-            )}
+            </Collapse>
           </div>
         )}
 
@@ -213,7 +227,7 @@ export const PlantFilterBar: React.FC<PlantFilterBarProps> = ({
             />
           </button>
 
-          {openSections.subcategories && (
+          <Collapse open={openSections.subcategories}>
             <div className="space-y-1 max-h-56 overflow-y-auto pr-1">
               <button
                 onClick={() => onFilterChange({ ...filters, subcategory: undefined })}
@@ -249,7 +263,7 @@ export const PlantFilterBar: React.FC<PlantFilterBarProps> = ({
                 );
               })}
             </div>
-          )}
+          </Collapse>
         </div>
 
         {/* 4. Điều Kiện Trồng & Chăm Sóc */}
@@ -269,7 +283,7 @@ export const PlantFilterBar: React.FC<PlantFilterBarProps> = ({
             />
           </button>
 
-          {openSections.growingConditions && (
+          <Collapse open={openSections.growingConditions}>
             <div className="space-y-4">
               {/* Ánh sáng */}
               <div>
@@ -367,7 +381,7 @@ export const PlantFilterBar: React.FC<PlantFilterBarProps> = ({
                 </div>
               </div>
             </div>
-          )}
+          </Collapse>
         </div>
 
         {/* 5. Thẻ Từ Khóa Phổ Biến (Tags) */}
@@ -387,7 +401,7 @@ export const PlantFilterBar: React.FC<PlantFilterBarProps> = ({
             />
           </button>
 
-          {openSections.tags && (
+          <Collapse open={openSections.tags}>
             <div className="flex flex-wrap gap-1.5">
               {displayTags.map(({ tag, count }) => {
                 const isSelected = filters.tag?.toLowerCase() === tag.toLowerCase();
@@ -407,7 +421,7 @@ export const PlantFilterBar: React.FC<PlantFilterBarProps> = ({
                 );
               })}
             </div>
-          )}
+          </Collapse>
         </div>
       </div>
     </div>

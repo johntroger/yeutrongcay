@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect, useDeferredValue } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Plant, PlantCategory } from '../types/index.ts';
 import { SEED_PLANTS } from '../data/plants.ts';
@@ -59,6 +59,10 @@ export const HomePage: React.FC<HomePageProps> = ({
     };
   });
 
+  // Sidebar phản hồi tức thì; lưới sản phẩm lọc ở mức ưu tiên thấp để không bị giật
+  const deferredFilters = useDeferredValue(filters);
+  const isGridStale = deferredFilters !== filters;
+
   // Đồng bộ URL khi filters thay đổi
   const handleFilterChange = (newFilters: FilterState) => {
     setFilters(newFilters);
@@ -115,29 +119,29 @@ export const HomePage: React.FC<HomePageProps> = ({
   const filteredPlants = useMemo(() => {
     return allPlants.filter((plant) => {
       // 1. Lọc theo Category
-      if (filters.category !== 'all' && plant.category !== filters.category) {
+      if (deferredFilters.category !== 'all' && plant.category !== deferredFilters.category) {
         return false;
       }
 
       // 2. Lọc theo Subcategory
-      if (filters.subcategory) {
+      if (deferredFilters.subcategory) {
         const sub = getPlantSubcategory(plant.id);
-        if (sub?.id !== filters.subcategory) {
+        if (sub?.id !== deferredFilters.subcategory) {
           return false;
         }
       }
 
       // 3. Lọc theo Collection (Bộ sưu tập)
-      if (filters.collection) {
-        const colPlants = getPlantsForCollection(filters.collection, allPlants);
+      if (deferredFilters.collection) {
+        const colPlants = getPlantsForCollection(deferredFilters.collection, allPlants);
         if (!colPlants.some((cp) => cp.id === plant.id)) {
           return false;
         }
       }
 
       // 4. Lọc theo Thẻ Tag
-      if (filters.tag) {
-        const targetTag = filters.tag.toLowerCase();
+      if (deferredFilters.tag) {
+        const targetTag = deferredFilters.tag.toLowerCase();
         const enData = PLANT_ENGLISH_MAP[plant.id];
         const enTags = enData?.tags.map((t) => t.toLowerCase()) || [];
         const viTags = plant.tags.map((t) => t.toLowerCase());
@@ -146,20 +150,20 @@ export const HomePage: React.FC<HomePageProps> = ({
       }
 
       // 5. Lọc theo Ánh sáng
-      if (filters.sunlight !== 'all' && plant.sunlight !== filters.sunlight) {
+      if (deferredFilters.sunlight !== 'all' && plant.sunlight !== deferredFilters.sunlight) {
         return false;
       }
 
       // 6. Lọc theo Lịch tưới
-      if (filters.watering !== 'all' && plant.watering !== filters.watering) {
+      if (deferredFilters.watering !== 'all' && plant.watering !== deferredFilters.watering) {
         return false;
       }
 
       // 7. Lọc theo Độ khó
-      if (filters.difficulty !== 'all') {
-        if (filters.difficulty === 'easy' && plant.propagation_difficulty > 1) return false;
-        if (filters.difficulty === 'medium' && (plant.propagation_difficulty < 2 || plant.propagation_difficulty > 3)) return false;
-        if (filters.difficulty === 'hard' && plant.propagation_difficulty < 4) return false;
+      if (deferredFilters.difficulty !== 'all') {
+        if (deferredFilters.difficulty === 'easy' && plant.propagation_difficulty > 1) return false;
+        if (deferredFilters.difficulty === 'medium' && (plant.propagation_difficulty < 2 || plant.propagation_difficulty > 3)) return false;
+        if (deferredFilters.difficulty === 'hard' && plant.propagation_difficulty < 4) return false;
       }
 
       // 8. Lọc theo từ khóa tìm kiếm (Anh & Việt)
@@ -182,7 +186,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         (plant.medical_info?.uses.some((u) => u.toLowerCase().includes(q)) ?? false)
       );
     });
-  }, [allPlants, filters, searchQuery]);
+  }, [allPlants, deferredFilters, searchQuery]);
 
   // Danh sách tags có sẵn kèm số lượng bài viết
   const availableTags = useMemo(() => {
@@ -425,7 +429,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             {/* Grid hiển thị sản phẩm cây trồng */}
             {displayedPlants.length > 0 ? (
               <>
-                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                <div className={`grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 min-h-[50vh] content-start transition-opacity duration-200 ${isGridStale ? 'opacity-60' : 'opacity-100'}`}>
                   {displayedPlants.map((plant) => (
                     <PlantCard
                       key={plant.id}

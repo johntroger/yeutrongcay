@@ -48,7 +48,7 @@ export const PlantCard: React.FC<PlantCardProps> = ({ plant: rawPlant, onSelect,
           onSelect(plant);
         }
       }}
-      className="group bg-white dark:bg-charcoal-900 rounded-3xl overflow-hidden border border-forest-100 dark:border-forest-900 hover:border-herbal-500/50 dark:hover:border-herbal-400/50 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer transform hover:-translate-y-1 block"
+      className="animate-card-in group bg-white dark:bg-charcoal-900 rounded-3xl overflow-hidden border border-forest-100 dark:border-forest-900 hover:border-herbal-500/50 dark:hover:border-herbal-400/50 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer transform hover:-translate-y-1 block"
     >
       {/* Plant Image */}
       <div className="relative aspect-[4/3] overflow-hidden bg-forest-50 dark:bg-charcoal-800">
