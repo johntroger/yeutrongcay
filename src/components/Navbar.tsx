@@ -378,16 +378,24 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         </div>
 
+        {/* Backdrop Overlay when mobile menu is open */}
+        {isMenuOpen && (
+          <div
+            className="fixed inset-0 bg-black/60 z-40 lg:hidden backdrop-blur-xs transition-opacity"
+            onClick={() => setIsMenuOpen(false)}
+          />
+        )}
+
         {/* Responsive Mobile / Tablet Dropdown Menu Container */}
         {isMenuOpen && (
           <div
             ref={menuRef}
-            className="lg:hidden absolute top-full left-3 right-3 sm:left-6 sm:right-6 mt-1.5 bg-white/98 dark:bg-charcoal-900/98 backdrop-blur-xl rounded-3xl border border-forest-100 dark:border-forest-800 shadow-2xl p-4 sm:p-5 space-y-3.5 z-50 animate-in fade-in slide-in-from-top-2 duration-150 max-h-[85vh] overflow-y-auto overscroll-contain"
+            className="lg:hidden absolute top-full left-3 right-3 sm:left-6 sm:right-6 mt-2 bg-white dark:bg-charcoal-900 rounded-3xl border border-forest-200 dark:border-forest-800 shadow-2xl p-4 sm:p-5 space-y-3.5 z-50 animate-in fade-in slide-in-from-top-2 duration-150 max-h-[85vh] overflow-y-auto overscroll-contain"
           >
             {/* Header: Title & Close Button */}
             <div className="flex items-center justify-between pb-2.5 border-b border-forest-100 dark:border-forest-800 text-xs font-bold text-forest-900 dark:text-cream-100">
               <span className="flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4 text-herbal-600 dark:text-herbal-400" />
+                <Sparkles className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                 <span>{isEn ? 'Features Menu' : 'Menu Chức Năng Yêu Trồng Cây'}</span>
               </span>
               <button
@@ -398,15 +406,15 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
             </div>
 
-            {/* Profile Card / Login Banner (Cân đối tài khoản) */}
+            {/* Profile Card / Login Banner (Đồng bộ màu sắc nhã nhặn) */}
             {currentUser ? (
-              <div className="p-3 bg-forest-50/80 dark:bg-charcoal-800/90 rounded-2xl border border-forest-100 dark:border-forest-700/80 space-y-2.5">
-                <div className="flex items-center justify-between gap-2">
+              <div className="p-3.5 bg-forest-50/70 dark:bg-charcoal-800/80 rounded-2xl border border-forest-100 dark:border-forest-700/80 space-y-2.5">
+                <div className="flex items-center justify-between gap-2.5">
                   <div className="flex items-center gap-2.5 min-w-0">
                     <img
                       src={currentUser.avatar_url}
                       alt={currentUser.name}
-                      className="w-10 h-10 rounded-full object-cover ring-2 ring-herbal-500/50 shrink-0"
+                      className="w-10 h-10 rounded-full object-cover ring-2 ring-forest-200 dark:ring-forest-700 shrink-0"
                     />
                     <div className="min-w-0">
                       <p className="font-bold text-xs text-forest-950 dark:text-cream-50 truncate">
@@ -417,19 +425,19 @@ export const Navbar: React.FC<NavbarProps> = ({
                       </p>
                     </div>
                   </div>
-                  <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-herbal-100 dark:bg-herbal-950/80 text-herbal-800 dark:text-herbal-300 border border-herbal-200 dark:border-herbal-800 shrink-0">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-white dark:bg-charcoal-700 text-forest-800 dark:text-cream-100 border border-forest-200 dark:border-forest-600 shrink-0">
                     {currentUser.badge}
                   </span>
                 </div>
 
                 {/* 2 Nút hành động tài khoản chia đều 50/50 */}
-                <div className="grid grid-cols-2 gap-2 pt-1 border-t border-forest-100/60 dark:border-forest-700/60">
+                <div className="grid grid-cols-2 gap-2 pt-1.5 border-t border-forest-200/50 dark:border-forest-700/50">
                   <Link
                     to={`/${userHandle}`}
                     onClick={() => setIsMenuOpen(false)}
-                    className="px-3 py-2 rounded-xl bg-white dark:bg-charcoal-900 text-forest-900 dark:text-cream-100 text-xs font-semibold flex items-center justify-center gap-1.5 border border-forest-200 dark:border-forest-700 shadow-2xs hover:bg-forest-50 transition"
+                    className="px-3 py-2 rounded-xl bg-forest-900 hover:bg-forest-950 dark:bg-emerald-600 dark:hover:bg-emerald-500 text-white text-xs font-semibold flex items-center justify-center gap-1.5 shadow-xs transition"
                   >
-                    <Sparkles className="w-3.5 h-3.5 text-herbal-600 shrink-0" />
+                    <Sparkles className="w-3.5 h-3.5 text-herbal-400 dark:text-white shrink-0" />
                     <span className="truncate">Trang Cá Nhân</span>
                   </Link>
 
@@ -438,7 +446,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       setIsMenuOpen(false);
                       onLogout?.();
                     }}
-                    className="px-3 py-2 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 text-xs font-semibold flex items-center justify-center gap-1.5 border border-rose-200 dark:border-rose-900/60 transition hover:bg-rose-100"
+                    className="px-3 py-2 rounded-xl bg-white dark:bg-charcoal-900 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-rose-600 dark:text-rose-400 text-xs font-semibold flex items-center justify-center gap-1.5 border border-forest-200 dark:border-forest-700 transition"
                   >
                     <LogOut className="w-3.5 h-3.5 shrink-0" />
                     <span>Đăng Xuất</span>
@@ -446,7 +454,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </div>
               </div>
             ) : (
-              <div className="p-3 bg-forest-50/80 dark:bg-charcoal-800/90 rounded-2xl border border-forest-100 dark:border-forest-700/80 flex items-center justify-between gap-3">
+              <div className="p-3.5 bg-forest-50/70 dark:bg-charcoal-800/80 rounded-2xl border border-forest-100 dark:border-forest-700/80 flex items-center justify-between gap-3">
                 <div className="min-w-0">
                   <p className="font-bold text-xs text-forest-950 dark:text-cream-50 truncate">
                     {isEn ? 'Urban Garden Community' : 'Cộng Đồng Yêu Trồng Cây'}
@@ -460,14 +468,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                     setIsMenuOpen(false);
                     onOpenAuth();
                   }}
-                  className="px-4 py-2 rounded-xl bg-forest-900 hover:bg-forest-950 dark:bg-herbal-600 text-white text-xs font-bold shadow-xs shrink-0"
+                  className="px-4 py-2 rounded-xl bg-forest-900 hover:bg-forest-950 dark:bg-emerald-600 text-white text-xs font-bold shadow-xs shrink-0"
                 >
                   {t('nav.login')}
                 </button>
               </div>
             )}
 
-            {/* Menu Links List (6 Feature Cards) */}
+            {/* Menu Links List (6 Feature Cards - Tông màu đồng nhất, sang trọng) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
               
               {/* Vườn Số Cá Nhân */}
@@ -476,25 +484,25 @@ export const Navbar: React.FC<NavbarProps> = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setIsMenuOpen(false)}
-                className="p-3 rounded-2xl bg-forest-50/70 hover:bg-forest-100 dark:bg-charcoal-800 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-700 flex items-center justify-between transition group"
+                className="p-3 rounded-2xl bg-forest-50/60 hover:bg-forest-100/80 dark:bg-charcoal-800/80 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-700/60 flex items-center justify-between transition group"
               >
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-9 h-9 rounded-xl bg-forest-900 dark:bg-emerald-600 text-white flex items-center justify-center shrink-0">
-                    <Leaf className="w-4 h-4" />
+                  <div className="w-9 h-9 rounded-xl bg-forest-900 text-white dark:bg-emerald-600 flex items-center justify-center shrink-0 shadow-2xs">
+                    <Leaf className="w-4 h-4 text-herbal-400 dark:text-white" />
                   </div>
                   <div className="min-w-0">
                     <div className="flex items-center gap-1.5">
                       <span className="font-bold text-forest-950 dark:text-cream-50 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 truncate">
                         {t('nav.myGardenFull')}
                       </span>
-                      <span className="px-1.5 py-0.2 rounded-full text-[9px] font-bold bg-emerald-600 text-white shrink-0">MS4</span>
+                      <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-white dark:bg-charcoal-700 text-forest-800 dark:text-cream-100 border border-forest-200 dark:border-forest-600 shrink-0">MS4</span>
                     </div>
-                    <p className="text-[11px] text-charcoal-600 dark:text-charcoal-300 truncate">
+                    <p className="text-[11px] text-forest-600 dark:text-forest-400 truncate">
                       {isEn ? 'Pots, care tasks & growth comparison' : 'Quản lý chậu, lịch tưới & nhật ký trước/sau'}
                     </p>
                   </div>
                 </div>
-                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-forest-900 dark:group-hover:text-cream-100 shrink-0 ml-2" />
+                <ChevronRight className="w-4 h-4 text-forest-400 group-hover:text-forest-900 dark:group-hover:text-cream-100 shrink-0 ml-2" />
               </Link>
 
               {/* Bác Sĩ Cây Trồng AI */}
@@ -503,25 +511,25 @@ export const Navbar: React.FC<NavbarProps> = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setIsMenuOpen(false)}
-                className="p-3 rounded-2xl bg-emerald-50/60 hover:bg-emerald-100/70 dark:bg-charcoal-800 dark:hover:bg-charcoal-700 border border-emerald-200 dark:border-forest-700 flex items-center justify-between transition group"
+                className="p-3 rounded-2xl bg-forest-50/60 hover:bg-forest-100/80 dark:bg-charcoal-800/80 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-700/60 flex items-center justify-between transition group"
               >
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0">
-                    <HeartHandshake className="w-4 h-4" />
+                  <div className="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-2xs">
+                    <HeartHandshake className="w-4 h-4 text-white" />
                   </div>
                   <div className="min-w-0">
                     <div className="flex items-center gap-1.5">
                       <span className="font-bold text-forest-950 dark:text-cream-50 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 truncate">
                         {t('nav.clinicFull')}
                       </span>
-                      <span className="px-1.5 py-0.2 rounded-full text-[9px] font-bold bg-emerald-600 text-white shrink-0">AI 3s</span>
+                      <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-white dark:bg-charcoal-700 text-forest-800 dark:text-cream-100 border border-forest-200 dark:border-forest-600 shrink-0">AI 3s</span>
                     </div>
-                    <p className="text-[11px] text-charcoal-600 dark:text-charcoal-300 truncate">
+                    <p className="text-[11px] text-forest-600 dark:text-forest-400 truncate">
                       {isEn ? 'Instant vision diagnosis & organic recipes' : 'Chẩn đoán ảnh bệnh & phác đồ hữu cơ H15'}
                     </p>
                   </div>
                 </div>
-                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-forest-900 dark:group-hover:text-cream-100 shrink-0 ml-2" />
+                <ChevronRight className="w-4 h-4 text-forest-400 group-hover:text-forest-900 dark:group-hover:text-cream-100 shrink-0 ml-2" />
               </Link>
 
               {/* Lịch Nông Vụ Đô Thị 3 Miền (H4) */}
@@ -530,25 +538,25 @@ export const Navbar: React.FC<NavbarProps> = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setIsMenuOpen(false)}
-                className="p-3 rounded-2xl bg-teal-50/60 hover:bg-teal-100/70 dark:bg-charcoal-800 dark:hover:bg-charcoal-700 border border-teal-200 dark:border-forest-700 flex items-center justify-between transition group"
+                className="p-3 rounded-2xl bg-forest-50/60 hover:bg-forest-100/80 dark:bg-charcoal-800/80 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-700/60 flex items-center justify-between transition group"
               >
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-9 h-9 rounded-xl bg-teal-600 text-white flex items-center justify-center shrink-0">
-                    <Calendar className="w-4 h-4" />
+                  <div className="w-9 h-9 rounded-xl bg-teal-600 text-white flex items-center justify-center shrink-0 shadow-2xs">
+                    <Calendar className="w-4 h-4 text-white" />
                   </div>
                   <div className="min-w-0">
                     <div className="flex items-center gap-1.5">
-                      <span className="font-bold text-forest-950 dark:text-cream-50 group-hover:text-teal-700 dark:group-hover:text-teal-400 truncate">
+                      <span className="font-bold text-forest-950 dark:text-cream-50 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 truncate">
                         {isEn ? 'Seasonal Calendar' : 'Lịch Nông Vụ 3 Miền'}
                       </span>
-                      <span className="px-1.5 py-0.2 rounded-full text-[9px] font-bold bg-teal-600 text-white shrink-0">12 Tháng</span>
+                      <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-white dark:bg-charcoal-700 text-forest-800 dark:text-cream-100 border border-forest-200 dark:border-forest-600 shrink-0">12 Tháng</span>
                     </div>
-                    <p className="text-[11px] text-charcoal-600 dark:text-charcoal-300 truncate">
+                    <p className="text-[11px] text-forest-600 dark:text-forest-400 truncate">
                       {isEn ? 'Monthly sowing schedule, weather & pest alerts' : 'Thời khóa biểu gieo trồng, tưới nước & phòng sâu bệnh'}
                     </p>
                   </div>
                 </div>
-                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-forest-900 dark:group-hover:text-cream-100 shrink-0 ml-2" />
+                <ChevronRight className="w-4 h-4 text-forest-400 group-hover:text-forest-900 dark:group-hover:text-cream-100 shrink-0 ml-2" />
               </Link>
 
               {/* Trạm Đổi Cây & Hạt Giống */}
@@ -557,25 +565,25 @@ export const Navbar: React.FC<NavbarProps> = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setIsMenuOpen(false)}
-                className="p-3 rounded-2xl bg-amber-50/60 hover:bg-amber-100/70 dark:bg-charcoal-800 dark:hover:bg-charcoal-700 border border-amber-200 dark:border-forest-700 flex items-center justify-between transition group"
+                className="p-3 rounded-2xl bg-forest-50/60 hover:bg-forest-100/80 dark:bg-charcoal-800/80 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-700/60 flex items-center justify-between transition group"
               >
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-9 h-9 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0">
-                    <MapPin className="w-4 h-4" />
+                  <div className="w-9 h-9 rounded-xl bg-amber-600 text-white flex items-center justify-center shrink-0 shadow-2xs">
+                    <MapPin className="w-4 h-4 text-white" />
                   </div>
                   <div className="min-w-0">
                     <div className="flex items-center gap-1.5">
-                      <span className="font-bold text-forest-950 dark:text-cream-50 group-hover:text-amber-700 dark:group-hover:text-amber-400 truncate">
+                      <span className="font-bold text-forest-950 dark:text-cream-50 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 truncate">
                         {t('nav.swapFull')}
                       </span>
-                      <span className="px-1.5 py-0.2 rounded-full text-[9px] font-bold bg-amber-600 text-white shrink-0">Bản đồ</span>
+                      <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-white dark:bg-charcoal-700 text-forest-800 dark:text-cream-100 border border-forest-200 dark:border-forest-600 shrink-0">Bản đồ</span>
                     </div>
-                    <p className="text-[11px] text-charcoal-600 dark:text-charcoal-300 truncate">
+                    <p className="text-[11px] text-forest-600 dark:text-forest-400 truncate">
                       {isEn ? '3-region interactive plant seed swap map' : 'Bản đồ tương tác trao đổi hạt giống 3 miền'}
                     </p>
                   </div>
                 </div>
-                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-forest-900 dark:group-hover:text-cream-100 shrink-0 ml-2" />
+                <ChevronRight className="w-4 h-4 text-forest-400 group-hover:text-forest-900 dark:group-hover:text-cream-100 shrink-0 ml-2" />
               </Link>
 
               {/* Liên Hệ & Trạm Bảo Tồn */}
@@ -584,22 +592,22 @@ export const Navbar: React.FC<NavbarProps> = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setIsMenuOpen(false)}
-                className="p-3 rounded-2xl bg-blue-50/60 hover:bg-blue-100/70 dark:bg-charcoal-800 dark:hover:bg-charcoal-700 border border-blue-200 dark:border-forest-700 flex items-center justify-between transition group"
+                className="p-3 rounded-2xl bg-forest-50/60 hover:bg-forest-100/80 dark:bg-charcoal-800/80 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-700/60 flex items-center justify-between transition group"
               >
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0">
-                    <MessageCircle className="w-4 h-4" />
+                  <div className="w-9 h-9 rounded-xl bg-forest-700 text-white dark:bg-forest-600 flex items-center justify-center shrink-0 shadow-2xs">
+                    <MessageCircle className="w-4 h-4 text-white" />
                   </div>
                   <div className="min-w-0">
-                    <span className="font-bold text-forest-950 dark:text-cream-50 group-hover:text-blue-700 dark:group-hover:text-blue-400 block truncate">
+                    <span className="font-bold text-forest-950 dark:text-cream-50 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 block truncate">
                       {t('nav.contactFull')}
                     </span>
-                    <p className="text-[11px] text-charcoal-600 dark:text-charcoal-300 truncate">
+                    <p className="text-[11px] text-forest-600 dark:text-forest-400 truncate">
                       {isEn ? 'Send inquiries to editorial & conservationists' : 'Liên hệ ban biên tập & trạm bảo tồn cây'}
                     </p>
                   </div>
                 </div>
-                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-forest-900 dark:group-hover:text-cream-100 shrink-0 ml-2" />
+                <ChevronRight className="w-4 h-4 text-forest-400 group-hover:text-forest-900 dark:group-hover:text-cream-100 shrink-0 ml-2" />
               </Link>
 
               {/* Web3 Sandbox */}
@@ -608,22 +616,22 @@ export const Navbar: React.FC<NavbarProps> = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setIsMenuOpen(false)}
-                className="p-3 rounded-2xl bg-orange-50/60 hover:bg-orange-100/70 dark:bg-charcoal-800 dark:hover:bg-charcoal-700 border border-orange-200 dark:border-forest-700 flex items-center justify-between transition group"
+                className="p-3 rounded-2xl bg-forest-50/60 hover:bg-forest-100/80 dark:bg-charcoal-800/80 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-700/60 flex items-center justify-between transition group"
               >
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-9 h-9 rounded-xl bg-terracotta-600 text-white flex items-center justify-center shrink-0">
-                    <ShieldCheck className="w-4 h-4" />
+                  <div className="w-9 h-9 rounded-xl bg-terracotta-600 text-white flex items-center justify-center shrink-0 shadow-2xs">
+                    <ShieldCheck className="w-4 h-4 text-white" />
                   </div>
                   <div className="min-w-0">
-                    <span className="font-bold text-forest-950 dark:text-cream-50 group-hover:text-orange-700 dark:group-hover:text-orange-400 block truncate">
+                    <span className="font-bold text-forest-950 dark:text-cream-50 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 block truncate">
                       {t('nav.web3Full')}
                     </span>
-                    <p className="text-[11px] text-charcoal-600 dark:text-charcoal-300 truncate">
+                    <p className="text-[11px] text-forest-600 dark:text-forest-400 truncate">
                       {isEn ? 'Digital passport & heritage plant certificate' : 'Hộ chiếu số & bảo tồn cây bản địa'}
                     </p>
                   </div>
                 </div>
-                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-forest-900 dark:group-hover:text-cream-100 shrink-0 ml-2" />
+                <ChevronRight className="w-4 h-4 text-forest-400 group-hover:text-forest-900 dark:group-hover:text-cream-100 shrink-0 ml-2" />
               </Link>
             </div>
 
@@ -631,15 +639,15 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="pt-2 border-t border-forest-100 dark:border-forest-800 grid grid-cols-2 gap-2">
               <button
                 onClick={toggleLanguage}
-                className="w-full px-3 py-2 rounded-xl bg-forest-50/80 dark:bg-charcoal-800 hover:bg-forest-100 dark:hover:bg-charcoal-700 text-forest-900 dark:text-cream-100 text-xs font-semibold flex items-center justify-center gap-1.5 border border-forest-200/70 dark:border-forest-700 transition"
+                className="w-full px-3 py-2 rounded-xl bg-forest-50/70 dark:bg-charcoal-800 hover:bg-forest-100 dark:hover:bg-charcoal-700 text-forest-900 dark:text-cream-100 text-xs font-semibold flex items-center justify-center gap-1.5 border border-forest-200/70 dark:border-forest-700 transition"
               >
-                <Globe className="w-3.5 h-3.5 text-herbal-600 dark:text-herbal-400 shrink-0" />
+                <Globe className="w-3.5 h-3.5 text-forest-700 dark:text-forest-300 shrink-0" />
                 <span>{language === 'vi' ? 'Tiếng Việt' : 'English'}</span>
               </button>
 
               <button
                 onClick={toggleTheme}
-                className="w-full px-3 py-2 rounded-xl bg-forest-50/80 dark:bg-charcoal-800 hover:bg-forest-100 dark:hover:bg-charcoal-700 text-forest-900 dark:text-cream-100 text-xs font-semibold flex items-center justify-center gap-1.5 border border-forest-200/70 dark:border-forest-700 transition"
+                className="w-full px-3 py-2 rounded-xl bg-forest-50/70 dark:bg-charcoal-800 hover:bg-forest-100 dark:hover:bg-charcoal-700 text-forest-900 dark:text-cream-100 text-xs font-semibold flex items-center justify-center gap-1.5 border border-forest-200/70 dark:border-forest-700 transition"
               >
                 {isDark ? (
                   <>
