@@ -83,7 +83,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
   // Đồng bộ khi activeMode đổi từ Navbar
   useEffect(() => {
-    setFilters((prev) => ({ ...prev, category: activeMode }));
+    setFilters((prev) => (prev.category === activeMode ? prev : { ...prev, category: activeMode }));
     setVisibleCount(9);
   }, [activeMode]);
 

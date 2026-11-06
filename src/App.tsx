@@ -171,9 +171,12 @@ export default function App() {
         : 'Kinh Tế Vườn Ban Công & Khởi Nghiệp Xanh | Yêu Trồng Cây';
     }
 
-    // Gửi sự kiện Page View về Google Analytics 4 cho SPA khi chuyển trang
-    trackPageView(location.pathname + location.search, document.title);
-  }, [location.pathname, location.search, isEn]);
+  }, [location.pathname, isEn]);
+
+  // Gửi sự kiện Page View về GA4 chỉ khi đổi trang (không tính thao tác lọc trên cùng trang)
+  useEffect(() => {
+    trackPageView(location.pathname, document.title);
+  }, [location.pathname]);
 
 
   return (
