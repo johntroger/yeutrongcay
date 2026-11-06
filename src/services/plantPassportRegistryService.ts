@@ -20,6 +20,8 @@ export interface RegisteredPlantPassport {
   owner_address: string;                  // Địa chỉ ví hiện tại sở hữu
   creator_wallet: string;                 // Địa chỉ ví của người đúc đầu tiên (Chủ nhân gốc)
   creator_user_id?: string;               // ID tài khoản trên yeutrongcay.com
+  creator_username?: string;              // Tên người dùng định danh theo email (VD: "tranthanhtung37")
+  creator_email?: string;                 // Email đăng nhập (VD: "tranthanhtung37@gmail.com")
   network: string;                        // 'Ethereum Sepolia' | 'Base Sepolia' | string
   evolution_stage: 1 | 2 | 3;            // 1: Mầm non, 2: Sinh trưởng, 3: Ra hoa kết trái
   transaction_hash: string;
@@ -31,6 +33,14 @@ export interface RegisteredPlantPassport {
 }
 
 const REGISTRY_STORAGE_KEY = 'ytc_botanical_nft_registry';
+
+/**
+ * Rút gọn và chuẩn hóa username từ email (VD: tranthanhtung37@gmail.com -> tranthanhtung37)
+ */
+export function getUsernameFromEmail(email?: string | null): string {
+  if (!email) return 'tranthanhtung37';
+  return email.split('@')[0].toLowerCase().replace(/[^a-z0-9_-]/g, '');
+}
 
 /**
  * Danh sách hạt giống mặc định đã đúc (Token #1 của người dùng vừa đúc on-chain thành công)
@@ -47,6 +57,8 @@ const DEFAULT_SEED_REGISTRY: RegisteredPlantPassport[] = [
     owner_address: '0x1A81221CF769d8C3398b168Dc974D945ef9F0C26',
     creator_wallet: '0x1A81221CF769d8C3398b168Dc974D945ef9F0C26',
     creator_user_id: 'usr-local-me',
+    creator_username: 'tranthanhtung37',
+    creator_email: 'tranthanhtung37@gmail.com',
     network: 'Ethereum Sepolia',
     evolution_stage: 1,
     transaction_hash: '0x514b3766643507c97f53e6bd68c42b7633f582e8559698c01b1bed9784d317b8',
@@ -181,12 +193,32 @@ export const plantPassportRegistryService = {
 
     const isDuplicate = !!existing && existing.creator_wallet.toLowerCase() !== passport.owner_address.toLowerCase();
 
+    // Tự động nhận diện username từ phiên đăng nhập nếu chưa truyền
+    let autoUsername = passport.creator_username;
+    let autoEmail = passport.creator_email;
+    if (!autoUsername) {
+      try {
+        const u = localStorage.getItem('ytc_user');
+        if (u) {
+          const parsed = JSON.parse(u);
+          if (parsed.email) {
+            autoEmail = parsed.email;
+            autoUsername = getUsernameFromEmail(parsed.email);
+          }
+        }
+      } catch {
+        // ignore
+      }
+    }
+
     const newRecord: RegisteredPlantPassport = {
       ...passport,
       id: `passport-${Date.now()}-${cleanTokenId}`,
       token_id: cleanTokenId,
       plant_key: key,
       creator_wallet: passport.creator_wallet || passport.owner_address,
+      creator_username: autoUsername || 'tranthanhtung37',
+      creator_email: autoEmail || 'tranthanhtung37@gmail.com',
       status: isDuplicate ? 'DUPLICATE_REJECTED' : 'ACTIVE_ORIGINAL',
       rejection_reason: isDuplicate
         ? `Trùng lặp với Hộ Chiếu Độc Bản gốc (Token #${existing!.token_id}) của chủ vườn ${existing!.creator_wallet}. Không được phép hiển thị trong hồ sơ cá nhân.`
@@ -239,6 +271,47 @@ export const plantPassportRegistryService = {
 
       // Nếu ví trống nhưng là user hiện tại (ví dụ tài khoản mặc định)
       if (!cleanWallet && !userId && p.creator_user_id === 'usr-local-me') {
+        return true;
+      }
+
+      return false;
+    });
+  },
+
+  /**
+   * LẤY DANH SÁCH HỘ CHIẾU ĐỘC BẢN CÔNG KHAI DỰA TRÊN USERNAME / EMAIL (VD: "tranthanhtung37")
+   * Phục vụ trang hồ sơ công khai https://yeutrongcay.com/:username
+   */
+  getUserVerifiedGalleryByUsername(usernameOrHandle?: string): RegisteredPlantPassport[] {
+    if (!usernameOrHandle) return [];
+    const cleanHandle = usernameOrHandle.replace(/^@/, '').toLowerCase().trim();
+    const all = this.getAllRegistrations();
+
+    return all.filter(p => {
+      if (p.status !== 'ACTIVE_ORIGINAL') return false;
+
+      // Khớp theo username trích từ email
+      if (p.creator_username && p.creator_username.toLowerCase() === cleanHandle) {
+        return true;
+      }
+
+      // Khớp theo email đầy đủ
+      if (p.creator_email && p.creator_email.toLowerCase().includes(cleanHandle)) {
+        return true;
+      }
+
+      // Khớp theo ID người dùng
+      if (p.creator_user_id && p.creator_user_id.toLowerCase().includes(cleanHandle)) {
+        return true;
+      }
+
+      // Khớp theo địa chỉ ví (nếu URL truyền ví 0x...)
+      if (cleanHandle.startsWith('0x') && (p.owner_address.toLowerCase() === cleanHandle || p.creator_wallet.toLowerCase() === cleanHandle)) {
+        return true;
+      }
+
+      // Nếu username là tranthanhtung37, ưu tiên luôn Token #1 của anh
+      if (cleanHandle === 'tranthanhtung37' && (p.token_id === '1' || p.creator_user_id === 'usr-local-me')) {
         return true;
       }
 

@@ -30,14 +30,16 @@ import {
   Compass,
   Printer,
   Bell,
-  BellRing
+  BellRing,
+  Copy,
+  ExternalLink
 } from 'lucide-react';
 import { UserGarden, GardenPlant, PlantDiaryEntry, PlantGrowthStatus, UserProfile } from '../types/index.ts';
 import { SEED_PLANTS } from '../data/plants.ts';
 import { SEASONAL_CALENDAR_DATA, RegionKey } from '../data/seasonalCalendar.ts';
 import { GardenBookPrintModal } from '../components/GardenBookPrintModal.tsx';
 import { BotanicalNftGallery } from '../components/BotanicalNftGallery.tsx';
-import { plantPassportRegistryService } from '../services/plantPassportRegistryService.ts';
+import { plantPassportRegistryService, getUsernameFromEmail } from '../services/plantPassportRegistryService.ts';
 import {
   isNotificationSupported,
   isCareReminderEnabled,
@@ -107,6 +109,10 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
   const [galleryCount, setGalleryCount] = useState<number>(() => plantPassportRegistryService.getUserVerifiedGallery().length);
   const [selectedPlantId, setSelectedPlantId] = useState<string | null>(null);
   const [actionNotice, setActionNotice] = useState<string | null>(null);
+
+  // URL Hồ sơ công khai theo email (VD: tranthanhtung37@gmail.com -> yeutrongcay.com/tranthanhtung37)
+  const userHandle = getUsernameFromEmail(currentUser?.email);
+  const publicProfileUrl = `https://yeutrongcay.com/${userHandle}`;
 
   // Điểm Karma & Huy Hiệu Đóng Góp (MS5 - H9)
   const [karmaData, setKarmaData] = useState<{
@@ -682,6 +688,34 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
                     ? (isEn ? 'Apartment Balcony' : 'Ban công chung cư')
                     : (isEn ? 'Rooftop Terrace' : 'Sân thượng')}
                 </span>
+              </div>
+
+              {/* Hộp URL Hồ Sơ Công Khai Định Danh Theo Email */}
+              <div className="pt-2 flex flex-wrap items-center gap-2 text-xs">
+                <span className="text-forest-600 dark:text-forest-400">URL Hồ sơ công khai:</span>
+                <span className="font-mono font-bold text-forest-900 dark:text-amber-300 bg-white/80 dark:bg-charcoal-800 px-2.5 py-1 rounded-xl border border-forest-200 dark:border-forest-700">
+                  {publicProfileUrl}
+                </span>
+                <button
+                  onClick={() => {
+                    navigator.clipboard.writeText(publicProfileUrl);
+                    triggerNotice('Đã sao chép link hồ sơ công khai!');
+                  }}
+                  className="px-2.5 py-1 rounded-xl bg-amber-500 hover:bg-amber-400 text-forest-950 font-bold transition flex items-center gap-1 shadow-xs cursor-pointer text-[11px]"
+                  title="Sao chép liên kết"
+                >
+                  <Copy className="w-3 h-3" />
+                  <span>Sao chép</span>
+                </button>
+                <a
+                  href={`/${userHandle}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-2.5 py-1 rounded-xl bg-forest-900 hover:bg-forest-950 text-white font-bold transition flex items-center gap-1 shadow-xs text-[11px]"
+                >
+                  <span>Xem trang công khai</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
               </div>
             </div>
 

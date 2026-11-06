@@ -24,6 +24,7 @@ const GardenPage = lazy(() => import('./pages/GardenPage.tsx').then((m) => ({ de
 const PlantDetailPage = lazy(() => import('./pages/PlantDetailPage.tsx').then((m) => ({ default: m.PlantDetailPage })));
 const AdminPage = lazy(() => import('./pages/AdminPage.tsx').then((m) => ({ default: m.AdminPage })));
 const SeasonalCalendarPage = lazy(() => import('./pages/SeasonalCalendarPage.tsx').then((m) => ({ default: m.SeasonalCalendarPage })));
+const PublicProfilePage = lazy(() => import('./pages/PublicProfilePage.tsx').then((m) => ({ default: m.PublicProfilePage })));
 
 // Loading fallback chuẩn botanical cho Suspense
 function PageLoadingFallback({ isEn }: { isEn: boolean }) {
@@ -297,6 +298,9 @@ export default function App() {
             <Route path="/lien-he" element={<ContactPage />} />
             <Route path="/lich-nong-vu" element={<SeasonalCalendarPage />} />
             <Route path="/admin" element={<AdminPage />} />
+
+            {/* Hồ Sơ Cá Nhân & Bộ Sưu Tập NFT Công Khai Định Danh Theo Email (VD: /tranthanhtung37) */}
+            <Route path="/:username" element={<PublicProfilePage currentUser={currentUser} />} />
 
             {/* 404 Fallback */}
             <Route path="*" element={<Navigate to="/" replace />} />
