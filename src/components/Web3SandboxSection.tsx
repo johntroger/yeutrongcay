@@ -563,7 +563,7 @@ export const Web3SandboxSection: React.FC = () => {
                 </p>
               </div>
               <a
-                href="https://yeutrongcay.gitbook.io/web3-academy"
+                href="https://vneconomics.gitbook.io/ytc-web3-academy"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md shrink-0 transition"
