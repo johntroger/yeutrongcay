@@ -43,7 +43,7 @@ export const CollectionsShowcase: React.FC<CollectionsShowcaseProps> = ({
             onClick={() => onSelectCollection(undefined)}
             className="self-start sm:self-auto text-xs font-semibold text-herbal-700 dark:text-herbal-400 hover:underline flex items-center gap-1"
           >
-            <span>{isEn ? 'Show All Plants' : 'Xem toàn bộ 55 cây'}</span>
+            <span>{isEn ? 'Show All Plants' : 'Xem lại tất cả cây'}</span>
           </button>
         )}
       </div>

@@ -388,12 +388,12 @@ export const HomePage: React.FC<HomePageProps> = ({
               <div>
                 <h2 className="text-xl sm:text-2xl lg:text-3xl font-serif font-bold text-forest-900 dark:text-cream-50 tracking-tight">
                   {filters.category === 'all'
-                    ? isEn ? 'Comprehensive Botanical Encyclopedia (55 Varieties)' : 'Bách Khoa Thực Vật Đô Thị (55 Giống Cây)'
+                    ? isEn ? `Comprehensive Botanical Encyclopedia (${allPlants.length} Varieties)` : `Bách Khoa Thực Vật Đô Thị (${allPlants.length} Giống Cây)`
                     : filters.category === 'herb'
-                    ? isEn ? 'Native Medicinal Herbs Encyclopedia (25 Varieties)' : 'Bách Khoa Thảo Dược Bản Địa (25 Giống Cây)'
+                    ? isEn ? `Native Medicinal Herbs Encyclopedia (${allPlants.filter(p => p.category === 'herb').length} Varieties)` : `Bách Khoa Thảo Dược Bản Địa (${allPlants.filter(p => p.category === 'herb').length} Giống Cây)`
                     : filters.category === 'fruit'
-                    ? isEn ? 'Urban Balcony Fruit Trees Encyclopedia (15 Varieties)' : 'Bách Khoa Cây Ăn Trái Đô Thị (15 Giống Cây)'
-                    : isEn ? 'Bonsai & Ornamental Botanical Encyclopedia (15 Varieties)' : 'Bách Khoa Cây Cảnh & Bonsai (15 Giống Cây)'}
+                    ? isEn ? `Urban Balcony Fruit Trees Encyclopedia (${allPlants.filter(p => p.category === 'fruit').length} Varieties)` : `Bách Khoa Cây Ăn Trái Đô Thị (${allPlants.filter(p => p.category === 'fruit').length} Giống Cây)`
+                    : isEn ? `Bonsai & Ornamental Botanical Encyclopedia (${allPlants.filter(p => p.category === 'ornamental').length} Varieties)` : `Bách Khoa Cây Cảnh & Bonsai (${allPlants.filter(p => p.category === 'ornamental').length} Giống Cây)`}
                 </h2>
                 <p className="text-xs sm:text-sm text-forest-700 dark:text-forest-300 mt-1">
                   {searchQuery

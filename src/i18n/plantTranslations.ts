@@ -1636,158 +1636,559 @@ export const PLANT_ENGLISH_MAP: Record<string, LocalizedPlantData> = {
   },
 
   // ==========================================
-  // BILINGUAL TRANSLATIONS FOR URBAN FRUIT PLANTS (MS3)
+  // SPRINT 1: NATIVE MEDICINAL HERBS (herb-26 to herb-35)
   // ==========================================
-  'fruit-11': {
-    common_name: 'Taiwan Sweet Mulberry F1',
-    aliases: ['Long Fruit Mulberry', 'Sweet Container Mulberry', 'Tang Tham'],
-    description: 'An extraordinary high-yielding long-fruit mulberry bred for compact balcony planters. Yields prolific finger-length berries with 18-20° Brix sweetness and zero sourness. Dark purple ripe fruit is loaded with anti-aging anthocyanin and resveratrol.',
-    quick_answer: 'Taiwan Sweet Mulberry flourishes in a minimum 40L container with 6-8 hours of direct sun. Prune tips and strip old leaves after each harvest to trigger continuous flushes of sweet fruit all year.',
-    growth_time: '4 - 5 months for the first prolific harvest of sweet berries',
+  'herb-26': {
+    common_name: 'Longevity Spinach (Kim That Tai)',
+    aliases: ['Leaves of the Gods', 'Gynura Procumbens', 'Diabetes Leaf'],
+    description: 'Renowned Southeast Asian medicinal green revered for blood sugar stabilization, hypertension balance, and metabolic support. Thick succulent leaves propagate effortlessly from balcony cuttings.',
+    quick_answer: 'Longevity Spinach thrives in partial shade or gentle morning light. Root cuttings in 10-14 days. Consume 3-5 fresh leaves daily or toss into daily broths.',
+    growth_time: '20 days to start harvesting succulent tender shoots',
     seasonality: {
-      north: 'Plant in spring (Feb-Apr); prune for early summer berry flushes',
-      central: 'Ensure quick drainage during severe tropical downpours',
-      south: 'Perennial vigorous growth and continuous fruiting flushes all 12 months',
-      best_months: [2, 3, 4, 9, 10],
-      warning: 'Prevent root rot during prolonged monsoons by using perlite-rich substrate'
+      north: 'Thrives during spring and summer; shelter from chilly winter frost',
+      central: 'Flourishes year-round; ensure prompt rainwater drainage',
+      south: 'Luxuriant emerald growth year-round in bright dappled light',
+      best_months: [2, 3, 4, 8, 9]
+    },
+    medical_info: {
+      uses: ['Supports type 2 blood sugar management', 'Aids cholesterol reduction and healthy blood pressure', 'Clears internal heat, soothes inflammation, and protects liver'],
+      folk_remedies: [
+        'Chew 3-5 fresh washed leaves thoroughly 30 minutes before breakfast.',
+        'Cook 50g fresh leaves with lean minced pork or shrimp for a revitalizing soup.'
+      ],
+      preparation: ['Raw leaf consumption', 'Herbal soup cooking', 'Dried leaf tea infusion'],
+      toxicity_warning: 'Gentle culinary vegetable; pregnant women should consult their physician before high-dose consumption.',
+      disclaimer: 'Renowned Southeast Asian ethnomedical wellness herb.'
     },
     botanical_details: {
-      family: 'Moraceae (Mulberry Family)',
-      native_range: 'East Asia, fully adapted to tropical climates',
-      active_compounds: ['Anthocyanins', 'Resveratrol', 'Vitamin C', 'Flavonoids'],
-      soil_ph: '6.0 - 7.0 (Loose humus soil)',
-      ideal_temp: '22°C - 35°C',
-      pot_size: '40cm - 60cm wide container'
+      family: 'Asteraceae (Daisy Family)',
+      native_range: 'Vietnam, Malaysia, Thailand',
+      active_compounds: ['Flavonoids', 'Phenolic acids', 'Sterols', 'Gynurin'],
+      soil_ph: '6.0 - 7.0 (Moist, rich, well-aerated loam)',
+      ideal_temp: '22°C - 32°C',
+      pot_size: '25cm - 35cm container'
     },
     how_to_grow_steps: [
-      { step: 1, title: 'Mix Rich Substrate', instruction: 'Combine 40% garden soil, 30% aged coco coir, 20% worm castings, and 10% perlite.' },
-      { step: 2, title: 'Prune for Fruit Flush', instruction: 'When branches reach 50cm, tip-prune and strip 60% of foliage to wake latent fruiting buds in 10-14 days.' }
+      { step: 1, title: 'Stem Cuttings', instruction: 'Insert 15cm semi-woody cuttings into moist organic coco peat; roots emerge vigorously within 10 days.' }
     ],
     faqs: [
-      { question: 'Do I need two trees to cross-pollinate?', answer: 'No, Taiwan Sweet Mulberry is self-fertile via natural wind; a single pot will bear fruit profusely.' }
+      { question: 'Can I eat Longevity Spinach raw?', answer: 'Yes, leaves are succulent with a pleasant mild herbal taste, ideal for fresh salads or wraps.' }
     ],
-    monetization_tips: ['Propagate rooted stem cuttings for $2 - $3 each; craft artisanal fermented mulberry syrup jars.'],
-    tags: ['Hyper Prolific', 'Anti-Aging', 'Easy Balcony Pot', 'Herbal Berry']
+    monetization_tips: ['Sell organic potted Longevity Spinach plants to health-conscious apartment dwellers.'],
+    tags: ['Blood Sugar Support', 'Blood Pressure', 'Easy Cuttings', 'Edible Medicinal']
   },
 
-  'fruit-12': {
-    common_name: 'Four Seasons Bonsai Calamondin',
-    aliases: ['Container Kumquat', 'Lucky Citrus Bonsai', 'Golden Tangerine'],
-    description: 'The ultimate symbol of prosperity and vitality for city dwellings. Features fragrant white blossoms and golden juicy citrus fruit all four seasons. Rich in vitamin C and limonene for soothing winter throat ailments and zesty cooking.',
-    quick_answer: 'Calamondin thrives in full sun with daily morning watering. Plant in well-draining rich loam amended with organic biochar. Blooms and sets golden fruit continuously throughout the year.',
-    growth_time: 'Sets new fragrant blossom flushes every 3-4 months',
+  'herb-27': {
+    common_name: 'Sabah Snake Grass (Xuong Khi / Bim Bip)',
+    aliases: ['Clinacanthus Nutans', 'Bone-Knit Herb', 'Miser Grass'],
+    description: 'Traditional tropical medicinal herb famed across Vietnam and Southeast Asia for joint rehabilitation, anti-inflammatory prowess, and cellular detox. Easily cultivated in lightweight balcony pots.',
+    quick_answer: 'Sabah Snake Grass loves filtered sunlight and regular hydration. Blend leaves into raw restorative morning green juices or steam as wholesome culinary greens.',
+    growth_time: '30 - 45 days for full vegetative harvest',
     seasonality: {
-      north: 'Bears heavy golden fruit in Jan-Feb for Lunar New Year; prune in March',
-      central: 'Water consistently during dry sunny spells',
-      south: 'Produces continuous fruit flushes all 12 months',
-      best_months: [1, 2, 3, 7, 8]
+      north: 'Rapid growth in humid summer months; moves indoors in winter',
+      central: 'Thrives in warm coastal conditions with organic mulch',
+      south: 'Perennial vigorous growth across all seasons',
+      best_months: [3, 4, 5, 8, 9, 10]
+    },
+    medical_info: {
+      uses: ['Supports joint mobility and soothes bone aches', 'Broad-spectrum anti-inflammatory and cellular detox', 'Clears liver heat and cleanses lymphatic pathways'],
+      folk_remedies: [
+        'Blend 30-50g fresh washed leaves with pure apple juice or young coconut water as a daily restorative tonic.',
+        'Crush fresh leaves and apply topically over sprained joints or minor skin eruptions.'
+      ],
+      preparation: ['Fresh restorative green smoothie', 'Simmered bone-broth soup', 'External poultice'],
+      toxicity_warning: 'Safe culinary green. Drink plenty of warm water throughout the day.',
+      disclaimer: 'Extensively researched botanical in Southeast Asian integrative medicine.'
+    },
+    botanical_details: {
+      family: 'Acanthaceae (Acanthus Family)',
+      native_range: 'Vietnam, Thailand, Malaysia',
+      active_compounds: ['Lupeol', 'Betulin', 'Flavonoids', 'C-glycosylflavones'],
+      soil_ph: '6.0 - 6.8',
+      ideal_temp: '22°C - 35°C',
+      pot_size: '30cm - 45cm container'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Harvest Pruning', instruction: 'Snip top 20cm branches regularly to stimulate dense side shoots and continuous fresh foliage.' }
+    ],
+    faqs: [
+      { question: 'What does Sabah Snake Grass taste like?', answer: 'Mildly grassy and sweet with zero bitterness, blending smoothly into juices and soups.' }
+    ],
+    monetization_tips: ['Craft freshly harvested cold-pressed medicinal green detox bottles.'],
+    tags: ['Joint Support', 'Anti-Inflammatory', 'Liver Detox', 'Rich Green Smoothie']
+  },
+
+  'herb-28': {
+    common_name: 'Hairy-Spined Solanum (Ca Gai Leo)',
+    aliases: ['Solanum Procumbens', 'Thorny Nightshade', 'Liver Guardian Herb'],
+    description: 'Vietnam’s premier botanical guardian for liver health, detoxification, and recovery from alcohol and toxin stress. Hardy sprawling shrub that thrives under full sun.',
+    quick_answer: 'Ca Gai Leo is drought-resistant and craves full sun. Harvest stems and leaves to brew a golden aromatic medicinal herbal tea for liver detoxification.',
+    growth_time: '60 - 75 days to begin harvesting medicinal vines',
+    seasonality: {
+      north: 'Sun-drenched spring and summer growth; flowers in late autumn',
+      central: 'Extremely resilient under blazing heat and coastal winds',
+      south: 'Vigorous sprawling growth year-round in full sun',
+      best_months: [2, 3, 4, 5, 8, 9]
+    },
+    medical_info: {
+      uses: ['Premier liver tonic; inhibits hepatic fibrosis and reduces elevated enzymes', 'Accelerates recovery from alcohol-induced liver toxicity', 'Soothes throat inflammation and seasonal allergies'],
+      folk_remedies: [
+        'Boil 30g dried Ca Gai Leo vines in 1 liter of water for 15 minutes; sip throughout the day to detoxify the liver.',
+        'Drink 1 cup of warm concentrated decoction before alcohol exposure to protect liver cells.'
+      ],
+      preparation: ['Golden sun-dried tea decoction', 'Concentrated herbal extract'],
+      toxicity_warning: 'Use caution around sharp stem thorns when harvesting. Not recommended for pregnant women.',
+      disclaimer: 'Proven botanical efficacy clinically validated by the National Institute of Medicinal Materials.'
+    },
+    botanical_details: {
+      family: 'Solanaceae (Nightshade Family)',
+      native_range: 'Indigenous to Vietnam and Indochina',
+      active_compounds: ['Glycoalkaloid', 'Solamargine', 'Solasodine', 'Flavonoids'],
+      soil_ph: '6.0 - 7.5 (Sandy loam with sharp drainage)',
+      ideal_temp: '24°C - 38°C',
+      pot_size: '35cm - 50cm pot with climbing trellis'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Install Support Wire', instruction: 'Provide horizontal balcony wires so thorny vines climb upward, keeping walkways clear.' }
+    ],
+    faqs: [
+      { question: 'Does Ca Gai Leo help fatty liver?', answer: 'Yes, its glycoalkaloids have demonstrated notable liver-protective and enzyme-normalizing action in clinical trials.' }
+    ],
+    monetization_tips: ['Package vacuum-sealed artisanal dried Ca Gai Leo herbal tea pouches.'],
+    tags: ['Liver Guardian', 'Alcohol Detox', 'Drought Hardy', 'Full Sun Herb']
+  },
+
+  'herb-29': {
+    common_name: 'Snake Needle Grass (Bach Hoa Xa Thiet Thao)',
+    aliases: ['Hedyotis Diffusa', 'Oldenlandia Diffusa', 'Diamond Burbark'],
+    description: 'Classic heat-clearing and detoxifying herbal remedy extensively documented for anti-tumor, anti-inflammatory, and immune-modulating properties. Tender creeping herb suitable for mixed shallow planters.',
+    quick_answer: 'Grows readily in moist, organic soil under mild sun. Boil fresh or sun-dried whole plant into refreshing detox infusions.',
+    growth_time: '35 - 45 days from seedling to full carpet harvest',
+    seasonality: {
+      north: 'Vigorous summer carpet; self-seeds for following spring',
+      central: 'Requires regular misting during dry summer wind periods',
+      south: 'Perennial groundcover in moist shaded balcony pots',
+      best_months: [3, 4, 5, 6, 7]
+    },
+    medical_info: {
+      uses: ['Clears internal toxic heat and reduces inflammatory swellings', 'Frequently combined with Scutellaria in cellular wellness protocols', 'Soothes urinary tract heat and urinary discomfort'],
+      folk_remedies: [
+        'Simmer 40g dried Snake Needle Grass with 20g Ban Chi Lien (Barbed Skullcap) in 1.5L water down to 800ml for internal cellular cleanse.',
+        'Drink fresh decoction during humid heatwaves to eliminate acne and skin eruptions.'
+      ],
+      preparation: ['Simmered detox tea', 'Cooling summer tisane'],
+      toxicity_warning: 'Markedly cooling nature; individuals with cold digestive weakness should add fresh ginger slices.',
+      disclaimer: 'Renowned classical herb in Oriental oncology and lymphatic medicine.'
+    },
+    botanical_details: {
+      family: 'Rubiaceae (Coffee Family)',
+      native_range: 'Tropical and subtropical Asia',
+      active_compounds: ['Ursolic acid', 'Oleanolic acid', 'Asperuloside', 'Scandoside'],
+      soil_ph: '5.5 - 6.5 (Rich, constantly moist humus)',
+      ideal_temp: '20°C - 32°C',
+      pot_size: 'Wide shallow rectangular planter (15cm - 20cm deep)'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Moisture Retention', instruction: 'Top shallow containers with fine rice hull charcoal to retain consistent moisture around delicate creeping roots.' }
+    ],
+    faqs: [
+      { question: 'Why does it have tiny white flowers?', answer: 'The name "Bach Hoa" means Hundred White Flowers, referring to its abundant needle-shaped star-white blooms.' }
+    ],
+    monetization_tips: ['Sell paired wellness combinations of Bach Hoa Xa Thiet Thao and Ban Chi Lien.'],
+    tags: ['Cellular Detox', 'Anti-Inflammatory', 'Cooling Herb', 'Shallow Planter']
+  },
+
+  'herb-30': {
+    common_name: 'Gymnema / Sugar Destroyer (Day Thia Canh)',
+    aliases: ['Gymnema Sylvestre', 'Gurmar', 'Miracle Glucose Vine'],
+    description: 'The legendary "sugar destroyer" vine of Ayurvedic and Vietnamese ethnobotany. Gymnemic acids suppress sweet taste receptors on the tongue and regulate pancreatic insulin secretion.',
+    quick_answer: 'Train this perennial vine on balcony railings or trellis. Steep dried leaves after meals to curb sugar cravings and maintain balanced glucose levels.',
+    growth_time: '60 days for lush climbing vine development',
+    seasonality: {
+      north: 'Flourishes from April to October; rests during cold northern winter',
+      central: 'Tolerates summer heat well with daily morning watering',
+      south: 'Perennial vigorous climbing growth all 12 months',
+      best_months: [3, 4, 5, 8, 9, 10]
+    },
+    medical_info: {
+      uses: ['Suppresses oral sensation of sweetness to curb sugar addiction', 'Stimulates healthy pancreatic beta-cell function', 'Aids holistic weight management and lipid balance'],
+      folk_remedies: [
+        'Brew 10-15g dried Gymnema leaves with 500ml boiling water; drink 20 minutes after lunch and dinner.',
+        'Chew 1 fresh leaf before dessert to experience the natural loss of sweet taste perception.'
+      ],
+      preparation: ['Post-meal herbal tea', 'Standardized dried leaf infusion'],
+      toxicity_warning: 'Diabetic individuals on insulin therapy should monitor blood glucose closely to prevent hypoglycemia.',
+      disclaimer: 'Universally celebrated botanical for metabolic endocrine support.'
+    },
+    botanical_details: {
+      family: 'Apocynaceae (Dogbane Family)',
+      native_range: 'Tropical forests of Central and Southern Vietnam, India',
+      active_compounds: ['Gymnemic acids', 'Gurmarin', 'Flavonoids', 'Anthraquinones'],
+      soil_ph: '6.0 - 7.0',
+      ideal_temp: '22°C - 35°C',
+      pot_size: '35cm - 50cm pot with climbing trellis'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Balcony Trellis', instruction: 'Guide young vine tendrils onto balcony guardrails to create a lush, productive green screen.' }
+    ],
+    faqs: [
+      { question: 'Why does sugar taste like sand after chewing this leaf?', answer: 'Gurmarin peptides temporarily block sweet taste buds on the tongue for 1-2 hours without affecting salty or sour tastes.' }
+    ],
+    monetization_tips: ['Produce premium loose-leaf Gymnema tea blends for health boutiques.'],
+    tags: ['Sugar Destroyer', 'Glucose Balance', 'Craving Blocker', 'Balcony Trellis']
+  },
+
+  'herb-31': {
+    common_name: 'Vietnamese Lowland Dandelion (Bo Cong Anh Thap)',
+    aliases: ['Taraxacum Officinale', 'Wild Dandelion', 'Herba Taraxaci'],
+    description: 'Potent lymphatic purifier, liver cleanser, and digestive tonic. Fluffy golden blooms and deeply toothed mineral-rich leaves pack high concentrations of inulin, luteolin, and vitamin A.',
+    quick_answer: 'Thrives in organic balcony containers. Harvest crisp bitter greens for nutrient-dense spring salads or roast roots for caffeine-free herbal coffee.',
+    growth_time: '25 - 30 days to begin harvesting tender bitter greens',
+    seasonality: {
+      north: 'Peak vitality from late autumn through spring; produces sunny blooms',
+      central: 'Provide partial afternoon shade during sweltering summer months',
+      south: 'Grows best in cooler breezy months or under 40% shade cloth',
+      best_months: [1, 2, 3, 10, 11, 12]
+    },
+    medical_info: {
+      uses: ['Classic botanical for mastitis and clearing breast congestion in nursing mothers', 'Powerful gentle diuretic that preserves potassium levels', 'Promotes digestive bile flow and liver cleansing'],
+      folk_remedies: [
+        'Boil 40g fresh dandelion leaves with rock sugar; drink warm to relieve breast swelling and soothe mastitis.',
+        'Chop tender young leaves into fresh salads with olive oil and garlic as a spring liver detox.'
+      ],
+      preparation: ['Fresh detox green salad', 'Simmered leaf tisane', 'Roasted root herbal coffee'],
+      toxicity_warning: 'Safe culinary bitter green. Individuals with gallstones should consult healthcare providers.',
+      disclaimer: 'Celebrated worldwide as an indispensable culinary and medicinal weed.'
+    },
+    botanical_details: {
+      family: 'Asteraceae (Daisy Family)',
+      native_range: 'Temperate and subtropical regions, naturalized across Vietnam',
+      active_compounds: ['Inulin', 'Taraxacin', 'Luteolin', 'Potassium', 'Choline'],
+      soil_ph: '6.0 - 7.5',
+      ideal_temp: '18°C - 28°C',
+      pot_size: '20cm - 30cm deep container for taproot growth'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Deep Soil', instruction: 'Use pots at least 25cm deep to accommodate the strong medicinal taproot.' }
+    ],
+    faqs: [
+      { question: 'Is low dandelion different from tall dandelion (Lactuca indica)?', answer: 'Yes, low dandelion forms a basal rosette with intense dandelion flowers and stronger medicinal taproots.' }
+    ],
+    monetization_tips: ['Sell fresh organic micro-greens and hand-roasted dandelion root brew bags.'],
+    tags: ['Liver Cleanse', 'Nursing Support', 'Nutrient Rich', 'Bitters Salad']
+  },
+
+  'herb-32': {
+    common_name: 'Dwarf Lilyturf (Mach Mon Dong)',
+    aliases: ['Ophiopogon Japonicus', 'Mondo Grass', 'Mai Men Dong'],
+    description: 'Lush evergreen ribbon-like medicinal groundcover with tuberous roots that nourish lung yin, relieve chronic dry coughs, and clear cardiac heat. Tolerates deep apartment shade.',
+    quick_answer: 'Prefers shaded to partially shaded spots. Harvest translucent tuberous roots after 1 year to brew soothing lung-tonifying herbal elixirs.',
+    growth_time: '10 - 12 months for succulent medicinal root tubers to mature',
+    seasonality: {
+      north: 'Evergreen all 12 months; thrives through damp cold winter',
+      central: 'Ideal groundcover under taller patio potted trees',
+      south: 'Lush ornamental green border year-round in sheltered balconies',
+      best_months: [2, 3, 4, 9, 10, 11]
+    },
+    medical_info: {
+      uses: ['Moistens dry lungs, treats chronic hacking dry coughs and night sweats', 'Soothes cardiac heat, palpitations, and restlessness', 'Relieves constipation caused by dry internal heat'],
+      folk_remedies: [
+        'Simmer 15g dried Mach Mon tubers with 10g dried ginger and 20g rock sugar for an instant lung-soothing syrup.',
+        'Stew with pear and white fungus for a classic royal Yin-nourishing dessert.'
+      ],
+      preparation: ['Simmered lung tonic tea', 'Medicinal nourishing soup', 'Herbal dessert brew'],
+      toxicity_warning: 'Not suitable for productive coughs with excessive loose phlegm or watery diarrhea.',
+      disclaimer: 'Foundational respiratory Yin tonic in Eastern pharmacopeias.'
+    },
+    botanical_details: {
+      family: 'Asparagaceae (Asparagus Family)',
+      native_range: 'East Asia, cultivated extensively in Vietnam',
+      active_compounds: ['Ophiopogonin', 'Steroidal saponins', 'Polysaccharides', 'Ruscogenin'],
+      soil_ph: '6.0 - 7.0 (Loose sandy humus)',
+      ideal_temp: '18°C - 30°C',
+      pot_size: '25cm - 35cm container or understory planter'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Under-Pot Companion', instruction: 'Plant around the base of large fruit trees to shade the soil and yield tuber harvests simultaneously.' }
+    ],
+    faqs: [
+      { question: 'Can Mach Mon grow in deep shade?', answer: 'Yes, it is one of the most shade-tolerant medicinal plants, thriving even on north-facing balconies.' }
+    ],
+    monetization_tips: ['Sell elegant glazed ceramic desktop pots of Mondo Grass as air-purifying decor.'],
+    tags: ['Dry Cough Relief', 'Lung Yin Tonic', 'Deep Shade Lover', 'Evergreen Beauty']
+  },
+
+  'herb-33': {
+    common_name: 'Indian Camphorweed (Cuc Tan Nep)',
+    aliases: ['Pluchea Indica', 'Aromatic Camphor Herb', 'Tu Bi'],
+    description: 'Traditional aromatic herb brimming with essential oils (eugenol, caryophyllene). Superb for rheumatic aches, headache relief, post-partum herbal steams, and aromatic culinary dishes.',
+    quick_answer: 'Thrives under blazing sunlight with minimal maintenance. Steep leaves in hot water for comforting muscle-relaxing foot soaks or wrap around savory dishes.',
+    growth_time: '25 days to harvest fragrant young shoots',
+    seasonality: {
+      north: 'Flourishes during hot summer; holds hardy foliage through winter',
+      central: 'Outstanding windbreak and heat-tolerant balcony hedge',
+      south: 'Continuously lush and fragrant all year in full sun',
+      best_months: [2, 3, 4, 5, 8, 9]
+    },
+    medical_info: {
+      uses: ['Dispels damp cold, relieves stiff back and aching joints', 'Expels wind-cold headaches and seasonal chills', 'Assists digestive cramping and abdominal distension'],
+      folk_remedies: [
+        'Bruise 100g fresh leaves with sea salt, warm gently in a pan, and wrap over aching lower back or sore knees for 20 minutes.',
+        'Simmer with ginger and scallions into a hot broth for prompt sweat-inducing relief from chills.'
+      ],
+      preparation: ['Warm herbal compress', 'Aromatic medicinal steam bath', 'Culinary herb seasoning'],
+      toxicity_warning: 'Safe aromatic culinary green. Avoid excessive internal use in hot dry constitutional types.',
+      disclaimer: 'Time-tested Vietnamese folk medicine treasure.'
+    },
+    botanical_details: {
+      family: 'Asteraceae (Daisy Family)',
+      native_range: 'Tropical coastal Southeast Asia and Vietnam',
+      active_compounds: ['Eugenol', 'Caryophyllene', 'Flavonoids', 'Tannins', 'Phenolics'],
+      soil_ph: '6.0 - 7.5 (Tolerates salty coastal breezes and poor soil)',
+      ideal_temp: '22°C - 38°C',
+      pot_size: '30cm - 45cm container'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Prune Often', instruction: 'Cut back branch tips every 3 weeks to keep the shrub dense and harvest tender leaves.' }
+    ],
+    faqs: [
+      { question: 'Why does it smell like camphor?', answer: 'The glandular trichomes on the leaf surface secrete therapeutic terpenes that naturally repel mosquitoes and flies.' }
+    ],
+    monetization_tips: ['Pack pre-mixed dried herbal foot soak and bath steam sachets.'],
+    tags: ['Ache Relief', 'Mosquito Repellent', 'Aromatic Steam', 'Heat Tough']
+  },
+
+  'herb-34': {
+    common_name: 'Crinum Lily (Trinh Nu Hoang Cung)',
+    aliases: ['Crinum Latifolium', 'Royal Virgin Lily', 'Grand Crinum'],
+    description: 'Imperial Vietnamese medicinal bulb celebrated for female reproductive vitality and prostate wellness. Broad sword-shaped foliage produces majestic fragrant trumpet-shaped floral clusters.',
+    quick_answer: 'Needs a deep container and bright indirect to moderate sunlight. Dried leaf decoctions are traditionally consumed in regulated cycles for cellular protection.',
+    growth_time: '3 - 4 months to yield robust, mature medicinal leaves',
+    seasonality: {
+      north: 'Prolific leaf growth in spring and summer; flowers in rainy months',
+      central: 'Resilient in warm coastal balconies; shelter from typhoons',
+      south: 'Perennial evergreen bulb producing large leaves all year',
+      best_months: [3, 4, 5, 8, 9, 10]
+    },
+    medical_info: {
+      uses: ['Botanical support for uterine fibroids and benign breast cysts', 'Supports prostate gland health and urinary flow in mature men', 'Enhances cellular immunity and resists irregular cell proliferation'],
+      folk_remedies: [
+        'Brew 10g dried leaves in 600ml water down to 300ml; divide into 3 daily doses after meals in 7-day cyclical regimens.',
+        'Wilted fresh leaf wrapped over warm compress relieves localized inflammation.'
+      ],
+      preparation: ['Dried leaf water decoction', 'Standardized herbal syrup'],
+      toxicity_warning: 'Ensure correct botanical identification (Crinum latifolium) to avoid mixing with toxic wild lilies. Not for pregnant women.',
+      disclaimer: 'Renowned Vietnamese palace remedy extensively researched by modern clinical science.'
+    },
+    botanical_details: {
+      family: 'Amaryllidaceae (Amaryllis Family)',
+      native_range: 'Vietnam, India, Indochina',
+      active_compounds: ['Crinine', 'Augustine', 'Pratosine', 'Glucan A', 'Alkaloids'],
+      soil_ph: '6.0 - 7.0 (Rich porous loam with compost)',
+      ideal_temp: '22°C - 35°C',
+      pot_size: '35cm - 50cm deep pot'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Bulb Planting', instruction: 'Plant large bulb with top 1/3 protruding above the potting mix to prevent crown rot.' }
+    ],
+    faqs: [
+      { question: 'Why is it called Royal Virgin Lily?', answer: 'In imperial dynasties, palace physicians reserved this precious herb exclusively to maintain health in court ladies.' }
+    ],
+    monetization_tips: ['Propagate certified pure-strain bulbs with authentication certificates.'],
+    tags: ['Women Wellness', 'Prostate Care', 'Palace Legacy', 'Magnificent Bloom']
+  },
+
+  'herb-35': {
+    common_name: 'False Daisy (Co Muc / Nho Noi)',
+    aliases: ['Eclipta Prostrata', 'Bhringraj', 'Ink Weed'],
+    description: 'The revered "King of Hair" and premier coagulant herb. Fresh sap turns glossy black upon air exposure, celebrated for preventing premature graying, soothing scalds, and cooling inflamed blood.',
+    quick_answer: 'Ultra-fast growing self-seeding herb. Crush fresh leaves to stop minor surface cuts instantly or infuse into coconut oil for rich hair tonic.',
+    growth_time: '20 days from seed to first herbal harvest',
+    seasonality: {
+      north: 'Sprouts and flowers prolifically spring through autumn',
+      central: 'Grows spontaneously in any moist potting container',
+      south: 'Perennial year-round harvest across all 12 months',
+      best_months: [2, 3, 4, 5, 8, 9]
+    },
+    medical_info: {
+      uses: ['Instant topical coagulant for cuts, scrapes, and epistaxis', 'Traditional rejuvenator for hair follicle vitality and premature graying', 'Cools blood heat, soothes liver inflammation, and clears fever'],
+      folk_remedies: [
+        'Crush a handful of fresh leaves and press firmly onto clean minor abrasions for instant clotting.',
+        'Simmer fresh leaf extract in pure coconut or sesame oil for 30 minutes; massage scalp weekly for thick, glossy dark hair.'
+      ],
+      preparation: ['Fresh topical poultice', 'Herbal hair conditioning oil', 'Simmered cooling tea'],
+      toxicity_warning: 'Remarkably safe and edible. Sap naturally stains fingers dark purple for several hours.',
+      disclaimer: 'Foundational rejuvenating herb in Ayurvedic and Vietnamese folk traditions.'
+    },
+    botanical_details: {
+      family: 'Asteraceae (Daisy Family)',
+      native_range: 'Tropical and subtropical zones worldwide, wild in Vietnam',
+      active_compounds: ['Wedelolactone', 'Demethylwedelolactone', 'Ecliptine', 'Tannins'],
+      soil_ph: '6.0 - 7.5 (Tolerates waterlogged, poor, or heavy soils)',
+      ideal_temp: '22°C - 36°C',
+      pot_size: '20cm - 30cm container'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Self-Seeding', instruction: 'Let mature flower heads dry and drop seeds onto potting soil for endless automated replanting.' }
+    ],
+    faqs: [
+      { question: 'Why does the juice turn jet-black?', answer: 'Tannins and phenolics in the sap rapidly oxidize upon contact with air, creating natural plant ink.' }
+    ],
+    monetization_tips: ['Formulate artisanal botanical hair oils enriched with Bhringraj extract.'],
+    tags: ['Hair Tonic', 'First Aid Clotting', 'Natural Black Ink', 'Fast Grower']
+  },
+
+  // ==========================================
+  // SPRINT 1: BALCONY FRUIT TREES (fruit-11 to fruit-15)
+  // ==========================================
+  'fruit-11': {
+    common_name: 'Centennial Variegated Kumquat (Tac Cam Thach)',
+    aliases: ['Variegated Calamondin', 'Striped Golden Citrus', 'Tac An Ca Vo'],
+    description: 'A striking variegated citrus bearing crisp ornamental leaves and striped cream-and-green fruit. Ripe fruit can be eaten whole including the sweet tender skin, bursting with fragrant essential citrus oils with zero bitterness.',
+    quick_answer: 'Variegated Kumquat flourishes in 35L containers in direct balcony sun. Flowers and sets striped fruit continuously across all four seasons, bringing prosperity and fresh snacks.',
+    growth_time: 'Perennial four-season flowering and fruiting',
+    seasonality: {
+      north: 'Peak golden fruit display in Jan-Feb for Lunar New Year',
+      central: 'High tolerance for blazing sun and coastal winds',
+      south: 'Continuous blossoms and sweet fruit all 12 months',
+      best_months: [1, 2, 8, 9, 10, 11, 12]
     },
     botanical_details: {
       family: 'Rutaceae (Citrus Family)',
-      native_range: 'Southeast Asia and South Asia',
-      active_compounds: ['Limonene', 'Citric Acid', 'Hesperidin', 'Vitamin C'],
-      soil_ph: '5.5 - 6.5',
-      ideal_temp: '20°C - 32°C',
-      pot_size: '35cm - 50cm planter'
-    },
-    how_to_grow_steps: [
-      { step: 1, title: 'Organic Feeding', instruction: 'Apply worm castings or composted poultry manure every 20 days around pot perimeter.' }
-    ],
-    faqs: [
-      { question: 'How to time heavy golden fruit for holiday display?', answer: 'Gently restrict water for 10 days in early summer to induce simultaneous blossom budding, then resume deep feeding.' }
-    ],
-    monetization_tips: ['Create desk-sized fruiting mini bonsai specimens selling for $25 - $60 each during festive seasons.'],
-    tags: ['Wealth Symbol', 'Fragrant Blooms', 'Natural Cough Remedy', 'Patio Bonsai']
-  },
-
-  'fruit-13': {
-    common_name: 'Southern Highbush Blueberry',
-    aliases: ['Heat-Tolerant Blueberry', 'Tropical Balcony Blueberry'],
-    description: 'An elite low-chill blueberry cultivar specially bred to flourish under intense tropical and subtropical heat. Yields plump, powdery-blue berry clusters with a refreshing sweet-tart flavor, ranking at the top of cognitive superfoods.',
-    quick_answer: 'Southern Highbush Blueberries strictly require acidic soil (pH 4.5 - 5.2) composed of peat moss and perlite. Water with chlorine-free water and provide maximum bright sunlight on rooftop patios.',
-    growth_time: '6 - 8 months to yield the first cluster of ripe blue berries',
-    seasonality: {
-      north: 'Flowers in late winter; berries ripen from April to June',
-      central: 'Provide 30% afternoon shade cloth during scorching midsummer heat',
-      south: 'Thrives year-round if roots are kept cool with organic pine bark mulch',
-      best_months: [2, 3, 4, 10, 11]
-    },
-    botanical_details: {
-      family: 'Ericaceae (Heath Family)',
-      native_range: 'North America, bred for subtropical Asian performance',
-      active_compounds: ['Anthocyanins', 'Pterostilbene', 'Polyphenols', 'Vitamin K'],
-      soil_ph: '4.5 - 5.2 (Strictly acidic peat required)',
-      ideal_temp: '18°C - 35°C',
+      native_range: 'East Asia, fully adapted to tropical balcony pots',
+      active_compounds: ['Vitamin C', 'Peel Flavonoids', 'Carotenoids', 'D-Limonene'],
+      soil_ph: '6.0 - 7.0',
+      ideal_temp: '20°C - 36°C',
       pot_size: '35cm - 50cm pot'
     },
     how_to_grow_steps: [
-      { step: 1, title: 'Acidic Potting Mix', instruction: 'Blend 60% Canadian peat moss with 30% perlite and 10% aged pine bark. Never add lime or alkaline compost.' }
+      { step: 1, title: 'Full Sun', instruction: 'Position where the canopy receives at least 5-6 hours of direct sun daily.' }
     ],
     faqs: [
-      { question: 'Why are leaves turning pale yellow with green veins?', answer: 'Iron chlorosis due to elevated pH. Apply diluted pine vinegar or organic sulfur to lower pH below 5.0 immediately.' }
+      { question: 'Do I really eat the peel?', answer: 'Yes! The sweetness and fragrant aroma are concentrated in the rind, while the pulp inside provides refreshing mild tartness.' }
     ],
-    monetization_tips: ['Sell specialized acidic blueberry potting kit refills to city container growers.'],
-    tags: ['Superfood', 'Antioxidant King', 'Acid Soil Plant', 'Blue Pearl']
+    monetization_tips: ['Sell desk-sized variegated fruiting bonsai trees for Lunar New Year festive decor.'],
+    tags: ['Prosperity Citrus', 'Continuous Fruit', 'Sweet Edible Rind', 'Full Sun']
+  },
+
+  'fruit-12': {
+    common_name: 'Brazilian Cherry Grumixama (Cherry Brazil)',
+    aliases: ['Eugenia Brasiliensis', 'Tropical Balcony Cherry', 'Grumixama'],
+    description: 'An elite tropical cherry 100% adapted to hot Vietnamese climates with zero winter chill hours needed. A compact shrub adorned with white blossom flushes and abundant dark purple berries bursting with aristocratic sweetness.',
+    quick_answer: 'Thrives in 50-60L balcony planters under blazing sunlight. Requires no winter dormancy, bearing hundreds of glossy sweet berries within 12 months.',
+    growth_time: '1 year to the first sweet purple berry harvest',
+    seasonality: {
+      north: 'Spring blossoms; fruit ripens quickly in early summer',
+      central: 'Easily tolerates 40°C+ on west-facing apartment balconies',
+      south: 'Produces 2-3 prolific fruiting flushes each year',
+      best_months: [3, 4, 5, 6, 7]
+    },
+    botanical_details: {
+      family: 'Myrtaceae (Myrtle Family)',
+      native_range: 'South America, thriving across tropical Southeast Asia',
+      active_compounds: ['Anthocyanins', 'Vitamin C (20x orange)', 'Polyphenols', 'Quercetin'],
+      soil_ph: '5.5 - 6.5',
+      ideal_temp: '22°C - 38°C',
+      pot_size: '50cm - 70cm planter'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Feed Organic Compost', instruction: 'Apply composted chicken manure or worm castings every 25 days to sustain rapid fruit swelling.' }
+    ],
+    faqs: [
+      { question: 'Does it taste like temperate cherries?', answer: 'Yes, it offers a rich sweet flavor with subtle notes of plum and sweet cherry, juicy and intensely fragrant.' }
+    ],
+    monetization_tips: ['Supply fruiting 1-meter potted specimen trees at premium boutique prices.'],
+    tags: ['Tropical Berry', 'Hyper Prolific', 'Anti-Aging', 'Sun Worshipper']
+  },
+
+  'fruit-13': {
+    common_name: 'Southern Highbush Blueberry (Viet Quat Nhiet Doi)',
+    aliases: ['Heat-Tolerant Blueberry', 'Vaccinium Darrowii', 'Tropical Balcony Blueberry'],
+    description: 'A revolutionary low-chill blueberry variety developed specifically for warm tropical climates without winter freeze requirements. Compact bushes produce heavy clusters of plump blue-violet berries loaded with cognitive antioxidants.',
+    quick_answer: 'Requires strictly acidic soil (pH 4.5 - 5.5) using peat moss and aged pine bark. Water with clean unchlorinated water and position in 5-6 hours of bright balcony sun.',
+    growth_time: '6 - 8 months to harvest ripe blue berry clusters',
+    seasonality: {
+      north: 'Flourishes in spring; berry harvest peaks from April to August',
+      central: 'Use 30% shade cloth during extreme midsummer heatwaves',
+      south: 'Continuous berry production year-round with regular root moisture',
+      best_months: [3, 4, 5, 6, 7, 8]
+    },
+    botanical_details: {
+      family: 'Ericaceae (Heath Family)',
+      native_range: 'North America, bred for Asian tropical performance',
+      active_compounds: ['Anthocyanins', 'Resveratrol', 'Vitamin C', 'Organic Zinc'],
+      soil_ph: '4.5 - 5.5 (Acidic substrate essential)',
+      ideal_temp: '20°C - 36°C',
+      pot_size: '40cm - 55cm container'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Acidic Potting Mix', instruction: 'Combine 50% peat moss, 30% perlite, and 20% composted pine bark or spent coffee grounds.' }
+    ],
+    faqs: [
+      { question: 'Why is acidic soil required?', answer: 'Blueberries have delicate fine root systems that only absorb iron and trace minerals in low pH environments below 5.5.' }
+    ],
+    monetization_tips: ['Sell fruiting blueberry container starter sets complete with acidic nutrient mixes.'],
+    tags: ['Superfood', 'Brain Health', 'Antioxidant King', 'Acid Soil Plant']
   },
 
   'fruit-14': {
-    common_name: 'Container Cantaloupe Melon',
-    aliases: ['Sweet Honey Melon', 'Japanese Netted Melon', 'Kim Co Nuong'],
-    description: 'The pinnacle of urban gardening satisfaction. In a single 20L container on a sunny balcony or rooftop, 75 days reward you with a magnificent netted melon bursting with honey-sweet orange flesh and irresistible aroma.',
-    quick_answer: 'Container cantaloupes need fluffy potting mix, generous organic feeding, and early morning hand pollination (7am-9am). Retain only the single best-shaped fruit per vine to concentrate maximum sweetness.',
-    growth_time: '65 - 75 days from seed germination to harvest',
+    common_name: 'Dwarf Urban Mulberry F1 (Dau Tam Lun)',
+    aliases: ['Morus Alba var. Nana', 'Container Mulberry', 'Dwarf Taiwan Mulberry'],
+    description: 'A specially bred dwarf mulberry cultivar tailored for compact balcony gardening. Staying at a manageable 70cm - 1m height, branches are laden with juicy finger-length berries that ripen from ruby-red to jet-black sweetness.',
+    quick_answer: 'Incredibly easy to grow. Regular tip pruning triggers immediate flushes of new fruiting spurs. Keep in sunny balcony spots with daily watering for endless year-round berries.',
+    growth_time: '2 - 3 months from rooted stem cutting to abundant fruit',
     seasonality: {
-      north: 'Crop 1: March-May; Crop 2: August-October',
-      central: 'Plant Feb-August; avoid stormy typhoon season',
-      south: 'Cultivate year-round; dry sunny months produce peak 15° Brix sweetness',
-      best_months: [2, 3, 4, 8, 9]
+      north: 'Heavy crops from Feb to May; autumn prune for a second harvest',
+      central: 'Flourishes vigorously across all seasons',
+      south: 'Continuous four-season fruiting triggered by periodic pruning',
+      best_months: [2, 3, 4, 5, 8, 9, 10]
     },
     botanical_details: {
-      family: 'Cucurbitaceae (Gourd Family)',
-      native_range: 'Southwest Asia and the Mediterranean',
-      active_compounds: ['Beta-Carotene', 'Citrulline', 'Potassium', 'Vitamin A'],
-      soil_ph: '6.0 - 6.8',
-      ideal_temp: '25°C - 35°C',
-      pot_size: '20L - 30L pot per vine'
+      family: 'Moraceae (Mulberry Family)',
+      native_range: 'East Asia, selected for ultra-compact heavy fruiting',
+      active_compounds: ['Resveratrol', 'Anthocyanins', 'Vitamin C', 'Organic Iron', 'Fiber'],
+      soil_ph: '6.0 - 7.0',
+      ideal_temp: '20°C - 36°C',
+      pot_size: '35cm - 50cm pot'
     },
     how_to_grow_steps: [
-      { step: 1, title: 'Hand Pollination', instruction: 'Touch a freshly opened male blossom stamen directly onto the female flower stigma between 7am and 9am.' }
+      { step: 1, title: 'Prune for Berries', instruction: 'Snip top branch buds whenever stems reach 40cm to force lateral nodes into fruiting spurs.' }
     ],
     faqs: [
-      { question: 'When is the melon ready to pick?', answer: 'When netting fully surfaces, a fragrant sweet aroma wafts around the pot, and the stem collar shows fine radial cracks.' }
+      { question: 'Can I grow this from cuttings?', answer: 'Yes! Semi-woody cuttings root with nearly 100% success in moist soil within 14 days.' }
     ],
-    monetization_tips: ['Supply premium gift-wrapped organic rooftop netted melons at $8 - $12 per melon.'],
-    tags: ['75-Day Harvest', 'Honey Sweet', 'Rooftop Trophy', 'Net Melon']
+    monetization_tips: ['Sell heavy-bearing fruiting balcony planters and organic mulberry elixir bottles.'],
+    tags: ['Blood Nourishing', 'Hyper Prolific', 'Zero Maintenance', 'Sun Worshipper']
   },
 
   'fruit-15': {
-    common_name: 'Dwarf Red Papaya F1',
-    aliases: ['Red Lady Dwarf Papaya', 'Container Papaya', 'Sweet Lady F1'],
-    description: 'A remarkable dwarf papaya cultivar that sets heavy fruit just 40cm above the soil. Features stout wind-resistant stems perfect for windy apartment rooftops, yielding dozens of sweet, seedless, vibrant red-orange fruit annually.',
-    quick_answer: 'Dwarf Red Papaya needs a deep 50L container or large cooler with multiple drainage holes, as roots dislike standing water. Requires full sun and organic potassium feeding for dense, candy-sweet fruit.',
-    growth_time: '6 - 7 months from transplanting to ripe sweet harvest',
+    common_name: 'Red Flesh Balcony Dragon Fruit (Thanh Long Ruot Do)',
+    aliases: ['Hylocereus Costaricensis', 'Container Red Pitaya', 'West-Facing Heat Shield'],
+    description: 'The invincible green warrior for scorching west-facing balconies exceeding 42°C. Succulent cactus stems insulate walls from radiant heat, opening nocturnal fragrant white blossoms followed by deep ruby-red antioxidant fruit.',
+    quick_answer: 'Plant in 40-50L containers against railings or posts. Withstands weeks of drought without flinching, yielding ruby-fleshed fruit brimming with anticancer betalains.',
+    growth_time: '8 - 10 months to first fragrant nocturnal bloom and sweet fruit',
     seasonality: {
-      north: 'Plant Feb-April to bypass winter cold snaps',
-      central: 'Anchor containers against strong coastal storm gusts',
-      south: 'Continuous harvest all 12 months in tropical warmth',
-      best_months: [2, 3, 4, 8, 9]
+      north: 'Active summer flowering; keep dry during chilly winter rest',
+      central: 'Master of hot winds and extreme summer droughts',
+      south: 'Produces 4-5 prolific fruit cycles annually from May to November',
+      best_months: [5, 6, 7, 8, 9, 10]
     },
     botanical_details: {
-      family: 'Caricaceae (Papaya Family)',
-      native_range: 'Central America, now grown across all tropical zones',
-      active_compounds: ['Papain enzyme', 'Lycopene', 'Vitamin C', 'Carotenoids'],
-      soil_ph: '6.0 - 6.5',
-      ideal_temp: '24°C - 33°C',
-      pot_size: '50L - 80L large planter box'
+      family: 'Cactaceae (Cactus Family)',
+      native_range: 'Central America, cultivated widely across Vietnam',
+      active_compounds: ['Betalains', 'Prebiotic Fiber', 'Lycopene', 'Vitamin C', 'Iron'],
+      soil_ph: '6.0 - 7.5 (Gritty soil amended with sand and biochar)',
+      ideal_temp: '25°C - 42°C (Extreme heat tolerant)',
+      pot_size: '40cm - 60cm container'
     },
     how_to_grow_steps: [
-      { step: 1, title: 'Drainage Holes', instruction: 'Drill 8-10 perimeter drainage holes around the base of the planter to prevent root waterlogging.' }
+      { step: 1, title: 'Secure to Railing', instruction: 'Tie climbing cactus cladodes to balcony uprights to support the weight of heavy fruit.' }
     ],
     faqs: [
-      { question: 'Can papaya grow in a styrofoam box?', answer: 'Yes, a standard large 60x40x40cm styrofoam box is the most economical container for dwarf papaya.' }
+      { question: 'Why does urine turn reddish after eating?', answer: 'Natural betalain pigments pass harmlessly through the kidneys, confirming high antioxidant absorption.' }
     ],
-    monetization_tips: ['Sell organically ripened tree-sweetened red papayas to health-conscious condo neighbors.'],
-    tags: ['Dwarf Heavy Bearer', 'Red Sweet Flesh', 'Papain Enzyme', 'Rooftop Planter']
+    monetization_tips: ['Sell rooted heat-shield cuttings and decorative fruiting holiday specimens.'],
+    tags: ['Drought Resilient', 'Extreme Heat Shield', 'Antioxidant King', 'Sweet Fruit']
   },
 
   // ==========================================
