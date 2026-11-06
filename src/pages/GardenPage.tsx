@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import {
   Home,
   ChevronRight,
@@ -36,6 +36,8 @@ import { UserGarden, GardenPlant, PlantDiaryEntry, PlantGrowthStatus, UserProfil
 import { SEED_PLANTS } from '../data/plants.ts';
 import { SEASONAL_CALENDAR_DATA, RegionKey } from '../data/seasonalCalendar.ts';
 import { GardenBookPrintModal } from '../components/GardenBookPrintModal.tsx';
+import { BotanicalNftGallery } from '../components/BotanicalNftGallery.tsx';
+import { plantPassportRegistryService } from '../services/plantPassportRegistryService.ts';
 import {
   isNotificationSupported,
   isCareReminderEnabled,
@@ -94,10 +96,15 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
       : 'Quản lý khu vườn ban công sân thượng cá nhân: theo dõi sự lớn lên của từng chậu cây qua dòng thời gian ảnh Before/After và lưu trữ nhật ký chăm sóc bền vững.',
   });
 
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const initialTab = (searchParams.get('tab') as 'plants' | 'timeline' | 'tasks' | 'nft_gallery') || 'plants';
+
   const [garden, setGarden] = useState<UserGarden | null>(null);
   const [plants, setPlants] = useState<GardenPlant[]>([]);
   const [diaries, setDiaries] = useState<PlantDiaryEntry[]>([]);
-  const [activeTab, setActiveTab] = useState<'plants' | 'timeline' | 'tasks'>('plants');
+  const [activeTab, setActiveTab] = useState<'plants' | 'timeline' | 'tasks' | 'nft_gallery'>(initialTab);
+  const [galleryCount, setGalleryCount] = useState<number>(() => plantPassportRegistryService.getUserVerifiedGallery().length);
   const [selectedPlantId, setSelectedPlantId] = useState<string | null>(null);
   const [actionNotice, setActionNotice] = useState<string | null>(null);
 
@@ -208,11 +215,27 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
     };
     window.addEventListener('ytc_karma_awarded', handleKarmaLiveUpdate);
 
+    const handlePassportUpdate = () => {
+      if (isMounted) {
+        setGalleryCount(plantPassportRegistryService.getUserVerifiedGallery().length);
+      }
+    };
+    window.addEventListener('ytc_passport_registry_updated', handlePassportUpdate);
+
     return () => {
       isMounted = false;
       window.removeEventListener('ytc_karma_awarded', handleKarmaLiveUpdate);
+      window.removeEventListener('ytc_passport_registry_updated', handlePassportUpdate);
     };
   }, [currentUserId, isEn]);
+
+  // Cập nhật tab khi URL search param thay đổi
+  useEffect(() => {
+    const tabParam = searchParams.get('tab') as 'plants' | 'timeline' | 'tasks' | 'nft_gallery';
+    if (tabParam && ['plants', 'timeline', 'tasks', 'nft_gallery'].includes(tabParam)) {
+      setActiveTab(tabParam);
+    }
+  }, [searchParams]);
 
   const triggerNotice = (msg: string) => {
     setActionNotice(msg);
@@ -970,6 +993,21 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
             <Clock className="w-4 h-4" />
             <span>{isEn ? `Before/After Photo Timeline (${diaries.length})` : `Dòng Thời Gian Ảnh Before/After (${diaries.length})`}</span>
           </button>
+
+          <button
+            onClick={() => setActiveTab('nft_gallery')}
+            className={`px-4 py-2 rounded-2xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 whitespace-nowrap relative ${
+              activeTab === 'nft_gallery'
+                ? 'bg-gradient-to-r from-amber-600 to-amber-700 text-white shadow-sm'
+                : 'bg-white dark:bg-charcoal-800 text-forest-800 dark:text-forest-200 hover:bg-amber-50/50 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-800'
+            }`}
+          >
+            <Sparkles className="w-4 h-4 text-amber-400" />
+            <span>{isEn ? 'Living Botanical NFT Gallery' : 'Hộ Chiếu Cây NFT (Độc Bản)'}</span>
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+              {galleryCount}
+            </span>
+          </button>
         </div>
 
         {/* 5. Tab 1: Plants Grid */}
@@ -1642,6 +1680,19 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
                   );
                 })}
             </div>
+          </div>
+        )}
+
+        {/* 6. Tab 4: Bộ Sưu Tập Hộ Chiếu Cây NFT (Botanical NFT Gallery Độc Bản) */}
+        {activeTab === 'nft_gallery' && (
+          <div className="animate-in fade-in duration-300">
+            <BotanicalNftGallery
+              currentUserId={currentUserId}
+              isEn={isEn}
+              onNavigateToMint={() => {
+                navigate('/web3-sandbox');
+              }}
+            />
           </div>
         )}
       </main>

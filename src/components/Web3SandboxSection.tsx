@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import {
   ShieldCheck,
   Award,
@@ -29,6 +30,7 @@ import { Web3TestnetPassport } from '../types/index.ts';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { web3WalletService, WalletState } from '../services/web3WalletService.ts';
 import { awardKarmaPoints, getKarmaState, KarmaState } from '../services/karmaService.ts';
+import { plantPassportRegistryService } from '../services/plantPassportRegistryService.ts';
 
 // 4 giống cây quý bản địa mẫu để cấp hộ chiếu thực vật số
 const SAMPLE_MINT_PLANTS = [
@@ -435,6 +437,20 @@ export const Web3SandboxSection: React.FC = () => {
     const randomToken = Math.floor(1000 + Math.random() * 9000);
     const activeNetwork = targetLedger || wallet.networkName || 'Ethereum Sepolia';
 
+    // KIỂM TRA ĐỘC BẢN TUYỆT ĐỐI (Exclusivity Rule - Chặn đúc trùng lặp)
+    const exclusivity = plantPassportRegistryService.checkPlantExclusivity({
+      plantName: plantNameVi,
+      scientificName: scientificName,
+      sha256: sha,
+      walletAddress: wallet.address
+    });
+
+    if (!exclusivity.isAllowed) {
+      setWalletError(exclusivity.reason || (isEn ? 'This plant specimen already has a unique Master NFT Passport in yeutrongcay.com!' : 'Giống cây này đã được cấp Hộ Chiếu Độc Bản trước đó trong thế giới Yêu Trồng Cây!'));
+      setIsMinting(false);
+      return;
+    }
+
     // 1. CHẾ ĐỘ 1: ĐÚC NFT ON-CHAIN THẬT (Gửi transaction gọi Smart Contract qua MetaMask)
     if (mintMode === 'onchain') {
       try {
@@ -499,6 +515,22 @@ export const Web3SandboxSection: React.FC = () => {
           contract_address: targetContract
         });
 
+        // Ghi danh vào Sổ Đăng Ký Hộ Chiếu Độc Bản Hệ Thống
+        plantPassportRegistryService.registerPassport({
+          token_id: randomToken.toString(),
+          plant_name: plantNameVi,
+          scientific_name: scientificName,
+          image_url: plantImg,
+          image_sha256: sha,
+          owner_address: wallet.address,
+          network: activeNetwork,
+          evolution_stage: evolutionStage,
+          transaction_hash: realTxHash,
+          contract_address: targetContract,
+          minted_at: new Date().toLocaleString('vi-VN'),
+          is_onchain: true
+        });
+
         awardKarmaPoints(
           50,
           `Đúc thành công NFT Hộ Chiếu Cây On-chain trên ${activeNetwork}`,
@@ -543,6 +575,22 @@ export const Web3SandboxSection: React.FC = () => {
         evolution_stage: evolutionStage,
         transaction_hash: simulatedTx,
         is_testnet: true,
+        is_onchain: false
+      });
+
+      // Ghi danh vào Sổ Đăng Ký Hộ Chiếu Độc Bản Hệ Thống
+      plantPassportRegistryService.registerPassport({
+        token_id: randomToken.toString(),
+        plant_name: plantNameVi,
+        scientific_name: scientificName,
+        image_url: plantImg,
+        image_sha256: sha,
+        owner_address: wallet.address,
+        network: activeNetwork,
+        evolution_stage: evolutionStage,
+        transaction_hash: simulatedTx,
+        contract_address: '0x0000000000000000000000000000000000000000',
+        minted_at: new Date().toLocaleString('vi-VN'),
         is_onchain: false
       });
 
@@ -1457,6 +1505,15 @@ export const Web3SandboxSection: React.FC = () => {
                     : `Khi bấm nút, ví Web3 của bạn sẽ mở popup yêu cầu ký xác nhận thông điệp EIP-191. Chữ ký số này chứng minh quyền sở hữu độc bản và hoàn toàn 0đ gas.`}
                 </div>
 
+                {/* Banner Cơ Chế Độc Bản yeutrongcay.com */}
+                <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-[11px] text-amber-300 flex items-start gap-2">
+                  <ShieldCheck className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-bold block">Bảo Vệ Độc Bản Tuyệt Đối:</span>
+                    <span>Mỗi giống cây và ảnh gốc chỉ có DUY NHẤT một Hộ Chiếu Số trên yeutrongcay.com. Cây đã đúc sẽ được bảo hộ độc quyền cho bạn trong Hồ Sơ Cá Nhân; người khác sẽ bị chặn không thể đúc lại!</span>
+                  </div>
+                </div>
+
                 <button
                   onClick={handleMintWithRealWallet}
                   disabled={isMinting || !wallet?.isConnected}
@@ -1529,6 +1586,14 @@ export const Web3SandboxSection: React.FC = () => {
                         <span>{addedToMetaMask ? 'Đã thêm vào ví' : 'Thêm NFT vào MetaMask'}</span>
                       </button>
                     )}
+
+                    <Link
+                      to="/vuon-cua-toi?tab=nft_gallery"
+                      className="px-3 py-1 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white text-xs font-semibold flex items-center gap-1.5 transition shadow-sm"
+                    >
+                      <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                      <span>{isEn ? 'View in My Garden Gallery' : 'Xem trong Hồ Sơ Cá Nhân'}</span>
+                    </Link>
 
                     <button
                       onClick={() => window.print()}
