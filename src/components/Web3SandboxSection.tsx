@@ -1573,25 +1573,53 @@ export const Web3SandboxSection: React.FC = () => {
                       </div>
                       
                       {mintedPassport.network.includes('Sepolia') && !mintedPassport.network.includes('Base') ? (
-                        <a
-                          href={`https://sepolia.etherscan.io/tx/${mintedPassport.transaction_hash}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-amber-300 hover:text-amber-200 underline flex items-center gap-1 font-semibold"
-                        >
-                          <span>Xem giao dịch trên Sepolia Etherscan</span>
-                          <ExternalLink className="w-3 h-3" />
-                        </a>
+                        <div className="flex flex-wrap items-center gap-4">
+                          <a
+                            href={`https://sepolia.etherscan.io/tx/${mintedPassport.transaction_hash}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-amber-300 hover:text-amber-200 underline flex items-center gap-1 font-semibold"
+                          >
+                            <span>Xem giao dịch trên Sepolia Etherscan</span>
+                            <ExternalLink className="w-3 h-3" />
+                          </a>
+
+                          {mintedPassport.contract_address && (
+                            <a
+                              href={`https://eth-sepolia.blockscout.com/token/${mintedPassport.contract_address}/instance/${mintedPassport.token_id.replace('#', '')}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-emerald-400 hover:text-emerald-300 underline flex items-center gap-1 font-semibold"
+                            >
+                              <span>Xem hình ảnh & Metadata NFT trên Blockscout</span>
+                              <ExternalLink className="w-3 h-3" />
+                            </a>
+                          )}
+                        </div>
                       ) : (
-                        <a
-                          href={`https://sepolia.basescan.org/tx/${mintedPassport.transaction_hash}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-amber-300 hover:text-amber-200 underline flex items-center gap-1 font-semibold"
-                        >
-                          <span>Xem giao dịch trên BaseScan Sepolia</span>
-                          <ExternalLink className="w-3 h-3" />
-                        </a>
+                        <div className="flex flex-wrap items-center gap-4">
+                          <a
+                            href={`https://sepolia.basescan.org/tx/${mintedPassport.transaction_hash}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-amber-300 hover:text-amber-200 underline flex items-center gap-1 font-semibold"
+                          >
+                            <span>Xem giao dịch trên BaseScan Sepolia</span>
+                            <ExternalLink className="w-3 h-3" />
+                          </a>
+
+                          {mintedPassport.contract_address && (
+                            <a
+                              href={`https://base-sepolia.blockscout.com/token/${mintedPassport.contract_address}/instance/${mintedPassport.token_id.replace('#', '')}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-emerald-400 hover:text-emerald-300 underline flex items-center gap-1 font-semibold"
+                            >
+                              <span>Xem hình ảnh & Metadata NFT trên Blockscout</span>
+                              <ExternalLink className="w-3 h-3" />
+                            </a>
+                          )}
+                        </div>
                       )}
                     </div>
                   </div>
