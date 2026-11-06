@@ -23,7 +23,7 @@ import {
 } from 'lucide-react';
 import { Web3TestnetPassport } from '../types/index.ts';
 import { useLanguage } from '../context/LanguageContext.tsx';
-import { web3WalletService, WalletState, BASE_SEPOLIA_CONFIG } from '../services/web3WalletService.ts';
+import { web3WalletService, WalletState } from '../services/web3WalletService.ts';
 import { awardKarmaPoints, getKarmaState, KarmaState } from '../services/karmaService.ts';
 
 // 4 giống cây quý bản địa mẫu để cấp hộ chiếu thực vật số
@@ -61,20 +61,28 @@ const SAMPLE_MINT_PLANTS = [
 // Danh sách các vòi Faucet Crypto Testnet uy tín nhất thế giới (Hoàn toàn miễn phí 0đ)
 const REAL_FAUCETS = [
   {
+    name: 'Google Cloud Web3 Faucet',
+    network: 'Ethereum Sepolia',
+    amount: '0.05 ETH / ngày',
+    url: 'https://cloud.google.com/application/web3/faucet/ethereum/sepolia',
+    descriptionVi: 'Vòi cấp chính thức của Google Cloud, đăng nhập tài khoản Google để nhận thẳng 0.05 SepoliaETH.',
+    descriptionEn: 'Official Google Cloud Web3 faucet granting 0.05 SepoliaETH daily with Google account.'
+  },
+  {
+    name: 'Sepolia PoW Faucet (pk910)',
+    network: 'Ethereum Sepolia',
+    amount: 'Không giới hạn (PoW)',
+    url: 'https://sepolia-faucet.pk910.de',
+    descriptionVi: 'Vòi đào miễn phí dùng CPU trình duyệt, không cần đăng nhập hay xác minh danh tính.',
+    descriptionEn: 'Proof-of-work faucet. Mine free SepoliaETH with your browser without logins.'
+  },
+  {
     name: 'Coinbase Developer Faucet',
     network: 'Base Sepolia',
     amount: '0.1 ETH / ngày',
     url: 'https://www.coinbase.com/faucets/base-ethereum-sepolia-faucet',
     descriptionVi: 'Vòi chính thức của sàn Coinbase cấp ETH testnet cho mạng Base Sepolia.',
     descriptionEn: 'Official Coinbase developer faucet granting daily Base Sepolia testnet ETH.'
-  },
-  {
-    name: 'Google Cloud Web3 Faucet',
-    network: 'Ethereum Sepolia / Base',
-    amount: '0.05 ETH / ngày',
-    url: 'https://cloud.google.com/application/web3/faucet/ethereum/sepolia',
-    descriptionVi: 'Vòi cấp của Google Cloud chỉ cần đăng nhập tài khoản Google để nhận.',
-    descriptionEn: 'Google Cloud Web3 faucet. Sign in with your standard Google account.'
   },
   {
     name: 'Superchain Faucet (Optimism)',
@@ -85,10 +93,10 @@ const REAL_FAUCETS = [
     descriptionEn: 'Superchain community faucet. Instant claim with your GitHub account.'
   },
   {
-    name: 'QuickNode Base Sepolia Faucet',
-    network: 'Base Sepolia',
+    name: 'QuickNode Faucet',
+    network: 'Sepolia & Base',
     amount: '0.05 ETH',
-    url: 'https://faucet.quicknode.com/base/sepolia',
+    url: 'https://faucet.quicknode.com',
     descriptionVi: 'Vòi cấp tốc độ cao từ nhà cung cấp hạ tầng QuickNode.',
     descriptionEn: 'Fast RPC developer faucet powered by QuickNode infrastructure.'
   }
@@ -188,6 +196,15 @@ export const Web3SandboxSection: React.FC = () => {
     };
   }, [isEn]);
 
+  // Tự động đồng bộ số dư và mạng thực tế từ ví khi tải trang
+  useEffect(() => {
+    web3WalletService.syncCurrentWalletState().then((liveState) => {
+      if (liveState) {
+        setWallet(liveState);
+      }
+    });
+  }, []);
+
   // Lắng nghe sự kiện chuyển tài khoản hoặc đổi mạng trên ví thật
   useEffect(() => {
     if (typeof window !== 'undefined' && window.ethereum && window.ethereum.on) {
@@ -195,22 +212,17 @@ export const Web3SandboxSection: React.FC = () => {
         const accs = accounts as string[];
         if (accs.length === 0) {
           handleDisconnect();
-        } else if (wallet?.isConnected) {
-          web3WalletService.getBalance(accs[0]).then((bal) => {
-            setWallet((prev) => (prev ? { ...prev, address: accs[0], balanceEth: bal } : null));
+        } else {
+          web3WalletService.syncCurrentWalletState().then((liveState) => {
+            if (liveState) setWallet(liveState);
           });
         }
       };
 
-      const handleChainChanged = (chainId: unknown) => {
-        const cId = chainId as string;
-        const isCorrect = cId.toLowerCase() === BASE_SEPOLIA_CONFIG.chainId.toLowerCase();
-        setWallet((prev) => (prev ? {
-          ...prev,
-          chainId: cId,
-          networkName: web3WalletService.getNetworkName(cId),
-          isCorrectNetwork: isCorrect
-        } : null));
+      const handleChainChanged = () => {
+        web3WalletService.syncCurrentWalletState().then((liveState) => {
+          if (liveState) setWallet(liveState);
+        });
       };
 
       window.ethereum.on('accountsChanged', handleAccountsChanged);
@@ -223,7 +235,7 @@ export const Web3SandboxSection: React.FC = () => {
         }
       };
     }
-  }, [wallet?.isConnected]);
+  }, []);
 
   // Kết nối ví thật (MetaMask, Coinbase...)
   const handleConnectWallet = async () => {
@@ -247,22 +259,28 @@ export const Web3SandboxSection: React.FC = () => {
     setMintSignature(null);
   };
 
-  // Chuyển mạng sang Base Sepolia Testnet
+  // Chuyển mạng sang Testnet (Ưu tiên Sepolia hoặc Base Sepolia)
   const handleSwitchNetwork = async () => {
     setWalletError(null);
     try {
-      await web3WalletService.switchToBaseSepolia();
-      if (wallet) {
-        setWallet({
-          ...wallet,
-          chainId: BASE_SEPOLIA_CONFIG.chainId,
-          networkName: 'Base Sepolia (L2 Testnet)',
-          isCorrectNetwork: true
-        });
+      // Ưu tiên chuyển sang Ethereum Sepolia Testnet
+      await web3WalletService.switchToSepolia();
+      const fresh = await web3WalletService.syncCurrentWalletState();
+      if (fresh) {
+        setWallet(fresh);
       }
     } catch (err: unknown) {
-      const e = err as { message?: string };
-      setWalletError(e.message || (isEn ? 'Failed to switch network' : 'Lỗi khi chuyển mạng sang Base Sepolia'));
+      try {
+        // Fallback chuyển sang Base Sepolia nếu Sepolia gặp lỗi
+        await web3WalletService.switchToBaseSepolia();
+        const fresh = await web3WalletService.syncCurrentWalletState();
+        if (fresh) {
+          setWallet(fresh);
+        }
+      } catch (err2: unknown) {
+        const e = (err2 || err) as { message?: string };
+        setWalletError(e.message || (isEn ? 'Failed to switch network' : 'Lỗi khi chuyển mạng sang Testnet'));
+      }
     }
   };
 
@@ -270,8 +288,13 @@ export const Web3SandboxSection: React.FC = () => {
   const handleRefreshBalance = async () => {
     if (!wallet?.address) return;
     try {
-      const bal = await web3WalletService.getBalance(wallet.address);
-      setWallet({ ...wallet, balanceEth: bal });
+      const fresh = await web3WalletService.syncCurrentWalletState();
+      if (fresh) {
+        setWallet(fresh);
+      } else {
+        const bal = await web3WalletService.getBalance(wallet.address);
+        setWallet({ ...wallet, balanceEth: bal });
+      }
     } catch (e) {
       console.warn('Refresh balance error:', e);
     }
@@ -332,8 +355,9 @@ export const Web3SandboxSection: React.FC = () => {
     const simulatedTx = '0x' + Array.from({ length: 8 }, () => Math.floor(Math.random() * 16).toString(16)).join('') + '...' + Array.from({ length: 4 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
 
     try {
+      const activeNetwork = wallet.networkName || 'Sepolia Testnet';
       // Yêu cầu ví thật ký xác nhận thông điệp mật mã học (personal_sign)
-      const signMsg = `Yêu Trồng Cây - Đúc Hộ Chiếu Thực Vật Số\nLoài Cây: ${chosen.name_vi} (${chosen.scientific})\nGiai Đoạn: ${evolutionStage}/3\nBằng Chứng SHA-256: ${sha}\nVí Sở Hữu Thật: ${wallet.address}\nMạng Thử Nghiệm: Base Sepolia Testnet (0đ Gas)\nThời Gian Ký: ${new Date().toLocaleString('vi-VN')}`;
+      const signMsg = `Yêu Trồng Cây - Đúc Hộ Chiếu Thực Vật Số\nLoài Cây: ${chosen.name_vi} (${chosen.scientific})\nGiai Đoạn: ${evolutionStage}/3\nBằng Chứng SHA-256: ${sha}\nVí Sở Hữu Thật: ${wallet.address}\nMạng Thử Nghiệm: ${activeNetwork} (0đ Gas)\nThời Gian Ký: ${new Date().toLocaleString('vi-VN')}`;
       
       const sig = await web3WalletService.signBotanicalRecord(wallet.address, signMsg);
       setMintSignature(sig);
@@ -346,7 +370,7 @@ export const Web3SandboxSection: React.FC = () => {
         minted_at: new Date().toLocaleString('vi-VN'),
         image_url: chosen.image,
         image_sha256: sha,
-        network: 'Base Sepolia',
+        network: activeNetwork,
         evolution_stage: evolutionStage,
         transaction_hash: simulatedTx,
         is_testnet: true,
@@ -355,16 +379,16 @@ export const Web3SandboxSection: React.FC = () => {
       // Tự động thưởng Điểm Karma Uy Tín khi ký số & đúc Hộ Chiếu thành công trên Testnet
       awardKarmaPoints(
         25,
-        `Đúc thành công Hộ Chiếu Cây Số ${chosen.name_vi} (Base Sepolia Testnet 0đ)`,
-        `Minted Digital Plant Passport for ${chosen.name_en} (Base Sepolia Testnet 0đ)`,
+        `Đúc thành công Hộ Chiếu Cây Số ${chosen.name_vi} (${activeNetwork} 0đ)`,
+        `Minted Digital Plant Passport for ${chosen.name_en} (${activeNetwork} 0đ)`,
         { isTestnet: true, isEn, txHash: simulatedTx }
       );
       setRewardNotice({
         points: 25,
         title: isEn ? 'Passport Minting Reward (+25 Karma)' : 'Thưởng Đúc Hộ Chiếu Cây Testnet (+25 Karma)',
         desc: isEn
-          ? 'You successfully signed with your real wallet to create a digital genetic plant passport!'
-          : 'Bạn đã dùng ví thật ký số mật mã học thành công cấp Hộ Chiếu Cây trên mạng thử nghiệm Base Sepolia!'
+          ? `You successfully signed with your real wallet to create a digital genetic plant passport on ${activeNetwork}!`
+          : `Bạn đã dùng ví thật ký số mật mã học thành công cấp Hộ Chiếu Cây trên mạng thử nghiệm ${activeNetwork}!`
       });
     } catch (err: unknown) {
       const e = err as { message?: string };
@@ -427,7 +451,7 @@ export const Web3SandboxSection: React.FC = () => {
                 </h1>
                 <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-900/60 text-emerald-300 text-[10px] font-semibold border border-emerald-700/50">
                   <Sparkles className="w-3 h-3 text-emerald-400" />
-                  <span>Base Sepolia Testnet (0đ Tiền Thật)</span>
+                  <span>Sepolia & Base Testnet (0đ Tiền Thật)</span>
                 </span>
                 <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-900/40 text-amber-300 text-[10px] font-semibold border border-amber-800/50">
                   <span>Học Tập & Trải Nghiệm Giáo Dục</span>
@@ -506,18 +530,18 @@ export const Web3SandboxSection: React.FC = () => {
                   </button>
                 </div>
 
-                {/* Cảnh báo mạng & nút chuyển sang Base Sepolia */}
+                {/* Cảnh báo mạng & nút chuyển sang Testnet */}
                 {!wallet.isCorrectNetwork ? (
                   <button
                     onClick={handleSwitchNetwork}
                     className="px-3 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs flex items-center gap-1.5 animate-pulse shadow-md transition"
                   >
                     <AlertCircle className="w-3.5 h-3.5" />
-                    <span>{isEn ? 'Switch to Base Sepolia' : 'Đổi Sang Base Sepolia'}</span>
+                    <span>{isEn ? 'Switch to Testnet' : 'Đổi Sang Testnet'}</span>
                   </button>
                 ) : (
                   <span className="px-2.5 py-1 rounded-xl bg-emerald-950 text-emerald-300 border border-emerald-800 text-[11px] font-bold">
-                    ✓ Base Sepolia
+                    ✓ {wallet.networkName}
                   </span>
                 )}
 

@@ -171,7 +171,7 @@ export interface Web3TestnetPassport {
   minted_at: string;
   image_url: string;
   image_sha256: string;
-  network: 'Base Sepolia' | 'Polygon Amoy';
+  network: 'Base Sepolia' | 'Polygon Amoy' | 'Ethereum Sepolia' | string;
   evolution_stage: 1 | 2 | 3;           // 1: Mầm non, 2: Cây sinh trưởng, 3: Đơm hoa kết trái
   transaction_hash: string;
   is_testnet: true;

@@ -31,7 +31,22 @@ export interface WalletState {
 }
 
 export const BASE_SEPOLIA_CHAIN_ID_HEX = '0x14a34'; // 84532
+export const ETHEREUM_SEPOLIA_CHAIN_ID_HEX = '0xaa36a7'; // 11155111
 export const POLYGON_AMOY_CHAIN_ID_HEX = '0x13882'; // 80002
+
+export const SUPPORTED_TESTNET_CHAIN_IDS = [
+  BASE_SEPOLIA_CHAIN_ID_HEX.toLowerCase(),
+  ETHEREUM_SEPOLIA_CHAIN_ID_HEX.toLowerCase(),
+  POLYGON_AMOY_CHAIN_ID_HEX.toLowerCase()
+];
+
+export const ETHEREUM_SEPOLIA_CONFIG = {
+  chainId: ETHEREUM_SEPOLIA_CHAIN_ID_HEX,
+  chainName: 'Ethereum Sepolia Testnet',
+  nativeCurrency: { name: 'SepoliaETH', symbol: 'ETH', decimals: 18 },
+  rpcUrls: ['https://ethereum-sepolia-rpc.publicnode.com', 'https://rpc.sepolia.org'],
+  blockExplorerUrls: ['https://sepolia.etherscan.io']
+};
 
 export const BASE_SEPOLIA_CONFIG = {
   chainId: BASE_SEPOLIA_CHAIN_ID_HEX,
@@ -73,12 +88,66 @@ export const web3WalletService = {
   },
 
   /**
+   * Kiểm tra mạng có phải là testnet được hỗ trợ hay không
+   */
+  isSupportedNetwork(chainId: string | null): boolean {
+    if (!chainId) return false;
+    const lower = chainId.toLowerCase();
+    return (
+      SUPPORTED_TESTNET_CHAIN_IDS.includes(lower) ||
+      lower === '11155111' ||
+      lower === '84532' ||
+      lower === '80002'
+    );
+  },
+
+  /**
    * Lấy thông tin ví đã lưu từ session trước
    */
   getSavedWallet(): WalletState | null {
     try {
       const saved = localStorage.getItem(STORAGE_WALLET_KEY);
       return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
+  },
+
+  /**
+   * Đồng bộ lại trạng thái ví thực tế đang kết nối từ Extension (MetaMask, Rabby...)
+   */
+  async syncCurrentWalletState(): Promise<WalletState | null> {
+    if (!this.hasInjectedProvider() || !window.ethereum) return null;
+    try {
+      const accounts = (await window.ethereum.request({
+        method: 'eth_accounts'
+      })) as string[];
+
+      if (!accounts || accounts.length === 0) {
+        return null;
+      }
+
+      const address = accounts[0];
+      const chainId = (await window.ethereum.request({
+        method: 'eth_chainId'
+      })) as string;
+
+      const balanceEth = await this.getBalance(address);
+      const networkName = this.getNetworkName(chainId);
+      const isCorrect = this.isSupportedNetwork(chainId);
+
+      const state: WalletState = {
+        isConnected: true,
+        address,
+        chainId,
+        networkName,
+        walletName: this.detectWalletName(),
+        balanceEth,
+        isCorrectNetwork: isCorrect
+      };
+
+      localStorage.setItem(STORAGE_WALLET_KEY, JSON.stringify(state));
+      return state;
     } catch {
       return null;
     }
@@ -112,7 +181,7 @@ export const web3WalletService = {
       // 3. Lấy số dư ETH Testnet thật từ blockchain node
       const balanceEth = await this.getBalance(address);
       const networkName = this.getNetworkName(chainId);
-      const isCorrect = chainId.toLowerCase() === BASE_SEPOLIA_CHAIN_ID_HEX.toLowerCase();
+      const isCorrect = this.isSupportedNetwork(chainId);
 
       const state: WalletState = {
         isConnected: true,
@@ -179,6 +248,31 @@ export const web3WalletService = {
   },
 
   /**
+   * Chuyển mạng sang Ethereum Sepolia Testnet
+   */
+  async switchToSepolia(): Promise<string> {
+    if (!window.ethereum) throw new Error('Không phát hiện tiện ích ví Web3');
+
+    try {
+      await window.ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: ETHEREUM_SEPOLIA_CONFIG.chainId }]
+      });
+      return ETHEREUM_SEPOLIA_CONFIG.chainId;
+    } catch (switchError: unknown) {
+      const err = switchError as { code?: number };
+      if (err.code === 4902) {
+        await window.ethereum.request({
+          method: 'wallet_addEthereumChain',
+          params: [ETHEREUM_SEPOLIA_CONFIG]
+        });
+        return ETHEREUM_SEPOLIA_CONFIG.chainId;
+      }
+      throw switchError;
+    }
+  },
+
+  /**
    * Yêu cầu ví thật ký thông điệp mật mã học (personal_sign)
    */
   async signBotanicalRecord(account: string, message: string): Promise<string> {
@@ -214,10 +308,10 @@ export const web3WalletService = {
   getNetworkName(chainId: string | null): string {
     if (!chainId) return 'Mạng Không Xác Định';
     const hex = chainId.toLowerCase();
-    if (hex === BASE_SEPOLIA_CHAIN_ID_HEX || hex === '84532') return 'Base Sepolia (L2 Testnet)';
-    if (hex === POLYGON_AMOY_CHAIN_ID_HEX || hex === '80002') return 'Polygon Amoy (Testnet)';
-    if (hex === '0x1') return 'Ethereum Mainnet (Cần đổi sang Testnet)';
-    if (hex === '0xaa36a7' || hex === '11155111') return 'Ethereum Sepolia Testnet';
+    if (hex === BASE_SEPOLIA_CHAIN_ID_HEX.toLowerCase() || hex === '84532') return 'Base Sepolia';
+    if (hex === ETHEREUM_SEPOLIA_CHAIN_ID_HEX.toLowerCase() || hex === '11155111') return 'Ethereum Sepolia';
+    if (hex === POLYGON_AMOY_CHAIN_ID_HEX.toLowerCase() || hex === '80002') return 'Polygon Amoy';
+    if (hex === '0x1' || hex === '1') return 'Ethereum Mainnet (Cần đổi sang Testnet)';
     return `Chain ID: ${chainId}`;
   }
 };
