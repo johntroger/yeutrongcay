@@ -19,7 +19,8 @@ import {
   KeyRound,
   ChevronDown,
   ChevronRight,
-  X
+  X,
+  ArrowLeftRight
 } from 'lucide-react';
 import { Web3TestnetPassport } from '../types/index.ts';
 import { useLanguage } from '../context/LanguageContext.tsx';
@@ -284,6 +285,26 @@ export const Web3SandboxSection: React.FC = () => {
     }
   };
 
+  // Đổi qua lại giữa Ethereum Sepolia và Base Sepolia
+  const handleToggleNetwork = async () => {
+    setWalletError(null);
+    try {
+      const currentChain = wallet?.chainId?.toLowerCase();
+      if (currentChain === '0x14a34' || currentChain === '84532') {
+        await web3WalletService.switchToSepolia();
+      } else {
+        await web3WalletService.switchToBaseSepolia();
+      }
+      const fresh = await web3WalletService.syncCurrentWalletState();
+      if (fresh) {
+        setWallet(fresh);
+      }
+    } catch (err: unknown) {
+      const e = err as { message?: string };
+      setWalletError(e.message || (isEn ? 'Failed to switch network' : 'Lỗi khi chuyển mạng'));
+    }
+  };
+
   // Làm mới số dư ETH Testnet thật từ RPC
   const handleRefreshBalance = async () => {
     if (!wallet?.address) return;
@@ -540,9 +561,27 @@ export const Web3SandboxSection: React.FC = () => {
                     <span>{isEn ? 'Switch to Testnet' : 'Đổi Sang Testnet'}</span>
                   </button>
                 ) : (
-                  <span className="px-2.5 py-1 rounded-xl bg-emerald-950 text-emerald-300 border border-emerald-800 text-[11px] font-bold">
-                    ✓ {wallet.networkName}
-                  </span>
+                  <button
+                    onClick={handleToggleNetwork}
+                    className="px-2.5 py-1.5 rounded-xl bg-emerald-950 hover:bg-emerald-900 text-emerald-300 border border-emerald-700/80 text-[11px] font-bold flex items-center gap-1.5 transition cursor-pointer shadow-sm group"
+                    title={isEn ? 'Click to switch network (Sepolia ⇋ Base Sepolia)' : 'Bấm để đổi mạng (Sepolia ⇋ Base Sepolia)'}
+                  >
+                    <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                    <span>{wallet.networkName}</span>
+                    <ArrowLeftRight className="w-3 h-3 text-emerald-400 opacity-70 group-hover:opacity-100 group-hover:rotate-180 transition-transform duration-300" />
+                  </button>
+                )}
+
+                {/* Gợi ý chuyển mạng nếu đang ở Base Sepolia mà số dư = 0 */}
+                {wallet.balanceEth === '0.0000' && (wallet.chainId?.toLowerCase() === '0x14a34' || wallet.chainId === '84532') && (
+                  <button
+                    onClick={handleToggleNetwork}
+                    className="px-2.5 py-1 rounded-xl bg-amber-950/90 hover:bg-amber-900 text-amber-300 border border-amber-600/80 text-[11px] font-semibold flex items-center gap-1.5 transition animate-pulse cursor-pointer shadow-md"
+                    title="Bấm để chuyển sang mạng Ethereum Sepolia xem 0.05 ETH bạn vừa nhận"
+                  >
+                    <Sparkles className="w-3 h-3 text-amber-400 shrink-0" />
+                    <span>{isEn ? 'Switch to Sepolia (0.05 ETH)' : 'Đổi sang Sepolia (0.05 ETH)'}</span>
+                  </button>
                 )}
 
                 <button
