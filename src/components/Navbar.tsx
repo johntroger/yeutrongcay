@@ -382,22 +382,92 @@ export const Navbar: React.FC<NavbarProps> = ({
         {isMenuOpen && (
           <div
             ref={menuRef}
-            className="lg:hidden absolute top-full left-3 right-3 sm:left-6 sm:right-6 mt-1 bg-white/95 dark:bg-charcoal-900/95 backdrop-blur-xl rounded-3xl border border-forest-100 dark:border-forest-800 shadow-2xl p-4 sm:p-5 space-y-3 z-50 animate-in fade-in slide-in-from-top-2 duration-150"
+            className="lg:hidden absolute top-full left-3 right-3 sm:left-6 sm:right-6 mt-1.5 bg-white/98 dark:bg-charcoal-900/98 backdrop-blur-xl rounded-3xl border border-forest-100 dark:border-forest-800 shadow-2xl p-4 sm:p-5 space-y-3.5 z-50 animate-in fade-in slide-in-from-top-2 duration-150 max-h-[85vh] overflow-y-auto overscroll-contain"
           >
-            <div className="flex items-center justify-between pb-2 border-b border-forest-100 dark:border-forest-800 text-xs font-bold text-forest-900 dark:text-cream-100">
+            {/* Header: Title & Close Button */}
+            <div className="flex items-center justify-between pb-2.5 border-b border-forest-100 dark:border-forest-800 text-xs font-bold text-forest-900 dark:text-cream-100">
               <span className="flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                <span>{isEn ? 'Community Menu' : 'Menu Chức Năng Yêu Trồng Cây'}</span>
+                <Sparkles className="w-4 h-4 text-herbal-600 dark:text-herbal-400" />
+                <span>{isEn ? 'Features Menu' : 'Menu Chức Năng Yêu Trồng Cây'}</span>
               </span>
               <button
                 onClick={() => setIsMenuOpen(false)}
-                className="p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-charcoal-800 text-gray-400"
+                className="w-7 h-7 rounded-full flex items-center justify-center bg-forest-50 dark:bg-charcoal-800 text-forest-600 dark:text-forest-400 hover:text-forest-900 dark:hover:text-cream-100 transition"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            {/* Menu Links List */}
+            {/* Profile Card / Login Banner (Cân đối tài khoản) */}
+            {currentUser ? (
+              <div className="p-3 bg-forest-50/80 dark:bg-charcoal-800/90 rounded-2xl border border-forest-100 dark:border-forest-700/80 space-y-2.5">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <img
+                      src={currentUser.avatar_url}
+                      alt={currentUser.name}
+                      className="w-10 h-10 rounded-full object-cover ring-2 ring-herbal-500/50 shrink-0"
+                    />
+                    <div className="min-w-0">
+                      <p className="font-bold text-xs text-forest-950 dark:text-cream-50 truncate">
+                        {currentUser.name}
+                      </p>
+                      <p className="text-[10px] text-forest-600 dark:text-forest-400 truncate">
+                        {currentUser.email || 'Thành viên Yêu Trồng Cây'}
+                      </p>
+                    </div>
+                  </div>
+                  <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-herbal-100 dark:bg-herbal-950/80 text-herbal-800 dark:text-herbal-300 border border-herbal-200 dark:border-herbal-800 shrink-0">
+                    {currentUser.badge}
+                  </span>
+                </div>
+
+                {/* 2 Nút hành động tài khoản chia đều 50/50 */}
+                <div className="grid grid-cols-2 gap-2 pt-1 border-t border-forest-100/60 dark:border-forest-700/60">
+                  <Link
+                    to={`/${userHandle}`}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="px-3 py-2 rounded-xl bg-white dark:bg-charcoal-900 text-forest-900 dark:text-cream-100 text-xs font-semibold flex items-center justify-center gap-1.5 border border-forest-200 dark:border-forest-700 shadow-2xs hover:bg-forest-50 transition"
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-herbal-600 shrink-0" />
+                    <span className="truncate">Trang Cá Nhân</span>
+                  </Link>
+
+                  <button
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      onLogout?.();
+                    }}
+                    className="px-3 py-2 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 text-xs font-semibold flex items-center justify-center gap-1.5 border border-rose-200 dark:border-rose-900/60 transition hover:bg-rose-100"
+                  >
+                    <LogOut className="w-3.5 h-3.5 shrink-0" />
+                    <span>Đăng Xuất</span>
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="p-3 bg-forest-50/80 dark:bg-charcoal-800/90 rounded-2xl border border-forest-100 dark:border-forest-700/80 flex items-center justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="font-bold text-xs text-forest-950 dark:text-cream-50 truncate">
+                    {isEn ? 'Urban Garden Community' : 'Cộng Đồng Yêu Trồng Cây'}
+                  </p>
+                  <p className="text-[11px] text-forest-600 dark:text-forest-400 truncate">
+                    {isEn ? 'Log in to manage garden & NFT Passports' : 'Đăng nhập để theo dõi vườn & bộ sưu tập'}
+                  </p>
+                </div>
+                <button
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    onOpenAuth();
+                  }}
+                  className="px-4 py-2 rounded-xl bg-forest-900 hover:bg-forest-950 dark:bg-herbal-600 text-white text-xs font-bold shadow-xs shrink-0"
+                >
+                  {t('nav.login')}
+                </button>
+              </div>
+            )}
+
+            {/* Menu Links List (6 Feature Cards) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
               
               {/* Vườn Số Cá Nhân */}
@@ -408,23 +478,23 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => setIsMenuOpen(false)}
                 className="p-3 rounded-2xl bg-forest-50/70 hover:bg-forest-100 dark:bg-charcoal-800 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-700 flex items-center justify-between transition group"
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 min-w-0">
                   <div className="w-9 h-9 rounded-xl bg-forest-900 dark:bg-emerald-600 text-white flex items-center justify-center shrink-0">
                     <Leaf className="w-4 h-4" />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <div className="flex items-center gap-1.5">
-                      <span className="font-bold text-forest-950 dark:text-cream-50 group-hover:text-emerald-700 dark:group-hover:text-emerald-400">
+                      <span className="font-bold text-forest-950 dark:text-cream-50 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 truncate">
                         {t('nav.myGardenFull')}
                       </span>
-                      <span className="px-1.5 py-0.2 rounded-full text-[9px] font-bold bg-emerald-600 text-white">MS4</span>
+                      <span className="px-1.5 py-0.2 rounded-full text-[9px] font-bold bg-emerald-600 text-white shrink-0">MS4</span>
                     </div>
-                    <p className="text-[11px] text-charcoal-600 dark:text-charcoal-300">
+                    <p className="text-[11px] text-charcoal-600 dark:text-charcoal-300 truncate">
                       {isEn ? 'Pots, care tasks & growth comparison' : 'Quản lý chậu, lịch tưới & nhật ký trước/sau'}
                     </p>
                   </div>
                 </div>
-                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-forest-900 dark:group-hover:text-cream-100" />
+                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-forest-900 dark:group-hover:text-cream-100 shrink-0 ml-2" />
               </Link>
 
               {/* Bác Sĩ Cây Trồng AI */}
@@ -435,23 +505,23 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => setIsMenuOpen(false)}
                 className="p-3 rounded-2xl bg-emerald-50/60 hover:bg-emerald-100/70 dark:bg-charcoal-800 dark:hover:bg-charcoal-700 border border-emerald-200 dark:border-forest-700 flex items-center justify-between transition group"
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 min-w-0">
                   <div className="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0">
                     <HeartHandshake className="w-4 h-4" />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <div className="flex items-center gap-1.5">
-                      <span className="font-bold text-forest-950 dark:text-cream-50 group-hover:text-emerald-700 dark:group-hover:text-emerald-400">
+                      <span className="font-bold text-forest-950 dark:text-cream-50 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 truncate">
                         {t('nav.clinicFull')}
                       </span>
-                      <span className="px-1.5 py-0.2 rounded-full text-[9px] font-bold bg-emerald-600 text-white">AI 3s</span>
+                      <span className="px-1.5 py-0.2 rounded-full text-[9px] font-bold bg-emerald-600 text-white shrink-0">AI 3s</span>
                     </div>
-                    <p className="text-[11px] text-charcoal-600 dark:text-charcoal-300">
+                    <p className="text-[11px] text-charcoal-600 dark:text-charcoal-300 truncate">
                       {isEn ? 'Instant vision diagnosis & organic recipes' : 'Chẩn đoán ảnh bệnh & phác đồ hữu cơ H15'}
                     </p>
                   </div>
                 </div>
-                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-forest-900 dark:group-hover:text-cream-100" />
+                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-forest-900 dark:group-hover:text-cream-100 shrink-0 ml-2" />
               </Link>
 
               {/* Lịch Nông Vụ Đô Thị 3 Miền (H4) */}
@@ -462,23 +532,23 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => setIsMenuOpen(false)}
                 className="p-3 rounded-2xl bg-teal-50/60 hover:bg-teal-100/70 dark:bg-charcoal-800 dark:hover:bg-charcoal-700 border border-teal-200 dark:border-forest-700 flex items-center justify-between transition group"
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 min-w-0">
                   <div className="w-9 h-9 rounded-xl bg-teal-600 text-white flex items-center justify-center shrink-0">
                     <Calendar className="w-4 h-4" />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <div className="flex items-center gap-1.5">
-                      <span className="font-bold text-forest-950 dark:text-cream-50 group-hover:text-teal-700 dark:group-hover:text-teal-400">
+                      <span className="font-bold text-forest-950 dark:text-cream-50 group-hover:text-teal-700 dark:group-hover:text-teal-400 truncate">
                         {isEn ? 'Seasonal Calendar' : 'Lịch Nông Vụ 3 Miền'}
                       </span>
-                      <span className="px-1.5 py-0.2 rounded-full text-[9px] font-bold bg-teal-600 text-white">12 Tháng</span>
+                      <span className="px-1.5 py-0.2 rounded-full text-[9px] font-bold bg-teal-600 text-white shrink-0">12 Tháng</span>
                     </div>
-                    <p className="text-[11px] text-charcoal-600 dark:text-charcoal-300">
+                    <p className="text-[11px] text-charcoal-600 dark:text-charcoal-300 truncate">
                       {isEn ? 'Monthly sowing schedule, weather & pest alerts' : 'Thời khóa biểu gieo trồng, tưới nước & phòng sâu bệnh'}
                     </p>
                   </div>
                 </div>
-                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-forest-900 dark:group-hover:text-cream-100" />
+                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-forest-900 dark:group-hover:text-cream-100 shrink-0 ml-2" />
               </Link>
 
               {/* Trạm Đổi Cây & Hạt Giống */}
@@ -489,23 +559,23 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => setIsMenuOpen(false)}
                 className="p-3 rounded-2xl bg-amber-50/60 hover:bg-amber-100/70 dark:bg-charcoal-800 dark:hover:bg-charcoal-700 border border-amber-200 dark:border-forest-700 flex items-center justify-between transition group"
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 min-w-0">
                   <div className="w-9 h-9 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0">
                     <MapPin className="w-4 h-4" />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <div className="flex items-center gap-1.5">
-                      <span className="font-bold text-forest-950 dark:text-cream-50 group-hover:text-amber-700 dark:group-hover:text-amber-400">
+                      <span className="font-bold text-forest-950 dark:text-cream-50 group-hover:text-amber-700 dark:group-hover:text-amber-400 truncate">
                         {t('nav.swapFull')}
                       </span>
-                      <span className="px-1.5 py-0.2 rounded-full text-[9px] font-bold bg-amber-600 text-white">Bản đồ</span>
+                      <span className="px-1.5 py-0.2 rounded-full text-[9px] font-bold bg-amber-600 text-white shrink-0">Bản đồ</span>
                     </div>
-                    <p className="text-[11px] text-charcoal-600 dark:text-charcoal-300">
+                    <p className="text-[11px] text-charcoal-600 dark:text-charcoal-300 truncate">
                       {isEn ? '3-region interactive plant seed swap map' : 'Bản đồ tương tác trao đổi hạt giống 3 miền'}
                     </p>
                   </div>
                 </div>
-                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-forest-900 dark:group-hover:text-cream-100" />
+                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-forest-900 dark:group-hover:text-cream-100 shrink-0 ml-2" />
               </Link>
 
               {/* Liên Hệ & Trạm Bảo Tồn */}
@@ -516,20 +586,20 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => setIsMenuOpen(false)}
                 className="p-3 rounded-2xl bg-blue-50/60 hover:bg-blue-100/70 dark:bg-charcoal-800 dark:hover:bg-charcoal-700 border border-blue-200 dark:border-forest-700 flex items-center justify-between transition group"
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 min-w-0">
                   <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0">
                     <MessageCircle className="w-4 h-4" />
                   </div>
-                  <div>
-                    <span className="font-bold text-forest-950 dark:text-cream-50 group-hover:text-blue-700 dark:group-hover:text-blue-400 block">
+                  <div className="min-w-0">
+                    <span className="font-bold text-forest-950 dark:text-cream-50 group-hover:text-blue-700 dark:group-hover:text-blue-400 block truncate">
                       {t('nav.contactFull')}
                     </span>
-                    <p className="text-[11px] text-charcoal-600 dark:text-charcoal-300">
+                    <p className="text-[11px] text-charcoal-600 dark:text-charcoal-300 truncate">
                       {isEn ? 'Send inquiries to editorial & conservationists' : 'Liên hệ ban biên tập & trạm bảo tồn cây'}
                     </p>
                   </div>
                 </div>
-                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-forest-900 dark:group-hover:text-cream-100" />
+                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-forest-900 dark:group-hover:text-cream-100 shrink-0 ml-2" />
               </Link>
 
               {/* Web3 Sandbox */}
@@ -540,75 +610,49 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => setIsMenuOpen(false)}
                 className="p-3 rounded-2xl bg-orange-50/60 hover:bg-orange-100/70 dark:bg-charcoal-800 dark:hover:bg-charcoal-700 border border-orange-200 dark:border-forest-700 flex items-center justify-between transition group"
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 min-w-0">
                   <div className="w-9 h-9 rounded-xl bg-terracotta-600 text-white flex items-center justify-center shrink-0">
                     <ShieldCheck className="w-4 h-4" />
                   </div>
-                  <div>
-                    <span className="font-bold text-forest-950 dark:text-cream-50 group-hover:text-orange-700 dark:group-hover:text-orange-400 block">
+                  <div className="min-w-0">
+                    <span className="font-bold text-forest-950 dark:text-cream-50 group-hover:text-orange-700 dark:group-hover:text-orange-400 block truncate">
                       {t('nav.web3Full')}
                     </span>
-                    <p className="text-[11px] text-charcoal-600 dark:text-charcoal-300">
+                    <p className="text-[11px] text-charcoal-600 dark:text-charcoal-300 truncate">
                       {isEn ? 'Digital passport & heritage plant certificate' : 'Hộ chiếu số & bảo tồn cây bản địa'}
                     </p>
                   </div>
                 </div>
-                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-forest-900 dark:group-hover:text-cream-100" />
+                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-forest-900 dark:group-hover:text-cream-100 shrink-0 ml-2" />
               </Link>
             </div>
 
-            {/* Bottom Actions inside Dropdown */}
-            <div className="pt-2 border-t border-forest-100 dark:border-forest-800 flex items-center justify-between gap-2">
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={toggleLanguage}
-                  className="px-3 py-1.5 rounded-xl bg-forest-50 dark:bg-charcoal-800 text-forest-900 dark:text-cream-100 text-xs font-semibold flex items-center gap-1 border border-forest-200 dark:border-forest-700"
-                >
-                  <Globe className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>{language === 'vi' ? '🇻🇳 Tiếng Việt' : '🇬🇧 English'}</span>
-                </button>
-                <button
-                  onClick={toggleTheme}
-                  className="px-3 py-1.5 rounded-xl bg-forest-50 dark:bg-charcoal-800 text-forest-900 dark:text-cream-100 text-xs font-semibold flex items-center gap-1 border border-forest-200 dark:border-forest-700"
-                >
-                  {isDark ? <Sun className="w-3.5 h-3.5 text-amber-400" /> : <Moon className="w-3.5 h-3.5 text-forest-700" />}
-                  <span>{isDark ? (isEn ? 'Light Mode' : 'Giao diện Sáng') : (isEn ? 'Dark Mode' : 'Giao diện Tối')}</span>
-                </button>
-              </div>
+            {/* Bottom Utilities: 2 nút cân đối 50/50 cho Ngôn Ngữ và Giao Diện Sáng/Tối */}
+            <div className="pt-2 border-t border-forest-100 dark:border-forest-800 grid grid-cols-2 gap-2">
+              <button
+                onClick={toggleLanguage}
+                className="w-full px-3 py-2 rounded-xl bg-forest-50/80 dark:bg-charcoal-800 hover:bg-forest-100 dark:hover:bg-charcoal-700 text-forest-900 dark:text-cream-100 text-xs font-semibold flex items-center justify-center gap-1.5 border border-forest-200/70 dark:border-forest-700 transition"
+              >
+                <Globe className="w-3.5 h-3.5 text-herbal-600 dark:text-herbal-400 shrink-0" />
+                <span>{language === 'vi' ? 'Tiếng Việt' : 'English'}</span>
+              </button>
 
-              {!currentUser ? (
-                <button
-                  onClick={() => {
-                    setIsMenuOpen(false);
-                    onOpenAuth();
-                  }}
-                  className="px-3.5 py-1.5 rounded-xl bg-forest-900 dark:bg-emerald-600 text-white text-xs font-semibold shadow-xs"
-                >
-                  {t('nav.login')}
-                </button>
-              ) : (
-                <div className="flex items-center gap-2">
-                  <Link
-                    to={`/${userHandle}`}
-                    onClick={() => setIsMenuOpen(false)}
-                    className="px-3 py-1.5 rounded-xl bg-amber-500/20 text-amber-900 dark:text-amber-300 text-xs font-semibold flex items-center gap-1 border border-amber-500/40"
-                  >
-                    <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-                    <span>Hồ sơ: /{userHandle}</span>
-                  </Link>
-
-                  <button
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                      onLogout?.();
-                    }}
-                    className="px-3 py-1.5 rounded-xl bg-red-100 dark:bg-red-950/60 text-red-600 dark:text-red-300 text-xs font-semibold flex items-center gap-1 border border-red-200 dark:border-red-800"
-                  >
-                    <LogOut className="w-3.5 h-3.5" />
-                    <span>Đăng xuất</span>
-                  </button>
-                </div>
-              )}
+              <button
+                onClick={toggleTheme}
+                className="w-full px-3 py-2 rounded-xl bg-forest-50/80 dark:bg-charcoal-800 hover:bg-forest-100 dark:hover:bg-charcoal-700 text-forest-900 dark:text-cream-100 text-xs font-semibold flex items-center justify-center gap-1.5 border border-forest-200/70 dark:border-forest-700 transition"
+              >
+                {isDark ? (
+                  <>
+                    <Sun className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                    <span>{isEn ? 'Light Mode' : 'Giao diện Sáng'}</span>
+                  </>
+                ) : (
+                  <>
+                    <Moon className="w-3.5 h-3.5 text-forest-700 dark:text-forest-300 shrink-0" />
+                    <span>{isEn ? 'Dark Mode' : 'Giao diện Tối'}</span>
+                  </>
+                )}
+              </button>
             </div>
           </div>
         )}
