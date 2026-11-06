@@ -52,6 +52,17 @@ export async function getPlants(category?: string, query?: string): Promise<{ pl
         } as Plant;
       });
 
+      // Đồng bộ: bổ sung các cây có trong SEED_PLANTS nhưng database chưa được seed (tránh lệch số liệu)
+      if (!query) {
+        const known = new Set(mergedPlants.map((p) => p.id));
+        const knownSci = new Set(mergedPlants.map((p) => p.scientific_name.toLowerCase()));
+        SEED_PLANTS.forEach((s) => {
+          if (known.has(s.id) || knownSci.has(s.scientific_name.toLowerCase())) return;
+          if (category && s.category !== category) return;
+          mergedPlants.push(s);
+        });
+      }
+
       return { plants: mergedPlants, isLive: true };
     }
   } catch (err) {

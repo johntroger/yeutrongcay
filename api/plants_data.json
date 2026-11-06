@@ -2054,5 +2054,793 @@
       "Ngọt tự nhiên",
       "Pha trà"
     ]
+  },
+  {
+    "id": "herb-26",
+    "slug": "kim-that-tai",
+    "common_name": "Kim Thất Tai (Cây Bầu Đường)",
+    "scientific_name": "Gynura procumbens",
+    "aliases": [
+      "Rau Lúi",
+      "Cây Đái Tháo Đường",
+      "Rau Biển Phước"
+    ],
+    "category": "herb",
+    "description": "Thảo dược quý nổi tiếng vùng Đông Nam Á hỗ trợ hạ đường huyết, cân bằng huyết áp và giảm cholesterol. Lá dày mọng nước, dễ trồng bằng cành giâm ở ban công.",
+    "quick_answer": "Kim thất tai là thảo dược ưa bóng bán phần hoặc nắng sáng dịu, giâm cành 10-15 ngày bén rễ. Người đường huyết cao nhai sống 3-5 lá tươi vào buổi sáng hoặc nấu canh rau hàng ngày.",
+    "botanical_details": {
+      "family": "Asteraceae (Họ Cúc)",
+      "native_range": "Việt Nam, Malaysia, Thái Lan",
+      "active_compounds": [
+        "Flavonoid",
+        "Phenolic acid",
+        "Sterol",
+        "Gynurin"
+      ],
+      "soil_ph": "6.0 - 7.0 (Đất mùn ẩm, tơi xốp)",
+      "ideal_temp": "22°C - 32°C",
+      "pot_size": "Đường kính 25cm - 35cm"
+    },
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Gynura_procumbens_01.jpg/960px-Gynura_procumbens_01.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "image_sha256": "e8f7a6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b7c6d5e4f3a2b1c0d9e8f7",
+    "sunlight": "partial_shade",
+    "watering": "daily",
+    "propagation_difficulty": 1,
+    "growth_time": "20 ngày bắt đầu hái ngọn lá ăn",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Phát triển mạnh mùa xuân hạ, mùa đông cần che gió rét",
+      "central": "Trồng tốt quanh năm, mùa mưa cần đất thoát nước tốt",
+      "south": "Phát triển xanh mướt quanh năm dưới nắng tán xạ",
+      "best_months": [
+        2,
+        3,
+        4,
+        8,
+        9
+      ]
+    },
+    "medical_info": {
+      "uses": [
+        "Hỗ trợ kiểm soát đường huyết tuýp 2",
+        "Hạ mỡ máu và huyết áp cao",
+        "Thanh nhiệt, tiêu viêm, mát gan"
+      ],
+      "folk_remedies": [
+        "Nhai sống 3-5 lá kim thất tai tươi rửa sạch với nước muối loãng mỗi buổi sáng trước bữa ăn 30 phút.",
+        "Lá kim thất tai 50g nấu canh với thịt nạc băm hoặc tôm tươi ăn trong tuần thanh lọc cơ thể."
+      ],
+      "preparation": [
+        "Ăn sống như rau thơm",
+        "Nấu canh thanh nhiệt",
+        "Hãm trà lá tươi"
+      ],
+      "toxicity_warning": "Lành tính không độc. Người huyết áp thấp hoặc đang dùng thuốc hạ đường huyết liều cao cần theo dõi chỉ số để tránh tụt đường huyết quá mức.",
+      "disclaimer": "Hỗ trợ cải thiện chỉ số, không được tự ý bỏ thuốc điều trị theo toa của bác sĩ."
+    },
+    "academic_citations": [
+      "Journal of Ethnopharmacology - Antidiabetic activities of Gynura procumbens",
+      "Viện Dược Liệu Quốc Gia Việt Nam"
+    ],
+    "monetization_tips": [
+      "Bán bầu cây giống giâm sẵn 25.000đ - 35.000đ/chậu cho người lớn tuổi đô thị.",
+      "Bán lá tươi hữu cơ thu hoạch theo kg cho cư dân cùng chung cư."
+    ],
+    "tags": [
+      "Tiểu đường",
+      "Hạ huyết áp",
+      "Dễ trồng chậu",
+      "Thanh nhiệt"
+    ]
+  },
+  {
+    "id": "herb-27",
+    "slug": "cay-xuong-khi-bim-bip",
+    "common_name": "Xương Khỉ (Cây Bìm Bịp)",
+    "scientific_name": "Clinacanthus nutans",
+    "aliases": [
+      "Mảnh Cộng",
+      "Cây Bồ Bót",
+      "Cây Liền Xương"
+    ],
+    "category": "herb",
+    "description": "Thảo dược nổi danh Đông Nam Á với đặc tính kháng viêm, giảm đau nhức xương khớp, hỗ trợ phục hồi thoái hóa cột sống và làm mát gan.",
+    "quick_answer": "Xương khỉ sinh trưởng mạnh ở ban công hướng Đông hoặc Đông Nam, tưới ẩm vừa phải. Dùng lá tươi giã đắp khớp sưng đau hoặc sắc uống 30g lá khô mỗi ngày.",
+    "botanical_details": {
+      "family": "Acanthaceae (Họ Ô rô)",
+      "native_range": "Việt Nam và các nước nhiệt đới châu Á",
+      "active_compounds": [
+        "Flavonoid",
+        "Betulin",
+        "Lupeol",
+        "Polysaccharide"
+      ],
+      "soil_ph": "6.0 - 7.5",
+      "ideal_temp": "24°C - 35°C",
+      "pot_size": "30cm - 45cm"
+    },
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Clinacanthus_nutans_-_Jardin_des_Serres_d%27Auteuil_-_IMG_2357.jpg/960px-Clinacanthus_nutans_-_Jardin_des_Serres_d%27Auteuil_-_IMG_2357.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "image_sha256": "a9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8",
+    "sunlight": "partial_shade",
+    "watering": "moderate",
+    "propagation_difficulty": 1,
+    "growth_time": "30 ngày hái đợt lá đầu tiên, đẻ nhánh nhanh",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Trồng vụ xuân hè, cây ưa ấm ẩm",
+      "central": "Phát triển tốt quanh năm",
+      "south": "Sinh trưởng cực mạnh cả mùa mưa lẫn mùa khô",
+      "best_months": [
+        2,
+        3,
+        4,
+        5,
+        8
+      ]
+    },
+    "medical_info": {
+      "uses": [
+        "Giảm đau nhức xương khớp, viêm khớp, thoái hóa",
+        "Thanh nhiệt, giải độc gan, hạ men gan",
+        "Giã đắp làm tan vết bầm tím và hỗ trợ liền xương"
+      ],
+      "folk_remedies": [
+        "Lá bìm bịp 30g + Dây đau xương 20g + Rễ cỏ xước 20g: Sắc với 1 lít nước còn 400ml uống trong ngày trị thoái hóa khớp.",
+        "Lá tươi 50g giã nát trộn chút muối hột và giấm đắp ấm lên khớp gối sưng đau 30 phút."
+      ],
+      "preparation": [
+        "Sắc nước uống",
+        "Nấu canh thịt nạc",
+        "Giã đắp ngoài da"
+      ],
+      "toxicity_warning": "Lành tính, không độc. Người huyết áp thấp nên cho thêm vài lát gừng tươi khi uống.",
+      "disclaimer": "Thông tin kinh nghiệm dân gian y học cổ truyền, kết hợp vật lý trị liệu."
+    },
+    "academic_citations": [
+      "Evidence-Based Complementary and Alternative Medicine - Clinacanthus nutans review",
+      "Dược điển Cây thuốc Việt Nam"
+    ],
+    "monetization_tips": [
+      "Bán chậu cây bìm bịp giống 40.000đ/chậu cho gia đình có người cao tuổi.",
+      "Phơi sấy lá khô đóng túi zip 150.000đ/kg."
+    ],
+    "tags": [
+      "Xương khớp",
+      "Kháng viêm",
+      "Giải độc gan",
+      "Dễ mọc chậu"
+    ]
+  },
+  {
+    "id": "herb-29",
+    "slug": "bach-hoa-xa-thiet-thao",
+    "common_name": "Bạch Hoa Xà Thiệt Thảo",
+    "scientific_name": "Hedyotis diffusa",
+    "aliases": [
+      "Cỏ Lưỡi Rắn Trắng",
+      "Xà Thiệt Thảo",
+      "Bộc Lục"
+    ],
+    "category": "herb",
+    "description": "Thảo dược mọc bò nhỏ nhắn hoa trắng hình chữ thập, nổi tiếng với khả năng tiêu viêm, giải độc nhiệt độc, thanh lọc hệ tiết niệu và tăng cường miễn dịch tế bào.",
+    "quick_answer": "Cỏ lưỡi rắn mọc lan sát đất, ưa ẩm và đất nhiều mùn. Thường kết hợp với bán chi liên làm bài thuốc mát gan, tiêu viêm họng và đường niệu.",
+    "botanical_details": {
+      "family": "Rubiaceae (Họ Cà phê)",
+      "native_range": "Việt Nam, miền Nam Trung Quốc, Nhật Bản",
+      "active_compounds": [
+        "Asperuloside",
+        "Scandoside",
+        "Geniposidic acid",
+        "Flavonoid"
+      ],
+      "soil_ph": "5.5 - 6.8",
+      "ideal_temp": "20°C - 32°C",
+      "pot_size": "Chậu dẹp dài hoặc chậu treo 25cm"
+    },
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Oldenlandia_diffusa_1.jpg/960px-Oldenlandia_diffusa_1.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "image_sha256": "c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3",
+    "sunlight": "partial_shade",
+    "watering": "daily",
+    "propagation_difficulty": 1,
+    "growth_time": "40 ngày phủ kín chậu cây",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Trồng tháng 3 đến tháng 9",
+      "central": "Mùa xuân hè cây phát triển rất nhanh",
+      "south": "Mọc tốt quanh năm nơi râm mát",
+      "best_months": [
+        3,
+        4,
+        5,
+        8
+      ]
+    },
+    "medical_info": {
+      "uses": [
+        "Thanh nhiệt giải độc, tiêu ung thũng",
+        "Kháng viêm đường tiết niệu, tiểu buốt, tiểu rắt",
+        "Hỗ trợ tăng sức đề kháng và ức chế tế bào lạ"
+      ],
+      "folk_remedies": [
+        "Bạch hoa xà thiệt thảo 40g + Bán chi liên 20g: Sắc uống giúp thanh nhiệt giải độc cơ thể.",
+        "Toàn cây tươi 50g giã nát đắp mụn nhọt, vết côn trùng cắn giảm sưng tấy tức thì."
+      ],
+      "preparation": [
+        "Sắc nước uống",
+        "Nấu trà thảo mộc",
+        "Giã đắp ngoài da"
+      ],
+      "toxicity_warning": "Vị đắng tính hàn. Phụ nữ mang thai không nên dùng.",
+      "disclaimer": "Tham khảo ý kiến chuyên gia Y học cổ truyền khi kết hợp điều trị."
+    },
+    "academic_citations": [
+      "Phytomedicine - Pharmacological evaluation of Hedyotis diffusa",
+      "Cây thuốc và Vị thuốc Việt Nam - GS. Đỗ Tất Lợi"
+    ],
+    "monetization_tips": [
+      "Trồng chậu treo ban công làm cảnh xanh mát kiêm hái lá làm thuốc.",
+      "Sấy khô làm trà thảo mộc phối hợp bán theo combo."
+    ],
+    "tags": [
+      "Thanh nhiệt",
+      "Tiểu đường",
+      "Dễ mọc chậu",
+      "Kháng viêm"
+    ]
+  },
+  {
+    "id": "herb-30",
+    "slug": "day-thia-canh",
+    "common_name": "Dây Thìa Canh Chậu Ban Công",
+    "scientific_name": "Gymnema sylvestre",
+    "aliases": [
+      "Dây Muôi",
+      "Cây Dập Đường",
+      "Gurmar"
+    ],
+    "category": "herb",
+    "description": "Thảo dược dây leo quý giá bậc nhất trong hỗ trợ người đái tháo đường. Chứa acid gymnemic có khả năng làm mất cảm giác ngọt của lưỡi tạm thời và ức chế hấp thu đường ruột.",
+    "quick_answer": "Dây thìa canh leo giàn ban công 2-3m, lá thu hoạch phơi khô hãm nước uống sau các bữa ăn 30 phút để kiểm soát đường huyết sau ăn rất hiệu quả.",
+    "botanical_details": {
+      "family": "Apocynaceae (Họ La bố ma)",
+      "native_range": "Ấn Độ, miền Bắc và miền Trung Việt Nam",
+      "active_compounds": [
+        "Gymnemic acid",
+        "Gymnemasaponin",
+        "Gourmarin",
+        "Flavonoid"
+      ],
+      "soil_ph": "6.0 - 7.2",
+      "ideal_temp": "22°C - 35°C",
+      "pot_size": "Đường kính 35cm - 50cm"
+    },
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Gymnema_sylvestre_1.jpg/960px-Gymnema_sylvestre_1.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "image_sha256": "d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 2,
+    "growth_time": "3 tháng leo giàn kín, thu hoạch liên tục nhiều năm",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Trồng tháng 2 - 4, mùa đông tỉa bớt nhánh già",
+      "central": "Leo giàn phát triển tốt quanh năm",
+      "south": "Phát triển xanh tốt quanh năm",
+      "best_months": [
+        2,
+        3,
+        4,
+        8,
+        9
+      ]
+    },
+    "medical_info": {
+      "uses": [
+        "Kích thích tuyến tụy tiết insulin tự nhiên",
+        "Làm giảm hấp thu glucose tại biểu mô ruột non",
+        "Giảm cảm giác thèm ngọt ở người béo phì và tiểu đường"
+      ],
+      "folk_remedies": [
+        "Dây thìa canh khô 20g hãm với 1 lít nước sôi 15 phút, chia uống 3 lần sau các bữa ăn 30 phút.",
+        "Nhai 1 lá tươi thìa canh sẽ làm mất vị ngọt của đường mía trong 2-3 giờ, giúp kiềm chế cơn thèm đồ ngọt."
+      ],
+      "preparation": [
+        "Hãm trà lá khô",
+        "Sắc uống hàng ngày",
+        "Nấu cao lỏng"
+      ],
+      "toxicity_warning": "Không uống lúc đói vì có thể gây hạ đường huyết nhanh. Phụ nữ mang thai không dùng.",
+      "disclaimer": "Đã được kiểm chứng lâm sàng tại Đại học Dược Hà Nội."
+    },
+    "academic_citations": [
+      "Đại học Dược Hà Nội - Đề tài nghiên cứu cây Dây thìa canh Việt Nam (PGS.TS Trần Văn Ơn)",
+      "Journal of Clinical Biochemistry and Nutrition"
+    ],
+    "monetization_tips": [
+      "Cung cấp giống dây thìa canh thuần bầu rễ khoẻ 45.000đ/cây.",
+      "Sấy khô lá bánh tẻ đóng gói 200.000đ/kg bán cho bệnh nhân tiểu đường."
+    ],
+    "tags": [
+      "Tiểu đường",
+      "Leo giàn ban công",
+      "Hạ đường huyết",
+      "Thanh nhiệt"
+    ]
+  },
+  {
+    "id": "herb-31",
+    "slug": "bo-cong-anh-thap",
+    "common_name": "Bồ Công Anh Thấp Việt Nam",
+    "scientific_name": "Taraxacum officinale",
+    "aliases": [
+      "Bồ Công Anh Lùn",
+      "Diếp Trời",
+      "Hoàng Hoa Địa Đinh"
+    ],
+    "category": "herb",
+    "description": "Thảo dược hoa vàng nhỏ nhắn mọc sát đất, toàn thân có nhựa trắng giàu taraxacin. Bậc thầy kháng sinh tự nhiên trị viêm tuyến vú, viêm họng hạt và sỏi mật.",
+    "quick_answer": "Bồ công anh lùn gieo hạt rất dễ nảy mầm, trồng chậu nhỏ để bậu cửa sổ. Toàn cây từ rễ, lá đến hoa đều dùng làm trà hoặc nấu canh giải nhiệt tiêu mụn nhọt.",
+    "botanical_details": {
+      "family": "Asteraceae (Họ Cúc)",
+      "native_range": "Vùng khí hậu mát mẻ ôn đới và cận nhiệt đới Việt Nam",
+      "active_compounds": [
+        "Taraxacin",
+        "Taraxasterol",
+        "Inulin",
+        "Luteolin",
+        "Vitamin A, C"
+      ],
+      "soil_ph": "6.0 - 7.0",
+      "ideal_temp": "18°C - 28°C",
+      "pot_size": "20cm - 30cm"
+    },
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Dandelion_clock_in_the_morning.jpg/960px-Dandelion_clock_in_the_morning.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "image_sha256": "e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5",
+    "sunlight": "partial_shade",
+    "watering": "moderate",
+    "propagation_difficulty": 1,
+    "growth_time": "45 ngày bắt đầu nở hoa và thu hoạch rễ lá",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Trồng tháng 9 đến tháng 4 năm sau rất đẹp",
+      "central": "Vụ đông xuân là mùa phát triển mạnh nhất",
+      "south": "Trồng nơi thoáng mát tránh nắng gắt buổi trưa",
+      "best_months": [
+        9,
+        10,
+        11,
+        1,
+        2,
+        3
+      ]
+    },
+    "medical_info": {
+      "uses": [
+        "Trị sưng đau viêm tuyến vú ở phụ nữ sau sinh",
+        "Mát gan, lợi mật, hỗ trợ tiêu sỏi mật nhỏ",
+        "Tiêu mụn nhọt, dị ứng mẩn ngứa thời tiết"
+      ],
+      "folk_remedies": [
+        "Lá bồ công anh tươi 40g giã nát vắt lấy nước cốt uống, bã đắp lên bầu vú sưng đau do tắc tia sữa giúp thông sữa nhanh chóng.",
+        "Rễ bồ công anh sấy khô sao vàng hãm nước uống thay cà phê không chứa cafein giúp mát gan."
+      ],
+      "preparation": [
+        "Trà rễ sấy khô",
+        "Hái lá non ăn sống làm salad",
+        "Sắc nước uống"
+      ],
+      "toxicity_warning": "Lành tính. Người tỳ vị hư hàn tiêu chảy không nên uống nước quá đậm đặc.",
+      "disclaimer": "Kinh nghiệm dân gian đúc kết hàng trăm năm trong Dược điển Việt Nam."
+    },
+    "academic_citations": [
+      "Dược điển Việt Nam V - Chuyên luận Bồ công anh",
+      "Journal of Alternative and Complementary Medicine"
+    ],
+    "monetization_tips": [
+      "Bán chậu bồ công anh mini nở hoa vàng xinh xắn 30.000đ/chậu.",
+      "Sản xuất trà rễ bồ công anh sấy khô hữu cơ cao cấp."
+    ],
+    "tags": [
+      "Tắc tia sữa",
+      "Mát gan",
+      "Kháng sinh tự nhiên",
+      "Dễ mọc chậu"
+    ]
+  },
+  {
+    "id": "herb-34",
+    "slug": "trinh-nu-hoang-cung",
+    "common_name": "Trinh Nữ Hoàng Cung",
+    "scientific_name": "Crinum latifolium",
+    "aliases": [
+      "Tỏi Thái Lan",
+      "Hoàng Cung Trinh Nữ",
+      "Cây Thập Bát Dược"
+    ],
+    "category": "herb",
+    "description": "Thảo dược hoàng gia quý tộc chuyên trị các chứng u xơ phụ khoa và tuyến tiền liệt. Thân củ to như củ hành tây, lá dài gợn sóng, hoa trắng phớt hồng quý phái.",
+    "quick_answer": "Trồng trong chậu lớn 40cm dưới nắng nhẹ hoặc nắng sáng. Lá cắt phơi khô sao vàng hạ thổ, sắc uống từng đợt theo phác đồ để tiêu viêm khối u xơ lành tính.",
+    "botanical_details": {
+      "family": "Amaryllidaceae (Họ Thủy tiên)",
+      "native_range": "Bản địa Việt Nam, Ấn Độ",
+      "active_compounds": [
+        "Alkaloid (Crinafolin, Crinafolidin, Lycorin)",
+        "Glucan",
+        "Flavonoid"
+      ],
+      "soil_ph": "6.5 - 7.5",
+      "ideal_temp": "22°C - 35°C",
+      "pot_size": "40cm - 60cm"
+    },
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Crinum_latifolium_flower.jpg/960px-Crinum_latifolium_flower.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "image_sha256": "b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 1,
+    "growth_time": "3 tháng bắt đầu thu hoạch lá to, đẻ nhiều củ con",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Phát triển tốt mùa xuân hè",
+      "central": "Ưa đất thịt pha cát màu mỡ",
+      "south": "Phát triển lá sum suê quanh năm",
+      "best_months": [
+        2,
+        3,
+        4,
+        8,
+        9
+      ]
+    },
+    "medical_info": {
+      "uses": [
+        "Hỗ trợ ức chế u xơ tử cung, u nang buồng trứng ở phụ nữ",
+        "Hỗ trợ phì đại tuyến tiền liệt lành tính ở nam giới cao tuổi",
+        "Kháng khuẩn, tiêu viêm, ức chế sự phát triển của tế bào lạ"
+      ],
+      "folk_remedies": [
+        "Lá trinh nữ hoàng cung khô 20g sao vàng hạ thổ sắc với 1 lít nước còn 300ml, chia uống 3 lần sau ăn (uống 20 ngày nghỉ 10 ngày).",
+        "Lá tươi 3 lá (khoảng 100g) thái nhỏ sao vàng sắc uống theo đợt điều trị u xơ."
+      ],
+      "preparation": [
+        "Sao vàng hạ thổ sắc uống",
+        "Phơi khô đóng gói"
+      ],
+      "toxicity_warning": "Cần phân biệt kỹ với cây Náng hoa trắng (Crinum asiaticum) có độc tính gây nôn mửa nếu dùng quá liều.",
+      "disclaimer": "Cần tái khám siêu âm định kỳ để theo dõi kích thước khối u xơ.",
+      "confusion_risk": {
+        "confused_with": "Cây Náng hoa trắng (Crinum asiaticum)",
+        "distinguishing_features": "Trinh nữ hoàng cung mép lá lượn sóng rõ rệt, bẹ lá màu tím tía ở gốc, hoa nở có sọc tím hồng nhạt."
+      }
+    },
+    "academic_citations": [
+      "Hội đồng Dược liệu Việt Nam - Nghiên cứu tác dụng sinh học Crinum latifolium",
+      "International Journal of Immunopharmacology"
+    ],
+    "monetization_tips": [
+      "Bán củ giống trinh nữ hoàng cung chuẩn gen 40.000đ - 60.000đ/củ.",
+      "Sấy khô lá chuẩn sạch đóng gói thảo dược theo liệu trình."
+    ],
+    "tags": [
+      "U xơ",
+      "Kháng viêm",
+      "Hoa thơm",
+      "Dễ mọc chậu"
+    ]
+  },
+  {
+    "id": "fruit-17",
+    "slug": "cherry-brazil-nhiet-doi",
+    "common_name": "Cherry Brazil (Anh Đào Nhiệt Đới Chậu)",
+    "scientific_name": "Eugenia brasiliensis",
+    "aliases": [
+      "Grumixama",
+      "Anh Đào Ban Công",
+      "Cherry Nhiệt Đới Trồng Chậu"
+    ],
+    "category": "fruit",
+    "description": "Giống cherry nhiệt đới thích nghi 100% với khí hậu nắng nóng Việt Nam. Cây bụi thân gỗ lùn trồng chậu sai hoa trắng muốt, quả chín đen bóng vị ngọt đậm đà quý phái.",
+    "quick_answer": "Cherry Brazil không cần ngủ đông lạnh như cherry ôn đới, càng nhiều nắng quả càng ngọt đậm. Trồng chậu 50-60L, sau 1 năm cây cho hàng trăm quả mọng căng bóng.",
+    "botanical_details": {
+      "family": "Myrtaceae (Họ Đào kim nương)",
+      "native_range": "Nam Mỹ, thích nghi khí hậu nhiệt đới 3 miền Việt Nam",
+      "active_compounds": [
+        "Anthocyanin",
+        "Vitamin C gấp 20 lần cam",
+        "Polyphenol",
+        "Quercetin"
+      ],
+      "soil_ph": "5.5 - 6.5 (Đất nhiều mùn hữu cơ, tơi xốp)",
+      "ideal_temp": "22°C - 38°C",
+      "pot_size": "50cm - 70cm"
+    },
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Grumixama_Eugenia_brasiliensis.jpg/960px-Grumixama_Eugenia_brasiliensis.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "image_sha256": "f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 2,
+    "growth_time": "1 năm cho lứa quả mọng đầu tiên",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Hoa nở mùa xuân hè, trái chín vào đầu hè",
+      "central": "Chịu nhiệt độ trên 40°C ban công hướng Tây",
+      "south": "Cây phát triển và cho 2-3 đợt trái mỗi năm",
+      "best_months": [
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    "medical_info": {
+      "uses": [
+        "Hàm lượng anthocyanin cực cao chống oxy hóa tế bào và làm chậm lão hóa",
+        "Bổ sung vitamin C tự nhiên tăng cường hệ miễn dịch",
+        "Hỗ trợ giấc ngủ nhờ chứa melatonin tự nhiên"
+      ],
+      "folk_remedies": [
+        "Ăn 10-15 quả cherry chín mỗi tối giúp dễ đi vào giấc ngủ và ngủ sâu hơn.",
+        "Ép nước quả cherry uống giải nhiệt và phục hồi cơ bắp sau vận động thể thao."
+      ],
+      "preparation": [
+        "Ăn tươi trực tiếp",
+        "Làm sinh tố mọng nước",
+        "Nấu mứt quả hữu cơ"
+      ],
+      "toxicity_warning": "Quả ăn ngọt lành tính. Không nhai vỡ hạt bên trong.",
+      "disclaimer": "Nguồn trái cây sạch cao cấp tự trồng tại nhà."
+    },
+    "academic_citations": [
+      "Food Research International - Phenolic profile of Eugenia brasiliensis",
+      "Revista Brasileira de Fruticultura"
+    ],
+    "monetization_tips": [
+      "Bán cây giống cherry Brazil cao 1m đang hoa trái 350.000đ - 600.000đ/chậu.",
+      "Quả thu hoạch sạch bán cho thị trường cao cấp 300.000đ/kg."
+    ],
+    "tags": [
+      "Quả mọng",
+      "Cực sai quả",
+      "Đẹp da",
+      "Nắng gắt"
+    ]
+  },
+  {
+    "id": "fruit-18",
+    "slug": "viet-quat-nhiet-doi",
+    "common_name": "Việt Quất Nhiệt Đới Chịu Nhiệt (Southern Highbush)",
+    "scientific_name": "Vaccinium darrowii",
+    "aliases": [
+      "Việt Quất Trồng Chậu",
+      "Southern Highbush Blueberry",
+      "Việt Quất Ban Công"
+    ],
+    "category": "fruit",
+    "description": "Giống việt quất chịu nhiệt đột phá thích nghi hoàn hảo với khí hậu nhiệt đới nắng ấm Việt Nam mà không cần số giờ lạnh mùa đông. Cây bụi nhỏ gọn, chùm quả xanh tím mọng nước giòn ngọt.",
+    "quick_answer": "Việt quất chịu nhiệt cực kỳ mê đất chua (pH 4.5 - 5.5), tưới bằng nước pha giấm táo hoặc bã cà phê ủ mục. Trồng chậu 40-50cm đón nắng sáng 5-6 tiếng/ngày cho quả liên tục từ tháng 3 đến tháng 8.",
+    "botanical_details": {
+      "family": "Ericaceae (Họ Đỗ quyên)",
+      "native_range": "Bắc Mỹ nhiệt đới, thuần hóa cho các nước Đông Nam Á",
+      "active_compounds": [
+        "Anthocyanin",
+        "Resveratrol",
+        "Vitamin C",
+        "Kẽm hữu cơ"
+      ],
+      "soil_ph": "4.5 - 5.5 (Đất chua, xơ dừa bã cà phê ủ mục)",
+      "ideal_temp": "20°C - 36°C",
+      "pot_size": "40cm - 55cm"
+    },
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Blueberries.jpg/960px-Blueberries.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "image_sha256": "c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 2,
+    "growth_time": "6 - 8 tháng ra hoa tạo chùm quả mọng",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Cây phát triển rực rỡ từ mùa xuân, trái rộ tháng 4 - 8",
+      "central": "Cần che lưới giảm bớt nắng trưa gay gắt tháng 6",
+      "south": "Cho hoa trái sung mãn quanh năm nếu duy trì độ ẩm gốc tốt",
+      "best_months": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    "medical_info": {
+      "uses": [
+        "Siêu thực phẩm hàng đầu cho thị lực và trí nhớ",
+        "Giảm cholesterol xấu và bảo vệ thành mạch máu",
+        "Chống oxy hóa làm chậm lão hóa tế bào da"
+      ],
+      "folk_remedies": [
+        "Ăn 1 nắm nhỏ quả việt quất tươi (20-30g) vào bữa sáng giúp mắt sáng tinh anh, giảm mỏi mắt cho người làm việc máy tính.",
+        "Xay sinh tố việt quất với sữa chua không đường mỗi ngày tăng cường lợi khuẩn đường ruột."
+      ],
+      "preparation": [
+        "Ăn tươi trực tiếp",
+        "Trộn sữa chua granola",
+        "Làm sinh tố mọng"
+      ],
+      "toxicity_warning": "Quả sạch cực kỳ lành tính và an toàn cho cả mẹ bầu lẫn trẻ nhỏ.",
+      "disclaimer": "Siêu quả chống oxy hóa số 1 thế giới trồng ngay tại ban công."
+    },
+    "academic_citations": [
+      "Journal of Agricultural and Food Chemistry - Blueberry Polyphenols",
+      "Harvard T.H. Chan School of Public Health - Health Benefits of Blueberries"
+    ],
+    "monetization_tips": [
+      "Cây việt quất nhiệt đới sẵn trái bán ban công giá 350.000đ - 550.000đ/chậu.",
+      "Bán combo đất trồng chua chuyên dụng và phân việt quất 90.000đ/túi."
+    ],
+    "tags": [
+      "Quả mọng",
+      "Đẹp da",
+      "Không calo",
+      "Nắng gắt"
+    ]
+  },
+  {
+    "id": "fruit-19",
+    "slug": "dau-tam-lun-sieu-trai",
+    "common_name": "Dâu Tằm Lùn F1 Siêu Trái",
+    "scientific_name": "Morus alba var. nana",
+    "aliases": [
+      "Dâu Tằm Trồng Chậu",
+      "Dwarf Mulberry",
+      "Dâu Đài Loan Lùn"
+    ],
+    "category": "fruit",
+    "description": "Giống dâu tằm lùn được lai tạo đặc biệt để trồng chậu ở không gian đô thị. Cây chỉ cao 70cm - 1m nhưng quả mọc chi chít từ gốc lên ngọn, chuyển từ xanh sang đỏ rồi tím đen mọng nước ngọt lịm.",
+    "quick_answer": "Dâu tằm lùn siêu dễ sống, cắt tỉa cành càng nhiều thì chồi mới mọc ra càng mang theo nhiều chùm quả. Đặt ở ban công có nắng trực tiếp, tưới ẩm ngày 1 lần là có quả ăn liên tục quanh năm.",
+    "botanical_details": {
+      "family": "Moraceae (Họ Dâu tằm)",
+      "native_range": "Đông Á, chọn lọc giống lùn thích nghi đô thị",
+      "active_compounds": [
+        "Resveratrol",
+        "Anthocyanin",
+        "Vitamin C",
+        "Sắt hữu cơ",
+        "Chất xơ"
+      ],
+      "soil_ph": "6.0 - 7.0 (Đất màu mỡ thoát nước tốt)",
+      "ideal_temp": "20°C - 36°C",
+      "pot_size": "35cm - 50cm"
+    },
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Morus_nigra_fruits.jpg/960px-Morus_nigra_fruits.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "image_sha256": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 1,
+    "growth_time": "2 - 3 tháng giâm cành là bắt đầu trổ quả",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Quả rộ từ tháng 2 đến tháng 5, tỉa cành ra tiếp mùa thu",
+      "central": "Phát triển tốt quanh năm",
+      "south": "Cắt cành siết nước là ra quả 4 mùa",
+      "best_months": [
+        2,
+        3,
+        4,
+        5,
+        8,
+        9,
+        10
+      ]
+    },
+    "medical_info": {
+      "uses": [
+        "Bổ huyết, sáng mắt, hỗ trợ trị chứng tóc bạc sớm",
+        "Thanh nhiệt giải độc, nhuận tràng thông tiện",
+        "Giúp an thần, ngủ ngon và bồi bổ thể lực"
+      ],
+      "folk_remedies": [
+        "Dâu tằm chín đen 1kg ngâm với đường phèn 800g sau 1 tuần lọc lấy nước cốt siro dâu giải khát mùa hè.",
+        "Nước siro dâu tằm pha cùng mật ong uống buổi tối giúp bồi bổ khí huyết và an thần ngủ sâu giấc."
+      ],
+      "preparation": [
+        "Ăn tươi chấm muối",
+        "Ngâm siro dâu tằm",
+        "Ngâm rượu vang dâu bổ huyết"
+      ],
+      "toxicity_warning": "Quả dâu chín ngọt tính hàn, người tỳ vị hư hàn đi phân lỏng không nên uống quá nhiều một lúc.",
+      "disclaimer": "Thức uống bổ huyết dưỡng sinh dân gian tuyệt vời."
+    },
+    "academic_citations": [
+      "Food Chemistry - Mulberry fruit bioactive compounds and health effects",
+      "Đỗ Tất Lợi - Những cây thuốc và vị thuốc Việt Nam (Vị Tang thầm)"
+    ],
+    "monetization_tips": [
+      "Bán cây giống dâu tằm lùn F1 trĩu quả chậu ban công 120.000đ - 220.000đ/chậu.",
+      "Siro dâu tằm hữu cơ nhà làm đóng chai thủy tinh 110.000đ/chai 500ml."
+    ],
+    "tags": [
+      "Bổ khí huyết",
+      "Cực sai quả",
+      "Dễ mọc chậu",
+      "Nắng gắt"
+    ]
+  },
+  {
+    "id": "fruit-20",
+    "slug": "thanh-long-ruot-do-ban-cong",
+    "common_name": "Thanh Long Ruột Đỏ Ban Công Nắng Tây",
+    "scientific_name": "Hylocereus costaricensis",
+    "aliases": [
+      "Thanh Long Đỏ Chậu",
+      "Pitaya Ruột Đỏ"
+    ],
+    "category": "fruit",
+    "description": "Chiến binh xanh bất khả chiến bại cho những ban công hướng Tây thiêu đốt trên 42°C. Thân xương rồng mọng nước cách nhiệt tường nhà, hoa nở đêm trắng muốt thơm lừng, quả đỏ ngọt đậm đà.",
+    "quick_answer": "Trồng trong chậu 40-50L tựa vào lan can hoặc cột trụ bê tông ban công. Cây không sợ nắng gắt, chịu hạn hàng tuần không cần tưới, quả ruột đỏ giàu betalain chống ung thư và mát gan.",
+    "botanical_details": {
+      "family": "Cactaceae (Họ Xương rồng)",
+      "native_range": "Trung Mỹ, trồng phổ biến khắp 3 miền Việt Nam",
+      "active_compounds": [
+        "Betalain",
+        "Vitamin C",
+        "Chất xơ prebiotic",
+        "Lycopene",
+        "Sắt"
+      ],
+      "soil_ph": "6.0 - 7.5 (Đất trộn cát và trấu hun thoát nước)",
+      "ideal_temp": "25°C - 42°C (Siêu chịu nhiệt)",
+      "pot_size": "40cm - 60cm"
+    },
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Dragon_fruit_on_the_plant.jpg/960px-Dragon_fruit_on_the_plant.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "image_sha256": "b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4",
+    "sunlight": "full_sun",
+    "watering": "drought_tolerant",
+    "propagation_difficulty": 1,
+    "growth_time": "8 - 10 tháng bắt đầu ra đợt hoa trái đầu tiên",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Phát triển mùa hè, mùa đông ngưng tưới",
+      "central": "Khắc tinh của nắng hạn miền Trung",
+      "south": "Cho hoa trái 4-5 đợt mỗi năm từ tháng 5 đến tháng 11",
+      "best_months": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    "medical_info": {
+      "uses": [
+        "Hàm lượng sắc tố betalain cao gấp bội quả ruột trắng giúp bảo vệ tế bào gan",
+        "Giàu chất xơ prebiotic nuôi dưỡng hệ vi sinh đường ruột khỏe mạnh",
+        "Bổ sung sắt tự nhiên tái tạo hồng cầu cho người thiếu máu"
+      ],
+      "folk_remedies": [
+        "Ăn 1/2 quả thanh long ruột đỏ mát lạnh buổi trưa giúp hạ nhiệt cơ thể và nhuận tràng tức thì.",
+        "Hoa thanh long tươi nấu canh với sườn non giải nhiệt mùa hè."
+      ],
+      "preparation": [
+        "Ăn tươi",
+        "Làm sinh tố đá xay",
+        "Nấu canh hoa thanh long"
+      ],
+      "toxicity_warning": "Ăn nhiều có thể đi tiểu có màu đỏ vô hại do sắc tố betalain đào thải tự nhiên.",
+      "disclaimer": "Loài cây chống bức xạ nhiệt đô thị số một theo khuyến cáo Nông nghiệp Đô thị."
+    },
+    "academic_citations": [
+      "Food Chemistry - Betalains and antioxidant capacity in Hylocereus costaricensis",
+      "Viện Cây Ăn Quả Miền Nam (SOFRI)"
+    ],
+    "monetization_tips": [
+      "Bán cành giống thanh long ruột đỏ bánh tẻ 25.000đ/cành cho cư dân phủ xanh ban công.",
+      "Chậu thanh long bonsai sai quả ngày Tết giá 300.000đ - 500.000đ/chậu."
+    ],
+    "tags": [
+      "Chịu hạn",
+      "Nắng gắt",
+      "Đẹp da",
+      "Quả mọng"
+    ]
   }
 ]

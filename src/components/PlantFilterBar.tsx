@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { PlantCategory } from '../types/index.ts';
 import { SUBCATEGORIES } from '../data/collections.ts';
-import { allPlants } from '../data/plants.ts';
+import { allPlants as seedPlants } from '../data/plants.ts';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import {
   Filter,
@@ -34,6 +34,7 @@ export interface PlantFilterBarProps {
   onReset: () => void;
   hideCategorySelector?: boolean;
   availableTags?: { tag: string; count: number }[];
+  plants?: { category: string }[];
 }
 
 // Danh sách tags mặc định nếu chưa có tags tính toán
@@ -61,7 +62,8 @@ export const PlantFilterBar: React.FC<PlantFilterBarProps> = ({
   filteredCount,
   onReset,
   hideCategorySelector = false,
-  availableTags = []
+  availableTags = [],
+  plants = seedPlants
 }) => {
   const { isEn } = useLanguage();
 
@@ -157,10 +159,10 @@ export const PlantFilterBar: React.FC<PlantFilterBarProps> = ({
             {openSections.categories && (
               <div className="space-y-1.5">
                 {[
-                  { id: 'all', label: isEn ? 'All Categories' : 'Tất Cả Danh Mục', icon: '🌿', count: allPlants.length },
-                  { id: 'herb', label: isEn ? 'Native Medicinal Herbs' : 'Thảo Dược Bản Địa', icon: '🌱', count: allPlants.filter((p) => p.category === 'herb').length },
-                  { id: 'fruit', label: isEn ? 'Balcony Fruit Trees' : 'Cây Ăn Trái Ban Công', icon: '🍋', count: allPlants.filter((p) => p.category === 'fruit').length },
-                  { id: 'ornamental', label: isEn ? 'Ornamentals & Bonsai' : 'Cây Cảnh & Bonsai', icon: '🌸', count: allPlants.filter((p) => p.category === 'ornamental').length }
+                  { id: 'all', label: isEn ? 'All Categories' : 'Tất Cả Danh Mục', icon: '🌿', count: plants.length },
+                  { id: 'herb', label: isEn ? 'Native Medicinal Herbs' : 'Thảo Dược Bản Địa', icon: '🌱', count: plants.filter((p) => p.category === 'herb').length },
+                  { id: 'fruit', label: isEn ? 'Balcony Fruit Trees' : 'Cây Ăn Trái Ban Công', icon: '🍋', count: plants.filter((p) => p.category === 'fruit').length },
+                  { id: 'ornamental', label: isEn ? 'Ornamentals & Bonsai' : 'Cây Cảnh & Bonsai', icon: '🌸', count: plants.filter((p) => p.category === 'ornamental').length }
                 ].map((cat) => {
                   const isSelected = filters.category === cat.id;
                   return (

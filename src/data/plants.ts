@@ -1719,56 +1719,6 @@ export const SEED_PLANTS: Plant[] = [
     tags: ['Xương khớp', 'Kháng viêm', 'Giải độc gan', 'Dễ mọc chậu']
   },
   {
-    id: 'herb-28',
-    slug: 'ca-gai-leo',
-    common_name: 'Cà Gai Leo Chậu',
-    scientific_name: 'Solanum procumbens',
-    aliases: ['Cà Gai Dây', 'Cà Quánh', 'Cà Cặp Xà'],
-    category: 'herb',
-    description: 'Thảo dược vàng hàng đầu trong Y học Việt Nam về bảo vệ tế bào gan, hạ men gan cao, ức chế virus viêm gan B và đào thải độc tố rượu bia.',
-    quick_answer: 'Cà gai leo là loài cây bụi leo ưa nắng gắt, siêu chịu hạn. Trồng chậu có cọc chống, hái toàn bộ thân lá phơi khô hãm nước uống hàng ngày thay trà giải độc bia rượu.',
-    botanical_details: {
-      family: 'Solanaceae (Họ Cà)',
-      native_range: 'Bản địa Việt Nam, Lào, Campuchia',
-      active_compounds: ['Glycoalkaloid (Solasodin)', 'Flavonoid', 'Diosgenin', 'Saponin'],
-      soil_ph: '6.0 - 7.0 (Ưa đất pha cát thoát nước cực nhanh)',
-      ideal_temp: '22°C - 38°C',
-      pot_size: '30cm - 50cm'
-    },
-    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Solanum_trilobatum_L._-_Flickr_-_Lalithamba_%281%29.jpg/960px-Solanum_trilobatum_L._-_Flickr_-_Lalithamba_%281%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
-    image_sha256: 'b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2',
-    sunlight: 'full_sun',
-    watering: 'drought_tolerant',
-    propagation_difficulty: 1,
-    growth_time: '2-3 tháng bắt đầu cắt tỉa thân lá',
-    container_suitable: true,
-    seasonality: {
-      north: 'Trồng đầu xuân hè, mùa đông rụng bớt lá',
-      central: 'Chịu nắng gió miền Trung cực hạn',
-      south: 'Phát triển xanh tốt và sai quả đỏ quanh năm',
-      best_months: [2, 3, 4, 5, 9]
-    },
-    medical_info: {
-      uses: ['Hạ men gan cao (AST, ALT), hỗ trợ giảm gan nhiễm mỡ', 'Giải độc rượu bia, giảm mệt mỏi sau khi uống rượu', 'Hỗ trợ làm chậm xơ gan và ức chế virus viêm gan B'],
-      folk_remedies: [
-        'Cà gai leo khô 30g + Mật nhân 10g + Xạ đen 20g: Hãm cùng 1.5 lít nước sôi uống cả ngày mát gan hạ men.',
-        'Trước hoặc sau khi uống rượu bia, uống 1 cốc nước cà gai leo đậm đặc giúp cơ thể tỉnh táo và đào thải độc tố cồn nhanh chóng.'
-      ],
-      preparation: ['Sắc nước uống hàng ngày', 'Hãm trà túi lọc', 'Nấu cao thảo mộc'],
-      toxicity_warning: 'Không dùng cho phụ nữ đang mang thai và trẻ em dưới 6 tuổi.',
-      disclaimer: 'Đề tài cấp Nhà nước của Viện Dược Liệu chứng minh hiệu quả bảo vệ gan.'
-    },
-    academic_citations: [
-      'Đề tài nghiên cứu cấp Nhà nước KHCN 11-05 - Viện Dược Liệu Quốc Gia',
-      'Viện Dược Liệu - Tác dụng bảo vệ gan của Glycoalkaloid Solanum procumbens'
-    ],
-    monetization_tips: [
-      'Bán cây giống cà gai leo thuần chậu ban công nắng Tây 35.000đ/chậu.',
-      'Thu hoạch thân lá phơi khô đóng túi trà 180.000đ/kg.'
-    ],
-    tags: ['Giải độc gan', 'Hạ men gan', 'Chịu hạn', 'Nắng gắt']
-  },
-  {
     id: 'herb-29',
     slug: 'bach-hoa-xa-thiet-thao',
     common_name: 'Bạch Hoa Xà Thiệt Thảo',
@@ -1919,106 +1869,6 @@ export const SEED_PLANTS: Plant[] = [
     tags: ['Tắc tia sữa', 'Mát gan', 'Kháng sinh tự nhiên', 'Dễ mọc chậu']
   },
   {
-    id: 'herb-32',
-    slug: 'mach-mon-dong',
-    common_name: 'Mạch Môn Đông',
-    scientific_name: 'Ophiopogon japonicus',
-    aliases: ['Mạch Môn', 'Lan Tiêu', 'Duyên Giới Thảo'],
-    category: 'herb',
-    description: 'Cây thảo mộc viền xanh mướt như cỏ cảnh nhưng dưới gốc kết củ dồi dào chất nhầy ophiopogonin. Thần dược nhuận phế, cắt đứt cơn ho khan, rát họng mùa hanh khô.',
-    quick_answer: 'Mạch môn chịu bóng rất tốt, thường trồng viền chậu cây cảnh hoặc chậu ban công hướng râm. Củ thu hoạch sau 1-2 năm rửa sạch phơi khô nấu chè dưỡng nhan hoặc chưng mật ong trị ho.',
-    botanical_details: {
-      family: 'Asparagaceae (Họ Măng tây)',
-      native_range: 'Đông Á và Việt Nam',
-      active_compounds: ['Ophiopogonin A-D', 'Ophiopogonanone', 'Polysaccharide', 'Choline'],
-      soil_ph: '6.0 - 7.0',
-      ideal_temp: '18°C - 30°C',
-      pot_size: '25cm - 35cm'
-    },
-    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Ophiopogon_japonicus2.jpg/960px-Ophiopogon_japonicus2.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
-    image_sha256: 'f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6',
-    sunlight: 'partial_shade',
-    watering: 'moderate',
-    propagation_difficulty: 1,
-    growth_time: '1 năm bắt đầu thu hoạch chùm củ trắng ngà',
-    container_suitable: true,
-    seasonality: {
-      north: 'Phát triển xanh tốt 4 mùa quanh năm',
-      central: 'Chịu đất ẩm mát tốt',
-      south: 'Trồng nơi có bóng râm hoặc ban công hướng Bắc',
-      best_months: [2, 3, 8, 9]
-    },
-    medical_info: {
-      uses: ['Trị ho khan, ho lâu ngày không dứt, khản tiếng mất giọng', 'Nhuận tràng trị táo bón do nhiệt ở người già', 'Thanh tâm, hạ nhiệt, an thần ngủ ngon giấc'],
-      folk_remedies: [
-        'Củ mạch môn 12g + Tang bạch bì (vỏ rễ dâu) 10g + Cam thảo 4g: Sắc với 400ml nước còn 200ml uống ấm dứt cơn ho khan rát họng.',
-        'Mạch môn 10g nấu cùng hạt sen và táo đỏ làm chè dưỡng nhan ngủ sâu giấc.'
-      ],
-      preparation: ['Củ chưng đường phèn', 'Sắc uống', 'Nấu chè thảo dược dưỡng sinh'],
-      toxicity_warning: 'Không dùng cho người đang bị tiêu chảy do lạnh bụng tỳ vị hư.',
-      disclaimer: 'Dược liệu xếp vào thượng phẩm bồi bổ trong Đông y.'
-    },
-    academic_citations: [
-      'Dược điển Việt Nam - Vị thuốc Mạch môn đông',
-      'Phytochemistry - Steroidal saponins from Ophiopogon japonicus'
-    ],
-    monetization_tips: [
-      'Trồng vừa làm cảnh viền bồn cây xanh mát vừa thu củ bán dược liệu.',
-      'Cung cấp khay giống mạch môn cho cảnh quan đô thị.'
-    ],
-    tags: ['Trị ho', 'Củ sâm quý', 'Bổ khí huyết', 'Lọc không khí']
-  },
-  {
-    id: 'herb-33',
-    slug: 'cuc-tan-nep',
-    common_name: 'Cúc Tần Nếp (Từ Bi)',
-    scientific_name: 'Pluchea indica',
-    aliases: ['Cây Từ Bi', 'Cúc Tần Trắng', 'Lức Cây'],
-    category: 'herb',
-    description: 'Cây bụi thơm lừng mùi tinh dầu sảng khoái quen thuộc nơi hàng rào quê xưa. Chuyên gia trị đau nhức lưng, thoái hóa cột sống, xông giải cảm sốt không ra mồ hôi.',
-    quick_answer: 'Cúc tần cực kỳ dễ sống, giâm cành 1 tuần là bén rễ. Bẻ lá ngửi thấy mùi thơm dễ chịu như chanh sả pha thảo mộc. Dùng lá xào với cám gạo hoặc ngâm rượu bóp lưng rất nhanh nhẹn.',
-    botanical_details: {
-      family: 'Asteraceae (Họ Cúc)',
-      native_range: 'Vùng nhiệt đới châu Á, khắp 3 miền Việt Nam',
-      active_compounds: ['Tinh dầu L-borneol', 'Cineol', 'Camphor', 'Flavonoid'],
-      soil_ph: '6.0 - 7.5',
-      ideal_temp: '22°C - 38°C',
-      pot_size: '35cm - 50cm'
-    },
-    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Pluchea_indica_flowers.jpg/960px-Pluchea_indica_flowers.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
-    image_sha256: 'a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7',
-    sunlight: 'full_sun',
-    watering: 'moderate',
-    propagation_difficulty: 1,
-    growth_time: '25 ngày cắt cành tỉa lá làm thuốc',
-    container_suitable: true,
-    seasonality: {
-      north: 'Chịu rét tốt, mùa hè phát triển cực mạnh',
-      central: 'Chịu đất cằn và nắng nóng ven biển',
-      south: 'Xanh tốt quanh năm',
-      best_months: [2, 3, 4, 8, 9]
-    },
-    medical_info: {
-      uses: ['Trị đau lưng, đau thần kinh tọa, gai cột sống', 'Xông giải cảm hàn, sổ mũi, nhức đầu nghẹt mũi', 'Hỗ trợ tiêu hóa, trị chứng đầy hơi khó tiêu'],
-      folk_remedies: [
-        'Lá cúc tần 1 nắm to rửa sạch giã nát trộn 1 bát cám gạo và 1 chén giấm nuôi, sao nóng chườm vào vùng lưng đau nhức 30 phút.',
-        'Lá cúc tần + Lá chanh + Sả + Hương nhu: Nấu nồi nước xông trùm chăn kín cho toát mồ hôi giải cảm sốt tức thì.'
-      ],
-      preparation: ['Chườm nóng lưng', 'Nấu nước xông giải cảm', 'Ăn sống cuốn bánh tráng'],
-      toxicity_warning: 'Lành tính, an toàn tuyệt đối. Mùi tinh dầu rất thơm đuổi côn trùng.',
-      disclaimer: 'Phương thuốc chườm lưng gia truyền được lưu truyền rộng rãi trong dân gian.'
-    },
-    academic_citations: [
-      'Journal of Natural Medicines - Anti-inflammatory properties of Pluchea indica',
-      'Những cây thuốc và vị thuốc Việt Nam'
-    ],
-    monetization_tips: [
-      'Bán bụi cúc tần thơm trồng ban công xua muỗi và làm thuốc 35.000đ/bầu.',
-      'Làm túi thảo mộc chườm nóng ngải cứu - cúc tần giảm đau cổ vai gáy.'
-    ],
-    tags: ['Xương khớp', 'Giải cảm', 'Hoa thơm', 'Dễ trồng']
-  },
-  {
     id: 'herb-34',
     slug: 'trinh-nu-hoang-cung',
     common_name: 'Trinh Nữ Hoàng Cung',
@@ -2072,110 +1922,10 @@ export const SEED_PLANTS: Plant[] = [
     ],
     tags: ['U xơ', 'Kháng viêm', 'Hoa thơm', 'Dễ mọc chậu']
   },
-  {
-    id: 'herb-35',
-    slug: 'cay-co-muc-nho-noi',
-    common_name: 'Cây Cỏ Mực (Nhọ Nồi Thảo)',
-    scientific_name: 'Eclipta prostrata',
-    aliases: ['Cỏ Nhọ Nồi', 'Hạn Liên Thảo', 'Mặc Hán Liên'],
-    category: 'herb',
-    description: 'Thảo dược kỳ diệu khi vò nát tiết ra dịch đen như mực. Bậc thầy cầm máu tự nhiên, thanh can nhiệt, làm đen tóc mượt râu và hạ sốt xuất huyết an toàn.',
-    quick_answer: 'Cỏ mực tự gieo hạt mọc quanh năm, thích đất ẩm màu mỡ. Khi bị đứt tay hoặc chảy máu cam, vò nát lá nhét vào vết thương hoặc uống nước cốt hạ sốt nhanh.',
-    botanical_details: {
-      family: 'Asteraceae (Họ Cúc)',
-      native_range: 'Phổ biến khắp vùng nhiệt đới và cận nhiệt đới châu Á',
-      active_compounds: ['Wedelolactone', 'Nicotine', 'Ecliptine', 'Tanin', 'Vitamin K'],
-      soil_ph: '6.0 - 7.5',
-      ideal_temp: '22°C - 35°C',
-      pot_size: '20cm - 30cm'
-    },
-    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Eclipta_prostrata_1.jpg/960px-Eclipta_prostrata_1.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
-    image_sha256: 'c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9',
-    sunlight: 'full_sun',
-    watering: 'daily',
-    propagation_difficulty: 1,
-    growth_time: '25 ngày cắt cành thu hoạch, hoa nở rộ',
-    container_suitable: true,
-    seasonality: {
-      north: 'Trồng từ tháng 3 - 10, tự rụng hạt nảy mầm vụ sau',
-      central: 'Mọc tốt mọi mùa',
-      south: 'Sinh trưởng xanh tươi quanh năm',
-      best_months: [3, 4, 5, 8, 9]
-    },
-    medical_info: {
-      uses: ['Cầm máu vết thương hở, rong kinh, chảy máu cam, trĩ ra máu', 'Hạ sốt cao, sốt xuất huyết ở trẻ nhỏ và người lớn an toàn', 'Bổ can thận, dưỡng đen tóc, trị tóc bạc sớm'],
-      folk_remedies: [
-        'Cỏ mực tươi 50g giã nát vắt nước cốt uống, bã đắp lên trán giúp hạ sốt xuất huyết và ngăn ngừa xuất huyết dưới da.',
-        'Cỏ mực khô 20g + Hà thủ ô đỏ 15g + Đậu đen xanh lòng 20g: Nấu nước uống hàng ngày giúp đen tóc mượt da.'
-      ],
-      preparation: ['Giã lấy nước cốt tươi', 'Phơi khô sắc uống', 'Nấu dầu dưỡng tóc'],
-      toxicity_warning: 'Lành tính không độc. Phụ nữ có thai hoặc người tỳ vị hư hàn đi ngoài phân lỏng không nên dùng nhiều.',
-      disclaimer: 'Dược liệu cầm máu kinh điển được ghi trong Dược điển Quốc gia.'
-    },
-    academic_citations: [
-      'Dược điển Việt Nam V - Chuyên luận Hạn liên thảo',
-      'Journal of Ethnopharmacology - Hemostatic activities of Eclipta prostrata'
-    ],
-    monetization_tips: [
-      'Chiết xuất tinh chất cỏ mực làm dầu gội đầu phủ đen tóc thảo mộc hữu cơ.',
-      'Bán chậu thảo dược sơ cứu gia đình ban công 25.000đ/chậu.'
-    ],
-    tags: ['Cầm máu', 'Hạ sốt', 'Đẹp da', 'Dễ mọc chậu']
-  },
 
-  // 5 CÂY ĂN TRÁI BAN CÔNG MỚI (FRUITS: fruit-11 ĐẾN fruit-15)
+  // 5 CÂY ĂN TRÁI BAN CÔNG MỚI (FRUITS: fruit-16 ĐẾN fruit-20)
   {
-    id: 'fruit-11',
-    slug: 'tac-cam-thach-quat-ngot',
-    common_name: 'Tắc Cẩm Thạch (Quất Ngọt Ăn Cả Vỏ)',
-    scientific_name: 'Citrus japonica',
-    aliases: ['Quất Cẩm Thạch', 'Kim Quất Đột Biến', 'Tắc Ăn Cả Vỏ'],
-    category: 'fruit',
-    description: 'Giống quất đột biến tuyệt mỹ với phiến lá và quả vân sọc cẩm thạch trắng xanh. Đặc biệt ăn được cả vỏ với vị ngọt thanh giòn rụm không hề đắng cay.',
-    quick_answer: 'Tắc cẩm thạch vừa làm cây phong thủy đón tài lộc vừa cho quả ăn vặt ngọt giòn tại chỗ. Cây sinh trưởng tốt trong chậu 35L, ưa nắng trực tiếp và bón phân hữu cơ định kỳ.',
-    botanical_details: {
-      family: 'Rutaceae (Họ Cam)',
-      native_range: 'Đột biến tuyển chọn, thích nghi tuyệt hảo khí hậu Việt Nam',
-      active_compounds: ['Vitamin C', 'Flavonoid vỏ cam', 'Carotenoid', 'Tinh dầu d-limonene'],
-      soil_ph: '6.0 - 7.0',
-      ideal_temp: '20°C - 36°C',
-      pot_size: 'Đường kính 35cm - 50cm'
-    },
-    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Kumquats_on_tree.jpg/960px-Kumquats_on_tree.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
-    image_sha256: 'e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1',
-    sunlight: 'full_sun',
-    watering: 'moderate',
-    propagation_difficulty: 2,
-    growth_time: 'Ra quả bốn mùa quanh năm',
-    container_suitable: true,
-    seasonality: {
-      north: 'Rực rỡ nhất vụ Tết cổ truyền',
-      central: 'Chịu nắng gắt ban công cực tốt',
-      south: 'Cho hoa trái thơm ngát liên tục',
-      best_months: [1, 2, 8, 9, 10, 11, 12]
-    },
-    medical_info: {
-      uses: ['Cung cấp vitamin C và chất chống oxy hóa tự nhiên từ vỏ quả', 'Làm dịu cổ họng, giảm ngứa rát họng khi nhai cả vỏ', 'Kích thích tiêu hóa, thông khí, giảm đầy trướng bụng'],
-      folk_remedies: [
-        'Hái 3-5 quả tắc cẩm thạch chín rửa sạch, nhai cả vỏ nuốt nước từ từ trị khan tiếng tức thì.',
-        'Chưng tắc cẩm thạch với đường phèn làm siro ngọt dịu cho bé.'
-      ],
-      preparation: ['Ăn tươi cả vỏ', 'Làm mứt quất cẩm thạch', 'Pha trà tắc mật ong'],
-      toxicity_warning: 'Hoàn toàn an toàn, vỏ ngọt bùi không đắng cay.',
-      disclaimer: 'Cây ăn trái sạch hữu cơ an toàn cho gia đình.'
-    },
-    academic_citations: [
-      'Horticultural Science - Citrus japonica variegated cultivar traits',
-      'Journal of Agricultural and Food Chemistry'
-    ],
-    monetization_tips: [
-      'Cây bonsai tắc cẩm thạch chưng bàn trà Tết giá 600.000đ - 1.200.000đ/chậu.',
-      'Bán cành giâm và cây giống F1 thuần chậu 80.000đ - 120.000đ/cây.'
-    ],
-    tags: ['Phong thủy', 'Cực sai quả', 'Ngọt tự nhiên', 'Nắng gắt']
-  },
-  {
-    id: 'fruit-12',
+    id: 'fruit-17',
     slug: 'cherry-brazil-nhiet-doi',
     common_name: 'Cherry Brazil (Anh Đào Nhiệt Đới Chậu)',
     scientific_name: 'Eugenia brasiliensis',
@@ -2225,7 +1975,7 @@ export const SEED_PLANTS: Plant[] = [
     tags: ['Quả mọng', 'Cực sai quả', 'Đẹp da', 'Nắng gắt']
   },
   {
-    id: 'fruit-13',
+    id: 'fruit-18',
     slug: 'viet-quat-nhiet-doi',
     common_name: 'Việt Quất Nhiệt Đới Chịu Nhiệt (Southern Highbush)',
     scientific_name: 'Vaccinium darrowii',
@@ -2275,7 +2025,7 @@ export const SEED_PLANTS: Plant[] = [
     tags: ['Quả mọng', 'Đẹp da', 'Không calo', 'Nắng gắt']
   },
   {
-    id: 'fruit-14',
+    id: 'fruit-19',
     slug: 'dau-tam-lun-sieu-trai',
     common_name: 'Dâu Tằm Lùn F1 Siêu Trái',
     scientific_name: 'Morus alba var. nana',
@@ -2325,7 +2075,7 @@ export const SEED_PLANTS: Plant[] = [
     tags: ['Bổ khí huyết', 'Cực sai quả', 'Dễ mọc chậu', 'Nắng gắt']
   },
   {
-    id: 'fruit-15',
+    id: 'fruit-20',
     slug: 'thanh-long-ruot-do-ban-cong',
     common_name: 'Thanh Long Ruột Đỏ Ban Công Nắng Tây',
     scientific_name: 'Hylocereus costaricensis',
