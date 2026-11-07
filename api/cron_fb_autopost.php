@@ -17,6 +17,8 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 header('Content-Type: application/json; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
 
+defined('YTC_APP') or define('YTC_APP', true);
+
 $isCli = (php_sapi_name() === 'cli' || defined('STDIN'));
 
 // 1. Nạp file cấu hình bảo mật
