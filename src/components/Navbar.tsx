@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import {
   Search,
   ShieldCheck,
   HeartHandshake,
   Mic,
+  MicOff,
   User,
   MapPin,
   MessageCircle,
@@ -52,9 +53,13 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenMyGarden,
 }) => {
   void onOpenMyGarden;
+  const navigate = useNavigate();
+  const location = useLocation();
   const { language, toggleLanguage, t, isEn } = useLanguage();
   const { toggleTheme, isDark } = useTheme();
   const [isListening, setIsListening] = useState(false);
+  const [speechNotice, setSpeechNotice] = useState<string | null>(null);
+  const recognitionRef = useRef<any>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -75,15 +80,125 @@ export const Navbar: React.FC<NavbarProps> = ({
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.stop();
+        } catch {
+          // ignore
+        }
+      }
     };
   }, []);
 
+  // Tìm kiếm bằng giọng nói thật (Web Speech API - SpeechRecognition)
   const handleVoiceSearch = () => {
-    setIsListening(true);
-    setTimeout(() => {
-      onSearchChange(isEn ? 'Indian Borage' : 'Húng Chanh');
+    // Nếu đang lắng nghe thì click để dừng lại
+    if (isListening) {
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.stop();
+        } catch {
+          // ignore
+        }
+      }
       setIsListening(false);
-    }, 1500);
+      setSpeechNotice(null);
+      return;
+    }
+
+    const SpeechRecognition =
+      (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      setSpeechNotice(
+        isEn
+          ? 'Voice search requires Web Speech API. Please open in Chrome, Edge, Safari, or CocCoc.'
+          : 'Trình duyệt hiện tại chưa hỗ trợ Web Speech API. Vui lòng mở trang trên Google Chrome, Edge, Safari hoặc Cốc Cốc để tìm bằng giọng nói.'
+      );
+      setTimeout(() => setSpeechNotice(null), 5000);
+      return;
+    }
+
+    try {
+      const recognition = new SpeechRecognition();
+      recognitionRef.current = recognition;
+
+      recognition.lang = language === 'vi' ? 'vi-VN' : 'en-US';
+      recognition.continuous = false;
+      recognition.interimResults = true;
+      recognition.maxAlternatives = 1;
+
+      recognition.onstart = () => {
+        setIsListening(true);
+        setSpeechNotice(
+          isEn
+            ? 'Listening... Speak a plant name (e.g. "Indian Borage", "Tomato")'
+            : 'Đang lắng nghe... Hãy nói tên cây hoặc bệnh lá (ví dụ: "Húng chanh", "Rệp sáp")'
+        );
+      };
+
+      recognition.onresult = (event: any) => {
+        let interim = '';
+        let final = '';
+        for (let i = event.resultIndex; i < event.results.length; ++i) {
+          if (event.results[i].isFinal) {
+            final += event.results[i][0].transcript;
+          } else {
+            interim += event.results[i][0].transcript;
+          }
+        }
+        const text = (final || interim).trim();
+        if (text) {
+          onSearchChange(text);
+          if (location.pathname !== '/') {
+            navigate('/');
+          }
+        }
+      };
+
+      recognition.onerror = (event: any) => {
+        console.warn('Speech recognition error:', event.error);
+        setIsListening(false);
+        if (event.error === 'not-allowed' || event.error === 'permission-denied') {
+          setSpeechNotice(
+            isEn
+              ? 'Microphone permission denied. Please allow microphone access in your browser.'
+              : 'Quyền truy cập Micro bị từ chối. Vui lòng bật cấp quyền Micro trên trình duyệt.'
+          );
+        } else if (event.error === 'no-speech') {
+          setSpeechNotice(
+            isEn
+              ? 'No speech detected. Please speak closer to your microphone.'
+              : 'Chưa nghe thấy giọng nói. Vui lòng thử nói lại gần micro hơn.'
+          );
+        } else {
+          setSpeechNotice(
+            isEn
+              ? 'Could not recognize speech. Please try again or type keywords.'
+              : 'Không thể nhận diện giọng nói lúc này. Vui lòng thử lại.'
+          );
+        }
+        setTimeout(() => setSpeechNotice(null), 4500);
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+        setTimeout(() => {
+          setSpeechNotice((prev) => (prev && prev.includes('Đang lắng nghe') ? null : prev));
+        }, 1500);
+      };
+
+      recognition.start();
+    } catch (err: any) {
+      console.warn('SpeechRecognition start failed:', err);
+      setIsListening(false);
+      setSpeechNotice(
+        isEn
+          ? 'Failed to access microphone. Please check your browser permissions.'
+          : 'Không thể khởi động micro. Vui lòng kiểm tra quyền thiết bị trên trình duyệt.'
+      );
+      setTimeout(() => setSpeechNotice(null), 4500);
+    }
   };
 
   return (
@@ -113,17 +228,45 @@ export const Navbar: React.FC<NavbarProps> = ({
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
               placeholder={t('common.searchPlaceholder')}
-              className="w-full pl-10 pr-10 py-2.5 bg-white dark:bg-charcoal-800 border border-forest-100 dark:border-forest-800 rounded-full text-sm text-charcoal-900 dark:text-cream-50 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-herbal-500 focus:border-transparent transition shadow-inner"
+              className={`w-full pl-10 pr-10 py-2.5 bg-white dark:bg-charcoal-800 border rounded-full text-sm text-charcoal-900 dark:text-cream-50 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none transition shadow-inner ${
+                isListening
+                  ? 'border-red-500 ring-2 ring-red-400/50'
+                  : 'border-forest-100 dark:border-forest-800 focus:ring-2 focus:ring-herbal-500 focus:border-transparent'
+              }`}
             />
             <button
+              type="button"
               onClick={handleVoiceSearch}
-              title={t('common.voiceSearch')}
+              title={isListening ? (isEn ? 'Stop listening' : 'Dừng nghe') : t('common.voiceSearch')}
               className={`absolute right-2.5 p-1.5 rounded-full transition ${
-                isListening ? 'bg-red-100 text-red-600 animate-pulse' : 'text-forest-700 dark:text-forest-400 hover:bg-forest-50 dark:hover:bg-charcoal-700'
+                isListening
+                  ? 'bg-red-500 text-white animate-pulse shadow-md ring-2 ring-red-300'
+                  : 'text-forest-700 dark:text-forest-400 hover:bg-forest-50 dark:hover:bg-charcoal-700'
               }`}
             >
               <Mic className="w-4 h-4" />
             </button>
+
+            {/* Thông báo trạng thái giọng nói (Desktop) */}
+            {speechNotice && (
+              <div className="absolute top-full left-0 right-0 mt-1.5 p-2.5 rounded-xl bg-forest-950/95 dark:bg-charcoal-950/95 text-white text-xs shadow-2xl border border-forest-700/80 backdrop-blur-md z-50 flex items-center justify-between gap-2 animate-in fade-in slide-in-from-top-1">
+                <div className="flex items-center gap-2 min-w-0">
+                  {isListening ? (
+                    <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping shrink-0" />
+                  ) : (
+                    <MicOff className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                  )}
+                  <span className="truncate">{speechNotice}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setSpeechNotice(null)}
+                  className="text-gray-400 hover:text-white shrink-0 p-0.5"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Desktop Action Links (lg+ screens) */}
@@ -666,7 +809,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         )}
 
         {/* Mobile Search Bar (< md screens) */}
-        <div className="flex md:hidden px-1 pb-2.5 w-full">
+        <div className="flex md:hidden px-1 pb-2.5 w-full flex-col relative">
           <div className="flex flex-1 items-center relative">
             <Search className="w-3.5 h-3.5 text-forest-700 dark:text-forest-400 absolute left-3 pointer-events-none" />
             <input
@@ -674,18 +817,46 @@ export const Navbar: React.FC<NavbarProps> = ({
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
               placeholder={t('common.searchPlaceholder')}
-              className="w-full pl-8 pr-8 py-2 bg-white dark:bg-charcoal-800 border border-forest-100 dark:border-forest-800 rounded-full text-xs text-charcoal-900 dark:text-cream-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-herbal-500 shadow-inner"
+              className={`w-full pl-8 pr-8 py-2 bg-white dark:bg-charcoal-800 border rounded-full text-xs text-charcoal-900 dark:text-cream-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none shadow-inner ${
+                isListening
+                  ? 'border-red-500 ring-2 ring-red-400/50'
+                  : 'border-forest-100 dark:border-forest-800 focus:ring-2 focus:ring-herbal-500'
+              }`}
             />
             <button
+              type="button"
               onClick={handleVoiceSearch}
-              title={t('common.voiceSearch')}
+              title={isListening ? (isEn ? 'Stop listening' : 'Dừng nghe') : t('common.voiceSearch')}
               className={`absolute right-1.5 p-1 rounded-full transition ${
-                isListening ? 'bg-red-100 text-red-600 animate-pulse' : 'text-forest-700 dark:text-forest-400 hover:bg-forest-50 dark:hover:bg-charcoal-700'
+                isListening
+                  ? 'bg-red-500 text-white animate-pulse shadow-md ring-2 ring-red-300'
+                  : 'text-forest-700 dark:text-forest-400 hover:bg-forest-50 dark:hover:bg-charcoal-700'
               }`}
             >
               <Mic className="w-3.5 h-3.5" />
             </button>
           </div>
+
+          {/* Thông báo trạng thái giọng nói (Mobile) */}
+          {speechNotice && (
+            <div className="mt-1.5 p-2 rounded-xl bg-forest-950/95 dark:bg-charcoal-950/95 text-white text-[11px] shadow-2xl border border-forest-700/80 backdrop-blur-md z-50 flex items-center justify-between gap-2 animate-in fade-in slide-in-from-top-1">
+              <div className="flex items-center gap-1.5 min-w-0">
+                {isListening ? (
+                  <span className="w-2 h-2 rounded-full bg-red-500 animate-ping shrink-0" />
+                ) : (
+                  <MicOff className="w-3 h-3 text-amber-400 shrink-0" />
+                )}
+                <span className="truncate">{speechNotice}</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setSpeechNotice(null)}
+                className="text-gray-400 hover:text-white shrink-0 p-0.5"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </header>
