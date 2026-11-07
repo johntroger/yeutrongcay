@@ -407,13 +407,11 @@ if (!$enabled || empty($pageId) || empty($pageToken) || strpos($pageToken, 'YOUR
         'note' => 'Hệ thống đã hoạt động chính xác 100%. Vui lòng điền page_id và page_access_token thật vào api/config.php để đẩy lên Fanpage thực tế.'
     ];
 } else {
-    // Chuẩn bị URL ảnh độ phân giải cao cho Photo Post
-    $photoUrl = $plantData['image_url'] ?? '';
-    if (!empty($photoUrl) && strpos($photoUrl, '/330px-') !== false) {
-        $photoUrl = preg_replace('/\/330px-/', '/960px-', $photoUrl);
-    }
-    if (empty($photoUrl)) {
-        $photoUrl = "{$baseUrl}/public/banner-bg-hero.jpg";
+    // Chuẩn bị URL ảnh độ phân giải cao 1200x630 trực tiếp từ máy chủ yeutrongcay.com
+    // (Bảo đảm 100% không bị lỗi Wikimedia 403 chặn bot Facebook khi cào ảnh từ bên thứ ba)
+    $photoUrl = "{$baseUrl}/api/og_image.php?slug=" . urlencode($slug);
+    if (!empty($plantData['image_url']) && strpos($plantData['image_url'], 'wikimedia.org') === false) {
+        $photoUrl = $plantData['image_url'];
     }
 
     $publishUrl = "https://graph.facebook.com/{$graphVer}/{$pageId}/photos";
