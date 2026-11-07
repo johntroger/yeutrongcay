@@ -31,13 +31,34 @@ const MODERATION_RULES: {
     reason: 'Loài thực vật quý hiếm nằm trong Sách Đỏ hoặc Nhóm IA cấm khai thác hoang dã trái phép (Nghị định 06/2019/NĐ-CP).',
     suggestion: 'Chỉ được phép trao đổi giống cây đã thuần dưỡng có hồ sơ nguồn gốc từ cơ sở ươm tạo giống hợp pháp.'
   },
-  // 2. Loài ngoại lai xâm hại nguy hiểm (Thông tư 35/2018/TT-BTNMT)
+  // 2. Loài ngoại lai xâm hại nguy hiểm (Thông tư 35/2018/TT-BTNMT Bộ TN&MT)
   {
-    keywords: ['mai dương', 'trinh nữ móc gai', 'mimosa pigra', 'ốc bươu vàng', 'pomacea', 'cúc bò lan', 'cỏ chổi', 'orobanche'],
+    keywords: [
+      'mai dương',
+      'trinh nữ móc',
+      'mimosa pigra',
+      'mimosa diplotricha',
+      'ốc bươu vàng',
+      'pomacea canaliculata',
+      'rùa tai đỏ',
+      'trachemys scripta',
+      'tôm càng đỏ',
+      'tôm hùm đất',
+      'cá lau kiếng',
+      'cá tỳ bà',
+      'cúc bò lan',
+      'cỏ chổi',
+      'orobanche',
+      'cúc leo gai',
+      'mikania micrantha',
+      'cây bông ổi dại',
+      'lantana camara',
+      'bèo tây đột biến'
+    ],
     category: 'invasive',
     isBlocked: true,
-    reason: 'Sinh vật ngoại lai xâm hại nguy hại, đe dọa đa dạng sinh học và thảm thực vật bản địa (TT 35/2018/TT-BTNMT).',
-    suggestion: 'Hệ thống Yêu Trồng Cây nghiêm cấm chia sẻ, nhân nuôi hoặc phát tán các loài ngoại lai xâm hại.'
+    reason: 'Sinh vật ngoại lai xâm hại nguy hiểm, đe dọa đa dạng sinh học và thảm thực vật bản địa (Quy định tại Thông tư 35/2018/TT-BTNMT của Bộ Tài nguyên & Môi trường).',
+    suggestion: 'Hệ thống Yêu Trồng Cây nghiêm cấm trao đổi, phát tán hoặc tặng giống các loài thuộc danh mục ngoại lai xâm hại.'
   },
   // 3. Hóa chất bảo vệ thực vật cực độc đã bị cấm hoàn toàn tại Việt Nam
   {

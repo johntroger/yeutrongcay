@@ -892,6 +892,37 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
                 </span>
               </div>
 
+              {/* Khối Cảnh Báo An Toàn Dược Liệu & Chống Chỉ Định (WCAG AAA High-Contrast) */}
+              {(plant.medical_info.toxicity_warning || plant.medical_info.confusion_risk) && (
+                <div className="p-4 sm:p-5 rounded-2xl bg-amber-50/90 dark:bg-amber-950/40 border-2 border-amber-300 dark:border-amber-700/60 shadow-sm space-y-3">
+                  <div className="flex items-center gap-2 text-amber-900 dark:text-amber-200">
+                    <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0" />
+                    <span className="font-bold text-sm sm:text-base uppercase tracking-wide">
+                      {isEn ? 'Safety Notice & Contraindications' : 'Khuyến Cáo An Toàn & Chống Chỉ Định Dược Liệu'}
+                    </span>
+                  </div>
+
+                  {plant.medical_info.toxicity_warning && (
+                    <div className="text-xs sm:text-sm text-slate-800 dark:text-amber-100 leading-relaxed font-medium pl-7">
+                      <strong className="text-amber-950 dark:text-amber-200">{t('plantDetail.toxicityTitle')}: </strong>
+                      {plant.medical_info.toxicity_warning}
+                    </div>
+                  )}
+
+                  {plant.medical_info.confusion_risk && (
+                    <div className="p-3 rounded-xl bg-white/90 dark:bg-black/30 border border-rose-300 dark:border-rose-700/60 text-xs sm:text-sm text-slate-900 dark:text-rose-100 space-y-1">
+                      <div className="font-bold text-rose-800 dark:text-rose-300 flex items-center gap-1.5">
+                        <AlertTriangle className="w-4 h-4 text-rose-600 flex-shrink-0" />
+                        <span>{t('plantDetail.confusionRiskTitle')}: {plant.medical_info.confusion_risk.confused_with}</span>
+                      </div>
+                      <p className="leading-relaxed pl-5 text-slate-700 dark:text-rose-100">
+                        <strong className="text-rose-950 dark:text-white">{t('plantDetail.distinguishingFeatures')}</strong> {plant.medical_info.confusion_risk.distinguishing_features}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
+
               {/* Uses */}
               <div>
                 <h3 className="text-xs font-bold uppercase tracking-wider text-herbal-800 mb-2">
@@ -925,32 +956,9 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
                 </div>
               )}
 
-              {/* Toxicity & Warning */}
-              {plant.medical_info.toxicity_warning && (
-                <div className="p-4 rounded-2xl bg-amber-50/80 border border-amber-200 text-xs sm:text-sm text-amber-950">
-                  <h3 className="font-bold text-amber-900 mb-1 flex items-center gap-1.5">
-                    <AlertTriangle className="w-4 h-4 text-amber-600" />
-                    <span>{t('plantDetail.toxicityTitle')}:</span>
-                  </h3>
-                  <p className="leading-relaxed">{plant.medical_info.toxicity_warning}</p>
-                </div>
-              )}
-
-              {/* Confusion Risk */}
-              {plant.medical_info.confusion_risk && (
-                <div className="p-4 rounded-2xl bg-rose-50/70 border border-rose-200 text-xs sm:text-sm text-rose-950">
-                  <h3 className="font-bold text-rose-900 mb-1">
-                    {t('plantDetail.confusionRiskTitle')}: {plant.medical_info.confusion_risk.confused_with}
-                  </h3>
-                  <p className="leading-relaxed">
-                    <strong>{t('plantDetail.distinguishingFeatures')}</strong> {plant.medical_info.confusion_risk.distinguishing_features}
-                  </p>
-                </div>
-              )}
-
               {/* Disclaimer */}
-              <div className="text-[11px] text-gray-500 italic bg-gray-50 p-3.5 rounded-xl border border-gray-100 leading-relaxed">
-                * {plant.medical_info.disclaimer}
+              <div className="text-xs text-slate-600 bg-slate-50 p-3.5 rounded-xl border border-slate-200 leading-relaxed font-medium">
+                ⚠️ <strong className="text-slate-800">Lưu ý y tế quan trọng:</strong> {plant.medical_info.disclaimer}
               </div>
 
               {/* Báo cáo thông tin dược lý */}

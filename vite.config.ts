@@ -29,6 +29,9 @@ export default defineConfig({
               return 'vendor-icons';
             }
           }
+          if (id.includes('src/data/plants.ts') || id.includes('src/data/clinicCases.ts') || id.includes('src/data/swapOffers.ts')) {
+            return 'botanical-database';
+          }
         },
       },
     },
