@@ -14,7 +14,17 @@ require_once __DIR__ . '/db.php';
 
 $configFile = __DIR__ . '/config.php';
 $config = file_exists($configFile) ? require $configFile : [];
-$expectedKey = $config['security']['seed_key'] ?? 'ytc_secret_seed_token_2026';
+$expectedKey = trim($config['security']['seed_key'] ?? '');
+
+if (empty($expectedKey)) {
+    http_response_code(503);
+    echo json_encode([
+        'success' => false,
+        'message' => 'Hệ thống chưa cấu hình seed_key trong config.php'
+    ], JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
 $providedKey = $_GET['token'] ?? $_POST['token'] ?? '';
 
 if (empty($providedKey) || $providedKey !== $expectedKey) {

@@ -26,7 +26,7 @@ $configFile = __DIR__ . '/config.php';
 $config = file_exists($configFile) ? require $configFile : [];
 
 $fbConfig   = $config['facebook'] ?? [];
-$cronSecret = $fbConfig['cron_secret'] ?? 'ytc_fb_cron_2026_secret_key';
+$cronSecret = trim($fbConfig['cron_secret'] ?? '');
 $enabled    = !empty($fbConfig['enabled']);
 $pageId     = trim($fbConfig['page_id'] ?? '');
 $pageToken  = trim($fbConfig['page_access_token'] ?? '');
@@ -35,6 +35,15 @@ $baseUrl    = rtrim($fbConfig['base_url'] ?? 'https://yeutrongcay.com', '/');
 
 // Kiểm tra quyền truy cập nếu gọi qua HTTP
 if (!$isCli) {
+    if (empty($cronSecret)) {
+        http_response_code(503);
+        echo json_encode([
+            'success' => false,
+            'message' => 'Hệ thống chưa cấu hình facebook.cron_secret trong config.php'
+        ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        exit;
+    }
+
     $providedToken = $_GET['token'] ?? $_POST['token'] ?? '';
     if (empty($providedToken) || $providedToken !== $cronSecret) {
         http_response_code(403);

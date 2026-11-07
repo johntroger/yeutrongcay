@@ -21,7 +21,10 @@ return [
         'charset'  => 'utf8mb4'
     ],
     'security' => [
-        'seed_key' => 'ytc_secret_seed_token_2026'
+        'admin_token'    => 'THAY_BANG_CHUOI_TOKEN_ADMIN_MANH_32_KY_TU',
+        'admin_username' => 'admin',
+        'admin_password' => 'MAT_KHAU_QUAN_TRI_MANH_O_DAY',
+        'seed_key'       => 'THAY_BANG_CHUOI_SEED_TOKEN_BI_MAT_2026'
     ],
     'facebook' => [
         'enabled'           => true,

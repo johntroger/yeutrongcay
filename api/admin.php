@@ -38,9 +38,19 @@ require_once __DIR__ . '/db.php';
 // Đọc cấu hình bảo mật
 $configFile = __DIR__ . '/config.php';
 $config = file_exists($configFile) ? require $configFile : [];
-$masterToken = $config['security']['admin_token'] ?? 'ytc_admin_master_2026';
-$adminUser = $config['security']['admin_username'] ?? 'admin';
-$adminPass = $config['security']['admin_password'] ?? 'ytc_admin_master_2026';
+$masterToken = trim($config['security']['admin_token'] ?? '');
+$adminUser = trim($config['security']['admin_username'] ?? '');
+$adminPass = trim($config['security']['admin_password'] ?? '');
+
+// Nếu chưa cấu hình bảo mật, chặn toàn bộ để tránh rò rỉ hoặc bypass
+if (empty($masterToken) || empty($adminUser) || empty($adminPass)) {
+    http_response_code(503);
+    echo json_encode([
+        'success' => false,
+        'message' => 'Cổng quản trị chưa được kích hoạt bảo mật. Vui lòng thiết lập admin_token, admin_username và admin_password trong config.php'
+    ], JSON_UNESCAPED_UNICODE);
+    exit;
+}
 
 // Lấy dữ liệu gửi lên
 $rawInput = file_get_contents('php://input');

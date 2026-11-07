@@ -164,15 +164,9 @@ export const adminService = {
         return { success: true };
       }
       return { success: false, message: data.message || 'Đăng nhập không thành công' };
-    } catch {
-      // Fallback demo trong môi trường offline
-      if ((username === 'admin' && password === 'ytc_admin_master_2026') || password === 'admin123') {
-        const demoToken = 'ytc_admin_master_2026';
-        localStorage.setItem(TOKEN_KEY, demoToken);
-        localStorage.setItem(USER_KEY, JSON.stringify({ name: 'Ban Quản Trị Yêu Trồng Cây', role: 'super_admin' }));
-        return { success: true };
-      }
-      return { success: false, message: 'Sai tên đăng nhập hoặc mật khẩu.' };
+    } catch (err: any) {
+      console.error('Lỗi kết nối cổng quản trị:', err);
+      return { success: false, message: 'Không thể kết nối đến máy chủ quản trị. Vui lòng kiểm tra lại mạng hoặc cấu hình máy chủ.' };
     }
   },
 

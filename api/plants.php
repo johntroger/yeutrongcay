@@ -13,13 +13,55 @@ header('Content-Type: application/json; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: SAMEORIGIN');
 
+// CORS headers
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+$allowed_origins = [
+    'https://yeutrongcay.com',
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'http://127.0.0.1:5173'
+];
+if (in_array($origin, $allowed_origins, true)) {
+    header("Access-Control-Allow-Origin: $origin");
+    header("Access-Control-Allow-Credentials: true");
+    header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+    header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, X-Admin-Token");
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
+
 require_once __DIR__ . '/db.php';
 require_once __DIR__ . '/translate_service.php';
 
 $pdo = getDbConnection();
 
-// Xử lý POST: Thêm cây mới tự động dịch ngầm sang Tiếng Anh
+// Xử lý POST: Thêm cây mới (Bắt buộc xác thực Admin Token)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // 1. Kiểm tra xác thực Admin
+    $configFile = __DIR__ . '/config.php';
+    $config = file_exists($configFile) ? require $configFile : [];
+    $adminToken = $config['security']['admin_token'] ?? '';
+
+    $authHeader = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
+    $xAdminToken = $_SERVER['HTTP_X_ADMIN_TOKEN'] ?? '';
+    $bearerToken = '';
+    if (preg_match('/Bearer\s+(\S+)/', $authHeader, $matches)) {
+        $bearerToken = $matches[1];
+    }
+    $clientToken = $xAdminToken ?: $bearerToken;
+
+    if (empty($adminToken) || $clientToken !== $adminToken) {
+        http_response_code(403);
+        echo json_encode([
+            'success' => false,
+            'message' => 'Quyền bị từ chối: Yêu cầu Admin Token hợp lệ để thêm cây trồng mới'
+        ], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
     if (!$pdo) {
         http_response_code(503);
         echo json_encode(['success' => false, 'message' => 'Cơ sở dữ liệu chưa kết nối']);

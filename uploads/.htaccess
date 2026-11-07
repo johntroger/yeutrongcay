@@ -5,4 +5,10 @@
     Deny from all
 </FilesMatch>
 
+# Chặn tải trực tiếp các tệp dữ liệu nội bộ và file sao lưu
+<FilesMatch "\.(json|sql|log|txt|bak|env)$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
 Options -Indexes -ExecCGI
