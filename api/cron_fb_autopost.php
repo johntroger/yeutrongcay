@@ -416,9 +416,31 @@ if (!$enabled || empty($pageId) || empty($pageToken) || strpos($pageToken, 'YOUR
 
     $publishUrl = "https://graph.facebook.com/{$graphVer}/{$pageId}/photos";
     
+    // Tự động tải ảnh thật của cây về máy chủ để lưu đệm và upload thẳng lên Facebook
+    $plantImgUrl = $plantData['image_url'] ?? '';
+    $plantCacheDir = __DIR__ . '/../uploads/og_cache';
+    $plantCacheFile = $plantCacheDir . "/{$slug}.jpg";
+
+    if (!file_exists($plantCacheFile) && !empty($plantImgUrl)) {
+        if (!is_dir($plantCacheDir)) {
+            @mkdir($plantCacheDir, 0755, true);
+        }
+        $ch = curl_init($plantImgUrl);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 8);
+        curl_setopt($ch, CURLOPT_USERAGENT, 'YeuTrongCayBot/1.0 (https://yeutrongcay.com; dev@yeutrongcay.com)');
+        $imgRaw = curl_exec($ch);
+        $imgHttp = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        if ($imgHttp === 200 && !empty($imgRaw) && strlen($imgRaw) > 1024) {
+            @file_put_contents($plantCacheFile, $imgRaw);
+        }
+    }
+
     // Tìm ảnh local trên máy chủ để ưu tiên upload trực tiếp qua multipart (bền vững 100%, không lo bot bị chặn)
     $localCandidates = [
-        __DIR__ . "/../uploads/og_cache/{$slug}.jpg",
+        $plantCacheFile,
         __DIR__ . '/../banner-bg-hero.jpg',
         __DIR__ . '/../public/banner-bg-hero.jpg',
         __DIR__ . '/../yeutrongcay-banner.png',
