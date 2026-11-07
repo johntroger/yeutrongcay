@@ -7,6 +7,7 @@
 
 import { encodeFunctionData } from 'viem';
 import { PLANT_PASSPORT_ABI, CONTRACT_ADDRESSES } from '../contracts/PlantPassportABI.ts';
+import { AGRI_DEFI_ABI, AGRI_DEFI_CONTRACT_ADDRESSES } from '../contracts/AgriDeFiABI.ts';
 
 declare global {
   interface Window {
@@ -524,6 +525,221 @@ export const web3WalletService = {
       return (CONTRACT_ADDRESSES.baseSepolia || CONTRACT_ADDRESSES.sepolia) as `0x${string}`;
     }
     return CONTRACT_ADDRESSES.sepolia as `0x${string}`;
+  },
+
+  /**
+   * Lấy URL xem giao dịch trên Block Explorer tương ứng với mạng
+   */
+  getExplorerTxUrl(txHash: string, chainId: string | null): string {
+    if (!txHash) return '#';
+    const hex = chainId?.toLowerCase();
+    if (hex === BASE_SEPOLIA_CHAIN_ID_HEX.toLowerCase() || hex === '84532') {
+      return `https://sepolia.basescan.org/tx/${txHash}`;
+    }
+    if (hex === BSC_TESTNET_CHAIN_ID_HEX.toLowerCase() || hex === '97') {
+      return `https://testnet.bscscan.com/tx/${txHash}`;
+    }
+    if (hex === POLYGON_AMOY_CHAIN_ID_HEX.toLowerCase() || hex === '80002') {
+      return `https://amoy.polygonscan.com/tx/${txHash}`;
+    }
+    if (hex === ARBITRUM_SEPOLIA_CHAIN_ID_HEX.toLowerCase() || hex === '421614') {
+      return `https://sepolia.arbiscan.io/tx/${txHash}`;
+    }
+    // Mặc định Ethereum Sepolia
+    return `https://sepolia.etherscan.io/tx/${txHash}`;
+  },
+
+  /**
+   * Lấy địa chỉ hợp đồng Agri-DeFi Sandbox theo mạng
+   */
+  getAgriDeFiContractAddress(chainId: string | null): `0x${string}` {
+    const hex = chainId?.toLowerCase();
+    if (hex === BASE_SEPOLIA_CHAIN_ID_HEX.toLowerCase() || hex === '84532') {
+      return AGRI_DEFI_CONTRACT_ADDRESSES.baseSepolia;
+    }
+    if (hex === BSC_TESTNET_CHAIN_ID_HEX.toLowerCase() || hex === '97') {
+      return AGRI_DEFI_CONTRACT_ADDRESSES.bscTestnet;
+    }
+    if (hex === POLYGON_AMOY_CHAIN_ID_HEX.toLowerCase() || hex === '80002') {
+      return AGRI_DEFI_CONTRACT_ADDRESSES.polygonAmoy;
+    }
+    if (hex === ARBITRUM_SEPOLIA_CHAIN_ID_HEX.toLowerCase() || hex === '421614') {
+      return AGRI_DEFI_CONTRACT_ADDRESSES.arbitrumSepolia;
+    }
+    return AGRI_DEFI_CONTRACT_ADDRESSES.sepolia;
+  },
+
+  /**
+   * Gửi hạt giống vào Staking Vault ON-CHAIN THẬT (Gửi transaction gọi Smart Contract trên Testnet)
+   */
+  async stakeSeedsOnChain(amount: number, userAddress: `0x${string}`, chainId: string): Promise<string> {
+    if (!window.ethereum) {
+      throw new Error('Không phát hiện tiện ích ví Web3 để thực hiện giao dịch Staking on-chain.');
+    }
+    const contract = this.getAgriDeFiContractAddress(chainId);
+    const callData = encodeFunctionData({
+      abi: AGRI_DEFI_ABI,
+      functionName: 'stakeSeeds',
+      args: [BigInt(amount)]
+    });
+
+    try {
+      const txHash = (await window.ethereum.request({
+        method: 'eth_sendTransaction',
+        params: [
+          {
+            from: userAddress,
+            to: contract,
+            data: callData
+          }
+        ]
+      })) as string;
+      return txHash;
+    } catch (err: unknown) {
+      const e = err as { code?: number; message?: string };
+      if (e.code === 4001) {
+        throw new Error('Bạn đã hủy phê duyệt giao dịch Staking trên ví.');
+      }
+      throw new Error(e.message || 'Lỗi khi gửi giao dịch Staking lên blockchain testnet.');
+    }
+  },
+
+  /**
+   * Thu hoạch lợi suất phân bón vi sinh ON-CHAIN THẬT (Gửi transaction qua ví)
+   */
+  async claimFertilizerOnChain(userAddress: `0x${string}`, chainId: string): Promise<string> {
+    if (!window.ethereum) {
+      throw new Error('Không phát hiện tiện ích ví Web3 để thực hiện giao dịch thu hoạch on-chain.');
+    }
+    const contract = this.getAgriDeFiContractAddress(chainId);
+    const callData = encodeFunctionData({
+      abi: AGRI_DEFI_ABI,
+      functionName: 'claimBioFertilizer',
+      args: []
+    });
+
+    try {
+      const txHash = (await window.ethereum.request({
+        method: 'eth_sendTransaction',
+        params: [
+          {
+            from: userAddress,
+            to: contract,
+            data: callData
+          }
+        ]
+      })) as string;
+      return txHash;
+    } catch (err: unknown) {
+      const e = err as { code?: number; message?: string };
+      if (e.code === 4001) {
+        throw new Error('Bạn đã hủy phê duyệt giao dịch thu hoạch lợi suất trên ví.');
+      }
+      throw new Error(e.message || 'Lỗi khi gửi giao dịch thu hoạch lên blockchain testnet.');
+    }
+  },
+
+  /**
+   * Đúc & Bù trừ Tín chỉ Carbon Rừng Tự Nhiên (ReFi) ON-CHAIN THẬT
+   */
+  async offsetCarbonOnChain(params: {
+    forestLotId: string;
+    hectares: number;
+    userAddress: `0x${string}`;
+    chainId: string;
+  }): Promise<string> {
+    if (!window.ethereum) {
+      throw new Error('Không phát hiện tiện ích ví Web3 để thực hiện giao dịch ReFi Carbon on-chain.');
+    }
+    const contract = this.getAgriDeFiContractAddress(params.chainId);
+    const callData = encodeFunctionData({
+      abi: AGRI_DEFI_ABI,
+      functionName: 'offsetCarbonWithForest',
+      args: [params.forestLotId, BigInt(params.hectares)]
+    });
+
+    try {
+      const txHash = (await window.ethereum.request({
+        method: 'eth_sendTransaction',
+        params: [
+          {
+            from: params.userAddress,
+            to: contract,
+            data: callData
+          }
+        ]
+      })) as string;
+      return txHash;
+    } catch (err: unknown) {
+      const e = err as { code?: number; message?: string };
+      if (e.code === 4001) {
+        throw new Error('Bạn đã hủy phê duyệt giao dịch bù trừ Carbon ReFi trên ví.');
+      }
+      throw new Error(e.message || 'Lỗi khi gửi giao dịch bù trừ Carbon lên blockchain testnet.');
+    }
+  },
+
+  /**
+   * Bỏ phiếu Quản trị DAO Nông Nghiệp ON-CHAIN THẬT
+   */
+  async castDaoVoteOnChain(params: {
+    proposalId: number;
+    support: 0 | 1;
+    userAddress: `0x${string}`;
+    chainId: string;
+  }): Promise<string> {
+    if (!window.ethereum) {
+      throw new Error('Không phát hiện tiện ích ví Web3 để thực hiện biểu quyết DAO on-chain.');
+    }
+    const contract = this.getAgriDeFiContractAddress(params.chainId);
+    const callData = encodeFunctionData({
+      abi: AGRI_DEFI_ABI,
+      functionName: 'castVote',
+      args: [BigInt(params.proposalId), params.support]
+    });
+
+    try {
+      const txHash = (await window.ethereum.request({
+        method: 'eth_sendTransaction',
+        params: [
+          {
+            from: params.userAddress,
+            to: contract,
+            data: callData
+          }
+        ]
+      })) as string;
+      return txHash;
+    } catch (err: unknown) {
+      const e = err as { code?: number; message?: string };
+      if (e.code === 4001) {
+        throw new Error('Bạn đã hủy phê duyệt giao dịch biểu quyết DAO trên ví.');
+      }
+      throw new Error(e.message || 'Lỗi khi gửi giao dịch bỏ phiếu DAO lên blockchain testnet.');
+    }
+  },
+
+  /**
+   * Chờ giao dịch được khai thác (mined) và có biên nhận (receipt) trên Testnet
+   */
+  async waitForTransactionReceipt(txHash: string): Promise<boolean> {
+    if (!window.ethereum) return true;
+    for (let i = 0; i < 8; i++) {
+      try {
+        const receipt = (await window.ethereum.request({
+          method: 'eth_getTransactionReceipt',
+          params: [txHash]
+        })) as { status?: string } | null;
+
+        if (receipt && receipt.status) {
+          return receipt.status === '0x1';
+        }
+      } catch {
+        // Tiếp tục chờ
+      }
+      await new Promise((res) => setTimeout(res, 2000));
+    }
+    return true;
   },
 
   /**

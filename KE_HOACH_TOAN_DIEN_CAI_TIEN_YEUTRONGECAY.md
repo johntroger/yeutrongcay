@@ -90,10 +90,11 @@ Qua quá trình rà soát trực tiếp qua HTTP/HTTPS lên máy chủ sống `h
      - **Polygon Amoy** (Polygon PoS Testnet)
      - **Arbitrum Sepolia** (Arbitrum Nitro Layer 2)
    - Cung cấp **Trạm Faucet Tổng hợp** hướng dẫn lấy coin thử nghiệm 0đ từ Google Cloud Web3 Faucet, Coinbase Developer Faucet, BNB Official Faucet, QuickNode.
-3. **Mô hình DeFi Nông Nghiệp & Staking Sinh Thái Giáo Dục (Agri-DeFi Sandbox):**
-   - **Kho Gửi Hạt Giống Sinh Lời (Seed Staking Vault):** Giáo dục khái niệm Staking / Yield Farming trong DeFi. Người làm vườn gửi hạt giống hoặc điểm Karma vào Smart Contract để nhận "lợi suất" phân bón sinh học vi sinh (mô phỏng APY 12.5%/năm).
-   - **Tài chính Tái tạo (ReFi) & Tín chỉ Carbon Rừng:** Mỗi NFT 10.000m² rừng (Cúc Phương, U Minh, Bidoup) hấp thụ ~15 tấn CO₂/năm, sinh ra Tín chỉ Carbon Xanh giúp người dùng học cách bù trừ phát thải sinh hoạt (Carbon Offsetting).
-   - **Quản trị Phi tập trung (Gardener DAO Governance):** Người dùng dùng quyền biểu quyết trên chuỗi khối để biểu quyết bảo tồn giống cây bản địa quý hiếm theo cơ chế phi tập trung.
+3. **Mô hình DeFi Nông Nghiệp & Staking Sinh Thái On-Chain Thật (Agri-DeFi & ReFi Sandbox 100% Testnet):**
+   - **Tương tác Blockchain Thật trên Testnet:** Mọi thao tác DeFi đều kết nối ví Web3 thật (MetaMask, Rabby) và gửi giao dịch on-chain thật (`eth_sendTransaction`) tương tác với Smart Contract `AgriDeFiVault.sol` (`src/contracts/AgriDeFiABI.ts`), trả về mã giao dịch TxHash thật hiển thị trực tiếp trên Block Explorer (Basescan, Etherscan, BscScan, PolygonScan).
+   - **Kho Gửi Hạt Giống Sinh Lời (Seed Staking Vault):** Người làm vườn thực hành gửi Staking hạt giống thuần chủng qua hợp đồng thông minh để nhận lợi suất phân bón hữu cơ vi sinh (APY 12.5%/năm). Có chức năng thu hoạch (Claim) lợi suất on-chain thật.
+   - **Tài chính Tái tạo (ReFi) & Tín chỉ Carbon Rừng:** Mỗi NFT 10.000m² rừng (Cúc Phương, U Minh Hạ) hấp thụ ~15 tấn CO₂/năm. Người dùng bấm nút thực hiện giao dịch on-chain thật để hủy (Retire) tín chỉ và cấp chứng nhận bù trừ phát thải sinh hoạt.
+   - **Quản trị Phi tập trung (Gardener DAO Governance):** Biểu quyết on-chain thật cho các đề xuất bảo tồn nguồn gen (Đề xuất #04: Bảo tồn Sâm Đại Hành Tây Nguyên). Phiếu bầu được ghi nhận vào block thật trên Testnet kèm phần thưởng Trái Tim Yêu Vườn ❤️.
 4. **Trừu tượng hóa Tài khoản Web3 (Account Abstraction & Embedded Wallet):**
    - Nghiên cứu tích hợp Social Login sinh ví ngầm tự động (Keyless) kết hợp Gasless Paymaster (EIP-2771) trên Base Sepolia để người làm vườn không cần cài MetaMask vẫn đúc được Hộ Chiếu Cây.
 
