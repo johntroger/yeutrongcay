@@ -18,6 +18,31 @@ export interface ForestGeoSpec {
   unesco_or_status: string;   // Danh hiệu bảo tồn (UNESCO / Ramsar / Vườn Quốc Gia)
 }
 
+export interface BlueprintSpec {
+  target_area: string;
+  difficulty_level: string;
+  cost_estimate_vnd: string;
+  components: string[];
+  tools_needed: string[];
+  estimated_setup_hours: number;
+}
+
+export interface EcoInventionSpec {
+  waste_input: string;
+  output_yield: string;
+  carbon_offset_kg_year: number;
+  materials_cost_vnd: string;
+  upcycled_components: string[];
+}
+
+export interface RecipeSpec {
+  prep_time_minutes: number;
+  cook_time_minutes: number;
+  servings: string;
+  botanical_ingredients: string[];
+  health_benefits: string[];
+}
+
 export interface PlantHeartReview {
   id: string;
   plant_slug: string;
@@ -111,6 +136,9 @@ export interface Plant {
   nft_class?: NftAssetClass;    // Hạng tài sản NFT tương ứng
   related_plant_ids?: string[]; // Liên kết chéo sang cây nguyên liệu/liên quan
   forest_spec?: ForestGeoSpec;  // Thông số địa lý & quỹ diện tích cho Rừng (10.000m²/NFT)
+  blueprint_spec?: BlueprintSpec; // Bản vẽ kỹ thuật & dự toán không gian (space)
+  eco_spec?: EcoInventionSpec;  // Thông số tái chế & giảm carbon (recycle)
+  recipe_spec?: RecipeSpec;    // Công thức ẩm thực & dưỡng sinh (culinary)
 }
 
 export interface PlantCollection {

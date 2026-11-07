@@ -4428,6 +4428,1571 @@ export const PLANT_ENGLISH_MAP: Record<string, LocalizedPlantData> = {
     ],
     monetization_tips: ['Holders receive Sea Turtle Guardian credentials and special access to guided hatchling release excursions.'],
     tags: ['Con Dao', 'National Park', 'Ramsar Wetland', 'Sea Turtle Nesting', 'Dugong Sanctuary', 'Marine Reserve']
+  },
+
+  // Milestone 4 Translations (space-06..10, recycle-06..10, culinary-06..10, forest-06..10)
+  'space-06': {
+      "common_name": "Rooftop Pergola Fruiting Vine Architectural System",
+      "aliases": [
+          "Rooftop Grape Pergola",
+          "Rooftop Trellis Architecture",
+          "Multi-Purpose Balcony Pergola"
+      ],
+      "description": "An architectural engineering blueprint designed to withstand category-8 winds, optimizing west-facing shading to lower home temperatures by up to 4°C while delivering heavy harvests of climbing fruits.",
+      "quick_answer": "Anchors hot-dip galvanized steel frames into structural concrete beams with 3mm stainless steel cables for urban storm resilience.",
+      "growth_time": "1-2 days construction; full green canopy coverage in 45-60 days",
+      "seasonality": {
+          "north": "Plant climbing vines in early spring (Feb-Mar) or early autumn (Aug-Sep)",
+          "central": "Trim and lower upper vine foliage before typhoons in Oct-Nov",
+          "south": "Provides cooling sunshade over corrugated metal roofs year-round",
+          "best_months": [
+              2,
+              3,
+              4,
+              8,
+              9,
+              10
+          ]
+      },
+      "botanical_details": {
+          "family": "Pergola Architectural & Botanical Vine Integration",
+          "native_range": "Urban Climate-Resilient Architecture (Vietnam)",
+          "active_compounds": [
+              "40x40x1.4mm Hot-Dip Galvanized Steel Frame",
+              "UV-Resistant Stainless Cables",
+              "Sub-Irrigated Reservoirs",
+              "4°C Thermal Shading Barrier"
+          ],
+          "soil_ph": "6.0 - 6.8",
+          "ideal_temp": "22°C - 38°C High Heat Tolerance",
+          "pot_size": "100L composite planters or structural rooftop planters"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Anchor Support Posts to Concrete Beams",
+              "instruction": "Drill stainless 304 expansion bolts deep into load-bearing roof beams."
+          },
+          {
+              "step": 2,
+              "title": "Assemble Frame and Tension Cables",
+              "instruction": "Erect 2.2m-2.4m steel posts and weave 20x20cm grid cables with turnbuckles."
+          },
+          {
+              "step": 3,
+              "title": "Position Planters and Train Vines",
+              "instruction": "Place fruit planters (grapes, passion fruit) and train shoots along guide cables."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Is the pergola vulnerable to lightning or severe storms?",
+              "answer": "The open grid allows winds to pass freely, and the framework includes standard grounding rods."
+          },
+          {
+              "question": "What does the NFT Blueprint include?",
+              "answer": "Complete CAD structural drawings, bill of materials, and step-by-step DIY assembly video."
+          }
+      ],
+      "monetization_tips": [
+          "Offer turnkey rooftop pergola construction packages for urban townhouses."
+      ],
+      "tags": [
+          "Rooftop",
+          "Pergola Vines",
+          "Heat Shield",
+          "Green Architecture",
+          "Blueprint"
+      ]
+  },
+
+  'space-07': {
+      "common_name": "Townhouse Skylight Atrium Micro-Oasis Blueprint",
+      "aliases": [
+          "Atrium Garden",
+          "Tropical Skylight Oasis",
+          "Townhouse Lightwell Garden"
+      ],
+      "description": "Passive stack-ventilation (chimney effect) architectural blueprint for 2m²-6m² townhouse atriums, combining shade-tolerant tropical foliage and humidity-retaining moss to filter indoor pollutants.",
+      "quick_answer": "Combines sub-gravel pumice drainage with a scheduled 4000K full-spectrum grow light (8 hrs/day) for lush indoor growth.",
+      "growth_time": "1 day setup; plants establish deep root systems within 3 weeks",
+      "seasonality": {
+          "north": "Thrives year-round in temperature-moderated indoor interiors",
+          "central": "Maintains lush humidity during hot dry foehn wind months",
+          "south": "Evergreen vibrancy across wet and dry seasons alike",
+          "best_months": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+          ]
+      },
+      "botanical_details": {
+          "family": "Indoor Atrium & Shade-Tolerant Ecological Architecture",
+          "native_range": "Urban Eco-Interior Design",
+          "active_compounds": [
+              "Thermal Chimney Airflow Induction",
+              "40W Sun-Spectrum LED Grow Lights",
+              "Natural Cobblestone Humidity Buffer",
+              "Negative Ion Dust Scavenging"
+          ],
+          "soil_ph": "5.5 - 6.5",
+          "ideal_temp": "20°C - 30°C indoor room comfort",
+          "pot_size": "Recessed floor planters or 40cm composite containers"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Waterproof Floor and Base",
+              "instruction": "Apply dual-layer polyurethane waterproofing membrane and non-woven geotextile."
+          },
+          {
+              "step": 2,
+              "title": "Install Pumice Bed and Media",
+              "instruction": "Lay 10cm pumice stone base topped with fermented coconut coir and perlite."
+          },
+          {
+              "step": 3,
+              "title": "Plant Foliage and Living Moss",
+              "instruction": "Center canopy foliage (Philodendron, Pachira) bordered by ferns and living moss cushions."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Will plants survive with limited natural skylight?",
+              "answer": "Yes, the engineered 4000K grow light provides sufficient PAR photons for perpetual vitality."
+          },
+          {
+              "question": "Does the water reservoir breed mosquitoes?",
+              "answer": "No, sub-drainage channels evacuate excess water within 15 minutes, leaving zero stagnant puddles."
+          }
+      ],
+      "monetization_tips": [
+          "Provide customized indoor green interior consultations for luxury homes and villas."
+      ],
+      "tags": [
+          "Atrium",
+          "Townhouse",
+          "Tropical Foliage",
+          "Passive Cooling",
+          "Air Cleansing"
+      ]
+  },
+
+  'space-08': {
+      "common_name": "West-Facing Heat-Resistant Balcony Garden Architecture",
+      "aliases": [
+          "Heat Shield Balcony",
+          "West Sun Balcony Garden",
+          "Urban Xeriscape Loggia"
+      ],
+      "description": "A 3-layer living thermal barrier engineered for 40°C scorching afternoon sun on west-facing balconies. Combines drought-tolerant climbers, shading mid-tier shrubs, and ground-level herbs to reduce bedroom temperatures by 3-5°C.",
+      "quick_answer": "Utilizes insulating terracotta planters, pine bark mulch, and drought-hardy bougainvillea and Indian ivy to block afternoon heat.",
+      "growth_time": "4 hours installation; full cascading sun-curtain in 30 days",
+      "seasonality": {
+          "north": "Peak thermal shielding efficiency from May through August",
+          "central": "Resilient against severe dry heat and solar radiation",
+          "south": "Perpetual year-round solar protection for high-rise condos",
+          "best_months": [
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+          ]
+      },
+      "botanical_details": {
+          "family": "Balcony Thermal Barrier & Xeriscape Urban Blueprint",
+          "native_range": "Urban High-Rise Condominiums",
+          "active_compounds": [
+              "3-5°C Ambient Thermal Attenuation",
+              "Heat-Dissipating Terracotta Planters",
+              "Organic Pine Bark Moisture Armor",
+              "15-20% AC Energy Savings"
+          ],
+          "soil_ph": "6.0 - 7.0",
+          "ideal_temp": "25°C - 42°C High Thermal Tolerance",
+          "pot_size": "60cm terracotta troughs or 35cm deep composite planters"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Mount Anti-Drop Safety Brackets",
+              "instruction": "Install powder-coated steel brackets rated for 60kg tightly against railing."
+          },
+          {
+              "step": 2,
+              "title": "Arrange 3-Tier Foliage Shield",
+              "instruction": "Outer curtain of weeping ivy, mid-tier flowering bougainvillea, inner aromatic herbs."
+          },
+          {
+              "step": 3,
+              "title": "Apply Pine Bark Moisture Barrier",
+              "instruction": "Cover soil surface with a 3cm layer of sterilized pine bark to prevent root dehydration."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Are railing planters safe during high-altitude wind gusts?",
+              "answer": "Dual mechanical lock pins tested to withstand Category-9 storm gusts on 30+ story buildings."
+          },
+          {
+              "question": "How much electricity does it save on air conditioning?",
+              "answer": "Lowers wall surface temperatures, cutting air conditioning workload by approximately 15-20%."
+          }
+      ],
+      "monetization_tips": [
+          "Sell ready-to-mount west-facing thermal balcony kits to apartment residents."
+      ],
+      "tags": [
+          "Apartment Balcony",
+          "Heat Shield",
+          "West Sun",
+          "Bougainvillea",
+          "Energy Saving"
+      ]
+  },
+
+  'space-09': {
+      "common_name": "360-Degree Rotating Vertical Garden Tower Blueprint",
+      "aliases": [
+          "Rotating Hydro Tower",
+          "Vertical 360 Garden",
+          "Space-Saving Salad Tower"
+      ],
+      "description": "Space-saving 360-degree rotating vertical tower blueprint allowing 45 leafy plants to receive uniform sunlight on tight 1.5m² loggias, integrated with a central vermicompost digestive core.",
+      "quick_answer": "A 1.3m tall tower housing 45 planting pockets and a perforated central worm-feeding tube that turns kitchen scraps into rich root nutrients.",
+      "growth_time": "2 hours assembly; leafy greens ready for continuous harvest in 25-30 days",
+      "seasonality": {
+          "north": "Lettuce and brassicas in autumn-winter; water spinach and amaranth in summer",
+          "central": "Rotate tower 180 degrees daily for balanced sunlight distribution",
+          "south": "Continuous four-season salad greens and aromatic culinary herbs",
+          "best_months": [
+              1,
+              2,
+              3,
+              4,
+              8,
+              9,
+              10,
+              11,
+              12
+          ]
+      },
+      "botanical_details": {
+          "family": "Vertical Urban Agriculture & Vermiculture Integration",
+          "native_range": "Urban Micro-Farming Blueprint",
+          "active_compounds": [
+              "45 Growing Pockets on 0.35m² Footprint",
+              "Internal Scraps-Composting Worm Core",
+              "150kg-Rated Stainless Steel Turntable",
+              "Microbial Compost Tea Catcher"
+          ],
+          "soil_ph": "6.2 - 6.8",
+          "ideal_temp": "18°C - 35°C",
+          "pot_size": "60cm base diameter, 130cm height"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Assemble Turntable Base and Modules",
+              "instruction": "Position ball-bearing swivel plate and stack interlocking food-grade PP tower tiers."
+          },
+          {
+              "step": 2,
+              "title": "Install Compost Core and Add Worms",
+              "instruction": "Insert central perforated aerating pipe and inoculate with 300g Eisenia fetida worms."
+          },
+          {
+              "step": 3,
+              "title": "Fill Growing Media and Transplant",
+              "instruction": "Pack media into tiers and insert 45 seedlings (lettuce, mint, basil) into outer pockets."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Does decomposing kitchen waste smell bad?",
+              "answer": "No, aerated vermicomposting decomposes food organically through aerobic worm digestion without foul odors."
+          },
+          {
+              "question": "How much food does a single tower produce?",
+              "answer": "Consistently provides 4-6 kg of fresh organic salad greens per month for a family of 3."
+          }
+      ],
+      "monetization_tips": [
+          "Fabricate modular rotating garden towers and sell organic starter seed bundles."
+      ],
+      "tags": [
+          "Vertical Tower",
+          "Vermiculture",
+          "360 Rotation",
+          "Compact Balcony",
+          "Organic Salad"
+      ]
+  },
+
+  'space-10': {
+      "common_name": "Rooftop Permaculture Micro-Forest Ecosystem Architecture",
+      "aliases": [
+          "Rooftop Food Forest",
+          "Rooftop Permaculture Oasis",
+          "Micro-Forest System"
+      ],
+      "description": "A multi-layered permaculture food forest blueprint adapted for reinforced concrete rooftops. Harmoniously integrates dwarf fruit canopies, productive berry shrubs, creeping groundcover herbs, and rainwater bioswales.",
+      "quick_answer": "Utilizes high-strength Plastic Cell drainage modules and ultra-lightweight volcanic perlite media to engineer a zero-leakage, 5-layer living forest on concrete rooftops.",
+      "growth_time": "2 days construction; self-balancing ecological harmony established in 6 months",
+      "seasonality": {
+          "north": "Multi-tiered canopies protect root zones through winter cold and summer heat",
+          "central": "Living mulch retention helps the forest thrive through dry summer droughts",
+          "south": "Perpetual flowering and fruiting attracts pollinators and wild birds",
+          "best_months": [
+              2,
+              3,
+              4,
+              8,
+              9,
+              10
+          ]
+      },
+      "botanical_details": {
+          "family": "Urban Rooftop Permaculture & Biodiversity Reserve",
+          "native_range": "Sustainable Rooftop Urban Agroecology",
+          "active_compounds": [
+              "100% Anti-Root Plastic Cell Sub-Drainage Matrix",
+              "Ultra-Lightweight Perlite-Expanded Clay Media",
+              "15+ Companion Polyculture Plant Guilds",
+              "Natural Rainwater Retention Layer"
+          ],
+          "soil_ph": "6.0 - 6.8",
+          "ideal_temp": "20°C - 38°C",
+          "pot_size": "Continuous corrugated or composite raised beds (45-60cm deep)"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Install Drainage Matrix and Filter Fabric",
+              "instruction": "Cover slab with 30mm Plastic Cell interlocks and lay heavy-duty non-woven geotextile."
+          },
+          {
+              "step": 2,
+              "title": "Place Engineered Featherweight Media",
+              "instruction": "Blend 40% fermented coco-peat, 30% perlite, 20% worm castings, 10% biochar to cut 60% load."
+          },
+          {
+              "step": 3,
+              "title": "Plant 5 Structural Canopy Tiers",
+              "instruction": "Layer dwarf trees (guava, fig, lime), berry shrubs (chili, eggplant), and creeping mint groundcover."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Will rooftop soil trees cause ceiling cracks or water leaks?",
+              "answer": "Plastic Cell forms a continuous air gap separating roots from slab, preventing water retention damage."
+          },
+          {
+              "question": "Does this forest require synthetic pesticide spraying?",
+              "answer": "No, permaculture companion guilds attract predatory insects to naturally control pests."
+          }
+      ],
+      "monetization_tips": [
+          "Design luxury rooftop food forests for penthouses and eco-resort villas."
+      ],
+      "tags": [
+          "Rooftop Forest",
+          "Permaculture",
+          "Plastic Cell",
+          "Featherweight Soil",
+          "Biodiversity"
+      ]
+  },
+
+  'recycle-06': {
+      "common_name": "DIY Stackable Tote Vermicomposting Urban Bin System",
+      "aliases": [
+          "DIY Worm Bin",
+          "Balcony Vermiculture Tote",
+          "Upcycled Kitchen Waste Worm System"
+      ],
+      "description": "An ingenious 3-tier vermicomposting bin upcycled from discarded plastic storage totes. Worms migrate upwards to feed on fresh kitchen scraps, leaving dense, pure casting gold and nutrient-rich worm tea below.",
+      "quick_answer": "Stack 3 plastic totes, drill 5mm migration holes in the upper bins, and install a drainage spigot at the bottom to harvest organic microbial liquid gold.",
+      "growth_time": "1 hour build; monthly harvests of rich black worm castings",
+      "seasonality": {
+          "north": "Insulate bin with extra shredded cardboard during cold northern winters",
+          "central": "Place in shaded, breezy corners away from direct midday solar heat",
+          "south": "Worms feed ravenously and double population every 60-90 days",
+          "best_months": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+          ]
+      },
+      "botanical_details": {
+          "family": "Vermiculture Circular Kitchen Waste Recycling",
+          "native_range": "Circular Domestic Agroecology Invention",
+          "active_compounds": [
+              "Eisenia fetida & Perionyx excavatus Earthworms",
+              "Worm Digestive Coelomic Enzymes",
+              "Humic and Fulvic Rich Castings",
+              "Zero Food Waste Footprint"
+          ],
+          "soil_ph": "6.8 - 7.2 neutral worm haven",
+          "ideal_temp": "22°C - 30°C in cool ambient shade",
+          "pot_size": "Set of three 50L upcycled storage totes"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Drill Ventilation and Migration Holes",
+              "instruction": "Drill 5mm holes across bottoms of upper totes and 2mm breathing holes along lids."
+          },
+          {
+              "step": 2,
+              "title": "Install Drainage Spigot in Base Bin",
+              "instruction": "Drill hole near bottom edge of base tote and fasten plastic tap with silicone washers."
+          },
+          {
+              "step": 3,
+              "title": "Prepare Bedding and Introduce Worms",
+              "instruction": "Lay moist shredded cardboard bedding, introduce 500g worm colony, and add vegetable scraps."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Will worms escape into the apartment at night?",
+              "answer": "Worms are light-averse and thrive in moist bedding; if well-fed, they remain inside comfortably."
+          },
+          {
+              "question": "What foods should be avoided in the bin?",
+              "answer": "Avoid large quantities of citrus peels, onions, garlic, hot chili peppers, or oily animal meats."
+          }
+      ],
+      "monetization_tips": [
+          "Assemble ready-to-use DIY worm bins bundled with starter colonies and bedding."
+      ],
+      "tags": [
+          "Vermiculture",
+          "Worm Bin",
+          "Upcycled Totes",
+          "Kitchen Scraps",
+          "Liquid Gold"
+      ]
+  },
+
+  'recycle-07': {
+      "common_name": "Capillary Action Cotton Wick Self-Irrigation System",
+      "aliases": [
+          "Cotton Wick Auto-Watering",
+          "Zero-Power Capillary Irrigation",
+          "Upcycled Fabric Irrigation"
+      ],
+      "description": "A zero-electricity, pressure-free self-watering invention powered purely by the capillary physics of braided upcycled cotton clothing. Roots sip water automatically on demand, eliminating over- and under-watering while traveling.",
+      "quick_answer": "Braid discarded 100% cotton clothing strips into thick wicks; submerge one end in a recycled water bottle and insert the other deep into the plant root ball.",
+      "growth_time": "15-minute setup; delivers continuous automatic moisture for 15-20 days",
+      "seasonality": {
+          "north": "Indispensable during Lunar New Year holidays and winter vacations",
+          "central": "Saves delicate balcony foliage through severe summer dry spells",
+          "south": "Maintains lush green houseplants with zero daily manual watering",
+          "best_months": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+          ]
+      },
+      "botanical_details": {
+          "family": "Capillary Physics & Upcycled Textile Hydration",
+          "native_range": "Zero-Energy Urban Water Conservation Invention",
+          "active_compounds": [
+              "Capillary Fiber Hydraulic Lift",
+              "0W Electricity Consumption",
+              "85% Evaporation Loss Reduction",
+              "Root Rot Prevention"
+          ],
+          "soil_ph": "Compatible with all potting media",
+          "ideal_temp": "All ambient indoor and outdoor temperatures",
+          "pot_size": "Suitable for pots from mini succulent bowls to 40cm planters"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Cut and Braid Cotton Strips",
+              "instruction": "Cut discarded cotton t-shirts into 3cm wide strips and braid three strands tightly."
+          },
+          {
+              "step": 2,
+              "title": "Embed Wick into Root Ball",
+              "instruction": "Use a chopstick to insert one wick end 10-15cm deep into the root zone."
+          },
+          {
+              "step": 3,
+              "title": "Submerge Wick in Water Jug",
+              "instruction": "Drop other end to the bottom of a 5L-20L water bottle and cap loosely to prevent mosquitoes."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Will natural cotton wicks rot over time in soil?",
+              "answer": "Cotton wicks remain functional for 6-8 months, easily replaced with household textile scraps."
+          },
+          {
+              "question": "Does the water reservoir need to be placed higher than the pot?",
+              "answer": "No! Capillary suction naturally pulls water against gravity according to soil dryness."
+          }
+      ],
+      "monetization_tips": [
+          "Package aesthetic natural cotton braided wicks for indoor plant lovers."
+      ],
+      "tags": [
+          "Self-Watering",
+          "Cotton Wick",
+          "Zero Electricity",
+          "Travel Friendly",
+          "Upcycled Fabric"
+      ]
+  },
+
+  'recycle-08': {
+      "common_name": "Anaerobic Fermented Fish Protein Organic Fertilizer Recipe",
+      "aliases": [
+          "DIY Fish Amino Fertilizer",
+          "Odorless Fermented Fish Emulsion",
+          "Bio-Fish Protein"
+      ],
+      "description": "A bio-fermentation process converting market fish scraps into concentrated amino acid plant food using beneficial EM microbes, sugarcane molasses, and pineapple enzymes. Odorless, potent, and rich in bio-available marine minerals.",
+      "quick_answer": "Ferment 10kg fish offal anaerobically with 1L molasses, 200g EM microbes, and crushed pineapple for 30-45 days. Bromelain rapidly hydrolyzes proteins without foul odors.",
+      "growth_time": "30-45 days fermentation; 1-year stable shelf life",
+      "seasonality": {
+          "north": "Summer heat completes fermentation in 25 days; winter takes 45 days",
+          "central": "Store in dry shelter protected from heavy rainwater intrusion",
+          "south": "Warm tropical temperatures optimize microbial enzyme activity year-round",
+          "best_months": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+          ]
+      },
+      "botanical_details": {
+          "family": "Bio-Fermentation & Marine Waste Upcycling",
+          "native_range": "Organic Bio-Fertilizer Formulation",
+          "active_compounds": [
+              "Short-Chain Free Amino Acids (Peptides)",
+              "Lactobacillus & Yeast Probiotic Consortia",
+              "Marine Zinc, Calcium, and Trace Minerals",
+              "Papain & Bromelain Proteolytic Enzymes"
+          ],
+          "soil_ph": "Concentrate pH 4.0 - 4.5 (Diluted 1:500 neutralizes to pH 6.5)",
+          "ideal_temp": "25°C - 35°C optimal fermentation",
+          "pot_size": "20L - 50L sealed plastic barrels with rubber airtight gasket"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Chop Scraps and Ripe Pineapple",
+              "instruction": "Chop fresh market fish offal and mix with crushed ripe pineapple to introduce bromelain."
+          },
+          {
+              "step": 2,
+              "title": "Blend Molasses and Inoculant",
+              "instruction": "Dissolve EM microbial inoculant into molasses water and pour thoroughly over fish scraps."
+          },
+          {
+              "step": 3,
+              "title": "Seal Container and Vent Periodically",
+              "instruction": "Lock lid with airtight seal and release carbon dioxide pressure every 5 days."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Will my neighbors complain about smelly fish odors?",
+              "answer": "Anaerobic fermentation with molasses and pineapple creates a mild sweet-sour aroma resembling fermented pickles."
+          },
+          {
+              "question": "What is the correct dilution ratio for feeding plants?",
+              "answer": "Dilute filtered liquid 1:500 for soil drenching, or 1:1000 for early morning foliar misting."
+          }
+      ],
+      "monetization_tips": [
+          "Collect seafood market offal and bottle premium organic fish amino acid fertilizers."
+      ],
+      "tags": [
+          "Fish Amino Acid",
+          "Organic Fertilizer",
+          "Upcycled Fish Offal",
+          "EM Microbes",
+          "Bio-Enzymes"
+      ]
+  },
+
+  'recycle-09': {
+      "common_name": "Sub-Irrigated Bucket Planter (SIP) Upcycled Container System",
+      "aliases": [
+          "DIY SIP Bucket",
+          "Self-Watering Paint Pail",
+          "Upcycled Sub-Irrigated Planter"
+      ],
+      "description": "Upcycles discarded 18L-20L paint pails into heavy-duty self-watering Sub-Irrigated Planters (SIP). Features an internal 5L water reservoir and air gap overflow port that saves 80% water and eliminates root rot.",
+      "quick_answer": "Partitions bucket into a 5L lower water cellar and top potting zone via an aerated perforated baffle, capillary soil wick cup, and side overflow drain.",
+      "growth_time": "30-minute construction; plants grow 1.5x faster than conventional pots",
+      "seasonality": {
+          "north": "Withstands harsh summer heat and protects against monsoon downpours",
+          "central": "Sub-water reservoir keeps root balls cool in intense summer heat",
+          "south": "Produces heavy continuous harvests of tomatoes, eggplants, and peppers",
+          "best_months": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+          ]
+      },
+      "botanical_details": {
+          "family": "Sub-Irrigated Urban Container Engineering",
+          "native_range": "Construction Waste Upcycling into Food Security",
+          "active_compounds": [
+              "5L Subterranean Evaporation-Free Water Cellar",
+              "Aeration Air-Gap Root Chamber",
+              "Passive Capillary Soil Wick Core",
+              "Durable UV-Stabilized Plastic Shell"
+          ],
+          "soil_ph": "6.0 - 7.0",
+          "ideal_temp": "18°C - 38°C",
+          "pot_size": "18L - 20L upcycled paint pails"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Drill Side Overflow Weep Hole",
+              "instruction": "Drill a 10mm overflow drainage hole exactly 10cm above the pail bottom."
+          },
+          {
+              "step": 2,
+              "title": "Fabricate False Bottom and Wick Cup",
+              "instruction": "Cut pail lid into a perforated separator platform fitted with a drilled yogurt cup packed with coir."
+          },
+          {
+              "step": 3,
+              "title": "Insert PVC Fill Tube and Add Media",
+              "instruction": "Seat a 21mm PVC pipe into the water zone to fill water directly without disturbing soil."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Will standing water in the bottom cause root rot?",
+              "answer": "No! The side weep hole maintains an engineered air gap above water so roots breathe freely."
+          },
+          {
+              "question": "How often does the SIP reservoir require refilling?",
+              "answer": "Refill only every 7-10 days, saving hours of tedious daily watering."
+          }
+      ],
+      "monetization_tips": [
+          "Source discarded construction buckets and market ready-to-plant SIP kits."
+      ],
+      "tags": [
+          "SIP Planter",
+          "Paint Bucket",
+          "Self-Watering",
+          "Water Conservation",
+          "Anti Root-Rot"
+      ]
+  },
+
+  'recycle-10': {
+      "common_name": "DIY Venturi Fertilizer Injector Upcycled Irrigation Mod",
+      "aliases": [
+          "DIY Venturi Injector",
+          "Automatic Fertilizer Doser",
+          "Upcycled Fertigation Unit"
+      ],
+      "description": "An automatic liquid fertilizer dosing invention powered by the Venturi fluid-dynamics differential. Repurposes plumbing pipe fittings and check valves to automatically blend organic fertilizer into drip lines.",
+      "quick_answer": "A narrowed pipe constriction creates a vacuum differential that siphons organic fertilizer broth directly into main watering lines without separate electric pumps.",
+      "growth_time": "45-minute assembly; operates reliably for 3+ years",
+      "seasonality": {
+          "north": "Deliver growth nutrients during spring spurts and summer fruiting",
+          "central": "Automates fertilizing during scorching midday hours",
+          "south": "Delivers balanced organic nutrition year-round to rooftop gardens",
+          "best_months": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+          ]
+      },
+      "botanical_details": {
+          "family": "Fluid Dynamics Venturi Applied Urban Fertigation",
+          "native_range": "Hydraulic Micro-Engineering Urban Agriculture",
+          "active_compounds": [
+              "Venturi Hydrodynamic Vacuum Effect",
+              "Zero External Electric Booster Pumps",
+              "100% Homogeneous Nutrient Dilution",
+              "Precision Metering Needle Valve"
+          ],
+          "soil_ph": "Unaffected by injector unit",
+          "ideal_temp": "Reliable across all outdoor weather conditions",
+          "pot_size": "Scalable for systems supporting 10 to 50 containers"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Assemble Constriction Vacuum Chamber",
+              "instruction": "Connect 27-to-21mm reducer bushings to create a throat constriction that induces suction."
+          },
+          {
+              "step": 2,
+              "title": "Mount One-Way Valve and Suction Tube",
+              "instruction": "Thread small brass or plastic check-valve into throat and attach flexible tube into fertilizer jug."
+          },
+          {
+              "step": 3,
+              "title": "Plumb Bypass Loop into Water Line",
+              "instruction": "Install Venturi assembly parallel with main water shut-off valve for on/off dosing control."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Does domestic municipal tap pressure provide enough suction?",
+              "answer": "Yes! Standard 1.5 - 2.5 bar urban household water pressure readily activates vacuum suction."
+          },
+          {
+              "question": "Will organic particles clog drip emitters?",
+              "answer": "The suction hose includes a 120-mesh stainless steel filter foot to block all sediment."
+          }
+      ],
+      "monetization_tips": [
+          "Assemble plug-and-play Venturi injector bypass manifolds for balcony gardeners."
+      ],
+      "tags": [
+          "Fertigation",
+          "Venturi Injector",
+          "Drip Irrigation",
+          "Zero Power",
+          "Smart Garden"
+      ]
+  },
+
+  'culinary-06': {
+      "common_name": "Steamed Male Papaya Flower Honey Cough Elixir",
+      "aliases": [
+          "Papaya Flower Honey Syrup",
+          "Male Papaya Cough Elixir",
+          "Traditional Papaya Cough Remedy"
+      ],
+      "description": "A revered Vietnamese folk remedy steaming fresh dawn-picked male papaya blossoms with wild mountain honey and rock sugar. Rich in natural flavonoids and papain enzymes that soothe throat inflammation and stop persistent nocturnal coughs.",
+      "quick_answer": "Steam freshly picked blossoms with raw honey and crystallized rock sugar on gentle heat for 40 minutes; take 1 warm teaspoon morning and evening.",
+      "growth_time": "50-minute preparation; keeps 3 months refrigerated",
+      "seasonality": {
+          "north": "Peak therapeutic value in cold, dry late autumn and winter seasons",
+          "central": "Soothes throats during prolonged damp winter rainy spells",
+          "south": "Protects respiratory mucosal lining from sudden air conditioning shocks",
+          "best_months": [
+              1,
+              2,
+              3,
+              9,
+              10,
+              11,
+              12
+          ]
+      },
+      "botanical_details": {
+          "family": "Caricaceae & Apis Mellifera Folk Pharmacology",
+          "native_range": "Vietnamese Traditional Herbal Pharmacopoeia",
+          "active_compounds": [
+              "Anti-Inflammatory Flavonoids & Polyphenols",
+              "Mucolytic Papain Protease Enzymes",
+              "Natural Antibacterial Honey Bio-Factors",
+              "Isothiocyanate Microbial Inhibitors"
+          ],
+          "soil_ph": "Not applicable (Culinary formulation)",
+          "ideal_temp": "Store refrigerated between 10°C - 20°C",
+          "pot_size": "350ml - 500ml sealed glass jars"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Harvest and Clean Male Papaya Flowers",
+              "instruction": "Pick male blossom clusters at dawn, rinse gently to preserve pollen grains, and air dry."
+          },
+          {
+              "step": 2,
+              "title": "Layer with Rock Sugar and Wild Honey",
+              "instruction": "Alternate layers of flowers and crushed rock sugar, then pour wild raw honey until submerged."
+          },
+          {
+              "step": 3,
+              "title": "Gently Steam in Water Bath",
+              "instruction": "Place sealed glass jar in a water bath and simmer gently for 35-40 minutes until blossoms soften."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Can infants under 1 year old consume this syrup?",
+              "answer": "Infants under 1 year should avoid raw honey; prepare the syrup using pure rock sugar instead."
+          },
+          {
+              "question": "Are fresh blossoms better than dried ones?",
+              "answer": "Fresh flowers retain aromatic essential oils and fresh pollen; dried flowers offer year-round convenience."
+          }
+      ],
+      "monetization_tips": [
+          "Cultivate male papaya trees specifically for selling prized fresh floral clusters."
+      ],
+      "tags": [
+          "Papaya Flowers",
+          "Wild Honey",
+          "Cough Elixir",
+          "Folk Medicine",
+          "Respiratory Care"
+      ]
+  },
+
+  'culinary-07': {
+      "common_name": "Northwest Mountain Mac Khen & Doi Wild Chili Herbal Salt",
+      "aliases": [
+          "Cham Cheo Dry Spice Salt",
+          "Wild Mac Khen Doi Salt",
+          "Northwest Forest Spice Blend"
+      ],
+      "description": "An artisanal tribal seasoning hand-pounded from slow-toasted sea salt, charcoal-roasted wild Doi tree seeds, tongue-tingling Mac Khen pepper, and sun-dried highland chilis.",
+      "quick_answer": "Roast Doi seeds over hot coals until puffed, toast Mac Khen pepper gently, and grind in a stone mortar with sea salt, dried wild chili, and fresh lime leaf threads.",
+      "growth_time": "30-minute crafting; retains pungent mountain aroma for 12 months",
+      "seasonality": {
+          "north": "Warm aromatic spice staple throughout cool northern winter barbecue feasts",
+          "central": "Enhances boiled free-range chicken and fresh seafood with unmatched fragrance",
+          "south": "Prized gourmet indigenous spice across urban artisan culinary scenes",
+          "best_months": [
+              1,
+              2,
+              3,
+              9,
+              10,
+              11,
+              12
+          ]
+      },
+      "botanical_details": {
+          "family": "Zanthoxylum & Michelia Wild Spices Botanical Blend",
+          "native_range": "Highland Rainforests of Hoang Lien Son Range, Northwest Vietnam",
+          "active_compounds": [
+              "Limonene & Terpineol in Mac Khen Pepper",
+              "Prized Indigenous Terpenes in Roasted Doi Seeds",
+              "Natural Thermogenic Capsaicin",
+              "Mineral-Rich Slow-Toasted Sea Salt"
+          ],
+          "soil_ph": "Not applicable",
+          "ideal_temp": "Store in airtight containers in a cool dry pantry",
+          "pot_size": "Sealed moisture-proof glass spice jars"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Toast Doi Seeds and Mac Khen Pepper",
+              "instruction": "Roast Doi seeds over charcoal until fragrant and lightly toast Mac Khen pepper in a dry pan."
+          },
+          {
+              "step": 2,
+              "title": "Slow-Roast Unrefined Sea Salt",
+              "instruction": "Stir sea salt in an iron skillet until fine, bone-dry, and crackling."
+          },
+          {
+              "step": 3,
+              "title": "Pound in Stone Mortar",
+              "instruction": "Hand-crush all ingredients in a stone mortar to maintain coarse textures and prevent oil loss."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Why avoid grinding with an electric blender?",
+              "answer": "Blender blade heat dissipates volatile aromatic oils and causes Mac Khen pepper to turn bitter."
+          },
+          {
+              "question": "What dishes pair best with this seasoning?",
+              "answer": "Exceptional with boiled free-range chicken, smoked wild pork, grilled meats, and tart green fruits."
+          }
+      ],
+      "monetization_tips": [
+          "Jar authentic artisan tribal seasonings for culinary gift baskets and specialty dining."
+      ],
+      "tags": [
+          "Mac Khen",
+          "Doi Seed",
+          "Wild Chili Salt",
+          "Northwest Vietnam",
+          "Artisan Spice"
+      ]
+  },
+
+  'culinary-08': {
+      "common_name": "Royal Chrysanthemum & Stevia Cold-Dried Beauty Infusion",
+      "aliases": [
+          "Chrysanthemum Stevia Tea",
+          "Royal Detox Floral Tea",
+          "Cuc Chi Imperial Elixir"
+      ],
+      "description": "An exquisite wellness infusion blending freeze-dried golden Royal Chrysanthemum blossoms, zero-calorie naturally sweet Stevia leaves, and organic Ningxia goji berries.",
+      "quick_answer": "Steep 8-10 golden blossoms with 3 Stevia leaves and goji berries in 85°C water for 5 minutes for a honey-scented, restorative floral tea.",
+      "growth_time": "5-minute infusion; daily mindful rejuvenation ritual",
+      "seasonality": {
+          "north": "Warm soothing floral beverage for cold northern winter afternoons",
+          "central": "Clears internal heat and calms eye fatigue in scorching sunny weather",
+          "south": "Serve chilled over ice for a revitalizing zero-sugar summer cooler",
+          "best_months": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+          ]
+      },
+      "botanical_details": {
+          "family": "Asteraceae Imperial Botanical Tea Blend",
+          "native_range": "Traditional Chrysanthemum Medicinal Fields (Nghia Trai, Hung Yen)",
+          "active_compounds": [
+              "Neuro-Calming Bisabolol & Apigenin",
+              "Zero-Calorie Glycemic-Safe Steviosides",
+              "Macular-Protective Carotenoids",
+              "Anti-Aging Flavonoid Bio-Complex"
+          ],
+          "soil_ph": "Not applicable",
+          "ideal_temp": "Brewing water temperature 85°C - 90°C",
+          "pot_size": "Clear glass tea pot to appreciate blossoming petals"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Rinse Glass Teapot and Awaken Blossoms",
+              "instruction": "Place blossoms and goji berries in teapot, rinse with a splash of hot water, and discard rinse."
+          },
+          {
+              "step": 2,
+              "title": "Add Stevia and Pour 85°C Water",
+              "instruction": "Add dried Stevia leaves, pour 350ml water at 85°C, and steep covered for 5-7 minutes."
+          },
+          {
+              "step": 3,
+              "title": "Strain and Sip Mindfully",
+              "instruction": "Pour through fine mesh, inhale the floral honey aroma, and sip to savor smooth natural sweetness."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Is this tea safe for individuals managing diabetes?",
+              "answer": "Yes! Stevia provides pure plant-based sweetness without carbohydrates or glycemic impact."
+          },
+          {
+              "question": "Will drinking this tea in the evening cause insomnia?",
+              "answer": "No, it is naturally caffeine-free; apigenin actively calms neural pathways to support restful sleep."
+          }
+      ],
+      "monetization_tips": [
+          "Curate premium loose floral tea jars for corporate wellness gift sets."
+      ],
+      "tags": [
+          "Chrysanthemum",
+          "Stevia",
+          "Beauty Tea",
+          "Zero Caffeine",
+          "Eye Health"
+      ]
+  },
+
+  'culinary-09': {
+      "common_name": "Southern Wild Mixed Field Greens & Freshwater Shrimp Soup",
+      "aliases": [
+          "Wild Greens River Shrimp Soup",
+          "Canh Tap Tang",
+          "Rustic Southern Field Greens Soup"
+      ],
+      "description": "A comforting, mineral-dense soup capturing the soul of Southern Vietnamese rural cooking. Blends over 7 tender backyard and wild-foraged greens with hand-pounded sweet freshwater river shrimp.",
+      "quick_answer": "Sauté pounded river shrimp with shallots, bring pure water to a rolling boil, and drop in fresh garden greens for 1 minute before serving over steamed jasmine rice.",
+      "growth_time": "20-minute cook time; ancestral cooling soul food",
+      "seasonality": {
+          "north": "Cooling summer soup dispelling sticky sweltering heat waves",
+          "central": "Wholesome rustic staple soothing during dry foehn wind months",
+          "south": "Abundant wild greens emerge vigorously following early monsoon rains",
+          "best_months": [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+          ]
+      },
+      "botanical_details": {
+          "family": "Wild Foraged Indigenous Greens Traditional Cuisine",
+          "native_range": "Rural Homestead Gardens of Mekong Delta, Vietnam",
+          "active_compounds": [
+              "Digestive Gastric Mucilage from Malabar Spinach and Jute",
+              "Gut-Cleansing Chlorophyll and Soluble Prebiotics",
+              "Highly Bio-Available Organic Calcium from Shrimp Shells",
+              "Broad-Spectrum Polyphenols from 7 Botanicals"
+          ],
+          "soil_ph": "Not applicable",
+          "ideal_temp": "Serve piping hot freshly prepared",
+          "pot_size": "Traditional family ceramic soup bowl"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Harvest and Wash 7 Wild Greens",
+              "instruction": "Pick tender spinach, amaranth, jute, wild pepper leaf, and watercress; rinse gently and chop."
+          },
+          {
+              "step": 2,
+              "title": "Pound River Shrimp and Sauté",
+              "instruction": "Pound freshwater river shrimp in a stone mortar; sauté briefly in shallot oil until fragrant."
+          },
+          {
+              "step": 3,
+              "title": "Simmer on High Heat Uncovered",
+              "instruction": "Add 1L water, bring to a rolling boil, add greens for 1-2 minutes uncovered, season, and serve."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Can river shrimp be substituted with other proteins?",
+              "answer": "Pounded field crabs, freshwater river clams, or minced organic pork all create delicious broths."
+          },
+          {
+              "question": "Why leave the pot uncovered while boiling the greens?",
+              "answer": "Keeping the pot uncovered on high heat preserves vibrant natural green chlorophyll and prevents yellowing."
+          }
+      ],
+      "monetization_tips": [
+          "Deliver pre-portioned organic mixed field greens packs directly to urban families."
+      ],
+      "tags": [
+          "Field Greens",
+          "River Shrimp",
+          "Mekong Cuisine",
+          "Cooling Soup",
+          "Superfood"
+      ]
+  },
+
+  'culinary-10': {
+      "common_name": "Wild Perilla & Artisanal Raw Apple Cider Vinaigrette",
+      "aliases": [
+          "Perilla Salad Dressing",
+          "Raw Probiotic Vinaigrette",
+          "Wild Herb Vinaigrette"
+      ],
+      "description": "An artisanal raw botanical salad dressing combining living raw apple cider vinegar with antioxidant-rich wild purple perilla extract, cold-pressed black sesame oil, and crushed single-clove garlic.",
+      "quick_answer": "Shake finely shredded purple perilla leaves with raw apple cider vinegar, cold-pressed sesame oil, and wild honey for an aromatic magenta-hued vinaigrette.",
+      "growth_time": "15-minute preparation; keeps 30 days refrigerated",
+      "seasonality": {
+          "north": "Aids lipid digestion and warms stomach during chilly winter dining",
+          "central": "Light and appetizing accompaniment to summer seafood salads",
+          "south": "Vibrant daily salad dressing over microgreens and hydroponic greens year-round",
+          "best_months": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+          ]
+      },
+      "botanical_details": {
+          "family": "Lamiaceae & Raw Probiotic Acetobacter Fermentation",
+          "native_range": "Holistic Vietnamese Botanical Functional Food",
+          "active_compounds": [
+              "Liver-Protective Rosmarinic Acid",
+              "Plant-Derived Alpha-Linolenic Acid (Omega-3)",
+              "Natural Acetic Acid Digestive Cleanser",
+              "Live Acetobacter Vinegar Mother Cultures"
+          ],
+          "soil_ph": "Vinaigrette pH 3.8 - 4.2",
+          "ideal_temp": "Store in cool pantry or refrigerator (10°C - 15°C)",
+          "pot_size": "250ml cork-stoppered glass bottles"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Infuse Magenta Perilla Color",
+              "instruction": "Finely shred fresh perilla leaves and steep in raw apple cider vinegar for 10 minutes to draw out vivid purple pigments."
+          },
+          {
+              "step": 2,
+              "title": "Add Sesame Oil and Aromatics",
+              "instruction": "Combine cold-pressed black sesame oil, raw wild honey, crushed single-clove garlic, and sea salt."
+          },
+          {
+              "step": 3,
+              "title": "Vigorously Shake to Emulsify",
+              "instruction": "Seal glass bottle and shake for 15 seconds into a silky, fragrant emulsion ready to drizzle."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Can this perilla dressing be kept at room temperature?",
+              "answer": "Natural acetic acidity and perilla essential oils naturally preserve the dressing for 7 days at room temperature, or 30 days refrigerated."
+          },
+          {
+              "question": "What health benefits does it offer for weight management?",
+              "answer": "Plant omega-3s and acetic acid increase satiety, support metabolic lipid breakdown, and stabilize post-meal glucose spikes."
+          }
+      ],
+      "monetization_tips": [
+          "Bottle functional botanical salad vinaigrettes for organic health food grocers."
+      ],
+      "tags": [
+          "Wild Perilla",
+          "Apple Cider Vinegar",
+          "Cold-Pressed Sesame",
+          "Probiotics",
+          "Clean Eating"
+      ]
+  },
+
+  'forest-06': {
+      "common_name": "Ba Be National Park Sanctuary (Limestone Forest & Freshwater Lake Biome)",
+      "aliases": [
+          "Ba Be National Park",
+          "Ba Be Lake Nature Reserve",
+          "Ba Be Ramsar Wetland"
+      ],
+      "description": "Emerald jewel of Northeast Vietnam covering 10,048 hectares (100,480,000 m²). Pristine karst mountain forests embrace Vietnam’s largest natural mountain freshwater lake, designated an International Ramsar Wetland and ASEAN Heritage Park.",
+      "quick_answer": "Protects 1,268 vascular plant species and endangered Tonkin snub-nosed monkeys. Each NFT sponsors 10,000 m² (1 ha) of karst forest and lake waters.",
+      "growth_time": "Perpetual primeval limestone karst forest and ancient lake ecosystem",
+      "seasonality": {
+          "north": "Spring and autumn showcase mirror-like crystal waters reflecting ancient forest peaks",
+          "central": "Hydrological watershed buffer regulating climate for the Red River basin",
+          "south": "Esteemed eco-tourism destination for birdwatchers and nature lovers",
+          "best_months": [
+              2,
+              3,
+              4,
+              9,
+              10,
+              11
+          ]
+      },
+      "botanical_details": {
+          "family": "Karst Mountain & Natural Freshwater Lake Ecosystem",
+          "native_range": "Ba Be District, Bac Kan Province",
+          "active_compounds": [
+              "Rare Short-Leaved Hemlock (Tsuga chinensis) stands",
+              "Largest Natural Mountain Freshwater Lake in Vietnam",
+              "Critical Habitat for Tonkin Snub-Nosed Monkeys",
+              "182 Indigenous Wild Orchid Taxa"
+          ],
+          "soil_ph": "6.5 - 7.5 (Rendzina limestone soils)",
+          "ideal_temp": "16°C - 28°C year-round cool mountain climate",
+          "pot_size": "10,048 hectares sanctuary (10,000 m² per conservation NFT)"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Visit Ba Be National Park with GPS",
+              "instruction": "Travel to Ba Be National Park (Bac Kan province) within 8km radius of lake center. Enable GPS."
+          },
+          {
+              "step": 2,
+              "title": "Verify Web3 GPS Check-in",
+              "instruction": "Click \"Verify Forest GPS Location\" on Web3 Sandbox to receive your authenticated 24-hour Check-in Pass."
+          },
+          {
+              "step": 3,
+              "title": "Mint 10,000 m² Ba Be Forest Lot NFT",
+              "instruction": "Sign Web3 transaction to secure permanent on-chain sponsorship for 1 hectare of Ba Be karst forest."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "How was Lake Ba Be formed?",
+              "answer": "Formed over 200 million years ago through subterranean karst tectonic movements, it is Vietnam’s largest natural mountain freshwater lake."
+          },
+          {
+              "question": "What is the maximum NFT allocation for Ba Be?",
+              "answer": "10,048 hectares corresponds to an immutable maximum supply of 10,048 NFT lots."
+          }
+      ],
+      "monetization_tips": [
+          "Holders earn the Protector of Ba Be Lake credential and discounts on guided eco-kayaking explorations."
+      ],
+      "tags": [
+          "Ba Be",
+          "Bac Kan",
+          "National Park",
+          "Ramsar Wetland",
+          "ASEAN Heritage",
+          "Mountain Lake"
+      ]
+  },
+
+  'forest-07': {
+      "common_name": "Ba Vi National Park Sanctuary (Subtropical Mountain Forest Biome)",
+      "aliases": [
+          "Ba Vi National Park",
+          "Mount Tan Vien Primeval Forest",
+          "Hanoi Green Lungs"
+      ],
+      "description": "The monumental green lungs shielding the Northern Delta covering 9,702 hectares (97,020,000 m²). Features high-altitude subtropical cloud forests, a treasury of over 503 traditional medicinal plant taxa, and the legendary heritage of Mount Tan Vien.",
+      "quick_answer": "Protects 1,209 plant species including 503 rare traditional Nam Duoc medicinal herbs. Each NFT represents 10,000 m² (1 ha) of Ba Vi mountain forest.",
+      "growth_time": "Ancestral sacred mountain primeval forest protected perpetually",
+      "seasonality": {
+          "north": "Cool mountain air year-round; ethereal winter mists shroud mountain temples",
+          "central": "Western ecological shield cleansing atmospheric winds reaching Hanoi capital",
+          "south": "Iconic eco-trekking retreat and botanical wonderland of Northern Vietnam",
+          "best_months": [
+              3,
+              4,
+              5,
+              9,
+              10,
+              11
+          ]
+      },
+      "botanical_details": {
+          "family": "Subtropical Evergreen Mountain Forest Ecosystem",
+          "native_range": "Ba Vi Mountain Range, Hanoi Capital",
+          "active_compounds": [
+              "503 Rare Traditional Medicinal Plant Species",
+              "Centuries-Old Calocedrus macrolepis Stands",
+              "Golden Wild Sunflower Carpets in Early Winter",
+              "Critical Aquifer Buffer Protecting Hanoi Basin"
+          ],
+          "soil_ph": "5.0 - 6.0 (Brownish-red mountain humic feralit soils)",
+          "ideal_temp": "15°C - 26°C temperate mountain microclimate",
+          "pot_size": "9,702 hectares reserve (10,000 m² per conservation NFT)"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Visit Mount Ba Vi with GPS Enabled",
+              "instruction": "Travel to Ba Vi National Park (within 7km radius from Tan Vien peak). Turn on phone GPS."
+          },
+          {
+              "step": 2,
+              "title": "Verify Web3 Check-in",
+              "instruction": "Press \"Verify Forest GPS Location\" on Web3 Sandbox to claim an authenticated 24-hour Check-in Pass."
+          },
+          {
+              "step": 3,
+              "title": "Mint 10,000 m² Ba Vi Mountain Forest NFT",
+              "instruction": "Sign Web3 transaction to claim your 1 hectare conservation stewardship of Mount Tan Vien on the blockchain."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "What makes Ba Vi’s Calocedrus cypress forest so special?",
+              "answer": "The high-altitude stands of Calocedrus macrolepis on Ba Vi’s peaks represent an endangered relict conifer listed in Vietnam’s Red Data Book."
+          },
+          {
+              "question": "What is the maximum NFT allocation for Ba Vi?",
+              "answer": "Encompassing 9,702 hectares, the maximum supply is capped at exactly 9,702 NFT lots."
+          }
+      ],
+      "monetization_tips": [
+          "Holders receive the Guardian of Tan Vien credential and complimentary seasonal wildflower passes."
+      ],
+      "tags": [
+          "Ba Vi",
+          "Hanoi",
+          "National Park",
+          "Tan Vien Mountain",
+          "Medicinal Flora",
+          "Calocedrus"
+      ]
+  },
+
+  'forest-08': {
+      "common_name": "Pu Mat National Park Sanctuary (Annamite Range Rainforest Core)",
+      "aliases": [
+          "Pu Mat National Park",
+          "Pu Mat Rainforest Reserve",
+          "Western Nghe An Biosphere Core"
+      ],
+      "description": "Vast primeval rainforest wilderness of the Northern Annamite Range covering 94,804 hectares (948,040,000 m²). UNESCO Biosphere Core protecting endangered grey-shanked douc langurs and the legendary Saola.",
+      "quick_answer": "One of the premier biodiversity strongholds in Indochina with nearly 2,500 vascular plant species. Each NFT protects 10,000 m² (1 ha) of primary Annamite rainforest.",
+      "growth_time": "Primeval Annamite tropical rainforest preserved perpetually",
+      "seasonality": {
+          "north": "Dense multi-layered rainforest holds mountain aquifers and halts erosion",
+          "central": "Essential green barrier protecting Nghe An plains from flash floods and typhoons",
+          "south": "A legendary frontier of pristine tropical biodiversity in Central Vietnam",
+          "best_months": [
+              2,
+              3,
+              4,
+              5,
+              8,
+              9
+          ]
+      },
+      "botanical_details": {
+          "family": "Annamite Mountain Lowland & Montane Rainforest Biome",
+          "native_range": "Con Cuong, Anh Son, and Tuong Duong districts, Nghe An Province",
+          "active_compounds": [
+              "Habitat of Elusive Saola (Asian Unicorn)",
+              "Largest Remaining Population of White-Cheeked Gibbons in Vietnam",
+              "Nearly 2,500 Vascular Flora Species",
+              "Millennial Cunninghamia konishii Giant Conifer Stands"
+          ],
+          "soil_ph": "5.2 - 6.2 (Feralit soils derived from shale)",
+          "ideal_temp": "18°C - 32°C year-round humid tropical montane",
+          "pot_size": "94,804 hectares sanctuary (10,000 m² per conservation NFT)"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Visit Pu Mat Rainforest with GPS",
+              "instruction": "Travel to Con Cuong / Pu Mat region (within 20km radius from park center). Enable GPS."
+          },
+          {
+              "step": 2,
+              "title": "Verify Web3 Check-in",
+              "instruction": "Press \"Verify Forest GPS Location\" on Web3 Sandbox to claim your authenticated 24-hour Check-in Pass."
+          },
+          {
+              "step": 3,
+              "title": "Mint 10,000 m² Pu Mat Rainforest NFT",
+              "instruction": "Sign Web3 transaction to sponsor 1 hectare of deep Annamite rainforest on the blockchain."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "What does \"Pu Mat\" mean in the indigenous dialect?",
+              "answer": "In the ancient Thai language, \"Pu\" means mountain and \"Mat\" means cooling breeze; Pu Mat translates to \"The Mountain of Eternal Breezes\"."
+          },
+          {
+              "question": "What is the maximum NFT allocation for Pu Mat?",
+              "answer": "Covering 94,804 hectares, the maximum supply is capped at exactly 94,804 NFT lots."
+          }
+      ],
+      "monetization_tips": [
+          "Holders receive Guardian of the Annamite Range credentials and verified forest carbon offsets."
+      ],
+      "tags": [
+          "Pu Mat",
+          "Nghe An",
+          "National Park",
+          "UNESCO Biosphere",
+          "Saola Habitat",
+          "Annamites"
+      ]
+  },
+
+  'forest-09': {
+      "common_name": "Tram Chim National Park Sanctuary (Dong Thap Muoi Wetland Ramsar Biome)",
+      "aliases": [
+          "Tram Chim National Park",
+          "Kingdom of the Red-Crowned Crane",
+          "Tram Chim Ramsar Wetland"
+      ],
+      "description": "Pristine Dong Thap Muoi wetland wilderness covering 7,313 hectares (73,130,000 m²). The world’s 2,000th Ramsar site, celebrated for expansive grasslands, Melaleuca swamp forests, and sanctuary for endangered Sarus Cranes.",
+      "quick_answer": "Protects the seasonally flooded wetland biome of the Mekong Basin with 130 freshwater fish species and 233 waterbirds. Each NFT protects 10,000 m² (1 ha) of flooded savannah.",
+      "growth_time": "Primeval Dong Thap Muoi flooded wetland preserved perpetually",
+      "seasonality": {
+          "north": "Iconic symbol of the pristine natural wealth of Southern Vietnam",
+          "central": "Placid wetlands supporting regional flyways across Southeast Asia",
+          "south": "Floating water lily carpets during flood season (Sep-Nov); cranes return in dry months (Jan-May)",
+          "best_months": [
+              1,
+              2,
+              3,
+              4,
+              9,
+              10,
+              11
+          ]
+      },
+      "botanical_details": {
+          "family": "Freshwater Seasonally Inundated Wetland Ramsar Biome",
+          "native_range": "Tam Nong District, Dong Thap Province",
+          "active_compounds": [
+              "Eleocharis dulcis Grasslands (Preferred Food of Sarus Cranes)",
+              "Melaleuca cajuputi Inundated Swamp Forests",
+              "Lotus and Nymphaea Aquatic Floral Beds",
+              "Wild Rice (Oryza rufipogon) Genetic Reservoir"
+          ],
+          "soil_ph": "4.5 - 5.5 (Acidic alluvial marsh soils)",
+          "ideal_temp": "26°C - 33°C tropical monsoon",
+          "pot_size": "7,313 hectares sanctuary (10,000 m² per conservation NFT)"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Visit Tram Chim Wetlands with GPS",
+              "instruction": "Travel to Tam Nong district (Dong Thap) within 7km radius of park center. Enable GPS."
+          },
+          {
+              "step": 2,
+              "title": "Verify Web3 Check-in",
+              "instruction": "Press \"Verify Forest GPS Location\" on Web3 Sandbox to claim your authenticated 24-hour Check-in Pass."
+          },
+          {
+              "step": 3,
+              "title": "Mint 10,000 m² Tram Chim Wetland NFT",
+              "instruction": "Sign Web3 transaction to record your 1 hectare Sarus Crane wetland stewardship on the blockchain."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Why was Tram Chim designated the world’s 2,000th Ramsar site?",
+              "answer": "It is the last remaining pristine microcosm of the ancient Dong Thap Muoi wetlands before broad-scale modern agricultural reclamation."
+          },
+          {
+              "question": "What is the maximum NFT allocation for Tram Chim?",
+              "answer": "Covering 7,313 hectares, the maximum supply is capped at exactly 7,313 NFT lots."
+          }
+      ],
+      "monetization_tips": [
+          "Holders receive the Red-Crowned Crane Protector credential and discounts on seasonal ecoboat excursions."
+      ],
+      "tags": [
+          "Tram Chim",
+          "Dong Thap",
+          "Ramsar 2000",
+          "Sarus Crane",
+          "Melaleuca Forest",
+          "Wetlands"
+      ]
+  },
+
+  'forest-10': {
+      "common_name": "Can Gio Mangrove Biosphere Reserve (Green Tidal Shield Biome)",
+      "aliases": [
+          "Can Gio Mangrove Forest",
+          "Green Lungs of Ho Chi Minh City",
+          "Can Gio UNESCO Biosphere"
+      ],
+      "description": "Monumental mangrove tidal barrier shielding Vietnam’s largest metropolis covering 75,740 hectares (757,400,000 m²). UNESCO’s first World Biosphere Reserve in Vietnam (2000), acting as a massive blue carbon sink and surge shield against sea level rise.",
+      "quick_answer": "World-renowned mangrove ecological restoration marvel protecting Rhizophora stilt root forests and marine nurseries. Each NFT represents 10,000 m² (1 ha) of tidal mangrove forest.",
+      "growth_time": "Grand restored coastal tidal mangrove forest preserved perpetually",
+      "seasonality": {
+          "north": "Heroic symbol of environmental restoration and resilience in the South",
+          "central": "Benchmark coastal mangrove reforestation model for disaster reduction",
+          "south": "Green tidal barrier and giant air purifier serving 10 million Saigon residents",
+          "best_months": [
+              1,
+              2,
+              3,
+              4,
+              10,
+              11,
+              12
+          ]
+      },
+      "botanical_details": {
+          "family": "Rhizophoraceae Coastal Tidal Mangrove Biome",
+          "native_range": "Can Gio Island District, Ho Chi Minh City",
+          "active_compounds": [
+              "Interlocking Prop Roots of Rhizophora apiculata",
+              "Blue Carbon Atmospheric Sequestration 4x Greater Than Terrestrial Forests",
+              "Indigenous Avicennia & Sonneratia Mangrove Stands",
+              "Natural Estuarine Marine Fishery Nursery"
+          ],
+          "soil_ph": "6.5 - 7.5 (Estuarine saline mud deposits)",
+          "ideal_temp": "26°C - 34°C maritime tropical sunshine",
+          "pot_size": "75,740 hectares reserve (10,000 m² per conservation NFT)"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Visit Can Gio Mangrove Forest with GPS",
+              "instruction": "Cross Binh Khanh ferry into Can Gio district (within 18km radius). Turn on GPS."
+          },
+          {
+              "step": 2,
+              "title": "Verify Web3 Check-in",
+              "instruction": "Press \"Verify Forest GPS Location\" on Web3 Sandbox to claim your authenticated 24-hour Check-in Pass."
+          },
+          {
+              "step": 3,
+              "title": "Mint 10,000 m² Can Gio Mangrove NFT",
+              "instruction": "Sign Web3 transaction to record 1 hectare of Saigon’s green tidal barrier on the blockchain."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Why was Can Gio recognized as Vietnam’s first UNESCO Biosphere Reserve?",
+              "answer": "Honored in 2000 for the heroic reforestation triumph that restored lush green mangroves onto herbicide-devastated wastelands."
+          },
+          {
+              "question": "What is the maximum NFT allocation for Can Gio?",
+              "answer": "Spanning 75,740 hectares, the maximum supply is capped at exactly 75,740 NFT lots."
+          }
+      ],
+      "monetization_tips": [
+          "Holders earn the Protector of Saigon Tidal Shield credential and international Blue Carbon offset credits."
+      ],
+      "tags": [
+          "Can Gio",
+          "Ho Chi Minh City",
+          "Mangrove Forest",
+          "UNESCO",
+          "Blue Carbon",
+          "Tidal Shield"
+      ]
   }
 };
 

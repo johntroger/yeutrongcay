@@ -132,7 +132,7 @@ flowchart TD
 ---
 
 ## 🌿 MỐC 4 (CHECKPOINT 4): NẠP NỘI DUNG ĐỢT 2 (+20 BÀI: `120` $\rightarrow$ `140` ẤN PHẨM)
-- [ ] **Bước 4.1 – 4.4**: Bổ sung 20 bài Đợt 2 (`06..10` cho cả 4 ngành mới), đồng bộ `api/plants_data.json`, Build, xóa `dist/` & Deploy (**140 ấn phẩm**).
+- [x] **Bước 4.1 – 4.4**: Bổ sung 20 bài Đợt 2 (`06..10` cho cả 4 ngành mới), đồng bộ `api/plants_data.json`, Build, xóa `dist/` & Deploy (**140 ấn phẩm**) [HOÀN THÀNH].
 
 ---
 
