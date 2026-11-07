@@ -137,4 +137,4 @@ flowchart TD
 ---
 
 ## 🏆 MỐC 5 (CHECKPOINT 5): NẠP NỘI DUNG ĐỢT 3 (+20 BÀI: `140` $\rightarrow$ `160` ẤN PHẨM)
-- [ ] **Bước 5.1 – 5.4**: Bổ sung 20 bài Đợt 3 (`11..15` cho cả 4 ngành mới), đồng bộ `api/plants_data.json`, Build, xóa `dist/` & Nghiệm thu tổng thể **160 ấn phẩm**!
+- [x] **Bước 5.1 – 5.4**: Bổ sung 20 bài Đợt 3 (`11..15` cho cả 4 ngành mới), đồng bộ `api/plants_data.json`, Build, xóa `dist/` & Nghiệm thu tổng thể **160 ấn phẩm**! [HOÀN THÀNH TOÀN DIỆN].

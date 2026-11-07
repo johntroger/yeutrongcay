@@ -430,7 +430,32 @@ const PLANT_SUBCATEGORY_MAP: Record<string, string> = {
   'forest-07': 'khu-bao-ton-sinh-thai',
   'forest-08': 'rung-nguyen-sinh',
   'forest-09': 'vung-ngap-nuoc-rung-ngap-man',
-  'forest-10': 'vung-ngap-nuoc-rung-ngap-man'
+  'forest-10': 'vung-ngap-nuoc-rung-ngap-man',
+
+  // Milestone 5 Final Items (space-11..15, recycle-11..15, culinary-11..15, forest-11..15)
+  'space-11': 'san-thuong-nhiet-doi',
+  'space-12': 'ban-cong-chung-cu',
+  'space-13': 'vuon-tuong-dung',
+  'space-14': 'san-thuong-nhiet-doi',
+  'space-15': 'ban-cong-chung-cu',
+
+  'recycle-11': 'u-rac-huu-co',
+  'recycle-12': 'thuy-canh-tu-che',
+  'recycle-13': 'he-thong-tuoi-tu-dong',
+  'recycle-14': 'u-rac-huu-co',
+  'recycle-15': 'thuy-canh-tu-che',
+
+  'culinary-11': 'tra-thao-duoc-duong-sinh',
+  'culinary-12': 'gia-vi-len-men',
+  'culinary-13': 'siro-chua-lanh',
+  'culinary-14': 'tra-thao-duoc-duong-sinh',
+  'culinary-15': 'gia-vi-len-men',
+
+  'forest-11': 'khu-bao-ton-sinh-thai',
+  'forest-12': 'vung-ngap-nuoc-rung-ngap-man',
+  'forest-13': 'khu-bao-ton-sinh-thai',
+  'forest-14': 'rung-nguyen-sinh',
+  'forest-15': 'rung-nguyen-sinh'
 };
 
 /**

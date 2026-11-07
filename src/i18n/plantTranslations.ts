@@ -5993,6 +5993,1573 @@ export const PLANT_ENGLISH_MAP: Record<string, LocalizedPlantData> = {
           "Blue Carbon",
           "Tidal Shield"
       ]
+  },
+
+  // Milestone 5 Final Translations (space-11..15, recycle-11..15, culinary-11..15, forest-11..15)
+  'space-11': {
+      "common_name": "Upcycled Pine Pallet Planter Rooftop Orchard Blueprint",
+      "aliases": [
+          "Rooftop Pallet Orchard",
+          "Wooden Planter Fruit Garden",
+          "Pallet Container Orchard"
+      ],
+      "description": "Technical carpentry blueprint for crafting thermal-insulated planting boxes from reclaimed pine shipping pallets. Engineered to shield woody fruit tree roots (guava, pomegranate, lime, fig) from 50°C concrete roof heat.",
+      "quick_answer": "Utilizes 1.8cm heat-treated pine pallet slats sealed with linseed oil and lined with HDPE membrane, with a 5cm raised air gap to prevent root baking.",
+      "growth_time": "3 hours box assembly; trees flower and set fruit within 4-6 months",
+      "seasonality": {
+          "north": "Insulated wood protects root balls from freezing winter temperatures",
+          "central": "Air gap prevents destructive thermal conduction from scorching summer concrete slabs",
+          "south": "Abundant year-round harvests of tropical container fruit trees",
+          "best_months": [
+              2,
+              3,
+              4,
+              8,
+              9,
+              10
+          ]
+      },
+      "botanical_details": {
+          "family": "Urban Rooftop Woodcraft & Pomology System",
+          "native_range": "Circular Rooftop Agroforestry Invention",
+          "active_compounds": [
+              "Linseed-Treated Upcycled Pine Pallet Timber",
+              "0.5mm Impermeable HDPE Geotextile Liner",
+              "5cm Air-Convection Raised Rubber Standoffs",
+              "Multi-Point Gravity Drainage Holes"
+          ],
+          "soil_ph": "6.0 - 6.8",
+          "ideal_temp": "20°C - 38°C High Thermal Tolerance",
+          "pot_size": "60x60x50cm square wooden planters"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Sand and Treat Pine Timber",
+              "instruction": "Sand reclaimed pallet planks and coat with 2 layers of raw linseed oil for non-toxic outdoor rot resistance."
+          },
+          {
+              "step": 2,
+              "title": "Assemble Frame with Rubber Feet",
+              "instruction": "Fasten stainless 4x40 screws into corner posts and attach 4 heavy-duty rubber feet elevating box 5cm."
+          },
+          {
+              "step": 3,
+              "title": "Install Liner and Plant Trees",
+              "instruction": "Staple HDPE barrier inside, puncture 6 drainage ports, and fill with nutrient-rich compost media for fruit trees."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Will pine timber planters rot quickly under tropical rains?",
+              "answer": "Treated with linseed oil and insulated from direct wet soil contact by HDPE membrane, boxes last 5-7 years."
+          },
+          {
+              "question": "Why is the 5cm bottom air gap essential?",
+              "answer": "It promotes passive air-cooling underneath, stopping heat transfer from concrete roof slabs that reach 50°C in summer."
+          }
+      ],
+      "monetization_tips": [
+          "Manufacture pre-assembled upcycled pallet planter boxes for urban rooftop gardens."
+      ],
+      "tags": [
+          "Wooden Planter",
+          "Pallet Upcycling",
+          "Fruit Trees",
+          "Rooftop Garden",
+          "Heat Insulation"
+      ]
+  },
+
+  'space-12': {
+      "common_name": "Studio Apartment Multi-Tier Railing Herb Garden Blueprint",
+      "aliases": [
+          "Railing Herb Garden",
+          "2m² Studio Balcony Garden",
+          "Zero-Footprint Loggia Herbs"
+      ],
+      "description": "An ultra-compact 3-tier railing hanger blueprint saving 100% floor space on tight 1.5m² - 2m² studio apartment balconies. Arranges essential cooking herbs and relaxation teas within arm’s reach of the kitchen.",
+      "quick_answer": "Dual stainless steel clamp brackets lock securely onto glass or steel railings, supporting self-watering troughs to keep herbs perpetually fresh without cluttering walking space.",
+      "growth_time": "1 hour installation; daily fresh culinary herb harvests",
+      "seasonality": {
+          "north": "Grow dill, coriander, and mint in winter; basil and perilla in summer",
+          "central": "Self-watering reservoir shields delicate herb roots through scorching dry heat",
+          "south": "Continuous 365-day fresh aromatic kitchen herbs for gourmet home cooking",
+          "best_months": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+          ]
+      },
+      "botanical_details": {
+          "family": "Micro-Apartment Zero-Footprint Culinary Herb System",
+          "native_range": "Urban Micro-Apartment Green Interior Design",
+          "active_compounds": [
+              "304 Stainless Anti-Corrosion Railing Brackets",
+              "Capillary Self-Watering Planter Troughs",
+              "100% Conservation of Balcony Floor Space",
+              "Natural Mosquito-Repellent Essential Oils"
+          ],
+          "soil_ph": "6.2 - 6.8",
+          "ideal_temp": "18°C - 35°C",
+          "pot_size": "60cm length, 18cm depth multi-tier troughs"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Calibrate and Lock Railing Clamps",
+              "instruction": "Adjust stainless clamp jaws around railing handrail and tighten twin security bolts."
+          },
+          {
+              "step": 2,
+              "title": "Mount Self-Watering Troughs",
+              "instruction": "Slot troughs into 3 tiers and verify horizontal alignment with a bubble level."
+          },
+          {
+              "step": 3,
+              "title": "Zonally Plant Herbs and Teas",
+              "instruction": "Upper tier for sun-loving rosemary and thyme; middle tier for basil and perilla; lower tier for spearmint."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Is it completely safe on high-rise balconies with small children?",
+              "answer": "Brackets face inward towards the apartment and feature dual anti-sway safety locks tested for high wind shear."
+          },
+          {
+              "question": "How frequently does the water trough require refilling?",
+              "answer": "The built-in 1.5L sub-reservoir needs refilling only once per week."
+          }
+      ],
+      "monetization_tips": [
+          "Offer turnkey railing herb planters bundled with fresh culinary herbs for condo owners."
+      ],
+      "tags": [
+          "Compact Balcony",
+          "Studio Apartment",
+          "Railing Garden",
+          "Culinary Herbs",
+          "Zero Floor Space"
+      ]
+  },
+
+  'space-13': {
+      "common_name": "Indoor Vertical Felt Pocket Living Wall System Blueprint",
+      "aliases": [
+          "Felt Pocket Living Wall",
+          "Indoor Green Wall",
+          "Automated Vertical Garden"
+      ],
+      "description": "An architectural living wall blueprint transforming bare indoor walls into lush vertical ecosystems using breathable dual-sided geotextile felt pockets integrated with top-down automated drip recycling.",
+      "quick_answer": "Galvanized steel sub-frame with aluminum moisture barrier board prevents dampness, supporting geotextile felt pockets with an automated drip loop that cascades water cleanly down.",
+      "growth_time": "1 day installation; lush full wall coverage established in 3 weeks",
+      "seasonality": {
+          "north": "Humidifies dry winter air and filters airborne fine particulate matter",
+          "central": "Creates a calming natural microclimate cooling down living room areas",
+          "south": "Tropical foliage decor thrives in vibrant glossy green health year-round",
+          "best_months": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+          ]
+      },
+      "botanical_details": {
+          "family": "Architectural Vertical Hydro-Felt Botanical Wall",
+          "native_range": "Contemporary Sustainable Interior Architecture",
+          "active_compounds": [
+              "Non-Woven Geotextile Felt Root-Breathing Pockets",
+              "Impervious Aluminum Composite Moisture Shield",
+              "Automated Scheduled Drip Fertigation Loop",
+              "High-Efficiency Formaldehyde & Benzene Bioremediation"
+          ],
+          "soil_ph": "5.8 - 6.5 (Sphagnum moss and coarse perlite media)",
+          "ideal_temp": "18°C - 30°C",
+          "pot_size": "15x18cm pocket modules (24-30 planting pockets per m²)"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Anchor Frame and Moisture Shield",
+              "instruction": "Fasten galvanized steel frame with a 2cm air standoff and mount aluminum composite board."
+          },
+          {
+              "step": 2,
+              "title": "Mount Felt Pocket Sheets and Drip Tubing",
+              "instruction": "Staple dual-layer felt pocket sheets and run 6mm drip tubing along the top tier."
+          },
+          {
+              "step": 3,
+              "title": "Insert Foliage into Felt Pockets",
+              "instruction": "Wrap root balls of air-cleansing plants (Philodendron, Ferns, Fittonia) in moss and insert snugly into pockets."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Will an indoor living wall cause mold on drywall or wallpaper?",
+              "answer": "The continuous aluminum barrier and 2cm rear ventilation gap isolate all moisture completely from the building wall."
+          },
+          {
+              "question": "Where does runoff drainage water collect?",
+              "answer": "A discreet stainless steel catchment gutter at the base routes excess water to a recirculating reservoir."
+          }
+      ],
+      "monetization_tips": [
+          "Design and install custom artistic vertical green walls for modern offices, cafes, and luxury spas."
+      ],
+      "tags": [
+          "Living Wall",
+          "Felt Pockets",
+          "Vertical Garden",
+          "Interior Decor",
+          "Air Purification"
+      ]
+  },
+
+  'space-14': {
+      "common_name": "Rooftop Mini Aquatic Wetland & Lotus Ecosystem Blueprint",
+      "aliases": [
+          "Rooftop Lotus Wetland",
+          "Rooftop Water Garden",
+          "Mini Wetland Permaculture"
+      ],
+      "description": "An ultra-lightweight, multi-layer waterproofed rooftop aquatic water garden. Combines sacred lotus, fragrant water lilies, and mosquito-hunting guppies to create a cooling Zen sanctuary that lowers roof surface heat.",
+      "quick_answer": "Uses lightweight composite ponds or 1.0mm EPDM rubber liners over EPS foam cushioning, with mineral-rich clay mud and hornwort to naturally filter water crystal-clear.",
+      "growth_time": "1 day setup; fragrant lotus blooms appear in 40 days",
+      "seasonality": {
+          "north": "Plant lotus rhizomes in spring to enjoy divine fragrant blossoms all summer",
+          "central": "Evaporative water surface cools rooftop ambient temperatures by 4-6°C",
+          "south": "Thai water lilies and Quan Am sacred lotus flower continuously all four seasons",
+          "best_months": [
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+          ]
+      },
+      "botanical_details": {
+          "family": "Nelumbonaceae & Aquatic Wetland Permaculture Design",
+          "native_range": "Zen Meditative Ecological Landscape Architecture",
+          "active_compounds": [
+              "30-Year UV-Resistant EPDM Elastic Geomembrane",
+              "100% Chemical-Free Biological Mosquito Control by Guppy Fish",
+              "Alluvial Clay Mud Packed with Beneficial Microflora",
+              "Self-Sustaining Biological Balance Requiring Zero Water Changes"
+          ],
+          "soil_ph": "6.5 - 7.5 (Aged paddy mud or saturated alluvial loam)",
+          "ideal_temp": "22°C - 38°C High Sunlight Affinity",
+          "pot_size": "1.2m - 2.0m diameter composite water ponds (45cm depth)"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Position Pond on Shock-Absorbing EPS Base",
+              "instruction": "Lay composite basin or fold EPDM liner over 30mm EPS foam cushion to eliminate puncture risks."
+          },
+          {
+              "step": 2,
+              "title": "Lay Clay Bed and Plant Lotus Rhizomes",
+              "instruction": "Fill 20cm of alluvial mud, place lotus rhizome at a 15-degree angle along edge, and cover lightly."
+          },
+          {
+              "step": 3,
+              "title": "Fill Still Water and Introduce Guppy Fish",
+              "instruction": "Gently add water without churning mud; once clear after 3 days, release 10 pairs of mosquito-eating guppies."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Will a rooftop pond breed mosquitoes?",
+              "answer": "The guppy fish and cloud minnows actively devour 100% of mosquito larvae within seconds of hatching."
+          },
+          {
+              "question": "Is the water weight safe for domestic concrete slabs?",
+              "answer": "Water depth is only 25-30cm (around 300kg/m² load), well within structural residential roof engineering limits."
+          }
+      ],
+      "monetization_tips": [
+          "Offer turnkey mini rooftop lotus water garden setups bundled with lotus runners and guppy fish."
+      ],
+      "tags": [
+          "Lotus Pond",
+          "Aquatic Garden",
+          "Guppy Fish",
+          "Rooftop Wetland",
+          "Zen Feng Shui"
+      ]
+  },
+
+  'space-15': {
+      "common_name": "Northeast Cold-Wind Barrier Urban Balcony Blueprint",
+      "aliases": [
+          "Northeast Balcony Shield",
+          "Cold Windbreak Balcony",
+          "Winter-Proof Balcony Garden"
+      ],
+      "description": "An aerodynamic green windbreak blueprint sheltering high-rise apartments from chilling winter Northeast monsoons. Uses flexible, wind-resistant bamboo screens combined with micro-wind glass baffles to maintain warm living loggias.",
+      "quick_answer": "Arranges hedge bamboo (Trúc quân tử) along outer balcony edges to reduce wind shear gusts by 60%, creating a warm haven for delicate jasmine and kitchen herbs inside.",
+      "growth_time": "4 hours setup; establishes a permanent living windbreak shield",
+      "seasonality": {
+          "north": "Peak protective efficiency from November through March cold snaps",
+          "central": "Retains comfortable living room temperatures during cold surges",
+          "south": "Captures gentle, soothing morning sunrise light year-round",
+          "best_months": [
+              1,
+              2,
+              9,
+              10,
+              11,
+              12
+          ]
+      },
+      "botanical_details": {
+          "family": "Windbreak Aerodynamic & Thermal Comfort Balcony Design",
+          "native_range": "Northern Vietnamese High-Rise Condominiums",
+          "active_compounds": [
+              "Biological Wind Barrier Attenuating 60% Gust Pressure",
+              "2-3°C Microclimate Temperature Elevation in Winter",
+              "Wide-Base Anti-Toppling Heavy Composite Planters",
+              "Aerodynamic Bamboo Stalks Flexible Under High Shear"
+          ],
+          "soil_ph": "6.0 - 7.0",
+          "ideal_temp": "10°C - 32°C High Cold Tolerance",
+          "pot_size": "80x30x40cm rectangular composite planters"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Align Heavy Planters Along Outer Edge",
+              "instruction": "Position high-density rectangular composite planters continuously along the northeast balcony edge."
+          },
+          {
+              "step": 2,
+              "title": "Plant Flexible Screening Bamboo",
+              "instruction": "Plant Trúc quân tử or Trúc cần câu to form an elegant living screen that diffuses gusting winds."
+          },
+          {
+              "step": 3,
+              "title": "Arrange Teahouse Nook and Delicate Herbs",
+              "instruction": "Position outdoor seating and cold-sensitive herbs in the serene, sheltered calm behind the bamboo barrier."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Will 25th-floor monsoon gusts snap bamboo stalks?",
+              "answer": "Bamboo features flexible hollow culms engineered by nature to bend and slice gracefully through severe wind without snapping."
+          },
+          {
+              "question": "Does the living screen darken the living room interior?",
+              "answer": "Delicate feathery bamboo foliage softly diffuses natural sunlight without obstructing panoramic skyline views."
+          }
+      ],
+      "monetization_tips": [
+          "Provide winter balcony windbreak design consults for high-rise apartment owners across Hanoi."
+      ],
+      "tags": [
+          "Northeast Facing",
+          "Cold Windbreak",
+          "Screening Bamboo",
+          "Warm Balcony",
+          "Winter Garden"
+      ]
+  },
+
+  'recycle-11': {
+      "common_name": "Anaerobic Kitchen Bokashi Dry Bran Fermenter System",
+      "aliases": [
+          "Bokashi Composter",
+          "Odorless Kitchen Fermenter",
+          "Bokashi Bran System"
+      ],
+      "description": "An anaerobic indoor kitchen waste composting invention using inoculated Bokashi dry bran. Safely digests food scraps, meat, small bones, and dairy without foul decomposition odors, producing lactic-rich probiotic liquid plant food.",
+      "quick_answer": "Kitchen scraps are compacted inside an airtight container and layered with Bokashi bran; lactic microbes ferment food rapidly in 14 days while conserving 100% of organic nitrogen.",
+      "growth_time": "14 days fermentation; converts into rich garden soil within 2 weeks after burying",
+      "seasonality": {
+          "north": "Tucks neatly under warm kitchen sink cabinets for convenient year-round use",
+          "central": "Eliminates rotting food odors completely during sweltering summer heat",
+          "south": "Diverts 100% of household kitchen scraps away from municipal landfills",
+          "best_months": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+          ]
+      },
+      "botanical_details": {
+          "family": "Lactic Acid Anaerobic Bokashi Bio-Conversion System",
+          "native_range": "Domestic Zero-Waste Agroecological Invention",
+          "active_compounds": [
+              "Lactobacillus plantarum & Saccharomyces cerevisiae Yeasts",
+              "Antimicrobial Organic Lactic Acid Matrix",
+              "Trace-Mineral Dense Bokashi Leachate Juice",
+              "Preserves 100% of Natural Organic Nitrogen"
+          ],
+          "soil_ph": "Sour fermented leachate pH 3.5 - 4.0 (Diluted 1:500 achieves neutral pH 6.5)",
+          "ideal_temp": "20°C - 35°C indoor room comfort",
+          "pot_size": "15L - 20L airtight fermenting buckets with bottom drainage spigot"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Chop Scraps and Layer in Bucket",
+              "instruction": "Chop vegetable peelings, leftover rice, and scraps into 3cm chunks and spread a 5cm layer into bucket."
+          },
+          {
+              "step": 2,
+              "title": "Sprinkle Bokashi Bran and Compress",
+              "instruction": "Scatter 1-2 handfuls of Bokashi bran evenly across food, pressing down firmly with a tamper to expel air."
+          },
+          {
+              "step": 3,
+              "title": "Seal Lid and Drain Liquid Gold",
+              "instruction": "Lock airtight lid; open the base spigot every 3 days to collect probiotic Bokashi tea for garden watering."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Can Bokashi compost cooked meats and dairy scraps?",
+              "answer": "Yes! Unlike conventional aerobic compost, Bokashi’s lactic fermentation safely pickles meats and dairy without rotting."
+          },
+          {
+              "question": "Will foul odors escape into the kitchen?",
+              "answer": "No! Airtight rubber gaskets seal the bin, and lactic fermentation yields a pleasant pickled cider scent."
+          }
+      ],
+      "monetization_tips": [
+          "Produce organic Bokashi bran bags and sell customized airtight kitchen fermentation buckets."
+      ],
+      "tags": [
+          "Bokashi",
+          "Kitchen Scraps",
+          "Odorless Compost",
+          "Lactic Acid",
+          "Circular Economy"
+      ]
+  },
+
+  'recycle-12': {
+      "common_name": "Upcycled Construction PVC Pipe NFT Hydroponic System",
+      "aliases": [
+          "PVC Hydroponic System",
+          "DIY NFT Pipe Garden",
+          "Upcycled Hydroponics"
+      ],
+      "description": "Upcycles discarded 90mm construction PVC pipe offcuts into an automated recirculating Nutrient Film Technique (NFT) hydroponic system. Harvests 100% clean, pesticide-free salad greens without soil.",
+      "quick_answer": "Drill 50mm net-pot holes spaced 15cm apart on reclaimed PVC pipes, mount on a 2% gradient, and use a mini 15W aquarium pump to recirculate nutrient solution across plant roots.",
+      "growth_time": "3 hours system assembly; crisp hydroponic leafy greens ready in 25-30 days",
+      "seasonality": {
+          "north": "Produces sweet, crisp salad greens through autumn and winter seasons",
+          "central": "Continuous water flow keeps delicate root systems cool in midsummer heat",
+          "south": "Year-round heavy harvests of water spinach, Asian greens, and fresh basil",
+          "best_months": [
+              1,
+              2,
+              3,
+              4,
+              8,
+              9,
+              10,
+              11,
+              12
+          ]
+      },
+      "botanical_details": {
+          "family": "Recycled Polymer Hydroponic Nutrient Film Technique (NFT)",
+          "native_range": "High-Tech DIY Urban Agriculture Invention",
+          "active_compounds": [
+              "Closed-Loop Recirculation Conserving 90% Water",
+              "Thermal-Insulating Rigid PVC-U Piping",
+              "Ultra-Efficient 15W Submersible Aquarium Pump",
+              "Certified Pure Vegetables Zero Heavy-Metal Residue"
+          ],
+          "soil_ph": "Nutrient solution pH 5.8 - 6.5, electrical conductivity 600 - 900 ppm",
+          "ideal_temp": "18°C - 32°C",
+          "pot_size": "2m - 4m modular pipe tracks with 4-6 parallel channels"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Hole-Saw Net Pot Ports on PVC Pipes",
+              "instruction": "Use a 50mm hole saw to drill net pot openings every 15cm along reclaimed 90mm PVC pipes."
+          },
+          {
+              "step": 2,
+              "title": "Mount Sloped Frame and Return Bends",
+              "instruction": "Assemble pipes on a sturdy rack with a gentle 2cm-per-meter slope and connect with U-bends."
+          },
+          {
+              "step": 3,
+              "title": "Connect Pump and Insert Seedlings",
+              "instruction": "Plumb aquarium pump from reservoir to top inlet and insert sponge-rooted seedlings into net pots."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Will recycled PVC pipes leach harmful chemicals into vegetables?",
+              "answer": "Reclaimed PVC-U construction pipe is washed clean; roots only touch the clean flowing water film absorbing pure mineral ions."
+          },
+          {
+              "question": "Does running the circulation pump consume significant power?",
+              "answer": "The 15W pump on an intermittent 15-min timer uses less than 3,000 VND (~$0.12) of electricity per month."
+          }
+      ],
+      "monetization_tips": [
+          "Design and fabricate affordable DIY upcycled PVC hydroponic systems for urban apartments."
+      ],
+      "tags": [
+          "Hydroponics",
+          "PVC Pipe",
+          "NFT System",
+          "Clean Greens",
+          "Upcycled Materials"
+      ]
+  },
+
+  'recycle-13': {
+      "common_name": "Micro-Drip Pressure Compensating Emitter Upcycled Mod",
+      "aliases": [
+          "DIY Drip Emitter",
+          "Ballpoint Pen Drip Irrigation",
+          "Upcycled Micro Drip Mod"
+      ],
+      "description": "An ingenious drop-by-drop precision irrigation emitter upcycled from empty ballpoint pen refills and medical IV drip roller clamps. Delivers a steady 1-2 liters/hour without clogging from waterborne sand.",
+      "quick_answer": "Removes the tiny roller ball from an empty pen tip to create a micro-capillary orifice, connected to flexible medical tubing with an adjustable roller clamp for exact drops per minute.",
+      "growth_time": "10-minute build; operates reliably drop-by-drop year-round",
+      "seasonality": {
+          "north": "Delivers precise drops without splashing soil onto indoor apartment floors",
+          "central": "Maintains steady moisture around root balls during scorching summer droughts",
+          "south": "Nourishes prized bonsai and rare foliage plants with tailored care",
+          "best_months": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+          ]
+      },
+      "botanical_details": {
+          "family": "Micro-Hydraulic Precision Upcycled Irrigation Mod",
+          "native_range": "Micro-Water Conservation Agricultural Invention",
+          "active_compounds": [
+              "Precision Flow Regulation from 10 to 60 drops/minute",
+              "Non-Corroding Metal Needle Tip Resisting Algae Clogging",
+              "Precise Pinch Roller Hydrostatic Regulation",
+              "Completely Zero Electricity Required"
+          ],
+          "soil_ph": "Unaffected by emitter",
+          "ideal_temp": "All outdoor and indoor temperatures",
+          "pot_size": "Suitable for pots from mini tabletop planters to large shrubs"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Clean Empty Pen Refill and Tip",
+              "instruction": "Flush empty pen refill with rubbing alcohol and gently dislodge the ballpoint to open the micro-capillary."
+          },
+          {
+              "step": 2,
+              "title": "Fit Medical Tubing with Roller Clamp",
+              "instruction": "Insert metal tip into sterile medical silicone tubing fitted with a graduated roller clamp."
+          },
+          {
+              "step": 3,
+              "title": "Insert at Root Zone and Adjust Flow",
+              "instruction": "Anchor tip near root crown and calibrate roller wheel to deliver 20 drops per minute."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Could residual ballpoint ink contaminate plant roots?",
+              "answer": "Refills are soaked in alcohol and thoroughly flushed clean of all ink before installation."
+          },
+          {
+              "question": "Are these metal tips less prone to mineral clogging?",
+              "answer": "Yes! Polished stainless steel metal tips resist algae and calcium crusting far better than cheap plastic nozzles."
+          }
+      ],
+      "monetization_tips": [
+          "Produce DIY upcycling video tutorials showcasing zero-waste smart garden innovations."
+      ],
+      "tags": [
+          "Drip Irrigation",
+          "Ballpoint Pen",
+          "IV Tubing",
+          "DIY Upcycling",
+          "Water Saving"
+      ]
+  },
+
+  'recycle-14': {
+      "common_name": "Banana Peel & Eggshell Organic Bio-Available Potassium Calcium Tea",
+      "aliases": [
+          "Banana Eggshell Fertilizer",
+          "Natural Bio-Potassium Tea",
+          "Organic Calcium Elixir"
+      ],
+      "description": "An organic homemade foliar and soil tea combining potassium-dense banana peels and calcium-rich roasted eggshells extracted with vinegar or rice-wash water. Enhances blossom set, sweetens fruit, and prevents blossom-end rot naturally.",
+      "quick_answer": "Ferment diced banana peels in rice-wash water for 3 days; crush roasted eggshells in rice vinegar to extract bio-available calcium acetate, then blend and dilute 1:20 for weekly feeding.",
+      "growth_time": "3-5 days extraction; feed flowering and fruiting plants weekly",
+      "seasonality": {
+          "north": "Stimulates prolific flower buds on roses and peach blossoms for Lunar New Year",
+          "central": "Calcium strengthens cell walls to prevent fruit split during heavy monsoon downpours",
+          "south": "Powers continuous sweet fruiting on potted guava, pomegranate, and citrus",
+          "best_months": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+          ]
+      },
+      "botanical_details": {
+          "family": "Domestic Kitchen Mineral Extraction Organic Fertilizer",
+          "native_range": "Traditional Domestic Circular Fertilizer Formulation",
+          "active_compounds": [
+              "Soluble Organic Potassium (K2O) from Banana Peels",
+              "Fast-Absorbing Calcium Acetate from Acid-Reacted Eggshells",
+              "Bio-Available Magnesium and Phosphorus for Floral Differentiation",
+              "100% Free of Synthetic Chemical Stabilizers"
+          ],
+          "soil_ph": "Diluted solution drenches soil at optimal pH 6.2 - 6.8",
+          "ideal_temp": "22°C - 35°C",
+          "pot_size": "2L - 5L glass fermentation jars or recycled plastic jugs"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Dice Banana Peels and Roast Eggshells",
+              "instruction": "Dice banana peels into 1cm ribbons; wash eggshells, roast dry in a skillet, and crush finely in a mortar."
+          },
+          {
+              "step": 2,
+              "title": "Extract Calcium Acetate with Vinegar",
+              "instruction": "Submerge crushed eggshells in rice vinegar (1:5 ratio); bubbling CO2 indicates conversion to soluble calcium."
+          },
+          {
+              "step": 3,
+              "title": "Steep Banana Peels and Combine",
+              "instruction": "Steep banana ribbons in rice water for 3 days, strain, combine with calcium acetate, and dilute 1:20."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Will banana water attract annoying ants and fruit flies?",
+              "answer": "The mild vinegar acidity and natural fermentation deter pests, eliminating fruit fly attraction."
+          },
+          {
+              "question": "Which plants benefit most from this tonic?",
+              "answer": "Exceptional for heavy blossom setters and fruiting plants like roses, strawberries, tomatoes, and chilis."
+          }
+      ],
+      "monetization_tips": [
+          "Bottle organic microbial banana-eggshell bio-fertilizers for rose and fruit tree hobbyists."
+      ],
+      "tags": [
+          "Banana Peel",
+          "Eggshells",
+          "Organic Potassium",
+          "Natural Calcium",
+          "Rose Blooms"
+      ]
+  },
+
+  'recycle-15': {
+      "common_name": "DIY Upcycled Styrofoam Aquaponics Micro-Ecosystem",
+      "aliases": [
+          "Styrofoam Aquaponics",
+          "DIY Fish-Plant Ecosystem",
+          "Closed-Loop Aquaponics"
+      ],
+      "description": "A closed-loop symbiotic ecosystem built from 2 recycled styrofoam shipping boxes. Lower tank houses guppies or freshwater climbing perch; upper tier grows fresh vegetables in expanded clay pebbles. Fish waste fertilizes plants, and plant roots clean the fish water.",
+      "quick_answer": "Lower styrofoam box holds fish; a 5W mini pump elevates water to upper vegetable bed where a DIY bell siphon creates an automatic flood-and-drain oxygenating cycle.",
+      "growth_time": "3 hours build; biological nitrogen cycle balances in 14 days",
+      "seasonality": {
+          "north": "Cover with clear plastic sheeting to keep fish warm during cold winter spells",
+          "central": "Continuous closed-loop circulation prevents water evaporation during dry months",
+          "south": "Healthy fish and crisp organic salad greens harvested continuously year-round",
+          "best_months": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+          ]
+      },
+      "botanical_details": {
+          "family": "Closed-Loop Recirculating Aquaponic Agroecology",
+          "native_range": "Urban Circular Aquaculture-Agriculture Invention",
+          "active_compounds": [
+              "Nitrosomonas Bacteria Oxidizing Ammonia into Nitrites",
+              "Nitrobacter Bacteria Converting Nitrites into Plant-Feeding Nitrates",
+              "Automatic Bell Siphon Flood-and-Drain Aeration Action",
+              "Zero Fertilizer Additions and Zero Water Changes Required"
+          ],
+          "soil_ph": "Balanced ecosystem pH 6.8 - 7.2 healthy for both fish and greens",
+          "ideal_temp": "22°C - 32°C",
+          "pot_size": "Two stacked 40x60cm upcycled seafood styrofoam boxes"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Waterproof Lower Fish Tank",
+              "instruction": "Line lower box with heavy-duty black pond liner or waterproof cement coating to hold fish safely."
+          },
+          {
+              "step": 2,
+              "title": "Fabricate Automatic Bell Siphon",
+              "instruction": "Install a central drain pipe fitted with an upcycled plastic bottle bell siphon to automate flood-and-drain cycles."
+          },
+          {
+              "step": 3,
+              "title": "Fill Clay Pebbles and Introduce Fish",
+              "instruction": "Spread expanded clay pebbles in top bed, transplant seedlings, and introduce 15-20 guppies into bottom pond."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Does the fish tank require periodic water changes?",
+              "answer": "Never! Plant roots and nitrifying bacteria in the clay pebble bed continuously bio-filter water 24/7."
+          },
+          {
+              "question": "Do the vegetables require synthetic chemical fertilizers?",
+              "answer": "Never! Organic fish food provides all necessary nutrients via fish waste, ensuring 100% pure organic produce."
+          }
+      ],
+      "monetization_tips": [
+          "Assemble turnkey tabletop styrofoam aquaponics kits as educational STEM nature projects for schools."
+      ],
+      "tags": [
+          "Aquaponics",
+          "Styrofoam Box",
+          "Fish and Veggies",
+          "Closed Loop",
+          "Bell Siphon"
+      ]
+  },
+
+  'culinary-11': {
+      "common_name": "Roasted Ginger, Lemongrass & Wild Honey Lung-Warming Infusion",
+      "aliases": [
+          "Roasted Ginger Tea",
+          "Lemongrass Ginger Wild Honey",
+          "Lung-Warming Elixir"
+      ],
+      "description": "A traditional Vietnamese therapeutic tea slow-roasting mature ginger on hot coals until charred and fragrant, simmered with bruised lemongrass stalks, young lime peel, and raw forest honey. Warms spleen-stomach and expels deep cold.",
+      "quick_answer": "Roast unpeeled mature ginger over flames until aromatic; simmer with crushed lemongrass for 10 minutes, stir in wild honey and fresh lime juice, and sip piping hot.",
+      "growth_time": "15-minute preparation; instant cold-dispelling relief",
+      "seasonality": {
+          "north": "Supreme wellness tea for cold northern winters and drizzly northeast monsoon snaps",
+          "central": "Warms internal core and prevents stomach chills during prolonged rainy seasons",
+          "south": "A restorative morning beverage invigorating blood circulation and mental focus",
+          "best_months": [
+              1,
+              2,
+              3,
+              9,
+              10,
+              11,
+              12
+          ]
+      },
+      "botanical_details": {
+          "family": "Zingiberaceae & Cymbopogon Thermal Metabolic Pharmacology",
+          "native_range": "Vietnamese Traditional Botanical Pharmacopoeia",
+          "active_compounds": [
+              "Thermogenic Gingerols & Shogaols Boosting Microcirculation",
+              "Antimicrobial Citral & Geraniol from Lemongrass",
+              "Live Enzymes & Natural Polyphenols from Wild Forest Honey",
+              "Immune-Boosting Vitamin C and Volatile Lime Terpenes"
+          ],
+          "soil_ph": "Not applicable",
+          "ideal_temp": "Sip piping hot between 50°C - 60°C",
+          "pot_size": "Artisanal heat-retaining ceramic tea mugs"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Char Mature Ginger Over Flames",
+              "instruction": "Roast unpeeled mature ginger directly over a burner until skin is blistered and deeply fragrant, then crush."
+          },
+          {
+              "step": 2,
+              "title": "Simmer with Fresh Lemongrass",
+              "instruction": "Add charred ginger and 2 bruised lemongrass stalks to 500ml water; simmer gently for 8-10 minutes."
+          },
+          {
+              "step": 3,
+              "title": "Stir Wild Honey and Sip Warm",
+              "instruction": "Pour into mugs, allow to cool slightly to 50°C, stir in 2 spoons of wild honey, and squeeze fresh lime."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Why roast ginger over an open flame first?",
+              "answer": "Roasting converts gingerols into shogaols, which possess double the thermogenic warming potency without irritating stomach linings."
+          },
+          {
+              "question": "Why avoid adding raw honey to boiling water?",
+              "answer": "Water temperatures exceeding 60°C denature delicate living enzymes and precious vitamins in raw honey."
+          }
+      ],
+      "monetization_tips": [
+          "Pack freeze-dried herbal tea ingredients in eco-friendly kraft pouches for gift markets."
+      ],
+      "tags": [
+          "Roasted Ginger",
+          "Lemongrass",
+          "Wild Honey",
+          "Cold Relief",
+          "Lung Warming"
+      ]
+  },
+
+  'culinary-12': {
+      "common_name": "Artisanal Lacto-Fermented Indigenous Chili Sauce Recipe",
+      "aliases": [
+          "Artisanal Fermented Chili",
+          "Living Probiotic Hot Sauce",
+          "Natural Fermented Chili Sauce"
+      ],
+      "description": "An ancestral hot sauce recipe lacto-fermenting ripe bird’s eye chilis with sweet glutinous rice wine yeast, purple garlic, and sun-dried sea salt in ceramic crocks. Delivers deep, lingering heat and live probiotics.",
+      "quick_answer": "Coarsely crush fresh chilis with garlic and unrefined sea salt; ferment anaerobically in ceramic crocks with rice wine starter for 21 days for smooth, natural preservative-free acidity.",
+      "growth_time": "21 days fermentation; keeps 12 months with rich savory complexity",
+      "seasonality": {
+          "north": "Invigorating warming table condiment brightening winter dining tables",
+          "central": "Irreplaceable companion to bun bo, banh mi, and Mi Quang specialties",
+          "south": "Gourmet artisanal condiment elevating traditional pho and noodle broths",
+          "best_months": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+          ]
+      },
+      "botanical_details": {
+          "family": "Capsicum & Probiotic Lacto-Fermentation Gastronomy",
+          "native_range": "Traditional Fermented Vietnamese Gastronomy",
+          "active_compounds": [
+              "Thermogenic Capsaicin Stimulating Caloric Expenditure",
+              "Live Beneficial Lactic Acid Bacteria Supporting Gut Flora",
+              "Allicin from Garlic Enhancing Immune Resilience",
+              "Zero Artificial Dyes and Zero Sodium Benzoate Preservatives"
+          ],
+          "soil_ph": "Natural fermented pH 3.6 - 4.0 ensures complete natural shelf-stability",
+          "ideal_temp": "Store in cool pantry or refrigerator",
+          "pot_size": "300ml - 500ml glass jars or ceramic crocks"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Clean Chilis and Dry Thoroughly",
+              "instruction": "Stem red chilis, rinse in mild salt water, and spread across bamboo trays to dry completely in shade."
+          },
+          {
+              "step": 2,
+              "title": "Coarsely Grind with Garlic, Salt, and Starter",
+              "instruction": "Grind chilis with peeled purple garlic, sea salt, and a splash of sticky rice wine to create an optimal starter culture."
+          },
+          {
+              "step": 3,
+              "title": "Ferment Anaerobically for 21 Days",
+              "instruction": "Pack into ceramic crocks, submerge under weights, and ferment at room temperature for 21 days until bubbly and aromatic."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Why is lacto-fermented hot sauce superior to commercial sauces?",
+              "answer": "Commercial sauces rely on modified cornstarch, refined sugar, and synthetic preservatives; lacto-fermentation yields live probiotics and clean natural heat."
+          },
+          {
+              "question": "Does the sauce require refrigeration?",
+              "answer": "Thanks to natural lactic acidity below pH 4.0, the sauce remains completely shelf-stable at room temperature for an entire year."
+          }
+      ],
+      "monetization_tips": [
+          "Bottle small-batch artisanal fermented hot sauces for gourmet food markets and boutique restaurants."
+      ],
+      "tags": [
+          "Fermented Chili",
+          "Hot Sauce",
+          "Probiotic",
+          "No Preservatives",
+          "Birdseye Chili"
+      ]
+  },
+
+  'culinary-13': {
+      "common_name": "Steamed Indian Borage, Calamondin & Rock Sugar Cough Elixir",
+      "aliases": [
+          "Indian Borage Cough Syrup",
+          "Calamondin Borage Elixir",
+          "Traditional Herbal Cough Syrup"
+      ],
+      "description": "A gentle, time-tested Vietnamese cough syrup safe for children and nursing mothers. Steams succulent thick Indian borage leaves with seeded calamondin citrus, fresh garlic chives, and crystallized rock sugar.",
+      "quick_answer": "Chop borage leaves and steam with halved seeded calamondins and natural rock sugar for 45 minutes; yields an amber, golden syrup that coats irritated throats instantly.",
+      "growth_time": "50-minute gentle steaming; keeps 3 months refrigerated",
+      "seasonality": {
+          "north": "Trusted folk remedy for childhood coughs and congested throats during winter",
+          "central": "Relieves tickling sore throats during rainy, damp seasonal shifts",
+          "south": "Soothes vocal fatigue for teachers, speakers, and vocal professionals",
+          "best_months": [
+              1,
+              2,
+              3,
+              9,
+              10,
+              11,
+              12
+          ]
+      },
+      "botanical_details": {
+          "family": "Lamiaceae & Rutaceae Pediatric Herbal Therapy",
+          "native_range": "Vietnamese Family Herbal Medicine",
+          "active_compounds": [
+              "Carvacrol & Thymol in Borage Delivering Potent Antibacterial Action",
+              "Limonene in Calamondin Peels Liquefying Viscous Mucus",
+              "Natural Vitamin C Strengthening Vascular Capillaries",
+              "Rock Sugar Soothing Lung Dryness and Nourishing Vital Fluids"
+          ],
+          "soil_ph": "Not applicable",
+          "ideal_temp": "Store sealed glass jars in cool pantry or refrigerator",
+          "pot_size": "300ml - 500ml airtight glass jars"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Clean and Prep Botanicals",
+              "instruction": "Wash fresh Indian borage leaves and shred finely; halve calamondins and remove seeds to eliminate bitterness."
+          },
+          {
+              "step": 2,
+              "title": "Combine with Rock Sugar in Steaming Bowl",
+              "instruction": "Place ingredients into a ceramic bowl with crystallized rock sugar and sliced young ginger."
+          },
+          {
+              "step": 3,
+              "title": "Steam in Water Bath and Strain",
+              "instruction": "Steam over low heat for 40-45 minutes, press pulp to express all aromatic golden syrup, and bottle."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Is this formula safe for infants under 1 year old?",
+              "answer": "Yes! Prepared with pure crystallized rock sugar (completely honey-free), it is gentle and safe for infants over 6 months."
+          },
+          {
+              "question": "Why must calamondin seeds be removed before cooking?",
+              "answer": "Calamondin seeds release acrid bitter compounds when cooked; removing seeds keeps the syrup pleasantly sweet-tart."
+          }
+      ],
+      "monetization_tips": [
+          "Handcraft artisanal herbal cough syrups for health-conscious urban mothers."
+      ],
+      "tags": [
+          "Indian Borage",
+          "Calamondin",
+          "Rock Sugar",
+          "Cough Syrup",
+          "Pediatric Remedy"
+      ]
+  },
+
+  'culinary-14': {
+      "common_name": "Ampelopsis Cantoniensis Wild Forest Gastro-Protective Tea",
+      "aliases": [
+          "Wild Che Day Tea",
+          "Cao Bang Gastro Tea",
+          "Ampelopsis Forest Infusion"
+      ],
+      "description": "A prized wild forest medicinal tea harvested from highland limestone cliffs in Cao Bang and Sa Pa. Coated with natural white snowy yeast frost rich in flavonoids that neutralize Helicobacter pylori (HP) and soothe peptic ulcers.",
+      "quick_answer": "Steep 15-20g of snow-frosted wild vine tea with 500ml of 95°C water for 10 minutes; sip warm amber tea 30 minutes before meals for gastro-protective coating.",
+      "growth_time": "10-minute infusion; daily soothing stomach wellness ritual",
+      "seasonality": {
+          "north": "Celebrated high-altitude botanical specialty of Hoang Lien Son and Cao Bang ranges",
+          "central": "Quenches internal heat, relieving upper abdominal burning and acid reflux",
+          "south": "Mindful corporate desk tonic melting away stress-induced stomach cramps",
+          "best_months": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+          ]
+      },
+      "botanical_details": {
+          "family": "Vitaceae Mountain Forest Pharmacology",
+          "native_range": "Hoang Lien Son Mountain Range & Northeast Limestone Cliffs, Vietnam",
+          "active_compounds": [
+              "Myricetin & Dihydromyricetin Inhibiting Helicobacter pylori",
+              "Natural Plant Tannins Rapidly Astringing Peptic Ulcers",
+              "Broad-Spectrum Total Flavonoids Neutralizing Gastric Acid",
+              "Zero Side Effects during Long-Term Daily Consumption"
+          ],
+          "soil_ph": "Not applicable",
+          "ideal_temp": "Brewing water temperature 90°C - 95°C",
+          "pot_size": "Glass teapot or 1-liter thermal flask"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Rinse and Awaken Vine Leaves",
+              "instruction": "Place 20g wild vine tea into a glass pot, pour a splash of boiling water, swirl, and discard rinse."
+          },
+          {
+              "step": 2,
+              "title": "Steep with Licorice Vine",
+              "instruction": "Pour 600ml of 95°C water, cover tightly, and steep for 10-15 minutes to release active snowy flavonoids."
+          },
+          {
+              "step": 3,
+              "title": "Sip Warm 30 Minutes Before Meals",
+              "instruction": "Drink 1 warm cup 30 minutes before breakfast and lunch to establish a protective mucosal coating."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Is the white powdery coating on leaves a sign of spoilage?",
+              "answer": "No! It is a natural white frost that develops during traditional anaerobic leaf curing; heavier frost denotes higher medicinal purity."
+          },
+          {
+              "question": "Does Che Day cause caffeine jitters or sleeplessness?",
+              "answer": "No! It is 100% caffeine-free; in fact, its flavonoids actively soothe neural tension and promote deep, restful sleep."
+          }
+      ],
+      "monetization_tips": [
+          "Package premium mountain Che Day tea for corporate professionals managing digestive stress."
+      ],
+      "tags": [
+          "Che Day",
+          "Stomach Ulcers",
+          "HP Bacteria",
+          "Highland Forest",
+          "Herbal Gastro Tea"
+      ]
+  },
+
+  'culinary-15': {
+      "common_name": "Ocimum Tenuiflorum Var. White Holy Basil Herbal Sea Salt",
+      "aliases": [
+          "La E White Basil Salt",
+          "Phu Yen Herbal Salt",
+          "Grilled Chicken Basil Salt"
+      ],
+      "description": "The iconic culinary dipping salt of Phu Yen province hand-pounded from fresh garden-picked white holy basil leaves, crackled roasted sea salt, and fiery green mountain chilis. The cool spicy aroma pairs exquisitely with wood-fired chicken.",
+      "quick_answer": "Pound fresh white basil leaves in a stone mortar with fiery green chilis and crisp toasted sea salt, finished with a squeeze of fresh lime for a legendary emerald dipping salt.",
+      "growth_time": "10-minute crafting; served freshly pounded at the table",
+      "seasonality": {
+          "north": "Sensational aromatic condiment elevating family barbecue feasts",
+          "central": "The unmistakable soul of Phu Yen wood-fired chicken and chicken hotpot",
+          "south": "A wildly celebrated regional gourmet herbal seasoning across major food hubs",
+          "best_months": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+          ]
+      },
+      "botanical_details": {
+          "family": "Lamiaceae Indigenous Coastal Spice Gastronomy",
+          "native_range": "Phu Yen Coastal Province, South-Central Vietnam",
+          "active_compounds": [
+              "High Eugenol & Citral Volatiles Delivering Cool Pungency",
+              "Natural Mountain Capsaicin Warming Stomach Fire",
+              "Marine Trace Electrolytes in Slow-Roasted Sea Salt",
+              "Stimulates Digestive Bile Secretion for Rich Meats"
+          ],
+          "soil_ph": "Not applicable",
+          "ideal_temp": "Best enjoyed freshly hand-pounded on the day of preparation",
+          "pot_size": "Artisanal dipping bowls"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Pick Fresh White Basil Leaves",
+              "instruction": "Harvest tender white holy basil leaves early in the morning to capture concentrated aromatic oils, and rinse dry."
+          },
+          {
+              "step": 2,
+              "title": "Slow-Toast Sea Salt to Crispness",
+              "instruction": "Roast coarse sea salt in an iron pan until kernels crackle bone-dry and aromatic."
+          },
+          {
+              "step": 3,
+              "title": "Hand-Crush in Stone Mortar",
+              "instruction": "Pound white basil leaves, green mountain chilis, and toasted salt together in a stone mortar until a vivid emerald paste forms."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "How does white holy basil differ from sweet Thai basil?",
+              "answer": "White holy basil features fine velvety hairs, white blooms, and far higher eugenol content, giving a distinct cooling, clove-like herbal pungency."
+          },
+          {
+              "question": "Can this herb salt be preserved for travel?",
+              "answer": "Yes, dehydrating the blended paste at 50°C produces an aromatic dry seasoning that stores for 3-6 months."
+          }
+      ],
+      "monetization_tips": [
+          "Produce freeze-dried white basil dipping salt jars for specialty grill and hotpot restaurants."
+      ],
+      "tags": [
+          "White Basil",
+          "Phu Yen",
+          "Chicken Salt",
+          "Green Chili",
+          "Regional Artisan Spice"
+      ]
+  },
+
+  'forest-11': {
+      "common_name": "U Minh Ha National Park Sanctuary (Melaleuca Peat Swamp Forest Biome)",
+      "aliases": [
+          "U Minh Ha National Park",
+          "Ca Mau Melaleuca Forest",
+          "Mui Ca Mau Biosphere Reserve Core"
+      ],
+      "description": "Vast ancient peat swamp Melaleuca wetlands at the southernmost tip of Vietnam covering 8,527 hectares (85,270,000 m²). UNESCO Biosphere Core (2009) world-famous for the centuries-old intangible heritage of wild honey harvesting (Gác Kèo Ong).",
+      "quick_answer": "Protects an irreplaceable ancient peat swamp Melaleuca forest. Each NFT sponsors 10,000 m² (1 ha) of pristine Ca Mau wetland peat forest.",
+      "growth_time": "Ancient flooded peat swamp forest preserved perpetually",
+      "seasonality": {
+          "north": "Generous southern wilderness immortalized in legendary folklore tales",
+          "central": "Vital freshwater reservoir sweetening coastal Ca Mau soils",
+          "south": "Peak honey season fills the air with sweet Melaleuca blossom scent from Nov to Apr",
+          "best_months": [
+              1,
+              2,
+              3,
+              4,
+              11,
+              12
+          ]
+      },
+      "botanical_details": {
+          "family": "Melaleuca Cajuputi Tropical Peat Swamp Forest Ecosystem",
+          "native_range": "U Minh and Tran Van Thoi districts, Ca Mau Province",
+          "active_compounds": [
+              "Vast Ancient Carbon-Rich Peat Soil Substratum",
+              "White-Flowering Melaleuca Trees Yielding Pure Forest Honey",
+              "National Intangible Heritage of Wild Honey Luring (Gác Kèo Ong)",
+              "Rich Aquatic Delta Fauna and Flora Guilds"
+          ],
+          "soil_ph": "3.8 - 4.8 (Characteristic acidic peat marsh soils)",
+          "ideal_temp": "26°C - 34°C sunny southern maritime",
+          "pot_size": "8,527 hectares sanctuary (10,000 m² per conservation NFT)"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Visit U Minh Ha with GPS Enabled",
+              "instruction": "Travel to U Minh Ha National Park (Ca Mau) within 9km radius of park center. Turn on GPS."
+          },
+          {
+              "step": 2,
+              "title": "Verify Web3 GPS Check-in",
+              "instruction": "Click \"Verify Forest GPS Location\" on Web3 Sandbox to claim your authenticated 24-hour Check-in Pass."
+          },
+          {
+              "step": 3,
+              "title": "Mint 10,000 m² U Minh Ha Forest NFT",
+              "instruction": "Sign Web3 transaction to secure permanent on-chain sponsorship of 1 hectare of peat swamp Melaleuca forest."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "What makes the wild honey harvesting craft here so extraordinary?",
+              "answer": "Recognized as a National Intangible Heritage, artisans position sloped tree poles that lure wild forest bee colonies to construct natural honeycombs."
+          },
+          {
+              "question": "What is the maximum NFT allocation for U Minh Ha?",
+              "answer": "8,527 hectares corresponds to an immutable maximum supply of 8,527 NFT lots."
+          }
+      ],
+      "monetization_tips": [
+          "Holders receive the Guardian of Ca Mau Melaleuca Forest credential and priority access to authentic honey expeditions."
+      ],
+      "tags": [
+          "U Minh Ha",
+          "Ca Mau",
+          "Melaleuca Forest",
+          "Wild Honey",
+          "UNESCO Biosphere",
+          "Peat Swamp"
+      ]
+  },
+
+  'forest-12': {
+      "common_name": "U Minh Thuong National Park Sanctuary (Peat Swamp Ramsar Biome)",
+      "aliases": [
+          "U Minh Thuong National Park",
+          "Kien Giang Melaleuca Forest",
+          "World Ramsar Site 2,228"
+      ],
+      "description": "An ASEAN Heritage Park and the world’s 2,228th Ramsar Wetland covering 8,038 hectares (80,380,000 m²). Preserves the last pristine semi-inundated ancient peat swamp Melaleuca forest in the Mekong Delta and sanctuary for the hairy-nosed otter.",
+      "quick_answer": "Houses ancient peat layers up to 1.5m thick with 243 vascular plant species and waterbird colonies. Each NFT protects 10,000 m² (1 ha) of Ramsar swamp wetland.",
+      "growth_time": "Primeval inundated peat swamp forest preserved perpetually",
+      "seasonality": {
+          "north": "Internationally recognized ecological marvel of the Southern Delta",
+          "central": "Placid freshwater wetlands teeming with indigenous fish and aquatic life",
+          "south": "Floating flood season offers breathtaking boat journeys through giant Melaleuca stands",
+          "best_months": [
+              9,
+              10,
+              11,
+              12,
+              1,
+              2
+          ]
+      },
+      "botanical_details": {
+          "family": "Tropical Peat Swamp Forest Ramsar Wetland Biome",
+          "native_range": "U Minh Thuong District, Kien Giang Province",
+          "active_compounds": [
+              "Ancient Subterranean Peat Stratum up to 1.5 Meters Deep",
+              "Critical Sanctuary for Critically Endangered Hairy-Nosed Otters (Lutra sumatrana)",
+              "Centuries-Old Primeval Melaleuca Forest Giants",
+              "Expansive Freshwater Marshes of Trang Doi and Trang Chim"
+          ],
+          "soil_ph": "3.5 - 4.5",
+          "ideal_temp": "25°C - 33°C",
+          "pot_size": "8,038 hectares sanctuary (10,000 m² per conservation NFT)"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Visit U Minh Thuong with GPS",
+              "instruction": "Travel to U Minh Thuong National Park (Kien Giang) within 9km radius. Turn on GPS."
+          },
+          {
+              "step": 2,
+              "title": "Verify Web3 GPS Check-in",
+              "instruction": "Press \"Verify Forest GPS Location\" on Web3 Sandbox to claim your authenticated 24-hour Check-in Pass."
+          },
+          {
+              "step": 3,
+              "title": "Mint 10,000 m² U Minh Thuong Ramsar NFT",
+              "instruction": "Sign Web3 transaction to record your 1 hectare Ramsar peat wetland stewardship on the blockchain."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Why is U Minh Thuong peat crucial for climate change mitigation?",
+              "answer": "Peat swamp soils store exponentially more carbon per square meter than conventional terrestrial forests worldwide."
+          },
+          {
+              "question": "What is the maximum NFT allocation for U Minh Thuong?",
+              "answer": "Encompassing 8,038 hectares, the maximum supply is capped at exactly 8,038 NFT lots."
+          }
+      ],
+      "monetization_tips": [
+          "Holders earn the Protector of ASEAN Heritage credential and guided birdwatching privileges."
+      ],
+      "tags": [
+          "U Minh Thuong",
+          "Kien Giang",
+          "ASEAN Heritage",
+          "Ramsar 2228",
+          "Hairy-Nosed Otter",
+          "Peat Marsh"
+      ]
+  },
+
+  'forest-13': {
+      "common_name": "Yok Don National Park Sanctuary (Dipterocarp Deciduous Dry Forest Biome)",
+      "aliases": [
+          "Yok Don National Park",
+          "Yok Don Dry Forest Reserve",
+          "Kingdom of the Central Highlands Elephants"
+      ],
+      "description": "Vietnam’s second largest national park spanning an immense 115,545 hectares (1,155,450,000 m²). The only sanctuary in Vietnam preserving the unique deciduous dry dipterocarp forest ecosystem, home to roaming wild Asian elephants.",
+      "quick_answer": "Dipterocarp forest sheds leaves in the dry season into a golden savannah and bursts green with monsoons. Each NFT protects 10,000 m² (1 ha) of Central Highlands wilderness.",
+      "growth_time": "Gigantic centuries-old dipterocarp dry forest preserved perpetually",
+      "seasonality": {
+          "north": "Grand wild landscape capturing the heroic spirit of the Central Highlands",
+          "central": "Deciduous dry season (Dec-Apr) creates a dramatic African-like golden savannah landscape",
+          "south": "Monsoon season (May-Nov) brings rushing waters along the reverse-flowing Serepok River",
+          "best_months": [
+              11,
+              12,
+              1,
+              2,
+              3,
+              4
+          ]
+      },
+      "botanical_details": {
+          "family": "Dipterocarpaceae Deciduous Dry Forest Ecosystem",
+          "native_range": "Buon Don and Ea Sup districts, Dak Lak Province",
+          "active_compounds": [
+              "Deciduous Dipterocarp Species: Dipterocarpus tuberculatus, Shorea obtusa",
+              "Largest Population of Wild Asian Elephants (Elephas maximus) in Vietnam",
+              "Guar, Banteng, and Rare Ungulate Populations",
+              "Legendary Serepok River Flowing Westward into the Mekong"
+          ],
+          "soil_ph": "5.5 - 6.5 (Leached grey soils over volcanic bedrock)",
+          "ideal_temp": "20°C - 35°C",
+          "pot_size": "115,545 hectares sanctuary (10,000 m² per conservation NFT)"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Visit Yok Don National Park with GPS",
+              "instruction": "Travel to Buon Don district (Dak Lak) within 25km radius of park center. Enable GPS."
+          },
+          {
+              "step": 2,
+              "title": "Verify Web3 GPS Check-in",
+              "instruction": "Click \"Verify Forest GPS Location\" on Web3 Sandbox to receive an authenticated 24-hour Check-in Pass."
+          },
+          {
+              "step": 3,
+              "title": "Mint 10,000 m² Yok Don Forest NFT",
+              "instruction": "Sign Web3 transaction to claim on-chain sponsorship for 1 hectare of ancient dipterocarp wilderness."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "What characterizes a Dipterocarp dry forest?",
+              "answer": "It is an open-canopy forest dominated by winged-seed dipterocarp trees that shed leaves during dry months, unique in Vietnam to Yok Don."
+          },
+          {
+              "question": "What is the maximum NFT allocation for Yok Don?",
+              "answer": "Covering 115,545 hectares, the maximum supply is capped at exactly 115,545 NFT lots."
+          }
+      ],
+      "monetization_tips": [
+          "Holders earn the Protector of Central Highlands Elephants credential and ethical elephant-watching tour benefits."
+      ],
+      "tags": [
+          "Yok Don",
+          "Dak Lak",
+          "Dipterocarp Forest",
+          "Wild Elephants",
+          "Serepok River",
+          "Central Highlands"
+      ]
+  },
+
+  'forest-14': {
+      "common_name": "Bidoup - Nui Ba National Park Sanctuary (Cloud Forest Langbiang Biome)",
+      "aliases": [
+          "Bidoup Nui Ba National Park",
+          "Roof of the Central Highlands",
+          "Langbiang Biosphere Core"
+      ],
+      "description": "The monumental roof of the Lang Biang Plateau covering 70,038 hectares (700,380,000 m²). Core of the UNESCO Langbiang Biosphere Reserve (2015), celebrating ancient living fossil conifers and mystical high-altitude mossy cloud forests.",
+      "quick_answer": "Protects the millennia-old Flat-Leaved Pine (Pinus krempfii), a unique living fossil of the plant world. Each NFT protects 10,000 m² (1 ha) of Langbiang cloud forest.",
+      "growth_time": "Ancient mossy cloud forest and millennial conifer stands preserved perpetually",
+      "seasonality": {
+          "north": "Majestic temperate-subtropical cloud forest wonderland of the Da Lat highlands",
+          "central": "Vital watershed basin feeding the entire Dong Nai river hydrological network",
+          "south": "Premier eco-trekking paradise discovering ancient moss forests and giant pines",
+          "best_months": [
+              11,
+              12,
+              1,
+              2,
+              3,
+              4
+          ]
+      },
+      "botanical_details": {
+          "family": "Montane Mossy Cloud Forest & Ancient Conifer Ecosystem",
+          "native_range": "Lac Duong and Dam Rong districts, Lam Dong Province",
+          "active_compounds": [
+              "Flat-Leaved Pine (Pinus krempfii) Unique Living Fossil Endemic Conifer",
+              "Over 300 Rare Indigenous Wild Orchid Species",
+              "Mystical Moss-Draped Cloud Forests at 2,000m Elevation",
+              "Critically Endangered Grey-Crowned Crocias (Mi Langbiang)"
+          ],
+          "soil_ph": "4.8 - 5.8 (High-altitude organic humic soils)",
+          "ideal_temp": "10°C - 24°C crisp cool mountain climate",
+          "pot_size": "70,038 hectares sanctuary (10,000 m² per conservation NFT)"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Visit Bidoup Cloud Forest with GPS",
+              "instruction": "Travel to Lac Duong district (Lam Dong) within 18km radius of Bidoup summit. Turn on GPS."
+          },
+          {
+              "step": 2,
+              "title": "Verify Web3 GPS Check-in",
+              "instruction": "Click \"Verify Forest GPS Location\" on Web3 Sandbox to claim your authenticated 24-hour Check-in Pass."
+          },
+          {
+              "step": 3,
+              "title": "Mint 10,000 m² Bidoup Cloud Forest NFT",
+              "instruction": "Sign Web3 transaction to record 1 hectare of Langbiang ancient cloud forest on the blockchain."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Why is the Flat-Leaved Pine called a living fossil?",
+              "answer": "Pinus krempfii is the world’s only pine species with lance-shaped flat leaves, surviving from prehistoric eras only on Bidoup’s high peaks."
+          },
+          {
+              "question": "What is the maximum NFT allocation for Bidoup - Nui Ba?",
+              "answer": "70,038 hectares corresponds to an immutable maximum supply of 70,038 NFT lots."
+          }
+      ],
+      "monetization_tips": [
+          "Holders receive the Guardian of Langbiang Roof credential and priority eco-trekking expedition perks."
+      ],
+      "tags": [
+          "Bidoup",
+          "Lam Dong",
+          "Langbiang UNESCO",
+          "Cloud Forest",
+          "Flat-Leaved Pine",
+          "Da Lat"
+      ]
+  },
+
+  'forest-15': {
+      "common_name": "Bach Ma National Park Sanctuary (Annamite Transition Zone Cloud Biome)",
+      "aliases": [
+          "Bach Ma National Park",
+          "Bach Ma Primeval Forest Hue",
+          "Indochina Biodiversity Transition Zone"
+      ],
+      "description": "Spectacular primeval cloud forest at the ecological crossroads between Northern and Southern flora covering 37,487 hectares (374,870,000 m²). Perched at 1,450m overlooking the East Sea, recording Vietnam’s highest rainfall with mystical moss forests and the 300m Do Quyen Waterfall.",
+      "quick_answer": "Protects 2,373 plant species with the dramatic 300m Do Quyen waterfall bursting into crimson rhododendron blooms each spring. Each NFT protects 10,000 m² (1 ha) of Bach Ma cloud forest.",
+      "growth_time": "Montane biodiversity transition rainforest preserved perpetually",
+      "seasonality": {
+          "north": "Unique ecological confluence of northern and southern species in Indochina",
+          "central": "Vital green climate regulator for the historic imperial capital Hue and Da Nang",
+          "south": "Crimson Rhododendron blooms flank the 300m waterfall cliffs from February to April",
+          "best_months": [
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+          ]
+      },
+      "botanical_details": {
+          "family": "Annamite Biodiversity Transition Cloud Forest Biome",
+          "native_range": "Phu Loc and Nam Dong districts, Thua Thien Hue Province",
+          "active_compounds": [
+              "Ancient Crimson Rhododendron Stands on Do Quyen Waterfall Crest",
+              "Ecotone Crossroads of North-South Biotas with 2,373 Flora Species",
+              "Primeval Stands of Fokienia hodginsii and Agarwood (Aquilaria)",
+              "Habitat of Endemic Crested Argus and Saola"
+          ],
+          "soil_ph": "4.5 - 5.5 (Montane feralit humic soils)",
+          "ideal_temp": "15°C - 26°C misty cool mountain air",
+          "pot_size": "37,487 hectares sanctuary (10,000 m² per conservation NFT)"
+      },
+      "how_to_grow_steps": [
+          {
+              "step": 1,
+              "title": "Visit Bach Ma Summit with GPS",
+              "instruction": "Travel to Bach Ma National Park (Thua Thien Hue) within 14km of Hai Vong Dai summit. Turn on GPS."
+          },
+          {
+              "step": 2,
+              "title": "Verify Web3 GPS Check-in",
+              "instruction": "Click \"Verify Forest GPS Location\" on Web3 Sandbox to receive an authenticated 24-hour Check-in Pass."
+          },
+          {
+              "step": 3,
+              "title": "Mint 10,000 m² Bach Ma Cloud Forest NFT",
+              "instruction": "Sign Web3 transaction to sponsor 1 hectare of Bach Ma primeval cloud rainforest on the blockchain."
+          }
+      ],
+      "faqs": [
+          {
+              "question": "Why does Bach Ma experience the highest rainfall in Vietnam?",
+              "answer": "Bach Ma is the final high mountain spur of the Annamites meeting the sea, directly intercepting ocean monsoon clouds to generate up to 8,000mm of rain annually."
+          },
+          {
+              "question": "What is the maximum NFT allocation for Bach Ma?",
+              "answer": "Spanning 37,487 hectares, the maximum supply is capped at exactly 37,487 NFT lots."
+          }
+      ],
+      "monetization_tips": [
+          "Holders earn the Protector of the Annamite Crossroads credential and complimentary passes to the Hai Vong Dai summit trail."
+      ],
+      "tags": [
+          "Bach Ma",
+          "Thua Thien Hue",
+          "Do Quyen Waterfall",
+          "Hai Vong Dai",
+          "Cloud Forest",
+          "Biodiversity"
+      ]
   }
 };
 
