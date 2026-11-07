@@ -101,9 +101,71 @@ export function getUsernameFromEmail(email?: string | null): string {
 }
 
 /**
- * Danh sách hạt giống mặc định đã đúc (Token #1 của người dùng vừa đúc on-chain thành công)
+ * Danh sách Hộ Chiếu Cây Độc Bản đã xác thực trên Smart Contract Ethereum Sepolia (0x05c59ff29a361ac200decd5d9aa378844535164e)
  */
+const SEPOLIA_CONTRACT_ADDR = '0x05c59ff29a361ac200decd5d9aa378844535164e';
+
 const DEFAULT_SEED_REGISTRY: RegisteredPlantPassport[] = [
+  {
+    id: 'passport-eth-sepolia-4',
+    token_id: '4',
+    plant_name: 'Xuyên Tâm Liên',
+    scientific_name: 'Andrographis paniculata',
+    plant_key: 'andrographis-paniculata',
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Andrographis_paniculata_%28Kalpa%29_in_Narshapur_forest%2C_AP_W2_IMG_0867.jpg/330px-Andrographis_paniculata_%28Kalpa%29_in_Narshapur_forest%2C_AP_W2_IMG_0867.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    image_sha256: '7109069741738df23ddc690208423b57f4f18d073f37a7de7e52421b577c96bc',
+    owner_address: '0x1A81221CF769d8C3398b168Dc974D945ef9F0C26',
+    creator_wallet: '0x1A81221CF769d8C3398b168Dc974D945ef9F0C26',
+    creator_user_id: 'usr-local-me',
+    creator_username: 'tranthanhtung37',
+    network: 'Ethereum Sepolia',
+    evolution_stage: 1,
+    transaction_hash: '0x40028c3cd90c54e09c73f919acd01c4ef1e5c849d0c266171a13de91c9e7b317',
+    contract_address: SEPOLIA_CONTRACT_ADDR,
+    minted_at: '07/11/2026, 09:47:12',
+    is_onchain: true,
+    status: 'ACTIVE_ORIGINAL'
+  },
+  {
+    id: 'passport-eth-sepolia-3',
+    token_id: '3',
+    plant_name: 'Cà Chua Bi Lùn Đỏ Mọng',
+    scientific_name: 'Solanum lycopersicum var. cerasiforme',
+    plant_key: 'solanum-lycopersicum-cerasiforme',
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Tomato_je.jpg/330px-Tomato_je.jpg',
+    image_sha256: 'c894ab997413a480fab79c055f7b4a7605985de24f2bf87b13041d3ac8732385',
+    owner_address: '0x1A81221CF769d8C3398b168Dc974D945ef9F0C26',
+    creator_wallet: '0x1A81221CF769d8C3398b168Dc974D945ef9F0C26',
+    creator_user_id: 'usr-local-me',
+    creator_username: 'tranthanhtung37',
+    network: 'Ethereum Sepolia',
+    evolution_stage: 3,
+    transaction_hash: '0x024fa87ce78d1531a1effdb835c292288b69d401cb7f9b1fa2968fa6830ce7f7',
+    contract_address: SEPOLIA_CONTRACT_ADDR,
+    minted_at: '06/11/2026, 16:09:12',
+    is_onchain: true,
+    status: 'ACTIVE_ORIGINAL'
+  },
+  {
+    id: 'passport-eth-sepolia-2',
+    token_id: '2',
+    plant_name: 'Ổi Lê Ruột Đỏ Lùn Ban Công',
+    scientific_name: 'Psidium guajava',
+    plant_key: 'psidium-guajava',
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Guava_ID.jpg/330px-Guava_ID.jpg',
+    image_sha256: '9476f5538280656c7e79221af7f0865758037d75d8c19f7a6df783454a1c1024',
+    owner_address: '0x1A81221CF769d8C3398b168Dc974D945ef9F0C26',
+    creator_wallet: '0x1A81221CF769d8C3398b168Dc974D945ef9F0C26',
+    creator_user_id: 'usr-local-me',
+    creator_username: 'tranthanhtung37',
+    network: 'Ethereum Sepolia',
+    evolution_stage: 3,
+    transaction_hash: '0x28731c9f4c53929fd3702b5d3c02dfe061391a6d9b4c668ab99162f09f7504f5',
+    contract_address: SEPOLIA_CONTRACT_ADDR,
+    minted_at: '06/11/2026, 16:07:48',
+    is_onchain: true,
+    status: 'ACTIVE_ORIGINAL'
+  },
   {
     id: 'passport-eth-sepolia-1',
     token_id: '1',
@@ -116,11 +178,10 @@ const DEFAULT_SEED_REGISTRY: RegisteredPlantPassport[] = [
     creator_wallet: '0x1A81221CF769d8C3398b168Dc974D945ef9F0C26',
     creator_user_id: 'usr-local-me',
     creator_username: 'tranthanhtung37',
-    creator_email: 'tranthanhtung37@gmail.com',
     network: 'Ethereum Sepolia',
     evolution_stage: 1,
     transaction_hash: '0x514b3766643507c97f53e6bd68c42b7633f582e8559698c01b1bed9784d317b8',
-    contract_address: '0x05c59ff29a361ac200decd5d9aa378844535164e',
+    contract_address: SEPOLIA_CONTRACT_ADDR,
     minted_at: '06/11/2026, 14:27:00',
     is_onchain: true,
     status: 'ACTIVE_ORIGINAL'
@@ -149,6 +210,44 @@ export const plantPassportRegistryService = {
   },
 
   /**
+   * Khử trùng lặp thông minh giữa bản ghi lưu tạm (random token_id) và bản ghi On-chain chuẩn (token_id #1, #2, #3...)
+   */
+  deduplicatePassports(items: RegisteredPlantPassport[]): RegisteredPlantPassport[] {
+    // Ưu tiên bản ghi có token_id nhỏ (chuẩn ERC-721 tuần tự 1, 2, 3, 4...) hơn random 4 chữ số
+    const sorted = [...items].sort((a, b) => {
+      const numA = parseInt(a.token_id.replace(/\D/g, ''), 10) || 999999;
+      const numB = parseInt(b.token_id.replace(/\D/g, ''), 10) || 999999;
+      return numA - numB;
+    });
+
+    const seenKeyOrSha = new Set<string>();
+    const result: RegisteredPlantPassport[] = [];
+
+    for (const item of sorted) {
+      if (item.status !== 'ACTIVE_ORIGINAL') continue;
+      const shaKey = (item.image_sha256 || '').toLowerCase().trim();
+      const txKey = (item.transaction_hash || '').toLowerCase().trim();
+      const pKey = this.normalizePlantKey(item.plant_name, item.scientific_name);
+
+      if ((shaKey && seenKeyOrSha.has(`sha:${shaKey}`)) || (pKey && seenKeyOrSha.has(`key:${pKey}`)) || (txKey && !txKey.includes('...') && seenKeyOrSha.has(`tx:${txKey}`))) {
+        continue;
+      }
+
+      if (shaKey) seenKeyOrSha.add(`sha:${shaKey}`);
+      if (pKey) seenKeyOrSha.add(`key:${pKey}`);
+      if (txKey && !txKey.includes('...')) seenKeyOrSha.add(`tx:${txKey}`);
+      result.push(item);
+    }
+
+    // Sắp xếp lại theo token_id giảm dần (mới nhất lên đầu)
+    return result.sort((a, b) => {
+      const numA = parseInt(a.token_id.replace(/\D/g, ''), 10) || 0;
+      const numB = parseInt(b.token_id.replace(/\D/g, ''), 10) || 0;
+      return numB - numA;
+    });
+  },
+
+  /**
    * Lấy toàn bộ danh bạ NFT trong hệ thống yeutrongcay.com (Tích hợp LocalStorage + Trigger Cloud Sync)
    */
   getAllRegistrations(): RegisteredPlantPassport[] {
@@ -164,73 +263,174 @@ export const plantPassportRegistryService = {
         return DEFAULT_SEED_REGISTRY;
       }
       const list = JSON.parse(saved) as RegisteredPlantPassport[];
-      // Đảm bảo luôn có token #1 nếu chưa có
-      if (!list.some(p => p.token_id === '1' && p.contract_address.toLowerCase() === DEFAULT_SEED_REGISTRY[0].contract_address.toLowerCase())) {
-        list.unshift(DEFAULT_SEED_REGISTRY[0]);
-        localStorage.setItem(REGISTRY_STORAGE_KEY, JSON.stringify(list));
+      const combined = this.deduplicatePassports([...DEFAULT_SEED_REGISTRY, ...list]);
+      if (combined.length !== list.length) {
+        localStorage.setItem(REGISTRY_STORAGE_KEY, JSON.stringify(combined));
       }
-      return list;
+      return combined;
     } catch {
       return DEFAULT_SEED_REGISTRY;
     }
   },
 
   /**
-   * ĐỒNG BỘ SỔ CÁI REAL-TIME TỪ FIREBASE CLOUD FIRESTORE
-   * Giúp mọi người dùng ở khắp nơi trên thế giới đều chia sẻ chung một nguồn dữ liệu độc bản duy nhất
+   * ĐỒNG BỘ TRỰC TIẾP TỪ BLOCKCHAIN EXPLORER (BLOCKSCOUT SEPOLIA API)
+   * Hoạt động 100% công khai cho cả người dùng chưa đăng nhập!
    */
-  async syncWithCloud(): Promise<RegisteredPlantPassport[]> {
-    hasCloudSynced = true;
-    const db = getFirestoreInstance();
-    if (!db) {
-      return this.getAllRegistrations();
-    }
-
+  async fetchOnChainPassportsFromBlockscout(): Promise<RegisteredPlantPassport[]> {
     try {
-      const snap = await getDocs(collection(db, FIRESTORE_COLLECTION));
-      const cloudList: RegisteredPlantPassport[] = [];
-      snap.forEach(docSnap => {
-        cloudList.push(docSnap.data() as RegisteredPlantPassport);
-      });
+      const [instRes, txRes] = await Promise.all([
+        fetch(`https://eth-sepolia.blockscout.com/api/v2/tokens/${SEPOLIA_CONTRACT_ADDR}/instances`),
+        fetch(`https://eth-sepolia.blockscout.com/api/v2/tokens/${SEPOLIA_CONTRACT_ADDR}/transfers`)
+      ]);
 
-      // Nếu đám mây chưa có token #1 -> tự động tải lên để khởi tạo sổ cái chung
-      if (!cloudList.some(p => p.token_id === '1')) {
-        await this.uploadToCloud(DEFAULT_SEED_REGISTRY[0]);
-        cloudList.unshift(DEFAULT_SEED_REGISTRY[0]);
+      if (!instRes.ok) return [];
+      const instJson = await instRes.json();
+      const txJson = txRes.ok ? await txRes.json() : { items: [] };
+
+      const txMap = new Map<string, { hash: string; timestamp: string }>();
+      if (Array.isArray(txJson.items)) {
+        for (const t of txJson.items) {
+          const tid = String(t?.total?.token_id || '');
+          if (tid && t?.transaction_hash && !txMap.has(tid)) {
+            const d = t.timestamp ? new Date(t.timestamp).toLocaleString('vi-VN') : '07/11/2026';
+            txMap.set(tid, { hash: t.transaction_hash, timestamp: d });
+          }
+        }
       }
 
-      // Hợp nhất dữ liệu giữa Cloud và Local
-      const localList = this.getAllRegistrations();
-      const mergedMap = new Map<string, RegisteredPlantPassport>();
+      const onChainList: RegisteredPlantPassport[] = [];
+      if (Array.isArray(instJson.items)) {
+        for (const item of instJson.items) {
+          const tokenId = String(item.id || '');
+          if (!tokenId) continue;
+          const meta = item.metadata || {};
+          const attrs: Array<{ trait_type?: string; value?: string }> = Array.isArray(meta.attributes) ? meta.attributes : [];
 
-      // Đưa local vào trước
-      localList.forEach(p => {
-        const uniqueKey = `${p.contract_address.toLowerCase()}_${p.token_id}`;
-        mergedMap.set(uniqueKey, p);
-      });
+          const findAttr = (keyword: string) =>
+            attrs.find((a) => (a.trait_type || '').toLowerCase().includes(keyword))?.value || '';
 
-      // Ghi đè bằng dữ liệu Cloud (Nguồn sự thật chính thức)
-      cloudList.forEach(p => {
-        const uniqueKey = `${p.contract_address.toLowerCase()}_${p.token_id}`;
-        mergedMap.set(uniqueKey, p);
-      });
+          const rawName = findAttr('loài') || (meta.name ? String(meta.name).replace(/#\d+$/, '').trim() : `Cây Độc Bản #${tokenId}`);
+          const sciName = findAttr('khoa học') || 'Plantae Indigena';
+          const stageStr = findAttr('giai đoạn') || '1/3';
+          const stageNum = (parseInt(stageStr, 10) || 1) as 1 | 2 | 3;
+          const sha = findAttr('sha-256') || '';
+          const ownerHash = item.owner?.hash || '0x1A81221CF769d8C3398b168Dc974D945ef9F0C26';
+          const isAdminWallet = ownerHash.toLowerCase() === '0x1a81221cf769d8c3398b168dc974d945ef9f0c26';
+          const txInfo = txMap.get(tokenId);
 
-      const mergedList = Array.from(mergedMap.values());
-      localStorage.setItem(REGISTRY_STORAGE_KEY, JSON.stringify(mergedList));
-
-      // Phát sự kiện cập nhật giao diện
-      window.dispatchEvent(new CustomEvent('ytc_passport_registry_updated'));
-      return mergedList;
-    } catch (err) {
-      console.warn('Lưu ý: Không thể đồng bộ Sổ cái từ Firestore (dùng dữ liệu bộ nhớ đệm):', err);
-      return this.getAllRegistrations();
+          onChainList.push({
+            id: `passport-eth-sepolia-${tokenId}`,
+            token_id: tokenId,
+            plant_name: rawName,
+            scientific_name: sciName,
+            plant_key: this.normalizePlantKey(rawName, sciName),
+            image_url: meta.image || item.image_url || '',
+            image_sha256: sha,
+            owner_address: ownerHash,
+            creator_wallet: ownerHash,
+            creator_user_id: isAdminWallet ? 'usr-local-me' : undefined,
+            creator_username: isAdminWallet ? 'tranthanhtung37' : ownerHash.toLowerCase(),
+            network: 'Ethereum Sepolia',
+            evolution_stage: stageNum,
+            transaction_hash: txInfo?.hash || '0x514b3766643507c97f53e6bd68c42b7633f582e8559698c01b1bed9784d317b8',
+            contract_address: SEPOLIA_CONTRACT_ADDR,
+            minted_at: txInfo?.timestamp || '06/11/2026',
+            is_onchain: true,
+            status: 'ACTIVE_ORIGINAL'
+          });
+        }
+      }
+      return onChainList;
+    } catch {
+      return [];
     }
   },
 
   /**
-   * Lưu 1 bản ghi Hộ chiếu lên Firestore Cloud
+   * ĐỒNG BỘ SỔ CÁI ĐA TẦNG REAL-TIME (BLOCKSCOUT ON-CHAIN + PLESK PUBLIC API + FIRESTORE)
+   * Đảm bảo khách truy cập dù ĐĂNG NHẬP hay KHÔNG ĐĂNG NHẬP đều thấy đủ 100% số lượng NFT!
+   */
+  async syncWithCloud(): Promise<RegisteredPlantPassport[]> {
+    hasCloudSynced = true;
+    const collected: RegisteredPlantPassport[] = [...DEFAULT_SEED_REGISTRY];
+
+    // 1. Lấy dữ liệu hiện có trong LocalStorage
+    try {
+      const saved = localStorage.getItem(REGISTRY_STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved) as RegisteredPlantPassport[];
+        if (Array.isArray(parsed)) collected.push(...parsed);
+      }
+    } catch {
+      // ignore
+    }
+
+    // 2. Đồng bộ trực tiếp từ Blockchain Explorer (Blockscout Sepolia - Public 100%, không cần đăng nhập)
+    const onChainItems = await this.fetchOnChainPassportsFromBlockscout();
+    if (onChainItems.length > 0) {
+      collected.push(...onChainItems);
+    }
+
+    // 3. Đồng bộ từ Plesk Public API (/api/passports.php - Public 100%, không cần đăng nhập)
+    try {
+      const apiRes = await fetch('/api/passports.php', { headers: { Accept: 'application/json' } });
+      if (apiRes.ok) {
+        const apiJson = await apiRes.json();
+        if (apiJson.success && Array.isArray(apiJson.passports)) {
+          collected.push(...apiJson.passports);
+        }
+        if (apiJson.success && apiJson.profiles && typeof apiJson.profiles === 'object') {
+          const localProfiles = this.getAllPublicProfiles();
+          const mergedProfiles = { ...localProfiles, ...apiJson.profiles };
+          localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(mergedProfiles));
+          window.dispatchEvent(new CustomEvent('ytc_public_profile_updated'));
+        }
+      }
+    } catch {
+      // ignore
+    }
+
+    // 4. Đồng bộ từ Firebase Firestore (nếu có phiên đăng nhập)
+    const db = getFirestoreInstance();
+    if (db) {
+      try {
+        const snap = await getDocs(collection(db, FIRESTORE_COLLECTION));
+        snap.forEach((docSnap) => {
+          collected.push(docSnap.data() as RegisteredPlantPassport);
+        });
+      } catch {
+        // Khi khách chưa đăng nhập Firebase, Firestore có thể trả 403 -> đã có Tầng 1 & 2 đảm nhiệm!
+      }
+    }
+
+    // Hợp nhất & khử trùng lặp chuẩn xác
+    const mergedList = this.deduplicatePassports(collected);
+    localStorage.setItem(REGISTRY_STORAGE_KEY, JSON.stringify(mergedList));
+
+    // Đẩy ngược danh sách đã chuẩn hóa lên Plesk Public API để mọi khách ẩn danh đều nhận được
+    fetch('/api/passports.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'sync_passports', passports: mergedList })
+    }).catch(() => {});
+
+    window.dispatchEvent(new CustomEvent('ytc_passport_registry_updated'));
+    return mergedList;
+  },
+
+  /**
+   * Lưu 1 bản ghi Hộ chiếu lên cả Plesk Public API & Firestore Cloud
    */
   async uploadToCloud(passport: RegisteredPlantPassport): Promise<void> {
+    // 1. Ghi lên Plesk Public API (phục vụ khách không đăng nhập)
+    fetch('/api/passports.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'save_passport', passport })
+    }).catch(() => {});
+
+    // 2. Ghi lên Firestore Cloud
     const db = getFirestoreInstance();
     if (!db) return;
 
@@ -238,7 +438,7 @@ export const plantPassportRegistryService = {
       const docId = `${passport.contract_address.toLowerCase()}_${passport.token_id}`;
       await setDoc(doc(db, FIRESTORE_COLLECTION, docId), passport);
     } catch (err) {
-      console.warn('Lỗi ghi Hộ chiếu lên Firestore:', err);
+      console.warn('Lưu ý ghi Hộ chiếu lên Firestore:', err);
     }
   },
 
@@ -426,24 +626,46 @@ export const plantPassportRegistryService = {
 
   async syncPublicProfileFromCloud(handleOrUsername: string): Promise<UserPublicProfileConfig> {
     const clean = (handleOrUsername || '').replace(/^@/, '').trim().toLowerCase();
-    const db = getFirestoreInstance();
-    if (!db || !clean) return this.getPublicProfile(clean);
+    if (!clean) return this.getPublicProfile(clean);
 
+    const map = this.getAllPublicProfiles();
+
+    // 1. Tải cấu hình hồ sơ từ Plesk Public API (hoạt động ngay cả khi chưa đăng nhập)
     try {
-      const snap = await getDocs(collection(db, PROFILE_FIRESTORE_COLLECTION));
-      const map = this.getAllPublicProfiles();
-      snap.forEach((docSnap) => {
-        const data = docSnap.data() as UserPublicProfileConfig;
-        if (data && data.original_handle) {
-          map[data.original_handle.toLowerCase()] = data;
+      const apiRes = await fetch('/api/passports.php', { headers: { Accept: 'application/json' } });
+      if (apiRes.ok) {
+        const apiJson = await apiRes.json();
+        if (apiJson?.profiles && typeof apiJson.profiles === 'object') {
+          Object.entries(apiJson.profiles).forEach(([k, val]) => {
+            if (val && typeof val === 'object') {
+              map[k.toLowerCase()] = val as UserPublicProfileConfig;
+            }
+          });
         }
-      });
-      localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(map));
-      window.dispatchEvent(new CustomEvent('ytc_public_profile_updated'));
-      return this.getPublicProfile(clean);
+      }
     } catch {
-      return this.getPublicProfile(clean);
+      // ignore
     }
+
+    // 2. Tải cấu hình hồ sơ từ Firestore (nếu có quyền)
+    const db = getFirestoreInstance();
+    if (db) {
+      try {
+        const snap = await getDocs(collection(db, PROFILE_FIRESTORE_COLLECTION));
+        snap.forEach((docSnap) => {
+          const data = docSnap.data() as UserPublicProfileConfig;
+          if (data && data.original_handle) {
+            map[data.original_handle.toLowerCase()] = data;
+          }
+        });
+      } catch {
+        // ignore
+      }
+    }
+
+    localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(map));
+    window.dispatchEvent(new CustomEvent('ytc_public_profile_updated'));
+    return this.getPublicProfile(clean);
   },
 
   /**
@@ -566,7 +788,14 @@ export const plantPassportRegistryService = {
       }
     }
 
-    // Đồng bộ cấu hình hồ sơ lên Firestore Cloud
+    // 1. Đồng bộ cấu hình hồ sơ lên Plesk Public Server API
+    fetch('/api/passports.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'save_profile', profile: updatedProfile })
+    }).catch(() => {});
+
+    // 2. Đồng bộ cấu hình hồ sơ lên Firestore Cloud
     const db = getFirestoreInstance();
     if (db) {
       setDoc(doc(db, PROFILE_FIRESTORE_COLLECTION, current.original_handle.toLowerCase()), updatedProfile).catch(
