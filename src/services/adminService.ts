@@ -57,6 +57,43 @@ export interface AdminPlantItem {
   container_suitable?: boolean;
 }
 
+export interface AdminAutoPostStatus {
+  success: boolean;
+  config: {
+    enabled: boolean;
+    page_id: string;
+    has_token: boolean;
+    schedule: string;
+  };
+  metrics: {
+    total_queued: number;
+    posted_count: number;
+    pending_count: number;
+    categories: Array<{ category_slug: string; category_label: string; count: number }>;
+  };
+  next_post?: {
+    ref_slug: string;
+    category_slug: string;
+    category_label: string;
+    target_url: string;
+    post_count: number;
+    last_posted_at: string | null;
+  } | null;
+  recent_logs: Array<{
+    id: number;
+    posted_date: string;
+    category_slug: string;
+    ref_slug: string;
+    target_url: string;
+    post_angle: number;
+    fb_post_id: string | null;
+    status: 'success' | 'failed' | 'skipped';
+    error_message: string | null;
+    created_at: string;
+  }>;
+  server_time?: string;
+}
+
 const API_BASE = '/api/admin.php';
 const TOKEN_KEY = 'ytc_admin_token';
 const USER_KEY = 'ytc_admin_user';
@@ -327,6 +364,38 @@ export const adminService = {
       return !!data.success;
     } catch {
       return true;
+    }
+  },
+
+  async getAutoPostStatus(): Promise<AdminAutoPostStatus | null> {
+    const token = this.getToken();
+    try {
+      const res = await fetch(`${API_BASE}?action=get_autopost_status`, {
+        headers: { 'X-Admin-Token': token || '' }
+      });
+      const data = await res.json();
+      if (data.success) {
+        return data as AdminAutoPostStatus;
+      }
+    } catch (err) {
+      console.error('getAutoPostStatus error:', err);
+    }
+    return null;
+  },
+
+  async triggerAutoPostTest(): Promise<{ success: boolean; message?: string; [key: string]: any }> {
+    const token = this.getToken();
+    try {
+      const res = await fetch(`${API_BASE}?action=trigger_autopost_test`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Admin-Token': token || ''
+        }
+      });
+      return await res.json();
+    } catch (err: any) {
+      return { success: false, message: err?.message || 'Lỗi mạng khi kích hoạt đăng bài' };
     }
   }
 };

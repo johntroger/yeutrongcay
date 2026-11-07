@@ -391,6 +391,76 @@ if ($action === 'get_plants') {
     }
 }
 
+// ----------------------------------------------------
+// 9. XỬ LÝ ACTION: GET_AUTOPOST_STATUS & TRIGGER_AUTOPOST_TEST
+// ----------------------------------------------------
+if ($action === 'get_autopost_status') {
+    $fbConf = $config['facebook'] ?? [];
+    $hasToken = !empty($fbConf['page_access_token']) && strpos($fbConf['page_access_token'], 'YOUR_') !== 0;
+
+    $totalQueued = 0;
+    $postedCount = 0;
+    $pendingCount = 0;
+    $categories = [];
+    $logs = [];
+    $nextItem = null;
+
+    if ($pdo) {
+        try {
+            $totalQueued = (int)$pdo->query("SELECT COUNT(*) FROM social_post_queue WHERE is_active = 1")->fetchColumn();
+            $postedCount = (int)$pdo->query("SELECT COUNT(*) FROM social_post_queue WHERE is_active = 1 AND post_count > 0")->fetchColumn();
+            $pendingCount = (int)$pdo->query("SELECT COUNT(*) FROM social_post_queue WHERE is_active = 1 AND post_count = 0")->fetchColumn();
+
+            $catStmt = $pdo->query("SELECT category_slug, category_label, COUNT(*) as count FROM social_post_queue WHERE is_active = 1 GROUP BY category_slug, category_label");
+            $categories = $catStmt->fetchAll();
+
+            $nextStmt = $pdo->query("SELECT ref_slug, category_slug, category_label, target_url, post_count, last_posted_at FROM social_post_queue WHERE is_active = 1 ORDER BY last_posted_at ASC, id ASC LIMIT 1");
+            $nextItem = $nextStmt->fetch() ?: null;
+
+            $logStmt = $pdo->query("SELECT * FROM social_post_logs ORDER BY id DESC LIMIT 15");
+            $logs = $logStmt->fetchAll();
+        } catch (\Throwable $e) {}
+    }
+
+    echo json_encode([
+        'success'       => true,
+        'config'        => [
+            'enabled'   => !empty($fbConf['enabled']),
+            'page_id'   => !empty($fbConf['page_id']) ? substr($fbConf['page_id'], 0, 4) . '***' : '',
+            'has_token' => $hasToken,
+            'schedule'  => '08:00 Sáng hàng ngày (Asia/Ho_Chi_Minh)'
+        ],
+        'metrics'       => [
+            'total_queued'  => $totalQueued,
+            'posted_count'  => $postedCount,
+            'pending_count' => $pendingCount,
+            'categories'    => $categories
+        ],
+        'next_post'     => $nextItem,
+        'recent_logs'   => $logs,
+        'server_time'   => date('Y-m-d H:i:s')
+    ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    exit;
+}
+
+if ($action === 'trigger_autopost_test') {
+    $_GET['force'] = '1';
+    ob_start();
+    require __DIR__ . '/cron_fb_autopost.php';
+    $output = ob_get_clean();
+
+    $decoded = json_decode($output, true);
+    if ($decoded) {
+        echo json_encode($decoded, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    } else {
+        echo json_encode([
+            'success' => false,
+            'raw_output' => $output
+        ], JSON_UNESCAPED_UNICODE);
+    }
+    exit;
+}
+
 // Default fallback
 echo json_encode([
     'success' => false,

@@ -14,9 +14,16 @@ import {
   HeartHandshake,
   Leaf,
   Server,
-  Home
+  Home,
+  Share2,
+  Send,
+  Calendar,
+  ExternalLink,
+  Clock,
+  Sparkles,
+  CheckCircle2
 } from 'lucide-react';
-import { adminService, AdminStats, AdminReport, AdminClinicCase, AdminSwapOffer } from '../services/adminService.ts';
+import { adminService, AdminStats, AdminReport, AdminClinicCase, AdminSwapOffer, AdminAutoPostStatus } from '../services/adminService.ts';
 import { useSEO } from '../utils/useSEO.ts';
 import { useLanguage } from '../context/LanguageContext';
 import { loginWithGoogle } from '../services/firebaseClient.ts';
@@ -40,28 +47,33 @@ export const AdminPage: React.FC = () => {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   // Data states
-  const [activeTab, setActiveTab] = useState<'reports' | 'clinic' | 'swaps' | 'system'>('reports');
+  const [activeTab, setActiveTab] = useState<'reports' | 'clinic' | 'swaps' | 'system' | 'autopost'>('reports');
   const [stats, setStats] = useState<AdminStats | null>(null);
   const [reports, setReports] = useState<AdminReport[]>([]);
   const [reportFilter, setReportFilter] = useState<string>('all');
   const [clinicCases, setClinicCases] = useState<AdminClinicCase[]>([]);
   const [swapOffers, setSwapOffers] = useState<AdminSwapOffer[]>([]);
+  const [autoPostStatus, setAutoPostStatus] = useState<AdminAutoPostStatus | null>(null);
+  const [isTriggeringPost, setIsTriggeringPost] = useState(false);
+  const [postTriggerResult, setPostTriggerResult] = useState<any | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [actionSuccess, setActionSuccess] = useState<string | null>(null);
 
   const loadData = async () => {
     setIsLoading(true);
     try {
-      const [s, r, c, sw] = await Promise.all([
+      const [s, r, c, sw, ap] = await Promise.all([
         adminService.getStats(),
         adminService.getReports(reportFilter),
         adminService.getClinicCases(),
-        adminService.getSwaps()
+        adminService.getSwaps(),
+        adminService.getAutoPostStatus()
       ]);
       setStats(s);
       setReports(r);
       setClinicCases(c);
       setSwapOffers(sw);
+      setAutoPostStatus(ap);
     } catch (err) {
       console.error('Failed to load admin data:', err);
     } finally {
@@ -137,6 +149,24 @@ export const AdminPage: React.FC = () => {
       setActionSuccess(isEn ? `Swap offer ${id} switched to "${nextStatus}".` : `Đã chuyển trạng thái tin đổi cây ${id} thành "${nextStatus}".`);
       setTimeout(() => setActionSuccess(null), 3000);
       loadData();
+    }
+  };
+
+  const handleTriggerAutoPost = async () => {
+    setIsTriggeringPost(true);
+    setPostTriggerResult(null);
+    try {
+      const result = await adminService.triggerAutoPostTest();
+      setPostTriggerResult(result);
+      if (result.success) {
+        setActionSuccess(isEn ? 'Successfully triggered post to Fanpage!' : 'Đã kích hoạt đăng bài thành công lên Fanpage!');
+        setTimeout(() => setActionSuccess(null), 4000);
+      }
+      loadData();
+    } catch (err: any) {
+      setPostTriggerResult({ success: false, error: err?.message || 'Lỗi kết nối' });
+    } finally {
+      setIsTriggeringPost(false);
     }
   };
 
@@ -426,6 +456,21 @@ export const AdminPage: React.FC = () => {
           >
             <MapPin className="w-4 h-4" />
             <span>Quản Lý Trạm Đổi Cây</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('autopost')}
+            className={`px-4 py-2.5 rounded-2xl text-xs font-bold transition flex items-center gap-2 shrink-0 ${
+              activeTab === 'autopost'
+                ? 'bg-forest-900 text-white dark:bg-emerald-600 shadow-2xs'
+                : 'text-charcoal-600 dark:text-charcoal-300 hover:bg-forest-50 dark:hover:bg-charcoal-800'
+            }`}
+          >
+            <Share2 className="w-4 h-4 text-emerald-400" />
+            <span>Auto-Post Fanpage (08:00 AM)</span>
+            <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-mono">
+              Auto
+            </span>
           </button>
 
           <button
@@ -756,6 +801,268 @@ export const AdminPage: React.FC = () => {
                   <span className="font-semibold text-emerald-600 dark:text-emerald-400">BYOK Client-Side (100% Free)</span>
                 </div>
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* TAB 5: TỰ ĐỘNG ĐĂNG BÀI FANPAGE (AUTO-POST 08:00 AM) */}
+        {activeTab === 'autopost' && (
+          <div className="space-y-6">
+            {/* Header tab */}
+            <div className="bg-white dark:bg-charcoal-800 rounded-3xl p-6 sm:p-8 border border-forest-100 dark:border-forest-800 shadow-2xs space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+                      <Share2 className="w-4 h-4" />
+                    </div>
+                    <h3 className="text-base sm:text-lg font-serif font-bold text-forest-950 dark:text-cream-50">
+                      Điều Phối Tự Động Đăng Bài Fanpage (Facebook Graph API)
+                    </h3>
+                  </div>
+                  <p className="text-xs text-charcoal-500 mt-1 max-w-2xl">
+                    Hệ thống tự động phát hiện bài viết mới, luân phiên danh mục động không trùng lặp, tạo bài viết đầy đủ chuyên sâu và kích hoạt thẻ Large Link Card Preview (1200x630) lúc 08:00 sáng mỗi ngày.
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={handleTriggerAutoPost}
+                    disabled={isTriggeringPost}
+                    className="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center gap-2 shadow-sm disabled:opacity-60"
+                  >
+                    {isTriggeringPost ? (
+                      <>
+                        <RefreshCw className="w-4 h-4 animate-spin" />
+                        <span>Đang gửi API...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4" />
+                        <span>Đăng Thử Ngay 1 Bài</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              {/* Status Alert if trigger result */}
+              {postTriggerResult && (
+                <div className={`p-4 rounded-2xl border text-xs space-y-2 ${
+                  postTriggerResult.success
+                    ? 'bg-emerald-50 dark:bg-emerald-950/50 border-emerald-200 dark:border-emerald-800 text-emerald-900 dark:text-emerald-200'
+                    : 'bg-red-50 dark:bg-red-950/50 border-red-200 dark:border-red-800 text-red-900 dark:text-red-200'
+                }`}>
+                  <div className="flex items-center gap-2 font-bold">
+                    {postTriggerResult.success ? (
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                    ) : (
+                      <AlertTriangle className="w-4 h-4 text-red-600" />
+                    )}
+                    <span>
+                      {postTriggerResult.success ? 'Đăng bài thành công!' : 'Kết quả thực hiện:'}
+                    </span>
+                    {postTriggerResult.fb_post_id && (
+                      <span className="font-mono text-[11px] px-2 py-0.5 rounded-md bg-emerald-200/60 dark:bg-emerald-900/60">
+                        ID: {postTriggerResult.fb_post_id}
+                      </span>
+                    )}
+                  </div>
+                  {postTriggerResult.message && <p>{postTriggerResult.message}</p>}
+                  {postTriggerResult.caption_preview && (
+                    <div className="p-3 bg-white/80 dark:bg-charcoal-900/80 rounded-xl font-mono text-[11px] whitespace-pre-wrap border border-emerald-100 dark:border-emerald-900 max-h-48 overflow-y-auto">
+                      {postTriggerResult.caption_preview}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Overview Metrics Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                <div className="p-4 rounded-2xl bg-cream-50 dark:bg-charcoal-900/60 border border-forest-100 dark:border-forest-800 space-y-1">
+                  <div className="flex items-center justify-between text-xs text-charcoal-500">
+                    <span>Hàng đợi URL tổng</span>
+                    <span className="font-mono font-bold text-forest-900 dark:text-cream-100">
+                      {autoPostStatus?.metrics.total_queued || 0} URL
+                    </span>
+                  </div>
+                  <div className="text-lg font-serif font-bold text-forest-950 dark:text-cream-50">
+                    {autoPostStatus?.metrics.posted_count || 0} <span className="text-xs font-sans font-normal text-charcoal-500">đã đăng</span> / {autoPostStatus?.metrics.pending_count || 0} <span className="text-xs font-sans font-normal text-emerald-600">bài mới</span>
+                  </div>
+                  <div className="flex flex-wrap gap-1 pt-1">
+                    {autoPostStatus?.metrics.categories.map((c) => (
+                      <span key={c.category_slug} className="text-[10px] px-2 py-0.5 rounded-md bg-forest-100/70 dark:bg-charcoal-800 text-forest-800 dark:text-cream-200">
+                        {c.category_label || c.category_slug}: {c.count}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-cream-50 dark:bg-charcoal-900/60 border border-forest-100 dark:border-forest-800 space-y-1">
+                  <div className="flex items-center justify-between text-xs text-charcoal-500">
+                    <span>Trạng thái Facebook API</span>
+                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                      autoPostStatus?.config.has_token
+                        ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300'
+                        : 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300'
+                    }`}>
+                      {autoPostStatus?.config.has_token ? 'Đã Kết Nối Token' : 'Chế Độ Simulation'}
+                    </span>
+                  </div>
+                  <div className="text-xs text-charcoal-600 dark:text-charcoal-300 pt-1">
+                    Page ID: <strong>{autoPostStatus?.config.page_id || 'Chưa thiết lập'}</strong>
+                  </div>
+                  <div className="text-xs text-charcoal-500 flex items-center gap-1">
+                    <Clock className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>08:00 AM (Hàng ngày)</span>
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-cream-50 dark:bg-charcoal-900/60 border border-forest-100 dark:border-forest-800 space-y-1">
+                  <div className="flex items-center justify-between text-xs text-charcoal-500">
+                    <span>Định dạng hiển thị</span>
+                    <span className="font-mono text-[10px] px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold">
+                      1200 x 630 px
+                    </span>
+                  </div>
+                  <div className="text-xs font-semibold text-forest-900 dark:text-cream-100 pt-1">
+                    Large Link Card Preview
+                  </div>
+                  <div className="text-[11px] text-charcoal-500">
+                    Tự động nâng phân giải ảnh & Pre-Scrape làm nóng cache Facebook trước khi đăng.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Next Post Preview */}
+            {autoPostStatus?.next_post && (
+              <div className="bg-white dark:bg-charcoal-800 rounded-3xl p-6 border border-emerald-200 dark:border-emerald-900/50 shadow-2xs space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-emerald-600 animate-pulse" />
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
+                      Bài Viết Kế Tiếp Trong Hàng Đợi (Dự Kiến 08:00 Sáng Mai)
+                    </h4>
+                  </div>
+                  <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-forest-100 dark:bg-charcoal-700 text-charcoal-600 dark:text-cream-200">
+                    Lần đăng thứ: {(autoPostStatus.next_post.post_count || 0) + 1}
+                  </span>
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-forest-50/50 dark:bg-charcoal-900/40 border border-forest-100 dark:border-forest-800">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <span className="font-serif font-bold text-sm text-forest-950 dark:text-cream-50">
+                        {autoPostStatus.next_post.ref_slug}
+                      </span>
+                      <span className="text-xs px-2 py-0.5 rounded-md bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300">
+                        {autoPostStatus.next_post.category_label || autoPostStatus.next_post.category_slug}
+                      </span>
+                    </div>
+                    <div className="text-xs text-charcoal-500 flex items-center gap-2">
+                      <span>URL:</span>
+                      <a
+                        href={autoPostStatus.next_post.target_url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1 font-mono"
+                      >
+                        {autoPostStatus.next_post.target_url}
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="text-xs text-charcoal-400 shrink-0">
+                    Đăng gần nhất: {autoPostStatus.next_post.last_posted_at || 'Chưa từng lên sóng (Mới)'}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Recent Logs Table */}
+            <div className="bg-white dark:bg-charcoal-800 rounded-3xl p-6 border border-forest-100 dark:border-forest-800 shadow-2xs space-y-4">
+              <div className="flex items-center justify-between">
+                <h4 className="text-sm font-bold text-forest-950 dark:text-cream-50 flex items-center gap-2">
+                  <Calendar className="w-4 h-4 text-forest-600 dark:text-forest-400" />
+                  <span>Nhật Ký Đăng Bài Fanpage Gần Đây</span>
+                </h4>
+                <span className="text-xs text-charcoal-500">
+                  {autoPostStatus?.recent_logs.length || 0} bài gần nhất
+                </span>
+              </div>
+
+              {(!autoPostStatus?.recent_logs || autoPostStatus.recent_logs.length === 0) ? (
+                <div className="py-8 text-center text-xs text-charcoal-400">
+                  Chưa có nhật ký bài đăng nào. Bấm nút "Đăng Thử Ngay 1 Bài" ở trên để kiểm tra lần đầu tiên.
+                </div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-xs">
+                    <thead>
+                      <tr className="border-b border-forest-100 dark:border-forest-800 text-charcoal-400 uppercase text-[10px] tracking-wider">
+                        <th className="py-2.5 px-3">Ngày</th>
+                        <th className="py-2.5 px-3">Bài Viết (Slug)</th>
+                        <th className="py-2.5 px-3">Danh Mục</th>
+                        <th className="py-2.5 px-3">Góc Viết</th>
+                        <th className="py-2.5 px-3">Trạng Thái</th>
+                        <th className="py-2.5 px-3">Facebook ID</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-forest-50 dark:divide-forest-900/40">
+                      {autoPostStatus.recent_logs.map((log) => (
+                        <tr key={log.id} className="hover:bg-forest-50/40 dark:hover:bg-charcoal-700/40 transition">
+                          <td className="py-3 px-3 font-mono text-charcoal-600 dark:text-charcoal-300">
+                            {log.posted_date}
+                          </td>
+                          <td className="py-3 px-3 font-bold text-forest-950 dark:text-cream-100">
+                            <a
+                              href={log.target_url}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="hover:text-emerald-600 transition flex items-center gap-1"
+                            >
+                              {log.ref_slug}
+                              <ExternalLink className="w-3 h-3 text-charcoal-400" />
+                            </a>
+                          </td>
+                          <td className="py-3 px-3">
+                            <span className="px-2 py-0.5 rounded-md text-[10px] bg-forest-100 dark:bg-charcoal-700 text-forest-800 dark:text-cream-200">
+                              {log.category_slug}
+                            </span>
+                          </td>
+                          <td className="py-3 px-3">
+                            <span className="font-mono text-charcoal-500">
+                              Angle {log.post_angle}
+                            </span>
+                          </td>
+                          <td className="py-3 px-3">
+                            <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                              log.status === 'success'
+                                ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300'
+                                : log.status === 'skipped'
+                                ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300'
+                                : 'bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-300'
+                            }`}>
+                              {log.status === 'success' ? 'Thành Công' : (log.status === 'skipped' ? 'Đã Bỏ Qua' : 'Lỗi')}
+                            </span>
+                          </td>
+                          <td className="py-3 px-3 font-mono text-[11px] text-charcoal-500">
+                            {log.fb_post_id ? (
+                              <span className="text-emerald-600 dark:text-emerald-400">
+                                {log.fb_post_id}
+                              </span>
+                            ) : (
+                              <span className="text-charcoal-400">—</span>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </div>
           </div>
         )}
