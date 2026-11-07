@@ -41,6 +41,7 @@ import { plantPassportRegistryService } from '../services/plantPassportRegistryS
 import { SEED_PLANTS } from '../data/plants.ts';
 import { getPlantBySlug } from '../services/apiService.ts';
 import {
+  NFT_ASSET_CLASSES,
   NFT_ASSET_CLASSES_LIST,
   getNftClassConfig,
   calculateHaversineDistanceKm,
@@ -252,6 +253,8 @@ export const Web3SandboxSection: React.FC = () => {
 
   // 5 Lớp Tài Sản NFT & Xác thực Rừng Sinh Thái GPS (1 NFT = 10.000 m2)
   const [selectedAssetClass, setSelectedAssetClass] = useState<NftAssetClass>('botanical');
+  const currentNftConfig = getNftClassConfig(selectedAssetClass);
+  void currentNftConfig;
   const [forestSpec, setForestSpec] = useState<ForestGeoSpec | null>(null);
   const [gpsCheckinStatus, setGpsCheckinStatus] = useState<'idle' | 'checking' | 'verified' | 'failed'>('idle');
   const [gpsErrorMsg, setGpsErrorMsg] = useState<string | null>(null);
@@ -299,6 +302,10 @@ export const Web3SandboxSection: React.FC = () => {
   useEffect(() => {
     if (!mintSlugParam) return;
     setActiveTab('mint');
+    const classParam = searchParams.get('class') as NftAssetClass | null;
+    if (classParam && classParam in NFT_ASSET_CLASSES) {
+      setSelectedAssetClass(classParam);
+    }
     const applyArticlePlant = (p: {
       slug: string;
       common_name: string;
@@ -315,13 +322,21 @@ export const Web3SandboxSection: React.FC = () => {
       setCustomScientific(p.scientific_name);
       setCustomImage(p.image_url);
       setCustomImageSha(p.image_sha256 || null);
-      if (p.category === 'forest' || p.nft_class === 'geo_forest_10000m2') {
-        setSelectedAssetClass('geo_forest_10000m2');
-        if (p.forest_spec) {
-          setForestSpec(p.forest_spec);
-        }
-      } else if (p.nft_class) {
+      if (p.nft_class) {
         setSelectedAssetClass(p.nft_class);
+      } else if (p.category === 'forest') {
+        setSelectedAssetClass('geo_forest_10000m2');
+      } else if (p.category === 'space') {
+        setSelectedAssetClass('space_method');
+      } else if (p.category === 'recycle') {
+        setSelectedAssetClass('eco_invention');
+      } else if (p.category === 'culinary') {
+        setSelectedAssetClass('culinary_recipe');
+      } else {
+        setSelectedAssetClass('botanical');
+      }
+      if (p.forest_spec) {
+        setForestSpec(p.forest_spec);
       }
     };
 
@@ -1822,7 +1837,7 @@ export const Web3SandboxSection: React.FC = () => {
               <div className="flex items-center gap-2">
                 <Award className="w-5 h-5 text-amber-500 dark:text-amber-400" />
                 <h3 className="text-base font-serif font-bold text-forest-950 dark:text-white">
-                  {isEn ? 'Real Wallet Botanical Passport Studio (Dynamic NFT)' : 'Xưởng Ký Số & Cấp Hộ Chiếu Thực Vật Bản Địa (Ví Thật)'}
+                  {isEn ? currentNftConfig.studioTitleEn : currentNftConfig.studioTitleVi}
                 </h3>
               </div>
 
@@ -1856,7 +1871,7 @@ export const Web3SandboxSection: React.FC = () => {
                   <div>
                     <div className="flex items-center gap-2 flex-wrap">
                       <span className="px-2 py-0.5 rounded-full bg-amber-400 text-forest-950 text-[10px] font-black uppercase tracking-wider">
-                        {isEn ? 'First-to-Mint Article Claim' : 'Đúc NFT Độc Bản Từ Bài Viết'}
+                        {isEn ? `${currentNftConfig.shortName} Claim` : `Đúc ${currentNftConfig.nameVi}`}
                       </span>
                       <span className="text-xs font-bold text-white">
                         {customPlantName} ({customScientific})
@@ -1864,8 +1879,8 @@ export const Web3SandboxSection: React.FC = () => {
                     </div>
                     <p className="text-xs text-forest-200 mt-1">
                       {isEn
-                        ? 'All botanical data from the article has been pre-filled below. Connect your wallet and click Mint to become the permanent owner shown on the article!'
-                        : 'Thông tin & mã SHA-256 của bài viết đã được nạp sẵn bên dưới. Hãy kết nối ví và bấm Đúc ngay để gắn huy hiệu sở hữu của bạn lên bài viết!'}
+                        ? `All data from the article has been pre-filled below. Connect your wallet and confirm to become the permanent owner of this ${currentNftConfig.shortName}!`
+                        : `Thông tin & mã SHA-256 đã được nạp sẵn bên dưới. Hãy kết nối ví và bấm Đúc ngay để gắn huy hiệu sở hữu ${currentNftConfig.shortName} của bạn lên bài viết!`}
                     </p>
                   </div>
                 </div>
@@ -2108,7 +2123,7 @@ export const Web3SandboxSection: React.FC = () => {
                 {plantSource === 'sample' ? (
                   <div>
                     <label className="text-xs font-semibold text-forest-700 dark:text-forest-300 block mb-1.5">
-                      {isEn ? 'Select Plant Species to Certify:' : '1. Chọn giống cây bản địa muốn cấp hộ chiếu:'}
+                      {isEn ? `Select ${currentNftConfig.shortName} to Certify:` : `1. Chọn mẫu ${currentNftConfig.shortName.toLowerCase()} muốn đăng ký:`}
                     </label>
                     <select
                       value={selectedPlantIndex}
@@ -2126,25 +2141,45 @@ export const Web3SandboxSection: React.FC = () => {
                   <div className="space-y-3">
                     <div>
                       <label className="text-xs font-semibold text-forest-700 dark:text-forest-300 block mb-1.5">
-                        {isEn ? 'Your Plant Name:' : '1. Tên chậu cây của bạn:'}
+                        {isEn ? currentNftConfig.studioNameLabelEn : currentNftConfig.studioNameLabelVi}
                       </label>
                       <input
                         type="text"
                         value={customPlantName}
                         onChange={(e) => setCustomPlantName(e.target.value)}
-                        placeholder={isEn ? 'e.g. My 5-Petal Golden Apricot, Balcony Guava...' : 'VD: Cây Mai Vàng Cổ Thụ, Chậu Ổi Lùn Ban Công...'}
+                        placeholder={
+                          selectedAssetClass === 'geo_forest_10000m2'
+                            ? (isEn ? 'e.g. Cuc Phuong National Park Plot #108' : 'VD: Vườn Quốc Gia Cúc Phương Lô #108, Rừng Cần Giờ...')
+                            : selectedAssetClass === 'culinary_recipe'
+                            ? (isEn ? 'e.g. Steamed Ginger & Húng Chanh Syrup' : 'VD: Siro Húng Chanh Gừng Đường Phèn, Trà Hoa Cúc Mật Ong...')
+                            : selectedAssetClass === 'space_method'
+                            ? (isEn ? 'e.g. Lightweight Balcony Vertical Trellis' : 'VD: Giàn Leo Sân Thượng Siêu Nhẹ, Vườn Ban Công Hướng Tây...')
+                            : selectedAssetClass === 'eco_invention'
+                            ? (isEn ? 'e.g. Self-watering Capillary Planter' : 'VD: Chậu Tự Tưới Bấc Thấm Tái Chế, Thùng Ủ Rác Hữu Cơ...')
+                            : (isEn ? 'e.g. My 5-Petal Golden Apricot, Balcony Guava...' : 'VD: Cây Mai Vàng Cổ Thụ, Chậu Ổi Lùn Ban Công...')
+                        }
                         className="w-full px-3.5 py-2.5 bg-forest-50 dark:bg-forest-950 border border-forest-200 dark:border-forest-800 rounded-xl text-xs text-forest-950 dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500 placeholder-forest-400 dark:placeholder-forest-600"
                       />
                     </div>
                     <div>
                       <label className="text-xs font-semibold text-forest-700 dark:text-forest-300 block mb-1.5">
-                        {isEn ? 'Variety / Provenance (Optional):' : 'Giống cây / Xuất xứ (Tùy chọn):'}
+                        {isEn ? currentNftConfig.studioDetailLabelEn : currentNftConfig.studioDetailLabelVi}
                       </label>
                       <input
                         type="text"
                         value={customScientific}
                         onChange={(e) => setCustomScientific(e.target.value)}
-                        placeholder={isEn ? 'e.g. Ochna integerrima / Ba Vi Garden' : 'VD: Ochna integerrima / Vườn nhà Ba Vì'}
+                        placeholder={
+                          selectedAssetClass === 'geo_forest_10000m2'
+                            ? (isEn ? 'e.g. Lat: 20.3167, Lng: 105.6083' : 'VD: Phân khu bảo vệ nghiêm ngặt / 20.3167°N, 105.6083°E')
+                            : selectedAssetClass === 'culinary_recipe'
+                            ? (isEn ? 'e.g. Traditional Folk Formula' : 'VD: Bài thuốc gia truyền / Dược thiện bổ phế')
+                            : selectedAssetClass === 'space_method'
+                            ? (isEn ? 'e.g. Modular Architecture System' : 'VD: Hệ module thoát nước ban công / Khung chịu lực')
+                            : selectedAssetClass === 'eco_invention'
+                            ? (isEn ? 'e.g. Circular Upcycling Solution' : 'VD: Bấc thấm sợi thủy tinh / Tái chế bình HDPE')
+                            : (isEn ? 'e.g. Ochna integerrima / Ba Vi Garden' : 'VD: Ochna integerrima / Vườn nhà Ba Vì')
+                        }
                         className="w-full px-3.5 py-2.5 bg-forest-50 dark:bg-forest-950 border border-forest-200 dark:border-forest-800 rounded-xl text-xs text-forest-950 dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500 placeholder-forest-400 dark:placeholder-forest-600"
                       />
                     </div>
@@ -2178,7 +2213,7 @@ export const Web3SandboxSection: React.FC = () => {
                   <div className="flex items-center justify-between">
                     <label className="text-xs font-semibold text-forest-950 dark:text-white flex items-center gap-1.5">
                       <Sparkles className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
-                      <span>{isEn ? 'Minting Method:' : 'Phương thức đúc Hộ Chiếu:'}</span>
+                      <span>{isEn ? `Minting Method for ${currentNftConfig.shortName}:` : `Phương thức cấp ${currentNftConfig.certificateTitle}:`}</span>
                     </label>
                     <button
                       type="button"

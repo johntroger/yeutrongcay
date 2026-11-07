@@ -123,7 +123,7 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
   const categoryPath = catConfig.dedicatedPath;
   const nftClass = plant ? resolvePlantNftClass(plant) : 'botanical';
   const nftClassConfig = getNftClassConfig(nftClass);
-  void nftClassConfig;
+  const nftConfig = nftClassConfig;
 
   const [heartSummary, setHeartSummary] = useState(() =>
     plant ? plantReviewService.getCachedSummary(plant.slug) : { average_hearts: 5.0, total_reviews: 0, photo_count: 0 }
@@ -499,24 +499,24 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
             <Link
               to={ownerMeta.profilePath}
               className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-900 bg-gradient-to-r from-amber-100 via-emerald-100 to-amber-100 hover:from-amber-200 hover:to-emerald-200 px-3.5 py-2 rounded-xl border border-amber-400/80 shadow-2xs transition"
-              title={isEn ? `NFT #${mintedPassport.token_id} Owned by ${ownerMeta.displayLabel}` : `Đã tạo NFT #${mintedPassport.token_id} • Xem trang sở hữu của ${ownerMeta.displayLabel}`}
+              title={isEn ? `${nftConfig.certificateTitle} #${mintedPassport.token_id} • ${ownerMeta.displayLabel}` : `${nftConfig.certificateTitle} #${mintedPassport.token_id} • Xem trang sở hữu của ${ownerMeta.displayLabel}`}
             >
               <ShieldCheck className="w-4 h-4 text-amber-600 shrink-0" />
               <span>
                 {isEn
-                  ? `NFT #${mintedPassport.token_id} • ${ownerMeta.displayLabel}`
-                  : `Đã tạo NFT #${mintedPassport.token_id} • ${ownerMeta.displayLabel}`}
+                  ? `${nftConfig.shortName} #${mintedPassport.token_id} • ${ownerMeta.displayLabel}`
+                  : `${nftConfig.shortName} #${mintedPassport.token_id} • ${ownerMeta.displayLabel}`}
               </span>
               <ExternalLink className="w-3.5 h-3.5 text-emerald-700" />
             </Link>
           ) : (
             <Link
-              to={`/web3-sandbox?mint=${encodeURIComponent(plant.slug)}`}
+              to={`/web3-sandbox?mint=${encodeURIComponent(plant.slug)}&class=${nftClass}`}
               className="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 px-3.5 py-2 rounded-xl shadow-xs transition"
-              title={isEn ? 'Be the first to mint the NFT for this plant' : 'Tạo NFT độc bản cho loài cây này (Ai làm trước sở hữu trước)'}
+              title={isEn ? `Be the first to mint ${nftConfig.nameEn}` : `Đăng ký độc bản ${nftConfig.nameVi} (Ai làm trước sở hữu trước)`}
             >
               <Sparkles className="w-4 h-4 text-amber-300 shrink-0" />
-              <span>{isEn ? 'Mint Plant NFT (First Owner)' : 'Tạo NFT Cho Cây Này'}</span>
+              <span>{isEn ? nftConfig.mintButtonCompactEn : nftConfig.mintButtonCompactVi}</span>
             </Link>
           )}
 
@@ -577,8 +577,8 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
                     <ShieldCheck className="w-3.5 h-3.5" />
                     <span>
                       {isEn
-                        ? `NFT Minted (#${mintedPassport.token_id}) • Owner: ${ownerMeta.displayLabel}`
-                        : `Huy Hiệu Đã Tạo NFT (#${mintedPassport.token_id}) • Chủ sở hữu: ${ownerMeta.displayLabel}`}
+                        ? `${nftConfig.shortName} (#${mintedPassport.token_id}) • ${ownerMeta.displayLabel}`
+                        : `${nftConfig.certificateTitle} (#${mintedPassport.token_id}) • ${ownerMeta.displayLabel}`}
                     </span>
                   </Link>
                 )}
@@ -705,7 +705,7 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
               <div>
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="px-2.5 py-0.5 rounded-full bg-amber-400 text-forest-950 text-[10px] font-black uppercase tracking-wider">
-                    {isEn ? `NFT Minted • Token #${mintedPassport.token_id}` : `Huy Hiệu Đã Tạo NFT • Token #${mintedPassport.token_id}`}
+                    {isEn ? `${nftConfig.shortName} • Token #${mintedPassport.token_id}` : `${nftConfig.certificateTitle} • Token #${mintedPassport.token_id}`}
                   </span>
                   <span className="text-xs font-mono text-emerald-300">
                     {mintedPassport.network}
@@ -714,7 +714,7 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
                 <p className="text-xs sm:text-sm text-forest-100 mt-1">
                   {isEn ? (
                     <>
-                      This plant species has been minted as an exclusive NFT passport by{' '}
+                      {nftConfig.claimedDescEn} by{' '}
                       <Link to={ownerMeta.profilePath} className="font-bold text-amber-300 underline hover:text-amber-200">
                         {ownerMeta.displayLabel}
                       </Link>{' '}
@@ -722,7 +722,7 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
                     </>
                   ) : (
                     <>
-                      Loài cây này đã được đúc Hộ Chiếu NFT Độc Bản và thuộc quyền sở hữu của{' '}
+                      {nftConfig.claimedDescVi} và thuộc quyền của{' '}
                       <Link to={ownerMeta.profilePath} className="font-bold text-amber-300 underline hover:text-amber-200">
                         {ownerMeta.displayLabel}
                       </Link>{' '}
@@ -740,8 +740,8 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
               <UserCheck className="w-4 h-4" />
               <span>
                 {isEn
-                  ? `Visit Owner (${ownerMeta.displayLabel})`
-                  : `Trang Chủ Sở Hữu (${ownerMeta.displayLabel})`}
+                  ? `Visit ${nftConfig.ownerRoleLabelEn} (${ownerMeta.displayLabel})`
+                  : `Trang ${nftConfig.ownerRoleLabelVi} (${ownerMeta.displayLabel})`}
               </span>
               <ExternalLink className="w-3.5 h-3.5" />
             </Link>
@@ -755,23 +755,21 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
               <div>
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/30 border border-emerald-400/40 text-emerald-200 text-[10px] font-bold uppercase tracking-wider">
-                    {isEn ? 'Unclaimed Botanical NFT' : 'Chưa Có Chủ Sở Hữu NFT • Ai Làm Trước Sở Hữu Trước'}
+                    {isEn ? `Unclaimed ${nftConfig.shortName} NFT` : `Chưa Có Chủ Sở Hữu • ${nftConfig.nameVi}`}
                   </span>
                 </div>
                 <p className="text-xs sm:text-sm text-forest-100 mt-1">
-                  {isEn
-                    ? `No one has minted the exclusive NFT passport for ${plant.common_name} yet. Mint it first to display your ownership badge & profile link on this article!`
-                    : `Loài cây ${plant.common_name} hiện chưa có người đúc NFT. Hãy tạo NFT ngay để trở thành chủ sở hữu độc bản đầu tiên và gắn huy hiệu tên bạn lên bài viết này!`}
+                  {isEn ? nftConfig.unclaimedDescEn : nftConfig.unclaimedDescVi}
                 </p>
               </div>
             </div>
 
             <Link
-              to={`/web3-sandbox?mint=${encodeURIComponent(plant.slug)}`}
+              to={`/web3-sandbox?mint=${encodeURIComponent(plant.slug)}&class=${nftClass}`}
               className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-forest-950 font-bold text-xs inline-flex items-center justify-center gap-2 shrink-0 shadow-md transition"
             >
               <Sparkles className="w-4 h-4" />
-              <span>{isEn ? 'Mint NFT for This Plant' : 'Tạo NFT Cho Cây Này Ngay'}</span>
+              <span>{isEn ? nftConfig.mintButtonBannerEn : nftConfig.mintButtonBannerVi}</span>
             </Link>
           </div>
         )}
@@ -1319,7 +1317,7 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
                 <div className="flex items-center gap-2">
                   <ShieldCheck className="w-5 h-5 text-amber-400 shrink-0" />
                   <h3 className="text-sm font-serif font-bold text-white uppercase tracking-wider">
-                    {isEn ? 'Verified NFT Passport' : 'Huy Hiệu Đã Tạo NFT'}
+                    {isEn ? `${nftConfig.shortName} NFT Certificate` : nftConfig.certificateTitle}
                   </h3>
                 </div>
                 <span className="px-2.5 py-0.5 rounded-full bg-amber-400 text-forest-950 text-[10px] font-black font-mono">
@@ -1329,7 +1327,7 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
 
               <div className="p-3.5 rounded-2xl bg-forest-900/70 border border-amber-500/30 space-y-2 text-xs">
                 <div className="flex items-center justify-between">
-                  <span className="text-forest-300">{isEn ? 'Exclusive Owner:' : 'Chủ sở hữu độc bản:'}</span>
+                  <span className="text-forest-300">{isEn ? `${nftConfig.ownerRoleLabelEn}:` : `${nftConfig.ownerRoleLabelVi}:`}</span>
                   <Link
                     to={ownerMeta.profilePath}
                     className="font-bold text-amber-300 hover:text-amber-200 underline flex items-center gap-1"
@@ -1364,8 +1362,8 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
                 <UserCheck className="w-4 h-4" />
                 <span>
                   {isEn
-                    ? `View Owner Profile (${ownerMeta.displayLabel})`
-                    : `Đến Trang Chủ Sở Hữu (${ownerMeta.displayLabel})`}
+                    ? `View ${nftConfig.ownerRoleLabelEn} (${ownerMeta.displayLabel})`
+                    : `Trang ${nftConfig.ownerRoleLabelVi} (${ownerMeta.displayLabel})`}
                 </span>
                 <ExternalLink className="w-3.5 h-3.5" />
               </Link>
@@ -1376,7 +1374,7 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
                 <div className="flex items-center gap-2">
                   <Sparkles className="w-5 h-5 text-amber-400 shrink-0" />
                   <h3 className="text-sm font-serif font-bold text-white uppercase tracking-wider">
-                    {isEn ? 'Exclusive Plant NFT' : 'Hộ Chiếu NFT Loài Cây'}
+                    {isEn ? `${nftConfig.shortName} NFT Asset` : nftConfig.certificateTitle}
                   </h3>
                 </div>
                 <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-[10px] font-bold">
@@ -1385,9 +1383,7 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
               </div>
 
               <p className="text-xs text-forest-200 leading-relaxed">
-                {isEn
-                  ? `Be the first gardener to mint the NFT passport for ${plant.common_name} (${plant.scientific_name}). Once minted, this article will permanently display your NFT badge and link to your profile page.`
-                  : `Ai tạo NFT trước cho loài ${plant.common_name} (${plant.scientific_name}) sẽ trở thành chủ sở hữu độc bản đầu tiên. Sau khi đúc, bài viết này sẽ hiển thị huy hiệu Đã Tạo NFT và dẫn link trực tiếp về trang hồ sơ của bạn!`}
+                {isEn ? nftConfig.unclaimedDescEn : nftConfig.unclaimedDescVi}
               </p>
 
               <div className="p-2.5 rounded-xl bg-charcoal-950/80 border border-forest-800 text-[10px] font-mono text-gray-400">
@@ -1396,11 +1392,11 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
               </div>
 
               <Link
-                to={`/web3-sandbox?mint=${encodeURIComponent(plant.slug)}`}
+                to={`/web3-sandbox?mint=${encodeURIComponent(plant.slug)}&class=${nftClass}`}
                 className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-forest-950 font-bold text-xs flex items-center justify-center gap-2 shadow-md transition"
               >
                 <Sparkles className="w-4 h-4" />
-                <span>{isEn ? 'Mint NFT & Claim Ownership' : 'Tạo NFT Cho Loài Cây Này'}</span>
+                <span>{isEn ? nftConfig.mintButtonActionEn : nftConfig.mintButtonActionVi}</span>
               </Link>
             </div>
           )}
