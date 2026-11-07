@@ -836,7 +836,7 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
 
           {/* Karma & Community Standing Box (MS5 - H9) */}
           {karmaData && (
-            <div className="mt-6 p-4 rounded-2xl bg-linear-to-r from-forest-900 via-forest-850 to-forest-950 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm border border-forest-800">
+            <div className="mt-6 p-4 rounded-2xl bg-gradient-to-r from-forest-900 via-forest-850 to-forest-950 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm border border-forest-800">
               <div className="flex items-center gap-3.5">
                 <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-xs flex items-center justify-center text-2xl shrink-0 border border-white/15">
                   {karmaData.badge.icon}

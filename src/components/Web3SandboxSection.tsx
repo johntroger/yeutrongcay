@@ -1129,17 +1129,17 @@ export const Web3SandboxSection: React.FC = () => {
             </div>
 
             {/* GitBook Documentation Link Banner */}
-            <div className="md:col-span-2 lg:col-span-4 p-5 rounded-2xl bg-linear-to-r from-forest-900 via-charcoal-900 to-forest-950 border border-emerald-500/40 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-1 text-white">
+            <div className="md:col-span-2 lg:col-span-4 p-5 rounded-2xl bg-gradient-to-r from-emerald-50 via-teal-50/80 to-forest-50 dark:from-forest-900 dark:via-charcoal-900 dark:to-forest-950 border border-emerald-300 dark:border-emerald-500/40 shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-1">
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
-                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-950 text-emerald-300 border border-emerald-800">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800">
                     GitBook Academy
                   </span>
-                  <h4 className="text-sm font-bold text-white font-serif">
+                  <h4 className="text-sm font-bold text-forest-950 dark:text-white font-serif">
                     {isEn ? 'Yeu Trong Cay Web3 Academy - Comprehensive GitBook Guide' : 'Giáo Trình GitBook Toàn Tập: Web3 & Hộ Chiếu Thực Vật Số'}
                   </h4>
                 </div>
-                <p className="text-xs text-forest-300 leading-relaxed max-w-3xl">
+                <p className="text-xs text-forest-700 dark:text-forest-300 leading-relaxed max-w-3xl">
                   {isEn
                     ? 'Explore our full curriculum covering blockchain fundamentals, 12-seed phrase safety, Base Sepolia testnet faucets, Dynamic NFTs, and escrow contracts.'
                     : 'Đọc tài liệu chuyên sâu 8 chương: bản chất chuỗi khối, bảo mật 12 từ khóa, cách hứng nước Faucet, cấu trúc hàm băm SHA-256 và thuật ngữ A-Z cho người làm vườn.'}
@@ -1583,7 +1583,7 @@ export const Web3SandboxSection: React.FC = () => {
                   disabled={isMinting || !wallet?.isConnected}
                   className={`w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg transition active:scale-[0.99] disabled:opacity-50 text-white ${
                     mintMode === 'onchain'
-                      ? 'bg-linear-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 shadow-emerald-900/40 cursor-pointer'
+                      ? 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 shadow-emerald-900/40 cursor-pointer'
                       : 'bg-emerald-600 hover:bg-emerald-500 cursor-pointer'
                   }`}
                 >
@@ -1663,7 +1663,7 @@ export const Web3SandboxSection: React.FC = () => {
 
                     <Link
                       to="/vuon-cua-toi?tab=nft_gallery"
-                      className="px-3 py-1 rounded-xl bg-linear-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white text-xs font-semibold flex items-center gap-1.5 transition shadow-sm"
+                      className="px-3 py-1 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white text-xs font-semibold flex items-center gap-1.5 transition shadow-sm"
                     >
                       <Sparkles className="w-3.5 h-3.5 text-amber-300" />
                       <span>{isEn ? 'View in My Garden Gallery' : 'Xem trong Hồ Sơ Cá Nhân'}</span>
