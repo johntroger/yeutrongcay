@@ -13,6 +13,18 @@ export const PLANT_PASSPORT_ABI = [
     type: 'function'
   },
   {
+    inputs: [
+      { internalType: 'uint256', name: 'tokenId', type: 'uint256' },
+      { internalType: 'uint8', name: 'newStage', type: 'uint8' },
+      { internalType: 'string', name: 'newSha256Proof', type: 'string' },
+      { internalType: 'string', name: 'newUri', type: 'string' }
+    ],
+    name: 'recordGrowthMilestone',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
     inputs: [{ internalType: 'uint256', name: 'tokenId', type: 'uint256' }],
     name: 'tokenURI',
     outputs: [{ internalType: 'string', name: '', type: 'string' }],
@@ -45,6 +57,18 @@ export const PLANT_PASSPORT_ABI = [
     ],
     stateMutability: 'view',
     type: 'function'
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, internalType: 'uint256', name: 'tokenId', type: 'uint256' },
+      { indexed: false, internalType: 'uint8', name: 'newStage', type: 'uint8' },
+      { indexed: false, internalType: 'string', name: 'newSha256Proof', type: 'string' },
+      { indexed: false, internalType: 'string', name: 'newUri', type: 'string' },
+      { indexed: false, internalType: 'uint256', name: 'timestamp', type: 'uint256' }
+    ],
+    name: 'GrowthMilestoneRecorded',
+    type: 'event'
   },
   {
     anonymous: false,

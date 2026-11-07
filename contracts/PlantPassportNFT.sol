@@ -11,6 +11,15 @@ interface IERC165 {
     function supportsInterface(bytes4 interfaceId) external view returns (bool);
 }
 
+interface IERC721Receiver {
+    function onERC721Received(
+        address operator,
+        address from,
+        uint256 tokenId,
+        bytes calldata data
+    ) external returns (bytes4);
+}
+
 interface IERC721 is IERC165 {
     event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
     event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
@@ -19,6 +28,7 @@ interface IERC721 is IERC165 {
     function balanceOf(address owner) external view returns (uint256 balance);
     function ownerOf(uint256 tokenId) external view returns (address owner);
     function safeTransferFrom(address from, address to, uint256 tokenId) external;
+    function safeTransferFrom(address from, address to, uint256 tokenId, bytes calldata data) external;
     function transferFrom(address from, address to, uint256 tokenId) external;
     function approve(address to, uint256 tokenId) external;
     function getApproved(uint256 tokenId) external view returns (address operator);
@@ -66,6 +76,14 @@ contract PlantPassportNFT is IERC721Metadata {
         string plantName,
         string sha256Proof,
         string tokenURI
+    );
+
+    event GrowthMilestoneRecorded(
+        uint256 indexed tokenId,
+        uint8 newStage,
+        string newSha256Proof,
+        string newUri,
+        uint256 timestamp
     );
 
     modifier onlyOwner() {
@@ -187,7 +205,56 @@ contract PlantPassportNFT is IERC721Metadata {
     }
 
     function safeTransferFrom(address from, address to, uint256 tokenId) public override {
+        safeTransferFrom(from, to, tokenId, "");
+    }
+
+    function safeTransferFrom(address from, address to, uint256 tokenId, bytes calldata data) public override {
         transferFrom(from, to, tokenId);
+        require(_checkOnERC721Received(from, to, tokenId, data), "Transfer to non ERC721Receiver");
+    }
+
+    /**
+     * @notice Ghi nhận mốc sinh trưởng mới của cây (Dynamic Evolutionary Passport)
+     * @param tokenId Mã token của chậu cây
+     * @param newStage Giai đoạn sinh trưởng mới (1: Gieo hạt, 2: Cây con, 3: Sinh trưởng mạnh, 4: Đơm hoa, 5: Thu hoạch)
+     * @param newSha256Proof Mã băm ảnh thực tế mới
+     * @param newUri Đường dẫn metadata mới
+     */
+    function recordGrowthMilestone(
+        uint256 tokenId,
+        uint8 newStage,
+        string memory newSha256Proof,
+        string memory newUri
+    ) public {
+        require(_isApprovedOrOwner(msg.sender, tokenId), "Not authorized to update passport");
+        require(newStage > 0 && newStage <= 5, "Invalid growth stage (1-5)");
+
+        passports[tokenId].stage = newStage;
+        if (bytes(newSha256Proof).length > 0) {
+            passports[tokenId].sha256Proof = newSha256Proof;
+        }
+        if (bytes(newUri).length > 0) {
+            _tokenURIs[tokenId] = newUri;
+        }
+
+        emit GrowthMilestoneRecorded(tokenId, newStage, newSha256Proof, newUri, block.timestamp);
+    }
+
+    function _checkOnERC721Received(address from, address to, uint256 tokenId, bytes memory data) private returns (bool) {
+        if (to.code.length > 0) {
+            try IERC721Receiver(to).onERC721Received(msg.sender, from, tokenId, data) returns (bytes4 retval) {
+                return retval == IERC721Receiver.onERC721Received.selector;
+            } catch (bytes memory reason) {
+                if (reason.length == 0) {
+                    revert("Transfer to non ERC721Receiver");
+                } else {
+                    assembly {
+                        revert(add(32, reason), mload(reason))
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     function _isApprovedOrOwner(address spender, uint256 tokenId) internal view returns (bool) {

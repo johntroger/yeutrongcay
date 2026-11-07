@@ -125,7 +125,7 @@ export const BotanicalNftGallery: React.FC<BotanicalNftGalleryProps> = ({
                 className="px-4 py-2.5 rounded-2xl bg-forest-800 hover:bg-forest-700 text-white text-xs font-bold transition flex items-center justify-center gap-2 border border-forest-600 shadow-md cursor-pointer"
               >
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                <span>{isSyncingWallet ? 'Đang kết nối...' : 'Kết nối ví MetaMask'}</span>
+                <span>{isSyncingWallet ? (isEn ? 'Connecting...' : 'Đang kết nối...') : (isEn ? 'Connect MetaMask' : 'Kết nối ví MetaMask')}</span>
               </button>
             )}
 
