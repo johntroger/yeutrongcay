@@ -130,11 +130,23 @@ if ($method === 'GET') {
 }
 
 if ($method === 'POST') {
+    if (isset($_SERVER['CONTENT_LENGTH']) && intval($_SERVER['CONTENT_LENGTH']) > 524288) {
+        http_response_code(413);
+        echo json_encode(['success' => false, 'error' => 'Payload too large (max 512KB)'], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
     $rawBody = file_get_contents('php://input');
+    if (strlen($rawBody) > 524288) {
+        http_response_code(413);
+        echo json_encode(['success' => false, 'error' => 'Payload too large (max 512KB)'], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
     $body = json_decode($rawBody, true);
     if (!is_array($body)) {
         http_response_code(400);
-        echo json_encode(['success' => false, 'error' => 'Invalid JSON body']);
+        echo json_encode(['success' => false, 'error' => 'Invalid JSON body'], JSON_UNESCAPED_UNICODE);
         exit;
     }
 
@@ -159,9 +171,34 @@ if ($method === 'POST') {
 
         foreach ($incoming as $p) {
             if (!isset($p['contract_address'], $p['token_id'], $p['plant_name'])) continue;
-            // Không lưu địa chỉ email vào public store để bảo mật
-            unset($p['creator_email']);
+            
+            // Validate address format
+            if (!empty($p['owner_address']) && !preg_match('/^0x[a-fA-F0-9]{40}$/', $p['owner_address'])) {
+                continue;
+            }
+            if (!empty($p['transaction_hash']) && !preg_match('/^0x[a-fA-F0-9]{64}$/', $p['transaction_hash'])) {
+                continue;
+            }
+
+            // Sanitize text fields
+            $p['plant_name'] = strip_tags(trim($p['plant_name']));
+            $p['scientific_name'] = strip_tags(trim($p['scientific_name'] ?? ''));
+            $p['creator_username'] = strip_tags(trim($p['creator_username'] ?? 'tranthanhtung37'));
+            unset($p['creator_email']); // Never store raw email in public registry
+
             $uKey = strtolower($p['contract_address']) . '_' . $p['token_id'];
+
+            // Write-Once Immutability: nếu token đã tồn tại, bảo toàn người tạo gốc & ngày đúc
+            if (isset($existingMap[$uKey])) {
+                $prev = $existingMap[$uKey];
+                $p['creator_username'] = $prev['creator_username'] ?? $p['creator_username'];
+                $p['creator_wallet'] = $prev['creator_wallet'] ?? $p['creator_wallet'];
+                $p['minted_at'] = $prev['minted_at'] ?? $p['minted_at'];
+                if (isset($prev['forest_slug'])) $p['forest_slug'] = $prev['forest_slug'];
+                if (isset($prev['lot_number'])) $p['lot_number'] = $prev['lot_number'];
+                if (isset($prev['nft_class'])) $p['nft_class'] = $prev['nft_class'];
+            }
+
             $existingMap[$uKey] = $p;
 
             if ($pdo) {
@@ -170,8 +207,6 @@ if ($method === 'POST') {
                         INSERT INTO ytc_nft_passports (unique_key, token_id, plant_key, creator_username, owner_address, payload_json)
                         VALUES (:ukey, :tid, :pkey, :uname, :owner, :json)
                         ON DUPLICATE KEY UPDATE
-                            creator_username = VALUES(creator_username),
-                            owner_address = VALUES(owner_address),
                             payload_json = VALUES(payload_json)
                     ");
                     $stmt->execute([
@@ -202,6 +237,23 @@ if ($method === 'POST') {
         $prof = $body['profile'];
         $origHandle = strtolower(trim($prof['original_handle'] ?? ''));
         if ($origHandle !== '') {
+            // Server-Side One-Time Profile Lock: Kiểm tra nếu đã từng chỉnh sửa
+            $existingProf = $store['profiles'][$origHandle] ?? null;
+            if ($existingProf && !empty($existingProf['has_edited_once'])) {
+                http_response_code(403);
+                echo json_encode([
+                    'success' => false,
+                    'error' => 'Hồ sơ đã khóa vĩnh viễn sau 1/1 lượt chỉnh sửa'
+                ], JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+
+            // Sanitize profile fields
+            $prof['display_name'] = strip_tags(trim($prof['display_name'] ?? ''));
+            $prof['bio'] = strip_tags(trim($prof['bio'] ?? ''));
+            $prof['location'] = strip_tags(trim($prof['location'] ?? ''));
+            $prof['specialty_tag'] = strip_tags(trim($prof['specialty_tag'] ?? ''));
+
             $store['profiles'][$origHandle] = $prof;
             writeJsonStore($storeFile, $store);
 

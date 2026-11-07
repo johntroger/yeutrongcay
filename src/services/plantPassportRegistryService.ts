@@ -13,6 +13,8 @@
 
 import { getFirestoreInstance } from './firebaseClient.ts';
 import { collection, doc, getDocs, setDoc } from 'firebase/firestore';
+import type { NftAssetClass, PlantCategory } from '../types/index.ts';
+import { inferNftClassFromPassport } from '../config/ecosystemRegistry.ts';
 
 export interface RegisteredPlantPassport {
   id: string;
@@ -28,13 +30,18 @@ export interface RegisteredPlantPassport {
   creator_username?: string;              // Tên người dùng định danh theo email (VD: "tranthanhtung37")
   creator_email?: string;                 // Email đăng nhập (VD: "tranthanhtung37@gmail.com")
   network: string;                        // 'Ethereum Sepolia' | 'Base Sepolia' | string
-  evolution_stage: 1 | 2 | 3;            // 1: Mầm non, 2: Sinh trưởng, 3: Ra hoa kết trái
+  evolution_stage: 1 | 2 | 3;            // 1: Mầm non, 2: Sinh trưởng, 3: Ra hoa kết trái (hoặc 3 giai đoạn theo NFT Class)
   transaction_hash: string;
   contract_address: string;
   minted_at: string;
   is_onchain: boolean;
   status: 'ACTIVE_ORIGINAL' | 'DUPLICATE_REJECTED';
   rejection_reason?: string;
+  nft_class?: NftAssetClass;             // 5 lớp NFT: botanical, space_method, eco_invention, culinary_recipe, geo_forest_10000m2
+  category?: PlantCategory;              // 7 danh mục
+  forest_slug?: string;                  // Slug định danh khu rừng (nếu là geo_forest_10000m2)
+  lot_number?: number;                   // Số thứ tự lô đất (Lô #1, #2... ứng với mỗi 10.000 m2)
+  forest_area_m2?: number;               // Diện tích mỗi lô = 10000 m2
 }
 
 export interface UserPublicProfileConfig {
@@ -124,7 +131,9 @@ const DEFAULT_SEED_REGISTRY: RegisteredPlantPassport[] = [
     contract_address: SEPOLIA_CONTRACT_ADDR,
     minted_at: '07/11/2026, 09:47:12',
     is_onchain: true,
-    status: 'ACTIVE_ORIGINAL'
+    status: 'ACTIVE_ORIGINAL',
+    nft_class: 'botanical',
+    category: 'herb'
   },
   {
     id: 'passport-eth-sepolia-3',
@@ -144,7 +153,9 @@ const DEFAULT_SEED_REGISTRY: RegisteredPlantPassport[] = [
     contract_address: SEPOLIA_CONTRACT_ADDR,
     minted_at: '06/11/2026, 16:09:12',
     is_onchain: true,
-    status: 'ACTIVE_ORIGINAL'
+    status: 'ACTIVE_ORIGINAL',
+    nft_class: 'botanical',
+    category: 'fruit'
   },
   {
     id: 'passport-eth-sepolia-2',
@@ -164,7 +175,9 @@ const DEFAULT_SEED_REGISTRY: RegisteredPlantPassport[] = [
     contract_address: SEPOLIA_CONTRACT_ADDR,
     minted_at: '06/11/2026, 16:07:48',
     is_onchain: true,
-    status: 'ACTIVE_ORIGINAL'
+    status: 'ACTIVE_ORIGINAL',
+    nft_class: 'botanical',
+    category: 'fruit'
   },
   {
     id: 'passport-eth-sepolia-1',
@@ -184,7 +197,9 @@ const DEFAULT_SEED_REGISTRY: RegisteredPlantPassport[] = [
     contract_address: SEPOLIA_CONTRACT_ADDR,
     minted_at: '06/11/2026, 14:27:00',
     is_onchain: true,
-    status: 'ACTIVE_ORIGINAL'
+    status: 'ACTIVE_ORIGINAL',
+    nft_class: 'botanical',
+    category: 'herb'
   }
 ];
 
@@ -192,25 +207,89 @@ let hasCloudSynced = false;
 
 export const plantPassportRegistryService = {
   /**
-   * Chuẩn hóa khóa nhận diện cây (bỏ dấu, thường, gạch nối, loại bỏ hậu tố phân loại học)
+   * Chuẩn hóa khóa nhận diện tài sản số (bỏ dấu, thường, gạch nối)
+   * Tự động điều chỉnh theo từng lớp NFT:
+   * - botanical: loại bỏ các hậu tố phân loại thực vật (var, subsp, l...)
+   * - phi thực vật (space, recycle, culinary, forest): loại bỏ tiền tố nhãn (Method, Patent, Recipe...)
    */
-  normalizePlantKey(plantName: string, scientificName?: string): string {
-    const raw = (scientificName && scientificName.trim().length > 3)
-      ? scientificName
-      : plantName;
-      
-    return raw
+  normalizeAssetKey(name: string, subtitleOrSci?: string, nftClass?: NftAssetClass): string {
+    const raw = (subtitleOrSci && subtitleOrSci.trim().length > 3)
+      ? subtitleOrSci
+      : name;
+
+    const base = raw
       .toLowerCase()
       .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      // Loại bỏ các tiền tố / hậu tố danh pháp thực vật thường được dùng để lách luật
-      .replace(/\b(var|subsp|sp|ssp|f|forma|linnaeus|harms|mill|urb|l)\b\.?/gi, '')
+      .replace(/[\u0300-\u036f]/g, '');
+
+    if (!nftClass || nftClass === 'botanical') {
+      return base
+        .replace(/\b(var|subsp|sp|ssp|f|forma|linnaeus|harms|mill|urb|l)\b\.?/gi, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    }
+
+    return base
+      .replace(/\b(method|patent|formula|recipe|quy-trinh|lo-dat)\b[:\-]?/gi, '')
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-+|-+$/g, '');
   },
 
   /**
+   * Chuẩn hóa khóa nhận diện cây (bảo toàn tương thích ngược cho botanical)
+   */
+  normalizePlantKey(plantName: string, scientificName?: string): string {
+    return this.normalizeAssetKey(plantName, scientificName, 'botanical');
+  },
+
+  /**
+   * Thống kê diện tích và các lô đất đã được đúc NFT của một khu rừng (1 NFT = 10.000 m2 = 1 ha)
+   */
+  getForestMintedAreaStats(forestSlug: string, totalAreaM2: number): {
+    mintedCount: number;
+    maxSupply: number;
+    nextLotNumber: number;
+    mintedM2: number;
+    remainingM2: number;
+    isSoldOut: boolean;
+    mintedLots: number[];
+  } {
+    const all = this.getAllRegistrations().filter(
+      p => p.status === 'ACTIVE_ORIGINAL' && (
+        p.forest_slug === forestSlug ||
+        (p.nft_class === 'geo_forest_10000m2' && (p.plant_key.includes(forestSlug) || p.forest_slug === forestSlug))
+      )
+    );
+
+    const mintedLots: number[] = [];
+    all.forEach(p => {
+      const lot = p.lot_number || parseInt(p.token_id.replace(/\D/g, ''), 10) || 1;
+      if (!mintedLots.includes(lot)) {
+        mintedLots.push(lot);
+      }
+    });
+
+    const mintedCount = mintedLots.length;
+    const maxSupply = Math.max(1, Math.floor(totalAreaM2 / 10000));
+    const nextLotNumber = mintedCount + 1;
+    const mintedM2 = mintedCount * 10000;
+    const remainingM2 = Math.max(0, totalAreaM2 - mintedM2);
+    const isSoldOut = mintedCount >= maxSupply;
+
+    return {
+      mintedCount,
+      maxSupply,
+      nextLotNumber,
+      mintedM2,
+      remainingM2,
+      isSoldOut,
+      mintedLots: mintedLots.sort((a, b) => a - b)
+    };
+  },
+
+  /**
    * Khử trùng lặp thông minh giữa bản ghi lưu tạm (random token_id) và bản ghi On-chain chuẩn (token_id #1, #2, #3...)
+   * Hỗ trợ độc bản từng lớp tài sản: Rừng phân lô theo 10.000 m2 (không xung đột giữa các lô), cây thực vật độc bản theo loài.
    */
   deduplicatePassports(items: RegisteredPlantPassport[]): RegisteredPlantPassport[] {
     // Ưu tiên bản ghi có token_id nhỏ (chuẩn ERC-721 tuần tự 1, 2, 3, 4...) hơn random 4 chữ số
@@ -225,9 +304,25 @@ export const plantPassportRegistryService = {
 
     for (const item of sorted) {
       if (item.status !== 'ACTIVE_ORIGINAL') continue;
+      const itemClass = item.nft_class || inferNftClassFromPassport(item);
       const shaKey = (item.image_sha256 || '').toLowerCase().trim();
       const txKey = (item.transaction_hash || '').toLowerCase().trim();
-      const pKey = this.normalizePlantKey(item.plant_name, item.scientific_name);
+      const pKey = this.normalizeAssetKey(item.plant_name, item.scientific_name, itemClass);
+
+      // Riêng lớp rừng sinh thái: mỗi lô 10.000 m2 là 1 NFT độc lập, các lô khác nhau của cùng 1 rừng không được loại trừ nhau
+      if (itemClass === 'geo_forest_10000m2') {
+        const forestSlug = item.forest_slug || pKey;
+        const lotNum = item.lot_number || parseInt(item.token_id.replace(/\D/g, ''), 10) || 1;
+        const forestLotKey = `forest:${forestSlug}:lot:${lotNum}`;
+
+        if (seenKeyOrSha.has(forestLotKey) || (txKey && !txKey.includes('...') && seenKeyOrSha.has(`tx:${txKey}`))) {
+          continue;
+        }
+        seenKeyOrSha.add(forestLotKey);
+        if (txKey && !txKey.includes('...')) seenKeyOrSha.add(`tx:${txKey}`);
+        result.push({ ...item, nft_class: itemClass });
+        continue;
+      }
 
       if ((shaKey && seenKeyOrSha.has(`sha:${shaKey}`)) || (pKey && seenKeyOrSha.has(`key:${pKey}`)) || (txKey && !txKey.includes('...') && seenKeyOrSha.has(`tx:${txKey}`))) {
         continue;
@@ -236,7 +331,7 @@ export const plantPassportRegistryService = {
       if (shaKey) seenKeyOrSha.add(`sha:${shaKey}`);
       if (pKey) seenKeyOrSha.add(`key:${pKey}`);
       if (txKey && !txKey.includes('...')) seenKeyOrSha.add(`tx:${txKey}`);
-      result.push(item);
+      result.push({ ...item, nft_class: itemClass });
     }
 
     // Sắp xếp lại theo token_id giảm dần (mới nhất lên đầu)
@@ -319,7 +414,7 @@ export const plantPassportRegistryService = {
           const isAdminWallet = ownerHash.toLowerCase() === '0x1a81221cf769d8c3398b168dc974d945ef9f0c26';
           const txInfo = txMap.get(tokenId);
 
-          onChainList.push({
+          const baseRecord = {
             id: `passport-eth-sepolia-${tokenId}`,
             token_id: tokenId,
             plant_name: rawName,
@@ -337,7 +432,14 @@ export const plantPassportRegistryService = {
             contract_address: SEPOLIA_CONTRACT_ADDR,
             minted_at: txInfo?.timestamp || '06/11/2026',
             is_onchain: true,
-            status: 'ACTIVE_ORIGINAL'
+            status: 'ACTIVE_ORIGINAL' as const
+          };
+          const inferredClass = inferNftClassFromPassport(baseRecord);
+
+          onChainList.push({
+            ...baseRecord,
+            nft_class: inferredClass,
+            plant_key: this.normalizeAssetKey(rawName, sciName, inferredClass)
           });
         }
       }
@@ -444,23 +546,51 @@ export const plantPassportRegistryService = {
 
   /**
    * KIỂM TRA ĐỘC BẢN CHẶT CHẼ TRƯỚC KHI ĐÚC (Pre-mint Exclusivity Check)
-   * 3 TẦNG BẢO VỆ TUYỆT ĐỐI:
-   * 1. Mã băm SHA-256 (Dấu vân tay số học)
-   * 2. Khóa loài cây chuẩn hóa (`plant_key`)
-   * 3. Thuật toán Fuzzy Matching (Levenshtein Distance >= 85%) chống chiêu trò gõ chệch ký tự
+   * Đa tầng bảo vệ theo từng lớp tài sản:
+   * 1. Với geo_forest_10000m2: Kiểm tra hạn mức diện tích rừng (1 NFT = 10.000 m2) và số lô đất đã mint.
+   * 2. Với botanical và các lớp khác: Mã băm SHA-256 + Khóa định danh chuẩn hóa + Thuật toán Fuzzy Matching (>=85%).
    */
   checkPlantExclusivity(params: {
     plantName: string;
     scientificName?: string;
     sha256?: string;
     walletAddress?: string;
+    nftClass?: NftAssetClass;
+    forestSlug?: string;
+    lotNumber?: number;
+    totalAreaM2?: number;
   }): {
     isAllowed: boolean;
     existingPassport?: RegisteredPlantPassport;
     reason?: string;
   } {
+    const resolvedClass = params.nftClass || 'botanical';
+
+    // XỬ LÝ ĐẶC BIỆT CHO LỚP RỪNG SINH THÁI (1 NFT = 10.000 m2 = 1 ha)
+    if (resolvedClass === 'geo_forest_10000m2') {
+      const fSlug = params.forestSlug || this.normalizeAssetKey(params.plantName, '', 'geo_forest_10000m2');
+      const totalM2 = params.totalAreaM2 || 1000000;
+      const stats = this.getForestMintedAreaStats(fSlug, totalM2);
+
+      if (stats.isSoldOut) {
+        return {
+          isAllowed: false,
+          reason: `Khu rừng này đã đúc hết 100% diện tích NFT (${stats.maxSupply}/${stats.maxSupply} lô - ${(stats.mintedM2 / 10000).toLocaleString('vi-VN')} ha)! Không thể đúc thêm.`
+        };
+      }
+
+      if (params.lotNumber && stats.mintedLots.includes(params.lotNumber)) {
+        return {
+          isAllowed: false,
+          reason: `Lô đất #${params.lotNumber} (10.000 m²) của khu rừng này đã được xác thực bảo trợ. Vui lòng nhận lô tiếp theo (#${stats.nextLotNumber})!`
+        };
+      }
+
+      return { isAllowed: true };
+    }
+
     const all = this.getAllRegistrations();
-    const key = this.normalizePlantKey(params.plantName, params.scientificName);
+    const key = this.normalizeAssetKey(params.plantName, params.scientificName, resolvedClass);
     const userWallet = params.walletAddress?.toLowerCase().trim();
 
     // TẦNG 1: Kiểm tra trùng khớp mã băm SHA-256 (Dấu vân tay hình ảnh số)
@@ -473,13 +603,13 @@ export const plantPassportRegistryService = {
           return {
             isAllowed: false,
             existingPassport: matchSha,
-            reason: `Bạn đã đúc Hộ Chiếu Độc Bản cho ảnh cây này rồi (Token #${matchSha.token_id}). Trong Yêu Trồng Cây, mỗi bản ghi chỉ được đúc 1 lần duy nhất!`
+            reason: `Bạn đã đúc Hộ Chiếu Độc Bản cho ảnh này rồi (Token #${matchSha.token_id}). Trong Yêu Trồng Cây, mỗi bản ghi chỉ được đúc 1 lần duy nhất!`
           };
         }
         return {
           isAllowed: false,
           existingPassport: matchSha,
-          reason: `Ảnh và mã SHA-256 này đã được cấp Hộ Chiếu Độc Bản bởi nhà vườn ${matchSha.creator_wallet.slice(0, 6)}...${matchSha.creator_wallet.slice(-4)}. Bạn không thể đúc lại tác phẩm của người khác!`
+          reason: `Ảnh và mã SHA-256 này đã được cấp Hộ Chiếu Độc Bản bởi tác giả ${matchSha.creator_wallet.slice(0, 6)}...${matchSha.creator_wallet.slice(-4)}. Bạn không thể đúc lại tác phẩm của người khác!`
         };
       }
     }
@@ -493,13 +623,13 @@ export const plantPassportRegistryService = {
         return {
           isAllowed: false,
           existingPassport: matchExactKey,
-          reason: `Bạn đã sở hữu Hộ Chiếu Độc Bản của loài cây này (Token #${matchExactKey.token_id}). Hãy nâng cấp giai đoạn sinh trưởng thay vì đúc mới!`
+          reason: `Bạn đã sở hữu Hộ Chiếu Độc Bản của loài này (Token #${matchExactKey.token_id}). Hãy nâng cấp giai đoạn sinh trưởng thay vì đúc mới!`
         };
       }
       return {
         isAllowed: false,
         existingPassport: matchExactKey,
-        reason: `Loài cây "${matchExactKey.plant_name}" đã được đúc Hộ Chiếu Độc Bản bởi ví ${matchExactKey.creator_wallet.slice(0, 6)}...${matchExactKey.creator_wallet.slice(-4)}. Theo quy tắc Độc Bản của Yêu Trồng Cây, mỗi giống cây chỉ có 1 Hộ Chiếu Số duy nhất!`
+        reason: `Tài sản "${matchExactKey.plant_name}" đã được đúc Hộ Chiếu Độc Bản bởi ví ${matchExactKey.creator_wallet.slice(0, 6)}...${matchExactKey.creator_wallet.slice(-4)}. Theo quy tắc Độc Bản của Yêu Trồng Cây, mỗi đối tượng chỉ có 1 Hộ Chiếu Số duy nhất!`
       };
     }
 
@@ -520,13 +650,13 @@ export const plantPassportRegistryService = {
           return {
             isAllowed: false,
             existingPassport: existing,
-            reason: `Loài cây này tương đồng ${Math.round(Math.max(simKey, simSci, simName) * 100)}% với Hộ Chiếu Token #${existing.token_id} mà bạn đang sở hữu. Vui lòng cập nhật cây hiện tại thay vì đúc trùng!`
+            reason: `Tài sản này tương đồng ${Math.round(Math.max(simKey, simSci, simName) * 100)}% với Hộ Chiếu Token #${existing.token_id} mà bạn đang sở hữu. Vui lòng cập nhật thay vì đúc trùng!`
           };
         }
         return {
           isAllowed: false,
           existingPassport: existing,
-          reason: `Phát hiện giống cây "${params.plantName}" tương đồng ${Math.round(Math.max(simKey, simSci, simName) * 100)}% với Hộ Chiếu Độc Bản của cây "${existing.plant_name}" (Token #${existing.token_id}) đã thuộc về ví ${existing.creator_wallet.slice(0, 6)}...${existing.creator_wallet.slice(-4)}!`
+          reason: `Phát hiện "${params.plantName}" tương đồng ${Math.round(Math.max(simKey, simSci, simName) * 100)}% với Hộ Chiếu Độc Bản của "${existing.plant_name}" (Token #${existing.token_id}) đã thuộc về ví ${existing.creator_wallet.slice(0, 6)}...${existing.creator_wallet.slice(-4)}!`
         };
       }
     }
@@ -535,18 +665,26 @@ export const plantPassportRegistryService = {
   },
 
   /**
-   * TRA CỨU HỘ CHIẾU NFT ĐỘC BẢN CỦA MỘT LOÀI CÂY (NẾU ĐÃ CÓ NGƯỜI ĐÚC TRƯỚC)
+   * TRA CỨU HỘ CHIẾU NFT ĐỘC BẢN CỦA MỘT LOÀI CÂY / TÀI SẢN (NẾU ĐÃ CÓ NGƯỜI ĐÚC TRƯỚC)
    * Phục vụ hiển thị huy hiệu "Đã tạo NFT" & link đến hồ sơ chủ sở hữu trên mỗi bài viết/thẻ cây
    */
   findPassportForPlant(params: {
     plantName: string;
     scientificName?: string;
     sha256?: string;
+    nftClass?: NftAssetClass;
+    forestSlug?: string;
+    lotNumber?: number;
+    totalAreaM2?: number;
   }): RegisteredPlantPassport | undefined {
     const check = this.checkPlantExclusivity({
       plantName: params.plantName,
       scientificName: params.scientificName,
-      sha256: params.sha256
+      sha256: params.sha256,
+      nftClass: params.nftClass,
+      forestSlug: params.forestSlug,
+      lotNumber: params.lotNumber,
+      totalAreaM2: params.totalAreaM2
     });
     if (!check.isAllowed && check.existingPassport && check.existingPassport.status === 'ACTIVE_ORIGINAL') {
       return check.existingPassport;
@@ -826,15 +964,21 @@ export const plantPassportRegistryService = {
     message: string;
   } {
     const all = this.getAllRegistrations();
-    const key = this.normalizePlantKey(passport.plant_name, passport.scientific_name);
+    const resolvedClass = passport.nft_class || 'botanical';
     const cleanTokenId = passport.token_id.replace('#', '').trim();
+    const key = resolvedClass === 'geo_forest_10000m2'
+      ? `geoforest10k_${passport.forest_slug || 'forest'}_lot_${passport.lot_number || 1}`
+      : this.normalizeAssetKey(passport.plant_name, passport.scientific_name, resolvedClass);
 
     // Kiểm tra xem đã có ai đúc trước chưa qua pre-check
     const exclusivityCheck = this.checkPlantExclusivity({
       plantName: passport.plant_name,
       scientificName: passport.scientific_name,
       sha256: passport.image_sha256,
-      walletAddress: passport.owner_address
+      walletAddress: passport.owner_address,
+      nftClass: resolvedClass,
+      forestSlug: passport.forest_slug,
+      lotNumber: passport.lot_number
     });
 
     const isDuplicate = !exclusivityCheck.isAllowed && !!exclusivityCheck.existingPassport &&
@@ -863,6 +1007,7 @@ export const plantPassportRegistryService = {
       id: `passport-${Date.now()}-${cleanTokenId}`,
       token_id: cleanTokenId,
       plant_key: key,
+      nft_class: resolvedClass,
       creator_wallet: passport.creator_wallet || passport.owner_address,
       creator_username: autoUsername || 'tranthanhtung37',
       creator_email: autoEmail || 'tranthanhtung37@gmail.com',

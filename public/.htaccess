@@ -30,7 +30,7 @@
 </IfModule>
 
 # Chặn truy cập trực tiếp vào các file cấu hình và dữ liệu nhạy cảm
-<FilesMatch "(\.env|\.sql|\.jsonl|config\.php)$">
+<FilesMatch "(\.env|\.sql|\.jsonl|_store\.json|config\.php)$">
   Order allow,deny
   Deny from all
 </FilesMatch>

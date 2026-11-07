@@ -24,15 +24,24 @@ import {
   ArrowLeftRight,
   Upload,
   Trash2,
-  Camera
+  Camera,
+  MapPin,
+  Compass
 } from 'lucide-react';
-import { Web3TestnetPassport } from '../types/index.ts';
+import { Web3TestnetPassport, NftAssetClass, ForestGeoSpec } from '../types/index.ts';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { web3WalletService, WalletState } from '../services/web3WalletService.ts';
 import { awardKarmaPoints, getKarmaState, KarmaState } from '../services/karmaService.ts';
 import { plantPassportRegistryService } from '../services/plantPassportRegistryService.ts';
 import { SEED_PLANTS } from '../data/plants.ts';
 import { getPlantBySlug } from '../services/apiService.ts';
+import {
+  NFT_ASSET_CLASSES_LIST,
+  getNftClassConfig,
+  calculateHaversineDistanceKm,
+  saveForestGpsCheckinPass,
+  getValidForestGpsCheckinPass
+} from '../config/ecosystemRegistry.ts';
 
 // 4 giống cây quý bản địa mẫu để cấp hộ chiếu thực vật số
 const SAMPLE_MINT_PLANTS = [
@@ -199,17 +208,41 @@ export const Web3SandboxSection: React.FC = () => {
   const [mintSignature, setMintSignature] = useState<string | null>(null);
   const [mintedPassport, setMintedPassport] = useState<Web3TestnetPassport | null>(null);
 
+  // 5 Lớp Tài Sản NFT & Xác thực Rừng Sinh Thái GPS (1 NFT = 10.000 m2)
+  const [selectedAssetClass, setSelectedAssetClass] = useState<NftAssetClass>('botanical');
+  const [forestSpec, setForestSpec] = useState<ForestGeoSpec | null>(null);
+  const [gpsCheckinStatus, setGpsCheckinStatus] = useState<'idle' | 'checking' | 'verified' | 'failed'>('idle');
+  const [gpsErrorMsg, setGpsErrorMsg] = useState<string | null>(null);
+  const [gpsDistanceKm, setGpsDistanceKm] = useState<number | null>(null);
+
   // Tự động nạp thông tin loài cây khi bấm "Tạo NFT" từ bài viết (?mint=<slug>)
   useEffect(() => {
     if (!mintSlugParam) return;
     setActiveTab('mint');
-    const applyArticlePlant = (p: { slug: string; common_name: string; scientific_name: string; image_url: string; image_sha256?: string }) => {
+    const applyArticlePlant = (p: {
+      slug: string;
+      common_name: string;
+      scientific_name: string;
+      image_url: string;
+      image_sha256?: string;
+      category?: string;
+      nft_class?: NftAssetClass;
+      forest_spec?: ForestGeoSpec;
+    }) => {
       setSelectedArticleSlug(p.slug);
       setPlantSource('custom');
       setCustomPlantName(p.common_name);
       setCustomScientific(p.scientific_name);
       setCustomImage(p.image_url);
       setCustomImageSha(p.image_sha256 || null);
+      if (p.category === 'forest' || p.nft_class === 'geo_forest_10000m2') {
+        setSelectedAssetClass('geo_forest_10000m2');
+        if (p.forest_spec) {
+          setForestSpec(p.forest_spec);
+        }
+      } else if (p.nft_class) {
+        setSelectedAssetClass(p.nft_class);
+      }
     };
 
     const seedMatch = SEED_PLANTS.find((p) => p.slug === mintSlugParam || p.id === mintSlugParam);
@@ -218,11 +251,73 @@ export const Web3SandboxSection: React.FC = () => {
     } else {
       getPlantBySlug(mintSlugParam)
         .then((livePlant) => {
-          if (livePlant) applyArticlePlant(livePlant);
+          if (livePlant) applyArticlePlant(livePlant as unknown as Parameters<typeof applyArticlePlant>[0]);
         })
         .catch(() => {});
     }
   }, [mintSlugParam]);
+
+  // Kiểm tra thẻ thông hành GPS 24h đã lưu cho khu rừng
+  useEffect(() => {
+    if (selectedAssetClass === 'geo_forest_10000m2' && selectedArticleSlug) {
+      const pass = getValidForestGpsCheckinPass(selectedArticleSlug);
+      if (pass) {
+        setGpsCheckinStatus('verified');
+        setGpsDistanceKm(pass.distanceKm);
+      } else {
+        setGpsCheckinStatus('idle');
+      }
+    }
+  }, [selectedAssetClass, selectedArticleSlug]);
+
+  const handleGpsCheckin = (simulate = false) => {
+    const targetLat = forestSpec?.center_lat || 20.3167; // Mặc định Cúc Phương
+    const targetLng = forestSpec?.center_lng || 105.6083;
+    const radiusKm = forestSpec?.radius_km || 15;
+
+    if (simulate) {
+      const simulatedLat = targetLat + 0.01;
+      const simulatedLng = targetLng + 0.01;
+      const dist = calculateHaversineDistanceKm(simulatedLat, simulatedLng, targetLat, targetLng);
+      saveForestGpsCheckinPass(selectedArticleSlug || 'forest', simulatedLat, simulatedLng, dist);
+      setGpsCheckinStatus('verified');
+      setGpsDistanceKm(dist);
+      setGpsErrorMsg(null);
+      return;
+    }
+
+    if (!navigator.geolocation) {
+      setGpsErrorMsg('Trình duyệt của bạn không hỗ trợ định vị GPS.');
+      setGpsCheckinStatus('failed');
+      return;
+    }
+
+    setGpsCheckinStatus('checking');
+    setGpsErrorMsg(null);
+
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const userLat = pos.coords.latitude;
+        const userLng = pos.coords.longitude;
+        const dist = calculateHaversineDistanceKm(userLat, userLng, targetLat, targetLng);
+        setGpsDistanceKm(dist);
+
+        if (dist <= radiusKm) {
+          saveForestGpsCheckinPass(selectedArticleSlug || 'forest', userLat, userLng, dist);
+          setGpsCheckinStatus('verified');
+          setGpsErrorMsg(null);
+        } else {
+          setGpsCheckinStatus('failed');
+          setGpsErrorMsg(`Vị trí của bạn cách tâm khu rừng ${dist.toFixed(1)} km (bán kính vùng rừng cho phép: ${radiusKm} km). Bạn cần ở trong khu vực rừng để đúc NFT!`);
+        }
+      },
+      (err) => {
+        setGpsCheckinStatus('failed');
+        setGpsErrorMsg(`Không thể lấy tọa độ GPS (${err.message}). Vui lòng cho phép quyền truy cập vị trí trên trình duyệt!`);
+      },
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
+    );
+  };
 
   // Trạng thái Escrow Simulator
   const [escrowStep, setEscrowStep] = useState<number>(1);
@@ -468,20 +563,46 @@ export const Web3SandboxSection: React.FC = () => {
     const sha = (isCustom && customImageSha) ? customImageSha : await generateSha256(scientificName + timestampStr + evolutionStage + wallet.address);
     const randomToken = Math.floor(1000 + Math.random() * 9000);
     const activeNetwork = targetLedger || wallet.networkName || 'Ethereum Sepolia';
+    const isForestClass = selectedAssetClass === 'geo_forest_10000m2';
+    const forestSlug = selectedArticleSlug || plantPassportRegistryService.normalizeAssetKey(plantNameVi, '', 'geo_forest_10000m2');
+    const totalAreaM2 = forestSpec?.total_area_m2 || 1000000;
+    const forestStats = isForestClass ? plantPassportRegistryService.getForestMintedAreaStats(forestSlug, totalAreaM2) : null;
+    const lotNumber = forestStats ? forestStats.nextLotNumber : undefined;
+
+    // Kiểm tra định vị GPS nếu là lớp Rừng sinh thái (10.000 m2 / NFT)
+    if (isForestClass && gpsCheckinStatus !== 'verified') {
+      setWalletError(isEn ? 'Please complete the device GPS check-in to confirm you are in this forest zone!' : 'Vui lòng xác thực GPS (hoặc Thẻ thông hành 24h) để chứng minh bạn đang có mặt tại khu rừng này trước khi đúc NFT!');
+      setIsMinting(false);
+      return;
+    }
+
+    if (isForestClass && forestStats?.isSoldOut) {
+      setWalletError('Khu rừng này đã được bảo trợ 100% diện tích các lô NFT! Không thể đúc thêm.');
+      setIsMinting(false);
+      return;
+    }
 
     // KIỂM TRA ĐỘC BẢN TUYỆT ĐỐI (Exclusivity Rule - Chặn đúc trùng lặp)
     const exclusivity = plantPassportRegistryService.checkPlantExclusivity({
       plantName: plantNameVi,
       scientificName: scientificName,
       sha256: sha,
-      walletAddress: wallet.address
+      walletAddress: wallet.address,
+      nftClass: selectedAssetClass,
+      forestSlug: isForestClass ? forestSlug : undefined,
+      lotNumber: lotNumber,
+      totalAreaM2: totalAreaM2
     });
 
     if (!exclusivity.isAllowed) {
-      setWalletError(exclusivity.reason || (isEn ? 'This plant specimen already has a unique Master NFT Passport in yeutrongcay.com!' : 'Giống cây này đã được cấp Hộ Chiếu Độc Bản trước đó trong thế giới Yêu Trồng Cây!'));
+      setWalletError(exclusivity.reason || (isEn ? 'This specimen already has a unique Master NFT Passport in yeutrongcay.com!' : 'Tài sản này đã được cấp Hộ Chiếu Độc Bản trước đó trong thế giới Yêu Trồng Cây!'));
       setIsMinting(false);
       return;
     }
+
+    const effectiveTokenId = isForestClass ? String(lotNumber) : String(randomToken);
+    const finalDisplayName = isForestClass ? `${plantNameVi} - Lô #${lotNumber} (10.000 m²)` : plantNameVi;
+    const finalDisplayNameEn = isForestClass ? `${plantNameEn} - Lot #${lotNumber} (10,000 m²)` : plantNameEn;
 
     // 1. CHẾ ĐỘ 1: ĐÚC NFT ON-CHAIN THẬT (Gửi transaction gọi Smart Contract qua MetaMask)
     if (mintMode === 'onchain') {
@@ -507,15 +628,17 @@ export const Web3SandboxSection: React.FC = () => {
 
         // Chuẩn bị Metadata JSON chuẩn ERC-721
         const metadataJson = JSON.stringify({
-          name: `${plantNameVi} #${randomToken}`,
-          description: `Hộ Chiếu Cây Trồng Số On-chain - Yêu Trồng Cây (yeutrongcay.com). Mã SHA-256: ${sha}`,
+          name: `${finalDisplayName} #${effectiveTokenId}`,
+          description: `Hộ Chiếu Cây Trồng Số On-chain - Yêu Trồng Cây (yeutrongcay.com). Lớp tài sản: ${selectedAssetClass}. Mã SHA-256: ${sha}`,
           image: plantImg,
           attributes: [
             { trait_type: 'Loài Cây', value: plantNameVi },
             { trait_type: 'Tên Khoa Học', value: scientificName },
+            { trait_type: 'Lớp Tài Sản', value: selectedAssetClass },
             { trait_type: 'Giai Đoạn', value: `${evolutionStage}/3` },
             { trait_type: 'Bằng Chứng SHA-256', value: sha },
-            { trait_type: 'Sổ Cái', value: activeNetwork }
+            { trait_type: 'Sổ Cái', value: activeNetwork },
+            ...(isForestClass ? [{ trait_type: 'Diện Tích Lô', value: '10,000 m2 (1 ha)' }, { trait_type: 'Số Lô', value: String(lotNumber) }] : [])
           ]
         });
         const tokenURI = `data:application/json;utf8,${encodeURIComponent(metadataJson)}`;
@@ -524,7 +647,7 @@ export const Web3SandboxSection: React.FC = () => {
         const realTxHash = await web3WalletService.mintPassportOnChain({
           contractAddress: targetContract,
           userAddress: wallet.address as `0x${string}`,
-          plantName: plantNameVi,
+          plantName: finalDisplayName,
           scientificName: scientificName,
           stage: evolutionStage,
           sha256Proof: sha,
@@ -532,8 +655,8 @@ export const Web3SandboxSection: React.FC = () => {
         });
 
         setMintedPassport({
-          token_id: `#${randomToken}`,
-          plant_name: isEn ? plantNameEn : plantNameVi,
+          token_id: `#${effectiveTokenId}`,
+          plant_name: isEn ? finalDisplayNameEn : finalDisplayName,
           scientific_name: scientificName,
           owner_address: wallet.address,
           minted_at: new Date().toLocaleString('vi-VN'),
@@ -549,8 +672,8 @@ export const Web3SandboxSection: React.FC = () => {
 
         // Ghi danh vào Sổ Đăng Ký Hộ Chiếu Độc Bản Hệ Thống
         plantPassportRegistryService.registerPassport({
-          token_id: randomToken.toString(),
-          plant_name: plantNameVi,
+          token_id: effectiveTokenId,
+          plant_name: finalDisplayName,
           scientific_name: scientificName,
           image_url: plantImg,
           image_sha256: sha,
@@ -560,7 +683,11 @@ export const Web3SandboxSection: React.FC = () => {
           transaction_hash: realTxHash,
           contract_address: targetContract,
           minted_at: new Date().toLocaleString('vi-VN'),
-          is_onchain: true
+          is_onchain: true,
+          nft_class: selectedAssetClass,
+          forest_slug: isForestClass ? forestSlug : undefined,
+          lot_number: lotNumber,
+          forest_area_m2: isForestClass ? 10000 : undefined
         });
 
         awardKarmaPoints(
@@ -590,14 +717,14 @@ export const Web3SandboxSection: React.FC = () => {
 
     try {
       // Yêu cầu ví thật ký xác nhận thông điệp mật mã học (personal_sign)
-      const signMsg = `Yêu Trồng Cây - Đúc Hộ Chiếu Thực Vật Số\nLoài Cây: ${plantNameVi} (${scientificName})\nGiai Đoạn: ${evolutionStage}/3\nBằng Chứng SHA-256: ${sha}\nVí Sở Hữu Thật: ${wallet.address}\nSổ Cái Blockchain: ${activeNetwork} (0đ Gas)\nThời Gian Ký: ${new Date().toLocaleString('vi-VN')}`;
+      const signMsg = `Yêu Trồng Cây - Đúc Hộ Chiếu Thực Vật Số\nLoài Cây: ${finalDisplayName} (${scientificName})\nLớp Tài Sản: ${selectedAssetClass}\nGiai Đoạn: ${evolutionStage}/3\nBằng Chứng SHA-256: ${sha}\nVí Sở Hữu Thật: ${wallet.address}\nSổ Cái Blockchain: ${activeNetwork} (0đ Gas)\nThời Gian Ký: ${new Date().toLocaleString('vi-VN')}`;
       
       const sig = await web3WalletService.signBotanicalRecord(wallet.address, signMsg);
       setMintSignature(sig);
 
       setMintedPassport({
-        token_id: `#${randomToken}`,
-        plant_name: isEn ? plantNameEn : plantNameVi,
+        token_id: `#${effectiveTokenId}`,
+        plant_name: isEn ? finalDisplayNameEn : finalDisplayName,
         scientific_name: scientificName,
         owner_address: wallet.address,
         minted_at: new Date().toLocaleString('vi-VN'),
@@ -612,8 +739,8 @@ export const Web3SandboxSection: React.FC = () => {
 
       // Ghi danh vào Sổ Đăng Ký Hộ Chiếu Độc Bản Hệ Thống
       plantPassportRegistryService.registerPassport({
-        token_id: randomToken.toString(),
-        plant_name: plantNameVi,
+        token_id: effectiveTokenId,
+        plant_name: finalDisplayName,
         scientific_name: scientificName,
         image_url: plantImg,
         image_sha256: sha,
@@ -623,7 +750,11 @@ export const Web3SandboxSection: React.FC = () => {
         transaction_hash: simulatedTx,
         contract_address: '0x0000000000000000000000000000000000000000',
         minted_at: new Date().toLocaleString('vi-VN'),
-        is_onchain: false
+        is_onchain: false,
+        nft_class: selectedAssetClass,
+        forest_slug: isForestClass ? forestSlug : undefined,
+        lot_number: lotNumber,
+        forest_area_m2: isForestClass ? 10000 : undefined
       });
 
       // Tự động thưởng Điểm Karma Uy Tín khi ký số & đúc Hộ Chiếu thành công trên Testnet
@@ -1399,6 +1530,126 @@ export const Web3SandboxSection: React.FC = () => {
 
               {/* Form Lựa Chọn & Nút Ký Ví Thật (md:col-span-7) */}
               <div className="md:col-span-7 space-y-4">
+                {/* Lựa chọn 5 Lớp Tài Sản NFT */}
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-forest-700 dark:text-forest-300 flex items-center justify-between">
+                    <span>{isEn ? 'NFT Asset Class (5 Classes):' : 'Lớp tài sản NFT (5 phân loại):'}</span>
+                    <span className="text-[10px] text-amber-600 dark:text-amber-400 font-mono font-bold">
+                      {getNftClassConfig(selectedAssetClass).name}
+                    </span>
+                  </label>
+                  <div className="grid grid-cols-2 sm:grid-cols-5 gap-1.5 text-xs">
+                    {NFT_ASSET_CLASSES_LIST.map((cls) => {
+                      const isSel = selectedAssetClass === cls.id;
+                      return (
+                        <button
+                          key={cls.id}
+                          type="button"
+                          onClick={() => {
+                            setSelectedAssetClass(cls.id);
+                            if (cls.id !== 'geo_forest_10000m2') {
+                              setGpsErrorMsg(null);
+                            }
+                          }}
+                          className={`p-2 rounded-xl border text-center font-semibold transition cursor-pointer flex flex-col items-center gap-1 ${
+                            isSel
+                              ? 'bg-emerald-600 text-white border-emerald-500 shadow-sm ring-1 ring-emerald-500'
+                              : 'bg-forest-50 dark:bg-forest-950 border-forest-200 dark:border-forest-800 text-forest-700 dark:text-forest-300 hover:border-emerald-400'
+                          }`}
+                        >
+                          <span className="text-base">{cls.icon}</span>
+                          <span className="text-[11px] leading-tight line-clamp-1">{cls.shortName}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Nếu chọn Lớp Rừng Sinh Thái (10.000 m2 / NFT) -> Khối Kiểm Tra GPS & Phân Lô */}
+                {selectedAssetClass === 'geo_forest_10000m2' && (() => {
+                  const forestSlug = selectedArticleSlug || plantPassportRegistryService.normalizeAssetKey(customPlantName || 'Rừng Tự Nhiên', '', 'geo_forest_10000m2');
+                  const totalM2 = forestSpec?.total_area_m2 || 1000000;
+                  const fStats = plantPassportRegistryService.getForestMintedAreaStats(forestSlug, totalM2);
+
+                  return (
+                    <div className="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/40 text-xs space-y-3">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-1.5 font-bold text-emerald-300">
+                          <MapPin className="w-4 h-4 text-emerald-400" />
+                          <span>Xác Thực GPS Thực Địa Vùng Rừng (1 NFT = 10.000 m²)</span>
+                        </div>
+                        <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-mono font-bold">
+                          1 ha/lô
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px] font-mono">
+                        <div className="p-2 rounded-xl bg-forest-950/60 border border-forest-800">
+                          <span className="text-gray-400 block text-[10px]">Lô Tiếp Theo</span>
+                          <span className="text-amber-300 font-bold">Lô #{fStats.nextLotNumber} / {fStats.maxSupply}</span>
+                        </div>
+                        <div className="p-2 rounded-xl bg-forest-950/60 border border-forest-800">
+                          <span className="text-gray-400 block text-[10px]">Đã Bảo Trợ</span>
+                          <span className="text-emerald-300 font-bold">{(fStats.mintedM2 / 10000).toLocaleString('vi-VN')} ha</span>
+                        </div>
+                        <div className="p-2 rounded-xl bg-forest-950/60 border border-forest-800">
+                          <span className="text-gray-400 block text-[10px]">Còn Lại</span>
+                          <span className="text-teal-300 font-bold">{(fStats.remainingM2 / 10000).toLocaleString('vi-VN')} ha</span>
+                        </div>
+                        <div className="p-2 rounded-xl bg-forest-950/60 border border-forest-800">
+                          <span className="text-gray-400 block text-[10px]">Bán Kính Rừng</span>
+                          <span className="text-white font-bold">{forestSpec?.radius_km || 15} km</span>
+                        </div>
+                      </div>
+
+                      {/* Trạng thái GPS check-in */}
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-1 border-t border-emerald-900/40">
+                        <div className="space-y-0.5">
+                          {gpsCheckinStatus === 'verified' ? (
+                            <div className="flex items-center gap-1.5 text-emerald-400 font-bold text-xs">
+                              <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                              <span>Đã xác thực tọa độ trong vùng rừng (Cách tâm {gpsDistanceKm !== null ? `${gpsDistanceKm.toFixed(1)} km` : '< 15 km'}) • Thẻ thông hành 24h hiệu lực</span>
+                            </div>
+                          ) : gpsCheckinStatus === 'checking' ? (
+                            <div className="flex items-center gap-1.5 text-amber-300 text-xs">
+                              <RefreshCw className="w-4 h-4 animate-spin shrink-0" />
+                              <span>Đang quét tọa độ GPS thiết bị...</span>
+                            </div>
+                          ) : (
+                            <div className="flex items-center gap-1.5 text-forest-300 text-xs">
+                              <Compass className="w-4 h-4 text-amber-400 shrink-0" />
+                              <span>Cần xác thực GPS bạn đang có mặt tại khu rừng để đúc NFT.</span>
+                            </div>
+                          )}
+                          {gpsErrorMsg && (
+                            <p className="text-[11px] text-rose-300 leading-tight">{gpsErrorMsg}</p>
+                          )}
+                        </div>
+
+                        <div className="flex items-center gap-2 shrink-0">
+                          <button
+                            type="button"
+                            onClick={() => handleGpsCheckin(false)}
+                            disabled={gpsCheckinStatus === 'checking'}
+                            className="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1 transition shadow-sm cursor-pointer"
+                          >
+                            <MapPin className="w-3.5 h-3.5" />
+                            <span>Định Vị GPS</span>
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleGpsCheckin(true)}
+                            className="px-2.5 py-1.5 rounded-xl bg-forest-800 hover:bg-forest-700 text-amber-300 font-bold text-[11px] flex items-center gap-1 transition border border-forest-700 cursor-pointer"
+                            title="Mô phỏng thiết bị đang trong khu rừng để kiểm thử"
+                          >
+                            <span>🧪 Mô Phỏng</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })()}
+
                 {/* Chuyển đổi giữa giống mẫu hoặc tự tải ảnh cây riêng */}
                 <div className="flex items-center gap-2 p-1 bg-forest-50 dark:bg-forest-950 rounded-xl border border-forest-200 dark:border-forest-800 text-xs">
                   <button
@@ -1473,16 +1724,23 @@ export const Web3SandboxSection: React.FC = () => {
 
                 <div>
                   <label className="text-xs font-semibold text-forest-700 dark:text-forest-300 block mb-1.5">
-                    {isEn ? 'Growth Stage Evolution:' : '2. Giai đoạn sinh trưởng hiện tại:'}
+                    {isEn ? 'Evolution Stage:' : '2. Giai đoạn sinh trưởng / tiến trình:'}
                   </label>
                   <select
                     value={evolutionStage}
                     onChange={(e) => setEvolutionStage(Number(e.target.value) as 1 | 2 | 3)}
                     className="w-full px-3.5 py-2.5 bg-forest-50 dark:bg-forest-950 border border-forest-200 dark:border-forest-800 rounded-xl text-xs text-forest-950 dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
                   >
-                    <option value={1}>{isEn ? 'Stage 1: Seedling & Propagation' : '1. Mầm non gieo ươm / Cành giâm rễ non'}</option>
-                    <option value={2}>{isEn ? 'Stage 2: Vegetative Shoot Growth' : '2. Sinh trưởng phân cành tán lá sum suê'}</option>
-                    <option value={3}>{isEn ? 'Stage 3: Flowering & Fruiting' : '3. Đơm hoa kết trái / Đạt tuổi dược liệu'}</option>
+                    {(() => {
+                      const stages = getNftClassConfig(selectedAssetClass).evolutionStages;
+                      return (
+                        <>
+                          <option value={1}>1. {stages[0]}</option>
+                          <option value={2}>2. {stages[1]}</option>
+                          <option value={3}>3. {stages[2]}</option>
+                        </>
+                      );
+                    })()}
                   </select>
                 </div>
 

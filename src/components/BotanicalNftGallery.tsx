@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   Sparkles,
   ShieldCheck,
@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { plantPassportRegistryService, RegisteredPlantPassport } from '../services/plantPassportRegistryService';
 import { web3WalletService, WalletState } from '../services/web3WalletService';
+import { getNftClassConfig, inferNftClassFromPassport } from '../config/ecosystemRegistry';
 
 interface BotanicalNftGalleryProps {
   currentUserId?: string;
@@ -32,6 +33,34 @@ export const BotanicalNftGallery: React.FC<BotanicalNftGalleryProps> = ({
   const [copiedSha, setCopiedSha] = useState<string | null>(null);
   const [selectedPassport, setSelectedPassport] = useState<RegisteredPlantPassport | null>(null);
   const [isSyncingWallet, setIsSyncingWallet] = useState<boolean>(false);
+  const [selectedClassTab, setSelectedClassTab] = useState<string>('all');
+
+  const classCounts = useMemo(() => {
+    const counts: Record<string, number> = {
+      all: passports.length,
+      botanical: 0,
+      space_method: 0,
+      eco_invention: 0,
+      culinary_recipe: 0,
+      geo_forest_10000m2: 0,
+      forestAreaM2: 0
+    };
+    passports.forEach(p => {
+      const cls = p.nft_class || inferNftClassFromPassport(p);
+      if (counts[cls] !== undefined) {
+        counts[cls]++;
+        if (cls === 'geo_forest_10000m2') {
+          counts.forestAreaM2 += 10000;
+        }
+      }
+    });
+    return counts;
+  }, [passports]);
+
+  const filteredPassports = useMemo(() => {
+    if (selectedClassTab === 'all') return passports;
+    return passports.filter(p => (p.nft_class || inferNftClassFromPassport(p)) === selectedClassTab);
+  }, [passports, selectedClassTab]);
 
   // Tải danh bạ NFT độc bản của người dùng đăng nhập hiện tại
   const loadGallery = () => {
@@ -144,7 +173,7 @@ export const BotanicalNftGallery: React.FC<BotanicalNftGalleryProps> = ({
         {/* Thống kê nhanh */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-5 border-t border-forest-800/80">
           <div className="bg-forest-950/60 p-3 rounded-2xl border border-forest-800">
-            <span className="text-[11px] text-gray-400 block">{isEn ? 'Verified Passports' : 'Cây Độc Bản Đã Đúc'}</span>
+            <span className="text-[11px] text-gray-400 block">{isEn ? 'Verified Passports' : 'Tài Sản NFT Đã Đúc'}</span>
             <span className="text-xl font-bold font-serif text-amber-300">{passports.length}</span>
           </div>
           <div className="bg-forest-950/60 p-3 rounded-2xl border border-forest-800">
@@ -160,6 +189,26 @@ export const BotanicalNftGallery: React.FC<BotanicalNftGalleryProps> = ({
             <span className="text-xs font-semibold text-teal-300">Bật (Active Shield)</span>
           </div>
         </div>
+
+        {/* Breakdown 5 lớp tài sản */}
+        <div className="mt-4 pt-3 border-t border-forest-800/40 flex flex-wrap items-center gap-2 text-xs">
+          <span className="text-forest-400 text-[11px]">{isEn ? 'Portfolio breakdown:' : 'Phân bổ tài sản:'}</span>
+          <span className="px-2.5 py-1 rounded-xl bg-forest-950/80 border border-emerald-500/30 text-emerald-300 font-medium">
+            🌱 {classCounts.botanical} {isEn ? 'Botanical' : 'Thực vật'}
+          </span>
+          <span className="px-2.5 py-1 rounded-xl bg-forest-950/80 border border-teal-500/30 text-teal-300 font-medium">
+            📐 {classCounts.space_method} {isEn ? 'Space' : 'Không gian'}
+          </span>
+          <span className="px-2.5 py-1 rounded-xl bg-forest-950/80 border border-lime-500/30 text-lime-300 font-medium">
+            ♻️ {classCounts.eco_invention} {isEn ? 'Eco Invention' : 'Sáng chế'}
+          </span>
+          <span className="px-2.5 py-1 rounded-xl bg-forest-950/80 border border-amber-500/30 text-amber-300 font-medium">
+            🍵 {classCounts.culinary_recipe} {isEn ? 'Recipe' : 'Bí phương'}
+          </span>
+          <span className="px-2.5 py-1 rounded-xl bg-forest-950/80 border border-emerald-400/30 text-emerald-200 font-medium">
+            🌲 {classCounts.geo_forest_10000m2} {isEn ? 'Forest Lots' : 'Lô Rừng'} ({classCounts.forestAreaM2.toLocaleString('vi-VN')} m² ~ {(classCounts.forestAreaM2 / 10000).toLocaleString('vi-VN')} ha)
+          </span>
+        </div>
       </div>
 
       {/* 2. Banner Quy Tắc Độc Bản Tuyệt Đối (Exclusivity Rule) */}
@@ -171,26 +220,92 @@ export const BotanicalNftGallery: React.FC<BotanicalNftGalleryProps> = ({
           </span>
           <p>
             {isEn
-              ? 'In the world of yeutrongcay.com, each plant variety or cryptographic image fingerprint can only have ONE true master passport. Any duplicate attempt will be automatically hidden from personal profiles to guarantee your ownership prestige.'
-              : 'Trong thế giới yeutrongcay.com, mỗi giống cây trồng và mã định danh hình ảnh chỉ có DUY NHẤT một Hộ Chiếu Số gốc. Nếu người khác cố tình đúc lại, hệ thống sẽ tự động gắn cờ Trùng Lặp và KHÔNG CHO HIỂN THỊ trong hồ sơ cá nhân để bảo vệ sự độc bản và uy tín của bạn.'}
+              ? 'In the world of yeutrongcay.com, each plant variety or cryptographic image fingerprint can only have ONE true master passport. For Geo Forest NFTs, each lot corresponds to 10,000 m² (1 ha) preserved via GPS check-in.'
+              : 'Trong thế giới yeutrongcay.com, mỗi giống cây trồng và mã định danh hình ảnh chỉ có DUY NHẤT một Hộ Chiếu Số gốc. Nếu người khác cố tình đúc lại, hệ thống sẽ tự động gắn cờ Trùng Lặp và KHÔNG CHO HIỂN THỊ trong hồ sơ cá nhân. Riêng các Lô Rừng Sinh Thái (10.000 m²/lô) được bảo tồn theo tọa độ GPS thực địa.'}
           </p>
         </div>
       </div>
 
+      {/* Bộ Lọc 5 Lớp Tài Sản (Filter Tabs) */}
+      <div className="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full scrollbar-none">
+        <button
+          onClick={() => setSelectedClassTab('all')}
+          className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition cursor-pointer ${
+            selectedClassTab === 'all'
+              ? 'bg-forest-900 text-white dark:bg-amber-500 dark:text-forest-950 shadow'
+              : 'bg-white dark:bg-charcoal-800 text-forest-700 dark:text-forest-300 hover:bg-forest-50 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-800'
+          }`}
+        >
+          {isEn ? 'All' : 'Tất cả'} ({passports.length})
+        </button>
+        <button
+          onClick={() => setSelectedClassTab('botanical')}
+          className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition cursor-pointer ${
+            selectedClassTab === 'botanical'
+              ? 'bg-forest-900 text-white dark:bg-amber-500 dark:text-forest-950 shadow'
+              : 'bg-white dark:bg-charcoal-800 text-forest-700 dark:text-forest-300 hover:bg-forest-50 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-800'
+          }`}
+        >
+          🌱 {isEn ? 'Botanical' : 'Thực Vật'} ({classCounts.botanical})
+        </button>
+        <button
+          onClick={() => setSelectedClassTab('space_method')}
+          className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition cursor-pointer ${
+            selectedClassTab === 'space_method'
+              ? 'bg-forest-900 text-white dark:bg-amber-500 dark:text-forest-950 shadow'
+              : 'bg-white dark:bg-charcoal-800 text-forest-700 dark:text-forest-300 hover:bg-forest-50 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-800'
+          }`}
+        >
+          📐 {isEn ? 'Space' : 'Không Gian'} ({classCounts.space_method})
+        </button>
+        <button
+          onClick={() => setSelectedClassTab('eco_invention')}
+          className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition cursor-pointer ${
+            selectedClassTab === 'eco_invention'
+              ? 'bg-forest-900 text-white dark:bg-amber-500 dark:text-forest-950 shadow'
+              : 'bg-white dark:bg-charcoal-800 text-forest-700 dark:text-forest-300 hover:bg-forest-50 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-800'
+          }`}
+        >
+          ♻️ {isEn ? 'Eco Invention' : 'Sáng Chế'} ({classCounts.eco_invention})
+        </button>
+        <button
+          onClick={() => setSelectedClassTab('culinary_recipe')}
+          className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition cursor-pointer ${
+            selectedClassTab === 'culinary_recipe'
+              ? 'bg-forest-900 text-white dark:bg-amber-500 dark:text-forest-950 shadow'
+              : 'bg-white dark:bg-charcoal-800 text-forest-700 dark:text-forest-300 hover:bg-forest-50 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-800'
+          }`}
+        >
+          🍵 {isEn ? 'Recipe' : 'Bí Phương'} ({classCounts.culinary_recipe})
+        </button>
+        <button
+          onClick={() => setSelectedClassTab('geo_forest_10000m2')}
+          className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition cursor-pointer ${
+            selectedClassTab === 'geo_forest_10000m2'
+              ? 'bg-forest-900 text-white dark:bg-amber-500 dark:text-forest-950 shadow'
+              : 'bg-white dark:bg-charcoal-800 text-forest-700 dark:text-forest-300 hover:bg-forest-50 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-800'
+          }`}
+        >
+          🌲 {isEn ? 'Forest Lots' : 'Lô Rừng'} ({classCounts.geo_forest_10000m2})
+        </button>
+      </div>
+
       {/* 3. Danh Sách Thẻ Hộ Chiếu Cây (Card Grid) */}
-      {passports.length === 0 ? (
+      {filteredPassports.length === 0 ? (
         <div className="bg-white dark:bg-charcoal-800 rounded-3xl p-10 border border-forest-100 dark:border-forest-800 text-center space-y-4 shadow-sm">
           <div className="w-16 h-16 rounded-3xl bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 flex items-center justify-center mx-auto">
             <Sparkles className="w-8 h-8" />
           </div>
           <div className="space-y-1 max-w-md mx-auto">
             <h3 className="text-base font-bold text-forest-900 dark:text-cream-100">
-              {isEn ? 'No Plant Passports Minted Yet' : 'Chưa có Hộ Chiếu Cây nào trong bộ sưu tập'}
+              {selectedClassTab === 'all'
+                ? (isEn ? 'No Plant Passports Minted Yet' : 'Chưa có Hộ Chiếu Cây nào trong bộ sưu tập')
+                : (isEn ? 'No NFT items in this category' : 'Chưa có tài sản nào thuộc nhóm này')}
             </h3>
             <p className="text-xs text-forest-600 dark:text-forest-400">
               {isEn
-                ? 'Mint your first plant passport with your MetaMask wallet on testnet (0đ gas) to establish your botanical ownership.'
-                : 'Hãy dùng ví MetaMask đúc Hộ Chiếu Cây đầu tiên trên mạng thử nghiệm (0đ tiền thật) để ghi nhận quyền sở hữu độc bản của bạn.'}
+                ? 'Mint your first passport with your MetaMask wallet on testnet (0đ gas) to establish your botanical ownership.'
+                : 'Hãy dùng ví MetaMask đúc Hộ Chiếu đầu tiên trên mạng thử nghiệm (0đ tiền thật) để ghi nhận quyền sở hữu độc bản của bạn.'}
             </p>
           </div>
           {onNavigateToMint && (
@@ -205,7 +320,11 @@ export const BotanicalNftGallery: React.FC<BotanicalNftGalleryProps> = ({
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {passports.map((item) => {
+          {filteredPassports.map((item) => {
+            const nftClass = item.nft_class || inferNftClassFromPassport(item);
+            const classConfig = getNftClassConfig(nftClass);
+            const stageLabel = classConfig.evolutionStages[(item.evolution_stage || 1) - 1] || 'Giai đoạn 1';
+
             const blockscoutUrl = item.network.includes('Base')
               ? `https://base-sepolia.blockscout.com/token/${item.contract_address}/instance/${item.token_id}`
               : `https://eth-sepolia.blockscout.com/token/${item.contract_address}/instance/${item.token_id}`;
@@ -229,14 +348,14 @@ export const BotanicalNftGallery: React.FC<BotanicalNftGalleryProps> = ({
                   />
                   
                   {/* Badge Token ID & Status */}
-                  <div className="absolute top-3 left-3 flex items-center gap-1.5">
+                  <div className="absolute top-3 left-3 flex items-center gap-1.5 flex-wrap">
                     <span className="px-2.5 py-1 rounded-xl bg-forest-950/85 backdrop-blur-md text-amber-300 font-mono font-bold text-xs border border-amber-500/40 shadow-sm flex items-center gap-1">
-                      <Sparkles className="w-3 h-3 text-amber-400" />
+                      <span>{classConfig.icon}</span>
                       <span>#{item.token_id}</span>
                     </span>
                     <span className="px-2.5 py-1 rounded-xl bg-emerald-950/85 backdrop-blur-md text-emerald-300 font-semibold text-[10px] border border-emerald-500/40 shadow-sm flex items-center gap-1">
                       <ShieldCheck className="w-3 h-3 text-emerald-400" />
-                      <span>{isEn ? 'Master Original' : 'Độc Bản Gốc'}</span>
+                      <span>{nftClass === 'geo_forest_10000m2' ? `Lô Rừng #${item.lot_number || item.token_id}` : (isEn ? 'Master Original' : 'Độc Bản Gốc')}</span>
                     </span>
                   </div>
 
@@ -252,6 +371,10 @@ export const BotanicalNftGallery: React.FC<BotanicalNftGalleryProps> = ({
                 <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
                   <div className="space-y-2">
                     <div>
+                      <div className="flex items-center gap-1.5 text-[11px] font-bold text-emerald-600 dark:text-emerald-400 pb-0.5">
+                        <span>{classConfig.icon}</span>
+                        <span>{classConfig.name}</span>
+                      </div>
                       <h4 className="font-serif font-bold text-base sm:text-lg text-forest-900 dark:text-cream-100 line-clamp-1">
                         {item.plant_name}
                       </h4>
@@ -260,14 +383,12 @@ export const BotanicalNftGallery: React.FC<BotanicalNftGalleryProps> = ({
                       </p>
                     </div>
 
-                    {/* Tiến trình sinh trưởng 3 giai đoạn */}
+                    {/* Tiến trình sinh trưởng / phát triển theo lớp NFT */}
                     <div className="space-y-1.5 pt-1">
                       <div className="flex items-center justify-between text-[11px]">
-                        <span className="text-gray-500 dark:text-gray-400 font-medium">Giai đoạn sinh học:</span>
+                        <span className="text-gray-500 dark:text-gray-400 font-medium">Tiến trình {classConfig.shortName}:</span>
                         <span className="font-bold text-amber-600 dark:text-amber-400">
-                          {item.evolution_stage === 1 && '1/3 - Mầm Non'}
-                          {item.evolution_stage === 2 && '2/3 - Sinh Trưởng Thân Lá'}
-                          {item.evolution_stage === 3 && '3/3 - Ra Hoa Kết Trái'}
+                          {item.evolution_stage}/3 - {stageLabel}
                         </span>
                       </div>
                       <div className="w-full bg-forest-100 dark:bg-charcoal-700 h-2 rounded-full overflow-hidden flex gap-0.5">
@@ -275,6 +396,11 @@ export const BotanicalNftGallery: React.FC<BotanicalNftGalleryProps> = ({
                         <div className={`h-full flex-1 rounded-full ${item.evolution_stage >= 2 ? 'bg-teal-500' : 'bg-transparent'}`} />
                         <div className={`h-full flex-1 rounded-full ${item.evolution_stage >= 3 ? 'bg-amber-500' : 'bg-transparent'}`} />
                       </div>
+                      {nftClass === 'geo_forest_10000m2' && (
+                        <div className="text-[10px] text-emerald-600 dark:text-emerald-400 font-mono flex items-center gap-1 pt-0.5">
+                          <span>🌲 10.000 m² (1 ha) bảo tồn sinh thái</span>
+                        </div>
+                      )}
                     </div>
 
                     {/* Bằng chứng mật mã học SHA-256 */}
@@ -333,7 +459,7 @@ export const BotanicalNftGallery: React.FC<BotanicalNftGalleryProps> = ({
                         className="flex-1 py-1.5 px-2.5 rounded-xl bg-forest-100 dark:bg-charcoal-800 hover:bg-forest-200 dark:hover:bg-charcoal-700 text-forest-800 dark:text-forest-200 text-[11px] font-medium transition flex items-center justify-center gap-1 border border-forest-200 dark:border-forest-700 cursor-pointer"
                       >
                         <Printer className="w-2.5 h-2.5" />
-                        <span>{isEn ? 'Tag Card' : 'Thẻ Cây'}</span>
+                        <span>{isEn ? 'Tag Card' : 'Chứng Nhận'}</span>
                       </button>
                     </div>
                   </div>
@@ -345,63 +471,75 @@ export const BotanicalNftGallery: React.FC<BotanicalNftGalleryProps> = ({
       )}
 
       {/* Modal Xem Chi Tiết Thẻ Cây & In Hộ Chiếu */}
-      {selectedPassport && (
-        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-charcoal-900 rounded-3xl max-w-md w-full p-6 border border-amber-500/40 shadow-2xl space-y-4 animate-in fade-in zoom-in-95">
-            <div className="flex items-center justify-between pb-3 border-b border-forest-100 dark:border-forest-800">
-              <span className="font-bold text-sm text-forest-900 dark:text-white flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4 text-amber-500" />
-                <span>Hộ Chiếu Thực Vật Số #{selectedPassport.token_id}</span>
-              </span>
-              <button
-                onClick={() => setSelectedPassport(null)}
-                className="text-gray-400 hover:text-gray-600 dark:hover:text-white text-xs font-bold"
-              >
-                ✕ Đóng
-              </button>
-            </div>
+      {selectedPassport && (() => {
+        const selClass = selectedPassport.nft_class || inferNftClassFromPassport(selectedPassport);
+        const selConfig = getNftClassConfig(selClass);
+        const selStageLabel = selConfig.evolutionStages[(selectedPassport.evolution_stage || 1) - 1] || 'Giai đoạn 1';
 
-            <div className="text-center space-y-3">
-              <img
-                src={selectedPassport.image_url}
-                alt={selectedPassport.plant_name}
-                className="w-48 h-48 mx-auto rounded-2xl object-cover border-2 border-amber-500/50 shadow-md"
-              />
-              <div>
-                <h4 className="font-serif font-bold text-lg text-forest-900 dark:text-cream-100">
-                  {selectedPassport.plant_name}
-                </h4>
-                <p className="text-xs italic text-forest-600 dark:text-forest-400">
-                  {selectedPassport.scientific_name}
-                </p>
+        return (
+          <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-4">
+            <div className="bg-white dark:bg-charcoal-900 rounded-3xl max-w-md w-full p-6 border border-amber-500/40 shadow-2xl space-y-4 animate-in fade-in zoom-in-95">
+              <div className="flex items-center justify-between pb-3 border-b border-forest-100 dark:border-forest-800">
+                <span className="font-bold text-sm text-forest-900 dark:text-white flex items-center gap-1.5">
+                  <span>{selConfig.icon}</span>
+                  <span>{selConfig.certificateTitle} #{selectedPassport.token_id}</span>
+                </span>
+                <button
+                  onClick={() => setSelectedPassport(null)}
+                  className="text-gray-400 hover:text-gray-600 dark:hover:text-white text-xs font-bold"
+                >
+                  ✕ Đóng
+                </button>
+              </div>
+
+              <div className="text-center space-y-3">
+                <img
+                  src={selectedPassport.image_url}
+                  alt={selectedPassport.plant_name}
+                  className="w-48 h-48 mx-auto rounded-2xl object-cover border-2 border-amber-500/50 shadow-md"
+                />
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+                    {selConfig.name}
+                  </span>
+                  <h4 className="font-serif font-bold text-lg text-forest-900 dark:text-cream-100">
+                    {selectedPassport.plant_name}
+                  </h4>
+                  <p className="text-xs italic text-forest-600 dark:text-forest-400">
+                    {selectedPassport.scientific_name}
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-forest-50 dark:bg-charcoal-800 p-3 rounded-2xl text-xs space-y-1 font-mono text-gray-600 dark:text-gray-300">
+                <div>Chủ nhân: <span className="text-emerald-500">{selectedPassport.creator_username ? `@${selectedPassport.creator_username}` : selectedPassport.owner_address}</span></div>
+                <div>Sổ cái: <span className="text-amber-500">{selectedPassport.network}</span></div>
+                <div>Tiến trình: <span className="text-teal-400">{selectedPassport.evolution_stage}/3 ({selStageLabel})</span></div>
+                {selClass === 'geo_forest_10000m2' && (
+                  <div>Quy mô: <span className="text-emerald-400 font-bold">10.000 m² (1 ha) • Lô #{selectedPassport.lot_number || selectedPassport.token_id}</span></div>
+                )}
+                <div className="truncate">SHA-256: {selectedPassport.image_sha256}</div>
+              </div>
+
+              <div className="flex gap-2">
+                <button
+                  onClick={() => window.print()}
+                  className="flex-1 py-2 rounded-xl bg-forest-900 hover:bg-forest-950 text-white text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  <Printer className="w-3.5 h-3.5" />
+                  <span>{isEn ? 'Print Certificate' : 'In Chứng Nhận Số'}</span>
+                </button>
+                <button
+                  onClick={() => setSelectedPassport(null)}
+                  className="py-2 px-4 rounded-xl bg-gray-200 dark:bg-charcoal-700 text-gray-800 dark:text-gray-200 text-xs font-bold transition cursor-pointer"
+                >
+                  {isEn ? 'Close' : 'Đóng'}
+                </button>
               </div>
             </div>
-
-            <div className="bg-forest-50 dark:bg-charcoal-800 p-3 rounded-2xl text-xs space-y-1 font-mono text-gray-600 dark:text-gray-300">
-              <div>Chủ nhân: <span className="text-emerald-500">{selectedPassport.owner_address}</span></div>
-              <div>Sổ cái: <span className="text-amber-500">{selectedPassport.network}</span></div>
-              <div>Giai đoạn: <span className="text-teal-400">{selectedPassport.evolution_stage}/3</span></div>
-              <div className="truncate">SHA-256: {selectedPassport.image_sha256}</div>
-            </div>
-
-            <div className="flex gap-2">
-              <button
-                onClick={() => window.print()}
-                className="flex-1 py-2 rounded-xl bg-forest-900 hover:bg-forest-950 text-white text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer"
-              >
-                <Printer className="w-3.5 h-3.5" />
-                <span>In Thẻ Cây</span>
-              </button>
-              <button
-                onClick={() => setSelectedPassport(null)}
-                className="py-2 px-4 rounded-xl bg-gray-200 dark:bg-charcoal-700 text-gray-800 dark:text-gray-200 text-xs font-bold transition cursor-pointer"
-              >
-                Đóng
-              </button>
-            </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
     </div>
   );
 };

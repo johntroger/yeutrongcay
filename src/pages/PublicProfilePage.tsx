@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, Link, Navigate, useNavigate } from 'react-router-dom';
 import {
   Sparkles,
@@ -27,6 +27,7 @@ import {
 import { UserProfile } from '../types';
 import { useLanguage } from '../context/LanguageContext';
 import { useSEO } from '../utils/useSEO';
+import { getNftClassConfig, inferNftClassFromPassport } from '../config/ecosystemRegistry';
 
 const RESERVED_ROUTES = [
   'thao-duoc',
@@ -66,6 +67,34 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
   const [profileConfig, setProfileConfig] = useState<UserPublicProfileConfig>(() =>
     plantPassportRegistryService.getPublicProfile(cleanHandle)
   );
+  const [selectedClassTab, setSelectedClassTab] = useState<string>('all');
+
+  const classCounts = useMemo(() => {
+    const counts: Record<string, number> = {
+      all: passports.length,
+      botanical: 0,
+      space_method: 0,
+      eco_invention: 0,
+      culinary_recipe: 0,
+      geo_forest_10000m2: 0,
+      forestAreaM2: 0
+    };
+    passports.forEach(p => {
+      const cls = p.nft_class || inferNftClassFromPassport(p);
+      if (counts[cls] !== undefined) {
+        counts[cls]++;
+        if (cls === 'geo_forest_10000m2') {
+          counts.forestAreaM2 += 10000;
+        }
+      }
+    });
+    return counts;
+  }, [passports]);
+
+  const filteredPassports = useMemo(() => {
+    if (selectedClassTab === 'all') return passports;
+    return passports.filter(p => (p.nft_class || inferNftClassFromPassport(p)) === selectedClassTab);
+  }, [passports, selectedClassTab]);
 
   // Modal chỉnh sửa hồ sơ 1 lần duy nhất
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -344,10 +373,10 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
             </div>
           </div>
 
-          {/* Thanh thống kê nhanh */}
+          {/* Thanh thống kê nhanh 5 lớp tài sản */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-8 pt-6 border-t border-forest-800/80">
             <div className="bg-forest-950/60 p-3 rounded-2xl border border-forest-800">
-              <span className="text-[11px] text-gray-400 block">Cây Độc Bản Sở Hữu</span>
+              <span className="text-[11px] text-gray-400 block">Tổng Tài Sản NFT</span>
               <span className="text-2xl font-bold font-serif text-amber-300">{passports.length}</span>
             </div>
             <div className="bg-forest-950/60 p-3 rounded-2xl border border-forest-800">
@@ -359,9 +388,29 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
               <span className="text-xs font-semibold text-white">ERC-721 OpenZeppelin</span>
             </div>
             <div className="bg-forest-950/60 p-3 rounded-2xl border border-forest-800">
-              <span className="text-[11px] text-gray-400 block">Quy Tắc Độc Quyền</span>
-              <span className="text-xs font-semibold text-teal-300">Không Cho Phép Đúc Lại</span>
+              <span className="text-[11px] text-gray-400 block">Quy Tắc Độc Bản</span>
+              <span className="text-xs font-semibold text-teal-300">Chống Đúc Lại Tuyệt Đối</span>
             </div>
+          </div>
+
+          {/* Huy hiệu chi tiết theo 5 lớp NFT */}
+          <div className="mt-4 pt-3 border-t border-forest-800/40 flex flex-wrap items-center gap-2 text-xs">
+            <span className="text-forest-400 text-[11px]">Phân bổ bộ sưu tập:</span>
+            <span className="px-2.5 py-1 rounded-xl bg-forest-950/80 border border-emerald-500/30 text-emerald-300 font-medium">
+              🌱 {classCounts.botanical} Thực vật
+            </span>
+            <span className="px-2.5 py-1 rounded-xl bg-forest-950/80 border border-teal-500/30 text-teal-300 font-medium">
+              📐 {classCounts.space_method} Không gian
+            </span>
+            <span className="px-2.5 py-1 rounded-xl bg-forest-950/80 border border-lime-500/30 text-lime-300 font-medium">
+              ♻️ {classCounts.eco_invention} Sáng chế
+            </span>
+            <span className="px-2.5 py-1 rounded-xl bg-forest-950/80 border border-amber-500/30 text-amber-300 font-medium">
+              🍵 {classCounts.culinary_recipe} Bí phương
+            </span>
+            <span className="px-2.5 py-1 rounded-xl bg-forest-950/80 border border-emerald-400/30 text-emerald-200 font-medium">
+              🌲 {classCounts.geo_forest_10000m2} Lô Rừng ({classCounts.forestAreaM2.toLocaleString('vi-VN')} m² ~ {(classCounts.forestAreaM2 / 10000).toLocaleString('vi-VN')} ha)
+            </span>
           </div>
         </div>
 
@@ -373,30 +422,98 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
               Tuyên ngôn Độc Bản Công Khai:
             </span>
             <p>
-              Tất cả các giống cây trong bộ sưu tập này đã được cấp Hộ Chiếu Số độc quyền cho nhà vườn{' '}
-              <strong>@{effectiveHandle}</strong>. Trong thế giới của <strong>yeutrongcay.com</strong>, bất kỳ ai khác cố tình đúc lại giống cây hoặc mã ảnh này đều bị hệ thống tự động loại bỏ và không được phép hiển thị trên hồ sơ cá nhân.
+              Tất cả các tài sản trong bộ sưu tập này đã được cấp Hộ Chiếu Số độc quyền cho nhà vườn{' '}
+              <strong>@{effectiveHandle}</strong>. Trong thế giới của <strong>yeutrongcay.com</strong>, bất kỳ ai khác cố tình đúc lại giống cây hoặc mã ảnh này đều bị hệ thống tự động loại bỏ và không được phép hiển thị trên hồ sơ cá nhân. Riêng các Lô Rừng Sinh Thái (10.000 m²/lô) được bảo trợ theo toạ độ thực địa.
             </p>
           </div>
         </div>
 
         {/* 3. Lưới Trưng Bày Gallery Công Khai (Public Living Botanical NFT Gallery) */}
         <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg sm:text-xl font-serif font-bold text-forest-950 dark:text-cream-100 flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-amber-500" />
-              <span>Bộ Sưu Tập Hộ Chiếu Thực Vật Số Độc Bản ({passports.length})</span>
-            </h2>
-            <span className="text-xs text-gray-500 font-mono">
-              Hiển thị công khai cho mọi người xem
-            </span>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h2 className="text-lg sm:text-xl font-serif font-bold text-forest-950 dark:text-cream-100 flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-amber-500" />
+                <span>Bộ Sưu Tập NFT Độc Bản ({passports.length})</span>
+              </h2>
+              <span className="text-xs text-gray-500 font-mono">
+                Hiển thị công khai cho mọi người xem • Phân loại 5 lớp tài sản
+              </span>
+            </div>
+
+            {/* 5-Tab Quick Filter */}
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full scrollbar-none">
+              <button
+                onClick={() => setSelectedClassTab('all')}
+                className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition cursor-pointer ${
+                  selectedClassTab === 'all'
+                    ? 'bg-forest-900 text-white dark:bg-amber-500 dark:text-forest-950 shadow'
+                    : 'bg-white dark:bg-charcoal-800 text-forest-700 dark:text-forest-300 hover:bg-forest-50 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-800'
+                }`}
+              >
+                Tất cả ({passports.length})
+              </button>
+              <button
+                onClick={() => setSelectedClassTab('botanical')}
+                className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition cursor-pointer ${
+                  selectedClassTab === 'botanical'
+                    ? 'bg-forest-900 text-white dark:bg-amber-500 dark:text-forest-950 shadow'
+                    : 'bg-white dark:bg-charcoal-800 text-forest-700 dark:text-forest-300 hover:bg-forest-50 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-800'
+                }`}
+              >
+                🌱 Thực Vật ({classCounts.botanical})
+              </button>
+              <button
+                onClick={() => setSelectedClassTab('space_method')}
+                className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition cursor-pointer ${
+                  selectedClassTab === 'space_method'
+                    ? 'bg-forest-900 text-white dark:bg-amber-500 dark:text-forest-950 shadow'
+                    : 'bg-white dark:bg-charcoal-800 text-forest-700 dark:text-forest-300 hover:bg-forest-50 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-800'
+                }`}
+              >
+                📐 Không Gian ({classCounts.space_method})
+              </button>
+              <button
+                onClick={() => setSelectedClassTab('eco_invention')}
+                className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition cursor-pointer ${
+                  selectedClassTab === 'eco_invention'
+                    ? 'bg-forest-900 text-white dark:bg-amber-500 dark:text-forest-950 shadow'
+                    : 'bg-white dark:bg-charcoal-800 text-forest-700 dark:text-forest-300 hover:bg-forest-50 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-800'
+                }`}
+              >
+                ♻️ Sáng Chế ({classCounts.eco_invention})
+              </button>
+              <button
+                onClick={() => setSelectedClassTab('culinary_recipe')}
+                className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition cursor-pointer ${
+                  selectedClassTab === 'culinary_recipe'
+                    ? 'bg-forest-900 text-white dark:bg-amber-500 dark:text-forest-950 shadow'
+                    : 'bg-white dark:bg-charcoal-800 text-forest-700 dark:text-forest-300 hover:bg-forest-50 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-800'
+                }`}
+              >
+                🍵 Bí Phương ({classCounts.culinary_recipe})
+              </button>
+              <button
+                onClick={() => setSelectedClassTab('geo_forest_10000m2')}
+                className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition cursor-pointer ${
+                  selectedClassTab === 'geo_forest_10000m2'
+                    ? 'bg-forest-900 text-white dark:bg-amber-500 dark:text-forest-950 shadow'
+                    : 'bg-white dark:bg-charcoal-800 text-forest-700 dark:text-forest-300 hover:bg-forest-50 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-800'
+                }`}
+              >
+                🌲 Lô Rừng ({classCounts.geo_forest_10000m2})
+              </button>
+            </div>
           </div>
 
-          {passports.length === 0 ? (
+          {filteredPassports.length === 0 ? (
             <div className="bg-white dark:bg-charcoal-900 rounded-3xl p-12 text-center border border-forest-100 dark:border-forest-800 space-y-4 shadow-sm">
               <Leaf className="w-12 h-12 text-forest-400 mx-auto animate-bounce" />
               <div className="space-y-1 max-w-md mx-auto">
                 <h3 className="text-base font-bold text-forest-900 dark:text-white">
-                  Chưa có Hộ Chiếu Cây nào được công bố
+                  {selectedClassTab === 'all'
+                    ? 'Chưa có Hộ Chiếu NFT nào được công bố'
+                    : 'Chưa có tài sản nào thuộc nhóm này'}
                 </h3>
                 <p className="text-xs text-gray-500">
                   Nhà vườn này chưa đúc Hộ Chiếu Số hoặc các bản ghi đang trong quá trình đồng bộ hóa on-chain.
@@ -412,7 +529,11 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {passports.map((item) => {
+              {filteredPassports.map((item) => {
+                const nftClass = item.nft_class || inferNftClassFromPassport(item);
+                const classConfig = getNftClassConfig(nftClass);
+                const stageLabel = classConfig.evolutionStages[(item.evolution_stage || 1) - 1] || 'Giai đoạn 1';
+
                 const blockscoutUrl = item.network.includes('Base')
                   ? `https://base-sepolia.blockscout.com/token/${item.contract_address}/instance/${item.token_id}`
                   : `https://eth-sepolia.blockscout.com/token/${item.contract_address}/instance/${item.token_id}`;
@@ -436,14 +557,14 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
                       />
 
                       {/* Huy hiệu Token ID & Độc Bản */}
-                      <div className="absolute top-3 left-3 flex items-center gap-1.5">
+                      <div className="absolute top-3 left-3 flex items-center gap-1.5 flex-wrap">
                         <span className="px-2.5 py-1 rounded-xl bg-forest-950/85 backdrop-blur-md text-amber-300 font-mono font-bold text-xs border border-amber-500/40 shadow-sm flex items-center gap-1">
-                          <Sparkles className="w-3 h-3 text-amber-400" />
+                          <span>{classConfig.icon}</span>
                           <span>#{item.token_id}</span>
                         </span>
                         <span className="px-2.5 py-1 rounded-xl bg-emerald-950/85 backdrop-blur-md text-emerald-300 font-semibold text-[10px] border border-emerald-500/40 shadow-sm flex items-center gap-1">
                           <ShieldCheck className="w-3 h-3 text-emerald-400" />
-                          <span>Độc Bản Gốc</span>
+                          <span>{nftClass === 'geo_forest_10000m2' ? `Lô Rừng #${item.lot_number || item.token_id}` : 'Độc Bản Gốc'}</span>
                         </span>
                       </div>
 
@@ -458,6 +579,10 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
                     <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
                       <div className="space-y-2">
                         <div>
+                          <div className="flex items-center gap-1.5 text-[11px] font-bold text-emerald-600 dark:text-emerald-400 pb-0.5">
+                            <span>{classConfig.icon}</span>
+                            <span>{classConfig.name}</span>
+                          </div>
                           <h3 className="font-serif font-bold text-base sm:text-lg text-forest-900 dark:text-cream-100 line-clamp-1">
                             {item.plant_name}
                           </h3>
@@ -466,14 +591,12 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
                           </p>
                         </div>
 
-                        {/* Thanh đo sinh trưởng */}
+                        {/* Thanh đo sinh trưởng / tiến trình theo lớp NFT */}
                         <div className="space-y-1.5 pt-1">
                           <div className="flex items-center justify-between text-[11px]">
-                            <span className="text-gray-500 dark:text-gray-400 font-medium">Giai đoạn phát triển:</span>
+                            <span className="text-gray-500 dark:text-gray-400 font-medium">Tiến trình {classConfig.shortName}:</span>
                             <span className="font-bold text-amber-600 dark:text-amber-400">
-                              {item.evolution_stage === 1 && '1/3 - Mầm Non'}
-                              {item.evolution_stage === 2 && '2/3 - Sinh Trưởng Thân Lá'}
-                              {item.evolution_stage === 3 && '3/3 - Ra Hoa Kết Trái'}
+                              {item.evolution_stage}/3 - {stageLabel}
                             </span>
                           </div>
                           <div className="w-full bg-forest-100 dark:bg-charcoal-700 h-2 rounded-full overflow-hidden flex gap-0.5">
@@ -481,6 +604,11 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
                             <div className={`h-full flex-1 rounded-full ${item.evolution_stage >= 2 ? 'bg-teal-500' : 'bg-transparent'}`} />
                             <div className={`h-full flex-1 rounded-full ${item.evolution_stage >= 3 ? 'bg-amber-500' : 'bg-transparent'}`} />
                           </div>
+                          {nftClass === 'geo_forest_10000m2' && (
+                            <div className="text-[10px] text-emerald-600 dark:text-emerald-400 font-mono flex items-center gap-1 pt-0.5">
+                              <span>🌲 10.000 m² (1 ha) bảo tồn sinh thái</span>
+                            </div>
+                          )}
                         </div>
 
                         {/* Mã băm SHA-256 */}
@@ -516,7 +644,7 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
                           target="_blank"
                           rel="noopener noreferrer"
                           className="w-full py-2 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition flex items-center justify-center gap-1.5 shadow-sm"
-                          title="Xem trực tiếp hình ảnh, metadata và thuộc tính cây trên Blockscout Explorer"
+                          title="Xem trực tiếp hình ảnh, metadata và thuộc tính trên Blockscout Explorer"
                         >
                           <Eye className="w-3.5 h-3.5" />
                           <span>Xem Ảnh & Metadata Trên Blockscout</span>
@@ -539,7 +667,7 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
                             className="flex-1 py-1.5 px-2.5 rounded-xl bg-forest-100 dark:bg-charcoal-800 hover:bg-forest-200 dark:hover:bg-charcoal-700 text-forest-800 dark:text-forest-200 text-[11px] font-medium transition flex items-center justify-center gap-1 border border-forest-200 dark:border-forest-700 cursor-pointer"
                           >
                             <Printer className="w-2.5 h-2.5" />
-                            <span>Thẻ Cây</span>
+                            <span>Chứng Nhận</span>
                           </button>
                         </div>
                       </div>
@@ -574,63 +702,75 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
         </div>
 
         {/* Modal Thẻ Cây & Hộ Chiếu */}
-        {selectedPassport && (
-          <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-4">
-            <div className="bg-white dark:bg-charcoal-900 rounded-3xl max-w-md w-full p-6 border border-amber-500/40 shadow-2xl space-y-4 animate-in fade-in zoom-in-95">
-              <div className="flex items-center justify-between pb-3 border-b border-forest-100 dark:border-forest-800">
-                <span className="font-bold text-sm text-forest-900 dark:text-white flex items-center gap-1.5">
-                  <Sparkles className="w-4 h-4 text-amber-500" />
-                  <span>Hộ Chiếu Cây Trồng Số #{selectedPassport.token_id}</span>
-                </span>
-                <button
-                  onClick={() => setSelectedPassport(null)}
-                  className="text-gray-400 hover:text-gray-600 dark:hover:text-white text-xs font-bold"
-                >
-                  ✕ Đóng
-                </button>
-              </div>
+        {selectedPassport && (() => {
+          const selClass = selectedPassport.nft_class || inferNftClassFromPassport(selectedPassport);
+          const selConfig = getNftClassConfig(selClass);
+          const selStageLabel = selConfig.evolutionStages[(selectedPassport.evolution_stage || 1) - 1] || 'Giai đoạn 1';
 
-              <div className="text-center space-y-3">
-                <img
-                  src={selectedPassport.image_url}
-                  alt={selectedPassport.plant_name}
-                  className="w-48 h-48 mx-auto rounded-2xl object-cover border-2 border-amber-500/50 shadow-md"
-                />
-                <div>
-                  <h4 className="font-serif font-bold text-lg text-forest-900 dark:text-cream-100">
-                    {selectedPassport.plant_name}
-                  </h4>
-                  <p className="text-xs italic text-forest-600 dark:text-forest-400">
-                    {selectedPassport.scientific_name}
-                  </p>
+          return (
+            <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-4">
+              <div className="bg-white dark:bg-charcoal-900 rounded-3xl max-w-md w-full p-6 border border-amber-500/40 shadow-2xl space-y-4 animate-in fade-in zoom-in-95">
+                <div className="flex items-center justify-between pb-3 border-b border-forest-100 dark:border-forest-800">
+                  <span className="font-bold text-sm text-forest-900 dark:text-white flex items-center gap-1.5">
+                    <span>{selConfig.icon}</span>
+                    <span>{selConfig.certificateTitle} #{selectedPassport.token_id}</span>
+                  </span>
+                  <button
+                    onClick={() => setSelectedPassport(null)}
+                    className="text-gray-400 hover:text-gray-600 dark:hover:text-white text-xs font-bold"
+                  >
+                    ✕ Đóng
+                  </button>
+                </div>
+
+                <div className="text-center space-y-3">
+                  <img
+                    src={selectedPassport.image_url}
+                    alt={selectedPassport.plant_name}
+                    className="w-48 h-48 mx-auto rounded-2xl object-cover border-2 border-amber-500/50 shadow-md"
+                  />
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+                      {selConfig.name}
+                    </span>
+                    <h4 className="font-serif font-bold text-lg text-forest-900 dark:text-cream-100">
+                      {selectedPassport.plant_name}
+                    </h4>
+                    <p className="text-xs italic text-forest-600 dark:text-forest-400">
+                      {selectedPassport.scientific_name}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="bg-forest-50 dark:bg-charcoal-800 p-3 rounded-2xl text-xs space-y-1 font-mono text-gray-600 dark:text-gray-300">
+                  <div>Chủ nhân: <span className="text-emerald-500">{selectedPassport.creator_username ? `@${selectedPassport.creator_username}` : selectedPassport.owner_address}</span></div>
+                  <div>Sổ cái: <span className="text-amber-500">{selectedPassport.network}</span></div>
+                  <div>Tiến trình: <span className="text-teal-400">{selectedPassport.evolution_stage}/3 ({selStageLabel})</span></div>
+                  {selClass === 'geo_forest_10000m2' && (
+                    <div>Quy mô: <span className="text-emerald-400 font-bold">10.000 m² (1 ha) • Lô #{selectedPassport.lot_number || selectedPassport.token_id}</span></div>
+                  )}
+                  <div className="truncate">SHA-256: {selectedPassport.image_sha256}</div>
+                </div>
+
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => window.print()}
+                    className="flex-1 py-2 rounded-xl bg-forest-900 hover:bg-forest-950 text-white text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer"
+                  >
+                    <Printer className="w-3.5 h-3.5" />
+                    <span>In Chứng Nhận Số</span>
+                  </button>
+                  <button
+                    onClick={() => setSelectedPassport(null)}
+                    className="py-2 px-4 rounded-xl bg-gray-200 dark:bg-charcoal-700 text-gray-800 dark:text-gray-200 text-xs font-bold transition cursor-pointer"
+                  >
+                    Đóng
+                  </button>
                 </div>
               </div>
-
-              <div className="bg-forest-50 dark:bg-charcoal-800 p-3 rounded-2xl text-xs space-y-1 font-mono text-gray-600 dark:text-gray-300">
-                <div>Chủ nhân: <span className="text-emerald-500">{selectedPassport.creator_username ? `@${selectedPassport.creator_username}` : selectedPassport.owner_address}</span></div>
-                <div>Sổ cái: <span className="text-amber-500">{selectedPassport.network}</span></div>
-                <div>Giai đoạn: <span className="text-teal-400">{selectedPassport.evolution_stage}/3</span></div>
-                <div className="truncate">SHA-256: {selectedPassport.image_sha256}</div>
-              </div>
-
-              <div className="flex gap-2">
-                <button
-                  onClick={() => window.print()}
-                  className="flex-1 py-2 rounded-xl bg-forest-900 hover:bg-forest-950 text-white text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer"
-                >
-                  <Printer className="w-3.5 h-3.5" />
-                  <span>In Thẻ Cây</span>
-                </button>
-                <button
-                  onClick={() => setSelectedPassport(null)}
-                  className="py-2 px-4 rounded-xl bg-gray-200 dark:bg-charcoal-700 text-gray-800 dark:text-gray-200 text-xs font-bold transition cursor-pointer"
-                >
-                  Đóng
-                </button>
-              </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
 
         {/* Modal Chỉnh Sửa Thông Tin Hồ Sơ Cá Nhân (Thiết kế gọn vừa màn hình, chỉ sửa duy nhất 1 lần) */}
         {isEditModalOpen && (

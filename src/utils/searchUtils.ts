@@ -29,7 +29,17 @@ const VIETNAMESE_STOP_PREFIXES = [
   'quả ', 'qua ',
   'củ ', 'cu ',
   'hoa ',
-  'bệnh ', 'benh '
+  'bệnh ', 'benh ',
+  'rừng ', 'rung ',
+  'vườn quốc gia ', 'vuon quoc gia ',
+  'vqg ',
+  'khu bảo tồn ', 'khu bao ton ',
+  'bản vẽ ', 'ban ve ',
+  'mô hình ', 'mo hinh ',
+  'sáng chế ', 'sang che ',
+  'công thức ', 'cong thuc ',
+  'trà ', 'tra ',
+  'siro '
 ];
 
 /**

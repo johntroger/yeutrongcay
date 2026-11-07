@@ -4,6 +4,7 @@ import { UserGardenPlant, UserProfile } from '../types/index.ts';
 import { SEED_PLANTS } from '../data/plants.ts';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { localizePlant } from '../i18n/plantTranslations.ts';
+import { getCategoryConfig } from '../config/ecosystemRegistry.ts';
 
 interface MyGardenModalProps {
   isOpen: boolean;
@@ -153,9 +154,10 @@ export const MyGardenModal: React.FC<MyGardenModalProps> = ({
                 >
                   {SEED_PLANTS.map((s) => {
                     const localized = localizePlant(s, language);
+                    const catCfg = getCategoryConfig(s.category);
                     return (
                       <option key={s.id} value={s.id}>
-                        {localized.common_name} ({s.category === 'herb' ? (isEn ? 'Herb' : 'Thảo dược') : s.category === 'fruit' ? (isEn ? 'Fruit' : 'Ăn quả') : (isEn ? 'Ornamental' : 'Cảnh')})
+                        {localized.common_name} ({catCfg.icon} {isEn ? catCfg.labelEn : catCfg.labelVi})
                       </option>
                     );
                   })}

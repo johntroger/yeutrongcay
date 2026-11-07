@@ -3,7 +3,41 @@
  * Tuân thủ 15 móc nối tương thích (H1 - H15) từ KE_HOACH_MILESTONES.md
  */
 
-export type PlantCategory = 'herb' | 'fruit' | 'ornamental';
+export type PlantCategory = 'herb' | 'fruit' | 'ornamental' | 'space' | 'recycle' | 'culinary' | 'forest';
+
+export type NftAssetClass = 'botanical' | 'space_method' | 'eco_invention' | 'culinary_recipe' | 'geo_forest_10000m2';
+
+export interface ForestGeoSpec {
+  total_area_m2: number;      // Tổng diện tích thực tế tính bằng m² (VD: 224,080,000 m²)
+  unit_area_m2: number;       // Mặc định 10,000 m² / 1 NFT (1 ha)
+  max_nft_supply: number;     // Tổng số Lô NFT tối đa = Math.floor(total_area_m2 / 10000)
+  center_lat: number;         // Vĩ độ tâm khu vực rừng
+  center_lng: number;         // Kinh độ tâm khu vực rừng
+  radius_km: number;          // Bán kính khu vực rừng cho phép đúc NFT (km)
+  province: string;           // Tỉnh / Vùng sinh thái
+  unesco_or_status: string;   // Danh hiệu bảo tồn (UNESCO / Ramsar / Vườn Quốc Gia)
+}
+
+export interface PlantHeartReview {
+  id: string;
+  plant_slug: string;
+  author_name: string;
+  author_handle?: string;
+  author_wallet?: string;
+  is_nft_owner?: boolean;      // Được xác thực chéo với sổ cái NFT trên Server
+  hearts: 1 | 2 | 3 | 4 | 5;   // Thang điểm 1 đến 5 Trái Tim Đỏ ❤️
+  context_tag?: string;        // Thẻ ngữ cảnh thực tế (VD: 'Sân thượng', 'Ban công', 'Đã làm thử', 'Tại rừng')
+  comment: string;
+  image_urls: string[];        // Tối đa 2 ảnh tĩnh đã nén WebP (Cấm tuyệt đối video)
+  images?: string[];           // Alias hỗ trợ truyền payload
+  created_at: string;
+}
+
+export interface PlantHeartSummary {
+  average_hearts: number;      // VD: 4.9
+  total_reviews: number;       // Tổng lượt thả tim / bình luận
+  photo_count: number;         // Số bình luận có đính kèm ảnh
+}
 
 export interface RegionalSeason {
   north: string;     // Lịch mùa miền Bắc
@@ -74,6 +108,9 @@ export interface Plant {
   subcategory?: string;         // Phân nhóm phụ (ví dụ: Trị ho & Hô hấp, Lọc khí NASA, Cam chanh...)
   collection_slugs?: string[];  // Danh sách slug bộ sưu tập/chuyên đề chứa cây này
   tags: string[];
+  nft_class?: NftAssetClass;    // Hạng tài sản NFT tương ứng
+  related_plant_ids?: string[]; // Liên kết chéo sang cây nguyên liệu/liên quan
+  forest_spec?: ForestGeoSpec;  // Thông số địa lý & quỹ diện tích cho Rừng (10.000m²/NFT)
 }
 
 export interface PlantCollection {

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Plant } from '../types/index.ts';
-import { Sun, Droplets, AlertCircle, ArrowUpRight, ShieldCheck, Sparkles } from 'lucide-react';
+import { Plant, PlantHeartSummary } from '../types/index.ts';
+import { Sun, Droplets, AlertCircle, ArrowUpRight, ShieldCheck, Sparkles, MapPin } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { localizePlant } from '../i18n/plantTranslations.ts';
 import { getPlantSubcategory } from '../data/collections.ts';
 import { plantPassportRegistryService, RegisteredPlantPassport } from '../services/plantPassportRegistryService.ts';
+import { plantReviewService } from '../services/plantReviewService.ts';
+import { getCategoryConfig, getNftClassConfig, resolvePlantNftClass } from '../config/ecosystemRegistry.ts';
 
 interface PlantCardProps {
   plant: Plant;
@@ -18,6 +20,9 @@ export const PlantCard: React.FC<PlantCardProps> = ({ plant: rawPlant, onSelect,
   const { language, t, isEn } = useLanguage();
   const plant = localizePlant(rawPlant, language);
   const subcategory = getPlantSubcategory(plant.id);
+  const categoryConfig = getCategoryConfig(plant.category);
+  const nftClass = resolvePlantNftClass(plant);
+  const nftClassConfig = getNftClassConfig(nftClass);
 
   const [mintedPassport, setMintedPassport] = useState<RegisteredPlantPassport | undefined>(() =>
     plantPassportRegistryService.findPassportForPlant({
@@ -26,6 +31,20 @@ export const PlantCard: React.FC<PlantCardProps> = ({ plant: rawPlant, onSelect,
       sha256: rawPlant.image_sha256,
     })
   );
+
+  const [heartSummary, setHeartSummary] = useState<PlantHeartSummary>(() =>
+    plantReviewService.getCachedSummary(rawPlant.slug)
+  );
+
+  useEffect(() => {
+    plantReviewService.fetchAllReviewSummaries().then(() => {
+      setHeartSummary(plantReviewService.getCachedSummary(rawPlant.slug));
+    });
+    const unsub = plantReviewService.subscribe(() => {
+      setHeartSummary(plantReviewService.getCachedSummary(rawPlant.slug));
+    });
+    return unsub;
+  }, [rawPlant.slug]);
 
   useEffect(() => {
     const syncNftStatus = () => {
@@ -49,12 +68,12 @@ export const PlantCard: React.FC<PlantCardProps> = ({ plant: rawPlant, onSelect,
   const sunlightText = t(`plantCard.sunlight.${plant.sunlight}`, plant.sunlight);
   const wateringText = t(`plantCard.watering.${plant.watering}`, plant.watering);
 
-  const categoryLabel =
-    plant.category === 'herb'
-      ? `🌿 ${language === 'en' ? 'Herbs' : 'Thảo Dược'}`
-      : plant.category === 'fruit'
-      ? `🍋 ${language === 'en' ? 'Balcony Fruits' : 'Cây Ăn Trái'}`
-      : `🌸 ${language === 'en' ? 'Ornamentals' : 'Cây Cảnh'}`;
+  const categoryLabel = `${categoryConfig.icon} ${isEn ? categoryConfig.labelEn : categoryConfig.labelVi}`;
+
+  const isForest = plant.category === 'forest' || nftClass === 'geo_forest_10000m2';
+  const forestStats = isForest && plant.forest_spec
+    ? plantPassportRegistryService.getForestMintedAreaStats(plant.slug, plant.forest_spec.total_area_m2)
+    : null;
 
   const handleTagClick = (tag: string, e: React.MouseEvent) => {
     e.preventDefault();
@@ -92,14 +111,38 @@ export const PlantCard: React.FC<PlantCardProps> = ({ plant: rawPlant, onSelect,
         />
 
         {/* Category tag */}
-        <div className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-medium bg-forest-900/80 backdrop-blur-md text-white shadow-sm">
+        <div className={`absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-md shadow-sm ${categoryConfig.badgeColorClass}`}>
           {categoryLabel}
         </div>
 
-        {/* Difficulty stars */}
-        <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full text-xs font-semibold bg-white/90 dark:bg-charcoal-800/90 backdrop-blur-md text-forest-900 dark:text-cream-50 shadow-sm flex items-center gap-1">
-          <span>{t('plantCard.propagation')}</span>
-          <span className="text-herbal-600 dark:text-herbal-400 font-bold">{plant.propagation_difficulty}/5</span>
+        {/* Top right badges: Heart rating & Spec */}
+        <div className="absolute top-3 right-3 flex items-center gap-1.5">
+          {heartSummary.total_reviews > 0 ? (
+            <div
+              title={`${heartSummary.average_hearts.toFixed(1)} / 5 tim (${heartSummary.total_reviews} đánh giá)`}
+              className="px-2.5 py-1 rounded-full text-xs font-bold bg-white/95 dark:bg-charcoal-900/95 backdrop-blur-md text-rose-600 dark:text-rose-400 shadow-sm flex items-center gap-1 border border-rose-200/50 dark:border-rose-900/50"
+            >
+              <span>❤️</span>
+              <span>{heartSummary.average_hearts.toFixed(1)}</span>
+              <span className="text-[10px] text-gray-500 dark:text-gray-400 font-normal">({heartSummary.total_reviews})</span>
+            </div>
+          ) : (
+            <div
+              title={isEn ? 'Be the first to rate with hearts!' : 'Hãy là người đầu tiên thả tim!'}
+              className="px-2 py-1 rounded-full text-[11px] font-semibold bg-white/90 dark:bg-charcoal-800/90 backdrop-blur-md text-rose-500/80 dark:text-rose-400 shadow-sm flex items-center gap-1"
+            >
+              <span>🤍</span>
+              <span className="text-[10px] text-gray-500 font-medium">{isEn ? 'New' : 'Mới'}</span>
+            </div>
+          )}
+
+          {/* Difficulty / Radius */}
+          <div className="px-2.5 py-1 rounded-full text-xs font-semibold bg-white/90 dark:bg-charcoal-800/90 backdrop-blur-md text-forest-900 dark:text-cream-50 shadow-sm flex items-center gap-1">
+            <span>{isForest ? '📍' : t('plantCard.propagation')}</span>
+            <span className="text-herbal-600 dark:text-herbal-400 font-bold">
+              {isForest ? `${plant.forest_spec?.radius_km || 15}km` : `${plant.propagation_difficulty}/5`}
+            </span>
+          </div>
         </div>
 
         {/* Toxicity alert if any */}
@@ -164,18 +207,91 @@ export const PlantCard: React.FC<PlantCardProps> = ({ plant: rawPlant, onSelect,
         {/* Quick Parameters */}
         <div className="pt-3 border-t border-forest-50 dark:border-forest-800/80 space-y-2.5">
           <div className="grid grid-cols-2 gap-2 text-xs text-forest-800 dark:text-forest-200 font-medium">
-            <div className="flex items-center gap-1.5">
-              <Sun className="w-3.5 h-3.5 text-amber-500 shrink-0" />
-              <span className="truncate">{sunlightText}</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Droplets className="w-3.5 h-3.5 text-blue-500 shrink-0" />
-              <span className="truncate">{wateringText}</span>
-            </div>
+            {isForest && plant.forest_spec ? (
+              <>
+                <div className="flex items-center gap-1.5">
+                  <span className="text-teal-600 dark:text-teal-400">🌲</span>
+                  <span className="truncate">{(plant.forest_spec.total_area_m2 / 10000).toLocaleString('vi-VN')} ha</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 text-rose-500 shrink-0" />
+                  <span className="truncate">Tâm ±{plant.forest_spec.radius_km}km</span>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="flex items-center gap-1.5">
+                  <Sun className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                  <span className="truncate">{sunlightText}</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <Droplets className="w-3.5 h-3.5 text-blue-500 shrink-0" />
+                  <span className="truncate">{wateringText}</span>
+                </div>
+              </>
+            )}
           </div>
 
-          {/* Web3 Exclusive NFT Ownership Badge or Mint Button */}
-          {mintedPassport && ownerMeta ? (
+          {/* Forest Quota Progress Bar (For Forest Category) */}
+          {forestStats && plant.forest_spec && (
+            <div className="p-2 rounded-xl bg-teal-50/70 dark:bg-teal-950/30 border border-teal-200/60 dark:border-teal-800/50 space-y-1">
+              <div className="flex items-center justify-between text-[11px] font-semibold text-teal-900 dark:text-teal-200">
+                <span className="flex items-center gap-1">
+                  <span>🌲</span>
+                  <span>{isEn ? 'Conservation Lots (1 ha/lot):' : 'Quỹ Lô Rừng (1 ha/lô):'}</span>
+                </span>
+                <span className="font-mono font-bold text-teal-700 dark:text-teal-300">
+                  {forestStats.mintedCount} / {plant.forest_spec.max_nft_supply}
+                </span>
+              </div>
+              <div className="w-full bg-teal-200/50 dark:bg-teal-900/60 h-1.5 rounded-full overflow-hidden">
+                <div
+                  className="bg-teal-600 dark:bg-teal-400 h-full rounded-full transition-all duration-500"
+                  style={{
+                    width: `${Math.min(
+                      100,
+                      Math.max(
+                        0,
+                        forestStats.maxSupply > 0
+                          ? (forestStats.mintedCount / forestStats.maxSupply) * 100
+                          : 0
+                      )
+                    )}%`,
+                  }}
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Web3 Action Button */}
+          {isForest && forestStats && plant.forest_spec ? (
+            forestStats.isSoldOut ? (
+              <div className="w-full px-3 py-2 rounded-xl bg-gray-100 dark:bg-charcoal-800 text-gray-500 dark:text-gray-400 text-center text-xs font-semibold border border-gray-200 dark:border-gray-700">
+                {isEn ? 'Fully Conserved (100% Minted)' : 'Đã đúc đủ 100% diện tích bảo tồn'}
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  navigate(`/web3-sandbox?mint=${encodeURIComponent(rawPlant.slug)}`);
+                }}
+                title={isEn ? 'Mint a 10,000m² Forest Lot NFT' : 'Đúc 1 Lô Rừng 10.000m² (Yêu cầu có mặt tại tọa độ rừng)'}
+                className="w-full px-3 py-2 rounded-xl bg-teal-700 hover:bg-teal-800 text-white text-left flex items-center justify-between gap-2 transition cursor-pointer shadow-sm group/forest"
+              >
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-bold truncate">
+                  <MapPin className="w-3.5 h-3.5 text-teal-200 group-hover/forest:animate-bounce shrink-0" />
+                  <span className="truncate">
+                    {isEn ? `Mint Lot #${forestStats.mintedCount + 1} (10,000m²)` : `Đúc Lô Rừng #${forestStats.mintedCount + 1} (10.000m²)`}
+                  </span>
+                </span>
+                <span className="text-[10px] font-semibold text-teal-200 group-hover/forest:text-white shrink-0">
+                  {isEn ? 'GPS Check-in →' : 'Tại Rừng →'}
+                </span>
+              </button>
+            )
+          ) : mintedPassport && ownerMeta ? (
             <button
               type="button"
               onClick={(e) => {
@@ -211,15 +327,15 @@ export const PlantCard: React.FC<PlantCardProps> = ({ plant: rawPlant, onSelect,
               }}
               title={
                 isEn
-                  ? 'Be the first to mint the exclusive NFT passport for this plant species'
-                  : 'Đúc NFT độc bản cho loài cây này (Ai tạo trước sở hữu trước)'
+                  ? `Be the first to mint ${nftClassConfig.nameEn}`
+                  : `Đúc NFT ${nftClassConfig.shortName} độc bản (Ai tạo trước sở hữu trước)`
               }
               className="w-full px-3 py-2 rounded-xl bg-forest-50/90 hover:bg-emerald-600 dark:bg-charcoal-800 dark:hover:bg-emerald-600 text-forest-800 hover:text-white dark:text-emerald-300 dark:hover:text-white border border-emerald-500/30 hover:border-emerald-600 text-left flex items-center justify-between gap-2 transition cursor-pointer group/mint"
             >
               <span className="inline-flex items-center gap-1.5 text-[11px] font-bold truncate">
                 <Sparkles className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 group-hover/mint:text-amber-300 shrink-0 transition-colors" />
                 <span className="truncate">
-                  {isEn ? 'Mint Plant NFT (Unclaimed)' : 'Tạo NFT Cây Này (Chưa có chủ)'}
+                  {isEn ? `Mint ${nftClassConfig.shortName}` : `Tạo NFT ${nftClassConfig.shortName}`}
                 </span>
               </span>
               <span className="text-[10px] font-semibold opacity-80 group-hover/mint:opacity-100 shrink-0">

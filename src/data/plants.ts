@@ -3977,6 +3977,292 @@ export const SEED_PLANTS: Plant[] = [
       'Thiết kế vòng nguyệt quế Thường xuân sống (Topiary) trang trí bàn làm việc và quán cà phê.'
     ],
     tags: ['Diệt 78% nấm mốc', 'Lá ngôi sao rủ', 'Trường xuân vĩnh cửu', 'Decor kệ sách']
+  },
+
+  // ==========================================
+  // NHÓM 4: BẢN VẼ KHÔNG GIAN & MÔ HÌNH TRỒNG PHỐ (SPACE)
+  // ==========================================
+  {
+    id: 'space-01',
+    slug: 'ban-ve-vuon-ban-cong-huong-tay-giam-nhiet',
+    common_name: 'Bản Vẽ Vườn Ban Công Hướng Tây Chống Nóng Đa Tầng',
+    scientific_name: 'Urban Architecture Blueprint: West Balcony Thermal Shield',
+    aliases: ['Vườn ban công hướng Tây', 'Giàn cây chắn nắng bê tông', 'Micro-climate Balcony Blueprint'],
+    category: 'space',
+    nft_class: 'space_method',
+    description: 'Thiết kế kiến trúc vườn ban công hướng Tây đa tầng giảm bức xạ nhiệt tường bê tông 4-6°C. Tối ưu vi khí hậu, phân tầng cây ưa nắng - cây che bóng và tích hợp hệ tưới ngấm tiết kiệm nước.',
+    image_url: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=1200&q=80',
+    image_sha256: 'b4f179c3e980a15d2a67e584f29a0b1c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a',
+    sunlight: 'full_sun',
+    watering: 'moderate',
+    propagation_difficulty: 2,
+    growth_time: '1-2 ngày lắp đặt hoàn thiện',
+    container_suitable: true,
+    seasonality: {
+      north: 'Thi công lý tưởng vào đầu hè (tháng 3-5) để kịp thời đón nắng gắt',
+      central: 'Chịu gió Lào và nắng nóng cực đoan trên 40°C',
+      south: 'Chống nóng hiệu quả quanh năm cho căn hộ cao tầng',
+      best_months: [2, 3, 4, 5, 6, 7],
+      warning: 'Tải trọng giá thể ướt phải nhẹ dưới 0.65 kg/L để an toàn kết cấu sàn'
+    },
+    botanical_details: {
+      family: 'Urban Architecture / Ecological Engineering',
+      native_range: 'Đô thị nhiệt đới cao tầng Việt Nam (Hà Nội, TP.HCM, Đà Nẵng)',
+      active_compounds: ['Cách nhiệt vi khí hậu', 'Hấp thụ bức xạ mặt trời', 'Đối lưu không khí', 'Giảm tải bê tông'],
+      soil_ph: '6.0 - 6.8 (Giá thể nhẹ xơ dừa, perlite, phân trùn quế)',
+      ideal_temp: '25°C - 42°C',
+      pot_size: 'Chậu composite chữ nhật dài 60-80cm đặt sát lan can'
+    },
+    how_to_grow_steps: [
+      {
+        step: 1,
+        title: 'Khảo sát góc nắng và kết cấu chịu tải',
+        instruction: 'Đo kích thước ban công (tối thiểu 2-4m²). Xác định hướng nắng chiếu xiên từ 13h - 17h để bố trí giàn leo ngoài cùng.'
+      },
+      {
+        step: 2,
+        title: 'Phân tầng thực vật theo nhu cầu quang hợp',
+        instruction: 'Tầng ngoài đón nắng gắt: Cóc Thái, Ổi lê, Cúc tần Ấn Độ. Tầng giữa đón nắng tán xạ: Tía tô, Húng chanh. Tầng dưới sát sàn: Lô hội, Lá lốt.'
+      },
+      {
+        step: 3,
+        title: 'Lắp đặt hệ thống tưới ngấm bấc thẩm thấu',
+        instruction: 'Đi ống cấp nước tự động ngắt phao cơ hoặc dây bấc cotton dẫn ẩm liên tục, hạn chế thất thoát bốc hơi nước giữa trưa hè.'
+      }
+    ],
+    faqs: [
+      {
+        question: 'Ban công hướng Tây trồng cây gì không bị cháy lá?',
+        answer: 'Nên ưu tiên cây lá dày chịu hạn như Cóc Thái, ổi lê lùn, cúc tần Ấn Độ rủ lan can, kết hợp hoa giấy và hương thảo.'
+      },
+      {
+        question: 'Tải trọng ban công chung cư chịu được bao nhiêu chậu cây?',
+        answer: 'Tiêu chuẩn ban công chung cư chịu tải an toàn 150-200 kg/m². Nên dùng chậu nhựa PP/composite và giá thể perlite nhẹ, tránh dùng chậu xi măng nặng.'
+      }
+    ],
+    monetization_tips: [
+      'Chuyển giao bản vẽ thiết kế trọn gói cho căn hộ chung cư giá 500.000đ - 1.500.000đ/bản vẽ.',
+      'Thi công vườn trọn gói chìa khóa trao tay lợi nhuận 30-40% trên hợp đồng.'
+    ],
+    tags: ['Ban công hướng Tây', 'Bản vẽ kiến trúc', 'Chống nóng đô thị', 'Tự tưới ngấm', 'Vi khí hậu'],
+    related_plant_ids: ['fruit-01', 'fruit-02', 'herb-22', 'orn-01']
+  },
+
+  // ==========================================
+  // NHÓM 5: SÁNG CHẾ TÁI CHẾ & TUẦN HOÀN (RECYCLE)
+  // ==========================================
+  {
+    id: 'recycle-01',
+    slug: 'chau-tu-tuoi-bac-ngam-can-nhua-hdpe',
+    common_name: 'Chậu Tự Tưới Bấc Ngấm Thông Minh Từ Can Nhựa HDPE Tái Chế',
+    scientific_name: 'Eco Invention: DIY Sub-Irrigated Capillary Planter (HDPE Upcycling)',
+    aliases: ['Chậu tự tưới từ can nhựa', 'SIP Planter tái chế', 'Chậu bấc thấm gia đình'],
+    category: 'recycle',
+    nft_class: 'eco_invention',
+    description: 'Sáng chế chậu tự tưới bấc ngấm mao dẫn từ can nhựa thực phẩm HDPE 5L tái chế. Tiết kiệm 70% lượng nước tưới, rễ cây tự hút ẩm liên tục 7-10 ngày mà không lo úng ngập hay thối rễ.',
+    image_url: 'https://images.unsplash.com/photo-1584473457406-6240486418e9?auto=format&fit=crop&w=1200&q=80',
+    image_sha256: 'a1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2',
+    sunlight: 'partial_shade',
+    watering: 'drought_tolerant',
+    propagation_difficulty: 1,
+    growth_time: '30 phút chế tạo thủ công',
+    container_suitable: true,
+    seasonality: {
+      north: 'Sử dụng quanh năm, đặc biệt hữu ích khi chủ nhà đi công tác hoặc về quê ăn Tết',
+      central: 'Giữ ẩm tuyệt vời trong mùa khô hạn miền Trung',
+      south: 'Chống mất nước nhanh dưới nắng nóng TP.HCM',
+      best_months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      warning: 'Chỉ dùng can nhựa thực phẩm số 2 (HDPE) hoặc số 5 (PP), tuyệt đối không dùng can hóa chất độc hại'
+    },
+    botanical_details: {
+      family: 'Eco Innovation / Upcycling Systems',
+      native_range: 'Vật liệu tái chế gia đình thân thiện môi trường',
+      active_compounds: ['Hiệu ứng mao dẫn bấc ngấm', 'Ngăn bốc hơi nước mặt', 'Cung cấp oxy vùng rễ', 'Tái chế không rác thải'],
+      soil_ph: '6.0 - 7.0',
+      ideal_temp: '15°C - 38°C',
+      pot_size: 'Can nhựa 5L cắt đôi chia 2 khoang (nước 1.5L + giá thể 3.5L)'
+    },
+    how_to_grow_steps: [
+      {
+        step: 1,
+        title: 'Cắt và phân chia 2 khoang can nhựa',
+        instruction: 'Rửa sạch can nước khoáng/dầu ăn HDPE 5L. Cắt ngang thân cách đáy 12cm. Lật ngược phần trên đặt lọt vào phần đáy.'
+      },
+      {
+        step: 2,
+        title: 'Lắp bấc dẫn mao dẫn và lỗ thoát khí',
+        instruction: 'Đục lỗ nắp can, luồn sợi dây cotton hoặc vải dù dày 20cm làm bấc ngấm. Khoan lỗ tràn nước cách đáy 8cm để tránh ngập rễ.'
+      },
+      {
+        step: 3,
+        title: 'Nạp giá thể và châm nước khoang trữ',
+        instruction: 'Cho giá thể tơi xốp vào phần trên, rải bấc ngấm quanh rễ cây. Châm nước đầy khoang trữ phía dưới để cây tự hút ẩm.'
+      }
+    ],
+    faqs: [
+      {
+        question: 'Dây bấc ngấm loại nào dẫn nước tốt nhất?',
+        answer: 'Dây cotton bện sợi tự nhiên hoặc dải vải thun sợi bông dẫn nước tốt nhất, không bị phân hủy mục nát trong đất ít nhất 1-2 năm.'
+      },
+      {
+        question: 'Nước trong bình trữ lâu có sinh bọ gậy/lăng quăng không?',
+        answer: 'Khoang chứa nước kín và râm tối, lỗ châm nước có nắp đậy nên muỗi không thể vào đẻ trứng.'
+      }
+    ],
+    monetization_tips: [
+      'Gia công bộ KIT chậu tự tưới tái chế kèm cây giống bán lẻ cho dân văn phòng 65.000đ - 95.000đ/bộ.',
+      'Mở workshop tái chế rác thải nhựa hướng dẫn trường học và cộng đồng thu phí đào tạo.'
+    ],
+    tags: ['Chậu tự tưới', 'Tái chế can nhựa', 'Bấc ngấm mao dẫn', 'Sáng chế xanh', 'Tiết kiệm nước'],
+    related_plant_ids: ['herb-01', 'herb-02', 'herb-03']
+  },
+
+  // ==========================================
+  // NHÓM 6: ẨM THỰC DƯỢC THIỆN & ĐỒ UỐNG XANH (CULINARY)
+  // ==========================================
+  {
+    id: 'culinary-01',
+    slug: 'siro-hung-chanh-quat-mat-ong-tri-ho',
+    common_name: 'Siro Húng Chanh Quất Mật Ong Chưng Cách Thủy Trị Ho Dân Gian',
+    scientific_name: 'Botanical Culinary Recipe: Steamed Plectranthus & Calamondin Honey Cough Elixir',
+    aliases: ['Siro húng chanh mật ong', 'Bài thuốc siro trị ho cho bé', 'Dược thiện húng chanh quất'],
+    category: 'culinary',
+    nft_class: 'culinary_recipe',
+    description: 'Bí phương dược thiện dân gian chiết xuất kháng sinh thực vật carvacrol và thymol từ lá húng chanh tươi và quả quất vườn nhà chưng cùng mật ong nguyên chất và đường phèn kết tinh.',
+    image_url: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=1200&q=80',
+    image_sha256: 'c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4',
+    sunlight: 'indoor',
+    watering: 'daily',
+    propagation_difficulty: 1,
+    growth_time: '45 phút chưng cất nhiệt nhẹ',
+    container_suitable: true,
+    seasonality: {
+      north: 'Chế biến nhiều vào mùa thu đông đón các đợt gió mùa gây ho sốt',
+      central: 'Dùng phòng cảm lạnh trong mùa mưa lũ',
+      south: 'Dịu họng tức thì khi nằm phòng máy lạnh nhiều',
+      best_months: [1, 2, 3, 8, 9, 10, 11, 12],
+      warning: 'Trẻ nhỏ dưới 1 tuổi thay thế mật ong bằng đường phèn nguyên chất để an toàn tiêu hóa'
+    },
+    botanical_details: {
+      family: 'Traditional Culinary Herbal Medicine',
+      native_range: 'Công thức y học cổ truyền dân gian ba miền Việt Nam',
+      active_compounds: ['Carvacrol sát khuẩn', 'Thymol kháng viêm', 'Hesperidin từ vỏ quất', 'Enzyme kháng khuẩn mật ong'],
+      soil_ph: 'Nguyên liệu hữu cơ 100% tự nhiên không chất bảo quản',
+      ideal_temp: 'Bảo quản ngăn mát tủ lạnh 4°C - 8°C',
+      pot_size: 'Hũ thủy tinh nắp kín tiệt trùng dung tích 250ml - 500ml'
+    },
+    how_to_grow_steps: [
+      {
+        step: 1,
+        title: 'Chuẩn bị và sơ chế thảo mộc tươi',
+        instruction: 'Hái 15-20 lá húng chanh tươi dày mọng nước + 5-7 quả quất chín vàng rửa sạch ngâm nước muối loãng 15 phút, thái nhỏ hạt lựu giữ nguyên hạt quất.'
+      },
+      {
+        step: 2,
+        title: 'Phối trộn tỷ lệ vàng thảo dược',
+        instruction: 'Cho hỗn hợp vào bát sứ: 100g húng chanh + 100g quất + 80g đường phèn kết tinh tự nhiên + 50ml mật ong hoa rừng nguyên chất.'
+      },
+      {
+        step: 3,
+        title: 'Chưng cách thủy lửa nhỏ',
+        instruction: 'Đặt bát vào nồi nước sôi, chưng cách thủy lửa liu riu 40-45 phút cho tinh dầu ngấm kiệt. Để nguội lọc lấy siro cốt đóng hũ thủy tinh.'
+      }
+    ],
+    faqs: [
+      {
+        question: 'Tại sao khi chưng siro lại phải giữ lại hạt quất?',
+        answer: 'Hạt quất chứa hàm lượng pectin và tinh dầu đắng tự nhiên có tác dụng tiêu đờm, ấm phổi và hạ sốt tốt gấp đôi phần múi thịt.'
+      },
+      {
+        question: 'Siro này bảo quản được bao lâu?',
+        answer: 'Đựng trong hũ thủy tinh tiệt trùng để ngăn mát tủ lạnh dùng tốt trong vòng 3-6 tháng.'
+      }
+    ],
+    monetization_tips: [
+      'Nấu siro húng chanh quất hữu cơ đóng chai 250ml bán theo mùa dịch cúm 95.000đ - 145.000đ/chai.',
+      'Bán theo set nguyên liệu tươi (combo lá húng chanh + quất sạch + mật ong) cho mẹ bỉm sữa tự làm tại nhà.'
+    ],
+    tags: ['Siro húng chanh', 'Trị ho trẻ nhỏ', 'Dược thiện dân gian', 'Mật ong nguyên chất', 'Kháng sinh tự nhiên'],
+    related_plant_ids: ['herb-01', 'fruit-08']
+  },
+
+  // ==========================================
+  // NHÓM 7: RỪNG TỰ NHIÊN & KHU BẢO TỒN SINH THÁI (FOREST)
+  // ==========================================
+  {
+    id: 'forest-01',
+    slug: 'vuon-quoc-gia-cuc-phuong',
+    common_name: 'Vườn Quốc Gia Cúc Phương (Khu Bảo Tồn Rừng Mưa Nhiệt Đới)',
+    scientific_name: 'Cuc Phuong National Park Sanctuary (Rainforest Biome)',
+    aliases: ['Rừng Cúc Phương', 'VQG Cúc Phương', 'Cuc Phuong Primary Forest Reserve'],
+    category: 'forest',
+    nft_class: 'geo_forest_10000m2',
+    description: 'Vườn Quốc Gia đầu tiên của Việt Nam với diện tích 22.408 ha (224.080.000 m²). Nơi lưu giữ cây Chò ngàn năm tuổi, động Người Xưa, quần thể voọc mông trắng quý hiếm và thảm thực vật đa tầng nguyên sinh đặc trưng vùng Karst đá vôi.',
+    image_url: 'https://images.unsplash.com/photo-1511497584788-87676104235f?auto=format&fit=crop&w=1200&q=80',
+    image_sha256: 'e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6',
+    sunlight: 'full_sun',
+    watering: 'moderate',
+    propagation_difficulty: 5,
+    growth_time: 'Hệ sinh thái bảo tồn vĩnh cửu hàng triệu năm',
+    container_suitable: false,
+    seasonality: {
+      north: 'Đẹp nhất vào mùa bướm rợp trời (tháng 4 - tháng 5) và mùa khô (tháng 11 - tháng 3)',
+      central: 'Thời tiết mát mẻ quanh năm trong tán rừng mưa nhiệt đới ẩm',
+      south: 'Điểm đến hành hương sinh thái hàng đầu miền Bắc',
+      best_months: [4, 5, 11, 12, 1, 2, 3],
+      warning: 'Tuân thủ nghiêm ngặt quy định bảo tồn rừng: không bẻ cành, không săn bắt và không xả rác'
+    },
+    botanical_details: {
+      family: 'Tropical Rainforest / Limestone Karst Primeval Forest',
+      native_range: 'Ranh giới 3 tỉnh Ninh Bình, Hòa Bình, Thanh Hóa',
+      active_compounds: ['Đa dạng sinh học 2.234 loài thực vật bậc cao', '436 loài cây thuốc quý', 'Bể hấp thụ carbon khổng lồ', 'Rừng đệm bảo vệ nguồn nước'],
+      soil_ph: '6.5 - 7.5 (Đất phong hóa Feralit đỏ vàng trên nền đá vôi Karst cổ đại)',
+      ideal_temp: '18°C - 28°C',
+      pot_size: 'Khu bảo tồn nguyên sinh 22.408 ha (Mỗi NFT tương ứng 10.000 m² rừng)'
+    },
+    how_to_grow_steps: [
+      {
+        step: 1,
+        title: 'Đến thực địa và bật định vị GPS vệ tinh',
+        instruction: 'Di chuyển đến khu vực Vườn Quốc Gia Cúc Phương (trong bán kính cho phép 18km từ tâm rừng). Bật định vị GPS trên điện thoại.'
+      },
+      {
+        step: 2,
+        title: 'Bấm nút Xác Thực GPS Check-in trên Web3 Sandbox',
+        instruction: 'Hệ thống đối chiếu khoảng cách Haversine. Khi khoảng cách hợp lệ <= 18km, hệ thống cấp Vé Check-in GPS thực địa hiệu lực 24 giờ.'
+      },
+      {
+        step: 3,
+        title: 'Ký ví Web3 nhận Hộ Chiếu NFT Lô Rừng 10.000m²',
+        instruction: 'Nhận chứng thư số độc bản xác nhận đóng góp bảo tồn 1 Lô (10.000 m² = 1 ha) rừng nguyên sinh Cúc Phương trên Blockchain.'
+      }
+    ],
+    faqs: [
+      {
+        question: 'Tại sao đúc NFT Lô Rừng Cúc Phương lại bắt buộc phải có mặt tại thực địa?',
+        answer: 'Cơ chế GPS Proof-of-Presence gắn kết thế giới ảo với hành động bảo tồn thực tế, ngăn chặn nạn đầu cơ lướt sóng của người không gắn bó với rừng.'
+      },
+      {
+        question: 'Diện tích 22.408 ha tương ứng với bao nhiêu NFT?',
+        answer: 'Mỗi NFT bảo tồn tương ứng 10.000 m² (1 ha). Do đó toàn bộ VQG Cúc Phương có quỹ tối đa 22.408 Lô NFT độc bản số thứ tự cố định, khi mint hết hệ thống tự động khóa vĩnh viễn.'
+      }
+    ],
+    monetization_tips: [
+      'Gắn kết quyền lợi du lịch sinh thái: Người sở hữu NFT Lô Rừng được tri ân giảm phí hướng dẫn viên tại vườn.',
+      'Tích lũy chứng chỉ bảo tồn rừng xanh tạo tín chỉ Carbon sinh thái cá nhân trên Web3.'
+    ],
+    tags: ['Vườn quốc gia', 'Rừng nguyên sinh', 'Cúc Phương', 'Bảo tồn đa dạng sinh học', 'Voọc mông trắng', 'Cây Chò ngàn năm'],
+    forest_spec: {
+      center_lat: 20.3167,
+      center_lng: 105.6000,
+      radius_km: 18.0,
+      total_area_m2: 224080000,
+      unit_area_m2: 10000,
+      max_nft_supply: 22408,
+      province: 'Ninh Bình - Hòa Bình - Thanh Hóa',
+      unesco_or_status: 'Vườn Quốc Gia Đầu Tiên Của Việt Nam (1962)'
+    },
+    related_plant_ids: ['herb-01', 'herb-05', 'herb-17', 'orn-01']
   }
 ];
 

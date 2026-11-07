@@ -1,4 +1,4 @@
-import { PlantCollection } from '../types/index.ts';
+import { PlantCollection, PlantCategory } from '../types/index.ts';
 
 export const PLANT_COLLECTIONS: PlantCollection[] = [
   {
@@ -221,7 +221,7 @@ export const PLANT_COLLECTIONS: PlantCollection[] = [
 
 export interface SubCategory {
   id: string;
-  category: 'herb' | 'fruit' | 'ornamental';
+  category: PlantCategory;
   name: string;
   name_en: string;
   icon: string;
@@ -247,7 +247,27 @@ export const SUBCATEGORIES: SubCategory[] = [
   { id: 'loc-khong-khi-nasa', category: 'ornamental', name: 'Thanh Lọc Không Khí (NASA)', name_en: 'NASA Air Purifiers', icon: '🛡️', description: 'Hút formaldehyde, benzen, nhả oxy ban đêm cho giấc ngủ ngon', description_en: 'NASA verified air cleansers for healthy bedrooms' },
   { id: 'bonsai-huong-thom', category: 'ornamental', name: 'Bonsai Hương Thơm & Hoa', name_en: 'Fragrant Bonsai & Flowers', icon: '🌸', description: 'Mai chiếu thủy, hoa nhài, hoa hồng, hương thảo thơm ngát', description_en: 'Artistic bonsai and sweet lingering floral fragrance' },
   { id: 'phong-thuy-tai-loc', category: 'ornamental', name: 'Phong Thủy Tài Lộc', name_en: 'Feng Shui & Prosperity', icon: '🎋', description: 'Kim tiền, kim ngân, trúc phú quý thu hút tài vận bình an', description_en: 'Good fortune, auspicious greenery, and prosperity' },
-  { id: 'kieng-la-nhiet-doi', category: 'ornamental', name: 'Kiểng Lá Nhiệt Đới & Decor', name_en: 'Tropical Foliage Decor', icon: '🌿', description: 'Monstera lá xẻ, trầu bà thanh xuân, sen đá móng rồng', description_en: 'Architectural foliage and stunning interior green accents' }
+  { id: 'kieng-la-nhiet-doi', category: 'ornamental', name: 'Kiểng Lá Nhiệt Đới & Decor', name_en: 'Tropical Foliage Decor', icon: '🌿', description: 'Monstera lá xẻ, trầu bà thanh xuân, sen đá móng rồng', description_en: 'Architectural foliage and stunning interior green accents' },
+
+  // Space (Không Gian & Phương Pháp)
+  { id: 'ban-cong-chung-cu', category: 'space', name: 'Ban Công Chung Cư', name_en: 'Apartment Balconies', icon: '🏢', description: 'Thiết kế vườn vi khí hậu tối ưu diện tích 2-6m²', description_en: 'Micro-climate balcony gardens tailored for 2-6m² apartments' },
+  { id: 'san-thuong-nhiet-doi', category: 'space', name: 'Sân Thượng Nhiệt Đới', name_en: 'Rooftop Micro-Farms', icon: '☀️', description: 'Vườn sân thượng đa tầng chống nóng và chịu gió bão đô thị', description_en: 'Multi-layered cooling rooftop farms built for intense urban heat' },
+  { id: 'vuon-tuong-dung', category: 'space', name: 'Vườn Tường Đứng & Khung Treo', name_en: 'Vertical Living Walls', icon: '📐', description: 'Mô đun tường xanh tiết kiệm mặt sàn và tự động tưới ngấm', description_en: 'Space-saving modular vertical gardens with automated wick irrigation' },
+
+  // Recycle (Tái Chế & Sáng Chế)
+  { id: 'u-rac-huu-co', category: 'recycle', name: 'Ủ Rác Hữu Cơ & Phân Trùn', name_en: 'Compost & Vermiculture', icon: '🪱', description: 'Bokashi, thùng ủ rác nhà bếp không mùi và nuôi trùn quế tại nhà', description_en: 'Odorless kitchen bokashi composting and home vermiculture systems' },
+  { id: 'thuy-canh-tu-che', category: 'recycle', name: 'Thủy Canh & Aquaponics Tự Chế', name_en: 'DIY Hydro/Aquaponics', icon: '🐟', description: 'Hệ thống tuần hoàn khép kín từ vật liệu tái chế gia dụng', description_en: 'Circular recirculating plant-fish systems crafted from recycled materials' },
+  { id: 'he-thong-tuoi-tu-dong', category: 'recycle', name: 'Tưới Tự Động & Chậu Tái Chế', name_en: 'Auto Drip & Recycled Pots', icon: '💧', description: 'Bộ tưới bấc ngấm và chậu trồng thông minh từ chai nhựa cũ', description_en: 'Smart self-watering capillary pots and drip setups from repurposed bottles' },
+
+  // Culinary (Ẩm Thực & Dưỡng Sinh)
+  { id: 'tra-thao-duoc-duong-sinh', category: 'culinary', name: 'Trà Thảo Dược Dưỡng Sinh', name_en: 'Herbal Elixirs & Teas', icon: '🫖', description: 'Công thức sấy lạnh, phối trà thảo mộc thanh lọc và định tâm', description_en: 'Artisan cold-dried herbal blends for cellular detox and mindfulness' },
+  { id: 'siro-chua-lanh', category: 'culinary', name: 'Siro & Cồn Thuốc Tự Nhiên', name_en: 'Healing Syrups & Tinctures', icon: '🍯', description: 'Siro trị ho ngâm đường phèn mật ong và cồn chiết thảo mộc dân gian', description_en: 'Raw honey syrups and artisanal herbal folk tinctures' },
+  { id: 'gia-vi-len-men', category: 'culinary', name: 'Gia Vị & Lên Men Sinh Học', name_en: 'Fermented Herbs & Seasonings', icon: '🧂', description: 'Muối thảo mộc, giấm hoa quả và tương ớt men vi sinh tự nhiên', description_en: 'Probiotic herb salts, botanical vinegars, and artisanal hot sauces' },
+
+  // Forest (Rừng & Khu Sinh Thái)
+  { id: 'rung-nguyen-sinh', category: 'forest', name: 'Rừng Nguyên Sinh & Vườn Quốc Gia', name_en: 'Primary Forests & National Parks', icon: '🌲', description: 'Hệ sinh thái cổ thụ nghìn năm và đa dạng sinh học cốt lõi', description_en: 'Ancient primeval forest canopies and core biodiversity sanctuaries' },
+  { id: 'khu-bao-ton-sinh-thai', category: 'forest', name: 'Khu Dự Trữ Sinh Quyển & Bảo Tồn', name_en: 'Biosphere Reserves', icon: '🏞️', description: 'Các vùng sinh thái đệm, rạn san hô và hành lang bảo tồn động thực vật', description_en: 'Buffer conservation corridors, marine sanctuaries, and protected biomes' },
+  { id: 'vung-ngap-nuoc-rung-ngap-man', category: 'forest', name: 'Rừng Ngập Mặn & Vùng Ngập Nước', name_en: 'Mangroves & Wetland Biomes', icon: '🦀', description: 'Lá chắn sóng xanh, đầm lầy Ramsar và bể hấp thụ carbon khổng lồ', description_en: 'Coastal green tidal shields, Ramsar wetlands, and blue carbon sinks' }
 ];
 
 const PLANT_SUBCATEGORY_MAP: Record<string, string> = {
@@ -358,7 +378,13 @@ const PLANT_SUBCATEGORY_MAP: Record<string, string> = {
   'orn-23': 'loc-khong-khi-nasa',
   'orn-24': 'phong-thuy-tai-loc',
   'orn-25': 'bonsai-huong-thom',
-  'orn-26': 'loc-khong-khi-nasa'
+  'orn-26': 'loc-khong-khi-nasa',
+
+  // 4 New Categories Sample Items
+  'space-01': 'ban-cong-chung-cu',
+  'recycle-01': 'he-thong-tuoi-tu-dong',
+  'culinary-01': 'siro-chua-lanh',
+  'forest-01': 'rung-nguyen-sinh'
 };
 
 /**

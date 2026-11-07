@@ -32,11 +32,16 @@ import {
   Flag,
   Info,
   ExternalLink,
-  UserCheck
+  UserCheck,
+  MapPin,
+  Heart
 } from 'lucide-react';
 import { ReportModal } from '../components/ReportModal.tsx';
 import { ShareModal } from '../components/ShareModal.tsx';
 import { plantPassportRegistryService, RegisteredPlantPassport } from '../services/plantPassportRegistryService.ts';
+import { plantReviewService } from '../services/plantReviewService.ts';
+import { PlantHeartReviewSection } from '../components/PlantHeartReviewSection.tsx';
+import { getCategoryConfig, getNftClassConfig, resolvePlantNftClass } from '../config/ecosystemRegistry.ts';
 
 interface PlantDetailPageProps {
   onOpenMyGarden?: () => void;
@@ -112,20 +117,34 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
 
   const ownerMeta = mintedPassport ? plantPassportRegistryService.getOwnerProfileMeta(mintedPassport) : null;
 
-  // Khởi tạo các giá trị AEO / GEO chuẩn hóa
-  const categoryName =
-    plant?.category === 'herb'
-      ? isEn ? 'Native Medicinal Herbs' : 'Thảo Dược'
-      : plant?.category === 'fruit'
-      ? isEn ? 'Balcony Fruit Trees' : 'Cây Ăn Trái'
-      : isEn ? 'Calming Bonsai & Ornamentals' : 'Cây Cảnh & Bonsai';
+  // Khởi tạo các giá trị AEO / GEO chuẩn hóa theo 7 ngành hàng
+  const catConfig = getCategoryConfig(plant?.category || 'herb');
+  const categoryName = isEn ? catConfig.labelEn : catConfig.labelVi;
+  const categoryPath = catConfig.dedicatedPath;
+  const nftClass = plant ? resolvePlantNftClass(plant) : 'botanical';
+  const nftClassConfig = getNftClassConfig(nftClass);
+  void nftClassConfig;
 
-  const categoryPath =
-    plant?.category === 'herb'
-      ? '/thao-duoc'
-      : plant?.category === 'fruit'
-      ? '/cay-an-trai'
-      : '/cay-canh';
+  const [heartSummary, setHeartSummary] = useState(() =>
+    plant ? plantReviewService.getCachedSummary(plant.slug) : { average_hearts: 5.0, total_reviews: 0, photo_count: 0 }
+  );
+
+  useEffect(() => {
+    if (plant?.slug) {
+      plantReviewService.fetchAllReviewSummaries().then(() => {
+        setHeartSummary(plantReviewService.getCachedSummary(plant.slug));
+      });
+      const unsub = plantReviewService.subscribe(() => {
+        setHeartSummary(plantReviewService.getCachedSummary(plant.slug));
+      });
+      return unsub;
+    }
+  }, [plant?.slug]);
+
+  const isForest = plant?.category === 'forest' || nftClass === 'geo_forest_10000m2';
+  const forestStats = isForest && plant?.forest_spec
+    ? plantPassportRegistryService.getForestMintedAreaStats(plant.slug, plant.forest_spec.total_area_m2)
+    : null;
 
   // 1. AEO Direct Answer
   const quickAnswerText =
@@ -570,6 +589,25 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
               <p className="text-sm sm:text-base font-mono italic text-herbal-300 mt-1">
                 {plant.scientific_name}
               </p>
+              {/* Heart Rating Strip */}
+              <div className="flex flex-wrap items-center gap-3 mt-3">
+                <a
+                  href="#reviews-section"
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/85 hover:bg-rose-500 text-white text-xs font-bold backdrop-blur-md transition shadow-xs cursor-pointer"
+                >
+                  <Heart className="w-3.5 h-3.5 fill-white text-white" />
+                  <span>{heartSummary.average_hearts.toFixed(1)} / 5</span>
+                  <span className="opacity-80 font-normal">
+                    ({heartSummary.total_reviews} {isEn ? 'reviews' : 'đánh giá'})
+                  </span>
+                </a>
+                <a
+                  href="#reviews-section"
+                  className="text-xs text-white/90 hover:text-white underline underline-offset-2 transition"
+                >
+                  {isEn ? 'Share your review & photo →' : 'Viết cảm nhận & gửi ảnh thực tế →'}
+                </a>
+              </div>
               {plant.aliases && plant.aliases.length > 0 && (
                 <p className="text-xs text-white/80 mt-2 font-sans">
                   {t('plantCard.aliasesPrefix')} <strong>{plant.aliases.join(' • ')}</strong>
@@ -581,41 +619,80 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
 
         {/* Quick Biological Metrics Strip */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-6 sm:p-8 bg-forest-50/60 border-t border-forest-100 text-xs sm:text-sm">
-          <div>
-            <span className="text-forest-700 block text-xs mb-1 flex items-center gap-1 font-medium">
-              <Sun className="w-4 h-4 text-amber-500" /> {t('common.sunlight')}
-            </span>
-            <span className="font-bold text-forest-950">
-              {t(`plantCard.sunlight.${plant.sunlight}`, plant.sunlight)}
-            </span>
-          </div>
+          {isForest && plant.forest_spec ? (
+            <>
+              <div>
+                <span className="text-forest-700 block text-xs mb-1 flex items-center gap-1 font-medium">
+                  <span className="text-teal-600">🌲</span> {isEn ? 'Total Area' : 'Tổng Diện Tích'}
+                </span>
+                <span className="font-bold text-forest-950">
+                  {(plant.forest_spec.total_area_m2 / 10000).toLocaleString('vi-VN')} ha
+                </span>
+              </div>
+              <div>
+                <span className="text-forest-700 block text-xs mb-1 flex items-center gap-1 font-medium">
+                  <MapPin className="w-4 h-4 text-rose-500" /> {isEn ? 'Allowed Radius' : 'Bán Kính GPS'}
+                </span>
+                <span className="font-bold text-forest-950">
+                  ±{plant.forest_spec.radius_km} km
+                </span>
+              </div>
+              <div>
+                <span className="text-forest-700 block text-xs mb-1 flex items-center gap-1 font-medium">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600" /> {isEn ? 'Lot Unit' : 'Quy Chuẩn 1 NFT'}
+                </span>
+                <span className="font-bold text-forest-950">
+                  10.000 m² (1 ha)
+                </span>
+              </div>
+              <div>
+                <span className="text-forest-700 block text-xs mb-1 flex items-center gap-1 font-medium">
+                  <Sparkles className="w-4 h-4 text-amber-500" /> {isEn ? 'Conserved Lots' : 'Lô Đã Đúc'}
+                </span>
+                <span className="font-bold text-forest-950">
+                  {forestStats?.mintedCount || 0} / {plant.forest_spec.max_nft_supply} Lô
+                </span>
+              </div>
+            </>
+          ) : (
+            <>
+              <div>
+                <span className="text-forest-700 block text-xs mb-1 flex items-center gap-1 font-medium">
+                  <Sun className="w-4 h-4 text-amber-500" /> {t('common.sunlight')}
+                </span>
+                <span className="font-bold text-forest-950">
+                  {t(`plantCard.sunlight.${plant.sunlight}`, plant.sunlight)}
+                </span>
+              </div>
 
-          <div>
-            <span className="text-forest-700 block text-xs mb-1 flex items-center gap-1 font-medium">
-              <Droplets className="w-4 h-4 text-blue-500" /> {t('common.watering')}
-            </span>
-            <span className="font-bold text-forest-950">
-              {t(`plantCard.watering.${plant.watering}`, plant.watering)}
-            </span>
-          </div>
+              <div>
+                <span className="text-forest-700 block text-xs mb-1 flex items-center gap-1 font-medium">
+                  <Droplets className="w-4 h-4 text-blue-500" /> {t('common.watering')}
+                </span>
+                <span className="font-bold text-forest-950">
+                  {t(`plantCard.watering.${plant.watering}`, plant.watering)}
+                </span>
+              </div>
 
-          <div>
-            <span className="text-forest-700 block text-xs mb-1 flex items-center gap-1 font-medium">
-              <Clock className="w-4 h-4 text-emerald-600" /> {t('plantDetail.growthCycle')}
-            </span>
-            <span className="font-bold text-forest-950">
-              {plant.growth_time}
-            </span>
-          </div>
+              <div>
+                <span className="text-forest-700 block text-xs mb-1 flex items-center gap-1 font-medium">
+                  <Clock className="w-4 h-4 text-emerald-600" /> {t('plantDetail.growthCycle')}
+                </span>
+                <span className="font-bold text-forest-950">
+                  {plant.growth_time}
+                </span>
+              </div>
 
-          <div>
-            <span className="text-forest-700 block text-xs mb-1 flex items-center gap-1 font-medium">
-              <ShieldCheck className="w-4 h-4 text-purple-600" /> {t('plantDetail.containerSuitable')}
-            </span>
-            <span className="font-bold text-forest-950">
-              {plant.container_suitable ? t('plantDetail.containerYes') : t('plantDetail.containerNo')}
-            </span>
-          </div>
+              <div>
+                <span className="text-forest-700 block text-xs mb-1 flex items-center gap-1 font-medium">
+                  <ShieldCheck className="w-4 h-4 text-purple-600" /> {t('plantDetail.containerSuitable')}
+                </span>
+                <span className="font-bold text-forest-950">
+                  {plant.container_suitable ? t('plantDetail.containerYes') : t('plantDetail.containerNo')}
+                </span>
+              </div>
+            </>
+          )}
         </div>
 
         {/* Web3 Exclusive NFT Ownership Banner on Every Article */}
@@ -1057,13 +1134,156 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
             </ul>
           </section>
 
+          {/* BẢNG QUỸ DIỆN TÍCH BẢO TỒN RỪNG (10.000 M² / LÔ NFT) DÀNH CHO CATEGORY FOREST */}
+          {isForest && plant.forest_spec && (
+            <section className="bg-gradient-to-br from-teal-900 via-forest-950 to-charcoal-950 text-white rounded-3xl p-6 sm:p-8 border-2 border-teal-500/50 shadow-xl space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-teal-800/80 pb-4">
+                <div>
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-800/80 text-teal-200 text-xs font-bold mb-2 border border-teal-400/40">
+                    <MapPin className="w-3.5 h-3.5" />
+                    <span>{isEn ? 'GPS Geo-Conservation Quota' : 'Quỹ Bảo Tồn Địa Không Gian Rừng'}</span>
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-serif font-bold text-white">
+                    {isEn ? 'Forest Conservation Lot Quota (10,000 m² / NFT)' : 'Bảng Quỹ Lô Rừng Tự Nhiên (10.000 m² / NFT)'}
+                  </h3>
+                </div>
+                <div className="text-left sm:text-right shrink-0">
+                  <span className="text-2xl font-mono font-black text-emerald-400">
+                    {forestStats?.mintedCount || 0} / {plant.forest_spec.max_nft_supply}
+                  </span>
+                  <p className="text-[11px] text-teal-300 font-medium">
+                    {isEn ? 'Lots Conserved' : 'Lô đã đúc quyền bảo tồn'}
+                  </p>
+                </div>
+              </div>
+
+              {/* Progress Bar */}
+              {(() => {
+                const percentMinted =
+                  forestStats && forestStats.maxSupply > 0
+                    ? (forestStats.mintedCount / forestStats.maxSupply) * 100
+                    : 0;
+                return (
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between text-xs text-teal-200 font-medium">
+                      <span>{isEn ? 'Conservation Progress:' : 'Tiến trình bảo tồn tổng diện tích:'}</span>
+                      <span className="font-mono font-bold text-emerald-300">
+                        {((forestStats?.mintedCount || 0) * 10000).toLocaleString('vi-VN')} m² / {plant.forest_spec.total_area_m2.toLocaleString('vi-VN')} m² ({percentMinted.toFixed(2)}%)
+                      </span>
+                    </div>
+                    <div className="w-full bg-teal-950 h-3 rounded-full overflow-hidden border border-teal-700/60 p-0.5">
+                      <div
+                        className="bg-gradient-to-r from-teal-400 via-emerald-400 to-teal-300 h-full rounded-full transition-all duration-700"
+                        style={{ width: `${Math.min(100, Math.max(0, percentMinted))}%` }}
+                      />
+                    </div>
+                  </div>
+                );
+              })()}
+
+              {/* Geo Spec Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+                <div className="p-4 rounded-2xl bg-teal-950/60 border border-teal-800/80">
+                  <span className="text-teal-400 block mb-1 font-semibold">{isEn ? 'Total Reserve Area' : 'Tổng Diện Tích Vùng'}</span>
+                  <span className="text-base font-bold text-white font-mono">
+                    {(plant.forest_spec.total_area_m2 / 10000).toLocaleString('vi-VN')} ha
+                  </span>
+                  <p className="text-[10px] text-teal-300/80 mt-0.5">
+                    = {plant.forest_spec.total_area_m2.toLocaleString('vi-VN')} m²
+                  </p>
+                </div>
+                <div className="p-4 rounded-2xl bg-teal-950/60 border border-teal-800/80">
+                  <span className="text-teal-400 block mb-1 font-semibold">{isEn ? 'Center Coordinates' : 'Tọa Độ Tâm Khu Bảo Tồn'}</span>
+                  <span className="text-base font-bold text-white font-mono">
+                    {plant.forest_spec.center_lat.toFixed(4)}, {plant.forest_spec.center_lng.toFixed(4)}
+                  </span>
+                  <p className="text-[10px] text-teal-300/80 mt-0.5">
+                    Bán kính hợp lệ: ±{plant.forest_spec.radius_km} km
+                  </p>
+                </div>
+                <div className="p-4 rounded-2xl bg-teal-950/60 border border-teal-800/80">
+                  <span className="text-teal-400 block mb-1 font-semibold">{isEn ? 'Unit Allocation' : 'Đơn Vị Mỗi Lô Đúc'}</span>
+                  <span className="text-base font-bold text-white font-mono">
+                    10.000 m² (1 ha)
+                  </span>
+                  <p className="text-[10px] text-teal-300/80 mt-0.5">
+                    Yêu cầu: Có mặt thực địa GPS
+                  </p>
+                </div>
+              </div>
+
+              {/* Action CTA */}
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+                <p className="text-xs text-teal-200/90 leading-relaxed max-w-xl">
+                  {isEn
+                    ? 'To prevent armchair hoarding, each 10,000 m² lot can only be minted when your device proves you are within the official forest sanctuary boundaries.'
+                    : 'Để ngăn chặn tình trạng đầu cơ từ xa, mỗi Lô 10.000 m² chỉ được phép đúc khi thiết bị của bạn chứng minh đang có mặt trong phạm vi tọa độ thực tế của khu bảo tồn.'}
+                </p>
+                <Link
+                  to={`/web3-sandbox?mint=${encodeURIComponent(plant.slug)}`}
+                  className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-emerald-400 hover:bg-emerald-300 text-forest-950 font-bold text-xs flex items-center justify-center gap-2 shadow-lg transition shrink-0"
+                >
+                  <MapPin className="w-4 h-4 text-forest-950" />
+                  <span>{isEn ? 'GPS Check-in & Mint Lot' : '📍 Xác Thực GPS & Đúc Lô Rừng'}</span>
+                </Link>
+              </div>
+            </section>
+          )}
+
         </div>
 
         {/* Sidebar Column */}
         <div className="lg:col-span-4 space-y-6">
 
-          {/* WEB3 EXCLUSIVE NFT PASSPORT / FIRST-TO-MINT SIDEBAR CARD */}
-          {mintedPassport && ownerMeta ? (
+          {/* WEB3 EXCLUSIVE NFT PASSPORT / FOREST LOTS / FIRST-TO-MINT SIDEBAR CARD */}
+          {isForest && plant.forest_spec ? (
+            <div className="bg-gradient-to-br from-teal-950 via-forest-950 to-charcoal-900 rounded-3xl p-6 border-2 border-teal-400/70 text-white shadow-xl space-y-4">
+              <div className="flex items-center justify-between gap-2 border-b border-teal-800 pb-3">
+                <div className="flex items-center gap-2">
+                  <MapPin className="w-5 h-5 text-teal-400 shrink-0" />
+                  <h3 className="text-sm font-serif font-bold text-white uppercase tracking-wider">
+                    {isEn ? 'Forest Conservation NFT' : 'NFT Lô Rừng Tự Nhiên'}
+                  </h3>
+                </div>
+                <span className="px-2.5 py-0.5 rounded-full bg-teal-400 text-teal-950 text-[10px] font-black font-mono">
+                  10.000 m² / Lô
+                </span>
+              </div>
+
+              <div className="p-3.5 rounded-2xl bg-teal-900/60 border border-teal-500/30 space-y-2 text-xs">
+                <div className="flex items-center justify-between">
+                  <span className="text-teal-300">Đã đúc bảo tồn:</span>
+                  <span className="font-mono font-bold text-emerald-300">
+                    {forestStats?.mintedCount || 0} / {plant.forest_spec.max_nft_supply} Lô
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-teal-300">Diện tích bảo tồn:</span>
+                  <span className="font-semibold text-white">
+                    {((forestStats?.mintedCount || 0) * 10000).toLocaleString('vi-VN')} m²
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-teal-300">Tọa độ tâm:</span>
+                  <span className="font-mono text-teal-200">
+                    {plant.forest_spec.center_lat.toFixed(2)}, {plant.forest_spec.center_lng.toFixed(2)}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-teal-300">Bán kính check-in:</span>
+                  <span className="font-semibold text-emerald-300">±{plant.forest_spec.radius_km} km</span>
+                </div>
+              </div>
+
+              <Link
+                to={`/web3-sandbox?mint=${encodeURIComponent(plant.slug)}`}
+                className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-teal-400 to-emerald-400 hover:from-teal-300 hover:to-emerald-300 text-forest-950 font-bold text-xs flex items-center justify-center gap-2 shadow-md transition"
+              >
+                <MapPin className="w-4 h-4" />
+                <span>{isEn ? 'GPS Check-in & Mint Lot' : '📍 Xác Thực GPS & Đúc Lô Rừng'}</span>
+              </Link>
+            </div>
+          ) : mintedPassport && ownerMeta ? (
             <div className="bg-gradient-to-br from-forest-950 via-charcoal-900 to-emerald-950 rounded-3xl p-6 border-2 border-amber-400/70 text-white shadow-xl space-y-4">
               <div className="flex items-center justify-between gap-2 border-b border-forest-800 pb-3">
                 <div className="flex items-center gap-2">
@@ -1256,6 +1476,12 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
         </div>
 
       </div>
+
+      {/* 4. Khối Đánh Giá 1-5 Trái Tim Đỏ & Bình Luận Hình Ảnh Tối Ưu WebP */}
+      <PlantHeartReviewSection
+        plantSlug={plant.slug}
+        plantName={plant.common_name}
+      />
 
       {/* Modal Chia Sẻ Mạng Xã Hội */}
       {isShareModalOpen && plant && (

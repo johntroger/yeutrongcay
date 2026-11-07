@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $commonNameVi = trim($data['common_name']);
     $scientificName = trim($data['scientific_name'] ?? '');
-    $category = in_array($data['category'] ?? '', ['herb', 'fruit', 'ornamental']) ? $data['category'] : 'herb';
+    $category = in_array($data['category'] ?? '', ['herb', 'fruit', 'ornamental', 'space', 'recycle', 'culinary', 'forest']) ? $data['category'] : 'herb';
     $descriptionVi = trim($data['description'] ?? '');
     $imageUrl = trim($data['image_url'] ?? 'https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=600&q=80');
     $sunlight = in_array($data['sunlight'] ?? '', ['full_sun', 'partial_shade', 'indoor']) ? $data['sunlight'] : 'full_sun';
@@ -223,7 +223,7 @@ try {
         $params[':search_en']   = '%' . $search . '%';
     }
 
-    $sql .= " ORDER BY created_at DESC LIMIT 100";
+    $sql .= " ORDER BY created_at DESC LIMIT 500";
 
     $stmt = $pdo->prepare($sql);
     $stmt->execute($params);

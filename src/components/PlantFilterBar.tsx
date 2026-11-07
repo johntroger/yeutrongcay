@@ -134,7 +134,7 @@ export const PlantFilterBar: React.FC<PlantFilterBarProps> = ({
             <p className="text-[11px] text-forest-700 dark:text-forest-400 mt-0.5">
               {isEn ? 'Showing ' : 'Tìm thấy: '}
               <span className="font-bold text-herbal-700 dark:text-herbal-400">{filteredCount}</span>
-              {' / '}{totalCount} {isEn ? 'plants' : 'loài cây'}
+              {' / '}{totalCount} {isEn ? 'entries' : 'ấn phẩm'}
             </p>
           </div>
         </div>
@@ -161,7 +161,7 @@ export const PlantFilterBar: React.FC<PlantFilterBarProps> = ({
             >
               <span className="flex items-center gap-2">
                 <span>📁</span>
-                <span>{isEn ? 'Plant Category' : 'Danh Mục Cây Trồng'}</span>
+                <span>{isEn ? 'Category' : 'Ngành Hàng Sinh Thái'}</span>
               </span>
               <ChevronDown
                 className={`w-4 h-4 text-forest-400 transition-transform duration-200 ${
@@ -173,10 +173,14 @@ export const PlantFilterBar: React.FC<PlantFilterBarProps> = ({
             <Collapse open={openSections.categories}>
               <div className="space-y-1.5">
                 {[
-                  { id: 'all', label: isEn ? 'All Categories' : 'Tất Cả Danh Mục', icon: '🌿', count: plants.length },
+                  { id: 'all', label: isEn ? 'All Categories' : 'Tất Cả Ngành Hàng', icon: '🌿', count: plants.length },
                   { id: 'herb', label: isEn ? 'Native Medicinal Herbs' : 'Thảo Dược Bản Địa', icon: '🌱', count: plants.filter((p) => p.category === 'herb').length },
                   { id: 'fruit', label: isEn ? 'Balcony Fruit Trees' : 'Cây Ăn Trái Ban Công', icon: '🍋', count: plants.filter((p) => p.category === 'fruit').length },
-                  { id: 'ornamental', label: isEn ? 'Ornamentals & Bonsai' : 'Cây Cảnh & Bonsai', icon: '🌸', count: plants.filter((p) => p.category === 'ornamental').length }
+                  { id: 'ornamental', label: isEn ? 'Ornamentals & Bonsai' : 'Cây Cảnh & Bonsai', icon: '🌸', count: plants.filter((p) => p.category === 'ornamental').length },
+                  { id: 'space', label: isEn ? 'Urban Growing Spaces' : 'Không Gian Trồng Phố', icon: '🏡', count: plants.filter((p) => p.category === 'space').length },
+                  { id: 'recycle', label: isEn ? 'Upcycled Garden DIY' : 'Tái Chế Làm Vườn', icon: '♻️', count: plants.filter((p) => p.category === 'recycle').length },
+                  { id: 'culinary', label: isEn ? 'Herbal Kitchen & Tonics' : 'Ẩm Thực Dưỡng Sinh', icon: '🍵', count: plants.filter((p) => p.category === 'culinary').length },
+                  { id: 'forest', label: isEn ? 'Natural Forests & Parks' : 'Rừng & Khu Sinh Thái', icon: '🌲', count: plants.filter((p) => p.category === 'forest').length }
                 ].map((cat) => {
                   const isSelected = filters.category === cat.id;
                   return (

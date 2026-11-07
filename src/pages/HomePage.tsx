@@ -14,6 +14,8 @@ import { useLanguage } from '../context/LanguageContext.tsx';
 import { PLANT_ENGLISH_MAP } from '../i18n/plantTranslations.ts';
 import { getPlantSubcategory, getPlantsForCollection } from '../data/collections.ts';
 import { matchPlantSearch, calculateRelevance } from '../utils/searchUtils.ts';
+import { interleaveMarketplaceItems, getCategoryConfig } from '../config/ecosystemRegistry.ts';
+import { plantReviewService } from '../services/plantReviewService.ts';
 import {
   Filter,
   Sparkles,
@@ -24,7 +26,8 @@ import {
   ArrowUpRight,
   Calendar,
   ShieldCheck,
-  RotateCcw
+  RotateCcw,
+  Heart
 } from 'lucide-react';
 
 interface HomePageProps {
@@ -47,10 +50,11 @@ export const HomePage: React.FC<HomePageProps> = ({
   const [visibleCount, setVisibleCount] = useState(9);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
 
-  // Bộ lọc đa tiêu chí đồng bộ URL
+  // Bộ lọc đa tiêu chí đồng bộ URL (Mặc định 'all' cho sàn thương mại điện tử 7 ngành hàng)
   const [filters, setFilters] = useState<FilterState>(() => {
+    const urlCat = searchParams.get('cat') as PlantCategory | null;
     return {
-      category: activeMode,
+      category: urlCat || 'all',
       subcategory: searchParams.get('subcat') || undefined,
       tag: searchParams.get('tag') || undefined,
       collection: searchParams.get('collection') || undefined,
@@ -59,6 +63,8 @@ export const HomePage: React.FC<HomePageProps> = ({
       difficulty: (searchParams.get('difficulty') as any) || 'all',
     };
   });
+
+  const [sortBy, setSortBy] = useState<'default' | 'hearts'>('default');
 
   // Sidebar phản hồi tức thì; lưới sản phẩm lọc ở mức ưu tiên thấp để không bị giật
   const deferredFilters = useDeferredValue(filters);
@@ -179,13 +185,31 @@ export const HomePage: React.FC<HomePageProps> = ({
       return true;
     });
 
-    // Sắp xếp các kết quả khớp chính xác nhất lên đầu
+    // Sắp xếp và phân bổ kết quả
     if (hasSearchQuery) {
       matched.sort((a, b) => calculateRelevance(b, searchQuery) - calculateRelevance(a, searchQuery));
+      return matched;
+    }
+
+    // Lọc theo độ yêu thích (Trái Tim Đỏ cao nhất lên đầu)
+    if (sortBy === 'hearts') {
+      matched.sort((a, b) => {
+        const sa = plantReviewService.getCachedSummary(a.slug);
+        const sb = plantReviewService.getCachedSummary(b.slug);
+        const scoreA = sa.total_reviews > 0 ? sa.average_hearts * 100 + sa.total_reviews : 0;
+        const scoreB = sb.total_reviews > 0 ? sb.average_hearts * 100 + sb.total_reviews : 0;
+        return scoreB - scoreA;
+      });
+      return matched;
+    }
+
+    // Khi duyệt Tất Cả: Áp dụng thuật toán Smart Marketplace Interleaving trộn đều 7 ngành hàng
+    if (deferredFilters.category === 'all') {
+      return interleaveMarketplaceItems(matched);
     }
 
     return matched;
-  }, [allPlants, deferredFilters, searchQuery]);
+  }, [allPlants, deferredFilters, searchQuery, sortBy]);
 
   // Danh sách tags có sẵn kèm số lượng bài viết
   const availableTags = useMemo(() => {
@@ -237,6 +261,22 @@ export const HomePage: React.FC<HomePageProps> = ({
     ornamental: {
       path: '/cay-canh',
       name: isEn ? 'Bonsai & Calming Living Spaces' : 'Cây Cảnh & Không Gian Thư Thái',
+    },
+    space: {
+      path: '/?cat=space',
+      name: isEn ? 'Urban Growing Spaces' : 'Không Gian Trồng Phố',
+    },
+    recycle: {
+      path: '/?cat=recycle',
+      name: isEn ? 'Upcycled Garden DIY' : 'Tái Chế Làm Vườn',
+    },
+    culinary: {
+      path: '/?cat=culinary',
+      name: isEn ? 'Herbal Kitchen & Drinks' : 'Ẩm Thực & Đồ Uống Xanh',
+    },
+    forest: {
+      path: '/?cat=forest',
+      name: isEn ? 'Natural Forests & Eco-Zones' : 'Rừng & Khu Sinh Thái',
     },
   };
 
@@ -371,6 +411,42 @@ export const HomePage: React.FC<HomePageProps> = ({
           />
         </MobileFilterDrawer>
 
+        {/* 7-Category 1-Tap Horizontal Shelf */}
+        <div className="mb-6 -mt-2">
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+            {[
+              { id: 'all', label: isEn ? 'All Categories' : 'Tất Cả 7 Ngành Hàng', icon: '🌿', count: allPlants.length },
+              { id: 'herb', label: isEn ? 'Native Herbs' : 'Thảo Dược', icon: '🌱', count: allPlants.filter(p => p.category === 'herb').length },
+              { id: 'fruit', label: isEn ? 'Balcony Fruits' : 'Cây Ăn Trái', icon: '🍋', count: allPlants.filter(p => p.category === 'fruit').length },
+              { id: 'ornamental', label: isEn ? 'Ornamentals' : 'Cây Cảnh', icon: '🌸', count: allPlants.filter(p => p.category === 'ornamental').length },
+              { id: 'space', label: isEn ? 'Urban Spaces' : 'Không Gian Trồng', icon: '🏡', count: allPlants.filter(p => p.category === 'space').length },
+              { id: 'recycle', label: isEn ? 'Upcycled DIY' : 'Tái Chế', icon: '♻️', count: allPlants.filter(p => p.category === 'recycle').length },
+              { id: 'culinary', label: isEn ? 'Herbal Kitchen' : 'Ẩm Thực', icon: '🍵', count: allPlants.filter(p => p.category === 'culinary').length },
+              { id: 'forest', label: isEn ? 'Natural Forests' : 'Rừng Sinh Thái', icon: '🌲', count: allPlants.filter(p => p.category === 'forest').length },
+            ].map((catItem) => {
+              const isSelected = filters.category === catItem.id;
+              return (
+                <button
+                  key={catItem.id}
+                  type="button"
+                  onClick={() => handleFilterChange({ ...filters, category: catItem.id as any, subcategory: undefined })}
+                  className={`shrink-0 px-3.5 py-2 rounded-2xl text-xs font-semibold flex items-center gap-2 transition-all cursor-pointer border ${
+                    isSelected
+                      ? 'bg-forest-900 text-white dark:bg-emerald-600 border-forest-900 dark:border-emerald-500 shadow-sm scale-102'
+                      : 'bg-white dark:bg-charcoal-900 text-forest-800 dark:text-forest-200 border-forest-100 dark:border-forest-800 hover:border-forest-300 dark:hover:border-forest-700'
+                  }`}
+                >
+                  <span>{catItem.icon}</span>
+                  <span>{catItem.label}</span>
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${isSelected ? 'bg-white/20 text-white' : 'bg-forest-100 dark:bg-charcoal-800 text-forest-600 dark:text-forest-400'}`}>
+                    {catItem.count}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
         {/* GIAO DIỆN 2 CỘT CHUẨN THƯƠNG MẠI ĐIỆN TỬ: TRÁI LÀ BỘ LỌC, PHẢI LÀ NỘI DUNG */}
         <div className="flex flex-col lg:flex-row gap-8 items-start">
           {/* CỘT TRÁI: BỘ LỌC SIDEBAR CỐ ĐỊNH (DESKTOP STICKY) */}
@@ -393,12 +469,12 @@ export const HomePage: React.FC<HomePageProps> = ({
               <div>
                 <h2 className="text-xl sm:text-2xl lg:text-3xl font-serif font-bold text-forest-900 dark:text-cream-50 tracking-tight">
                   {filters.category === 'all'
-                    ? isEn ? `Comprehensive Botanical Encyclopedia (${allPlants.length} Varieties)` : `Bách Khoa Thực Vật Đô Thị (${allPlants.length} Giống Cây)`
-                    : filters.category === 'herb'
-                    ? isEn ? `Native Medicinal Herbs Encyclopedia (${allPlants.filter(p => p.category === 'herb').length} Varieties)` : `Bách Khoa Thảo Dược Bản Địa (${allPlants.filter(p => p.category === 'herb').length} Giống Cây)`
-                    : filters.category === 'fruit'
-                    ? isEn ? `Urban Balcony Fruit Trees Encyclopedia (${allPlants.filter(p => p.category === 'fruit').length} Varieties)` : `Bách Khoa Cây Ăn Trái Đô Thị (${allPlants.filter(p => p.category === 'fruit').length} Giống Cây)`
-                    : isEn ? `Bonsai & Ornamental Botanical Encyclopedia (${allPlants.filter(p => p.category === 'ornamental').length} Varieties)` : `Bách Khoa Cây Cảnh & Bonsai (${allPlants.filter(p => p.category === 'ornamental').length} Giống Cây)`}
+                    ? isEn ? `Comprehensive Botanical & Eco Marketplace (${allPlants.length} Publications)` : `Sàn Tri Thức & Bách Khoa Sinh Thái (${allPlants.length} Ấn Phẩm)`
+                    : (() => {
+                        const c = getCategoryConfig(filters.category as PlantCategory);
+                        const count = allPlants.filter(p => p.category === filters.category).length;
+                        return isEn ? `${c.headingEn} (${count})` : `${c.headingVi} (${count})`;
+                      })()}
                 </h2>
                 <p className="text-xs sm:text-sm text-forest-700 dark:text-forest-300 mt-1">
                   {searchQuery
@@ -406,15 +482,30 @@ export const HomePage: React.FC<HomePageProps> = ({
                       ? `Found ${filteredPlants.length} plants matching "${searchQuery}"`
                       : `Tìm thấy ${filteredPlants.length} cây phù hợp từ khóa "${searchQuery}"`
                     : isEn
-                    ? `Showing ${displayedPlants.length} of ${filteredPlants.length} curated botanical varieties matching active filters`
-                    : `Hiển thị ${displayedPlants.length} / ${filteredPlants.length} giống cây tuyển chọn phù hợp bộ lọc hiện tại`}
+                    ? `Showing ${displayedPlants.length} of ${filteredPlants.length} curated publications matching active filters`
+                    : `Hiển thị ${displayedPlants.length} / ${filteredPlants.length} ấn phẩm tuyển chọn phù hợp bộ lọc hiện tại`}
                 </p>
               </div>
 
-              <div className="self-start sm:self-auto flex items-center gap-2 text-xs font-semibold text-forest-800 dark:text-cream-100 bg-white dark:bg-charcoal-900 px-3.5 py-2 rounded-xl border border-forest-100 dark:border-forest-800 shadow-2xs">
-                <Filter className="w-4 h-4 text-herbal-600 dark:text-herbal-400" />
-                <span className="hidden sm:inline">{t('common.category')}:</span>
-                <span className="capitalize">{filters.category}</span>
+              <div className="self-start sm:self-auto flex items-center gap-2 flex-wrap">
+                <button
+                  type="button"
+                  onClick={() => setSortBy(prev => prev === 'hearts' ? 'default' : 'hearts')}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer border ${
+                    sortBy === 'hearts'
+                      ? 'bg-rose-500 text-white border-rose-600 shadow-sm'
+                      : 'bg-white dark:bg-charcoal-900 text-rose-600 dark:text-rose-400 border-rose-200 dark:border-rose-900/60 hover:bg-rose-50'
+                  }`}
+                >
+                  <Heart className="w-3.5 h-3.5 fill-current" />
+                  <span>{isEn ? 'Most Loved' : 'Được Yêu Thích Nhất'}</span>
+                </button>
+
+                <div className="flex items-center gap-2 text-xs font-semibold text-forest-800 dark:text-cream-100 bg-white dark:bg-charcoal-900 px-3.5 py-1.5 rounded-xl border border-forest-100 dark:border-forest-800 shadow-2xs">
+                  <Filter className="w-4 h-4 text-herbal-600 dark:text-herbal-400" />
+                  <span className="hidden sm:inline">{t('common.category')}:</span>
+                  <span className="capitalize">{filters.category}</span>
+                </div>
               </div>
             </div>
 

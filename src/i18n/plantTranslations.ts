@@ -3766,6 +3766,139 @@ export const PLANT_ENGLISH_MAP: Record<string, LocalizedPlantData> = {
     ],
     monetization_tips: ['Propagate trailing variegated ivy baskets ($4-$8) and craft living wire-frame ivy topiary wreaths for desks and cafes.'],
     tags: ['Eliminates 78% Mold Spores', 'Star-Leaf Cascade', 'Eternal Youth Symbol', 'Bookshelf Decor']
+  },
+
+  // 4 Sample Ecosystem Publications
+  'space-01': {
+    common_name: 'West-Facing Balcony Multi-Layer Heat Shield Blueprint',
+    aliases: ['West Balcony Thermal Blueprint', 'Apartment Sun Screen', 'Micro-climate Garden Design'],
+    description: 'Architectural blueprint for a multi-layered west-facing apartment balcony garden that reduces concrete wall heat radiation by 4-6°C while optimizing air flow and drip irrigation.',
+    quick_answer: 'Ideal for 2-4m² west-facing high-rise balconies. Features sun-tolerant fruiting trees in front, shaded medicinal herbs behind, and lightweight substrate (<0.65 kg/L).',
+    growth_time: '1-2 days DIY installation',
+    seasonality: {
+      north: 'Best installed in spring before summer heat waves',
+      central: 'Withstands extreme dry foehn winds over 40°C',
+      south: 'Continuous cooling effect year-round',
+      best_months: [2, 3, 4, 5, 6, 7]
+    },
+    botanical_details: {
+      family: 'Urban Architecture / Ecological Engineering',
+      native_range: 'Tropical high-rise cities in Vietnam',
+      active_compounds: ['Micro-climate Insulation', 'Solar Absorption', 'Air Convection', 'Structural Safety'],
+      soil_ph: '6.0 - 6.8 (Lightweight coco coir and perlite substrate)',
+      ideal_temp: '25°C - 42°C',
+      pot_size: '60-80cm composite balcony planters'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Sun Exposure & Weight Audit', instruction: 'Measure your balcony and determine sun angle between 1pm and 5pm to place heavy sun-loving plants along outer railings.' },
+      { step: 2, title: 'Multi-layer Canopy Planting', instruction: 'Outer tier: Dwarf Ambarella and Guava; Middle tier: Cuban Oregano and Perilla; Floor tier: Aloe Vera and Betel Leaf.' },
+      { step: 3, title: 'Capillary Wick Irrigation', instruction: 'Install automatic float-valve drip tubing or cotton capillary wicks to maintain steady root hydration during hot afternoons.' }
+    ],
+    faqs: [
+      { question: 'What plants do not scorch on west-facing balconies?', answer: 'Thick-leaf varieties like dwarf ambarella, guava, Vernonia creeper, and bougainvillea thrive under intense afternoon sun.' },
+      { question: 'What is the safe load limit for high-rise balconies?', answer: 'Apartment balconies are rated for 150-200 kg/m². Use perlite/coco peat rather than dense topsoil or heavy cement pots.' }
+    ],
+    monetization_tips: ['Sell custom 3D architectural garden blueprints and offer turnkey balcony installation packages ($150-$500).'],
+    tags: ['West Balcony', 'Architectural Blueprint', 'Urban Heat Shield', 'Capillary Watering', 'Micro-climate']
+  },
+
+  'recycle-01': {
+    common_name: 'DIY Capillary Self-Watering Planter (Upcycled HDPE Jug)',
+    aliases: ['Recycled Jug SIP Planter', 'Upcycled Bottle Planter', 'Home Self-Watering Pot'],
+    description: 'Eco-invention transforming 5L food-grade HDPE jugs into sub-irrigated capillary planters. Saves 70% of water and keeps plants hydrated for 7-10 days with zero root rot risk.',
+    quick_answer: 'Two-chamber sub-irrigation system from repurposed 5L mineral or cooking oil bottles. Uses natural cotton capillary action to water plants from below.',
+    growth_time: '30 minutes simple DIY build',
+    seasonality: {
+      north: 'Operates year-round; perfect for holiday travels and Tet vacations',
+      central: 'Conserves water during dry summer spells',
+      south: 'Eliminates mid-day dehydration in hot tropical sun',
+      best_months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    },
+    botanical_details: {
+      family: 'Eco Innovation / Upcycling Systems',
+      native_range: 'Eco-friendly household upcycling worldwide',
+      active_compounds: ['Capillary Action', 'Zero Surface Evaporation', 'Root Zone Aeration', 'Zero Waste Circularity'],
+      soil_ph: '6.0 - 7.0',
+      ideal_temp: '15°C - 38°C',
+      pot_size: '5L split jug (1.5L water reservoir + 3.5L potting soil)'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Cut and Invert the Bottle', instruction: 'Clean a 5L HDPE food jug, cut horizontally 12cm above the base, and invert the top half into the bottom reservoir.' },
+      { step: 2, title: 'Install Cotton Wicks and Overflow Hole', instruction: 'Thread a 20cm thick natural cotton cord through the bottle neck and drill an overflow drain hole 8cm from base.' },
+      { step: 3, title: 'Fill Substrate and Add Water', instruction: 'Fill with loose aerated potting mix, arrange wicks around roots, and fill the reservoir below.' }
+    ],
+    faqs: [
+      { question: 'What wick material works best?', answer: 'Natural braided cotton rope or recycled cotton t-shirt strips provide steady capillary draw for 1-2 years without decomposing.' },
+      { question: 'Do mosquitoes breed in the reservoir?', answer: 'No, the closed dark lower reservoir with an upside-down funnel blocks mosquitoes from entering.' }
+    ],
+    monetization_tips: ['Package DIY Upcycled Planter Kits with seed starters for urban professionals ($3-$5 each) and host corporate sustainability workshops.'],
+    tags: ['Self-Watering', 'HDPE Upcycling', 'Capillary Planter', 'Eco Invention', 'Water Saving']
+  },
+
+  'culinary-01': {
+    common_name: 'Steamed Plectranthus & Calamondin Honey Cough Elixir',
+    aliases: ['Cuban Oregano Cough Syrup', 'Folk Pediatric Elixir', 'Herbal Calamondin Syrup'],
+    description: 'Time-honored folk remedy extracting plant antibiotics carvacrol and thymol from freshly harvested Cuban oregano leaves and backyard calamondin fruits, steamed with raw forest honey and rock sugar.',
+    quick_answer: 'Gentle, natural cough syrup safe for children and families. Relieves chronic throat tickles, reduces mild fever, and tastes sweet and soothing.',
+    growth_time: '45 minutes gentle steaming',
+    seasonality: {
+      north: 'Prepare in autumn and winter ahead of monsoon cold snaps',
+      central: 'Ideal remedy during chilly rainy months',
+      south: 'Soothes throat irritation caused by continuous air conditioning',
+      best_months: [1, 2, 3, 8, 9, 10, 11, 12]
+    },
+    botanical_details: {
+      family: 'Traditional Culinary Herbal Medicine',
+      native_range: 'Traditional Vietnamese household medicine across all 3 regions',
+      active_compounds: ['Carvacrol (Antimicrobial)', 'Thymol (Anti-inflammatory)', 'Hesperidin', 'Raw Honey Bio-enzymes'],
+      soil_ph: '100% natural organic ingredients with zero artificial preservatives',
+      ideal_temp: 'Refrigerate at 4°C - 8°C',
+      pot_size: 'Sterilized glass jar (250ml - 500ml)'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Harvest and Mince Fresh Herbs', instruction: 'Pick 15-20 thick Cuban oregano leaves and 5-7 calamondin fruits. Wash in mild salt water and finely dice, keeping calamondin seeds intact.' },
+      { step: 2, title: 'Golden Ratio Formulation', instruction: 'Combine 100g oregano leaves + 100g calamondins + 80g natural rock sugar + 50ml raw wild honey in a ceramic bowl.' },
+      { step: 3, title: 'Gentle Bain-Marie Steaming', instruction: 'Steam gently on low heat for 40-45 minutes. Allow to cool and strain the concentrated syrup into an airtight glass jar.' }
+    ],
+    faqs: [
+      { question: 'Why keep the calamondin seeds?', answer: 'Calamondin seeds contain potent natural pectins and bitter bioflavonoids that break down stubborn phlegm twice as fast as the fruit pulp alone.' },
+      { question: 'How long does this syrup last?', answer: 'Stored in a sterilized airtight glass jar in the refrigerator, it stays fresh and potent for 3 to 6 months.' }
+    ],
+    monetization_tips: ['Bottled artisan herbal syrup (250ml) sells for $4-$7 during flu seasons; also sell fresh DIY ingredient kits to mothers.'],
+    tags: ['Cuban Oregano Syrup', 'Pediatric Cough Relief', 'Folk Culinary Remedy', 'Raw Forest Honey', 'Natural Antibiotic']
+  },
+
+  'forest-01': {
+    common_name: 'Cuc Phuong National Park Sanctuary (Rainforest Biome)',
+    aliases: ['Cuc Phuong Primary Forest', 'Cuc Phuong National Park', 'Limestone Karst Sanctuary'],
+    description: "Vietnam's first national park encompassing 22,408 hectares (224,080,000 m²). Home to ancient thousand-year-old trees, Prehistoric Caves, the critically endangered Delacour's langur, and multi-layered primary rainforest biomes.",
+    quick_answer: 'Iconic primeval rainforest sanctuary across Ninh Binh, Hoa Binh, and Thanh Hoa. Conservation NFTs are allocated at 10,000 m² (1 hectare) per lot, verifiable only via GPS presence.',
+    growth_time: 'Millions of years primeval ecosystem',
+    seasonality: {
+      north: 'Peak beauty during butterfly swarming season (April-May) and dry trekking months (November-March)',
+      central: 'Cool year-round beneath dense rainforest canopy',
+      south: 'Premier eco-tourism pilgrimage in Northern Vietnam',
+      best_months: [4, 5, 11, 12, 1, 2, 3]
+    },
+    botanical_details: {
+      family: 'Tropical Rainforest / Limestone Karst Primeval Forest',
+      native_range: 'Spans Ninh Binh, Hoa Binh, and Thanh Hoa provinces',
+      active_compounds: ['Biodiversity of 2,234 vascular plant species', '436 medicinal herbs', 'Immense Carbon Sink', 'Watershed Sanctuary'],
+      soil_ph: '6.5 - 7.5 (Feralit soil over ancient Karst limestone formations)',
+      ideal_temp: '18°C - 28°C',
+      pot_size: '22,408 hectares core reserve (10,000 m² per conservation NFT)'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Visit Sanctuary & Enable Device GPS', instruction: 'Travel to Cuc Phuong National Park (within 18km radius from sanctuary center). Enable satellite GPS on your smartphone.' },
+      { step: 2, title: 'Verify On-Site GPS via Web3 Sandbox', instruction: 'Press "Verify Forest GPS Location". System calculates Haversine distance; upon valid verification (<= 18km), a 24-hour Check-in Pass is granted.' },
+      { step: 3, title: 'Sign Blockchain Transaction for 10,000m² Lot', instruction: 'Claim deterministic lot number with cryptographic proof, permanently recorded on the immutable ledger.' }
+    ],
+    faqs: [
+      { question: 'Why is physical GPS presence required to mint this NFT?', answer: 'Proof-of-Presence directly ties digital ownership to actual on-the-ground eco-conservation, preventing speculative hoarding by users who have never visited the forest.' },
+      { question: 'How many NFTs can be minted for Cuc Phuong?', answer: 'Each NFT represents 10,000 m² (1 hectare). With 22,408 hectares total, the maximum supply is capped at 22,408 NFTs. Once reached, minting is permanently stopped.' }
+    ],
+    monetization_tips: ['Holders receive eco-tourism perks such as discounted guided treks and generate verified personal Web3 Green Carbon credentials.'],
+    tags: ['National Park', 'Primeval Rainforest', 'Cuc Phuong', 'Biodiversity Sanctuary', 'Delacours Langur', 'Millennial Tree']
   }
 };
 
