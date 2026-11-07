@@ -114,8 +114,10 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
   const [selectedPlantId, setSelectedPlantId] = useState<string | null>(null);
   const [actionNotice, setActionNotice] = useState<string | null>(null);
 
-  // URL Hồ sơ công khai theo email (CHỈ TỒN TẠI KHI ĐÃ ĐĂNG NHẬP)
-  const userHandle = getUsernameFromEmail(currentUser?.email);
+  // URL Hồ sơ công khai (Ẩn email bảo mật, ưu tiên custom_handle nếu đã sửa 1 lần)
+  const rawUserHandle = getUsernameFromEmail(currentUser?.email);
+  const userProfileConfig = rawUserHandle ? plantPassportRegistryService.getPublicProfile(rawUserHandle) : null;
+  const userHandle = userProfileConfig?.custom_handle || rawUserHandle;
   const publicProfileUrl = userHandle ? `https://yeutrongcay.com/${userHandle}` : '';
 
   // Điểm Karma & Huy Hiệu Đóng Góp (MS5 - H9)
@@ -677,22 +679,24 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
                 {currentUser?.name ? `Vườn Của ${currentUser.name}` : (garden?.garden_name || (isEn ? 'My Balcony Garden' : 'Vườn Ban Công Của Tôi'))}
               </h1>
 
-              {/* Thông tin tài khoản người dùng đăng nhập */}
+              {/* Thông tin tài khoản người dùng đăng nhập (Đã ẩn địa chỉ Email để bảo mật) */}
               {currentUser && (
                 <div className="flex items-center gap-2 pt-0.5 flex-wrap">
                   <img
-                    src={currentUser.avatar_url}
-                    alt={currentUser.name}
+                    src={userProfileConfig?.avatar_url || currentUser.avatar_url}
+                    alt={userProfileConfig?.display_name || currentUser.name}
                     className="w-6 h-6 rounded-full object-cover ring-2 ring-emerald-500/70"
                   />
                   <span className="text-xs font-bold text-forest-900 dark:text-cream-100">
-                    {currentUser.name}
+                    {userProfileConfig?.display_name || currentUser.name}
                   </span>
-                  <span className="text-[11px] text-gray-500 font-mono">
-                    ({currentUser.email || `@${userHandle}`})
-                  </span>
+                  {userHandle && (
+                    <span className="text-[11px] text-emerald-700 dark:text-emerald-300 font-mono font-semibold">
+                      (@{userHandle})
+                    </span>
+                  )}
                   <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700">
-                    {currentUser.badge}
+                    {userProfileConfig?.specialty_tag || currentUser.badge}
                   </span>
                 </div>
               )}

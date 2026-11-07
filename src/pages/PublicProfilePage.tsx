@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link, Navigate } from 'react-router-dom';
+import { useParams, Link, Navigate, useNavigate } from 'react-router-dom';
 import {
   Sparkles,
   ShieldCheck,
@@ -11,9 +11,19 @@ import {
   Printer,
   ArrowRight,
   Eye,
-  UserCheck
+  UserCheck,
+  Edit3,
+  Lock,
+  AlertTriangle,
+  MapPin,
+  X,
+  Upload
 } from 'lucide-react';
-import { plantPassportRegistryService, RegisteredPlantPassport } from '../services/plantPassportRegistryService';
+import {
+  plantPassportRegistryService,
+  RegisteredPlantPassport,
+  UserPublicProfileConfig
+} from '../services/plantPassportRegistryService';
 import { UserProfile } from '../types';
 import { useLanguage } from '../context/LanguageContext';
 import { useSEO } from '../utils/useSEO';
@@ -40,6 +50,7 @@ interface PublicProfilePageProps {
 
 export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUser }) => {
   const { username } = useParams<{ username: string }>();
+  const navigate = useNavigate();
   const { isEn } = useLanguage();
   const cleanHandle = (username || '').replace(/^@/, '').toLowerCase().trim();
 
@@ -52,50 +63,134 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
   const [copiedSha, setCopiedSha] = useState<string | null>(null);
   const [selectedPassport, setSelectedPassport] = useState<RegisteredPlantPassport | null>(null);
   const [passports, setPassports] = useState<RegisteredPlantPassport[]>([]);
+  const [profileConfig, setProfileConfig] = useState<UserPublicProfileConfig>(() =>
+    plantPassportRegistryService.getPublicProfile(cleanHandle)
+  );
 
-  // Tải danh bạ NFT độc bản của người dùng này
+  // Modal chỉnh sửa hồ sơ 1 lần duy nhất
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editDisplayName, setEditDisplayName] = useState('');
+  const [editCustomHandle, setEditCustomHandle] = useState('');
+  const [editLocation, setEditLocation] = useState('');
+  const [editSpecialtyTag, setEditSpecialtyTag] = useState('');
+  const [editBio, setEditBio] = useState('');
+  const [editAvatarUrl, setEditAvatarUrl] = useState('');
+  const [hasConfirmedOneTimeRule, setHasConfirmedOneTimeRule] = useState(false);
+  const [editError, setEditError] = useState<string | null>(null);
+  const [editSuccessNotice, setEditSuccessNotice] = useState<string | null>(null);
+
+  // Tải danh bạ NFT độc bản & cấu hình hồ sơ của người dùng này
   useEffect(() => {
-    const list = plantPassportRegistryService.getUserVerifiedGalleryByUsername(cleanHandle);
-    setPassports(list);
-    plantPassportRegistryService.syncWithCloud().then(() => {
+    const refreshAll = () => {
       setPassports(plantPassportRegistryService.getUserVerifiedGalleryByUsername(cleanHandle));
-    }).catch(() => {});
-
-    const handleUpdate = () => {
-      const updated = plantPassportRegistryService.getUserVerifiedGalleryByUsername(cleanHandle);
-      setPassports(updated);
+      setProfileConfig(plantPassportRegistryService.getPublicProfile(cleanHandle));
     };
 
-    window.addEventListener('ytc_passport_registry_updated', handleUpdate);
+    refreshAll();
+    plantPassportRegistryService.syncWithCloud().then(refreshAll).catch(() => {});
+    plantPassportRegistryService.syncPublicProfileFromCloud(cleanHandle).then(refreshAll).catch(() => {});
+
+    window.addEventListener('ytc_passport_registry_updated', refreshAll);
+    window.addEventListener('ytc_public_profile_updated', refreshAll);
     return () => {
-      window.removeEventListener('ytc_passport_registry_updated', handleUpdate);
+      window.removeEventListener('ytc_passport_registry_updated', refreshAll);
+      window.removeEventListener('ytc_public_profile_updated', refreshAll);
     };
   }, [cleanHandle]);
 
   // Kiểm tra xem người đang xem có phải là chủ nhân hồ sơ này không
   const myUsername = currentUser?.email
-    ? currentUser.email.split('@')[0].toLowerCase()
+    ? currentUser.email.split('@')[0].toLowerCase().replace(/[^a-z0-9_-]/g, '')
     : 'tranthanhtung37';
-  const isMe = cleanHandle === myUsername || currentUser?.id === cleanHandle;
+  const isMe =
+    cleanHandle === myUsername ||
+    profileConfig.original_handle === myUsername ||
+    profileConfig.custom_handle === myUsername ||
+    currentUser?.id === cleanHandle;
 
-  // Tên hiển thị người dùng
-  const displayName = cleanHandle === 'tranthanhtung37'
-    ? 'Trần Thanh Tùng'
-    : (currentUser && isMe ? currentUser.name : cleanHandle);
+  const effectiveHandle = profileConfig.custom_handle || cleanHandle;
+  const displayName = profileConfig.display_name || (currentUser && isMe ? currentUser.name : effectiveHandle);
+  const publicUrl = `https://yeutrongcay.com/${effectiveHandle}`;
 
-  const displayEmail = cleanHandle === 'tranthanhtung37'
-    ? 'tranthanhtung37@gmail.com'
-    : (currentUser && isMe ? currentUser.email : `${cleanHandle}@yeutrongcay.com`);
+  const handleOpenEditModal = () => {
+    setEditDisplayName(displayName);
+    setEditCustomHandle(effectiveHandle);
+    setEditLocation(profileConfig.location || 'TP. Hồ Chí Minh');
+    setEditSpecialtyTag(profileConfig.specialty_tag || 'Nhà Vườn Độc Bản Xác Thực');
+    setEditBio(profileConfig.bio);
+    setEditAvatarUrl(profileConfig.avatar_url || '');
+    setHasConfirmedOneTimeRule(false);
+    setEditError(null);
+    setIsEditModalOpen(true);
+  };
 
-  const publicUrl = `https://yeutrongcay.com/${cleanHandle}`;
+  const handleAvatarFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) {
+      setEditError(isEn ? 'Avatar image must be under 2MB' : 'Ảnh đại diện tối đa 2MB');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      if (ev.target?.result) {
+        setEditAvatarUrl(ev.target.result as string);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleSaveOneTimeProfile = (e: React.FormEvent) => {
+    e.preventDefault();
+    setEditError(null);
+
+    if (!hasConfirmedOneTimeRule) {
+      setEditError(
+        isEn
+          ? 'Please check the confirmation box acknowledging that you can only edit your profile ONCE.'
+          : 'Vui lòng tích vào ô xác nhận bạn đã hiểu quy tắc chỉ được sửa hồ sơ duy nhất 1 lần!'
+      );
+      return;
+    }
+
+    const res = plantPassportRegistryService.saveOneTimeProfileEdit(
+      profileConfig.original_handle || cleanHandle,
+      {
+        custom_handle: editCustomHandle,
+        display_name: editDisplayName,
+        bio: editBio,
+        location: editLocation,
+        specialty_tag: editSpecialtyTag,
+        avatar_url: editAvatarUrl
+      },
+      RESERVED_ROUTES
+    );
+
+    if (!res.success || !res.profile) {
+      setEditError(res.error || 'Không thể lưu thông tin hồ sơ');
+      return;
+    }
+
+    setProfileConfig(res.profile);
+    setIsEditModalOpen(false);
+    setEditSuccessNotice(
+      isEn
+        ? 'Your profile has been permanently updated and locked (1/1 one-time edit used).'
+        : 'Đã cập nhật hồ sơ cá nhân thành công! Lượt chỉnh sửa duy nhất (1/1) của bạn đã được sử dụng và khóa bảo mật.'
+    );
+
+    if (res.profile.custom_handle !== cleanHandle) {
+      navigate(`/${res.profile.custom_handle}`, { replace: true });
+    }
+  };
 
   useSEO({
     title: isEn
-      ? `${displayName} (@${cleanHandle}) | Botanical NFT Heritage | Yeu Trong Cay`
-      : `Hồ Sơ Nhà Vườn ${displayName} (@${cleanHandle}) | Bộ Sưu Tập NFT Cây Độc Bản`,
+      ? `${displayName} (@${effectiveHandle}) | Botanical NFT Heritage | Yeu Trong Cay`
+      : `Hồ Sơ Nhà Vườn ${displayName} (@${effectiveHandle}) | Bộ Sưu Tập NFT Cây Độc Bản`,
     description: isEn
-      ? `Explore verified living botanical NFT plant passports and urban garden legacy of @${cleanHandle} on Yeu Trong Cay.`
-      : `Khám phá hồ sơ nhà vườn và bộ sưu tập Hộ Chiếu Cây Trồng Số NFT độc bản on-chain của @${cleanHandle} trên Yêu Trồng Cây.`
+      ? `Explore verified living botanical NFT plant passports and urban garden legacy of @${effectiveHandle} on Yeu Trong Cay.`
+      : `Khám phá hồ sơ nhà vườn và bộ sưu tập Hộ Chiếu Cây Trồng Số NFT độc bản on-chain của @${effectiveHandle} trên Yêu Trồng Cây.`
   });
 
   const handleCopyProfileUrl = () => {
@@ -114,6 +209,22 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
     <div className="min-h-screen bg-cream-50 dark:bg-charcoal-950 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto space-y-8">
 
+        {/* Thông báo sau khi lưu chỉnh sửa 1 lần duy nhất */}
+        {editSuccessNotice && (
+          <div className="p-4 rounded-2xl bg-emerald-950 border border-emerald-500 text-emerald-200 text-xs sm:text-sm flex items-center justify-between gap-3 shadow-lg">
+            <div className="flex items-center gap-2.5">
+              <Check className="w-5 h-5 text-emerald-400 shrink-0" />
+              <span>{editSuccessNotice}</span>
+            </div>
+            <button
+              onClick={() => setEditSuccessNotice(null)}
+              className="text-emerald-300 hover:text-white font-bold px-2"
+            >
+              ✕
+            </button>
+          </div>
+        )}
+
         {/* 1. Header Hồ Sơ Người Dùng (User Profile Banner) */}
         <div className="bg-gradient-to-br from-forest-900 via-forest-950 to-charcoal-900 rounded-3xl p-6 sm:p-10 border border-amber-500/30 text-white shadow-2xl relative overflow-hidden">
           {/* Glow nền sang trọng */}
@@ -124,9 +235,17 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
             {/* Avatar Nhà Vườn */}
             <div className="relative shrink-0">
               <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-gradient-to-br from-emerald-600 to-teal-800 p-1 border-2 border-amber-400 shadow-xl flex items-center justify-center overflow-hidden">
-                <span className="font-serif font-black text-3xl sm:text-4xl text-white">
-                  {displayName.charAt(0).toUpperCase()}
-                </span>
+                {profileConfig.avatar_url ? (
+                  <img
+                    src={profileConfig.avatar_url}
+                    alt={displayName}
+                    className="w-full h-full object-cover rounded-2xl"
+                  />
+                ) : (
+                  <span className="font-serif font-black text-3xl sm:text-4xl text-white">
+                    {displayName.charAt(0).toUpperCase()}
+                  </span>
+                )}
               </div>
               <div className="absolute -bottom-2 -right-2 px-2.5 py-0.5 rounded-full bg-amber-500 text-forest-950 text-[10px] font-black uppercase tracking-wider shadow-md flex items-center gap-1">
                 <Sparkles className="w-3 h-3" />
@@ -134,7 +253,7 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
               </div>
             </div>
 
-            {/* Thông tin nhà vườn */}
+            {/* Thông tin nhà vườn (Đã ẩn hoàn toàn địa chỉ Email để bảo mật) */}
             <div className="flex-1 text-center md:text-left space-y-2.5">
               <div className="flex items-center justify-center md:justify-start gap-2 flex-wrap">
                 <h1 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
@@ -142,7 +261,7 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
                 </h1>
                 <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-semibold border border-emerald-500/30">
                   <UserCheck className="w-3.5 h-3.5" />
-                  <span>Nhà Vườn Độc Bản Xác Thực</span>
+                  <span>{profileConfig.specialty_tag || 'Nhà Vườn Độc Bản Xác Thực'}</span>
                 </span>
                 {isMe && (
                   <span className="px-2.5 py-0.5 rounded-full bg-amber-500/30 text-amber-300 text-[10px] font-bold border border-amber-500/50">
@@ -152,23 +271,29 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
               </div>
 
               <div className="flex items-center justify-center md:justify-start gap-3 text-xs text-forest-300 font-mono flex-wrap">
-                <span>@{cleanHandle}</span>
+                <span className="font-bold text-emerald-300">@{effectiveHandle}</span>
                 <span>•</span>
-                <span>{displayEmail}</span>
+                <span className="inline-flex items-center gap-1 text-forest-200 font-sans">
+                  <MapPin className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>{profileConfig.location || 'Việt Nam'}</span>
+                </span>
                 <span>•</span>
-                <span className="text-amber-300 flex items-center gap-1">
+                <span className="text-amber-300 flex items-center gap-1 font-sans font-semibold">
                   <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
                   <span>Sở hữu {passports.length} Hộ Chiếu Cây Độc Bản</span>
+                </span>
+                <span>•</span>
+                <span className="inline-flex items-center gap-1 text-[11px] text-forest-400 font-sans">
+                  <Lock className="w-3 h-3 text-emerald-400" />
+                  <span>Email đã ẩn bảo mật</span>
                 </span>
               </div>
 
               <p className="text-xs sm:text-sm text-forest-200/90 max-w-2xl leading-relaxed pt-1">
-                {isEn
-                  ? 'Welcome to my public botanical space! Here you will find all living plant specimens uniquely registered under my digital ownership on the Ethereum & Base blockchain.'
-                  : 'Chào mừng bạn đến với vườn thực vật số công khai của tôi! Toàn bộ các giống cây bên dưới đều được cấp Hộ Chiếu Thực Vật Số độc bản duy nhất trên sổ cái blockchain, gắn liền với bảo chứng mật mã học và cam kết sinh thái bền vững.'}
+                {profileConfig.bio}
               </p>
 
-              {/* Hộp URL Hồ Sơ Công Khai Định Danh Theo Email */}
+              {/* Hộp URL Hồ Sơ Công Khai & Nút Sửa Hồ Sơ (1 Lần Duy Nhất) */}
               <div className="pt-3 flex flex-wrap items-center justify-center md:justify-start gap-2.5">
                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-forest-950/80 border border-forest-700/80 text-xs font-mono text-gray-300 shadow-inner">
                   <span className="text-gray-500">URL Hồ Sơ:</span>
@@ -183,6 +308,28 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
                   {copiedLink ? <Check className="w-3.5 h-3.5 text-forest-950" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copiedLink ? 'Đã sao chép link!' : 'Sao chép URL'}</span>
                 </button>
+
+                {isMe && !profileConfig.has_edited_once && (
+                  <button
+                    type="button"
+                    onClick={handleOpenEditModal}
+                    className="px-3.5 py-1.5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center gap-1.5 border border-emerald-400/50 shadow-md cursor-pointer"
+                    title="Chỉnh sửa thông tin hồ sơ cá nhân (Chỉ được sửa duy nhất 1 lần)"
+                  >
+                    <Edit3 className="w-3.5 h-3.5 text-amber-300" />
+                    <span>Chỉnh sửa hồ sơ (Còn 1/1 lượt)</span>
+                  </button>
+                )}
+
+                {isMe && profileConfig.has_edited_once && (
+                  <span
+                    className="px-3.5 py-1.5 rounded-2xl bg-forest-950/90 text-forest-300 text-xs font-semibold flex items-center gap-1.5 border border-forest-700"
+                    title={`Bạn đã sử dụng 1/1 lượt chỉnh sửa duy nhất vào lúc ${profileConfig.edited_at || ''}`}
+                  >
+                    <Lock className="w-3.5 h-3.5 text-amber-400" />
+                    <span>Đã dùng 1/1 lượt sửa hồ sơ</span>
+                  </span>
+                )}
 
                 {isMe && (
                   <Link
@@ -227,7 +374,7 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
             </span>
             <p>
               Tất cả các giống cây trong bộ sưu tập này đã được cấp Hộ Chiếu Số độc quyền cho nhà vườn{' '}
-              <strong>@{cleanHandle}</strong>. Trong thế giới của <strong>yeutrongcay.com</strong>, bất kỳ ai khác cố tình đúc lại giống cây hoặc mã ảnh này đều bị hệ thống tự động loại bỏ và không được phép hiển thị trên hồ sơ cá nhân.
+              <strong>@{effectiveHandle}</strong>. Trong thế giới của <strong>yeutrongcay.com</strong>, bất kỳ ai khác cố tình đúc lại giống cây hoặc mã ảnh này đều bị hệ thống tự động loại bỏ và không được phép hiển thị trên hồ sơ cá nhân.
             </p>
           </div>
         </div>
@@ -481,6 +628,204 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
                   Đóng
                 </button>
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* Modal Chỉnh Sửa Thông Tin Hồ Sơ Cá Nhân (Mỗi Người Chỉ Được Sửa Duy Nhất 1 Lần) */}
+        {isEditModalOpen && (
+          <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+            <div className="bg-white dark:bg-charcoal-900 rounded-3xl max-w-xl w-full p-6 sm:p-7 border-2 border-amber-500/50 shadow-2xl space-y-5 my-8 animate-in fade-in zoom-in-95">
+              {/* Header */}
+              <div className="flex items-center justify-between pb-3 border-b border-forest-100 dark:border-forest-800">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 flex items-center justify-center">
+                    <Edit3 className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="font-serif font-bold text-base sm:text-lg text-forest-950 dark:text-white">
+                      {isEn ? 'Edit Personal Profile (One-Time Only)' : 'Chỉnh Sửa Hồ Sơ Cá Nhân (1 Lần Duy Nhất)'}
+                    </h3>
+                    <p className="text-[11px] text-forest-600 dark:text-forest-400">
+                      {isEn ? 'Email is hidden for your privacy' : 'Địa chỉ email đã được ẩn hoàn toàn để bảo mật'}
+                    </p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setIsEditModalOpen(false)}
+                  className="w-8 h-8 rounded-full bg-forest-50 dark:bg-charcoal-800 hover:bg-forest-100 flex items-center justify-center text-gray-500 hover:text-gray-800 dark:hover:text-white transition"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* HỘP CẢNH BÁO QUAN TRỌNG: CHỈ ĐƯỢC SỬA DUY NHẤT 1 LẦN */}
+              <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/60 border-2 border-amber-400 dark:border-amber-500/80 text-amber-950 dark:text-amber-200 space-y-1.5 shadow-xs">
+                <div className="flex items-center gap-2 font-bold text-xs sm:text-sm text-amber-900 dark:text-amber-300">
+                  <AlertTriangle className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0" />
+                  <span>
+                    {isEn
+                      ? 'IMPORTANT WARNING: YOU CAN ONLY EDIT THIS PROFILE ONCE (1/1)'
+                      : 'CẢNH BÁO QUAN TRỌNG: BẠN CHỈ ĐƯỢC SỬA HỒ SƠ DUY NHẤT 1 LẦN (1/1)'}
+                  </span>
+                </div>
+                <p className="text-xs leading-relaxed text-amber-900/90 dark:text-amber-200/90">
+                  {isEn
+                    ? 'To protect the authenticity of Web3 Botanical NFT ownership, each gardener is permitted to customize their profile information ONLY ONCE. Once you confirm and save, your profile details will be permanently locked and cannot be edited again. Please review carefully before deciding!'
+                    : 'Để đảm bảo tính minh bạch và định danh độc bản của chủ sở hữu NFT trên Yêu Trồng Cây, mỗi người dùng chỉ được phép chỉnh sửa thông tin hồ sơ cá nhân ĐÚNG 1 LẦN DUY NHẤT. Sau khi bạn bấm Lưu xác nhận, quyền chỉnh sửa sẽ khóa vĩnh viễn. Vui lòng kiểm tra thật kỹ trước khi tự quyết định!'}
+                </p>
+              </div>
+
+              {editError && (
+                <div className="p-3 rounded-xl bg-red-50 dark:bg-red-950/70 border border-red-300 dark:border-red-800 text-xs text-red-700 dark:text-red-200 font-medium">
+                  {editError}
+                </div>
+              )}
+
+              <form onSubmit={handleSaveOneTimeProfile} className="space-y-4 text-xs">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  <div>
+                    <label className="block font-bold text-forest-900 dark:text-cream-100 mb-1">
+                      {isEn ? '1. Gardener Display Name *' : '1. Tên hiển thị Nhà Vườn *'}
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={editDisplayName}
+                      onChange={(e) => setEditDisplayName(e.target.value)}
+                      placeholder="VD: Trần Thanh Tùng"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-forest-50/70 dark:bg-charcoal-800 border border-forest-200 dark:border-forest-700 text-forest-950 dark:text-white font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-forest-900 dark:text-cream-100 mb-1">
+                      {isEn ? '2. Profile Handle (@username) *' : '2. Mã định danh URL (@username) *'}
+                    </label>
+                    <div className="relative">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-emerald-600 font-mono font-bold">@</span>
+                      <input
+                        type="text"
+                        required
+                        value={editCustomHandle}
+                        onChange={(e) => setEditCustomHandle(e.target.value.toLowerCase().replace(/[^a-z0-9_-]/g, ''))}
+                        placeholder="tranthanhtung37"
+                        className="w-full pl-7 pr-3.5 py-2.5 rounded-xl bg-forest-50/70 dark:bg-charcoal-800 border border-forest-200 dark:border-forest-700 text-forest-950 dark:text-emerald-300 font-mono font-bold focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  <div>
+                    <label className="block font-bold text-forest-900 dark:text-cream-100 mb-1">
+                      {isEn ? '3. Location / City' : '3. Khu vực / Thành phố'}
+                    </label>
+                    <input
+                      type="text"
+                      value={editLocation}
+                      onChange={(e) => setEditLocation(e.target.value)}
+                      placeholder="VD: TP. Hồ Chí Minh, Đà Lạt..."
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-forest-50/70 dark:bg-charcoal-800 border border-forest-200 dark:border-forest-700 text-forest-950 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-bold text-forest-900 dark:text-cream-100 mb-1">
+                      {isEn ? '4. Gardener Title / Specialty' : '4. Danh hiệu Nhà Vườn'}
+                    </label>
+                    <input
+                      type="text"
+                      value={editSpecialtyTag}
+                      onChange={(e) => setEditSpecialtyTag(e.target.value)}
+                      placeholder="VD: Nhà Vườn Độc Bản Xác Thực"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-forest-50/70 dark:bg-charcoal-800 border border-forest-200 dark:border-forest-700 text-forest-950 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block font-bold text-forest-900 dark:text-cream-100 mb-1">
+                    {isEn ? '5. Garden Bio & Introduction' : '5. Lời giới thiệu khu vườn cá nhân'}
+                  </label>
+                  <textarea
+                    rows={3}
+                    value={editBio}
+                    onChange={(e) => setEditBio(e.target.value)}
+                    placeholder="Giới thiệu đôi nét về khu vườn và bộ sưu tập cây trồng của bạn..."
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-forest-50/70 dark:bg-charcoal-800 border border-forest-200 dark:border-forest-700 text-forest-950 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 leading-relaxed"
+                  />
+                </div>
+
+                <div>
+                  <label className="block font-bold text-forest-900 dark:text-cream-100 mb-1">
+                    {isEn ? '6. Profile Avatar (Optional)' : '6. Ảnh đại diện (Tuỳ chọn)'}
+                  </label>
+                  <div className="flex items-center gap-3">
+                    {editAvatarUrl ? (
+                      <img
+                        src={editAvatarUrl}
+                        alt="Avatar preview"
+                        className="w-11 h-11 rounded-xl object-cover border border-amber-400 shrink-0"
+                      />
+                    ) : (
+                      <div className="w-11 h-11 rounded-xl bg-emerald-700 text-white font-serif font-bold flex items-center justify-center text-base shrink-0">
+                        {(editDisplayName || 'U').charAt(0).toUpperCase()}
+                      </div>
+                    )}
+                    <label className="px-3.5 py-2 rounded-xl bg-forest-100 dark:bg-charcoal-800 hover:bg-forest-200 text-forest-900 dark:text-cream-100 font-semibold cursor-pointer flex items-center gap-1.5 border border-forest-200 dark:border-forest-700 transition">
+                      <Upload className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>{isEn ? 'Upload Image' : 'Tải ảnh từ máy'}</span>
+                      <input type="file" accept="image/*" onChange={handleAvatarFileUpload} className="hidden" />
+                    </label>
+                    {editAvatarUrl && (
+                      <button
+                        type="button"
+                        onClick={() => setEditAvatarUrl('')}
+                        className="text-red-500 hover:underline font-semibold"
+                      >
+                        {isEn ? 'Remove' : 'Xóa ảnh'}
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {/* Hộp kiểm xác nhận tự quyết định sửa 1 lần duy nhất */}
+                <label className="p-3.5 rounded-2xl bg-forest-50 dark:bg-charcoal-800/90 border border-forest-200 dark:border-forest-700 flex items-start gap-2.5 cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    checked={hasConfirmedOneTimeRule}
+                    onChange={(e) => setHasConfirmedOneTimeRule(e.target.checked)}
+                    className="mt-0.5 w-4 h-4 accent-emerald-600 rounded cursor-pointer shrink-0"
+                  />
+                  <span className="text-forest-900 dark:text-cream-100 leading-relaxed font-medium">
+                    {isEn
+                      ? 'I have verified all information above and understand that I can only edit my personal profile ONCE. After saving, this profile will be permanently locked from further edits.'
+                      : 'Tôi đã kiểm tra kỹ thông tin trên và đồng ý tự quyết định sử dụng lượt chỉnh sửa hồ sơ DUY NHẤT (1/1). Tôi hiểu sau khi lưu sẽ không thể sửa lại lần thứ hai.'}
+                  </span>
+                </label>
+
+                <div className="flex items-center justify-end gap-2.5 pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setIsEditModalOpen(false)}
+                    className="px-4 py-2.5 rounded-xl bg-gray-100 dark:bg-charcoal-800 hover:bg-gray-200 text-gray-700 dark:text-gray-200 font-bold transition cursor-pointer"
+                  >
+                    {isEn ? 'Cancel (Keep 1/1 Edit)' : 'Hủy (Giữ lại lượt sửa)'}
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={!hasConfirmedOneTimeRule}
+                    className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 disabled:opacity-40 text-white font-bold shadow-md transition flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <Check className="w-4 h-4" />
+                    <span>
+                      {isEn ? 'Confirm & Lock Profile (1/1)' : 'Xác Nhận Lưu & Khóa Lượt Sửa (1/1)'}
+                    </span>
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         )}

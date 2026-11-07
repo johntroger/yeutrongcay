@@ -37,8 +37,22 @@ export interface RegisteredPlantPassport {
   rejection_reason?: string;
 }
 
+export interface UserPublicProfileConfig {
+  original_handle: string;
+  custom_handle: string;
+  display_name: string;
+  bio: string;
+  location: string;
+  specialty_tag: string;
+  avatar_url?: string;
+  has_edited_once: boolean;
+  edited_at?: string;
+}
+
 const REGISTRY_STORAGE_KEY = 'ytc_botanical_nft_registry';
 const FIRESTORE_COLLECTION = 'botanical_passports';
+const PROFILE_STORAGE_KEY = 'ytc_public_profiles_v1';
+const PROFILE_FIRESTORE_COLLECTION = 'user_public_profiles';
 
 /**
  * Thuật toán tính độ tương đồng xâu ký tự theo Levenshtein Distance (0.0 -> 1.0)
@@ -354,17 +368,218 @@ export const plantPassportRegistryService = {
       getUsernameFromEmail(passport.creator_email) ||
       passport.owner_address ||
       'tranthanhtung37';
-    const cleanHandle = rawHandle.replace(/^@/, '').trim().toLowerCase();
+    const cleanRaw = rawHandle.replace(/^@/, '').trim().toLowerCase();
+    const profileCfg = this.getPublicProfile(cleanRaw);
+    const effectiveHandle = profileCfg.custom_handle || cleanRaw;
+
     const shortWallet = passport.owner_address
       ? `${passport.owner_address.slice(0, 6)}...${passport.owner_address.slice(-4)}`
       : '0x1A81...0C26';
-    const displayLabel = cleanHandle.startsWith('0x') ? shortWallet : `@${cleanHandle}`;
+    const displayLabel = effectiveHandle.startsWith('0x') ? shortWallet : `@${effectiveHandle}`;
 
     return {
-      handle: cleanHandle,
+      handle: effectiveHandle,
       displayLabel,
-      profilePath: `/${cleanHandle}`,
+      profilePath: `/${effectiveHandle}`,
       shortWallet
+    };
+  },
+
+  /**
+   * LẤY CẤU HÌNH HỒ SƠ CÔNG KHAI CỦA NGƯỜI DÙNG (ẨN EMAIL BẢO MẬT, HỖ TRỢ SỬA 1 LẦN DUY NHẤT)
+   */
+  getAllPublicProfiles(): Record<string, UserPublicProfileConfig> {
+    try {
+      const raw = localStorage.getItem(PROFILE_STORAGE_KEY);
+      return raw ? (JSON.parse(raw) as Record<string, UserPublicProfileConfig>) : {};
+    } catch {
+      return {};
+    }
+  },
+
+  getPublicProfile(handleOrUsername: string): UserPublicProfileConfig {
+    const clean = (handleOrUsername || 'tranthanhtung37').replace(/^@/, '').trim().toLowerCase();
+    const map = this.getAllPublicProfiles();
+
+    // Tìm theo original_handle hoặc custom_handle
+    const found =
+      map[clean] ||
+      Object.values(map).find(
+        (cfg) => cfg.original_handle.toLowerCase() === clean || cfg.custom_handle.toLowerCase() === clean
+      );
+
+    if (found) {
+      return found;
+    }
+
+    const isDefaultAdmin = clean === 'tranthanhtung37';
+    return {
+      original_handle: clean,
+      custom_handle: clean,
+      display_name: isDefaultAdmin ? 'Trần Thanh Tùng' : clean,
+      bio: 'Chào mừng bạn đến với vườn thực vật số công khai của tôi! Toàn bộ các giống cây bên dưới đều được cấp Hộ Chiếu Thực Vật Số độc bản duy nhất trên sổ cái blockchain, gắn liền với bảo chứng mật mã học và cam kết sinh thái bền vững.',
+      location: 'Việt Nam',
+      specialty_tag: 'Nhà Vườn Độc Bản Xác Thực',
+      has_edited_once: false
+    };
+  },
+
+  async syncPublicProfileFromCloud(handleOrUsername: string): Promise<UserPublicProfileConfig> {
+    const clean = (handleOrUsername || '').replace(/^@/, '').trim().toLowerCase();
+    const db = getFirestoreInstance();
+    if (!db || !clean) return this.getPublicProfile(clean);
+
+    try {
+      const snap = await getDocs(collection(db, PROFILE_FIRESTORE_COLLECTION));
+      const map = this.getAllPublicProfiles();
+      snap.forEach((docSnap) => {
+        const data = docSnap.data() as UserPublicProfileConfig;
+        if (data && data.original_handle) {
+          map[data.original_handle.toLowerCase()] = data;
+        }
+      });
+      localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(map));
+      window.dispatchEvent(new CustomEvent('ytc_public_profile_updated'));
+      return this.getPublicProfile(clean);
+    } catch {
+      return this.getPublicProfile(clean);
+    }
+  },
+
+  /**
+   * LƯU THÔNG TIN HỒ SƠ CÁ NHÂN (MỖI NGƯỜI CHỈ ĐƯỢC SỬA DUY NHẤT 1 LẦN)
+   */
+  saveOneTimeProfileEdit(
+    handleOrUsername: string,
+    updates: {
+      custom_handle: string;
+      display_name: string;
+      bio: string;
+      location: string;
+      specialty_tag: string;
+      avatar_url?: string;
+    },
+    reservedRoutes: string[] = []
+  ): {
+    success: boolean;
+    error?: string;
+    profile?: UserPublicProfileConfig;
+  } {
+    const current = this.getPublicProfile(handleOrUsername);
+
+    // Chặn tuyệt đối nếu đã từng sửa 1 lần
+    if (current.has_edited_once) {
+      return {
+        success: false,
+        error: 'Bạn đã sử dụng 1/1 lượt chỉnh sửa hồ sơ duy nhất! Thông tin định danh hiện đã được khóa vĩnh viễn.'
+      };
+    }
+
+    const cleanCustomHandle = updates.custom_handle
+      .replace(/^@/, '')
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9_-]/g, '');
+
+    if (cleanCustomHandle.length < 3 || cleanCustomHandle.length > 32) {
+      return {
+        success: false,
+        error: 'Mã định danh (@username) phải từ 3 đến 32 ký tự (chữ thường, số, gạch ngang hoặc gạch dưới).'
+      };
+    }
+
+    if (reservedRoutes.includes(cleanCustomHandle)) {
+      return {
+        success: false,
+        error: 'Mã định danh này trùng với đường dẫn hệ thống. Vui lòng chọn mã khác!'
+      };
+    }
+
+    const map = this.getAllPublicProfiles();
+    const conflict = Object.values(map).find(
+      (cfg) =>
+        cfg.original_handle !== current.original_handle &&
+        (cfg.custom_handle.toLowerCase() === cleanCustomHandle ||
+          cfg.original_handle.toLowerCase() === cleanCustomHandle)
+    );
+    if (conflict) {
+      return {
+        success: false,
+        error: `Mã định danh @${cleanCustomHandle} đã thuộc về nhà vườn khác!`
+      };
+    }
+
+    const cleanDisplayName = updates.display_name.trim();
+    if (!cleanDisplayName || cleanDisplayName.length < 2) {
+      return {
+        success: false,
+        error: 'Tên hiển thị phải có ít nhất 2 ký tự.'
+      };
+    }
+
+    const updatedProfile: UserPublicProfileConfig = {
+      original_handle: current.original_handle,
+      custom_handle: cleanCustomHandle,
+      display_name: cleanDisplayName,
+      bio: updates.bio.trim() || current.bio,
+      location: updates.location.trim() || 'Việt Nam',
+      specialty_tag: updates.specialty_tag.trim() || 'Nhà Vườn Độc Bản Xác Thực',
+      avatar_url: updates.avatar_url?.trim() || current.avatar_url,
+      has_edited_once: true,
+      edited_at: new Date().toLocaleString('vi-VN')
+    };
+
+    map[current.original_handle.toLowerCase()] = updatedProfile;
+    localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(map));
+
+    // Đồng bộ tên hiển thị vào ytc_user nếu đang đăng nhập
+    try {
+      const savedUser = localStorage.getItem('ytc_user');
+      if (savedUser) {
+        const parsed = JSON.parse(savedUser);
+        parsed.name = updatedProfile.display_name;
+        if (updatedProfile.avatar_url) {
+          parsed.avatar_url = updatedProfile.avatar_url;
+        }
+        localStorage.setItem('ytc_user', JSON.stringify(parsed));
+      }
+    } catch {
+      // ignore
+    }
+
+    // Nếu người dùng đổi custom_handle, cập nhật creator_username trên các NFT của họ
+    if (cleanCustomHandle !== current.original_handle) {
+      const allPassports = this.getAllRegistrations();
+      let changed = false;
+      const updatedPassports = allPassports.map((p) => {
+        const pHandle = (p.creator_username || getUsernameFromEmail(p.creator_email) || '').toLowerCase();
+        if (pHandle === current.original_handle.toLowerCase()) {
+          changed = true;
+          const nextP = { ...p, creator_username: cleanCustomHandle };
+          this.uploadToCloud(nextP).catch(() => {});
+          return nextP;
+        }
+        return p;
+      });
+      if (changed) {
+        localStorage.setItem(REGISTRY_STORAGE_KEY, JSON.stringify(updatedPassports));
+      }
+    }
+
+    // Đồng bộ cấu hình hồ sơ lên Firestore Cloud
+    const db = getFirestoreInstance();
+    if (db) {
+      setDoc(doc(db, PROFILE_FIRESTORE_COLLECTION, current.original_handle.toLowerCase()), updatedProfile).catch(
+        () => {}
+      );
+    }
+
+    window.dispatchEvent(new CustomEvent('ytc_public_profile_updated', { detail: updatedProfile }));
+    window.dispatchEvent(new CustomEvent('ytc_passport_registry_updated'));
+
+    return {
+      success: true,
+      profile: updatedProfile
     };
   },
 
@@ -497,18 +712,25 @@ export const plantPassportRegistryService = {
   getUserVerifiedGalleryByUsername(usernameOrHandle?: string): RegisteredPlantPassport[] {
     if (!usernameOrHandle) return [];
     const cleanHandle = usernameOrHandle.replace(/^@/, '').toLowerCase().trim();
+    const profileCfg = this.getPublicProfile(cleanHandle);
+    const matchHandles = new Set([
+      cleanHandle,
+      profileCfg.original_handle.toLowerCase(),
+      profileCfg.custom_handle.toLowerCase()
+    ]);
     const all = this.getAllRegistrations();
 
     return all.filter(p => {
       if (p.status !== 'ACTIVE_ORIGINAL') return false;
 
-      // Khớp theo username trích từ email
-      if (p.creator_username && p.creator_username.toLowerCase() === cleanHandle) {
+      // Khớp theo username hoặc custom_handle
+      if (p.creator_username && matchHandles.has(p.creator_username.toLowerCase())) {
         return true;
       }
 
-      // Khớp theo email đầy đủ
-      if (p.creator_email && p.creator_email.toLowerCase().includes(cleanHandle)) {
+      // Khớp theo email prefix
+      const emailPrefix = getUsernameFromEmail(p.creator_email);
+      if (emailPrefix && matchHandles.has(emailPrefix)) {
         return true;
       }
 
@@ -522,8 +744,8 @@ export const plantPassportRegistryService = {
         return true;
       }
 
-      // Nếu username là tranthanhtung37, ưu tiên luôn Token #1 của anh
-      if (cleanHandle === 'tranthanhtung37' && (p.token_id === '1' || p.creator_user_id === 'usr-local-me')) {
+      // Nếu là hồ sơ gốc tranthanhtung37, ưu tiên luôn Token #1
+      if (matchHandles.has('tranthanhtung37') && (p.token_id === '1' || p.creator_user_id === 'usr-local-me')) {
         return true;
       }
 
