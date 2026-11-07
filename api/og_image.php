@@ -11,10 +11,21 @@
 
 $slug = isset($_GET['slug']) ? preg_replace('/[^a-z0-9\-]/', '', strtolower($_GET['slug'])) : '';
 $cacheDir = __DIR__ . '/../uploads/og_cache';
-$defaultImage = __DIR__ . '/../public/banner-bg-hero.jpg';
 
-if (!file_exists($defaultImage)) {
-    $defaultImage = __DIR__ . '/../public/logo.jpg';
+$candidatePaths = [
+    __DIR__ . '/../banner-bg-hero.jpg',
+    __DIR__ . '/../public/banner-bg-hero.jpg',
+    __DIR__ . '/../yeutrongcay-banner.png',
+    __DIR__ . '/../public/yeutrongcay-banner.png',
+    __DIR__ . '/../logo.jpg',
+    __DIR__ . '/../public/logo.jpg'
+];
+$defaultImage = '';
+foreach ($candidatePaths as $p) {
+    if (file_exists($p)) {
+        $defaultImage = $p;
+        break;
+    }
 }
 
 // 1. Phục vụ ngay từ Cache nếu đã tạo
@@ -123,18 +134,31 @@ if (($httpCode !== 200 || empty($rawBytes)) && $highResUrl !== $imageUrl) {
 // Nếu hoàn toàn không tải được ảnh gốc, xuất ảnh mặc định
 if ($httpCode !== 200 || empty($rawBytes)) {
     header('Content-Type: image/jpeg');
-    if (file_exists($defaultImage)) {
+    if (!empty($defaultImage) && file_exists($defaultImage)) {
         readfile($defaultImage);
+        exit;
     }
+    // Fallback vẽ canvas xanh đậm 1200x630
+    $destImg = imagecreatetruecolor(1200, 630);
+    $bgColor = imagecolorallocate($destImg, 15, 46, 30);
+    imagefilledrectangle($destImg, 0, 0, 1200, 630, $bgColor);
+    imagejpeg($destImg, null, 88);
+    imagedestroy($destImg);
     exit;
 }
 
 $srcImg = @imagecreatefromstring($rawBytes);
 if (!$srcImg) {
     header('Content-Type: image/jpeg');
-    if (file_exists($defaultImage)) {
+    if (!empty($defaultImage) && file_exists($defaultImage)) {
         readfile($defaultImage);
+        exit;
     }
+    $destImg = imagecreatetruecolor(1200, 630);
+    $bgColor = imagecolorallocate($destImg, 15, 46, 30);
+    imagefilledrectangle($destImg, 0, 0, 1200, 630, $bgColor);
+    imagejpeg($destImg, null, 88);
+    imagedestroy($destImg);
     exit;
 }
 

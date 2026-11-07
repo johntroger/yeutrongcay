@@ -415,11 +415,35 @@ if (!$enabled || empty($pageId) || empty($pageToken) || strpos($pageToken, 'YOUR
     }
 
     $publishUrl = "https://graph.facebook.com/{$graphVer}/{$pageId}/photos";
+    
+    // Tìm ảnh local trên máy chủ để ưu tiên upload trực tiếp qua multipart (bền vững 100%, không lo bot bị chặn)
+    $localCandidates = [
+        __DIR__ . "/../uploads/og_cache/{$slug}.jpg",
+        __DIR__ . '/../banner-bg-hero.jpg',
+        __DIR__ . '/../public/banner-bg-hero.jpg',
+        __DIR__ . '/../yeutrongcay-banner.png',
+        __DIR__ . '/../public/yeutrongcay-banner.png',
+        __DIR__ . '/../logo.jpg',
+        __DIR__ . '/../public/logo.jpg'
+    ];
+    $localFileToUpload = '';
+    foreach ($localCandidates as $cand) {
+        if (file_exists($cand) && filesize($cand) > 1024) {
+            $localFileToUpload = $cand;
+            break;
+        }
+    }
+
     $payload = [
         'caption'      => $caption,
-        'url'          => $photoUrl,
         'access_token' => $pageToken
     ];
+
+    if (!empty($localFileToUpload) && class_exists('CURLFile')) {
+        $payload['source'] = new CURLFile($localFileToUpload, 'image/jpeg');
+    } else {
+        $payload['url'] = $photoUrl;
+    }
 
     $maxRetries = 2;
     $attempt = 0;
@@ -429,9 +453,13 @@ if (!$enabled || empty($pageId) || empty($pageToken) || strpos($pageToken, 'YOUR
         $attempt++;
         $ch = curl_init($publishUrl);
         curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($payload));
+        if (isset($payload['source'])) {
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $payload); // Multipart form-data
+        } else {
+            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($payload));
+        }
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 20);
         $rawResp = curl_exec($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
@@ -441,9 +469,10 @@ if (!$enabled || empty($pageId) || empty($pageToken) || strpos($pageToken, 'YOUR
             $fbPostId = $fbResponse['post_id'] ?? ($fbResponse['id'] ?? null);
             break;
         } else {
-            // Nếu gửi ảnh 960px bị lỗi, thử lại bằng ảnh gốc ban đầu
-            if (!empty($plantData['image_url']) && $photoUrl !== $plantData['image_url']) {
-                $payload['url'] = $plantData['image_url'];
+            // Thử chuyển đổi giữa source và url nếu lần 1 chưa thành công
+            if (isset($payload['source'])) {
+                unset($payload['source']);
+                $payload['url'] = $photoUrl;
             }
             if ($attempt <= $maxRetries) {
                 sleep(2);
