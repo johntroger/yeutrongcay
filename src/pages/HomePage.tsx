@@ -13,6 +13,7 @@ import { SeasonalCalendarSection } from '../components/SeasonalCalendarSection.t
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { PLANT_ENGLISH_MAP } from '../i18n/plantTranslations.ts';
 import { getPlantSubcategory, getPlantsForCollection } from '../data/collections.ts';
+import { matchPlantSearch, calculateRelevance } from '../utils/searchUtils.ts';
 import {
   Filter,
   Sparkles,
@@ -117,10 +118,19 @@ export const HomePage: React.FC<HomePageProps> = ({
 
   // Lọc cây đa chiều: Category, Subcategory, Collection, Tag, Điều kiện sinh trưởng, Tìm kiếm
   const filteredPlants = useMemo(() => {
-    return allPlants.filter((plant) => {
-      // 1. Lọc theo Category
-      if (deferredFilters.category !== 'all' && plant.category !== deferredFilters.category) {
-        return false;
+    const hasSearchQuery = Boolean(searchQuery.trim());
+
+    const matched = allPlants.filter((plant) => {
+      // 1. Lọc theo từ khóa tìm kiếm (Khi người dùng gõ tìm kiếm, tìm thông minh xuyên suốt toàn bộ kho cây)
+      if (hasSearchQuery) {
+        if (!matchPlantSearch(plant, searchQuery)) {
+          return false;
+        }
+      } else {
+        // Khi KHÔNG có từ khóa tìm kiếm, lọc theo Category được chọn
+        if (deferredFilters.category !== 'all' && plant.category !== deferredFilters.category) {
+          return false;
+        }
       }
 
       // 2. Lọc theo Subcategory
@@ -166,26 +176,15 @@ export const HomePage: React.FC<HomePageProps> = ({
         if (deferredFilters.difficulty === 'hard' && plant.propagation_difficulty < 4) return false;
       }
 
-      // 8. Lọc theo từ khóa tìm kiếm (Anh & Việt)
-      const q = searchQuery.toLowerCase().trim();
-      if (!q) return true;
-
-      const enData = PLANT_ENGLISH_MAP[plant.id];
-      const enCommon = enData?.common_name.toLowerCase() || '';
-      const enAliases = enData?.aliases.map((a) => a.toLowerCase()) || [];
-      const enTags = enData?.tags.map((t) => t.toLowerCase()) || [];
-
-      return (
-        plant.common_name.toLowerCase().includes(q) ||
-        plant.scientific_name.toLowerCase().includes(q) ||
-        plant.aliases.some((a) => a.toLowerCase().includes(q)) ||
-        plant.tags.some((t) => t.toLowerCase().includes(q)) ||
-        enCommon.includes(q) ||
-        enAliases.some((a) => a.includes(q)) ||
-        enTags.some((t) => t.includes(q)) ||
-        (plant.medical_info?.uses.some((u) => u.toLowerCase().includes(q)) ?? false)
-      );
+      return true;
     });
+
+    // Sắp xếp các kết quả khớp chính xác nhất lên đầu
+    if (hasSearchQuery) {
+      matched.sort((a, b) => calculateRelevance(b, searchQuery) - calculateRelevance(a, searchQuery));
+    }
+
+    return matched;
   }, [allPlants, deferredFilters, searchQuery]);
 
   // Danh sách tags có sẵn kèm số lượng bài viết
@@ -388,7 +387,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           </aside>
 
           {/* CỘT PHẢI: NỘI DUNG SẢN PHẨM & BÁCH KHOA CÂY TRỒNG */}
-          <div className="flex-1 min-w-0 space-y-6 w-full">
+          <div id="search-results" className="flex-1 min-w-0 space-y-6 w-full">
             {/* Tiêu đề & Thống kê kết quả lọc */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-forest-100 dark:border-forest-800">
               <div>

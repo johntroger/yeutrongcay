@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import {
   Search,
@@ -22,10 +22,12 @@ import {
   LogOut,
   Settings
 } from 'lucide-react';
-import { PlantCategory, UserProfile } from '../types/index.ts';
+import { PlantCategory, UserProfile, Plant } from '../types/index.ts';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { useTheme } from '../context/ThemeContext.tsx';
 import { getUsernameFromEmail } from '../services/plantPassportRegistryService.ts';
+import { SEED_PLANTS } from '../data/plants.ts';
+import { searchPlantsList } from '../utils/searchUtils.ts';
 
 interface NavbarProps {
   onModeChange?: (mode: PlantCategory) => void;
@@ -62,11 +64,19 @@ export const Navbar: React.FC<NavbarProps> = ({
   const recognitionRef = useRef<any>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
+  const mobileSearchRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const userMenuRef = useRef<HTMLDivElement>(null);
   const userHandle = currentUser?.email
     ? getUsernameFromEmail(currentUser.email)
     : (currentUser?.id ? currentUser.id.replace(/^usr-/, '') : 'tranthanhtung37');
+
+  const quickMatches = useMemo(() => {
+    if (!searchQuery.trim()) return [];
+    return searchPlantsList(SEED_PLANTS, searchQuery, 6);
+  }, [searchQuery]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -75,6 +85,14 @@ export const Navbar: React.FC<NavbarProps> = ({
       }
       if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
         setIsUserMenuOpen(false);
+      }
+      if (
+        searchContainerRef.current &&
+        !searchContainerRef.current.contains(event.target as Node) &&
+        mobileSearchRef.current &&
+        !mobileSearchRef.current.contains(event.target as Node)
+      ) {
+        setIsSearchFocused(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -220,13 +238,31 @@ export const Navbar: React.FC<NavbarProps> = ({
             />
           </Link>
 
-          {/* Desktop Search Bar with Voice (md+) */}
-          <div className="hidden md:flex flex-1 max-w-md items-center relative">
+          {/* Desktop Search Bar with Voice & Quick Autocomplete (md+) */}
+          <div ref={searchContainerRef} className="hidden md:flex flex-1 max-w-md items-center relative">
             <Search className="w-4 h-4 text-forest-700 dark:text-forest-400 absolute left-3.5 pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
-              onChange={(e) => onSearchChange(e.target.value)}
+              onFocus={() => setIsSearchFocused(true)}
+              onChange={(e) => {
+                onSearchChange(e.target.value);
+                if (location.pathname !== '/' && e.target.value.trim()) {
+                  navigate('/');
+                }
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  setIsSearchFocused(false);
+                  if (location.pathname !== '/') {
+                    navigate('/');
+                  }
+                  setTimeout(() => {
+                    const el = document.getElementById('search-results');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }, 100);
+                }
+              }}
               placeholder={t('common.searchPlaceholder')}
               className={`w-full pl-10 pr-10 py-2.5 bg-white dark:bg-charcoal-800 border rounded-full text-sm text-charcoal-900 dark:text-cream-50 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none transition shadow-inner ${
                 isListening
@@ -264,6 +300,75 @@ export const Navbar: React.FC<NavbarProps> = ({
                   className="text-gray-400 hover:text-white shrink-0 p-0.5"
                 >
                   <X className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            )}
+
+            {/* Bảng Gợi Ý Tìm Kiếm Nhanh Autocomplete (Desktop) */}
+            {isSearchFocused && searchQuery.trim().length >= 1 && (
+              <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-charcoal-900 rounded-2xl shadow-2xl border border-forest-100 dark:border-forest-800 p-2 z-50 overflow-hidden animate-in fade-in slide-in-from-top-1">
+                <div className="px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-forest-600 dark:text-forest-400 border-b border-forest-50 dark:border-forest-800 flex items-center justify-between">
+                  <span>{isEn ? 'Matching Plants' : 'Gợi ý giống cây phù hợp'}</span>
+                  <span className="text-[10px] text-gray-400 font-normal">
+                    {quickMatches.length} {isEn ? 'found' : 'kết quả'}
+                  </span>
+                </div>
+
+                {quickMatches.length > 0 ? (
+                  <div className="py-1 max-h-72 overflow-y-auto divide-y divide-forest-50 dark:divide-forest-900/40">
+                    {quickMatches.map((plant: Plant) => (
+                      <Link
+                        key={plant.id}
+                        to={`/cay/${plant.slug || plant.id}`}
+                        onClick={() => {
+                          setIsSearchFocused(false);
+                        }}
+                        className="flex items-center gap-3 p-2 rounded-xl hover:bg-forest-50 dark:hover:bg-charcoal-800 transition group"
+                      >
+                        <img
+                          src={plant.image_url}
+                          alt={plant.common_name}
+                          className="w-10 h-10 rounded-lg object-cover bg-forest-100 dark:bg-charcoal-700 shrink-0 border border-forest-200/60 dark:border-forest-700/60"
+                        />
+                        <div className="min-w-0 flex-1">
+                          <p className="text-xs font-bold text-forest-900 dark:text-cream-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 truncate">
+                            {plant.common_name}
+                          </p>
+                          <p className="text-[11px] italic text-forest-600 dark:text-forest-400 truncate">
+                            {plant.scientific_name}
+                          </p>
+                        </div>
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 shrink-0 font-medium capitalize">
+                          {plant.category === 'fruit'
+                            ? (isEn ? 'Fruit Tree' : 'Ăn trái')
+                            : plant.category === 'herb'
+                            ? (isEn ? 'Medicinal' : 'Thảo dược')
+                            : (isEn ? 'Ornamental' : 'Cây cảnh')}
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="p-4 text-center text-xs text-gray-500 dark:text-gray-400">
+                    <p>{isEn ? `No plants found matching "${searchQuery}"` : `Không tìm thấy giống cây nào khớp với "${searchQuery}"`}</p>
+                    <p className="text-[10px] mt-1 text-forest-400">{isEn ? 'Tip: Try common names like "oi", "chanh", "dinh lang"' : 'Gợi ý: Thử tìm theo tên như "ổi", "chanh", "đinh lăng", "tía tô"'}</p>
+                  </div>
+                )}
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsSearchFocused(false);
+                    if (location.pathname !== '/') navigate('/');
+                    setTimeout(() => {
+                      const el = document.getElementById('search-results');
+                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                  }}
+                  className="w-full mt-1 py-2 px-3 rounded-xl bg-forest-50 hover:bg-forest-100 dark:bg-charcoal-800 dark:hover:bg-charcoal-700 text-xs font-semibold text-emerald-700 dark:text-emerald-300 flex items-center justify-between transition"
+                >
+                  <span>{isEn ? `Search all plants for "${searchQuery}"` : `Xem toàn bộ kết quả cho "${searchQuery}"`}</span>
+                  <span className="text-sm font-mono">↵ Enter</span>
                 </button>
               </div>
             )}
@@ -809,13 +914,31 @@ export const Navbar: React.FC<NavbarProps> = ({
         )}
 
         {/* Mobile Search Bar (< md screens) */}
-        <div className="flex md:hidden px-1 pb-2.5 w-full flex-col relative">
+        <div ref={mobileSearchRef} className="flex md:hidden px-1 pb-2.5 w-full flex-col relative">
           <div className="flex flex-1 items-center relative">
             <Search className="w-3.5 h-3.5 text-forest-700 dark:text-forest-400 absolute left-3 pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
-              onChange={(e) => onSearchChange(e.target.value)}
+              onFocus={() => setIsSearchFocused(true)}
+              onChange={(e) => {
+                onSearchChange(e.target.value);
+                if (location.pathname !== '/' && e.target.value.trim()) {
+                  navigate('/');
+                }
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  setIsSearchFocused(false);
+                  if (location.pathname !== '/') {
+                    navigate('/');
+                  }
+                  setTimeout(() => {
+                    const el = document.getElementById('search-results');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }, 100);
+                }
+              }}
               placeholder={t('common.searchPlaceholder')}
               className={`w-full pl-8 pr-8 py-2 bg-white dark:bg-charcoal-800 border rounded-full text-xs text-charcoal-900 dark:text-cream-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none shadow-inner ${
                 isListening
@@ -835,6 +958,74 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <Mic className="w-3.5 h-3.5" />
             </button>
+
+            {/* Bảng Gợi Ý Tìm Kiếm Nhanh Autocomplete (Mobile) */}
+            {isSearchFocused && searchQuery.trim().length >= 1 && (
+              <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-charcoal-900 rounded-2xl shadow-2xl border border-forest-100 dark:border-forest-800 p-2 z-50 overflow-hidden animate-in fade-in slide-in-from-top-1">
+                <div className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-forest-600 dark:text-forest-400 border-b border-forest-50 dark:border-forest-800 flex items-center justify-between">
+                  <span>{isEn ? 'Matching Plants' : 'Gợi ý cây trồng phù hợp'}</span>
+                  <span className="text-[9px] text-gray-400 font-normal">
+                    {quickMatches.length} {isEn ? 'found' : 'kết quả'}
+                  </span>
+                </div>
+
+                {quickMatches.length > 0 ? (
+                  <div className="py-1 max-h-56 overflow-y-auto divide-y divide-forest-50 dark:divide-forest-900/40">
+                    {quickMatches.map((plant: Plant) => (
+                      <Link
+                        key={plant.id}
+                        to={`/cay/${plant.slug || plant.id}`}
+                        onClick={() => {
+                          setIsSearchFocused(false);
+                        }}
+                        className="flex items-center gap-2.5 p-2 rounded-xl hover:bg-forest-50 dark:hover:bg-charcoal-800 transition"
+                      >
+                        <img
+                          src={plant.image_url}
+                          alt={plant.common_name}
+                          className="w-8 h-8 rounded-lg object-cover bg-forest-100 dark:bg-charcoal-700 shrink-0 border border-forest-200/60 dark:border-forest-700/60"
+                        />
+                        <div className="min-w-0 flex-1">
+                          <p className="text-xs font-bold text-forest-900 dark:text-cream-100 truncate">
+                            {plant.common_name}
+                          </p>
+                          <p className="text-[10px] italic text-forest-600 dark:text-forest-400 truncate">
+                            {plant.scientific_name}
+                          </p>
+                        </div>
+                        <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 shrink-0 font-medium capitalize">
+                          {plant.category === 'fruit'
+                            ? (isEn ? 'Fruit' : 'Ăn trái')
+                            : plant.category === 'herb'
+                            ? (isEn ? 'Herb' : 'Thảo dược')
+                            : (isEn ? 'Ornamental' : 'Cây cảnh')}
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="p-3 text-center text-xs text-gray-500 dark:text-gray-400">
+                    <p>{isEn ? `No plants found for "${searchQuery}"` : `Không tìm thấy giống cây nào khớp với "${searchQuery}"`}</p>
+                  </div>
+                )}
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsSearchFocused(false);
+                    if (location.pathname !== '/') navigate('/');
+                    setTimeout(() => {
+                      const el = document.getElementById('search-results');
+                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                  }}
+                  className="w-full mt-1 py-1.5 px-2.5 rounded-xl bg-forest-50 hover:bg-forest-100 dark:bg-charcoal-800 dark:hover:bg-charcoal-700 text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 flex items-center justify-between transition"
+                >
+                  <span>{isEn ? `View all results for "${searchQuery}"` : `Xem toàn bộ kết quả cho "${searchQuery}"`}</span>
+                  <span className="text-xs font-mono">↵</span>
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Thông báo trạng thái giọng nói (Mobile) */}
