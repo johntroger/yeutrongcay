@@ -206,7 +206,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
   const handleResetFilters = () => {
     handleFilterChange({
-      category: activeMode,
+      category: 'all',
       subcategory: undefined,
       tag: undefined,
       collection: undefined,

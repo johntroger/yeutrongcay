@@ -82,31 +82,31 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({
   const meta = {
     herb: {
       title: isEn
-        ? 'Green Pharmacy - 25 Native Medicinal Herbs of Vietnam | Yeu Trong Cay'
-        : 'Tủ Thuốc Xanh - 25 Loài Thảo Dược Bản Địa Việt Nam | Yêu Trồng Cây',
+        ? 'Green Pharmacy - 44 Native Medicinal Herbs of Vietnam | Yeu Trong Cay'
+        : 'Tủ Thuốc Xanh - 44 Loài Thảo Dược Bản Địa Việt Nam | Yêu Trồng Cây',
       description: isEn
-        ? 'Discover 25 native Vietnamese medicinal herbs: safe dosages, folk remedies for coughs and colds, and balcony cultivation.'
-        : 'Tra cứu 25 loài thảo dược bản địa Việt Nam: công dụng trị ho, giải cảm, bổ huyết, liều dùng an toàn và bài thuốc dân gian.',
+        ? 'Discover 44 native Vietnamese medicinal herbs: safe dosages, folk remedies for coughs and colds, and balcony cultivation.'
+        : 'Tra cứu 44 loài thảo dược bản địa Việt Nam: công dụng trị ho, giải cảm, bổ huyết, liều dùng an toàn và bài thuốc dân gian.',
       name: isEn ? 'Green Pharmacy (Native Medicinal Herbs)' : 'Tủ Thuốc Xanh (Thảo Dược Bản Địa)',
       icon: '🌿',
     },
     fruit: {
       title: isEn
-        ? 'Balcony Fruits - 15 Dwarf Fruit Trees for Urban Patios | Yeu Trong Cay'
-        : 'Trái Ngọt Phố - 15 Cây Ăn Quả Ban Công Sân Thượng | Yêu Trồng Cây',
+        ? 'Balcony Fruits - 30 Dwarf Fruit Trees for Urban Patios | Yeu Trong Cay'
+        : 'Trái Ngọt Phố - 30 Cây Ăn Quả Ban Công Sân Thượng | Yêu Trồng Cây',
       description: isEn
-        ? 'Handbook for growing 15 dwarf container fruit varieties: guava, ambarella, honey figs, and continuous seedless limes.'
-        : 'Cẩm nang trồng 15 giống cây ăn trái lùn đô thị: ổi lê, cóc Thái, sung Mỹ, dâu tằm F1, chanh tứ quý trĩu quả quanh năm.',
+        ? 'Handbook for growing 30 dwarf container fruit varieties: guava, ambarella, honey figs, and continuous seedless limes.'
+        : 'Cẩm nang trồng 30 giống cây ăn trái lùn đô thị: ổi lê, cóc Thái, sung Mỹ, dâu tằm F1, chanh tứ quý trĩu quả quanh năm.',
       name: isEn ? 'Balcony Fruits (Urban Orchards)' : 'Trái Ngọt Phố (Cây Ăn Quả Đô Thị)',
       icon: '🍋',
     },
     ornamental: {
       title: isEn
-        ? 'Bonsai & Ornamentals - 15 Air-Filtering & Feng Shui Houseplants | Yeu Trong Cay'
-        : 'Cây Cảnh & Bonsai Thư Thái - 15 Loài Lọc Khí & Phong Thủy | Yêu Trồng Cây',
+        ? 'Bonsai & Ornamentals - 26 Air-Filtering & Feng Shui Houseplants | Yeu Trong Cay'
+        : 'Cây Cảnh & Bonsai Thư Thái - 26 Loài Lọc Khí & Phong Thủy | Yêu Trồng Cây',
       description: isEn
-        ? 'Top 15 air-purifying houseplants, fragrant bonsai creations, and prosperity greenery.'
-        : 'Top 15 loài cây cảnh thanh lọc không khí theo NASA, nghệ thuật tạo tác bonsai phong thủy và cây phong thủy hút tài lộc.',
+        ? 'Top 26 air-purifying houseplants, fragrant bonsai creations, and prosperity greenery.'
+        : 'Top 26 loài cây cảnh thanh lọc không khí theo NASA, nghệ thuật tạo tác bonsai phong thủy và cây phong thủy hút tài lộc.',
       name: isEn ? 'Bonsai & Calming Living Spaces' : 'Cây Cảnh & Thư Thái (Bonsai/Hoa)',
       icon: '🌸',
     },
