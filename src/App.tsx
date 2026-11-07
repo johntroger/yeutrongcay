@@ -9,6 +9,7 @@ import { AuthModal } from './components/AuthModal.tsx';
 import { MyGardenModal } from './components/MyGardenModal.tsx';
 import { PrivacyModal } from './components/PrivacyModal.tsx';
 import { OfflineBanner } from './components/OfflineBanner.tsx';
+import { MobileBottomNav } from './components/MobileBottomNav.tsx';
 import { trackPageView } from './utils/analytics.ts';
 import { useLanguage } from './context/LanguageContext';
 import { subscribeToAuthState, logoutFirebase } from './services/firebaseClient.ts';
@@ -180,7 +181,7 @@ export default function App() {
 
 
   return (
-    <div className="min-h-screen bg-cream-100 dark:bg-charcoal-950 text-charcoal-900 dark:text-cream-100 flex flex-col font-sans transition-colors duration-200">
+    <div className="min-h-screen bg-cream-100 dark:bg-charcoal-950 text-charcoal-900 dark:text-cream-100 flex flex-col font-sans transition-colors duration-200 pb-16 md:pb-0">
       {/* 1. Header Navigation */}
       <Navbar
         onModeChange={(mode) => {
@@ -351,6 +352,9 @@ export default function App() {
 
       {/* 7. Offline-First Network Banner */}
       <OfflineBanner />
+
+      {/* 8. Mobile Bottom Navigation Bar (Thumb Zone) */}
+      <MobileBottomNav />
     </div>
   );
 }

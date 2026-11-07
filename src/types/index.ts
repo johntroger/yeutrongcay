@@ -77,6 +77,8 @@ export interface PlantMedicalInfo {
   folk_remedies?: string[];     // Bài thuốc dân gian tham khảo
   preparation?: string[];       // Cách sơ chế tại nhà (nấu siro, sấy trà...)
   toxicity_warning?: string;    // Cảnh báo độc tính hoặc đối tượng kiêng kỵ
+  contraindications?: string[]; // Chống chỉ định chuyên sâu theo Dược điển V
+  drug_interactions?: string[]; // Tương tác thuốc Tây cần lưu ý
   disclaimer: string;           // Tuyên bố từ chối trách nhiệm y tế
   confusion_risk?: {            // Phân biệt với cây dễ nhầm lẫn
     confused_with: string;

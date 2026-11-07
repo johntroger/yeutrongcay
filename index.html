@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/jpeg" href="/logo.jpg" />
+    <link rel="manifest" href="/manifest.json" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Yêu Trồng Cây - Design your life | Cẩm Nang Cây Bản Địa & Bác Sĩ Cây 3s</title>
     <meta name="description" content="Nền tảng sinh thái thực vật bản địa Việt Nam: Tủ thuốc xanh gia đình, cây ăn trái sân thượng, chẩn đoán bệnh lá AI 3 giây và trạm trao đổi hạt giống lân cận." />
@@ -61,5 +62,13 @@
   <body class="bg-cream-100 text-charcoal-900 antialiased selection:bg-herbal-500 selection:text-white min-h-screen">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <!-- Đăng ký Service Worker Offline-First (100% Native, 0đ chi phí) -->
+    <script>
+      if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/sw.js').catch(function() {});
+        });
+      }
+    </script>
   </body>
 </html>

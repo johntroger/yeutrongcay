@@ -970,7 +970,7 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
               </div>
 
               {/* Khối Cảnh Báo An Toàn Dược Liệu & Chống Chỉ Định (WCAG AAA High-Contrast) */}
-              {(plant.medical_info.toxicity_warning || plant.medical_info.confusion_risk) && (
+              {(plant.medical_info.toxicity_warning || plant.medical_info.confusion_risk || (plant.medical_info.contraindications && plant.medical_info.contraindications.length > 0) || (plant.medical_info.drug_interactions && plant.medical_info.drug_interactions.length > 0)) && (
                 <div className="p-4 sm:p-5 rounded-2xl bg-amber-50/90 dark:bg-amber-950/40 border-2 border-amber-300 dark:border-amber-700/60 shadow-sm space-y-3">
                   <div className="flex items-center gap-2 text-amber-900 dark:text-amber-200">
                     <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0" />
@@ -983,6 +983,36 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
                     <div className="text-xs sm:text-sm text-slate-800 dark:text-amber-100 leading-relaxed font-medium pl-7">
                       <strong className="text-amber-950 dark:text-amber-200">{t('plantDetail.toxicityTitle')}: </strong>
                       {plant.medical_info.toxicity_warning}
+                    </div>
+                  )}
+
+                  {/* Chống chỉ định (Contraindications) */}
+                  {plant.medical_info.contraindications && plant.medical_info.contraindications.length > 0 && (
+                    <div className="p-3 rounded-xl bg-amber-100/70 dark:bg-amber-900/30 border border-amber-300 dark:border-amber-700 text-xs sm:text-sm space-y-1.5">
+                      <div className="font-bold text-amber-950 dark:text-amber-100 flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-amber-600 inline-block"></span>
+                        <span>{isEn ? 'Contraindications (Avoid use):' : 'Chống chỉ định (Đối tượng cần thận trọng):'}</span>
+                      </div>
+                      <ul className="list-disc pl-5 space-y-1 text-slate-800 dark:text-amber-100 leading-relaxed">
+                        {plant.medical_info.contraindications.map((ci, idx) => (
+                          <li key={idx}>{ci}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {/* Tương tác thuốc (Drug Interactions) */}
+                  {plant.medical_info.drug_interactions && plant.medical_info.drug_interactions.length > 0 && (
+                    <div className="p-3 rounded-xl bg-rose-50/80 dark:bg-rose-950/30 border border-rose-300 dark:border-rose-800 text-xs sm:text-sm space-y-1.5">
+                      <div className="font-bold text-rose-950 dark:text-rose-200 flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-rose-600 inline-block"></span>
+                        <span>{isEn ? 'Drug & Substance Interactions:' : 'Tương tác thuốc & Dược chất cần lưu ý:'}</span>
+                      </div>
+                      <ul className="list-disc pl-5 space-y-1 text-slate-800 dark:text-rose-100 leading-relaxed">
+                        {plant.medical_info.drug_interactions.map((di, idx) => (
+                          <li key={idx}>{di}</li>
+                        ))}
+                      </ul>
                     </div>
                   )}
 
