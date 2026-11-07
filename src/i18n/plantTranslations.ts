@@ -2453,6 +2453,568 @@ export const PLANT_ENGLISH_MAP: Record<string, LocalizedPlantData> = {
     ],
     monetization_tips: ['Assemble tied red-ribbon lucky bamboo arrangements for Lunar New Year altars.'],
     tags: ['Zen Bamboo', 'Water Culture', 'Zero Soil', 'Prosperity Token']
+  },
+
+  // ==========================================
+  // SPRINT 2 (BATCH 2): 15 NEW BOTANICAL ENCYCLOPEDIA ENTRIES
+  // (herb-36 to herb-40, fruit-21 to fruit-25, orn-16 to orn-20)
+  // ==========================================
+  'herb-36': {
+    common_name: 'Golden Eye-Grass (Sam Cau Do / Tien Mao)',
+    aliases: ['Curculigo Orchioides', 'Black Musli', 'Kali Musli', 'Immortal Grass'],
+    description: 'A prized indigenous Vietnamese tonic herb that warms kidney yang, dispels cold-dampness, strengthens tendons and bones, and boosts natural cellular immunity through curculigosides and triterpenoid saponins.',
+    quick_answer: 'Features pleated palm-like leaves and bright yellow basal flowers. Thrives in 35-45cm deep balcony pots under dappled shade, yielding aromatic red-brown medicinal rhizomes after 10-12 months.',
+    growth_time: '10 - 12 months to harvest mature medicinal rhizomes',
+    seasonality: {
+      north: 'Plant in spring (Feb-Apr); harvest mature tubers in late autumn to winter (Oct-Dec)',
+      central: 'Grow under 40% shade netting or beneath larger balcony trees',
+      south: 'Flourishes year-round on east-facing loggias',
+      best_months: [2, 3, 4, 10, 11],
+      warning: 'Avoid prolonged waterlogging to prevent basal tuber rot'
+    },
+    medical_info: {
+      uses: ['Warms kidney yang and restores physical vitality', 'Dispels cold-dampness, relieving lower back pain, weak knees, and cold extremities', 'Modulates immunity and protects neural cells against oxidative stress'],
+      folk_remedies: [
+        'Soak 1kg fresh washed tubers overnight in thick rice-washing water to neutralize throat-irritating sap, slice and air-dry, then steep in 3L of 40% glutinous rice wine with 100ml wild honey for 90 days (15ml per meal).',
+        'Decoct 10g golden-roasted Curculigo rhizome with 12g Epimedium and 12g Morinda officinalis to relieve cold lower back and knee ache.'
+      ],
+      preparation: ['Detoxify in rice-washing water before slicing and drying', 'Golden-roast for herbal decoction', 'Infuse in tonic rice wine'],
+      toxicity_warning: 'Must be soaked thoroughly in rice-washing water before processing to remove irritating mucilage. Avoid high doses in individuals with yin-deficiency heat or dry mouth.',
+      disclaimer: 'Warm-natured medicinal rhizome; use in accordance with traditional pharmacopoeia dosages.'
+    },
+    botanical_details: {
+      family: 'Hypoxidaceae (Star-Grass Family)',
+      native_range: 'Midland and mountainous regions of Northern Vietnam, Central Highlands, and South-Central Vietnam',
+      active_compounds: ['Curculigoside A & B', 'Curculigine', 'Triterpenoid Saponins', 'Polysaccharides'],
+      soil_ph: '5.5 - 6.8 (Rich, well-drained forest humus)',
+      ideal_temp: '20°C - 32°C',
+      pot_size: '35cm - 45cm deep container for vertical root development'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Deep Sandy Humus', instruction: 'Plant crowns in deep containers with 30% river sand and 40% leaf compost so tubers elongate straight down.' }
+    ],
+    faqs: [
+      { question: 'Why soak tubers in rice water before drying?', answer: 'Rice water neutralizes calcium oxalate needles and acrid resins naturally present in raw tubers.' }
+    ],
+    monetization_tips: ['Propagate authentic highland seedlings and offer detoxified freeze-dried rhizome slices in glass jars.'],
+    tags: ['Kidney Yang Tonic', 'Tendon Strength', 'Indigenous Ginseng', 'Dappled Shade']
+  },
+
+  'herb-37': {
+    common_name: 'Vietnamese Poor Man’s Ginseng (Dang Sam Nam)',
+    aliases: ['Codonopsis Javanica', 'Ngoc Linh Vine Ginseng', 'Campanumoea Javanica'],
+    description: 'Revered as "Vietnamese Daily Ginseng", this graceful climbing vine bears delicate bell-shaped blossoms and sweet, aromatic tubers that replenish vital qi, fortify the spleen and lungs, and nourish blood.',
+    quick_answer: 'A twining herbaceous vine ideal for 40cm deep pots with a balcony trellis. Harvest tender leaves for cooling soups after 4 months and sweet medicinal tubers after 12 months.',
+    growth_time: '4 months for culinary leaves, 12 months for sweet ginseng tubers',
+    seasonality: {
+      north: 'Vigorous vine growth from spring through autumn; vines die back in winter to concentrate tuber energy',
+      central: 'Prefers cool airy corners; provide shade cloth in peak summer',
+      south: 'Grow on cool east-facing balconies with evening misting',
+      best_months: [2, 3, 4, 9, 10]
+    },
+    medical_info: {
+      uses: ['Replenishes central qi, strengthens digestion, and improves appetite and sleep', 'Promotes red blood cell production and relieves low blood pressure fatigue', 'Young leaves cooked in minced pork soup provide a cooling tonic for children and seniors'],
+      folk_remedies: [
+        'Steep 20g dried Codonopsis root, 10g goji berries, and 5 red dates in a 1L thermal flask for an all-day energy tea.',
+        'Simmer 50g fresh tubers with black-bone chicken, lotus seeds, and Job’s tears for post-illness recovery.'
+      ],
+      preparation: ['Daily thermal flask herbal tea', 'Nourishing herbal chicken stew', 'Sun-dried and honey-roasted root slices'],
+      toxicity_warning: 'Gentle and neutral in nature without raising blood pressure like red Panax ginseng. Do not combine with Veratrum (Le lo) in traditional formulas.',
+      disclaimer: 'Official qi-tonifying botanical recorded in the Vietnamese Pharmacopoeia.'
+    },
+    botanical_details: {
+      family: 'Campanulaceae (Bellflower Family)',
+      native_range: 'Ngoc Linh highlands (Kon Tum, Quang Nam) and Northwestern Vietnam',
+      active_compounds: ['Saponins', 'Tangshenoside', 'Polysaccharides', 'Inulin', '17 Amino Acids'],
+      soil_ph: '5.5 - 6.5 (Loose humus with worm castings and charred rice husks)',
+      ideal_temp: '16°C - 28°C',
+      pot_size: '40cm - 50cm tall pot with A-frame trellis'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Trellis Support', instruction: 'Install a bamboo or wire trellis as soon as shoots reach 15cm so vines climb into filtered light.' }
+    ],
+    faqs: [
+      { question: 'Can people with high blood pressure drink Codonopsis tea?', answer: 'Yes, unlike Korean Red Ginseng, Codonopsis javanica is mild and neutral, making it suitable for daily hydration.' }
+    ],
+    monetization_tips: ['Sell potted climbing ginseng vines and pre-packaged herbal chicken soup kits.'],
+    tags: ['Qi & Blood Tonic', 'Ngoc Linh Herb', 'Balcony Climber', 'Edible Greens']
+  },
+
+  'herb-38': {
+    common_name: 'Shiny Bush / Pepper Elder (Rau Cang Cua)',
+    aliases: ['Peperomia Pellucida', 'SilverVein', 'Clearweed'],
+    description: 'A crisp, translucent succulent herb with glossy heart-shaped leaves and tiny crab-claw flower spikes. Packed with bioavailable iron, potassium, magnesium, and natural anti-inflammatory compounds.',
+    quick_answer: 'Thrives in cool, moist shade beneath larger fruit tree pots. Ready to harvest in just 25-30 days for tangy beef salads that cool the liver and help lower uric acid.',
+    growth_time: '25 - 30 days to first harvest; self-seeds continuously',
+    seasonality: {
+      north: 'Most prolific from April to October during warm humid months',
+      central: 'Grows year-round in shaded moist corners',
+      south: 'Continuous year-round harvest with daily misting',
+      best_months: [4, 5, 6, 7, 8, 9, 10]
+    },
+    medical_info: {
+      uses: ['Helps excrete excess uric acid and soothes joint inflammation in gout sufferers', 'Clears heat, promotes diuresis, and relieves summer urinary discomfort', 'Provides plant-based iron and antioxidants with virtually zero calories'],
+      folk_remedies: [
+        'Toss 150g fresh washed Peperomia greens with olive oil, crispy garlic, and apple cider vinegar 3 times a week to cool the liver and support healthy uric acid levels.',
+        'Crush fresh stems and leaves as a cooling poultice over minor burns or inflamed skin blemishes.'
+      ],
+      preparation: ['Fresh tangy salad with beef or boiled egg', 'Cooling green juice', 'Quick-simmered shrimp soup'],
+      toxicity_warning: 'Completely non-toxic culinary green. Due to its cooling, high-water nature, eat in moderation if experiencing cold-stomach diarrhea.',
+      disclaimer: 'Beloved functional salad green of Vietnamese home gardens.'
+    },
+    botanical_details: {
+      family: 'Piperaceae (Pepper Family)',
+      native_range: 'Tropical Americas, naturalized across moist shaded habitats in Vietnam',
+      active_compounds: ['Pellucidin A', 'Patuloside A', 'Phytosterols', 'Organic Iron & Potassium', 'Vitamin C'],
+      soil_ph: '6.0 - 7.0 (Moist humus-rich soil)',
+      ideal_temp: '20°C - 30°C',
+      pot_size: '15cm shallow tray or companion-planted under fruit tree containers'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Companion Underplanting', instruction: 'Scatter seeds on moist soil beneath guava, lemon, or pomelo pots to maximize balcony space.' }
+    ],
+    faqs: [
+      { question: 'Why is it called Crab Claw herb?', answer: 'Its slender green flower spikes curve upward like miniature crab claws.' }
+    ],
+    monetization_tips: ['Grow zero-space companion crops under balcony fruit trees and sell fresh organic salad trays.'],
+    tags: ['Iron Rich', 'Uric Acid Support', 'Companion Crop', 'Crisp Succulent']
+  },
+
+  'herb-39': {
+    common_name: 'Stinking Passionflower / Bush Passionfruit (Lac Tien)',
+    aliases: ['Passiflora Foetida', 'Wild Mossy Passionflower', 'Love-in-a-Mist'],
+    description: 'Vietnam’s premier natural sedative and sleep-restoring botanical. A vigorous vine bearing lacy moss-bracted fruits, rich in harman alkaloids and vitexin flavonoids that calm anxious nerves and induce deep, restorative sleep.',
+    quick_answer: 'Grows rapidly from seed or stem cuttings along sunny balcony railings. Boil tender shoot tips as a sweet vegetable or steep dried vines as an evening sleep tea 45 minutes before bed.',
+    growth_time: '30 days to begin harvesting tender shoots and herbal vines',
+    seasonality: {
+      north: 'Explosive growth from March through October',
+      central: 'Drought-resilient, flowering and fruiting year-round',
+      south: 'Evergreen all 12 months; shoots surge after every rain',
+      best_months: [3, 4, 5, 6, 7, 8, 9]
+    },
+    medical_info: {
+      uses: ['Natural anxiolytic and sedative that relieves insomnia, restless dreams, and nervous exhaustion', 'Calms palpitations and stress-induced tachycardia', 'Clears liver heat when enjoyed as a traditional boiled green'],
+      folk_remedies: [
+        'Boil a handful of tender Passiflora shoots for dinner soup to promote effortless, unmedicated sleep.',
+        'Classic Sleep Formula: Simmer 20g dried Passiflora foetida, 12g Erythrina leaves (La vong), 6g lotus plumule (Tam sen), and 10g mulberry leaves for evening consumption.'
+      ],
+      preparation: ['Boiled or soup-cooked tender shoots', 'Roasted dried vine herbal tea', 'Concentrated liquid herbal extract'],
+      toxicity_warning: 'Only consume the fruit when fully ripe (golden-orange); unripe green fruits contain trace cyanogenic glycosides and should not be eaten raw.',
+      disclaimer: 'Listed in the Ministry of Health’s Essential Traditional Medicines for insomnia relief.'
+    },
+    botanical_details: {
+      family: 'Passifloraceae (Passionflower Family)',
+      native_range: 'Tropical Americas, naturalized across all three regions of Vietnam',
+      active_compounds: ['Passiflorin', 'Harman', 'Harmol', 'Harmine', 'Vitexin', 'Saponaretin'],
+      soil_ph: '5.8 - 7.2 (Adaptable to most container soils)',
+      ideal_temp: '22°C - 35°C',
+      pot_size: '25cm - 35cm pot with railing trellis'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Railing Trellis', instruction: 'Guide main stems onto balcony railings and pinch shoot tips weekly for bushy lateral growth.' }
+    ],
+    faqs: [
+      { question: 'Does it cause morning grogginess like sleeping pills?', answer: 'No, Passiflora foetida gently relaxes the nervous system so you wake up refreshed and clear-headed.' }
+    ],
+    monetization_tips: ['Craft artisanal sleep-support tea bags blending Passiflora, lotus heart, and jujube for office workers.'],
+    tags: ['Insomnia Relief', 'Natural Sedative', 'Balcony Vine', 'Edible Shoots']
+  },
+
+  'herb-40': {
+    common_name: 'Chinese Croton / Firestorm Shrub (Don La Do)',
+    aliases: ['Excoecaria Cochinchinensis', 'Picara', 'Bicolor Red-Back Leaf'],
+    description: 'A dual-purpose ornamental and dermatological herb featuring glossy emerald upper leaves and blazing crimson-purple undersides. Famous in Vietnamese herbal medicine for rapidly clearing hives, urticaria, allergies, and prickly heat.',
+    quick_answer: 'A compact 60-90cm shrub that roots with 99% success from cuttings. Place in partial morning sun to intensify the ruby-red leaf undersides and maximize anti-allergic flavonoids.',
+    growth_time: '35 days from stem cutting to first medicinal leaf harvest',
+    seasonality: {
+      north: 'Best leaf potency harvested from April to September in warm sun',
+      central: 'Grown year-round as a colorful balcony border shrub',
+      south: 'Vibrant emerald-and-crimson foliage all four seasons',
+      best_months: [3, 4, 5, 6, 7, 8]
+    },
+    medical_info: {
+      uses: ['Clears blood heat and resolves acute hives (urticaria), food allergies, and weather rashes', 'Relieves inflamed boils, atopic dermatitis, and children’s summer prickly heat', 'Golden-roasted leaf decoction soothes mild bacterial dysentery and diarrhea'],
+      folk_remedies: [
+        'Decoct 15g golden-roasted Excoecaria leaves with 10g honeysuckle flowers and 10g Xanthium fruit in 600ml water down to 200ml; drink twice daily to stop itching hives.',
+        'Boil a handful of fresh leaves with a pinch of sea salt to prepare a soothing herbal bath for babies with prickly heat.'
+      ],
+      preparation: ['Golden-roasted leaf decoction', 'Soothing herbal bath wash'],
+      toxicity_warning: 'Fresh stem latex can irritate eyes upon direct contact; always wash and boil or roast leaves before internal use. Avoid in individuals with bleeding disorders.',
+      disclaimer: 'Traditional Vietnamese dermatological herb; ensure authentic identification.'
+    },
+    botanical_details: {
+      family: 'Euphorbiaceae (Spurge Family)',
+      native_range: 'Indigenous to Vietnam and mainland Southeast Asia',
+      active_compounds: ['Flavonoids (1.5%)', 'Tannins', 'Coumarins', 'Polyphenols', 'Anthocyanins'],
+      soil_ph: '5.5 - 6.8',
+      ideal_temp: '20°C - 34°C',
+      pot_size: '25cm - 35cm container'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Morning Sun Exposure', instruction: 'Provide 3-4 hours of gentle morning sunlight so the lower leaf surface develops deep crimson anthocyanins.' }
+    ],
+    faqs: [
+      { question: 'How to distinguish authentic Don La Do from ornamental crotons?', answer: 'Authentic Don La Do has opposite leaves with fine serrations, solid green tops, and uniform crimson-purple undersides without yellow spots.' }
+    ],
+    monetization_tips: ['Market Fire-element feng-shui pots and dried herbal baby-bath sachets with honeysuckle.'],
+    tags: ['Hives & Allergy Relief', 'Blood Cooling', 'Crimson Foliage', 'Baby Bath Herb']
+  },
+
+  'fruit-21': {
+    common_name: 'Australian Finger Lime (Chanh Ngon Tay Uc)',
+    aliases: ['Citrus Australasica', 'Citrus Caviar', 'Caviar Lime'],
+    description: 'Hailed by Michelin chefs as the "Caviar of the Plant Kingdom". Finger-shaped fruits split open to reveal hundreds of translucent, pearl-like juice vesicles that pop on the palate with an effervescent, herbal citrus burst.',
+    quick_answer: 'A thorny micro-leaved shrub with a compact root system tailored for 35-45cm sunny balcony pots. Heat-resilient, pest-resistant, and commands the highest market value in the citrus family.',
+    growth_time: '6 - 8 months from grafted sapling to first caviar fruit set',
+    seasonality: {
+      north: 'Main blossom flushes in spring (Mar-Apr) and autumn (Aug-Sep)',
+      central: 'Vigorous grower; protect roots from typhoon waterlogging',
+      south: 'Flowers and fruits year-round when given a 5-day light water stress',
+      best_months: [3, 4, 8, 9, 10]
+    },
+    medical_info: {
+      uses: ['Delivers 3x the Vitamin C and natural Folate of standard lemons', 'Essential oils and acidic pearls stimulate digestive enzymes and pair exquisitely with raw seafood', 'Rich in polyphenols and anthocyanins (in pink/red cultivars) that brighten skin'],
+      folk_remedies: [
+        'Spoon fresh finger lime pearls over oysters, sashimi, or sparkling water with wild honey for a liver-refreshing tonic.',
+        'Steep halved finger limes in raw honey and fresh ginger slices to soothe sore throats.'
+      ],
+      preparation: ['Garnish directly onto fine-dining dishes', 'Craft sparkling mocktails and cocktails', 'Honey-citrus infusion'],
+      toxicity_warning: 'Completely safe culinary fruit. Avoid consuming in excess on an empty stomach if prone to acute gastritis.',
+      disclaimer: 'Ultra-premium gourmet citrus variety for modern urban container orchards.'
+    },
+    botanical_details: {
+      family: 'Rutaceae (Citrus Family)',
+      native_range: 'Subtropical rainforests of Eastern Australia, grafted for Vietnamese balconies',
+      active_compounds: ['Citric Acid', 'Vitamin C', 'Limonene', 'Isocitric Acid', 'Anthocyanins'],
+      soil_ph: '5.8 - 6.8 (Fast-draining mix with 20% perlite or pine bark)',
+      ideal_temp: '20°C - 35°C',
+      pot_size: '35cm - 45cm container'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Porous Citrus Substrate', instruction: 'Blend loam with 20% perlite, 20% aged pine bark, and worm castings to prevent root suffocation.' }
+    ],
+    faqs: [
+      { question: 'Why are Finger Limes so expensive?', answer: 'Slow compact growth and unique caviar-like vesicles that do not burst until chewed make them a prized luxury ingredient.' }
+    ],
+    monetization_tips: ['Supply fresh finger limes to upscale Japanese/European restaurants ($50-$80/kg) and sell grafted balcony trees.'],
+    tags: ['Citrus Caviar', 'Gourmet Rarity', 'High Value', 'Balcony Citrus']
+  },
+
+  'fruit-22': {
+    common_name: 'Dwarf Dien Pomelo in Pot (Buoi Dien Lun)',
+    aliases: ['Citrus Maxima var. Dien', 'Hanoi Tet Bonsai Pomelo', 'Golden Heritage Pomelo'],
+    description: 'Hanoi’s royal heirloom citrus miniaturized for urban rooftops. In spring, snow-white blossoms perfume the entire home; by Lunar New Year, golden lantern-like fruits ripen with honeyed, non-bitter shrimp-pink vesicles.',
+    quick_answer: 'Choose air-layered or grafted dwarf trees in 50-65cm containers. Hand-pollinate blossoms with a soft brush in spring and feed organic potassium from autumn for intense sweetness.',
+    growth_time: 'Blooms in Feb-Mar; golden fruit harvested for Lunar New Year',
+    seasonality: {
+      north: 'Fragrant blossoms in February; golden fruit ripens in Lunar November-December',
+      central: 'Shield open blossoms from heavy unseasonal downpours',
+      south: 'Fruits reliably on sunny rooftops with intoxicating floral fragrance',
+      best_months: [1, 2, 3, 11, 12]
+    },
+    medical_info: {
+      uses: ['Pulp rich in naringin helps lower blood lipids, reduce fatty liver, and support healthy metabolism', 'Pomelo blossoms distilled into neroli hydrosol calm nerves and scent tapioca starch', 'Peel decoctions stimulate thick hair growth and reduce postpartum hair loss'],
+      folk_remedies: [
+        'Simmer shredded pomelo peel with roasted soapberry (bo ket) and lemongrass for a traditional hair-strengthening wash.',
+        'Candied pomelo peel simmered with rock sugar and honey relieves winter phlegm coughs.'
+      ],
+      preparation: ['Cure harvested fruit for 2 weeks until rind softens for peak sweetness', 'Pomelo blossom tea', 'Candied peel'],
+      toxicity_warning: 'Contains furanocoumarins that may interact with statin or blood pressure medications; space consumption at least 2 hours apart from prescription drugs.',
+      disclaimer: 'Iconic cultural and culinary heirloom of Northern Vietnam.'
+    },
+    botanical_details: {
+      family: 'Rutaceae (Citrus Family)',
+      native_range: 'Phu Dien Village (Tu Liem, Hanoi - Vietnam)',
+      active_compounds: ['Naringin', 'Hesperidin', 'Vitamin C', 'Neroli Essential Oil', 'Pectin'],
+      soil_ph: '5.5 - 6.5 (Alluvial loam mixed with composted manure and charred husk)',
+      ideal_temp: '18°C - 32°C',
+      pot_size: '50cm - 65cm (70L smart pot or ceramic planter)'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Assisted Pollination', instruction: 'Dab pollen from freshly opened stamens onto the sticky stigma of strong blossoms on sunny mornings.' }
+    ],
+    faqs: [
+      { question: 'Why is Dien Pomelo sweeter after storing for a few weeks?', answer: 'As the peel slightly wilts and loses moisture, starches convert into concentrated sugars without drying the pulp.' }
+    ],
+    monetization_tips: ['Rent or sell fruiting Tet bonsai pomelo pots ($60-$200) and harvest fresh spring blossoms for tea makers.'],
+    tags: ['Fragrant Blossom', 'Tet Golden Fruit', 'Hanoi Heirloom', 'Lipid Support']
+  },
+
+  'fruit-23': {
+    common_name: 'Sweet Purple Passionfruit (Chanh Leo Tim Ngot)',
+    aliases: ['Passiflora Edulis', 'Da Lat Sweet Passionfruit', 'Granadilla'],
+    description: 'The ultimate living heat-shield for sunny urban balconies and rooftops. Lush evergreen vines block up to 80% of solar radiation, unfurling intricate purple clock-like flowers followed by aromatic, honey-sweet purple fruit.',
+    quick_answer: 'One grafted vine in a 40L planter covers 6-8m² of balcony cable trellis within 3 months. Pinch the main leader once it reaches the top wire to trigger dozens of fruiting secondary laterals.',
+    growth_time: '4 - 5 months from grafted sapling to first sweet purple harvest',
+    seasonality: {
+      north: 'Plant in early spring (Feb-Mar); harvest continuously from summer through autumn',
+      central: 'Provides exceptional balcony cooling during hot dry summer winds',
+      south: 'Grows year-round; select heat-tolerant grafted cultivars for heavy fruit set',
+      best_months: [2, 3, 4, 8, 9, 10]
+    },
+    medical_info: {
+      uses: ['Boosts immunity and post-workout electrolyte recovery with high Vitamin C and Potassium', 'Piceatannol in passionfruit seeds protects skin collagen and improves insulin sensitivity', 'Natural floral esters calm the nervous system and promote restful sleep'],
+      folk_remedies: [
+        'Scoop 2 sweet purple passionfruits into warm water with 1 spoon of wild honey each morning for digestive cleansing and glowing skin.',
+        'Simmer pulp with rock sugar to create concentrated passionfruit syrup for year-round refreshments.'
+      ],
+      preparation: ['Scoop and eat fresh with a spoon', 'Honey passionfruit cooler', 'Pastry & salad glaze'],
+      toxicity_warning: 'Chew or blend seeds moderately; individuals with colonic diverticula should strain out whole hard seeds.',
+      disclaimer: 'Dual-purpose green architecture vine that cools apartments and yields organic fruit.'
+    },
+    botanical_details: {
+      family: 'Passifloraceae (Passionflower Family)',
+      native_range: 'South America, widely cultivated in Vietnam’s Central Highlands and Northwest',
+      active_compounds: ['Vitamin C', 'Beta-carotene', 'Polyphenols', 'Piceatannol', 'Potassium', 'Chrysin'],
+      soil_ph: '5.5 - 6.8 (Rich, well-aerated organic soil)',
+      ideal_temp: '18°C - 32°C',
+      pot_size: '40L - 60L planter box with trellis net or wire cables'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Pinch Primary Leader', instruction: 'Snip the main vine tip once it reaches the trellis top to force vigorous fruiting side shoots.' }
+    ],
+    faqs: [
+      { question: 'Can Sweet Purple Passionfruit be eaten raw without sugar?', answer: 'Yes, when the purple skin wrinkles slightly, acidity drops and sugar peaks for direct spoon enjoyment.' }
+    ],
+    monetization_tips: ['Sell disease-resistant grafted saplings and artisanal honey-fermented passionfruit jars.'],
+    tags: ['Cooling Green Wall', 'Exotic Purple Bloom', 'Sweet Pulp', 'Vitamin C Power']
+  },
+
+  'fruit-24': {
+    common_name: 'Vertical Trellis Mini Watermelon (Dua Hau Mini)',
+    aliases: ['Citrullus Lanatus', 'Sugar Baby Watermelon', 'Pocket Balcony Melon'],
+    description: 'Transform a compact balcony into a vertical wonderland with 1.2-1.8kg round Sugar Baby watermelons suspended in mesh hammocks. Ultra-thin rinds encase crisp, deep-red, sugar-sweet flesh kissed by high-rise sunshine.',
+    quick_answer: 'Grow in a 25-30L pot and train vines vertically up a nylon trellis net. Hand-pollinate female flowers at nodes 12-16 between 7am-8am, and cradle swelling melons in mesh bags.',
+    growth_time: '60 - 65 days from seed germination to sweet harvest',
+    seasonality: {
+      north: 'Spring-Summer crop (Feb-Jun) and Autumn crop (Aug-Nov)',
+      central: 'Flourishes throughout the sunny season from February to August',
+      south: 'Grown year-round; dry season crops achieve maximum Brix sweetness',
+      best_months: [2, 3, 4, 5, 8, 9],
+      warning: 'Reduce watering 4-5 days before harvest to concentrate sugars and prevent rind splitting'
+    },
+    medical_info: {
+      uses: ['Replenishes hydration and electrolytes while supplying more heart-protective Lycopene than raw tomatoes', 'L-Citrulline in the white rind dilates blood vessels and relieves post-exercise muscle soreness', 'Clears summer heat and promotes gentle diuresis'],
+      folk_remedies: [
+        'Boil clean organic green peel and white rind (Xi Gua Pi) with corn silk to cool the kidneys and support healthy blood pressure.',
+        'Blend chilled red flesh with fresh mint leaves to recover from summer heat exhaustion.'
+      ],
+      preparation: ['Chilled fresh wedges', 'Fresh pressed juice', 'Crisp pickled white rind salad or cooling rind tea'],
+      toxicity_warning: 'Avoid eating large quantities of ice-cold watermelon late at night if prone to weak digestion.',
+      disclaimer: 'An unforgettable farm-to-table educational project for children in city apartments.'
+    },
+    botanical_details: {
+      family: 'Cucurbitaceae (Gourd Family)',
+      native_range: 'Africa, bred into short-cycle F1 mini cultivars for urban vertical farming',
+      active_compounds: ['Lycopene', 'L-Citrulline', 'Beta-carotene', 'Vitamins A & C', 'Potassium'],
+      soil_ph: '6.0 - 6.8 (Loose mix with worm castings, charred rice husk, and agricultural lime)',
+      ideal_temp: '24°C - 35°C',
+      pot_size: '25L - 35L per vine (Minimum 30cm depth)'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Hammock Support', instruction: 'Slip a breathable nylon mesh sling under each melon once it reaches tennis-ball size and tie securely to the trellis.' }
+    ],
+    faqs: [
+      { question: 'How many melons should I keep on one container vine?', answer: 'Keep 1 to 2 fruits per vine so the plant channels 100% of its photosynthates into making them intensely sweet.' }
+    ],
+    monetization_tips: ['Sell vertical balcony melon starter kits (seeds + mesh slings + organic fertilizer) and calligraphy-carved Tet mini melons.'],
+    tags: ['60-Day Harvest', 'Vertical Trellis', 'Crisp Red Flesh', 'Kids Garden Project']
+  },
+
+  'fruit-25': {
+    common_name: 'Golden Fragrant Persimmon Bonsai (Thi Vang Bonsai)',
+    aliases: ['Diospyros Decandra', 'Fairy Tale Tam’s Fruit Tree', 'Aromatic Velvet Apple'],
+    description: 'Brings the poetic nostalgia of Vietnamese folklore to urban balconies. Features rugged, charcoal-barked bonsai trunks, glossy evergreen leaves, and golden autumn fruits that perfumed entire apartments for weeks.',
+    quick_answer: 'Select grafted dwarf "Thi Sap" bonsai trees (60-100cm tall). Exceptionally hardy, drought-tolerant in ceramic pots, and prized both as living sculpture and natural home aromatherapy.',
+    growth_time: 'Blossoms in Mar-Apr; golden aromatic fruit ripens through autumn (Aug-Oct)',
+    seasonality: {
+      north: 'Golden fruit ripens in Lunar July-August in time for the Mid-Autumn Festival',
+      central: 'Withstands intense sun and coastal winds; develops gnarled ancient bark',
+      south: 'Evergreen year-round; apply light early-spring water stress to trigger floral buds',
+      best_months: [3, 4, 8, 9, 10]
+    },
+    medical_info: {
+      uses: ['Natural volatile esters from ripe golden skin calm the central nervous system, relieve tension headaches, and promote restful sleep', 'Fully ripened soft pulp gently nourishes the spleen and stomach', 'Traditional bark and root decoctions are used externally for skin allergies'],
+      folk_remedies: [
+        'Place 2-3 ripe golden fruits in a woven bamboo basket in the bedroom or study to naturally deodorize the air and soothe insomnia.',
+        'Gently warm dried fruit peels as a subtle botanical incense to repel mosquitoes.'
+      ],
+      preparation: ['Display indoors for natural aromatherapy', 'Gently roll ripe fruit between palms until soft before savoring the sweet pulp'],
+      toxicity_warning: 'Never eat unripe astringent fruit or consume on an empty stomach, as high tannins can coagulate stomach proteins and cause indigestion.',
+      disclaimer: 'Sacred cultural heritage tree immortalized in Vietnam’s "Tam Cam" fairy tale.'
+    },
+    botanical_details: {
+      family: 'Ebenaceae (Ebony / Persimmon Family)',
+      native_range: 'Indigenous to Vietnam, iconic in ancient pagodas and village courtyards',
+      active_compounds: ['Natural Aromatic Esters', 'Tannins', 'Flavonoids', 'Betulinic Acid', 'Vitamins A & C'],
+      soil_ph: '5.5 - 7.0 (Sandy loam mixed with crushed cinder and worm castings)',
+      ideal_temp: '18°C - 35°C',
+      pot_size: '35cm - 55cm ceramic bonsai pot'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Wire & Shape Canopy', instruction: 'Use anodized aluminum bonsai wire in late autumn to shape horizontal cloud pads.' }
+    ],
+    faqs: [
+      { question: 'Can a potted bonsai Thi tree really bear fruit on a balcony?', answer: 'Yes! Grafted branches from mature mother trees flower and set fragrant golden fruit even at 60cm height.' }
+    ],
+    monetization_tips: ['Craft fruiting heritage bonsai specimens ($60-$350) and sell mini golden fruits in hand-knitted Mid-Autumn pouches.'],
+    tags: ['Folklore Aroma', 'Heritage Bonsai', 'Golden Autumn Fruit', 'Natural Aromatherapy']
+  },
+
+  'orn-16': {
+    common_name: 'Swiss Cheese Plant (Trau Ba Nam My Monstera)',
+    aliases: ['Monstera Deliciosa', 'Monstera King', 'Split-Leaf Monster'],
+    description: 'The undisputed king of contemporary Urban Jungle interiors. Giant heart-shaped emerald leaves develop dramatic natural clefts and perforations (fenestrations), acting as living botanical sculpture while scrubbing indoor formaldehyde.',
+    quick_answer: 'Monstera thrives in bright indirect light near large windows. Plant in chunky Aroid mix (pine bark + perlite + coco chunks + worm castings) with a moss pole for aerial roots to climb.',
+    growth_time: 'Unfurls 1-2 larger, more fenestrated leaves every month',
+    seasonality: {
+      north: 'Peak growth from March to October; keep in warm rooms during winter',
+      central: 'Shield from scorching midday sun to prevent leaf scorch',
+      south: 'Unfurls giant perforated leaves year-round',
+      best_months: [3, 4, 5, 6, 8, 9]
+    },
+    botanical_details: {
+      family: 'Araceae (Arum Family)',
+      native_range: 'Tropical rainforests from Southern Mexico to Panama',
+      active_compounds: ['Dense Chlorophyll', 'Flavonoids'],
+      soil_ph: '5.5 - 6.8 (Chunky, airy Aroid substrate)',
+      ideal_temp: '18°C - 30°C',
+      pot_size: '30cm - 45cm pot with sphagnum moss pole'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Chunky Aroid Mix', instruction: 'Blend 30% treated pine bark, 30% perlite/pumice, 20% coco chunks, and 20% worm castings for zero root rot.' },
+      { step: 2, title: 'Attach to Moss Pole', instruction: 'Secure the back of the stem against a moist moss pole so aerial roots anchor and trigger giant mature leaves.' },
+      { step: 3, title: 'Polish Leaves', instruction: 'Wipe broad leaves biweekly with a damp microfiber cloth to keep stomata open for air purification.' }
+    ],
+    faqs: [
+      { question: 'Why aren’t my Monstera’s new leaves splitting?', answer: 'Lack of bright indirect light or juvenile age. Move closer to a bright window and give aerial roots a vertical pole to climb.' }
+    ],
+    monetization_tips: ['Propagate single-node stem cuttings in sphagnum moss and sell mature double-fenestrated statement plants.'],
+    tags: ['Foliage King', 'Fenestrated Leaf', 'Urban Jungle', 'Formaldehyde Scrubber']
+  },
+
+  'orn-17': {
+    common_name: 'China Doll / Happiness Tree (Cay Hanh Phuc)',
+    aliases: ['Radermachera Sinica', 'Emerald Tree', 'Serpent Tree'],
+    description: 'An indoor hardwood tree radiating feng-shui warmth, family togetherness, and domestic bliss. Hundreds of glossy emerald heart-shaped leaflets interlace into a lush, rounded canopy brimming with vitality.',
+    quick_answer: 'Prefers airy living rooms with soft natural light. Water 2-3 times weekly to keep soil lightly moist and mist the emerald crown in the morning for jewel-like shine.',
+    growth_time: 'Develops a dense, multi-tiered emerald canopy year-round',
+    seasonality: {
+      north: 'Evergreen indoors all four seasons; protect from freezing winter drafts',
+      central: 'Ideal for cool living rooms or covered verandas',
+      south: 'Flourishes in apartments and air-conditioned offices',
+      best_months: [2, 3, 4, 8, 9, 10]
+    },
+    botanical_details: {
+      family: 'Bignoniaceae (Trumpet Vine Family)',
+      native_range: 'Subtropical highlands of Southern China and Northern Indochina',
+      active_compounds: ['Mild antibacterial phytoncides', 'Chlorophyll'],
+      soil_ph: '6.0 - 7.0 (Loose humus-rich loam)',
+      ideal_temp: '18°C - 28°C (Thrives in air-conditioned rooms)',
+      pot_size: '18cm desktop pot or 35cm - 45cm floor planter'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Airy Placement', instruction: 'Position near a living room sofa 1-2m from a window, away from direct air-conditioner vents.' },
+      { step: 2, title: 'Shape the Crown', instruction: 'Lightly trim leggy shoots every 2 months to encourage dense lateral budding.' }
+    ],
+    faqs: [
+      { question: 'Why does the Happiness Tree drop leaflets in closed rooms?', answer: 'It craves fresh air circulation and gentle morning light. Open windows weekly or give it 1-2 mornings of soft balcony sun.' }
+    ],
+    monetization_tips: ['Pot in premium ceramic planters as housewarming and wedding anniversary gifts ($15-$50).'],
+    tags: ['Family Bliss', 'Housewarming Gift', 'Glossy Emerald', 'Luxury Interior']
+  },
+
+  'orn-18': {
+    common_name: 'Song of India (Truc Bach Hop Vien Vang)',
+    aliases: ['Dracaena Reflexa Variegata', 'Pleomele Reflexa', 'Golden-Edged Dracaena'],
+    description: 'Honored by NASA as a top botanical scrubber of Trichloroethylene, Xylene, and Formaldehyde. Whorls of emerald leaves edged in luminous gold spiral around sculptural woody stems, symbolizing enduring prosperity.',
+    quick_answer: 'Exceptionally resilient in both air-conditioned offices and dappled balconies. Water 1-2 times weekly when top soil dries; brighter indirect light intensifies the golden leaf margins.',
+    growth_time: 'Long-lived woody shrub thriving over 10 years in containers',
+    seasonality: {
+      north: 'Evergreen year-round with better cold tolerance than most tropical foliage',
+      central: 'Perfect for lobbies, porches, and covered balconies',
+      south: 'Radiant golden-green foliage all 12 months',
+      best_months: [1, 2, 3, 4, 9, 10]
+    },
+    botanical_details: {
+      family: 'Asparagaceae (Asparagus Family)',
+      native_range: 'Tropical Indian Ocean islands (Madagascar, Mauritius)',
+      active_compounds: ['Botanical Saponins', 'Lutein', 'Chlorophyll'],
+      soil_ph: '6.0 - 6.8 (Well-draining mix with coco coir and perlite)',
+      ideal_temp: '18°C - 32°C',
+      pot_size: '25cm - 40cm container'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Use Dechlorinated Water', instruction: 'Let tap water sit overnight before watering so chlorine and fluoride do not brown leaf tips.' },
+      { step: 2, title: 'Top-Cut Propagation', instruction: 'Root 20cm top cuttings in moist soil or water; the mother stem will sprout 2-3 new side branches.' }
+    ],
+    faqs: [
+      { question: 'Which feng-shui elements match Song of India?', answer: 'Its emerald-and-gold foliage harmonizes with Metal, Water, and Wood elements to attract career fortune.' }
+    ],
+    monetization_tips: ['Lease or sell 3-tiered lobby planters to offices and propagate desktop cuttings.'],
+    tags: ['NASA Air Purifier', 'Golden Margin', '10-Year Hardy', 'Prosperity Feng Shui']
+  },
+
+  'orn-19': {
+    common_name: 'Dwarf Buddhist Pine Bonsai (Tung Bong Lai)',
+    aliases: ['Podocarpus Macrophyllus var. Maki', 'Fern Pine', 'Southern Yew Bonsai'],
+    description: 'Captures the serene majesty of misty mountain peaks in a tabletop ceramic tray. Soft, deep-green needle pads arranged like floating clouds atop rock-clasping roots embody noble perseverance and longevity.',
+    quick_answer: 'One of the few true conifers that thrives both on bright indoor desks and balconies. Features strong drought-tolerant roots; water when surface soil dries and mist the foliage pads.',
+    growth_time: 'Lives for decades, gaining timeless bonsai character each year',
+    seasonality: {
+      north: 'Four-season evergreen that never drops needles even in winter frost',
+      central: 'Withstands wind and partial sun with remarkable resilience',
+      south: 'Pushes jade-green young needle flushes year-round',
+      best_months: [1, 2, 3, 4, 9, 10, 11, 12]
+    },
+    botanical_details: {
+      family: 'Podocarpaceae (Podocarp Conifer Family)',
+      native_range: 'East Asia, dwarf Bong Lai cultivar adapted for Vietnamese bonsai trays',
+      active_compounds: ['Air-cleansing Phytoncides', 'Pinene'],
+      soil_ph: '5.5 - 6.5 (Bonsai mix: Akadama + Pumice + fired loam)',
+      ideal_temp: '15°C - 32°C',
+      pot_size: '15cm - 30cm Yixing clay or crackle-glaze bonsai tray'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Penjing Rock Scaping', instruction: 'Pair with miniature limestone peaks, velvet moss, and ceramic figurines on a tea-table tray.' },
+      { step: 2, title: 'Cloud Pad Trimming', instruction: 'Shear upward shoots every 3 months to maintain flat, cloud-like foliage tiers.' }
+    ],
+    faqs: [
+      { question: 'Does a desktop Buddhist Pine need outdoor sun?', answer: 'It adapts well to bright rooms, and giving it 1-2 mornings of gentle window sun each weekend keeps new shoots lush and compact.' }
+    ],
+    monetization_tips: ['Design rock-clasping Tùng Bồng Lai penjing trays on Bat Trang ceramics ($12-$40) as executive gifts.'],
+    tags: ['Tea Table Bonsai', 'Longevity Symbol', 'Noble Conifer', 'Zen Penjing']
+  },
+
+  'orn-20': {
+    common_name: 'Apple-Green Prayer Plant (Duoi Cong Tao Xanh)',
+    aliases: ['Calathea Orbifolia', 'Peacock Prayer Plant', 'Silver-Striped Calathea'],
+    description: 'The queen of living botanical art, showcasing wide, round leaves brushed with alternating strokes of metallic silver and apple green like a peacock fan. At nightfall, leaves fold upward in a tranquil prayer motion.',
+    quick_answer: '100% Pet-Safe (non-toxic to cats, dogs, and babies). Flourishes in cool indoor shade with high ambient humidity and evenly moist, airy potting mix.',
+    growth_time: 'Produces rolled flute-like new leaves from underground rhizomes',
+    seasonality: {
+      north: 'Peak beauty from spring to autumn; place near a humidifier during dry winter months',
+      central: 'Keep in cool indoor rooms away from hot dry winds',
+      south: 'Thrives year-round in living rooms and bedrooms',
+      best_months: [3, 4, 5, 6, 7, 8, 9, 10]
+    },
+    botanical_details: {
+      family: 'Marantaceae (Arrowroot / Prayer Plant Family)',
+      native_range: 'Tropical rainforests of Bolivia (South America)',
+      active_compounds: ['Zero Calcium Oxalate crystals (100% ASPCA Pet-Safe)'],
+      soil_ph: '6.0 - 6.5 (Moisture-retentive airy mix: Coco coir + Perlite + Worm castings + Fine bark)',
+      ideal_temp: '18°C - 27°C',
+      pot_size: '20cm - 30cm pot'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Water with Filtered or Rain Water', instruction: 'Delicate Calathea leaves are sensitive to tap water salts; RO filtered water keeps leaf edges pristine green.' },
+      { step: 2, title: 'Pebble Humidity Tray', instruction: 'Set the pot atop a tray of wet pebbles (above the water line) to bathe large leaves in gentle humidity.' }
+    ],
+    faqs: [
+      { question: 'Is Calathea Orbifolia safe for homes with cats and toddlers?', answer: '100% safe! Unlike Araceae plants, the Marantaceae family is certified non-toxic to pets and children by the ASPCA.' }
+    ],
+    monetization_tips: ['Divide rhizome clumps into Nordic white ceramic pots for pet-friendly apartments and design studios ($8-$20).'],
+    tags: ['100% Pet Safe', 'Night Prayer Motion', 'Silver Peacock Stripes', 'Nordic Interior']
   }
 };
 

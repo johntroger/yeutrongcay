@@ -14,7 +14,7 @@ export const PLANT_COLLECTIONS: PlantCollection[] = [
     badge: 'Tủ Thuốc Gia Đình',
     badge_en: 'Family First-Aid',
     themeColor: 'emerald',
-    plantIds: ['herb-01', 'herb-02', 'herb-03', 'herb-12', 'fruit-08'],
+    plantIds: ['herb-01', 'herb-02', 'herb-03', 'herb-12', 'fruit-08', 'herb-40'],
     benefits: [
       'Tinh dầu Carvacrol & Thymol sát khuẩn vòm họng cực mạnh',
       'Hạ sốt tức thì bằng cách giã đắp trán và lòng bàn chân',
@@ -41,7 +41,7 @@ export const PLANT_COLLECTIONS: PlantCollection[] = [
     badge: 'Chịu Nắng Cực Hạn',
     badge_en: 'Extreme Heat Proof',
     themeColor: 'amber',
-    plantIds: ['fruit-01', 'fruit-02', 'fruit-04', 'orn-01', 'herb-22', 'orn-15'],
+    plantIds: ['fruit-01', 'fruit-02', 'fruit-04', 'orn-01', 'herb-22', 'orn-15', 'fruit-20', 'fruit-23'],
     benefits: [
       'Chịu nắng gắt trực diện trên 6-8 tiếng mỗi ngày',
       'Lá dày mọng nước giảm thoát hơi nước và cách nhiệt tường nhà',
@@ -68,7 +68,7 @@ export const PLANT_COLLECTIONS: PlantCollection[] = [
     badge: 'Lọc Độc NASA',
     badge_en: 'NASA Certified Air',
     themeColor: 'teal',
-    plantIds: ['orn-06', 'orn-08', 'orn-03', 'orn-09', 'orn-10'],
+    plantIds: ['orn-06', 'orn-08', 'orn-03', 'orn-09', 'orn-10', 'orn-16', 'orn-18'],
     benefits: [
       'Cơ chế quang hợp CAM mở khí khổng nhả oxy vào ban đêm giúp ngủ sâu',
       'Hấp thụ các chất bay hơi độc hại (VOCs) từ keo dán nội thất',
@@ -95,7 +95,7 @@ export const PLANT_COLLECTIONS: PlantCollection[] = [
     badge: 'Siêu Sai Trái',
     badge_en: 'High Yield Patio',
     themeColor: 'rose',
-    plantIds: ['fruit-01', 'fruit-02', 'fruit-03', 'fruit-04', 'fruit-11', 'fruit-12'],
+    plantIds: ['fruit-01', 'fruit-02', 'fruit-03', 'fruit-04', 'fruit-11', 'fruit-12', 'fruit-21', 'fruit-22', 'fruit-24'],
     benefits: [
       'Thu hoạch trái tươi sạch 100% không hóa chất bảo quản ngay tại nhà',
       'Cây thân gỗ lùn chỉ cao từ 80cm - 1.4m, không tốn diện tích trần',
@@ -122,7 +122,7 @@ export const PLANT_COLLECTIONS: PlantCollection[] = [
     badge: 'Trà Dưỡng Sinh',
     badge_en: 'Herbal Tea Sanctuary',
     themeColor: 'purple',
-    plantIds: ['orn-11', 'herb-20', 'herb-19', 'herb-25', 'herb-04', 'orn-12'],
+    plantIds: ['orn-11', 'herb-20', 'herb-19', 'herb-25', 'herb-04', 'orn-12', 'herb-37', 'herb-39'],
     benefits: [
       'Vị ngọt mát lành tự nhiên không chứa calorie từ lá Cỏ ngọt Stevia',
       'Hương thơm tinh dầu tự nhiên kích hoạt sóng alpha não bộ, giảm lo âu',
@@ -149,7 +149,7 @@ export const PLANT_COLLECTIONS: PlantCollection[] = [
     badge: 'Chiêu Tài Hút Lộc',
     badge_en: 'Prosperity Magnet',
     themeColor: 'amber',
-    plantIds: ['orn-04', 'orn-07', 'fruit-05', 'orn-14', 'orn-13', 'fruit-06'],
+    plantIds: ['orn-04', 'orn-07', 'fruit-05', 'orn-14', 'orn-13', 'fruit-06', 'orn-17', 'orn-19', 'fruit-25'],
     benefits: [
       'Ngũ hành Mộc tương sinh Hỏa đem đến sinh khí dồi dào',
       'Lá xanh bóng quanh năm tượng trưng cho tài chính vững chắc',
@@ -176,7 +176,7 @@ export const PLANT_COLLECTIONS: PlantCollection[] = [
     badge: 'Cực Kỳ Dễ Sống',
     badge_en: 'Beginner Friendly',
     themeColor: 'blue',
-    plantIds: ['herb-01', 'herb-03', 'fruit-02', 'orn-04', 'orn-06'],
+    plantIds: ['herb-01', 'herb-03', 'fruit-02', 'orn-04', 'orn-06', 'herb-38', 'orn-20'],
     benefits: [
       'Không yêu cầu kỹ thuật cắt tỉa hay bón phân phức tạp',
       'Sống tốt trong cả điều kiện thiếu sáng hoặc quên tưới 3-5 ngày',
@@ -277,23 +277,45 @@ const PLANT_SUBCATEGORY_MAP: Record<string, string> = {
   'herb-20': 'tra-thao-moc-tieu-hoa',
   'herb-23': 'tra-thao-moc-tieu-hoa',
   'herb-25': 'tra-thao-moc-tieu-hoa',
+  // Sprint 1 & Sprint 2 Herbs
+  'herb-26': 'bo-huyet-duong-sinh',
+  'herb-27': 'xuong-khop-phong-han',
+  'herb-29': 'thanh-nhiet-giai-doc',
+  'herb-30': 'tra-thao-moc-tieu-hoa',
+  'herb-31': 'thanh-nhiet-giai-doc',
+  'herb-34': 'bo-huyet-duong-sinh',
+  'herb-36': 'xuong-khop-phong-han',
+  'herb-37': 'bo-huyet-duong-sinh',
+  'herb-38': 'thanh-nhiet-giai-doc',
+  'herb-39': 'bo-huyet-duong-sinh',
+  'herb-40': 'thanh-nhiet-giai-doc',
 
   // Fruit
   'fruit-03': 'cam-chanh-gia-vi',
   'fruit-08': 'cam-chanh-gia-vi',
-  'fruit-11': 'cam-chanh-gia-vi',
-  'fruit-12': 'cay-bui-qua-mong',
-  'fruit-14': 'cam-chanh-gia-vi',
+  'fruit-11': 'cay-bui-qua-mong',
+  'fruit-12': 'cam-chanh-gia-vi',
+  'fruit-14': 'day-leo-gian-qua',
   'fruit-01': 'cay-bui-qua-mong',
   'fruit-07': 'cay-bui-qua-mong',
-  'fruit-15': 'cay-bui-qua-mong',
+  'fruit-15': 'than-go-lun-ghep',
   'fruit-02': 'than-go-lun-ghep',
   'fruit-04': 'than-go-lun-ghep',
   'fruit-05': 'than-go-lun-ghep',
   'fruit-06': 'than-go-lun-ghep',
   'fruit-10': 'than-go-lun-ghep',
-  'fruit-13': 'than-go-lun-ghep',
+  'fruit-13': 'cay-bui-qua-mong',
   'fruit-09': 'day-leo-gian-qua',
+  // Sprint 1 & Sprint 2 Fruits
+  'fruit-17': 'cay-bui-qua-mong',
+  'fruit-18': 'cay-bui-qua-mong',
+  'fruit-19': 'cay-bui-qua-mong',
+  'fruit-20': 'day-leo-gian-qua',
+  'fruit-21': 'cam-chanh-gia-vi',
+  'fruit-22': 'cam-chanh-gia-vi',
+  'fruit-23': 'day-leo-gian-qua',
+  'fruit-24': 'day-leo-gian-qua',
+  'fruit-25': 'than-go-lun-ghep',
 
   // Ornamental
   'orn-03': 'loc-khong-khi-nasa',
@@ -301,16 +323,22 @@ const PLANT_SUBCATEGORY_MAP: Record<string, string> = {
   'orn-08': 'loc-khong-khi-nasa',
   'orn-01': 'bonsai-huong-thom',
   'orn-02': 'bonsai-huong-thom',
-  'orn-11': 'bonsai-huong-thom',
-  'orn-12': 'bonsai-huong-thom',
-  'orn-13': 'bonsai-huong-thom',
+  'orn-11': 'phong-thuy-tai-loc',
+  'orn-12': 'kieng-la-nhiet-doi',
+  'orn-13': 'loc-khong-khi-nasa',
   'orn-04': 'phong-thuy-tai-loc',
-  'orn-07': 'phong-thuy-tai-loc',
+  'orn-07': 'loc-khong-khi-nasa',
   'orn-14': 'phong-thuy-tai-loc',
   'orn-05': 'kieng-la-nhiet-doi',
   'orn-09': 'kieng-la-nhiet-doi',
-  'orn-10': 'kieng-la-nhiet-doi',
-  'orn-15': 'kieng-la-nhiet-doi'
+  'orn-10': 'loc-khong-khi-nasa',
+  'orn-15': 'phong-thuy-tai-loc',
+  // Sprint 2 Ornamentals
+  'orn-16': 'kieng-la-nhiet-doi',
+  'orn-17': 'phong-thuy-tai-loc',
+  'orn-18': 'loc-khong-khi-nasa',
+  'orn-19': 'bonsai-huong-thom',
+  'orn-20': 'kieng-la-nhiet-doi'
 };
 
 /**
