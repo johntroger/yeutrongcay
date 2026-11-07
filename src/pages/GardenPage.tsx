@@ -497,8 +497,8 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
     if (isDone) {
       triggerNotice(
         isEn
-          ? `Completed seasonal task: "${taskText.slice(0, 32)}..." (+5 Karma) ⭐`
-          : `Đã hoàn thành nông vụ: "${taskText.slice(0, 32)}..." (+5 Karma) ⭐`
+          ? `Completed seasonal task: "${taskText.slice(0, 32)}..." (+5 Hearts ❤️)`
+          : `Đã hoàn thành nông vụ: "${taskText.slice(0, 32)}..." (+5 Trái Tim ❤️)`
       );
     }
   };
@@ -860,13 +860,13 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
 
               <div className="flex items-center gap-4 bg-white/10 px-4 py-2.5 rounded-xl border border-white/10 shrink-0">
                 <div className="text-right">
-                  <span className="text-[10px] uppercase font-bold text-forest-300 tracking-wider block">
-                    {isEn ? 'Karma Standing' : 'Điểm Uy Tín Karma'}
+                  <span className="text-[10px] uppercase font-bold text-rose-300 tracking-wider block">
+                    {isEn ? 'Garden Hearts' : 'Trái Tim Yêu Vườn'}
                   </span>
-                  <span className="text-xl font-bold font-serif text-amber-300">+{karmaData.total_karma} pts</span>
+                  <span className="text-xl font-bold font-serif text-rose-300">+{karmaData.total_karma} ❤️</span>
                 </div>
-                <div className="w-8 h-8 rounded-full bg-amber-400/20 text-amber-300 flex items-center justify-center font-bold">
-                  ★
+                <div className="w-8 h-8 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold text-base">
+                  ❤️
                 </div>
               </div>
             </div>
@@ -1359,8 +1359,8 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
                         : `Nhiệm Vụ Nông Vụ Tháng ${selectedMonth} (${completedSeasonalCount}/${seasonalTasksCount} Đã xong)`}
                     </h4>
                   </div>
-                  <span className="text-xs font-bold text-herbal-700 dark:text-herbal-300">
-                    +{completedSeasonalCount * 5} Karma
+                  <span className="text-xs font-bold text-rose-600 dark:text-rose-400">
+                    +{completedSeasonalCount * 5} Trái Tim ❤️
                   </span>
                 </div>
 
@@ -1398,7 +1398,7 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
                             {taskText}
                           </p>
                           <span className="text-[10px] text-gray-400 mt-1 block">
-                            {isDone ? (isEn ? 'Completed ⭐' : 'Đã thực hiện ⭐') : (isEn ? 'Click to mark done (+5 Karma)' : 'Bấm để đánh dấu (+5 Karma)')}
+                            {isDone ? (isEn ? 'Completed ❤️' : 'Đã thực hiện ❤️') : (isEn ? 'Click to mark done (+5 Hearts ❤️)' : 'Bấm để đánh dấu (+5 Trái Tim ❤️)')}
                           </span>
                         </div>
                       </button>

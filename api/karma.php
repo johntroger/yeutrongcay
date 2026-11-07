@@ -36,34 +36,34 @@ if (empty($user_id)) {
     $user_id = 'usr-' . substr(md5($_SERVER['REMOTE_ADDR'] ?? 'guest'), 0, 8);
 }
 
-// Bảng tính danh hiệu theo điểm
+// Bảng tính danh hiệu Trái Tim theo điểm (Hearts Standing)
 function calculateBadge($points) {
     if ($points >= 300) {
         return [
-            'title' => 'Lương Y / Chuyên Gia Bản Địa',
+            'title' => 'Trái Tim Đại Ngàn',
             'tier' => 4,
-            'icon' => '🎖️',
-            'color' => 'amber'
+            'icon' => '❤️',
+            'color' => 'rose'
         ];
     }
     if ($points >= 150) {
         return [
-            'title' => 'Lão Nông Ban Công',
+            'title' => 'Trái Tim Xanh Bản Địa',
             'tier' => 3,
-            'icon' => '🏡',
+            'icon' => '💚',
             'color' => 'emerald'
         ];
     }
     if ($points >= 50) {
         return [
-            'title' => 'Chủ Vườn Tích Cực',
+            'title' => 'Trái Tim Yêu Vườn',
             'tier' => 2,
             'icon' => '🌿',
             'color' => 'teal'
         ];
     }
     return [
-        'title' => 'Mầm Non Tập Trồng',
+        'title' => 'Mầm Non Yêu Cây',
         'tier' => 1,
         'icon' => '🌱',
         'color' => 'gray'

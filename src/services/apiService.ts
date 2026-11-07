@@ -377,7 +377,7 @@ export async function upvoteClinicAnswer(answerId: string): Promise<number | nul
 }
 
 /**
- * Lấy điểm uy tín Karma và huy hiệu đóng góp của người dùng (H9)
+ * Lấy điểm uy tín Trái Tim (Hearts) và huy hiệu đóng góp của người dùng (H9)
  */
 export async function getUserKarma(userId?: string): Promise<{
   total_karma: number;
@@ -402,6 +402,8 @@ export async function getUserKarma(userId?: string): Promise<{
   }
   return null;
 }
+
+export const getUserHearts = getUserKarma;
 
 /**
  * Tải ảnh an toàn lên máy chủ (M5: Xóa EXIF GPS, chuyển WebP, sinh SHA-256)

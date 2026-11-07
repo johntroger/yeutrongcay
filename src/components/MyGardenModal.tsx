@@ -116,7 +116,7 @@ export const MyGardenModal: React.FC<MyGardenModalProps> = ({
               </span>
             </div>
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-              {isEn ? 'Digital Garden:' : 'Khu Vườn Số:'} <strong className="text-forest-900 dark:text-cream-100">{gardenPlants.length} {isEn ? 'plants' : 'gốc cây'}</strong> • {isEn ? 'Karma Points:' : 'Điểm Karma:'} <strong className="text-herbal-600 dark:text-herbal-400">{user.karma_points} {isEn ? 'pts' : 'điểm'}</strong>
+              {isEn ? 'Digital Garden:' : 'Khu Vườn Số:'} <strong className="text-forest-900 dark:text-cream-100">{gardenPlants.length} {isEn ? 'plants' : 'gốc cây'}</strong> • {isEn ? 'Hearts:' : 'Trái Tim:'} <strong className="text-rose-500 font-bold">{user.karma_points} ❤️</strong>
             </p>
           </div>
         </div>

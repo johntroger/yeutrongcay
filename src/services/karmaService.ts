@@ -29,35 +29,41 @@ export interface KarmaState {
 export function calculateKarmaBadge(points: number, isEn = false): KarmaBadge {
   if (points >= 300) {
     return {
-      title: isEn ? 'Master Herbalist / Plant Expert' : 'Lương Y / Chuyên Gia Bản Địa',
+      title: isEn ? 'Master Forest Heart' : 'Trái Tim Đại Ngàn',
       tier: 4,
-      icon: '🎖️',
-      color: 'amber'
+      icon: '❤️',
+      color: 'rose'
     };
   }
   if (points >= 150) {
     return {
-      title: isEn ? 'Veteran Balcony Farmer' : 'Lão Nông Ban Công',
+      title: isEn ? 'Green Heart Guardian' : 'Trái Tim Xanh Bản Địa',
       tier: 3,
-      icon: '🏡',
+      icon: '💚',
       color: 'emerald'
     };
   }
   if (points >= 50) {
     return {
-      title: isEn ? 'Active Garden Keeper' : 'Chủ Vườn Tích Cực',
+      title: isEn ? 'Caring Garden Heart' : 'Trái Tim Yêu Vườn',
       tier: 2,
       icon: '🌿',
       color: 'teal'
     };
   }
   return {
-    title: isEn ? 'Seed Planter' : 'Người Gieo Mầm',
+    title: isEn ? 'Seed of Love' : 'Mầm Non Yêu Cây',
     tier: 1,
     icon: '🌱',
     color: 'gray'
   };
 }
+
+export type HeartBadge = KarmaBadge;
+export type HeartEvent = KarmaEvent;
+export type HeartState = KarmaState;
+export const getHeartState = getKarmaState;
+export const awardHeartPoints = awardKarmaPoints;
 
 const STORAGE_KEY_KARMA = 'ytc_user_karma';
 const STORAGE_KEY_EVENTS = 'ytc_karma_events';

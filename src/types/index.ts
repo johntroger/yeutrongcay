@@ -227,6 +227,7 @@ export interface UserProfile {
   avatar_url: string;
   badge: string;
   karma_points: number;
+  heart_points?: number; // Trái tim yêu thương & uy tín nhà vườn
   joined_date: string;
 }
 

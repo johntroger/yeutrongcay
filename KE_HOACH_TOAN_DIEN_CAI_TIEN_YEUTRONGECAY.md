@@ -38,6 +38,7 @@ Qua quá trình rà soát trực tiếp qua HTTP/HTTPS lên máy chủ sống `h
 - **Đóng gói Bundle:** Đã cô lập cơ sở dữ liệu thực vật thành chunk riêng `botanical-database.js`, hạ bundle chính xuống còn 490KB.
 - **Tự động đăng Fanpage Facebook:** Đã kiểm thử trực tiếp và đăng thành công bài viết thực tế về cây Sâm Đại Hành lên Fanpage ID `724264470970365` với mã `FB Post ID: 724264470970365_1551688740324283`.
 - **Khóa bảo mật Backend:** Cổng POST thêm cây đã được khóa bằng Admin Token; tệp JSON dự phòng trong `uploads/` bị cấm tải trực tiếp (`HTTP 403 Forbidden`).
+- **Linh hồn Thương hiệu (Trái Tim thay vì Karma):** Thống nhất chuyển đổi toàn diện khái niệm điểm đóng góp từ "Karma" sang "Trái Tim (Hearts) ❤️" – tôn vinh triết lý cốt lõi của Yêu Trồng Cây, tình yêu thiên nhiên đất mẹ và sự tử tế sẻ chia trong cộng đồng người trồng cây.
 
 ---
 
