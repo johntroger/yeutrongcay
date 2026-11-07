@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Plant } from '../types/index.ts';
-import { Sun, Droplets, AlertCircle, ArrowUpRight } from 'lucide-react';
+import { Sun, Droplets, AlertCircle, ArrowUpRight, ShieldCheck, Sparkles } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { localizePlant } from '../i18n/plantTranslations.ts';
 import { getPlantSubcategory } from '../data/collections.ts';
+import { plantPassportRegistryService, RegisteredPlantPassport } from '../services/plantPassportRegistryService.ts';
 
 interface PlantCardProps {
   plant: Plant;
@@ -17,6 +18,33 @@ export const PlantCard: React.FC<PlantCardProps> = ({ plant: rawPlant, onSelect,
   const { language, t, isEn } = useLanguage();
   const plant = localizePlant(rawPlant, language);
   const subcategory = getPlantSubcategory(plant.id);
+
+  const [mintedPassport, setMintedPassport] = useState<RegisteredPlantPassport | undefined>(() =>
+    plantPassportRegistryService.findPassportForPlant({
+      plantName: rawPlant.common_name,
+      scientificName: rawPlant.scientific_name,
+      sha256: rawPlant.image_sha256,
+    })
+  );
+
+  useEffect(() => {
+    const syncNftStatus = () => {
+      setMintedPassport(
+        plantPassportRegistryService.findPassportForPlant({
+          plantName: rawPlant.common_name,
+          scientificName: rawPlant.scientific_name,
+          sha256: rawPlant.image_sha256,
+        })
+      );
+    };
+    syncNftStatus();
+    window.addEventListener('ytc_passport_registry_updated', syncNftStatus);
+    return () => {
+      window.removeEventListener('ytc_passport_registry_updated', syncNftStatus);
+    };
+  }, [rawPlant.common_name, rawPlant.scientific_name, rawPlant.image_sha256]);
+
+  const ownerMeta = mintedPassport ? plantPassportRegistryService.getOwnerProfileMeta(mintedPassport) : null;
 
   const sunlightText = t(`plantCard.sunlight.${plant.sunlight}`, plant.sunlight);
   const wateringText = t(`plantCard.watering.${plant.watering}`, plant.watering);
@@ -134,15 +162,71 @@ export const PlantCard: React.FC<PlantCardProps> = ({ plant: rawPlant, onSelect,
         </div>
 
         {/* Quick Parameters */}
-        <div className="pt-3 border-t border-forest-50 dark:border-forest-800/80 grid grid-cols-2 gap-2 text-xs text-forest-800 dark:text-forest-200 font-medium">
-          <div className="flex items-center gap-1.5">
-            <Sun className="w-3.5 h-3.5 text-amber-500 shrink-0" />
-            <span className="truncate">{sunlightText}</span>
+        <div className="pt-3 border-t border-forest-50 dark:border-forest-800/80 space-y-2.5">
+          <div className="grid grid-cols-2 gap-2 text-xs text-forest-800 dark:text-forest-200 font-medium">
+            <div className="flex items-center gap-1.5">
+              <Sun className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+              <span className="truncate">{sunlightText}</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Droplets className="w-3.5 h-3.5 text-blue-500 shrink-0" />
+              <span className="truncate">{wateringText}</span>
+            </div>
           </div>
-          <div className="flex items-center gap-1.5">
-            <Droplets className="w-3.5 h-3.5 text-blue-500 shrink-0" />
-            <span className="truncate">{wateringText}</span>
-          </div>
+
+          {/* Web3 Exclusive NFT Ownership Badge or Mint Button */}
+          {mintedPassport && ownerMeta ? (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                navigate(ownerMeta.profilePath);
+              }}
+              title={
+                isEn
+                  ? `NFT Minted (#${mintedPassport.token_id}) • View Owner Profile (${ownerMeta.displayLabel})`
+                  : `Đã tạo NFT #${mintedPassport.token_id} • Xem trang chủ sở hữu (${ownerMeta.displayLabel})`
+              }
+              className="w-full px-3 py-2 rounded-xl bg-gradient-to-r from-amber-50 via-emerald-50 to-amber-50 hover:from-amber-100 hover:to-emerald-100 dark:from-amber-950/50 dark:via-emerald-950/40 dark:to-amber-950/50 dark:hover:from-amber-900/60 dark:hover:to-emerald-900/50 border border-amber-400/60 dark:border-amber-500/40 text-left flex items-center justify-between gap-2 transition shadow-2xs cursor-pointer"
+            >
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-amber-800 dark:text-amber-300 truncate">
+                <ShieldCheck className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
+                <span className="truncate">
+                  {isEn ? `NFT #${mintedPassport.token_id} Minted` : `Đã tạo NFT #${mintedPassport.token_id}`}
+                </span>
+              </span>
+              <span className="inline-flex items-center gap-1 text-[11px] font-mono font-bold text-emerald-700 dark:text-emerald-300 shrink-0 underline decoration-emerald-500/50">
+                <span>{ownerMeta.displayLabel}</span>
+                <ArrowUpRight className="w-3 h-3" />
+              </span>
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                navigate(`/web3-sandbox?mint=${encodeURIComponent(rawPlant.slug)}`);
+              }}
+              title={
+                isEn
+                  ? 'Be the first to mint the exclusive NFT passport for this plant species'
+                  : 'Đúc NFT độc bản cho loài cây này (Ai tạo trước sở hữu trước)'
+              }
+              className="w-full px-3 py-2 rounded-xl bg-forest-50/90 hover:bg-emerald-600 dark:bg-charcoal-800 dark:hover:bg-emerald-600 text-forest-800 hover:text-white dark:text-emerald-300 dark:hover:text-white border border-emerald-500/30 hover:border-emerald-600 text-left flex items-center justify-between gap-2 transition cursor-pointer group/mint"
+            >
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-bold truncate">
+                <Sparkles className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 group-hover/mint:text-amber-300 shrink-0 transition-colors" />
+                <span className="truncate">
+                  {isEn ? 'Mint Plant NFT (Unclaimed)' : 'Tạo NFT Cây Này (Chưa có chủ)'}
+                </span>
+              </span>
+              <span className="text-[10px] font-semibold opacity-80 group-hover/mint:opacity-100 shrink-0">
+                {isEn ? 'Claim First →' : 'Sở hữu trước →'}
+              </span>
+            </button>
+          )}
         </div>
       </div>
     </Link>

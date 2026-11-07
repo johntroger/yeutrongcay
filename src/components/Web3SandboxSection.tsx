@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import {
   ShieldCheck,
   Award,
@@ -31,6 +31,8 @@ import { useLanguage } from '../context/LanguageContext.tsx';
 import { web3WalletService, WalletState } from '../services/web3WalletService.ts';
 import { awardKarmaPoints, getKarmaState, KarmaState } from '../services/karmaService.ts';
 import { plantPassportRegistryService } from '../services/plantPassportRegistryService.ts';
+import { SEED_PLANTS } from '../data/plants.ts';
+import { getPlantBySlug } from '../services/apiService.ts';
 
 // 4 giống cây quý bản địa mẫu để cấp hộ chiếu thực vật số
 const SAMPLE_MINT_PLANTS = [
@@ -166,13 +168,17 @@ const LEARNING_TABS = [
 
 export const Web3SandboxSection: React.FC = () => {
   const { isEn } = useLanguage();
+  const [searchParams] = useSearchParams();
+  const mintSlugParam = searchParams.get('mint');
 
   // Trạng thái ví thật
   const [wallet, setWallet] = useState<WalletState | null>(() => web3WalletService.getSavedWallet());
   const [isConnecting, setIsConnecting] = useState(false);
   const [walletError, setWalletError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
-  const [activeTab, setActiveTab] = useState<'learn' | 'mint' | 'faucet' | 'escrow'>('learn');
+  const [activeTab, setActiveTab] = useState<'learn' | 'mint' | 'faucet' | 'escrow'>(() =>
+    mintSlugParam ? 'mint' : 'learn'
+  );
   const [isMobileTabDrawerOpen, setIsMobileTabDrawerOpen] = useState(false);
 
   // Trạng thái đúc hộ chiếu
@@ -186,11 +192,37 @@ export const Web3SandboxSection: React.FC = () => {
   const [customScientific, setCustomScientific] = useState('');
   const [customImage, setCustomImage] = useState<string | null>(null);
   const [customImageSha, setCustomImageSha] = useState<string | null>(null);
+  const [selectedArticleSlug, setSelectedArticleSlug] = useState<string | null>(null);
   const [targetLedger, setTargetLedger] = useState<'Ethereum Sepolia' | 'Base Sepolia' | 'Polygon Amoy'>('Ethereum Sepolia');
   const [evolutionStage, setEvolutionStage] = useState<1 | 2 | 3>(1);
   const [isMinting, setIsMinting] = useState(false);
   const [mintSignature, setMintSignature] = useState<string | null>(null);
   const [mintedPassport, setMintedPassport] = useState<Web3TestnetPassport | null>(null);
+
+  // Tự động nạp thông tin loài cây khi bấm "Tạo NFT" từ bài viết (?mint=<slug>)
+  useEffect(() => {
+    if (!mintSlugParam) return;
+    setActiveTab('mint');
+    const applyArticlePlant = (p: { slug: string; common_name: string; scientific_name: string; image_url: string; image_sha256?: string }) => {
+      setSelectedArticleSlug(p.slug);
+      setPlantSource('custom');
+      setCustomPlantName(p.common_name);
+      setCustomScientific(p.scientific_name);
+      setCustomImage(p.image_url);
+      setCustomImageSha(p.image_sha256 || null);
+    };
+
+    const seedMatch = SEED_PLANTS.find((p) => p.slug === mintSlugParam || p.id === mintSlugParam);
+    if (seedMatch) {
+      applyArticlePlant(seedMatch);
+    } else {
+      getPlantBySlug(mintSlugParam)
+        .then((livePlant) => {
+          if (livePlant) applyArticlePlant(livePlant);
+        })
+        .catch(() => {});
+    }
+  }, [mintSlugParam]);
 
   // Trạng thái Escrow Simulator
   const [escrowStep, setEscrowStep] = useState<number>(1);
@@ -1254,6 +1286,38 @@ export const Web3SandboxSection: React.FC = () => {
               </div>
             </div>
 
+            {/* Banner thông báo khi người dùng bấm "Tạo NFT" từ một bài viết cụ thể (?mint=<slug>) */}
+            {selectedArticleSlug && (
+              <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-950 via-forest-900 to-amber-950/60 border border-amber-400/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="flex items-start sm:items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/50 text-amber-300 flex items-center justify-center shrink-0">
+                    <Sparkles className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="px-2 py-0.5 rounded-full bg-amber-400 text-forest-950 text-[10px] font-black uppercase tracking-wider">
+                        {isEn ? 'First-to-Mint Article Claim' : 'Đúc NFT Độc Bản Từ Bài Viết'}
+                      </span>
+                      <span className="text-xs font-bold text-white">
+                        {customPlantName} ({customScientific})
+                      </span>
+                    </div>
+                    <p className="text-xs text-forest-200 mt-1">
+                      {isEn
+                        ? 'All botanical data from the article has been pre-filled below. Connect your wallet and click Mint to become the permanent owner shown on the article!'
+                        : 'Thông tin & mã SHA-256 của bài viết đã được nạp sẵn bên dưới. Hãy kết nối ví và bấm Đúc ngay để gắn huy hiệu sở hữu của bạn lên bài viết!'}
+                    </p>
+                  </div>
+                </div>
+                <Link
+                  to={`/cay/${selectedArticleSlug}`}
+                  className="px-3.5 py-2 rounded-xl bg-forest-800 hover:bg-forest-700 text-emerald-300 hover:text-white text-xs font-bold border border-forest-700 shrink-0 transition text-center"
+                >
+                  {isEn ? '← Back to Article' : '← Xem Bài Viết Cây Này'}
+                </Link>
+              </div>
+            )}
+
             <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-start">
               {/* Preview Cây & Upload Ảnh Thật & Mã Băm SHA-256 (md:col-span-5) */}
               <div className="md:col-span-5 bg-forest-950 rounded-2xl p-4 border border-forest-800 space-y-3">
@@ -1585,6 +1649,16 @@ export const Web3SandboxSection: React.FC = () => {
                         <Sparkles className="w-3.5 h-3.5" />
                         <span>{addedToMetaMask ? 'Đã thêm vào ví' : 'Thêm NFT vào MetaMask'}</span>
                       </button>
+                    )}
+
+                    {selectedArticleSlug && (
+                      <Link
+                        to={`/cay/${selectedArticleSlug}`}
+                        className="px-3 py-1 rounded-xl bg-amber-500 hover:bg-amber-400 text-forest-950 text-xs font-bold flex items-center gap-1.5 transition shadow-sm"
+                      >
+                        <ShieldCheck className="w-3.5 h-3.5" />
+                        <span>{isEn ? 'See Badge on Article' : 'Xem Huy Hiệu Trên Bài Viết'}</span>
+                      </Link>
                     )}
 
                     <Link

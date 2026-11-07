@@ -321,6 +321,54 @@ export const plantPassportRegistryService = {
   },
 
   /**
+   * TRA CỨU HỘ CHIẾU NFT ĐỘC BẢN CỦA MỘT LOÀI CÂY (NẾU ĐÃ CÓ NGƯỜI ĐÚC TRƯỚC)
+   * Phục vụ hiển thị huy hiệu "Đã tạo NFT" & link đến hồ sơ chủ sở hữu trên mỗi bài viết/thẻ cây
+   */
+  findPassportForPlant(params: {
+    plantName: string;
+    scientificName?: string;
+    sha256?: string;
+  }): RegisteredPlantPassport | undefined {
+    const check = this.checkPlantExclusivity({
+      plantName: params.plantName,
+      scientificName: params.scientificName,
+      sha256: params.sha256
+    });
+    if (!check.isAllowed && check.existingPassport && check.existingPassport.status === 'ACTIVE_ORIGINAL') {
+      return check.existingPassport;
+    }
+    return undefined;
+  },
+
+  /**
+   * LẤY THÔNG TIN ĐỊNH DANH & ĐƯỜNG DẪN HỒ SƠ CỦA CHỦ SỞ HỮU NFT
+   */
+  getOwnerProfileMeta(passport: RegisteredPlantPassport): {
+    handle: string;
+    displayLabel: string;
+    profilePath: string;
+    shortWallet: string;
+  } {
+    const rawHandle =
+      passport.creator_username ||
+      getUsernameFromEmail(passport.creator_email) ||
+      passport.owner_address ||
+      'tranthanhtung37';
+    const cleanHandle = rawHandle.replace(/^@/, '').trim().toLowerCase();
+    const shortWallet = passport.owner_address
+      ? `${passport.owner_address.slice(0, 6)}...${passport.owner_address.slice(-4)}`
+      : '0x1A81...0C26';
+    const displayLabel = cleanHandle.startsWith('0x') ? shortWallet : `@${cleanHandle}`;
+
+    return {
+      handle: cleanHandle,
+      displayLabel,
+      profilePath: `/${cleanHandle}`,
+      shortWallet
+    };
+  },
+
+  /**
    * ĐĂNG KÝ HỘ CHIẾU MỚI VÀO SỔ CÁI HỆ THỐNG
    * Tự động áp dụng cơ chế xác thực Độc Bản:
    * - Nếu hợp lệ -> ACTIVE_ORIGINAL (Được phép hiển thị)

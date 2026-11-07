@@ -30,10 +30,13 @@ import {
   Thermometer,
   Sprout,
   Flag,
-  Info
+  Info,
+  ExternalLink,
+  UserCheck
 } from 'lucide-react';
 import { ReportModal } from '../components/ReportModal.tsx';
 import { ShareModal } from '../components/ShareModal.tsx';
+import { plantPassportRegistryService, RegisteredPlantPassport } from '../services/plantPassportRegistryService.ts';
 
 interface PlantDetailPageProps {
   onOpenMyGarden?: () => void;
@@ -72,6 +75,42 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
   const plant = rawPlant ? localizePlant(rawPlant, language) : undefined;
   const plantCollections = plant ? getCollectionsForPlant(plant.id) : [];
   const plantSubcategory = plant ? getPlantSubcategory(plant.id) : undefined;
+
+  // Tra cứu trạng thái NFT Độc Bản của loài cây này theo thời gian thực
+  const [mintedPassport, setMintedPassport] = useState<RegisteredPlantPassport | undefined>(() =>
+    rawPlant
+      ? plantPassportRegistryService.findPassportForPlant({
+          plantName: rawPlant.common_name,
+          scientificName: rawPlant.scientific_name,
+          sha256: rawPlant.image_sha256,
+        })
+      : undefined
+  );
+
+  useEffect(() => {
+    const syncNftStatus = () => {
+      if (!rawPlant) {
+        setMintedPassport(undefined);
+        return;
+      }
+      setMintedPassport(
+        plantPassportRegistryService.findPassportForPlant({
+          plantName: rawPlant.common_name,
+          scientificName: rawPlant.scientific_name,
+          sha256: rawPlant.image_sha256,
+        })
+      );
+    };
+
+    syncNftStatus();
+    plantPassportRegistryService.syncWithCloud().then(syncNftStatus).catch(() => {});
+    window.addEventListener('ytc_passport_registry_updated', syncNftStatus);
+    return () => {
+      window.removeEventListener('ytc_passport_registry_updated', syncNftStatus);
+    };
+  }, [rawPlant]);
+
+  const ownerMeta = mintedPassport ? plantPassportRegistryService.getOwnerProfileMeta(mintedPassport) : null;
 
   // Khởi tạo các giá trị AEO / GEO chuẩn hóa
   const categoryName =
@@ -435,7 +474,33 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
           <span>{t('common.back')}</span>
         </button>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap justify-end">
+          {/* Web3 NFT Quick Action Button in Top Bar */}
+          {mintedPassport && ownerMeta ? (
+            <Link
+              to={ownerMeta.profilePath}
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-900 bg-gradient-to-r from-amber-100 via-emerald-100 to-amber-100 hover:from-amber-200 hover:to-emerald-200 px-3.5 py-2 rounded-xl border border-amber-400/80 shadow-2xs transition"
+              title={isEn ? `NFT #${mintedPassport.token_id} Owned by ${ownerMeta.displayLabel}` : `Đã tạo NFT #${mintedPassport.token_id} • Xem trang sở hữu của ${ownerMeta.displayLabel}`}
+            >
+              <ShieldCheck className="w-4 h-4 text-amber-600 shrink-0" />
+              <span>
+                {isEn
+                  ? `NFT #${mintedPassport.token_id} • ${ownerMeta.displayLabel}`
+                  : `Đã tạo NFT #${mintedPassport.token_id} • ${ownerMeta.displayLabel}`}
+              </span>
+              <ExternalLink className="w-3.5 h-3.5 text-emerald-700" />
+            </Link>
+          ) : (
+            <Link
+              to={`/web3-sandbox?mint=${encodeURIComponent(plant.slug)}`}
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 px-3.5 py-2 rounded-xl shadow-xs transition"
+              title={isEn ? 'Be the first to mint the NFT for this plant' : 'Tạo NFT độc bản cho loài cây này (Ai làm trước sở hữu trước)'}
+            >
+              <Sparkles className="w-4 h-4 text-amber-300 shrink-0" />
+              <span>{isEn ? 'Mint Plant NFT (First Owner)' : 'Tạo NFT Cho Cây Này'}</span>
+            </Link>
+          )}
+
           {/* Share Button */}
           <button
             onClick={() => setIsShareModalOpen(true)}
@@ -481,8 +546,23 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
           />
           <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/90 via-charcoal-950/30 to-transparent flex items-end p-6 sm:p-10">
             <div>
-              <div className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-white/20 text-white backdrop-blur-md mb-2">
-                {isEn ? `${categoryName} of Vietnam` : `${categoryName} Bản Địa Việt Nam`}
+              <div className="flex flex-wrap items-center gap-2 mb-2">
+                <div className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-white/20 text-white backdrop-blur-md">
+                  {isEn ? `${categoryName} of Vietnam` : `${categoryName} Bản Địa Việt Nam`}
+                </div>
+                {mintedPassport && ownerMeta && (
+                  <Link
+                    to={ownerMeta.profilePath}
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-500/90 hover:bg-amber-400 text-forest-950 backdrop-blur-md shadow-md transition"
+                  >
+                    <ShieldCheck className="w-3.5 h-3.5" />
+                    <span>
+                      {isEn
+                        ? `NFT Minted (#${mintedPassport.token_id}) • Owner: ${ownerMeta.displayLabel}`
+                        : `Huy Hiệu Đã Tạo NFT (#${mintedPassport.token_id}) • Chủ sở hữu: ${ownerMeta.displayLabel}`}
+                    </span>
+                  </Link>
+                )}
               </div>
               <h1 className="text-2xl sm:text-4xl md:text-5xl font-serif font-bold text-white tracking-tight">
                 {plant.common_name}
@@ -537,6 +617,87 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
             </span>
           </div>
         </div>
+
+        {/* Web3 Exclusive NFT Ownership Banner on Every Article */}
+        {mintedPassport && ownerMeta ? (
+          <div className="p-5 sm:px-8 bg-gradient-to-r from-forest-950 via-charcoal-900 to-emerald-950 text-white border-t border-amber-500/40 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-start sm:items-center gap-3.5">
+              <div className="w-11 h-11 rounded-2xl bg-amber-500/20 border border-amber-400/60 text-amber-300 flex items-center justify-center shrink-0 shadow-md">
+                <ShieldCheck className="w-6 h-6 text-amber-400" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="px-2.5 py-0.5 rounded-full bg-amber-400 text-forest-950 text-[10px] font-black uppercase tracking-wider">
+                    {isEn ? `NFT Minted • Token #${mintedPassport.token_id}` : `Huy Hiệu Đã Tạo NFT • Token #${mintedPassport.token_id}`}
+                  </span>
+                  <span className="text-xs font-mono text-emerald-300">
+                    {mintedPassport.network}
+                  </span>
+                </div>
+                <p className="text-xs sm:text-sm text-forest-100 mt-1">
+                  {isEn ? (
+                    <>
+                      This plant species has been minted as an exclusive NFT passport by{' '}
+                      <Link to={ownerMeta.profilePath} className="font-bold text-amber-300 underline hover:text-amber-200">
+                        {ownerMeta.displayLabel}
+                      </Link>{' '}
+                      (<span className="font-mono text-xs text-forest-300">{ownerMeta.shortWallet}</span>).
+                    </>
+                  ) : (
+                    <>
+                      Loài cây này đã được đúc Hộ Chiếu NFT Độc Bản và thuộc quyền sở hữu của{' '}
+                      <Link to={ownerMeta.profilePath} className="font-bold text-amber-300 underline hover:text-amber-200">
+                        {ownerMeta.displayLabel}
+                      </Link>{' '}
+                      (Ví: <span className="font-mono text-xs text-forest-300">{ownerMeta.shortWallet}</span>).
+                    </>
+                  )}
+                </p>
+              </div>
+            </div>
+
+            <Link
+              to={ownerMeta.profilePath}
+              className="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-forest-950 font-bold text-xs inline-flex items-center justify-center gap-2 shrink-0 shadow-md transition"
+            >
+              <UserCheck className="w-4 h-4" />
+              <span>
+                {isEn
+                  ? `Visit Owner (${ownerMeta.displayLabel})`
+                  : `Trang Chủ Sở Hữu (${ownerMeta.displayLabel})`}
+              </span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        ) : (
+          <div className="p-5 sm:px-8 bg-gradient-to-r from-forest-900 via-emerald-950 to-charcoal-900 text-white border-t border-emerald-700/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-start sm:items-center gap-3.5">
+              <div className="w-11 h-11 rounded-2xl bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 flex items-center justify-center shrink-0 shadow-md">
+                <Sparkles className="w-6 h-6 text-amber-300" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/30 border border-emerald-400/40 text-emerald-200 text-[10px] font-bold uppercase tracking-wider">
+                    {isEn ? 'Unclaimed Botanical NFT' : 'Chưa Có Chủ Sở Hữu NFT • Ai Làm Trước Sở Hữu Trước'}
+                  </span>
+                </div>
+                <p className="text-xs sm:text-sm text-forest-100 mt-1">
+                  {isEn
+                    ? `No one has minted the exclusive NFT passport for ${plant.common_name} yet. Mint it first to display your ownership badge & profile link on this article!`
+                    : `Loài cây ${plant.common_name} hiện chưa có người đúc NFT. Hãy tạo NFT ngay để trở thành chủ sở hữu độc bản đầu tiên và gắn huy hiệu tên bạn lên bài viết này!`}
+                </p>
+              </div>
+            </div>
+
+            <Link
+              to={`/web3-sandbox?mint=${encodeURIComponent(plant.slug)}`}
+              className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-forest-950 font-bold text-xs inline-flex items-center justify-center gap-2 shrink-0 shadow-md transition"
+            >
+              <Sparkles className="w-4 h-4" />
+              <span>{isEn ? 'Mint NFT for This Plant' : 'Tạo NFT Cho Cây Này Ngay'}</span>
+            </Link>
+          </div>
+        )}
 
       </header>
 
@@ -892,6 +1053,99 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
 
         {/* Sidebar Column */}
         <div className="lg:col-span-4 space-y-6">
+
+          {/* WEB3 EXCLUSIVE NFT PASSPORT / FIRST-TO-MINT SIDEBAR CARD */}
+          {mintedPassport && ownerMeta ? (
+            <div className="bg-gradient-to-br from-forest-950 via-charcoal-900 to-emerald-950 rounded-3xl p-6 border-2 border-amber-400/70 text-white shadow-xl space-y-4">
+              <div className="flex items-center justify-between gap-2 border-b border-forest-800 pb-3">
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="w-5 h-5 text-amber-400 shrink-0" />
+                  <h3 className="text-sm font-serif font-bold text-white uppercase tracking-wider">
+                    {isEn ? 'Verified NFT Passport' : 'Huy Hiệu Đã Tạo NFT'}
+                  </h3>
+                </div>
+                <span className="px-2.5 py-0.5 rounded-full bg-amber-400 text-forest-950 text-[10px] font-black font-mono">
+                  Token #{mintedPassport.token_id}
+                </span>
+              </div>
+
+              <div className="p-3.5 rounded-2xl bg-forest-900/70 border border-amber-500/30 space-y-2 text-xs">
+                <div className="flex items-center justify-between">
+                  <span className="text-forest-300">{isEn ? 'Exclusive Owner:' : 'Chủ sở hữu độc bản:'}</span>
+                  <Link
+                    to={ownerMeta.profilePath}
+                    className="font-bold text-amber-300 hover:text-amber-200 underline flex items-center gap-1"
+                  >
+                    <span>{ownerMeta.displayLabel}</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </Link>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-forest-300">{isEn ? 'Owner Wallet:' : 'Ví Web3:'}</span>
+                  <span className="font-mono text-emerald-300">{ownerMeta.shortWallet}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-forest-300">{isEn ? 'Blockchain:' : 'Sổ cái:'}</span>
+                  <span className="font-semibold text-white">{mintedPassport.network}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-forest-300">{isEn ? 'Minted At:' : 'Ngày đúc:'}</span>
+                  <span className="text-forest-200">{mintedPassport.minted_at}</span>
+                </div>
+              </div>
+
+              <div className="p-2.5 rounded-xl bg-charcoal-950/90 border border-forest-800 text-[10px] font-mono text-gray-400">
+                <span className="text-gray-300 block mb-0.5">SHA-256 Fingerprint:</span>
+                <span className="text-emerald-400 truncate block">{mintedPassport.image_sha256}</span>
+              </div>
+
+              <Link
+                to={ownerMeta.profilePath}
+                className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-forest-950 font-bold text-xs flex items-center justify-center gap-2 shadow-md transition"
+              >
+                <UserCheck className="w-4 h-4" />
+                <span>
+                  {isEn
+                    ? `View Owner Profile (${ownerMeta.displayLabel})`
+                    : `Đến Trang Chủ Sở Hữu (${ownerMeta.displayLabel})`}
+                </span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+          ) : (
+            <div className="bg-gradient-to-br from-forest-950 via-emerald-950 to-charcoal-900 rounded-3xl p-6 border border-emerald-500/40 text-white shadow-lg space-y-4">
+              <div className="flex items-center justify-between gap-2 border-b border-forest-800 pb-3">
+                <div className="flex items-center gap-2">
+                  <Sparkles className="w-5 h-5 text-amber-400 shrink-0" />
+                  <h3 className="text-sm font-serif font-bold text-white uppercase tracking-wider">
+                    {isEn ? 'Exclusive Plant NFT' : 'Hộ Chiếu NFT Loài Cây'}
+                  </h3>
+                </div>
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-[10px] font-bold">
+                  {isEn ? 'Available' : 'Chưa có chủ'}
+                </span>
+              </div>
+
+              <p className="text-xs text-forest-200 leading-relaxed">
+                {isEn
+                  ? `Be the first gardener to mint the NFT passport for ${plant.common_name} (${plant.scientific_name}). Once minted, this article will permanently display your NFT badge and link to your profile page.`
+                  : `Ai tạo NFT trước cho loài ${plant.common_name} (${plant.scientific_name}) sẽ trở thành chủ sở hữu độc bản đầu tiên. Sau khi đúc, bài viết này sẽ hiển thị huy hiệu Đã Tạo NFT và dẫn link trực tiếp về trang hồ sơ của bạn!`}
+              </p>
+
+              <div className="p-2.5 rounded-xl bg-charcoal-950/80 border border-forest-800 text-[10px] font-mono text-gray-400">
+                <span className="text-gray-300 block mb-0.5">Mã định danh SHA-256 bài viết:</span>
+                <span className="text-emerald-400 truncate block">{plant.image_sha256}</span>
+              </div>
+
+              <Link
+                to={`/web3-sandbox?mint=${encodeURIComponent(plant.slug)}`}
+                className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-forest-950 font-bold text-xs flex items-center justify-center gap-2 shadow-md transition"
+              >
+                <Sparkles className="w-4 h-4" />
+                <span>{isEn ? 'Mint NFT & Claim Ownership' : 'Tạo NFT Cho Loài Cây Này'}</span>
+              </Link>
+            </div>
+          )}
           
           {/* GEO ENTITY KNOWLEDGE GRAPH BOX */}
           <div className="bg-white rounded-3xl p-6 border border-forest-100 shadow-sm space-y-4">
