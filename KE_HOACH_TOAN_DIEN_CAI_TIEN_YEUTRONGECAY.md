@@ -76,15 +76,25 @@ Qua quá trình rà soát trực tiếp qua HTTP/HTTPS lên máy chủ sống `h
 ---
 
 ### 2.3. Góc nhìn Kỹ sư Phần mềm Blockchain Cao cấp
-*(Trọng tâm: Trừu tượng hóa tài khoản, Gasless On-chain & Lưu trữ phi tập trung)*
+*(Trọng tâm: Đa chuỗi Testnet mở rộng, Giáo dục thực hành Web3 0đ & Nông nghiệp DeFi Sinh thái)*
 
-1. **Trừu tượng hóa Tài khoản Web3 (Account Abstraction & Embedded Wallet):**
-   - *Vấn đề thực tế:* Việc yêu cầu người dùng phải cài extension MetaMask chỉ chạy tốt trên máy tính để bàn. Trên điện thoại thông minh, 95% người dùng thông thường không biết cài MetaMask hoặc đổi mạng Testnet.
-   - *Giải pháp:* Tích hợp giải pháp Ví Nhúng (Embedded Wallet thông qua Web3Auth hoặc Privy). Người dùng chỉ cần đăng nhập bằng tài khoản Google sẵn có, hệ thống tự động sinh khóa ví Web3 ngầm (Keyless). Người dùng sở hữu Hộ chiếu cây mà không cảm thấy bất kỳ rào cản kỹ thuật nào.
-2. **Tài trợ Phí Gas Tự Động (Gasless Paymaster - EIP-2771):**
-   - Triển khai hợp đồng tài trợ gas (Minimal Forwarder / Paymaster) trên mạng Base Sepolia. Khi người làm vườn đúc Hộ chiếu cho chậu cây, hệ thống tự chi trả phí testnet gas (vốn bằng 0đ chi phí thực tế), người dùng chỉ cần bấm 1 chạm "Cấp Hộ Chiếu" là hoàn tất.
-3. **Lưu trữ Metadata vĩnh cửu trên IPFS / Filecoin:**
-   - Chuyển đổi siêu dữ liệu hình ảnh và hồ sơ Hộ chiếu cây từ lưu trữ tập trung sang mạng lưới phân tán IPFS (thông qua Pinata / Web3.Storage) với mã băm CID cố định, đảm bảo hồ sơ nguồn gen cây trồng tồn tại vĩnh viễn không thể bị sửa đổi hay xóa bỏ.
+1. **Khóa cứng 100% Testnet & Chặn hoàn toàn Mainnet (Bảo vệ Người học):**
+   - *Triết lý cốt lõi:* Dự án phục vụ mục đích **giáo dục và phổ cập công nghệ chuỗi khối** cho cộng đồng người làm vườn đô thị. Tuyệt đối **không dùng tiền thật** và **không phát sinh rủi ro tài chính**.
+   - *Giải pháp an toàn:* Tích hợp bộ lọc nhận diện mạng (`isMainnetDanger`). Khi ví người dùng đang ở Ethereum Mainnet, BNB Chain Mainnet hay Polygon Mainnet, hệ thống lập tức hiển thị bảng cảnh báo đỏ và khóa toàn bộ nút giao dịch, kèm nút 1 chạm chuyển về Testnet miễn phí.
+2. **Kiến trúc Hỗ trợ Đa Chuỗi Testnet Mở Rộng (Multi-Chain Testnet Hub):**
+   - Không giới hạn ở Ethereum Sepolia, hệ thống thiết kế mở sẵn sàng kết nối đa chuỗi EVM Testnet:
+     - **Ethereum Sepolia** (EVM Layer 1 chuẩn mực)
+     - **Base Sepolia** (Layer 2 Coinbase phí gas siêu rẻ, thân thiện di động)
+     - **BNB Smart Chain Testnet** (Hệ sinh thái BSC testnet phổ biến)
+     - **Polygon Amoy** (Polygon PoS Testnet)
+     - **Arbitrum Sepolia** (Arbitrum Nitro Layer 2)
+   - Cung cấp **Trạm Faucet Tổng hợp** hướng dẫn lấy coin thử nghiệm 0đ từ Google Cloud Web3 Faucet, Coinbase Developer Faucet, BNB Official Faucet, QuickNode.
+3. **Mô hình DeFi Nông Nghiệp & Staking Sinh Thái Giáo Dục (Agri-DeFi Sandbox):**
+   - **Kho Gửi Hạt Giống Sinh Lời (Seed Staking Vault):** Giáo dục khái niệm Staking / Yield Farming trong DeFi. Người làm vườn gửi hạt giống hoặc điểm Karma vào Smart Contract để nhận "lợi suất" phân bón sinh học vi sinh (mô phỏng APY 12.5%/năm).
+   - **Tài chính Tái tạo (ReFi) & Tín chỉ Carbon Rừng:** Mỗi NFT 10.000m² rừng (Cúc Phương, U Minh, Bidoup) hấp thụ ~15 tấn CO₂/năm, sinh ra Tín chỉ Carbon Xanh giúp người dùng học cách bù trừ phát thải sinh hoạt (Carbon Offsetting).
+   - **Quản trị Phi tập trung (Gardener DAO Governance):** Người dùng dùng quyền biểu quyết trên chuỗi khối để biểu quyết bảo tồn giống cây bản địa quý hiếm theo cơ chế phi tập trung.
+4. **Trừu tượng hóa Tài khoản Web3 (Account Abstraction & Embedded Wallet):**
+   - Nghiên cứu tích hợp Social Login sinh ví ngầm tự động (Keyless) kết hợp Gasless Paymaster (EIP-2771) trên Base Sepolia để người làm vườn không cần cài MetaMask vẫn đúc được Hộ Chiếu Cây.
 
 ---
 

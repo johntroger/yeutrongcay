@@ -26,7 +26,12 @@ import {
   Trash2,
   Camera,
   MapPin,
-  Compass
+  Compass,
+  TrendingUp,
+  Vote,
+  Landmark,
+  ShieldAlert,
+  Leaf
 } from 'lucide-react';
 import { Web3TestnetPassport, NftAssetClass, ForestGeoSpec } from '../types/index.ts';
 import { useLanguage } from '../context/LanguageContext.tsx';
@@ -116,10 +121,34 @@ const REAL_FAUCETS = [
     url: 'https://faucet.quicknode.com',
     descriptionVi: 'Vòi cấp tốc độ cao từ nhà cung cấp hạ tầng QuickNode.',
     descriptionEn: 'Fast RPC developer faucet powered by QuickNode infrastructure.'
+  },
+  {
+    name: 'BNB Chain Official Testnet Faucet',
+    network: 'BNB Smart Chain Testnet',
+    amount: '0.3 tBNB / ngày',
+    url: 'https://www.bnbchain.org/en/testnet-faucet',
+    descriptionVi: 'Vòi cấp chính thức từ BNB Chain cấp tBNB miễn phí để thử nghiệm smart contract.',
+    descriptionEn: 'Official BNB Chain testnet faucet granting daily tBNB for testing.'
+  },
+  {
+    name: 'Polygon Amoy Official Faucet',
+    network: 'Polygon Amoy',
+    amount: '0.2 MATIC / ngày',
+    url: 'https://faucet.polygon.technology/',
+    descriptionVi: 'Vòi cấp chính thức từ Polygon Labs nhận MATIC/POL testnet miễn phí trên mạng Amoy.',
+    descriptionEn: 'Official Polygon faucet granting testnet POL/MATIC tokens on Amoy.'
+  },
+  {
+    name: 'Chainlink Multi-Chain Testnet Faucet',
+    network: 'Arbitrum Sepolia & EVM',
+    amount: '0.1 ETH + LINK',
+    url: 'https://faucets.chain.link/',
+    descriptionVi: 'Vòi đa mạng uy tín của Chainlink hỗ trợ Arbitrum Sepolia, Ethereum Sepolia 0đ.',
+    descriptionEn: 'Chainlink multi-network faucet supporting Arbitrum Sepolia and EVM testnets.'
   }
 ];
 
-// 4 Phân khu học tập Web3 Testnet
+// 5 Phân khu học tập Web3 & DeFi Testnet
 const LEARNING_TABS = [
   {
     id: 'learn' as const,
@@ -128,8 +157,8 @@ const LEARNING_TABS = [
     nameEn: '1. Web3 101 for Gardeners',
     shortVi: 'Vỡ Lòng Web3',
     shortEn: 'Web3 101',
-    descVi: 'Khái niệm ví cá nhân, mã băm SHA-256 và chữ ký số an toàn',
-    descEn: 'Core concepts: wallets, SHA-256 hashing & cryptographic signatures',
+    descVi: 'Khái niệm ví cá nhân, mã băm SHA-256 và vì sao 100% Testnet an toàn tuyệt đối',
+    descEn: 'Core concepts: wallets, SHA-256 hashing & why 100% Testnet is risk-free',
     icon: BookOpen,
     badgeVi: 'Học 3 Phút',
     badgeEn: '3-min Read',
@@ -137,12 +166,12 @@ const LEARNING_TABS = [
   {
     id: 'faucet' as const,
     num: '2',
-    nameVi: '2. Hướng Dẫn Lấy ETH Testnet (Faucet 0đ)',
-    nameEn: '2. Claim Free Testnet ETH (Faucet)',
-    shortVi: 'Lấy ETH Testnet',
-    shortEn: 'Testnet Faucet',
-    descVi: 'Nhận 0.1 ETH miễn phí mỗi ngày từ Coinbase, Google Cloud',
-    descEn: 'Get free daily testnet ETH from Coinbase & Google Cloud',
+    nameVi: '2. Trạm Cấp Coin Testnet Đa Mạng',
+    nameEn: '2. Multi-Chain Testnet Faucets',
+    shortVi: 'Lấy Coin Testnet',
+    shortEn: 'Testnet Faucets',
+    descVi: 'Nhận SepoliaETH, BaseETH, tBNB, MATIC miễn phí 0đ từ Google Cloud, Coinbase',
+    descEn: 'Get free daily testnet coins across Sepolia, Base, BNB Chain & Polygon',
     icon: Droplets,
     badgeVi: '+10 Karma',
     badgeEn: '+10 Karma',
@@ -151,11 +180,11 @@ const LEARNING_TABS = [
     id: 'mint' as const,
     num: '3',
     nameVi: '3. Ký Số & Đúc Hộ Chiếu Cây',
-    nameEn: '3. Mint Plant Passport (Real Signature)',
+    nameEn: '3. Mint Plant Passport (Dynamic NFT)',
     shortVi: 'Đúc Hộ Chiếu Cây',
     shortEn: 'Mint Passport',
-    descVi: 'Ký số cá nhân với ví thật để tạo căn cước công dân số cho cây',
-    descEn: 'Sign with your real wallet to issue a tamper-proof plant passport',
+    descVi: 'Ký số cá nhân với ví thật để tạo căn cước số cho cây & tiến hóa sinh trưởng',
+    descEn: 'Sign with your real wallet to issue a tamper-proof passport & record growth',
     icon: Award,
     badgeVi: '+25 Karma',
     badgeEn: '+25 Karma',
@@ -172,6 +201,19 @@ const LEARNING_TABS = [
     icon: FileCheck2,
     badgeVi: '+15 Karma',
     badgeEn: '+15 Karma',
+  },
+  {
+    id: 'defi' as const,
+    num: '5',
+    nameVi: '5. DeFi Nông Nghiệp & Staking Hạt Giống',
+    nameEn: '5. Agri-DeFi & Seed Staking Vault',
+    shortVi: 'Agri-DeFi Sandbox',
+    shortEn: 'Agri-DeFi',
+    descVi: 'Mô phỏng Staking kho hạt giống nhận phân bón sinh học & Tín chỉ Carbon rừng',
+    descEn: 'Simulated seed staking yield vault, organic bio-fertilizer APY & Carbon ReFi',
+    icon: Coins,
+    badgeVi: '+20 Karma',
+    badgeEn: '+20 Karma',
   }
 ];
 
@@ -185,7 +227,7 @@ export const Web3SandboxSection: React.FC = () => {
   const [isConnecting, setIsConnecting] = useState(false);
   const [walletError, setWalletError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
-  const [activeTab, setActiveTab] = useState<'learn' | 'mint' | 'faucet' | 'escrow'>(() =>
+  const [activeTab, setActiveTab] = useState<'learn' | 'mint' | 'faucet' | 'escrow' | 'defi'>(() =>
     mintSlugParam ? 'mint' : 'learn'
   );
   const [isMobileTabDrawerOpen, setIsMobileTabDrawerOpen] = useState(false);
@@ -202,7 +244,7 @@ export const Web3SandboxSection: React.FC = () => {
   const [customImage, setCustomImage] = useState<string | null>(null);
   const [customImageSha, setCustomImageSha] = useState<string | null>(null);
   const [selectedArticleSlug, setSelectedArticleSlug] = useState<string | null>(null);
-  const [targetLedger, setTargetLedger] = useState<'Ethereum Sepolia' | 'Base Sepolia' | 'Polygon Amoy'>('Ethereum Sepolia');
+  const [targetLedger, setTargetLedger] = useState<string>('Ethereum Sepolia');
   const [evolutionStage, setEvolutionStage] = useState<1 | 2 | 3>(1);
   const [isMinting, setIsMinting] = useState(false);
   const [mintSignature, setMintSignature] = useState<string | null>(null);
@@ -214,6 +256,24 @@ export const Web3SandboxSection: React.FC = () => {
   const [gpsCheckinStatus, setGpsCheckinStatus] = useState<'idle' | 'checking' | 'verified' | 'failed'>('idle');
   const [gpsErrorMsg, setGpsErrorMsg] = useState<string | null>(null);
   const [gpsDistanceKm, setGpsDistanceKm] = useState<number | null>(null);
+
+  // Trạng thái Mô Phỏng DeFi Nông Nghiệp & Staking Hạt Giống (100% Testnet Sandbox)
+  const [stakeAmount, setStakeAmount] = useState<number>(100);
+  const [stakedBalance, setStakedBalance] = useState<number>(() => {
+    const saved = localStorage.getItem('ytc_testnet_staked_seeds');
+    return saved ? Number(saved) : 100;
+  });
+  const [accumulatedYield, setAccumulatedYield] = useState<number>(() => {
+    const saved = localStorage.getItem('ytc_testnet_yield');
+    return saved ? Number(saved) : 2.5;
+  });
+  const [isStakingRunning, setIsStakingRunning] = useState(false);
+  const [stakingNotice, setStakingNotice] = useState<string | null>(null);
+  const [daoVoteChoice, setDaoVoteChoice] = useState<'yes' | 'no' | null>(() => {
+    return (localStorage.getItem('ytc_testnet_dao_voted') as 'yes' | 'no') || null;
+  });
+  const [daoYesCount, setDaoYesCount] = useState<number>(142);
+  const [daoNoCount, setDaoNoCount] = useState<number>(18);
 
   // Tự động nạp thông tin loài cây khi bấm "Tạo NFT" từ bài viết (?mint=<slug>)
   useEffect(() => {
@@ -525,8 +585,21 @@ export const Web3SandboxSection: React.FC = () => {
     reader.readAsDataURL(file);
   };
 
+  // Chuyển mạng trực tiếp sang bất kỳ Testnet nào
+  const handleSwitchToSpecificNetwork = async (chainIdHex: string) => {
+    setWalletError(null);
+    try {
+      await web3WalletService.switchToNetwork(chainIdHex);
+      const fresh = await web3WalletService.syncCurrentWalletState();
+      if (fresh) setWallet(fresh);
+    } catch (err: unknown) {
+      const e = err as { message?: string };
+      setWalletError(e.message || (isEn ? 'Failed to switch network' : 'Lỗi khi chuyển mạng testnet'));
+    }
+  };
+
   // Xử lý chọn sổ cái tùy chọn
-  const handleLedgerSelect = async (newLedger: 'Ethereum Sepolia' | 'Base Sepolia' | 'Polygon Amoy') => {
+  const handleLedgerSelect = async (newLedger: string) => {
     setTargetLedger(newLedger);
     if (!wallet?.isConnected) return;
     try {
@@ -534,6 +607,12 @@ export const Web3SandboxSection: React.FC = () => {
         await web3WalletService.switchToSepolia();
       } else if (newLedger === 'Base Sepolia') {
         await web3WalletService.switchToBaseSepolia();
+      } else if (newLedger === 'BNB Smart Chain Testnet') {
+        await web3WalletService.switchToNetwork('0x61');
+      } else if (newLedger === 'Polygon Amoy') {
+        await web3WalletService.switchToNetwork('0x13882');
+      } else if (newLedger === 'Arbitrum Sepolia') {
+        await web3WalletService.switchToNetwork('0x66eee');
       }
       const fresh = await web3WalletService.syncCurrentWalletState();
       if (fresh) setWallet(fresh);
@@ -543,10 +622,78 @@ export const Web3SandboxSection: React.FC = () => {
     }
   };
 
+  // Trình mô phỏng Staking Hạt Giống (DeFi Nông Nghiệp Testnet)
+  const handleStakeSeeds = () => {
+    if (stakeAmount <= 0) return;
+    setIsStakingRunning(true);
+    setTimeout(() => {
+      const newStaked = stakedBalance + stakeAmount;
+      setStakedBalance(newStaked);
+      localStorage.setItem('ytc_testnet_staked_seeds', String(newStaked));
+      setIsStakingRunning(false);
+      setStakingNotice(
+        isEn
+          ? `Successfully staked ${stakeAmount} Seeds into the Smart Contract Staking Vault! APY: 12.5%/year.`
+          : `Đã gửi thành công ${stakeAmount} Hạt Giống Testnet vào Smart Contract Staking Vault! Lợi suất APY: 12.5%/năm.`
+      );
+      awardKarmaPoints(
+        15,
+        `Gửi Staking ${stakeAmount} hạt giống vào Smart Contract Testnet`,
+        `Staked ${stakeAmount} seeds into Testnet Smart Contract Vault`,
+        { isTestnet: true, isEn }
+      );
+    }, 1000);
+  };
+
+  // Thu hoạch lợi suất Phân Bón Vi Sinh
+  const handleClaimYield = () => {
+    if (accumulatedYield <= 0) return;
+    const claimed = accumulatedYield;
+    setAccumulatedYield(0);
+    localStorage.setItem('ytc_testnet_yield', '0');
+    setStakingNotice(
+      isEn
+        ? `Harvested ${claimed.toFixed(2)} units of Bio-Organic Fertilizer into your garden inventory!`
+        : `Đã thu hoạch ${claimed.toFixed(2)} đơn vị Phân Bón Vi Sinh Hữu Cơ về kho vật tư vườn của bạn!`
+    );
+    awardKarmaPoints(
+      10,
+      `Thu hoạch lợi suất Staking Phân Bón Vi Sinh`,
+      `Harvested Bio-Organic Fertilizer Staking Yield`,
+      { isTestnet: true, isEn }
+    );
+  };
+
+  // Biểu quyết DAO Quản trị Nông nghiệp Phi Tập Trung
+  const handleVoteDao = (choice: 'yes' | 'no') => {
+    setDaoVoteChoice(choice);
+    localStorage.setItem('ytc_testnet_dao_voted', choice);
+    if (choice === 'yes') {
+      setDaoYesCount((prev) => prev + 1);
+    } else {
+      setDaoNoCount((prev) => prev + 1);
+    }
+    awardKarmaPoints(
+      15,
+      `Tham gia bỏ phiếu DAO Quản trị Bảo tồn Nguồn Gen Cây Bản Địa`,
+      `Voted in Botanical Genetic Preservation DAO Governance`,
+      { isTestnet: true, isEn }
+    );
+  };
+
   // Ký số xác nhận hoặc Đúc Hộ Chiếu On-chain thật
   const handleMintWithRealWallet = async () => {
     if (!wallet || !wallet.isConnected) {
       setWalletError(isEn ? 'Please connect your real Web3 wallet first!' : 'Vui lòng kết nối ví Web3 thật trước khi ký số!');
+      return;
+    }
+
+    if (wallet.isMainnetDanger || !wallet.isCorrectNetwork) {
+      setWalletError(
+        isEn
+          ? 'Transaction blocked for your safety! You are currently connected to Mainnet (Real Money). Please switch to a Testnet to practice safely.'
+          : 'Giao dịch bị chặn để bảo vệ tài sản! Bạn đang kết nối mạng Mainnet (Tiền thật). Vui lòng đổi sang mạng Testnet (Ethereum Sepolia hoặc Base Sepolia) để học tập an toàn 0đ.'
+      );
       return;
     }
 
@@ -619,6 +766,27 @@ export const Web3SandboxSection: React.FC = () => {
           const currentChain = wallet.chainId?.toLowerCase();
           if (currentChain !== '0x14a34' && currentChain !== '84532') {
             await web3WalletService.switchToBaseSepolia();
+            const fresh = await web3WalletService.syncCurrentWalletState();
+            if (fresh) setWallet(fresh);
+          }
+        } else if (targetLedger === 'BNB Smart Chain Testnet') {
+          const currentChain = wallet.chainId?.toLowerCase();
+          if (currentChain !== '0x61' && currentChain !== '97') {
+            await web3WalletService.switchToNetwork('0x61');
+            const fresh = await web3WalletService.syncCurrentWalletState();
+            if (fresh) setWallet(fresh);
+          }
+        } else if (targetLedger === 'Polygon Amoy') {
+          const currentChain = wallet.chainId?.toLowerCase();
+          if (currentChain !== '0x13882' && currentChain !== '80002') {
+            await web3WalletService.switchToNetwork('0x13882');
+            const fresh = await web3WalletService.syncCurrentWalletState();
+            if (fresh) setWallet(fresh);
+          }
+        } else if (targetLedger === 'Arbitrum Sepolia') {
+          const currentChain = wallet.chainId?.toLowerCase();
+          if (currentChain !== '0x66eee' && currentChain !== '421614') {
+            await web3WalletService.switchToNetwork('0x66eee');
             const fresh = await web3WalletService.syncCurrentWalletState();
             if (fresh) setWallet(fresh);
           }
@@ -964,6 +1132,55 @@ export const Web3SandboxSection: React.FC = () => {
               <span>{walletError}</span>
             </div>
             <button onClick={() => setWalletError(null)} className="text-red-300 hover:text-white font-bold text-xs">✕</button>
+          </div>
+        )}
+
+        {/* CẢNH BÁO NGUY HIỂM: NẾU VÍ ĐANG KẾT NỐI VÀO MAINNET (TIỀN THẬT) */}
+        {wallet?.isConnected && (wallet.isMainnetDanger || !wallet.isCorrectNetwork) && (
+          <div className="p-4 sm:p-5 rounded-2xl bg-red-600 dark:bg-red-700 text-white shadow-xl border-2 border-red-300 animate-pulse space-y-3">
+            <div className="flex items-start gap-3">
+              <ShieldAlert className="w-6 h-6 text-amber-300 shrink-0 mt-0.5" />
+              <div className="flex-1">
+                <h4 className="font-bold text-sm sm:text-base uppercase tracking-wide flex items-center gap-2">
+                  <span>🚨 {isEn ? 'SAFETY LOCK: MAINNET (REAL MONEY) DETECTED' : 'KHÓA AN TOÀN: PHÁT HIỆN MẠNG TIỀN THẬT (MAINNET)!'}</span>
+                </h4>
+                <p className="text-xs sm:text-sm text-red-100 leading-relaxed mt-1">
+                  {isEn
+                    ? 'Yeu Trong Cay is an educational platform operating strictly on TESTNET (0đ real money). All on-chain actions are blocked on Mainnet to keep your real assets 100% safe. Click a button below to switch to a free testnet:'
+                    : 'Yêu Trồng Cây là nền tảng giáo dục thực hành vận hành 100% trên TESTNET (0đ tiền thật). Hệ thống đã tự động khóa giao dịch trên Mainnet để bảo vệ tài sản của bạn tuyệt đối. Vui lòng bấm một nút bên dưới để chuyển sang mạng Testnet miễn phí:'}
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-wrap items-center gap-2 pt-1 pl-0 sm:pl-9">
+              <button
+                onClick={() => handleSwitchToSpecificNetwork('0x14a34')}
+                className="px-3.5 py-1.5 rounded-xl bg-white text-red-700 hover:bg-cream-100 font-bold text-xs shadow-md transition flex items-center gap-1.5 cursor-pointer"
+              >
+                <ArrowLeftRight className="w-3.5 h-3.5" />
+                <span>Base Sepolia (0đ)</span>
+              </button>
+              <button
+                onClick={() => handleSwitchToSpecificNetwork('0xaa36a7')}
+                className="px-3.5 py-1.5 rounded-xl bg-red-950 hover:bg-black text-white font-bold text-xs border border-red-300 shadow-md transition flex items-center gap-1.5 cursor-pointer"
+              >
+                <ArrowLeftRight className="w-3.5 h-3.5" />
+                <span>Ethereum Sepolia</span>
+              </button>
+              <button
+                onClick={() => handleSwitchToSpecificNetwork('0x61')}
+                className="px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-forest-950 font-bold text-xs shadow-md transition flex items-center gap-1.5 cursor-pointer"
+              >
+                <ArrowLeftRight className="w-3.5 h-3.5" />
+                <span>BNB Testnet</span>
+              </button>
+              <button
+                onClick={() => handleSwitchToSpecificNetwork('0x13882')}
+                className="px-3.5 py-1.5 rounded-xl bg-purple-700 hover:bg-purple-600 text-white font-bold text-xs shadow-md transition flex items-center gap-1.5 cursor-pointer"
+              >
+                <ArrowLeftRight className="w-3.5 h-3.5" />
+                <span>Polygon Amoy</span>
+              </button>
+            </div>
           </div>
         )}
 
@@ -1407,12 +1624,14 @@ export const Web3SandboxSection: React.FC = () => {
                 </label>
                 <select
                   value={targetLedger}
-                  onChange={(e) => handleLedgerSelect(e.target.value as 'Ethereum Sepolia' | 'Base Sepolia' | 'Polygon Amoy')}
+                  onChange={(e) => handleLedgerSelect(e.target.value)}
                   className="px-3 py-1.5 bg-forest-50 dark:bg-forest-950 text-emerald-700 dark:text-emerald-300 rounded-xl text-xs font-mono font-bold border border-forest-200 dark:border-emerald-700/80 focus:outline-none focus:ring-1 focus:ring-emerald-500 cursor-pointer shadow-xs"
                 >
                   <option value="Ethereum Sepolia">Ethereum Sepolia Testnet (0đ)</option>
-                  <option value="Base Sepolia">Base Sepolia Testnet (0đ)</option>
+                  <option value="Base Sepolia">Base Sepolia L2 Testnet (0đ)</option>
+                  <option value="BNB Smart Chain Testnet">BNB Chain Testnet (0đ)</option>
                   <option value="Polygon Amoy">Polygon Amoy Testnet (0đ)</option>
+                  <option value="Arbitrum Sepolia">Arbitrum Sepolia L2 (0đ)</option>
                 </select>
               </div>
             </div>
@@ -2115,6 +2334,255 @@ export const Web3SandboxSection: React.FC = () => {
                 <p className="text-[11px] text-forest-600 dark:text-forest-300 leading-relaxed">
                   Bên nhận bấm "Cây sống xanh tốt". Smart Contract hoàn trả cọc tức thì và cộng +15 Điểm Karma danh tiếng cho người chia sẻ giống.
                 </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ============================================================== */}
+        {/* TAB 5: DEFI NÔNG NGHIỆP SINH THÁI & STAKING HẠT GIỐNG (100% TESTNET) */}
+        {/* ============================================================== */}
+        {activeTab === 'defi' && (
+          <div className="space-y-6 animate-in fade-in">
+            {/* Header Phân Khu DeFi */}
+            <div className="p-6 rounded-3xl bg-gradient-to-r from-emerald-950 via-forest-900 to-teal-950 border border-emerald-500/50 text-white shadow-xl space-y-3">
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+                  <Coins className="w-3.5 h-3.5" />
+                  <span>{isEn ? 'Agri-DeFi & ReFi Sandbox (100% Testnet)' : 'Vườn Ươm DeFi Nông Nghiệp & Staking Sinh Thái (100% Testnet)'}</span>
+                </span>
+                <span className="text-[11px] font-mono text-amber-300 bg-amber-950/60 px-3 py-0.5 rounded-full border border-amber-600/60">
+                  {isEn ? 'Educational Only (0đ Real Money)' : 'Mục đích Giáo dục (0đ Tiền Thật)'}
+                </span>
+              </div>
+
+              <h3 className="text-lg sm:text-xl font-bold font-serif text-white">
+                {isEn
+                  ? 'Decentralized Finance (DeFi) & Regenerative Finance (ReFi) for Urban Farmers'
+                  : 'Tài Chính Phi Tập Trung (DeFi) & Tài Chính Tái Tạo (ReFi) Dành Cho Người Làm Vườn'}
+              </h3>
+
+              <p className="text-xs sm:text-sm text-forest-200/90 leading-relaxed max-w-4xl">
+                {isEn
+                  ? 'DeFi eliminates traditional banking intermediaries using transparent smart contracts. In Yeu Trong Cay, gardeners learn how to stake native seeds for organic fertilizer yield, offset home carbon footprints with forest NFTs, and vote in community DAOs—all 100% safely on Testnet.'
+                  : 'DeFi loại bỏ bên trung gian bằng các hợp đồng thông minh minh bạch. Tại Yêu Trồng Cây, người yêu cây được thực hành gửi hạt giống thuần chủng (Staking) để sinh lợi phân bón sinh học, bù trừ lượng khí thải gia đình qua NFT bảo tồn rừng (ReFi) và tham gia bỏ phiếu cộng đồng (DAO)—hoàn toàn an toàn 0đ trên Testnet.'}
+              </p>
+            </div>
+
+            {/* Thông báo kết quả Staking */}
+            {stakingNotice && (
+              <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/90 border border-emerald-400 text-xs text-emerald-900 dark:text-emerald-100 flex items-center justify-between gap-3 shadow-md">
+                <div className="flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                  <span>{stakingNotice}</span>
+                </div>
+                <button onClick={() => setStakingNotice(null)} className="font-bold text-emerald-700 dark:text-emerald-300 hover:text-white">✕</button>
+              </div>
+            )}
+
+            {/* PHẦN 1: KHO GỬI HẠT GIỐNG SINH LỜI (SEED STAKING VAULT) */}
+            <div className="p-6 rounded-3xl bg-white dark:bg-charcoal-900/90 border border-forest-100 dark:border-forest-800 shadow-lg space-y-5">
+              <div className="flex items-center justify-between pb-3 border-b border-forest-100 dark:border-forest-800 flex-wrap gap-2">
+                <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 flex items-center gap-2">
+                  <TrendingUp className="w-4 h-4" />
+                  <span>{isEn ? '1. Green Seed Staking Vault (Smart Contract APY: 12.5%)' : '1. Kho Gửi Hạt Giống Sinh Lời (Smart Contract Staking APY: 12.5%)'}</span>
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-800">
+                  {isEn ? 'EVM Testnet Contract' : 'Hợp đồng thông minh Testnet'}
+                </span>
+              </div>
+
+              {/* 3 Thẻ Chỉ Số Staking */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="p-4 rounded-2xl bg-forest-50/60 dark:bg-forest-950/60 border border-forest-100 dark:border-forest-800">
+                  <span className="text-[11px] text-forest-600 dark:text-forest-400 font-medium block">
+                    {isEn ? 'Total Staked Seeds' : 'Hạt Giống Đang Gửi'}
+                  </span>
+                  <div className="text-xl font-bold font-mono text-emerald-700 dark:text-emerald-300 mt-1 flex items-baseline gap-1">
+                    <span>{stakedBalance}</span>
+                    <span className="text-xs font-sans font-normal text-forest-500">Hạt testnet</span>
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-forest-50/60 dark:bg-forest-950/60 border border-forest-100 dark:border-forest-800">
+                  <span className="text-[11px] text-forest-600 dark:text-forest-400 font-medium block">
+                    {isEn ? 'Bio-Fertilizer Yield' : 'Lợi Suất Phân Bón Tích Lũy'}
+                  </span>
+                  <div className="text-xl font-bold font-mono text-amber-600 dark:text-amber-400 mt-1 flex items-baseline gap-1">
+                    <span>{accumulatedYield.toFixed(2)}</span>
+                    <span className="text-xs font-sans font-normal text-forest-500">Bao vi sinh</span>
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-forest-50/60 dark:bg-forest-950/60 border border-forest-100 dark:border-forest-800">
+                  <span className="text-[11px] text-forest-600 dark:text-forest-400 font-medium block">
+                    {isEn ? 'Simulated Yield Rate' : 'Tỷ Suất Lợi Nhuận (APY)'}
+                  </span>
+                  <div className="text-xl font-bold font-mono text-emerald-600 dark:text-emerald-400 mt-1 flex items-baseline gap-1">
+                    <span>12.5%</span>
+                    <span className="text-xs font-sans font-normal text-forest-500">/ năm</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Form Tương Tác Staking */}
+              <div className="p-4 rounded-2xl bg-cream-50/80 dark:bg-forest-950/40 border border-forest-100 dark:border-forest-800 space-y-3">
+                <label className="text-xs font-bold text-forest-900 dark:text-white flex items-center justify-between">
+                  <span>{isEn ? 'Enter Seeds to Stake:' : 'Nhập Số Lượng Hạt Giống Gửi Staking:'}</span>
+                  <span className="text-[11px] text-forest-500 font-normal">
+                    {isEn ? 'Balance: Unlimited Testnet Seeds' : 'Số dư: Không giới hạn trên Testnet'}
+                  </span>
+                </label>
+                <div className="flex items-center gap-3">
+                  <input
+                    type="number"
+                    min="10"
+                    step="10"
+                    value={stakeAmount}
+                    onChange={(e) => setStakeAmount(Math.max(1, Number(e.target.value)))}
+                    className="flex-1 px-4 py-2.5 rounded-xl bg-white dark:bg-charcoal-950 border border-forest-200 dark:border-forest-800 text-sm font-mono font-bold text-forest-950 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  />
+                  <button
+                    onClick={handleStakeSeeds}
+                    disabled={isStakingRunning}
+                    className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-bold text-xs flex items-center gap-2 shadow-md transition shrink-0 cursor-pointer"
+                  >
+                    {isStakingRunning ? (
+                      <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                    ) : (
+                      <Leaf className="w-3.5 h-3.5" />
+                    )}
+                    <span>{isEn ? 'Stake Seeds (+15 Karma)' : 'Gửi Vào Staking (+15 Karma)'}</span>
+                  </button>
+                  <button
+                    onClick={handleClaimYield}
+                    disabled={accumulatedYield <= 0}
+                    className="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 disabled:opacity-40 text-forest-950 font-bold text-xs flex items-center gap-1.5 shadow-md transition shrink-0 cursor-pointer"
+                  >
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>{isEn ? 'Claim Fertilizer' : 'Thu Hoạch Lợi Suất'}</span>
+                  </button>
+                </div>
+
+                <p className="text-[11px] text-forest-600 dark:text-forest-400 leading-relaxed italic">
+                  💡 <strong>Bản chất DeFi:</strong> Khi gửi hạt giống, Smart Contract sẽ khóa số hạt giống này trong bể thanh khoản nông nghiệp (Liquidity Pool). Cứ mỗi block được tạo ra trên blockchain testnet, bạn sẽ nhận được phần thưởng tự động bằng phân bón vi sinh tương ứng.
+                </p>
+              </div>
+            </div>
+
+            {/* PHẦN 2: TÀI CHÍNH TÁI TẠO (REFI) & TÍN CHỈ CARBON RỪNG */}
+            <div className="p-6 rounded-3xl bg-white dark:bg-charcoal-900/90 border border-forest-100 dark:border-forest-800 shadow-lg space-y-4">
+              <div className="flex items-center justify-between pb-3 border-b border-forest-100 dark:border-forest-800 flex-wrap gap-2">
+                <span className="text-xs font-bold uppercase tracking-wider text-teal-700 dark:text-teal-400 flex items-center gap-2">
+                  <Landmark className="w-4 h-4" />
+                  <span>{isEn ? '2. Forest Biodiversity ReFi & Green Carbon Credits' : '2. Tài Chính Tái Tạo (ReFi) & Tín Chỉ Carbon Rừng Tự Nhiên'}</span>
+                </span>
+                <span className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-3 py-0.5 rounded-full border border-emerald-300 dark:border-emerald-800">
+                  1 NFT = 10.000 m² (1 ha)
+                </span>
+              </div>
+
+              <p className="text-xs text-forest-700 dark:text-forest-300 leading-relaxed">
+                {isEn
+                  ? 'ReFi (Regenerative Finance) connects blockchain with ecological restoration. Every 1-hectare lot of Cúc Phương or U Minh protected forest absorbs ~15 tons of CO2 annually. Smart contracts automatically issue tokenized carbon offsets for holders.'
+                  : 'ReFi (Tài chính Tái tạo) kết nối công nghệ chuỗi khối với bảo tồn sinh thái. Mỗi lô rừng 1 hecta (10.000 m²) tại Cúc Phương, U Minh Hạ hấp thụ trung bình 15 tấn CO₂ mỗi năm. Hợp đồng thông minh tự động quy đổi thành Tín chỉ Carbon Xanh (Verified Carbon Units) trên Testnet để người dùng học cách bù trừ phát thải sinh hoạt.'}
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+                <div className="p-4 rounded-2xl bg-teal-50/50 dark:bg-teal-950/30 border border-teal-200 dark:border-teal-800/60 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-xs text-teal-950 dark:text-teal-200">Rừng Nguyên Sinh Cúc Phương</span>
+                    <span className="text-[10px] font-mono text-teal-600 dark:text-teal-400 font-bold">22.408 ha</span>
+                  </div>
+                  <p className="text-[11px] text-teal-800 dark:text-teal-300 leading-relaxed">
+                    Hấp thụ ~336.000 tấn CO₂/năm. Đúc NFT lô rừng 10.000 m² sinh ra 15 Chứng chỉ Carbon Testnet hỗ trợ dự án cây chò ngàn năm.
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-emerald-50/50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/60 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-xs text-emerald-950 dark:text-emerald-200">Đầm Than Bùn U Minh Hạ</span>
+                    <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold">8.527 ha</span>
+                  </div>
+                  <p className="text-[11px] text-emerald-800 dark:text-emerald-300 leading-relaxed">
+                    Lưu trữ carbon gấp 3 lần rừng trên cạn. Bảo tồn loài rái cá lông mũi và hoa tràm ngàn đời.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* PHẦN 3: QUẢN TRỊ DAO PHI TẬP TRUNG (GARDENER DAO GOVERNANCE) */}
+            <div className="p-6 rounded-3xl bg-white dark:bg-charcoal-900/90 border border-forest-100 dark:border-forest-800 shadow-lg space-y-4">
+              <div className="flex items-center justify-between pb-3 border-b border-forest-100 dark:border-forest-800 flex-wrap gap-2">
+                <span className="text-xs font-bold uppercase tracking-wider text-purple-700 dark:text-purple-400 flex items-center gap-2">
+                  <Vote className="w-4 h-4" />
+                  <span>{isEn ? '3. Gardener DAO Governance (Decentralized Voting)' : '3. Quản Trị DAO Phi Tập Trung (Bỏ Phiếu Cộng Đồng Người Yêu Cây)'}</span>
+                </span>
+                <span className="text-[11px] font-mono text-purple-600 dark:text-purple-300 bg-purple-50 dark:bg-purple-950/60 px-3 py-0.5 rounded-full border border-purple-300 dark:border-purple-800">
+                  {isEn ? '1 Wallet = 1 Vote' : '1 Ví = 1 Quyền Biểu Quyết'}
+                </span>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-purple-50/50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800/60 space-y-3">
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  <h4 className="font-bold text-xs sm:text-sm text-purple-950 dark:text-purple-200">
+                    Đề xuất #04: Cấp vốn Testnet bảo tồn 500 cây Sâm Đại Hành (Tỏi đỏ) bản địa tại Trạm Vườn Ươm Tây Nguyên
+                  </h4>
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-300">
+                    Đang bỏ phiếu (Còn 4 ngày)
+                  </span>
+                </div>
+
+                <p className="text-xs text-purple-900/80 dark:text-purple-200/80 leading-relaxed">
+                  Sâm Đại Hành là dược thảo quý bản địa có nguy cơ mai một nguồn gen. Đề xuất kêu gọi trích 5.000 Token Hạt Giống từ quỹ Kho bạc DAO để nhân giống 500 bầu cây sạch bệnh chia sẻ cho cư dân đô thị.
+                </p>
+
+                {/* Thanh Tỷ Lệ Biểu Quyết */}
+                <div className="space-y-1.5 pt-1">
+                  <div className="flex items-center justify-between text-xs font-mono font-bold">
+                    <span className="text-emerald-600 dark:text-emerald-400">Đồng ý: {daoYesCount} phiếu ({((daoYesCount / (daoYesCount + daoNoCount)) * 100).toFixed(0)}%)</span>
+                    <span className="text-rose-600 dark:text-rose-400">Bác bỏ: {daoNoCount} phiếu</span>
+                  </div>
+                  <div className="w-full h-2.5 rounded-full bg-forest-100 dark:bg-forest-950 overflow-hidden flex">
+                    <div className="h-full bg-emerald-500 transition-all duration-500" style={{ width: `${(daoYesCount / (daoYesCount + daoNoCount)) * 100}%` }}></div>
+                    <div className="h-full bg-rose-500 transition-all duration-500" style={{ width: `${(daoNoCount / (daoYesCount + daoNoCount)) * 100}%` }}></div>
+                  </div>
+                </div>
+
+                {/* Nút Bỏ Phiếu */}
+                <div className="flex items-center gap-3 pt-2">
+                  <button
+                    onClick={() => handleVoteDao('yes')}
+                    disabled={daoVoteChoice !== null}
+                    className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm ${
+                      daoVoteChoice === 'yes'
+                        ? 'bg-emerald-600 text-white ring-2 ring-emerald-400'
+                        : 'bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-200'
+                    }`}
+                  >
+                    <Check className="w-3.5 h-3.5" />
+                    <span>{daoVoteChoice === 'yes' ? 'Đã Bỏ Phiếu Đồng Ý' : 'Bỏ Phiếu Đồng Ý (Vote YES)'}</span>
+                  </button>
+
+                  <button
+                    onClick={() => handleVoteDao('no')}
+                    disabled={daoVoteChoice !== null}
+                    className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm ${
+                      daoVoteChoice === 'no'
+                        ? 'bg-rose-600 text-white ring-2 ring-rose-400'
+                        : 'bg-rose-100 dark:bg-rose-950 text-rose-800 dark:text-rose-300 hover:bg-rose-200'
+                    }`}
+                  >
+                    <X className="w-3.5 h-3.5" />
+                    <span>{daoVoteChoice === 'no' ? 'Đã Bỏ Phiếu Bác Bỏ' : 'Bỏ Phiếu Bác Bỏ (Vote NO)'}</span>
+                  </button>
+
+                  {daoVoteChoice && (
+                    <span className="text-[11px] text-purple-600 dark:text-purple-300 font-semibold italic">
+                      ✓ Đã ghi nhận phiếu bầu của bạn on-chain (+15 Karma)
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
           </div>

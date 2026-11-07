@@ -30,18 +30,50 @@ export interface WalletState {
   networkName: string;
   walletName: string;
   balanceEth: string;
+  currencySymbol: string;
   isCorrectNetwork: boolean;
+  isMainnetDanger: boolean;
 }
 
 export const BASE_SEPOLIA_CHAIN_ID_HEX = '0x14a34'; // 84532
 export const ETHEREUM_SEPOLIA_CHAIN_ID_HEX = '0xaa36a7'; // 11155111
 export const POLYGON_AMOY_CHAIN_ID_HEX = '0x13882'; // 80002
+export const BSC_TESTNET_CHAIN_ID_HEX = '0x61'; // 97
+export const ARBITRUM_SEPOLIA_CHAIN_ID_HEX = '0x66eee'; // 421614
 
 export const SUPPORTED_TESTNET_CHAIN_IDS = [
   BASE_SEPOLIA_CHAIN_ID_HEX.toLowerCase(),
   ETHEREUM_SEPOLIA_CHAIN_ID_HEX.toLowerCase(),
-  POLYGON_AMOY_CHAIN_ID_HEX.toLowerCase()
+  POLYGON_AMOY_CHAIN_ID_HEX.toLowerCase(),
+  BSC_TESTNET_CHAIN_ID_HEX.toLowerCase(),
+  ARBITRUM_SEPOLIA_CHAIN_ID_HEX.toLowerCase()
 ];
+
+export const KNOWN_MAINNET_CHAIN_IDS = [
+  '0x1', '1',
+  '0x38', '56',
+  '0x89', '137',
+  '0xa4b1', '42161',
+  '0xa', '10'
+];
+
+export interface TestnetNetworkItem {
+  id: string;
+  name: string;
+  shortName: string;
+  chainIdHex: string;
+  chainIdDecimal: number;
+  currencySymbol: string;
+  type: string;
+  config: {
+    chainId: string;
+    chainName: string;
+    nativeCurrency: { name: string; symbol: string; decimals: number };
+    rpcUrls: string[];
+    blockExplorerUrls: string[];
+  };
+  faucets: { name: string; url: string; note: string }[];
+}
 
 export const ETHEREUM_SEPOLIA_CONFIG = {
   chainId: ETHEREUM_SEPOLIA_CHAIN_ID_HEX,
@@ -54,7 +86,7 @@ export const ETHEREUM_SEPOLIA_CONFIG = {
 export const BASE_SEPOLIA_CONFIG = {
   chainId: BASE_SEPOLIA_CHAIN_ID_HEX,
   chainName: 'Base Sepolia Testnet',
-  nativeCurrency: { name: 'ETH (Testnet)', symbol: 'ETH', decimals: 18 },
+  nativeCurrency: { name: 'Base Sepolia ETH', symbol: 'ETH', decimals: 18 },
   rpcUrls: ['https://sepolia.base.org'],
   blockExplorerUrls: ['https://sepolia.basescan.org']
 };
@@ -65,6 +97,93 @@ export const POLYGON_AMOY_CONFIG = {
   nativeCurrency: { name: 'MATIC (Testnet)', symbol: 'MATIC', decimals: 18 },
   rpcUrls: ['https://rpc-amoy.polygon.technology'],
   blockExplorerUrls: ['https://amoy.polygonscan.com']
+};
+
+export const BSC_TESTNET_CONFIG = {
+  chainId: BSC_TESTNET_CHAIN_ID_HEX,
+  chainName: 'BNB Smart Chain Testnet',
+  nativeCurrency: { name: 'tBNB', symbol: 'tBNB', decimals: 18 },
+  rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545'],
+  blockExplorerUrls: ['https://testnet.bscscan.com']
+};
+
+export const ARBITRUM_SEPOLIA_CONFIG = {
+  chainId: ARBITRUM_SEPOLIA_CHAIN_ID_HEX,
+  chainName: 'Arbitrum Sepolia Testnet',
+  nativeCurrency: { name: 'Arbitrum Sepolia ETH', symbol: 'ETH', decimals: 18 },
+  rpcUrls: ['https://sepolia-rollup.arbitrum.io/rpc'],
+  blockExplorerUrls: ['https://sepolia.arbiscan.io']
+};
+
+export const ALL_SUPPORTED_TESTNETS: Record<string, TestnetNetworkItem> = {
+  [ETHEREUM_SEPOLIA_CHAIN_ID_HEX.toLowerCase()]: {
+    id: 'sepolia',
+    name: 'Ethereum Sepolia Testnet',
+    shortName: 'Sepolia',
+    chainIdHex: ETHEREUM_SEPOLIA_CHAIN_ID_HEX,
+    chainIdDecimal: 11155111,
+    currencySymbol: 'SepoliaETH',
+    type: 'EVM Layer 1 (Cốt lõi)',
+    config: ETHEREUM_SEPOLIA_CONFIG,
+    faucets: [
+      { name: 'Google Cloud Web3 Faucet', url: 'https://cloud.google.com/application/web3/faucet/ethereum/sepolia', note: '0.05 SepoliaETH / ngày (Không cần đăng nhập)' },
+      { name: 'Coinbase Developer Faucet', url: 'https://www.coinbase.com/faucets/ethereum-sepolia-faucet', note: '0.1 SepoliaETH / ngày (Nhanh, tức thì)' },
+      { name: 'Alchemy Sepolia Faucet', url: 'https://www.alchemy.com/faucets/ethereum-sepolia', note: '0.5 SepoliaETH / ngày' }
+    ]
+  },
+  [BASE_SEPOLIA_CHAIN_ID_HEX.toLowerCase()]: {
+    id: 'base-sepolia',
+    name: 'Base Sepolia Testnet',
+    shortName: 'Base Sepolia',
+    chainIdHex: BASE_SEPOLIA_CHAIN_ID_HEX,
+    chainIdDecimal: 84532,
+    currencySymbol: 'BaseETH',
+    type: 'Layer 2 Rollup (Phí gas siêu rẻ)',
+    config: BASE_SEPOLIA_CONFIG,
+    faucets: [
+      { name: 'Coinbase Base Faucet', url: 'https://www.coinbase.com/faucets/base-ethereum-sepolia-faucet', note: '0.05 BaseETH / ngày' },
+      { name: 'Superchain Faucet', url: 'https://console.optimism.io/faucet', note: 'Nhận ETH cho Base & OP' }
+    ]
+  },
+  [BSC_TESTNET_CHAIN_ID_HEX.toLowerCase()]: {
+    id: 'bsc-testnet',
+    name: 'BNB Smart Chain Testnet',
+    shortName: 'BNB Testnet',
+    chainIdHex: BSC_TESTNET_CHAIN_ID_HEX,
+    chainIdDecimal: 97,
+    currencySymbol: 'tBNB',
+    type: 'BNB Chain Ecosystem',
+    config: BSC_TESTNET_CONFIG,
+    faucets: [
+      { name: 'BNB Chain Official Faucet', url: 'https://www.bnbchain.org/en/testnet-faucet', note: '0.3 tBNB / 24h' }
+    ]
+  },
+  [POLYGON_AMOY_CHAIN_ID_HEX.toLowerCase()]: {
+    id: 'polygon-amoy',
+    name: 'Polygon Amoy Testnet',
+    shortName: 'Polygon Amoy',
+    chainIdHex: POLYGON_AMOY_CHAIN_ID_HEX,
+    chainIdDecimal: 80002,
+    currencySymbol: 'MATIC (Testnet)',
+    type: 'Polygon PoS Testnet',
+    config: POLYGON_AMOY_CONFIG,
+    faucets: [
+      { name: 'Polygon Official Faucet', url: 'https://faucet.polygon.technology/', note: '0.2 POL/MATIC' }
+    ]
+  },
+  [ARBITRUM_SEPOLIA_CHAIN_ID_HEX.toLowerCase()]: {
+    id: 'arbitrum-sepolia',
+    name: 'Arbitrum Sepolia Testnet',
+    shortName: 'Arbitrum Sepolia',
+    chainIdHex: ARBITRUM_SEPOLIA_CHAIN_ID_HEX,
+    chainIdDecimal: 421614,
+    currencySymbol: 'ArbETH',
+    type: 'Arbitrum Nitro Layer 2',
+    config: ARBITRUM_SEPOLIA_CONFIG,
+    faucets: [
+      { name: 'Arbitrum Sepolia Faucet', url: 'https://faucets.chain.link/', note: 'Chainlink Multi-faucet' }
+    ]
+  }
 };
 
 const STORAGE_WALLET_KEY = 'ytc_active_real_wallet';
@@ -100,8 +219,33 @@ export const web3WalletService = {
       SUPPORTED_TESTNET_CHAIN_IDS.includes(lower) ||
       lower === '11155111' ||
       lower === '84532' ||
-      lower === '80002'
+      lower === '80002' ||
+      lower === '97' ||
+      lower === '421614'
     );
+  },
+
+  /**
+   * Kiểm tra có đang kết nối vào Mainnet (tiền thật - nguy hiểm) hay không
+   */
+  isMainnet(chainId: string | null): boolean {
+    if (!chainId) return false;
+    const lower = chainId.toLowerCase();
+    return KNOWN_MAINNET_CHAIN_IDS.includes(lower);
+  },
+
+  /**
+   * Lấy đơn vị tiền tệ chuẩn theo chain
+   */
+  getCurrencySymbol(chainId: string | null): string {
+    if (!chainId) return 'ETH (Testnet)';
+    const lower = chainId.toLowerCase();
+    const found = ALL_SUPPORTED_TESTNETS[lower];
+    if (found) return found.currencySymbol;
+    if (lower === '97' || lower === BSC_TESTNET_CHAIN_ID_HEX.toLowerCase()) return 'tBNB';
+    if (lower === '80002' || lower === POLYGON_AMOY_CHAIN_ID_HEX.toLowerCase()) return 'MATIC (Testnet)';
+    if (lower === '421614' || lower === ARBITRUM_SEPOLIA_CHAIN_ID_HEX.toLowerCase()) return 'ArbETH';
+    return 'ETH (Testnet)';
   },
 
   /**
@@ -138,6 +282,8 @@ export const web3WalletService = {
       const balanceEth = await this.getBalance(address);
       const networkName = this.getNetworkName(chainId);
       const isCorrect = this.isSupportedNetwork(chainId);
+      const isMainnetDanger = this.isMainnet(chainId);
+      const currencySymbol = this.getCurrencySymbol(chainId);
 
       const state: WalletState = {
         isConnected: true,
@@ -146,7 +292,9 @@ export const web3WalletService = {
         networkName,
         walletName: this.detectWalletName(),
         balanceEth,
-        isCorrectNetwork: isCorrect
+        currencySymbol,
+        isCorrectNetwork: isCorrect,
+        isMainnetDanger
       };
 
       localStorage.setItem(STORAGE_WALLET_KEY, JSON.stringify(state));
@@ -185,6 +333,8 @@ export const web3WalletService = {
       const balanceEth = await this.getBalance(address);
       const networkName = this.getNetworkName(chainId);
       const isCorrect = this.isSupportedNetwork(chainId);
+      const isMainnetDanger = this.isMainnet(chainId);
+      const currencySymbol = this.getCurrencySymbol(chainId);
 
       const state: WalletState = {
         isConnected: true,
@@ -193,7 +343,9 @@ export const web3WalletService = {
         networkName,
         walletName: this.detectWalletName(),
         balanceEth,
-        isCorrectNetwork: isCorrect
+        currencySymbol,
+        isCorrectNetwork: isCorrect,
+        isMainnetDanger
       };
 
       localStorage.setItem(STORAGE_WALLET_KEY, JSON.stringify(state));
@@ -225,54 +377,45 @@ export const web3WalletService = {
   },
 
   /**
-   * Chuyển mạng sang Base Sepolia Testnet (Tự động thêm mạng nếu chưa có)
+   * Chuyển mạng sang bất kỳ Testnet nào được hỗ trợ trong hệ sinh thái
    */
-  async switchToBaseSepolia(): Promise<string> {
+  async switchToNetwork(targetChainIdHex: string): Promise<string> {
     if (!window.ethereum) throw new Error('Không phát hiện tiện ích ví Web3');
+    const lower = targetChainIdHex.toLowerCase();
+    const target = ALL_SUPPORTED_TESTNETS[lower];
+    if (!target) throw new Error('Mạng testnet chưa được cấu hình.');
 
     try {
       await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
-        params: [{ chainId: BASE_SEPOLIA_CONFIG.chainId }]
+        params: [{ chainId: target.config.chainId }]
       });
-      return BASE_SEPOLIA_CONFIG.chainId;
+      return target.config.chainId;
     } catch (switchError: unknown) {
       const err = switchError as { code?: number };
-      // Mã lỗi 4902: Mạng chưa có trong danh sách ví -> Tự động cấu hình thêm mạng
       if (err.code === 4902) {
         await window.ethereum.request({
           method: 'wallet_addEthereumChain',
-          params: [BASE_SEPOLIA_CONFIG]
+          params: [target.config]
         });
-        return BASE_SEPOLIA_CONFIG.chainId;
+        return target.config.chainId;
       }
       throw switchError;
     }
   },
 
   /**
+   * Chuyển mạng sang Base Sepolia Testnet (Tự động thêm mạng nếu chưa có)
+   */
+  async switchToBaseSepolia(): Promise<string> {
+    return this.switchToNetwork(BASE_SEPOLIA_CHAIN_ID_HEX);
+  },
+
+  /**
    * Chuyển mạng sang Ethereum Sepolia Testnet
    */
   async switchToSepolia(): Promise<string> {
-    if (!window.ethereum) throw new Error('Không phát hiện tiện ích ví Web3');
-
-    try {
-      await window.ethereum.request({
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId: ETHEREUM_SEPOLIA_CONFIG.chainId }]
-      });
-      return ETHEREUM_SEPOLIA_CONFIG.chainId;
-    } catch (switchError: unknown) {
-      const err = switchError as { code?: number };
-      if (err.code === 4902) {
-        await window.ethereum.request({
-          method: 'wallet_addEthereumChain',
-          params: [ETHEREUM_SEPOLIA_CONFIG]
-        });
-        return ETHEREUM_SEPOLIA_CONFIG.chainId;
-      }
-      throw switchError;
-    }
+    return this.switchToNetwork(ETHEREUM_SEPOLIA_CHAIN_ID_HEX);
   },
 
   /**
@@ -396,10 +539,17 @@ export const web3WalletService = {
   getNetworkName(chainId: string | null): string {
     if (!chainId) return 'Mạng Không Xác Định';
     const hex = chainId.toLowerCase();
-    if (hex === BASE_SEPOLIA_CHAIN_ID_HEX.toLowerCase() || hex === '84532') return 'Base Sepolia';
-    if (hex === ETHEREUM_SEPOLIA_CHAIN_ID_HEX.toLowerCase() || hex === '11155111') return 'Ethereum Sepolia';
-    if (hex === POLYGON_AMOY_CHAIN_ID_HEX.toLowerCase() || hex === '80002') return 'Polygon Amoy';
-    if (hex === '0x1' || hex === '1') return 'Ethereum Mainnet (Cần đổi sang Testnet)';
-    return `Chain ID: ${chainId}`;
+    const found = ALL_SUPPORTED_TESTNETS[hex];
+    if (found) return found.name;
+    if (hex === '11155111') return 'Ethereum Sepolia Testnet';
+    if (hex === '84532') return 'Base Sepolia Testnet';
+    if (hex === '80002') return 'Polygon Amoy Testnet';
+    if (hex === '97') return 'BNB Smart Chain Testnet';
+    if (hex === '421614') return 'Arbitrum Sepolia Testnet';
+    if (hex === '0x1' || hex === '1') return '⚠️ Ethereum Mainnet (Tiền thật - Cần chuyển sang Testnet)';
+    if (hex === '0x38' || hex === '56') return '⚠️ BNB Chain Mainnet (Tiền thật - Cần chuyển sang Testnet)';
+    if (hex === '0x89' || hex === '137') return '⚠️ Polygon Mainnet (Tiền thật - Cần chuyển sang Testnet)';
+    if (hex === '0xa4b1' || hex === '42161') return '⚠️ Arbitrum Mainnet (Tiền thật - Cần chuyển sang Testnet)';
+    return `Chain ID: ${chainId} (Mạng không hỗ trợ - Cần đổi sang Testnet)`;
   }
 };
