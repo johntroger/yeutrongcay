@@ -681,7 +681,7 @@ export const Web3SandboxSection: React.FC = () => {
   const hasInstalledWallet = web3WalletService.hasInjectedProvider();
 
   return (
-    <section id="web3" className="py-4 sm:py-6 bg-forest-950 text-white relative overflow-hidden flex-1 flex flex-col justify-start">
+    <section id="web3" className="py-4 sm:py-6 bg-cream-100 dark:bg-forest-950 text-charcoal-900 dark:text-white relative overflow-hidden flex-1 flex flex-col justify-start transition-colors duration-200">
       {/* Background glow effects */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -689,25 +689,25 @@ export const Web3SandboxSection: React.FC = () => {
       <div className="max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full space-y-4">
         
         {/* 1. Header Bar: Tiêu đề & Trạng thái ví thật */}
-        <div className="bg-charcoal-900/95 rounded-2xl p-4 sm:p-5 border border-forest-800 shadow-xl backdrop-blur-xl flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <div className="bg-white dark:bg-charcoal-900/95 rounded-2xl p-4 sm:p-5 border border-forest-100 dark:border-forest-800 shadow-xl backdrop-blur-xl flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div className="flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-2xl bg-emerald-950 text-emerald-400 border border-emerald-700/60 flex items-center justify-center shrink-0 shadow-sm">
+            <div className="w-11 h-11 rounded-2xl bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-700/60 flex items-center justify-center shrink-0 shadow-sm">
               <ShieldCheck className="w-6 h-6" />
             </div>
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <h1 className="text-base sm:text-lg font-serif font-bold text-white tracking-tight">
+                <h1 className="text-base sm:text-lg font-serif font-bold text-forest-950 dark:text-white tracking-tight">
                   {isEn ? 'Web3 Botanical Academy & Testnet Sandbox' : 'Vườn Ươm Web3 & Hộ Chiếu Thực Vật Số (100% Testnet)'}
                 </h1>
-                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-900/60 text-emerald-300 text-[10px] font-semibold border border-emerald-700/50">
-                  <Sparkles className="w-3 h-3 text-emerald-400" />
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-300 text-[10px] font-semibold border border-emerald-200 dark:border-emerald-700/50">
+                  <Sparkles className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
                   <span>Sepolia & Base Testnet (0đ Tiền Thật)</span>
                 </span>
-                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-900/40 text-amber-300 text-[10px] font-semibold border border-amber-800/50">
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300 text-[10px] font-semibold border border-amber-200 dark:border-amber-800/50">
                   <span>Học Tập & Trải Nghiệm Giáo Dục</span>
                 </span>
               </div>
-              <p className="text-xs text-forest-300 mt-1">
+              <p className="text-xs text-forest-600 dark:text-forest-300 mt-1">
                 {isEn
                   ? 'Learn real Web3 concepts, connect a real wallet, claim free testnet ETH from faucets, and mint dynamic plant passports with real cryptography.'
                   : 'Học cách sử dụng ví Web3 thật, nhận crypto testnet miễn phí từ vòi Faucet, và đúc hộ chiếu cây số bằng chữ ký số cá nhân.'}
@@ -718,17 +718,17 @@ export const Web3SandboxSection: React.FC = () => {
           {/* Right: Trạng thái Kết nối Ví Thật & Điểm Uy Tín Karma */}
           <div className="flex items-center gap-2.5 flex-wrap">
             {/* Badge Điểm Uy Tín Karma (Học Testnet Nhận Thưởng) */}
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-forest-950/90 border border-amber-500/40 text-xs shadow-sm">
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-forest-50 dark:bg-forest-950/90 border border-amber-500/40 text-xs shadow-sm">
               <span className="text-base leading-none">{karmaState.badge.icon}</span>
               <div>
-                <span className="text-[10px] text-amber-200/80 font-medium block leading-none">
+                <span className="text-[10px] text-amber-800 dark:text-amber-200/80 font-medium block leading-none">
                   {isEn ? 'Karma Standing' : 'Uy Tín Nhà Vườn'}
                 </span>
-                <span className="font-bold text-amber-300 font-mono text-xs leading-none">
+                <span className="font-bold text-amber-600 dark:text-amber-300 font-mono text-xs leading-none">
                   +{karmaState.total_karma} pts
                 </span>
               </div>
-              <span className="text-[9px] px-1.5 py-0.5 rounded-md bg-amber-400/20 text-amber-300 font-semibold border border-amber-400/30 shrink-0">
+              <span className="text-[9px] px-1.5 py-0.5 rounded-md bg-amber-400/20 text-amber-800 dark:text-amber-300 font-semibold border border-amber-400/40 shrink-0">
                 Testnet 0đ
               </span>
             </div>
@@ -751,29 +751,29 @@ export const Web3SandboxSection: React.FC = () => {
             ) : (
               <div className="flex items-center gap-2 flex-wrap">
                 {/* Badge địa chỉ ví thật */}
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-forest-950 border border-forest-800 text-xs">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                  <span className="font-semibold text-white text-xs">{wallet.walletName}</span>
-                  <span className="font-mono text-emerald-300 text-xs">
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-forest-50 dark:bg-forest-950 border border-forest-200 dark:border-forest-800 text-xs shadow-xs">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse"></span>
+                  <span className="font-semibold text-forest-950 dark:text-white text-xs">{wallet.walletName}</span>
+                  <span className="font-mono text-emerald-700 dark:text-emerald-300 text-xs">
                     {wallet.address.slice(0, 6)}...{wallet.address.slice(-4)}
                   </span>
                   <button
                     onClick={handleCopyAddress}
-                    className="p-1 hover:text-white text-gray-400 transition"
+                    className="p-1 hover:text-forest-950 dark:hover:text-white text-forest-500 dark:text-gray-400 transition"
                     title={isEn ? 'Copy wallet address' : 'Sao chép địa chỉ ví'}
                   >
-                    {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                    {copied ? <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                   </button>
                 </div>
 
                 {/* Số dư ETH Testnet */}
-                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-forest-950 border border-forest-800 text-xs">
-                  <Coins className="w-3.5 h-3.5 text-amber-400" />
-                  <span className="font-mono text-amber-300 font-bold">{wallet.balanceEth} ETH</span>
-                  <span className="text-[10px] text-forest-400">(Testnet)</span>
+                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-forest-50 dark:bg-forest-950 border border-forest-200 dark:border-forest-800 text-xs shadow-xs">
+                  <Coins className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
+                  <span className="font-mono text-amber-700 dark:text-amber-300 font-bold">{wallet.balanceEth} ETH</span>
+                  <span className="text-[10px] text-forest-500 dark:text-forest-400">(Testnet)</span>
                   <button
                     onClick={handleRefreshBalance}
-                    className="p-1 text-gray-400 hover:text-white transition"
+                    className="p-1 text-forest-500 hover:text-forest-950 dark:text-gray-400 dark:hover:text-white transition"
                     title={isEn ? 'Refresh balance' : 'Làm mới số dư'}
                   >
                     <RefreshCw className="w-3 h-3" />
@@ -902,10 +902,10 @@ export const Web3SandboxSection: React.FC = () => {
           <button
             type="button"
             onClick={() => setIsMobileTabDrawerOpen(true)}
-            className="w-full p-3.5 rounded-2xl bg-charcoal-900 border border-emerald-500/50 shadow-lg flex items-center justify-between gap-3 text-left transition active:scale-[0.99] hover:border-emerald-400"
+            className="w-full p-3.5 rounded-2xl bg-white dark:bg-charcoal-900 border border-forest-200 dark:border-emerald-500/50 shadow-md flex items-center justify-between gap-3 text-left transition active:scale-[0.99] hover:border-emerald-400"
           >
             <div className="flex items-center gap-3 min-w-0">
-              <div className="w-10 h-10 rounded-xl bg-emerald-950 text-emerald-400 border border-emerald-700/60 flex items-center justify-center shrink-0 shadow-sm">
+              <div className="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-700/60 flex items-center justify-center shrink-0 shadow-sm">
                 {React.createElement(
                   LEARNING_TABS.find((t) => t.id === activeTab)?.icon || BookOpen,
                   { className: 'w-5 h-5' }
@@ -913,16 +913,16 @@ export const Web3SandboxSection: React.FC = () => {
               </div>
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider block">
+                  <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider block">
                     {isEn ? 'Current Section' : 'Phân khu đang xem'}
                   </span>
-                  <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30">
+                  <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-amber-400/20 text-amber-800 dark:text-amber-300 border border-amber-400/40">
                     {isEn
                       ? LEARNING_TABS.find((t) => t.id === activeTab)?.badgeEn
                       : LEARNING_TABS.find((t) => t.id === activeTab)?.badgeVi}
                   </span>
                 </div>
-                <p className="text-xs font-bold text-white truncate font-serif mt-0.5">
+                <p className="text-xs font-bold text-forest-950 dark:text-white truncate font-serif mt-0.5">
                   {isEn
                     ? LEARNING_TABS.find((t) => t.id === activeTab)?.nameEn
                     : LEARNING_TABS.find((t) => t.id === activeTab)?.nameVi}
@@ -946,25 +946,25 @@ export const Web3SandboxSection: React.FC = () => {
             />
 
             {/* Modal Box */}
-            <div className="relative w-full max-w-lg bg-charcoal-900 border-t sm:border border-forest-700 rounded-t-3xl sm:rounded-3xl p-5 shadow-2xl text-white max-h-[88vh] overflow-y-auto animate-in slide-in-from-bottom-6 duration-200 z-10 space-y-4">
+            <div className="relative w-full max-w-lg bg-white dark:bg-charcoal-900 border-t sm:border border-forest-200 dark:border-forest-700 rounded-t-3xl sm:rounded-3xl p-5 shadow-2xl text-forest-950 dark:text-white max-h-[88vh] overflow-y-auto animate-in slide-in-from-bottom-6 duration-200 z-10 space-y-4">
               {/* Header with Title and 'X' close button */}
-              <div className="flex items-center justify-between pb-3 border-b border-forest-800">
+              <div className="flex items-center justify-between pb-3 border-b border-forest-100 dark:border-forest-800">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-emerald-950 text-emerald-400 border border-emerald-700/60 flex items-center justify-center font-bold">
-                    <Sparkles className="w-4 h-4 text-amber-400" />
+                  <div className="w-8 h-8 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-700/60 flex items-center justify-center font-bold">
+                    <Sparkles className="w-4 h-4 text-amber-500 dark:text-amber-400" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold font-serif text-white">
+                    <h3 className="text-sm font-bold font-serif text-forest-950 dark:text-white">
                       {isEn ? 'Select Learning Section' : 'Chọn Phân Khu Học Tập Web3'}
                     </h3>
-                    <p className="text-[11px] text-forest-300">
+                    <p className="text-[11px] text-forest-600 dark:text-forest-300">
                       {isEn ? 'Base Sepolia Testnet (100% Free - 0đ)' : 'Mạng Thử Nghiệm Base Sepolia (0đ Gas)'}
                     </p>
                   </div>
                 </div>
                 <button
                   onClick={() => setIsMobileTabDrawerOpen(false)}
-                  className="w-8 h-8 rounded-full bg-forest-800/80 hover:bg-forest-700 flex items-center justify-center text-gray-300 hover:text-white transition shadow-sm"
+                  className="w-8 h-8 rounded-full bg-forest-100 dark:bg-forest-800/80 hover:bg-forest-200 dark:hover:bg-forest-700 flex items-center justify-center text-forest-700 dark:text-gray-300 hover:text-forest-950 dark:hover:text-white transition shadow-sm"
                   aria-label="Đóng"
                 >
                   <X className="w-4 h-4" />
@@ -985,41 +985,41 @@ export const Web3SandboxSection: React.FC = () => {
                       }}
                       className={`w-full p-3.5 rounded-2xl text-left transition flex items-center justify-between gap-3 border ${
                         isCurrent
-                          ? 'bg-emerald-950/90 border-emerald-400 shadow-md ring-1 ring-emerald-400'
-                          : 'bg-forest-950/70 border-forest-800 hover:bg-forest-900 hover:border-forest-700'
+                          ? 'bg-emerald-50 dark:bg-emerald-950/90 border-emerald-500 text-forest-950 dark:text-white shadow-md ring-1 ring-emerald-400'
+                          : 'bg-forest-50/70 dark:bg-forest-950/70 border-forest-100 dark:border-forest-800 hover:bg-forest-100 dark:hover:bg-forest-900 text-forest-900 dark:text-forest-200'
                       }`}
                     >
                       <div className="flex items-center gap-3 min-w-0">
                         <div
                           className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border ${
                             isCurrent
-                              ? 'bg-emerald-500 text-forest-950 border-emerald-300 font-bold'
-                              : 'bg-forest-900 text-emerald-400 border-forest-800'
+                              ? 'bg-emerald-600 text-white border-emerald-500 font-bold'
+                              : 'bg-forest-100 dark:bg-forest-900 text-emerald-700 dark:text-emerald-400 border-forest-200 dark:border-forest-800'
                           }`}
                         >
                           <Icon className="w-5 h-5" />
                         </div>
                         <div className="min-w-0">
                           <div className="flex items-center gap-2 flex-wrap">
-                            <span className="text-xs font-bold text-white font-serif">
+                            <span className="text-xs font-bold text-forest-950 dark:text-white font-serif">
                               {isEn ? tab.nameEn : tab.nameVi}
                             </span>
-                            <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30">
+                            <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-amber-400/20 text-amber-800 dark:text-amber-300 border border-amber-400/40">
                               {isEn ? tab.badgeEn : tab.badgeVi}
                             </span>
                           </div>
-                          <p className="text-[11px] text-forest-300/90 mt-1 line-clamp-1">
+                          <p className="text-[11px] text-forest-600 dark:text-forest-300/90 mt-1 line-clamp-1">
                             {isEn ? tab.descEn : tab.descVi}
                           </p>
                         </div>
                       </div>
 
                       {isCurrent ? (
-                        <span className="px-2.5 py-1 rounded-xl bg-emerald-500 text-forest-950 text-[10px] font-extrabold shrink-0 shadow-xs">
+                        <span className="px-2.5 py-1 rounded-xl bg-emerald-600 text-white text-[10px] font-extrabold shrink-0 shadow-xs">
                           {isEn ? 'Active' : 'Đang Xem ✓'}
                         </span>
                       ) : (
-                        <ChevronRight className="w-4 h-4 text-forest-500 shrink-0" />
+                        <ChevronRight className="w-4 h-4 text-forest-400 dark:text-forest-500 shrink-0" />
                       )}
                     </button>
                   );
@@ -1029,7 +1029,7 @@ export const Web3SandboxSection: React.FC = () => {
               {/* Close Button at bottom */}
               <button
                 onClick={() => setIsMobileTabDrawerOpen(false)}
-                className="w-full py-2.5 rounded-xl bg-forest-800 hover:bg-forest-700 text-forest-200 text-xs font-bold transition flex items-center justify-center gap-2"
+                className="w-full py-2.5 rounded-xl bg-forest-100 dark:bg-forest-800 hover:bg-forest-200 dark:hover:bg-forest-700 text-forest-800 dark:text-forest-200 text-xs font-bold transition flex items-center justify-center gap-2"
               >
                 <X className="w-3.5 h-3.5" />
                 <span>{isEn ? 'Close & Return' : 'Đóng Bảng Chọn (✕)'}</span>
@@ -1039,7 +1039,7 @@ export const Web3SandboxSection: React.FC = () => {
         )}
 
         {/* Desktop: Navigation Tabs ngang đầy đủ */}
-        <div className="hidden md:flex items-center gap-2 border-b border-forest-800/80 pb-2 overflow-x-auto no-scrollbar">
+        <div className="hidden md:flex items-center gap-2 border-b border-forest-200 dark:border-forest-800/80 pb-2 overflow-x-auto no-scrollbar">
           {LEARNING_TABS.map((tab) => {
             const Icon = tab.icon;
             const isCurrent = activeTab === tab.id;
@@ -1050,12 +1050,12 @@ export const Web3SandboxSection: React.FC = () => {
                 className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 shrink-0 ${
                   isCurrent
                     ? 'bg-emerald-600 text-white shadow-md'
-                    : 'bg-charcoal-900/60 text-forest-300 hover:bg-charcoal-900 hover:text-white'
+                    : 'bg-white dark:bg-charcoal-900/60 border border-forest-100 dark:border-forest-800 text-forest-700 dark:text-forest-300 hover:bg-forest-50 dark:hover:bg-charcoal-900 hover:text-forest-950 dark:hover:text-white shadow-xs'
                 }`}
               >
                 <Icon className="w-4 h-4" />
                 <span>{isEn ? tab.nameEn : tab.nameVi}</span>
-                <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30">
+                <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-amber-400/20 text-amber-800 dark:text-amber-300 border border-amber-400/40">
                   {isEn ? tab.badgeEn : tab.badgeVi}
                 </span>
               </button>
@@ -1069,14 +1069,14 @@ export const Web3SandboxSection: React.FC = () => {
         {activeTab === 'learn' && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 animate-in fade-in">
             {/* Card 1: Ví Web3 */}
-            <div className="p-5 rounded-2xl bg-charcoal-900/90 border border-forest-800 space-y-2.5">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold">
+            <div className="p-5 rounded-2xl bg-white dark:bg-charcoal-900/90 border border-forest-100 dark:border-forest-800 space-y-2.5 shadow-sm">
+              <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold">
                 🔑
               </div>
-              <h3 className="text-sm font-serif font-bold text-white">
+              <h3 className="text-sm font-serif font-bold text-forest-950 dark:text-white">
                 {isEn ? 'What is a Web3 Wallet?' : 'Ví Web3 là gì?'}
               </h3>
-              <p className="text-xs text-forest-300 leading-relaxed">
+              <p className="text-xs text-forest-600 dark:text-forest-300 leading-relaxed">
                 {isEn
                   ? 'Think of it as your digital keychain. Unlike banks, no central company owns it. You control your 12 secret seed words.'
                   : 'Hãy tưởng tượng ví Web3 như chiếc chùm chìa khóa riêng của bạn. Không một ngân hàng hay công ty nào có thể khóa hay tịch thu tài sản của bạn.'}
@@ -1084,14 +1084,14 @@ export const Web3SandboxSection: React.FC = () => {
             </div>
 
             {/* Card 2: Mạng Testnet */}
-            <div className="p-5 rounded-2xl bg-charcoal-900/90 border border-forest-800 space-y-2.5">
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold">
+            <div className="p-5 rounded-2xl bg-white dark:bg-charcoal-900/90 border border-forest-100 dark:border-forest-800 space-y-2.5 shadow-sm">
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold">
                 🧪
               </div>
-              <h3 className="text-sm font-serif font-bold text-white">
+              <h3 className="text-sm font-serif font-bold text-forest-950 dark:text-white">
                 {isEn ? 'What is a Testnet?' : 'Mạng Testnet là gì?'}
               </h3>
-              <p className="text-xs text-forest-300 leading-relaxed">
+              <p className="text-xs text-forest-600 dark:text-forest-300 leading-relaxed">
                 {isEn
                   ? 'A real blockchain network built for learning and testing. Transactions are real, but coins have 0 real monetary value. Zero risk!'
                   : 'Là mạng thử nghiệm chạy song song với mạng thật. Mọi thao tác ký số, chuyển token đều là thật nhưng tiền có giá trị 0đ. Thoải mái bấm thử, không sợ mất tiền!'}
@@ -1099,14 +1099,14 @@ export const Web3SandboxSection: React.FC = () => {
             </div>
 
             {/* Card 3: Faucet */}
-            <div className="p-5 rounded-2xl bg-charcoal-900/90 border border-forest-800 space-y-2.5">
-              <div className="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center font-bold">
+            <div className="p-5 rounded-2xl bg-white dark:bg-charcoal-900/90 border border-forest-100 dark:border-forest-800 space-y-2.5 shadow-sm">
+              <div className="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center font-bold">
                 🚰
               </div>
-              <h3 className="text-sm font-serif font-bold text-white">
+              <h3 className="text-sm font-serif font-bold text-forest-950 dark:text-white">
                 {isEn ? 'What is a Faucet?' : 'Faucet (Vòi nước) là gì?'}
               </h3>
-              <p className="text-xs text-forest-300 leading-relaxed">
+              <p className="text-xs text-forest-600 dark:text-forest-300 leading-relaxed">
                 {isEn
                   ? 'Websites that freely distribute small amounts of testnet ETH so anyone can experiment with smart contracts for free.'
                   : 'Là các trang web do Coinbase, Google tài trợ để cấp ETH thử nghiệm miễn phí mỗi ngày. Chỉ cần dán địa chỉ ví là nhận được ETH để làm quen.'}
@@ -1114,14 +1114,14 @@ export const Web3SandboxSection: React.FC = () => {
             </div>
 
             {/* Card 4: Hộ chiếu cây NFT */}
-            <div className="p-5 rounded-2xl bg-charcoal-900/90 border border-forest-800 space-y-2.5">
-              <div className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center font-bold">
+            <div className="p-5 rounded-2xl bg-white dark:bg-charcoal-900/90 border border-forest-100 dark:border-forest-800 space-y-2.5 shadow-sm">
+              <div className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold">
                 🌱
               </div>
-              <h3 className="text-sm font-serif font-bold text-white">
+              <h3 className="text-sm font-serif font-bold text-forest-950 dark:text-white">
                 {isEn ? 'Plant Passport NFT?' : 'Hộ chiếu cây NFT giúp gì?'}
               </h3>
-              <p className="text-xs text-forest-300 leading-relaxed">
+              <p className="text-xs text-forest-600 dark:text-forest-300 leading-relaxed">
                 {isEn
                   ? 'A tamper-proof birth certificate for your plant. Proves genetic lineage, planting age, and organic care without paperwork.'
                   : 'Là thẻ căn cước công dân số cho chậu cây. Giúp người yêu cây chứng minh nguồn gen thuần chủng, ngày gieo trồng và không bị làm giả giống.'}
@@ -1129,7 +1129,7 @@ export const Web3SandboxSection: React.FC = () => {
             </div>
 
             {/* GitBook Documentation Link Banner */}
-            <div className="md:col-span-2 lg:col-span-4 p-5 rounded-2xl bg-gradient-to-r from-forest-900 via-charcoal-900 to-forest-950 border border-emerald-500/40 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-1">
+            <div className="md:col-span-2 lg:col-span-4 p-5 rounded-2xl bg-linear-to-r from-forest-900 via-charcoal-900 to-forest-950 border border-emerald-500/40 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-1 text-white">
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
                   <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-950 text-emerald-300 border border-emerald-800">
@@ -1164,20 +1164,20 @@ export const Web3SandboxSection: React.FC = () => {
         {activeTab === 'faucet' && (
           <div className="space-y-4 animate-in fade-in">
             {/* Box sao chép địa chỉ ví nhanh */}
-            <div className="p-5 rounded-2xl bg-charcoal-900 border border-emerald-500/60 shadow-xl space-y-3">
+            <div className="p-5 rounded-2xl bg-white dark:bg-charcoal-900 border border-emerald-400 dark:border-emerald-500/60 shadow-lg space-y-3">
               <div className="flex items-center justify-between flex-wrap gap-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
-                  <Droplets className="w-4 h-4 text-cyan-400" />
+                <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
+                  <Droplets className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
                   <span>{isEn ? 'Step 1: Copy Your Real Wallet Address' : 'Bước 1: Sao Chép Địa Chỉ Ví Của Bạn'}</span>
                 </span>
                 {wallet?.isConnected && (
-                  <span className="text-xs font-mono text-amber-300 bg-forest-950 px-3 py-1 rounded-full border border-forest-800">
+                  <span className="text-xs font-mono text-amber-700 dark:text-amber-300 bg-forest-50 dark:bg-forest-950 px-3 py-1 rounded-full border border-forest-200 dark:border-forest-800">
                     Số dư hiện tại: {wallet.balanceEth} ETH (Testnet)
                   </span>
                 )}
               </div>
 
-              <p className="text-xs text-forest-300">
+              <p className="text-xs text-forest-600 dark:text-forest-300">
                 {isEn
                   ? 'To receive free testnet ETH, copy your address below, then open one of the trusted faucets to paste it.'
                   : 'Để nhận ETH testnet miễn phí, hãy bấm nút sao chép địa chỉ ví dưới đây, sau đó nhấp vào 1 trong các vòi Faucet bên dưới để dán vào nhận tiền:'}
@@ -1188,7 +1188,7 @@ export const Web3SandboxSection: React.FC = () => {
                   type="text"
                   readOnly
                   value={wallet?.address || (isEn ? 'Please connect your real wallet first' : 'Vui lòng bấm Kết Nối Ví Thật ở góc trên trước')}
-                  className="w-full px-4 py-2.5 rounded-xl bg-forest-950 border border-forest-800 font-mono text-xs text-emerald-300 select-all focus:outline-none"
+                  className="w-full px-4 py-2.5 rounded-xl bg-forest-50 dark:bg-forest-950 border border-forest-200 dark:border-forest-800 font-mono text-xs text-emerald-700 dark:text-emerald-300 select-all focus:outline-none"
                 />
                 <button
                   onClick={handleCopyAddress}
@@ -1212,40 +1212,40 @@ export const Web3SandboxSection: React.FC = () => {
 
             {/* Danh sách 4 Vòi Faucet Chính Thức */}
             <div>
-              <h3 className="text-xs font-bold uppercase tracking-wider text-forest-300 mb-3 flex items-center gap-1.5">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-forest-700 dark:text-forest-300 mb-3 flex items-center gap-1.5">
                 <ExternalLink className="w-3.5 h-3.5" />
                 <span>{isEn ? 'Step 2: Choose a Trusted Faucet & Paste Your Address' : 'Bước 2: Mở Vòi Faucet & Dán Địa Chỉ Nhận ETH (0đ)'}</span>
               </h3>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {REAL_FAUCETS.map((f, i) => (
-                  <div key={i} className="p-5 rounded-2xl bg-charcoal-900/90 border border-forest-800 hover:border-emerald-500/50 transition shadow-lg flex flex-col justify-between space-y-3">
+                  <div key={i} className="p-5 rounded-2xl bg-white dark:bg-charcoal-900/90 border border-forest-100 dark:border-forest-800 hover:border-emerald-500/50 transition shadow-sm hover:shadow-md flex flex-col justify-between space-y-3">
                     <div className="space-y-1.5">
                       <div className="flex items-center justify-between">
-                        <h4 className="font-bold text-sm text-white flex items-center gap-1.5">
+                        <h4 className="font-bold text-sm text-forest-950 dark:text-white flex items-center gap-1.5">
                           <span>{f.name}</span>
                         </h4>
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-950 text-emerald-300 border border-emerald-800">
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800">
                           {f.amount}
                         </span>
                       </div>
-                      <p className="text-xs text-forest-300">
+                      <p className="text-xs text-forest-600 dark:text-forest-300">
                         {isEn ? f.descriptionEn : f.descriptionVi}
                       </p>
                     </div>
 
-                    <div className="pt-2 border-t border-forest-800/80 flex items-center justify-between">
-                      <span className="text-[11px] font-mono text-gray-400">
-                        Mạng: <span className="text-white">{f.network}</span>
+                    <div className="pt-2 border-t border-forest-100 dark:border-forest-800/80 flex items-center justify-between">
+                      <span className="text-[11px] font-mono text-forest-500 dark:text-gray-400">
+                        Mạng: <span className="text-forest-950 dark:text-white font-semibold">{f.network}</span>
                       </span>
                       <a
                         href={f.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-3.5 py-1.5 rounded-xl bg-forest-800 hover:bg-forest-700 text-white font-bold text-xs flex items-center gap-1 transition shadow-xs"
+                        className="px-3.5 py-1.5 rounded-xl bg-forest-100 dark:bg-forest-800 hover:bg-forest-200 dark:hover:bg-forest-700 text-forest-950 dark:text-white font-bold text-xs flex items-center gap-1 transition shadow-xs"
                       >
                         <span>{isEn ? 'Open Faucet' : 'Mở Vòi Này'}</span>
-                        <ExternalLink className="w-3 h-3 text-emerald-400" />
+                        <ExternalLink className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
                       </a>
                     </div>
                   </div>
@@ -1259,25 +1259,25 @@ export const Web3SandboxSection: React.FC = () => {
         {/* TAB 3: XƯỞNG ĐÚC HỘ CHIẾU & KÝ SỐ MẬT MÃ HỌC */}
         {/* ============================================================== */}
         {activeTab === 'mint' && (
-          <div className="bg-charcoal-900/90 rounded-2xl p-4 sm:p-6 border border-forest-800 shadow-xl space-y-4 animate-in fade-in">
-            <div className="flex items-center justify-between pb-3 border-b border-forest-800 flex-wrap gap-3">
+          <div className="bg-white dark:bg-charcoal-900/90 rounded-2xl p-4 sm:p-6 border border-forest-100 dark:border-forest-800 shadow-xl space-y-4 animate-in fade-in">
+            <div className="flex items-center justify-between pb-3 border-b border-forest-100 dark:border-forest-800 flex-wrap gap-3">
               <div className="flex items-center gap-2">
-                <Award className="w-5 h-5 text-amber-400" />
-                <h3 className="text-base font-serif font-bold text-white">
+                <Award className="w-5 h-5 text-amber-500 dark:text-amber-400" />
+                <h3 className="text-base font-serif font-bold text-forest-950 dark:text-white">
                   {isEn ? 'Real Wallet Botanical Passport Studio (Dynamic NFT)' : 'Xưởng Ký Số & Cấp Hộ Chiếu Thực Vật Bản Địa (Ví Thật)'}
                 </h3>
               </div>
 
               {/* Tùy chọn Sổ cái (Ledger Selector) */}
               <div className="flex items-center gap-2">
-                <label className="text-xs text-forest-300 font-semibold flex items-center gap-1.5">
-                  <Coins className="w-3.5 h-3.5 text-emerald-400" />
+                <label className="text-xs text-forest-600 dark:text-forest-300 font-semibold flex items-center gap-1.5">
+                  <Coins className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                   <span>{isEn ? 'Target Ledger:' : 'Sổ cái (Ledger):'}</span>
                 </label>
                 <select
                   value={targetLedger}
                   onChange={(e) => handleLedgerSelect(e.target.value as 'Ethereum Sepolia' | 'Base Sepolia' | 'Polygon Amoy')}
-                  className="px-3 py-1.5 bg-forest-950 text-emerald-300 rounded-xl text-xs font-mono font-bold border border-emerald-700/80 focus:outline-none focus:ring-1 focus:ring-emerald-500 cursor-pointer shadow-md"
+                  className="px-3 py-1.5 bg-forest-50 dark:bg-forest-950 text-emerald-700 dark:text-emerald-300 rounded-xl text-xs font-mono font-bold border border-forest-200 dark:border-emerald-700/80 focus:outline-none focus:ring-1 focus:ring-emerald-500 cursor-pointer shadow-xs"
                 >
                   <option value="Ethereum Sepolia">Ethereum Sepolia Testnet (0đ)</option>
                   <option value="Base Sepolia">Base Sepolia Testnet (0đ)</option>
@@ -1320,8 +1320,8 @@ export const Web3SandboxSection: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-start">
               {/* Preview Cây & Upload Ảnh Thật & Mã Băm SHA-256 (md:col-span-5) */}
-              <div className="md:col-span-5 bg-forest-950 rounded-2xl p-4 border border-forest-800 space-y-3">
-                <div className="relative rounded-xl overflow-hidden aspect-video bg-charcoal-900 border border-forest-800 group">
+              <div className="md:col-span-5 bg-forest-50 dark:bg-forest-950 rounded-2xl p-4 border border-forest-200 dark:border-forest-800 space-y-3">
+                <div className="relative rounded-xl overflow-hidden aspect-video bg-forest-100 dark:bg-charcoal-900 border border-forest-200 dark:border-forest-800 group">
                   <img
                     src={plantSource === 'custom' && customImage ? customImage : SAMPLE_MINT_PLANTS[selectedPlantIndex].image}
                     alt={plantSource === 'custom' ? (customPlantName || 'Cây của bạn') : SAMPLE_MINT_PLANTS[selectedPlantIndex].name_vi}
@@ -1341,8 +1341,8 @@ export const Web3SandboxSection: React.FC = () => {
 
                 {/* Nút tải ảnh cây thật của bạn lên */}
                 <div className="space-y-1.5">
-                  <label className="w-full py-2.5 px-3 rounded-xl bg-forest-900/90 hover:bg-forest-800 border border-dashed border-emerald-500/80 hover:border-emerald-400 text-emerald-300 text-xs font-bold flex items-center justify-center gap-2 cursor-pointer transition shadow-sm active:scale-[0.99]">
-                    <Upload className="w-4 h-4 text-emerald-400" />
+                  <label className="w-full py-2.5 px-3 rounded-xl bg-white dark:bg-forest-900/90 hover:bg-forest-50 dark:hover:bg-forest-800 border border-dashed border-emerald-500/80 hover:border-emerald-600 dark:hover:border-emerald-400 text-emerald-700 dark:text-emerald-300 text-xs font-bold flex items-center justify-center gap-2 cursor-pointer transition shadow-xs active:scale-[0.99]">
+                    <Upload className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                     <span>
                       {plantSource === 'custom' && customImage
                         ? (isEn ? 'Change Tree Photo' : 'Đổi Ảnh Cây Khác Từ Máy')
@@ -1364,7 +1364,7 @@ export const Web3SandboxSection: React.FC = () => {
                         setCustomImage(null);
                         setCustomImageSha(null);
                       }}
-                      className="w-full py-1 text-[11px] text-gray-400 hover:text-red-300 flex items-center justify-center gap-1 transition cursor-pointer"
+                      className="w-full py-1 text-[11px] text-forest-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-300 flex items-center justify-center gap-1 transition cursor-pointer"
                     >
                       <Trash2 className="w-3 h-3" />
                       <span>{isEn ? 'Back to sample species' : 'Quay lại dùng giống mẫu'}</span>
@@ -1373,23 +1373,23 @@ export const Web3SandboxSection: React.FC = () => {
                 </div>
 
                 <div>
-                  <h4 className="font-bold text-sm text-white">
+                  <h4 className="font-bold text-sm text-forest-950 dark:text-white">
                     {plantSource === 'custom' && customPlantName
                       ? customPlantName
                       : isEn
                       ? SAMPLE_MINT_PLANTS[selectedPlantIndex].name_en
                       : SAMPLE_MINT_PLANTS[selectedPlantIndex].name_vi}
                   </h4>
-                  <p className="font-mono italic text-xs text-emerald-400 mt-0.5">
+                  <p className="font-mono italic text-xs text-emerald-700 dark:text-emerald-400 mt-0.5">
                     {plantSource === 'custom'
                       ? (customScientific || (isEn ? 'Personal Botanical Specimen' : 'Mẫu thực vật cá nhân'))
                       : SAMPLE_MINT_PLANTS[selectedPlantIndex].scientific}
                   </p>
                 </div>
 
-                <div className="p-2.5 rounded-xl bg-charcoal-900 border border-forest-800 text-[10px] font-mono text-gray-400 space-y-1">
-                  <span className="text-gray-300 font-semibold block">Bằng chứng mật mã học (SHA-256):</span>
-                  <span className="text-emerald-300 truncate block">
+                <div className="p-2.5 rounded-xl bg-white dark:bg-charcoal-900 border border-forest-200 dark:border-forest-800 text-[10px] font-mono text-forest-600 dark:text-gray-400 space-y-1 shadow-xs">
+                  <span className="text-forest-900 dark:text-gray-300 font-semibold block">Bằng chứng mật mã học (SHA-256):</span>
+                  <span className="text-emerald-700 dark:text-emerald-300 truncate block">
                     {plantSource === 'custom' && customImageSha
                       ? `sha256:${customImageSha.slice(0, 24)}...stage${evolutionStage}`
                       : `sha256:${SAMPLE_MINT_PLANTS[selectedPlantIndex].id}...stage${evolutionStage}`}
@@ -1400,14 +1400,14 @@ export const Web3SandboxSection: React.FC = () => {
               {/* Form Lựa Chọn & Nút Ký Ví Thật (md:col-span-7) */}
               <div className="md:col-span-7 space-y-4">
                 {/* Chuyển đổi giữa giống mẫu hoặc tự tải ảnh cây riêng */}
-                <div className="flex items-center gap-2 p-1 bg-forest-950 rounded-xl border border-forest-800 text-xs">
+                <div className="flex items-center gap-2 p-1 bg-forest-50 dark:bg-forest-950 rounded-xl border border-forest-200 dark:border-forest-800 text-xs">
                   <button
                     type="button"
                     onClick={() => setPlantSource('sample')}
                     className={`flex-1 py-1.5 px-2 rounded-lg font-semibold transition cursor-pointer ${
                       plantSource === 'sample'
                         ? 'bg-emerald-600 text-white shadow-sm'
-                        : 'text-forest-300 hover:text-white'
+                        : 'text-forest-600 dark:text-forest-300 hover:text-forest-950 dark:hover:text-white'
                     }`}
                   >
                     🌿 {isEn ? 'Choose Sample Plant' : 'Chọn Cây Mẫu Bản Địa'}
@@ -1418,7 +1418,7 @@ export const Web3SandboxSection: React.FC = () => {
                     className={`flex-1 py-1.5 px-2 rounded-lg font-semibold transition cursor-pointer ${
                       plantSource === 'custom'
                         ? 'bg-emerald-600 text-white shadow-sm'
-                        : 'text-forest-300 hover:text-white'
+                        : 'text-forest-600 dark:text-forest-300 hover:text-forest-950 dark:hover:text-white'
                     }`}
                   >
                     📸 {isEn ? 'Custom Plant & Photo' : 'Tự Up Ảnh & Tên Cây'}
@@ -1427,13 +1427,13 @@ export const Web3SandboxSection: React.FC = () => {
 
                 {plantSource === 'sample' ? (
                   <div>
-                    <label className="text-xs font-semibold text-forest-300 block mb-1.5">
+                    <label className="text-xs font-semibold text-forest-700 dark:text-forest-300 block mb-1.5">
                       {isEn ? 'Select Plant Species to Certify:' : '1. Chọn giống cây bản địa muốn cấp hộ chiếu:'}
                     </label>
                     <select
                       value={selectedPlantIndex}
                       onChange={(e) => setSelectedPlantIndex(Number(e.target.value))}
-                      className="w-full px-3.5 py-2.5 bg-forest-950 border border-forest-800 rounded-xl text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                      className="w-full px-3.5 py-2.5 bg-forest-50 dark:bg-forest-950 border border-forest-200 dark:border-forest-800 rounded-xl text-xs text-forest-950 dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
                     >
                       {SAMPLE_MINT_PLANTS.map((p, idx) => (
                         <option key={p.id} value={idx}>
@@ -1445,7 +1445,7 @@ export const Web3SandboxSection: React.FC = () => {
                 ) : (
                   <div className="space-y-3">
                     <div>
-                      <label className="text-xs font-semibold text-forest-300 block mb-1.5">
+                      <label className="text-xs font-semibold text-forest-700 dark:text-forest-300 block mb-1.5">
                         {isEn ? 'Your Plant Name:' : '1. Tên chậu cây của bạn:'}
                       </label>
                       <input
@@ -1453,11 +1453,11 @@ export const Web3SandboxSection: React.FC = () => {
                         value={customPlantName}
                         onChange={(e) => setCustomPlantName(e.target.value)}
                         placeholder={isEn ? 'e.g. My 5-Petal Golden Apricot, Balcony Guava...' : 'VD: Cây Mai Vàng Cổ Thụ, Chậu Ổi Lùn Ban Công...'}
-                        className="w-full px-3.5 py-2.5 bg-forest-950 border border-forest-800 rounded-xl text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500 placeholder-forest-600"
+                        className="w-full px-3.5 py-2.5 bg-forest-50 dark:bg-forest-950 border border-forest-200 dark:border-forest-800 rounded-xl text-xs text-forest-950 dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500 placeholder-forest-400 dark:placeholder-forest-600"
                       />
                     </div>
                     <div>
-                      <label className="text-xs font-semibold text-forest-300 block mb-1.5">
+                      <label className="text-xs font-semibold text-forest-700 dark:text-forest-300 block mb-1.5">
                         {isEn ? 'Variety / Provenance (Optional):' : 'Giống cây / Xuất xứ (Tùy chọn):'}
                       </label>
                       <input
@@ -1465,20 +1465,20 @@ export const Web3SandboxSection: React.FC = () => {
                         value={customScientific}
                         onChange={(e) => setCustomScientific(e.target.value)}
                         placeholder={isEn ? 'e.g. Ochna integerrima / Ba Vi Garden' : 'VD: Ochna integerrima / Vườn nhà Ba Vì'}
-                        className="w-full px-3.5 py-2.5 bg-forest-950 border border-forest-800 rounded-xl text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500 placeholder-forest-600"
+                        className="w-full px-3.5 py-2.5 bg-forest-50 dark:bg-forest-950 border border-forest-200 dark:border-forest-800 rounded-xl text-xs text-forest-950 dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500 placeholder-forest-400 dark:placeholder-forest-600"
                       />
                     </div>
                   </div>
                 )}
 
                 <div>
-                  <label className="text-xs font-semibold text-forest-300 block mb-1.5">
+                  <label className="text-xs font-semibold text-forest-700 dark:text-forest-300 block mb-1.5">
                     {isEn ? 'Growth Stage Evolution:' : '2. Giai đoạn sinh trưởng hiện tại:'}
                   </label>
                   <select
                     value={evolutionStage}
                     onChange={(e) => setEvolutionStage(Number(e.target.value) as 1 | 2 | 3)}
-                    className="w-full px-3.5 py-2.5 bg-forest-950 border border-forest-800 rounded-xl text-xs text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                    className="w-full px-3.5 py-2.5 bg-forest-50 dark:bg-forest-950 border border-forest-200 dark:border-forest-800 rounded-xl text-xs text-forest-950 dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
                   >
                     <option value={1}>{isEn ? 'Stage 1: Seedling & Propagation' : '1. Mầm non gieo ươm / Cành giâm rễ non'}</option>
                     <option value={2}>{isEn ? 'Stage 2: Vegetative Shoot Growth' : '2. Sinh trưởng phân cành tán lá sum suê'}</option>
@@ -1487,16 +1487,16 @@ export const Web3SandboxSection: React.FC = () => {
                 </div>
 
                 {/* Lựa chọn phương thức đúc: On-chain thật hay Ký số 0đ */}
-                <div className="p-3 rounded-xl bg-forest-950 border border-forest-800 space-y-2">
+                <div className="p-3 rounded-xl bg-forest-50 dark:bg-forest-950 border border-forest-200 dark:border-forest-800 space-y-2">
                   <div className="flex items-center justify-between">
-                    <label className="text-xs font-semibold text-white flex items-center gap-1.5">
-                      <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                    <label className="text-xs font-semibold text-forest-950 dark:text-white flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
                       <span>{isEn ? 'Minting Method:' : 'Phương thức đúc Hộ Chiếu:'}</span>
                     </label>
                     <button
                       type="button"
                       onClick={() => setShowContractConfig(!showContractConfig)}
-                      className="text-[11px] text-emerald-400 hover:text-emerald-300 underline cursor-pointer"
+                      className="text-[11px] text-emerald-600 dark:text-emerald-400 hover:underline cursor-pointer"
                     >
                       {showContractConfig ? 'Ẩn cấu hình Contract' : '⚙️ Cấu hình Contract'}
                     </button>
@@ -1508,14 +1508,14 @@ export const Web3SandboxSection: React.FC = () => {
                       onClick={() => setMintMode('onchain')}
                       className={`p-2.5 rounded-xl border text-left font-semibold transition cursor-pointer ${
                         mintMode === 'onchain'
-                          ? 'bg-emerald-950 border-emerald-500 text-white shadow-sm ring-1 ring-emerald-500'
-                          : 'bg-charcoal-900 border-forest-800 text-forest-300 hover:text-white'
+                          ? 'bg-emerald-50 dark:bg-emerald-950 border-emerald-500 text-forest-950 dark:text-white shadow-sm ring-1 ring-emerald-500'
+                          : 'bg-white dark:bg-charcoal-900 border-forest-200 dark:border-forest-800 text-forest-700 dark:text-forest-300 hover:text-forest-950 dark:hover:text-white'
                       }`}
                     >
-                      <div className="flex items-center gap-1.5 text-emerald-400 font-bold">
+                      <div className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-bold">
                         <span>🚀 Đúc On-chain Thật</span>
                       </div>
-                      <div className="text-[10px] text-forest-300 mt-0.5">Gọi Smart Contract ERC-721 thật qua MetaMask</div>
+                      <div className="text-[10px] text-forest-500 dark:text-forest-300 mt-0.5">Gọi Smart Contract ERC-721 thật qua MetaMask</div>
                     </button>
 
                     <button
@@ -1523,27 +1523,27 @@ export const Web3SandboxSection: React.FC = () => {
                       onClick={() => setMintMode('signature')}
                       className={`p-2.5 rounded-xl border text-left font-semibold transition cursor-pointer ${
                         mintMode === 'signature'
-                          ? 'bg-emerald-950 border-emerald-500 text-white shadow-sm ring-1 ring-emerald-500'
-                          : 'bg-charcoal-900 border-forest-800 text-forest-300 hover:text-white'
+                          ? 'bg-emerald-50 dark:bg-emerald-950 border-emerald-500 text-forest-950 dark:text-white shadow-sm ring-1 ring-emerald-500'
+                          : 'bg-white dark:bg-charcoal-900 border-forest-200 dark:border-forest-800 text-forest-700 dark:text-forest-300 hover:text-forest-950 dark:hover:text-white'
                       }`}
                     >
-                      <div className="flex items-center gap-1.5 text-amber-400 font-bold">
+                      <div className="flex items-center gap-1.5 text-amber-600 dark:text-amber-400 font-bold">
                         <span>✍️ Ký Số 0đ Gas</span>
                       </div>
-                      <div className="text-[10px] text-forest-300 mt-0.5">Ký mật mã EIP-191, không tốn gas testnet</div>
+                      <div className="text-[10px] text-forest-500 dark:text-forest-300 mt-0.5">Ký mật mã EIP-191, không tốn gas testnet</div>
                     </button>
                   </div>
 
                   {/* Cấu hình địa chỉ hợp đồng Smart Contract NFT */}
                   {showContractConfig && (
-                    <div className="p-2.5 rounded-xl bg-charcoal-900 border border-forest-800 text-xs space-y-2 mt-2">
+                    <div className="p-2.5 rounded-xl bg-white dark:bg-charcoal-900 border border-forest-200 dark:border-forest-800 text-xs space-y-2 mt-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-[11px] text-forest-300 font-semibold">Địa chỉ Contract NFT ({targetLedger}):</span>
+                        <span className="text-[11px] text-forest-700 dark:text-forest-300 font-semibold">Địa chỉ Contract NFT ({targetLedger}):</span>
                         <a
                           href="https://remix.ethereum.org"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-[10px] text-amber-300 hover:underline flex items-center gap-1"
+                          className="text-[10px] text-amber-600 dark:text-amber-300 hover:underline flex items-center gap-1"
                         >
                           <span>Mở Remix IDE deploy ↗</span>
                         </a>
@@ -1553,25 +1553,25 @@ export const Web3SandboxSection: React.FC = () => {
                         value={contractAddress}
                         onChange={(e) => setContractAddress(e.target.value)}
                         placeholder="0x..."
-                        className="w-full px-3 py-1.5 bg-forest-950 border border-forest-700 rounded-lg text-xs font-mono text-emerald-300 focus:outline-none"
+                        className="w-full px-3 py-1.5 bg-forest-50 dark:bg-forest-950 border border-forest-200 dark:border-forest-700 rounded-lg text-xs font-mono text-emerald-700 dark:text-emerald-300 focus:outline-none"
                       />
-                      <p className="text-[10px] text-gray-400 leading-relaxed">
-                        Mã nguồn contract có sẵn tại <span className="font-mono text-emerald-300">contracts/PlantPassportNFT.sol</span>. Bạn có thể dán vào Remix, bấm Deploy bằng MetaMask với 0.05 SepoliaETH, sau đó dán địa chỉ contract vào đây.
+                      <p className="text-[10px] text-forest-500 dark:text-gray-400 leading-relaxed">
+                        Mã nguồn contract có sẵn tại <span className="font-mono text-emerald-600 dark:text-emerald-300">contracts/PlantPassportNFT.sol</span>. Bạn có thể dán vào Remix, bấm Deploy bằng MetaMask với 0.05 SepoliaETH, sau đó dán địa chỉ contract vào đây.
                       </p>
                     </div>
                   )}
                 </div>
 
-                <div className="p-3.5 rounded-xl bg-forest-950 border border-forest-800/80 text-xs text-forest-200/90 leading-relaxed">
-                  💡 <span className="font-semibold text-white">Xác thực ví thật:</span>{' '}
+                <div className="p-3.5 rounded-xl bg-forest-50 dark:bg-forest-950 border border-forest-200 dark:border-forest-800/80 text-xs text-forest-700 dark:text-forest-200/90 leading-relaxed shadow-xs">
+                  💡 <span className="font-semibold text-forest-950 dark:text-white">Xác thực ví thật:</span>{' '}
                   {mintMode === 'onchain'
                     ? `Khi bấm nút, MetaMask sẽ mở popup yêu cầu xác nhận giao dịch ghi vào Smart Contract NFT trên sổ cái ${targetLedger}. Giao dịch này sử dụng gas testnet và tạo ra NFT thật có thể tra cứu trên Blockchain Explorer.`
                     : `Khi bấm nút, ví Web3 của bạn sẽ mở popup yêu cầu ký xác nhận thông điệp EIP-191. Chữ ký số này chứng minh quyền sở hữu độc bản và hoàn toàn 0đ gas.`}
                 </div>
 
                 {/* Banner Cơ Chế Độc Bản yeutrongcay.com */}
-                <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-[11px] text-amber-300 flex items-start gap-2">
-                  <ShieldCheck className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-[11px] text-amber-800 dark:text-amber-300 flex items-start gap-2">
+                  <ShieldCheck className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
                   <div>
                     <span className="font-bold block">Bảo Vệ Độc Bản Tuyệt Đối:</span>
                     <span>Mỗi giống cây và ảnh gốc chỉ có DUY NHẤT một Hộ Chiếu Số trên yeutrongcay.com. Cây đã đúc sẽ được bảo hộ độc quyền cho bạn trong Hồ Sơ Cá Nhân; người khác sẽ bị chặn không thể đúc lại!</span>
@@ -1583,7 +1583,7 @@ export const Web3SandboxSection: React.FC = () => {
                   disabled={isMinting || !wallet?.isConnected}
                   className={`w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg transition active:scale-[0.99] disabled:opacity-50 text-white ${
                     mintMode === 'onchain'
-                      ? 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 shadow-emerald-900/40 cursor-pointer'
+                      ? 'bg-linear-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 shadow-emerald-900/40 cursor-pointer'
                       : 'bg-emerald-600 hover:bg-emerald-500 cursor-pointer'
                   }`}
                 >
@@ -1614,23 +1614,23 @@ export const Web3SandboxSection: React.FC = () => {
 
             {/* Thẻ Hộ Chiếu Đã Đúc Thành Công */}
             {mintedPassport && (
-              <div className="mt-5 bg-forest-950 rounded-2xl p-5 border border-emerald-500 shadow-2xl space-y-3 animate-in fade-in">
-                <div className="flex items-center justify-between pb-3 border-b border-forest-800 flex-wrap gap-2">
+              <div className="mt-5 bg-white dark:bg-forest-950 rounded-2xl p-5 border border-emerald-500 shadow-2xl space-y-3 animate-in fade-in">
+                <div className="flex items-center justify-between pb-3 border-b border-forest-100 dark:border-forest-800 flex-wrap gap-2">
                   <div className="flex items-center gap-2">
-                    <span className="flex items-center gap-1.5 text-xs sm:text-sm font-bold text-emerald-400">
+                    <span className="flex items-center gap-1.5 text-xs sm:text-sm font-bold text-emerald-600 dark:text-emerald-400">
                       <Check className="w-5 h-5" />
                       <span>{isEn ? 'Digital Plant Passport Successfully Minted!' : 'Hộ Chiếu Cây Trồng Số Đã Cấp Thành Công!'}</span>
                     </span>
                     {mintedPassport.is_onchain && (
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-900 text-emerald-300 border border-emerald-600 flex items-center gap-1">
-                        <Sparkles className="w-3 h-3 text-amber-300" />
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-600 flex items-center gap-1">
+                        <Sparkles className="w-3 h-3 text-amber-500 dark:text-amber-300" />
                         <span>ON-CHAIN THẬT</span>
                       </span>
                     )}
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-emerald-950 text-emerald-300 border border-emerald-700">
+                    <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700">
                       Token ID: {mintedPassport.token_id}
                     </span>
 
@@ -1643,7 +1643,7 @@ export const Web3SandboxSection: React.FC = () => {
                           );
                           if (res) setAddedToMetaMask(true);
                         }}
-                        className="px-3 py-1 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/50 text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer"
+                        className="px-3 py-1 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-800 dark:text-amber-300 border border-amber-500/50 text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer"
                         title="Thêm thẻ NFT này vào danh sách quản lý của MetaMask"
                       >
                         <Sparkles className="w-3.5 h-3.5" />
@@ -1663,7 +1663,7 @@ export const Web3SandboxSection: React.FC = () => {
 
                     <Link
                       to="/vuon-cua-toi?tab=nft_gallery"
-                      className="px-3 py-1 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white text-xs font-semibold flex items-center gap-1.5 transition shadow-sm"
+                      className="px-3 py-1 rounded-xl bg-linear-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white text-xs font-semibold flex items-center gap-1.5 transition shadow-sm"
                     >
                       <Sparkles className="w-3.5 h-3.5 text-amber-300" />
                       <span>{isEn ? 'View in My Garden Gallery' : 'Xem trong Hồ Sơ Cá Nhân'}</span>
@@ -1671,7 +1671,7 @@ export const Web3SandboxSection: React.FC = () => {
 
                     <button
                       onClick={() => window.print()}
-                      className="px-3 py-1 rounded-xl bg-forest-800 hover:bg-forest-700 text-white text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer"
+                      className="px-3 py-1 rounded-xl bg-forest-100 dark:bg-forest-800 hover:bg-forest-200 dark:hover:bg-forest-700 text-forest-900 dark:text-white text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer shadow-xs"
                     >
                       <Printer className="w-3.5 h-3.5" />
                       <span>{isEn ? 'Print Plant Tag' : 'In Thẻ Cây'}</span>
@@ -1683,31 +1683,31 @@ export const Web3SandboxSection: React.FC = () => {
                   <img
                     src={mintedPassport.image_url}
                     alt={mintedPassport.plant_name}
-                    className="w-24 h-24 rounded-2xl object-cover border border-forest-700 shrink-0 shadow-md"
+                    className="w-24 h-24 rounded-2xl object-cover border border-forest-200 dark:border-forest-700 shrink-0 shadow-md"
                   />
-                  <div className="space-y-1.5 text-xs text-forest-200 w-full">
+                  <div className="space-y-1.5 text-xs text-forest-700 dark:text-forest-200 w-full">
                     <div className="flex items-center justify-between">
-                      <span className="font-bold text-white text-sm sm:text-base">
+                      <span className="font-bold text-forest-950 dark:text-white text-sm sm:text-base">
                         {mintedPassport.plant_name} ({mintedPassport.scientific_name})
                       </span>
-                      <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-900/80 text-amber-300">
+                      <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-100 dark:bg-amber-900/80 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-700/60">
                         Giai đoạn {mintedPassport.evolution_stage}/3
                       </span>
                     </div>
 
-                    <div className="text-[11px] font-mono text-gray-400 flex flex-wrap gap-x-4 gap-y-1 pt-1">
-                      <span>Ví sở hữu thật: <span className="text-emerald-300">{mintedPassport.owner_address}</span></span>
-                      <span>Sổ cái: <span className="text-white">{mintedPassport.network}</span></span>
+                    <div className="text-[11px] font-mono text-forest-600 dark:text-gray-400 flex flex-wrap gap-x-4 gap-y-1 pt-1">
+                      <span>Ví sở hữu thật: <span className="text-emerald-700 dark:text-emerald-300 font-semibold">{mintedPassport.owner_address}</span></span>
+                      <span>Sổ cái: <span className="text-forest-950 dark:text-white font-semibold">{mintedPassport.network}</span></span>
                       {mintedPassport.contract_address && (
-                        <span>Contract: <span className="text-amber-300 font-mono">{mintedPassport.contract_address.slice(0, 8)}...</span></span>
+                        <span>Contract: <span className="text-amber-700 dark:text-amber-300 font-mono">{mintedPassport.contract_address.slice(0, 8)}...</span></span>
                       )}
                     </div>
 
-                    <div className="p-2 rounded-xl bg-charcoal-900 border border-forest-800 text-[10px] font-mono text-gray-400 flex flex-wrap items-center justify-between gap-2">
+                    <div className="p-2 rounded-xl bg-forest-50 dark:bg-charcoal-900 border border-forest-200 dark:border-forest-800 text-[10px] font-mono text-forest-600 dark:text-gray-400 flex flex-wrap items-center justify-between gap-2 shadow-xs">
                       <div className="truncate max-w-md">
-                        SHA-256: <span className="text-emerald-300">{mintedPassport.image_sha256}</span>
+                        SHA-256: <span className="text-emerald-700 dark:text-emerald-300">{mintedPassport.image_sha256}</span>
                         {mintSignature && (
-                          <span className="ml-2 text-amber-300 block sm:inline">Chữ ký ví: {mintSignature.slice(0, 16)}...{mintSignature.slice(-8)}</span>
+                          <span className="ml-2 text-amber-700 dark:text-amber-300 block sm:inline">Chữ ký ví: {mintSignature.slice(0, 16)}...{mintSignature.slice(-8)}</span>
                         )}
                       </div>
                       
@@ -1717,7 +1717,7 @@ export const Web3SandboxSection: React.FC = () => {
                             href={`https://sepolia.etherscan.io/tx/${mintedPassport.transaction_hash}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-amber-300 hover:text-amber-200 underline flex items-center gap-1 font-semibold"
+                            className="text-amber-700 dark:text-amber-300 hover:underline flex items-center gap-1 font-semibold"
                           >
                             <span>Xem giao dịch trên Sepolia Etherscan</span>
                             <ExternalLink className="w-3 h-3" />
@@ -1728,7 +1728,7 @@ export const Web3SandboxSection: React.FC = () => {
                               href={`https://eth-sepolia.blockscout.com/token/${mintedPassport.contract_address}/instance/${mintedPassport.token_id.replace('#', '')}`}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-emerald-400 hover:text-emerald-300 underline flex items-center gap-1 font-semibold"
+                              className="text-emerald-700 dark:text-emerald-400 hover:underline flex items-center gap-1 font-semibold"
                             >
                               <span>Xem hình ảnh & Metadata NFT trên Blockscout</span>
                               <ExternalLink className="w-3 h-3" />
@@ -1741,7 +1741,7 @@ export const Web3SandboxSection: React.FC = () => {
                             href={`https://sepolia.basescan.org/tx/${mintedPassport.transaction_hash}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-amber-300 hover:text-amber-200 underline flex items-center gap-1 font-semibold"
+                            className="text-amber-700 dark:text-amber-300 hover:underline flex items-center gap-1 font-semibold"
                           >
                             <span>Xem giao dịch trên BaseScan Sepolia</span>
                             <ExternalLink className="w-3 h-3" />
@@ -1752,7 +1752,7 @@ export const Web3SandboxSection: React.FC = () => {
                               href={`https://base-sepolia.blockscout.com/token/${mintedPassport.contract_address}/instance/${mintedPassport.token_id.replace('#', '')}`}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-emerald-400 hover:text-emerald-300 underline flex items-center gap-1 font-semibold"
+                              className="text-emerald-700 dark:text-emerald-400 hover:underline flex items-center gap-1 font-semibold"
                             >
                               <span>Xem hình ảnh & Metadata NFT trên Blockscout</span>
                               <ExternalLink className="w-3 h-3" />
@@ -1772,9 +1772,9 @@ export const Web3SandboxSection: React.FC = () => {
         {/* TAB 4: MÔ PHỎNG SMART CONTRACT ESCROW ĐỔI CÂY AN TOÀN */}
         {/* ============================================================== */}
         {activeTab === 'escrow' && (
-          <div className="bg-charcoal-900/90 rounded-2xl p-5 sm:p-6 border border-forest-800 shadow-xl space-y-4 animate-in fade-in">
-            <div className="flex items-center justify-between pb-3 border-b border-forest-800">
-              <span className="text-xs font-bold uppercase tracking-wider text-teal-400 flex items-center gap-2">
+          <div className="bg-white dark:bg-charcoal-900/90 rounded-2xl p-5 sm:p-6 border border-forest-100 dark:border-forest-800 shadow-xl space-y-4 animate-in fade-in">
+            <div className="flex items-center justify-between pb-3 border-b border-forest-100 dark:border-forest-800">
+              <span className="text-xs font-bold uppercase tracking-wider text-teal-700 dark:text-teal-400 flex items-center gap-2">
                 <FileCheck2 className="w-4 h-4" />
                 <span>{isEn ? 'Smart Contract P2P Plant Swap Escrow' : 'Mô Phỏng Smart Contract Escrow Đổi Cây An Toàn'}</span>
               </span>
@@ -1794,7 +1794,7 @@ export const Web3SandboxSection: React.FC = () => {
               </button>
             </div>
 
-            <p className="text-xs text-forest-200 leading-relaxed">
+            <p className="text-xs text-forest-600 dark:text-forest-200 leading-relaxed">
               {isEn
                 ? 'How Smart Contracts eliminate fraud when swapping rare plants online: The contract locks deposits and automatically enforces a 7-day quarantine.'
                 : 'Smart Contract loại trừ rủi ro lừa đảo khi giao lưu cây giống trên mạng: Hợp đồng tự động khóa cọc làm tin và cưỡng chế quy trình cách ly 7 ngày kiểm tra mầm bệnh.'}
@@ -1804,19 +1804,19 @@ export const Web3SandboxSection: React.FC = () => {
               {/* Step 1 */}
               <div className={`p-4 rounded-2xl border transition ${
                 escrowStep === 1
-                  ? 'bg-teal-950/80 border-teal-500 text-white shadow-lg'
+                  ? 'bg-teal-50 dark:bg-teal-950/80 border-teal-500 text-teal-950 dark:text-white shadow-md'
                   : escrowStep > 1
-                  ? 'bg-forest-900/40 border-forest-800 text-forest-300 opacity-80'
-                  : 'bg-forest-900/20 border-forest-800 text-gray-500'
+                  ? 'bg-forest-50/60 dark:bg-forest-900/40 border-forest-200 dark:border-forest-800 text-forest-700 dark:text-forest-300 opacity-90'
+                  : 'bg-forest-50/30 dark:bg-forest-900/20 border-forest-100 dark:border-forest-800 text-forest-400 dark:text-gray-500'
               }`}>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="font-bold text-xs text-cream-100 flex items-center gap-2">
+                  <span className="font-bold text-xs text-forest-950 dark:text-cream-100 flex items-center gap-2">
                     <span className="w-5 h-5 rounded-full bg-teal-600 text-white inline-flex items-center justify-center text-xs font-black">1</span>
                     Khóa Cọc Hạt Giống
                   </span>
-                  {escrowStep > 1 && <Check className="w-4 h-4 text-teal-400" />}
+                  {escrowStep > 1 && <Check className="w-4 h-4 text-teal-600 dark:text-teal-400" />}
                 </div>
-                <p className="text-[11px] text-forest-300 leading-relaxed">
+                <p className="text-[11px] text-forest-600 dark:text-forest-300 leading-relaxed">
                   Hai bên cùng ký xác nhận trên ví thật để khóa cọc 20 Token thử nghiệm vào hợp đồng thông minh làm tin trước khi gửi bưu phẩm.
                 </p>
               </div>
@@ -1824,19 +1824,19 @@ export const Web3SandboxSection: React.FC = () => {
               {/* Step 2 */}
               <div className={`p-4 rounded-2xl border transition ${
                 escrowStep === 2
-                  ? 'bg-teal-950/80 border-teal-500 text-white shadow-lg'
+                  ? 'bg-teal-50 dark:bg-teal-950/80 border-teal-500 text-teal-950 dark:text-white shadow-md'
                   : escrowStep > 2
-                  ? 'bg-forest-900/40 border-forest-800 text-forest-300 opacity-80'
-                  : 'bg-forest-900/20 border-forest-800 text-gray-500'
+                  ? 'bg-forest-50/60 dark:bg-forest-900/40 border-forest-200 dark:border-forest-800 text-forest-700 dark:text-forest-300 opacity-90'
+                  : 'bg-forest-50/30 dark:bg-forest-900/20 border-forest-100 dark:border-forest-800 text-forest-400 dark:text-gray-500'
               }`}>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="font-bold text-xs text-cream-100 flex items-center gap-2">
+                  <span className="font-bold text-xs text-forest-950 dark:text-cream-100 flex items-center gap-2">
                     <span className="w-5 h-5 rounded-full bg-teal-600 text-white inline-flex items-center justify-center text-xs font-black">2</span>
                     Giao Nhận & 7 Ngày Cách Ly
                   </span>
-                  {escrowStep > 2 && <Check className="w-4 h-4 text-teal-400" />}
+                  {escrowStep > 2 && <Check className="w-4 h-4 text-teal-600 dark:text-teal-400" />}
                 </div>
-                <p className="text-[11px] text-forest-300 leading-relaxed">
+                <p className="text-[11px] text-forest-600 dark:text-forest-300 leading-relaxed">
                   Đơn vị vận chuyển giao cây. Đồng hồ Smart Contract tự đếm ngược 7 ngày cách ly phòng mầm nấm bệnh rệp sáp lây chéo vườn nhà.
                 </p>
               </div>
@@ -1844,17 +1844,17 @@ export const Web3SandboxSection: React.FC = () => {
               {/* Step 3 */}
               <div className={`p-4 rounded-2xl border transition ${
                 escrowStep === 3
-                  ? 'bg-emerald-950/90 border-emerald-500 text-white shadow-lg'
-                  : 'bg-forest-900/20 border-forest-800 text-gray-500'
+                  ? 'bg-emerald-50 dark:bg-emerald-950/90 border-emerald-500 text-emerald-950 dark:text-white shadow-md'
+                  : 'bg-forest-50/30 dark:bg-forest-900/20 border-forest-100 dark:border-forest-800 text-forest-400 dark:text-gray-500'
               }`}>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="font-bold text-xs text-cream-100 flex items-center gap-2">
+                  <span className="font-bold text-xs text-forest-950 dark:text-cream-100 flex items-center gap-2">
                     <span className="w-5 h-5 rounded-full bg-emerald-600 text-white inline-flex items-center justify-center text-xs font-black">3</span>
                     Nghiệm Thu & Thưởng Karma
                   </span>
-                  {escrowStep === 3 && <Check className="w-4 h-4 text-emerald-400" />}
+                  {escrowStep === 3 && <Check className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />}
                 </div>
-                <p className="text-[11px] text-forest-300 leading-relaxed">
+                <p className="text-[11px] text-forest-600 dark:text-forest-300 leading-relaxed">
                   Bên nhận bấm "Cây sống xanh tốt". Smart Contract hoàn trả cọc tức thì và cộng +15 Điểm Karma danh tiếng cho người chia sẻ giống.
                 </p>
               </div>
