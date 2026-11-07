@@ -1,0 +1,36 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Security Headers
+  <IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+  </IfModule>
+
+  # Dynamic Sitemap: Tự động đồng bộ URL mới từ database thời gian thực
+  RewriteRule ^sitemap\.xml$ api/sitemap.php [L]
+
+  # Meta Compliance Static Pages
+  RewriteRule ^chinh-sach-bao-mat/?$ chinh-sach-bao-mat.html [L]
+  RewriteRule ^dieu-khoan-dich-vu/?$ dieu-khoan-dich-vu.html [L]
+  RewriteRule ^xoa-du-lieu/?$ xoa-du-lieu.html [L]
+
+  # Social Crawlers OpenGraph: Phục vụ riêng thẻ og:title, og:image 1200x630 cho Facebook & Zalo Bot
+  RewriteCond %{HTTP_USER_AGENT} (facebookexternalhit|Facebot|meta-externalagent|Twitterbot|Zalo|TelegramBot|WhatsApp|LinkedInBot) [NC]
+  RewriteRule ^cay/([a-zA-Z0-9\-]+)/?$ api/og_render.php?slug=$1 [L,QSA]
+
+  # SPA Routing: Route non-existing files/directories to index.html
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_URI} !^/api/
+  RewriteCond %{REQUEST_URI} !^/uploads/
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# Chặn truy cập trực tiếp vào các file cấu hình và dữ liệu nhạy cảm
+<FilesMatch "(\.env|\.sql|\.jsonl|_store\.json|config\.php)$">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
