@@ -127,7 +127,7 @@ flowchart TD
 ---
 
 ## 📦 MỐC 3 (CHECKPOINT 3): HOÀN TẤT NỘI DUNG ĐỢT 1 (+16 BÀI: `104` $\rightarrow$ `120` ẤN PHẨM)
-- [ ] **Bước 3.1 – 3.4**: Bổ sung đủ 16 bài còn lại của Đợt 1 (`space-02..05`, `recycle-02..05`, `culinary-02..05`, `forest-02..05`), đồng bộ `api/plants_data.json`, Build, xóa `dist/` & Deploy (**120 ấn phẩm**).
+- [x] **Bước 3.1 – 3.4**: Bổ sung đủ 16 bài còn lại của Đợt 1 (`space-02..05`, `recycle-02..05`, `culinary-02..05`, `forest-02..05`), đồng bộ `api/plants_data.json`, Build, xóa `dist/` & Deploy (**120 ấn phẩm**) [HOÀN THÀNH].
 
 ---
 

@@ -3899,6 +3899,535 @@ export const PLANT_ENGLISH_MAP: Record<string, LocalizedPlantData> = {
     ],
     monetization_tips: ['Holders receive eco-tourism perks such as discounted guided treks and generate verified personal Web3 Green Carbon credentials.'],
     tags: ['National Park', 'Primeval Rainforest', 'Cuc Phuong', 'Biodiversity Sanctuary', 'Delacours Langur', 'Millennial Tree']
+  },
+
+  // --- MILESTONE 3 ADDITIONS (16 ITEMS) ---
+  'space-02': {
+    common_name: 'Storm-Resistant Lightweight Rooftop Trellis Blueprint',
+    aliases: ['Rooftop Trellis Blueprint', 'Plastic-Coated Steel Trellis', 'Storm-Proof Rooftop Garden'],
+    description: 'Modular lightweight rooftop trellis engineering using plastic-coated galvanized steel and PVC-coated wire rope. Withstands Level 9-10 gale-force storms while protecting waterproof roof membranes.',
+    quick_answer: 'Zero-penetration gravity footings protect roof membranes. Ideal for perennial vining fruits like grapes, passion fruit, and climbing ivy.',
+    growth_time: '1 day modular assembly',
+    seasonality: {
+      north: 'Assemble in early spring before northern summer storm seasons',
+      central: 'Withstands intense coastal typhoon gusts up to Level 10',
+      south: 'Creates deep cooling shade year-round for hot rooftops',
+      best_months: [2, 3, 4, 10, 11, 12]
+    },
+    botanical_details: {
+      family: 'Urban Architecture / Structural Engineering',
+      native_range: 'Urban Vietnamese townhouses and high-rise rooftops',
+      active_compounds: ['Storm Gale Resistance', 'Anti-rust PE Coating', 'Ultra-light <15 kg/m²', 'Cools Roof Surface by 5°C'],
+      soil_ph: '6.0 - 7.0',
+      ideal_temp: '20°C - 42°C',
+      pot_size: 'Large 67x43x20cm planters along perimeter footings'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Zero-Penetration Gravity Footing Placement', instruction: 'Set 25-30kg pre-cast concrete ballast footings on rubber pads to preserve roof waterproofing without drilling.' },
+      { step: 2, title: 'Assemble 20mm PE-Coated Steel Arches', instruction: 'Connect tubular steel columns with cross-clamps to construct a stable 2.2m-high pergola structure.' },
+      { step: 3, title: 'Tension Cable Wire Grid', instruction: 'Weave 15x15cm wire rope grid with turnbuckles to provide firm anchoring for heavy fruiting vines.' }
+    ],
+    faqs: [
+      { question: 'Will this trellis get blown away by storms?', answer: 'The open grid lets 80% of high winds pass freely through, while heavy ballast footings anchor the frame solidly.' },
+      { question: 'Which climbing vines grow the fastest?', answer: 'Vernonia creepers, sweet passion fruit, and edible butterfly peas cover the canopy within 2 to 3 months.' }
+    ],
+    monetization_tips: ['Sell complete DIY Rooftop Trellis Kits ($50-$120) and offer turnkey installation packages ($200-$400).'],
+    tags: ['Rooftop Trellis', 'Storm Resistant', 'Coated Steel', 'Vining Canopy', 'Roof Cooling']
+  },
+
+  'space-03': {
+    common_name: 'Modular Felt Vertical Living Wall Blueprint (Self-Wicking)',
+    aliases: ['Indoor Vertical Living Wall', 'Felt Pocket Planter', 'Lightwell Living Wall'],
+    description: '3-layer geotextile felt vertical pocket planter blueprint with waterproof backing. Integrates an automated 12V timer pump for recirculating indoor irrigation in lightwells and living rooms.',
+    quick_answer: 'Zero wall moisture damage with 3cm air gap and alu backing. Ideal for indoor air-purifying plants such as philodendrons, peace lilies, and ferns.',
+    growth_time: '3-4 hours quick installation',
+    seasonality: {
+      north: 'Flourishes year-round with auxiliary full-spectrum LED plant lights',
+      central: 'Creates a cooling micro-climate for deep urban tube houses',
+      south: 'Scrubs PM2.5 particulate matter and maintains indoor humidity',
+      best_months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    },
+    botanical_details: {
+      family: 'Vertical Urban Agriculture / Bio-Filtration',
+      native_range: 'Ecological interiors for space-constrained homes',
+      active_compounds: ['PM2.5 Dust Capture', 'Nocturnal Oxygen Generation', 'Acoustic Sound Dampening', '+20% Natural Humidity'],
+      soil_ph: '6.0 - 6.8',
+      ideal_temp: '18°C - 32°C',
+      pot_size: 'Multi-pocket geotextile felt wall (15x15cm pockets)'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Mount Subframe and Moisture Barrier', instruction: 'Fasten galvanized steel battens with a 3cm standoff from masonry, face with waterproof alu-composite panels.' },
+      { step: 2, title: 'Attach Geotextile Felt Pocket Blanket', instruction: 'Secure 12-24 pocket felt blanket and position collection gutter at bottom returning to water reservoir.' },
+      { step: 3, title: 'Configure 12V Automatic Irrigation', instruction: 'Set timer for 3-minute drip intervals twice daily to soak pockets from top to bottom.' }
+    ],
+    faqs: [
+      { question: 'Will moisture cause wall rot?', answer: 'No, the 3cm rear air gap and continuous alu backing keep interior drywall completely bone-dry.' },
+      { question: 'Which indoor plants live longest on living walls?', answer: 'Philodendron xanadu, golden pothos, peace lily, and bird nest ferns thrive for years under diffuse indoor light.' }
+    ],
+    monetization_tips: ['Manufacture 1m² living wall modules ($80-$150/m²) and offer monthly office plant maintenance contracts.'],
+    tags: ['Vertical Living Wall', 'Geotextile Felt', 'Air Purification', 'Indoor Lightwell', 'Modular Planter']
+  },
+
+  'space-04': {
+    common_name: '3-Tier Stepped Balcony Herbal Stand Blueprint (2m² Space)',
+    aliases: ['Stepped Balcony Stand', 'Vertical Herb Shelf', 'Micro Balcony Garden'],
+    description: 'Stepped 3-tier 60-degree tiered planter stand optimized for ultra-compact 1.5 - 2m² apartment balconies. Ensures every planting trough receives 100% unimpeded solar exposure without shadowing.',
+    quick_answer: 'Triple your growing surface on a tiny 2m² balcony. Upper tiers grow sun-loving kitchen herbs; lower tiers host shade-tolerant cooling greens.',
+    growth_time: '2 hours easy bolt-together assembly',
+    seasonality: {
+      north: 'Best for cool-season herbs and leafy salads from autumn to spring',
+      central: 'Compact footprint protected behind standard balcony balustrades',
+      south: 'Supplies fresh culinary herbs daily throughout all seasons',
+      best_months: [1, 2, 3, 4, 8, 9, 10, 11, 12]
+    },
+    botanical_details: {
+      family: 'Compact Urban Balcony Architecture',
+      native_range: 'High-density urban apartment balconies',
+      active_compounds: ['300% Planter Space Multiplication', 'Unblocked Sunlight Angle', 'Clean Trough Drainage', 'Daily Kitchen Harvest'],
+      soil_ph: '6.0 - 7.0',
+      ideal_temp: '20°C - 35°C',
+      pot_size: '65cm x 25cm modular sub-irrigated rectangular troughs'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Assemble Powder-Coated Steel Frame', instruction: 'Bolt together 60-degree stepped frame with non-slip rubber feet to protect balcony tiling.' },
+      { step: 2, title: 'Drop In Smart Self-Watering Troughs', instruction: 'Arrange 3-6 planter troughs equipped with bottom water reservoirs to prevent dirty runoff.' },
+      { step: 3, title: 'Sun-Tiered Herbal Planting', instruction: 'Tier 1 (Top): Cuban oregano, basil; Tier 2: Perilla, wormwood; Tier 3 (Bottom): Fish mint, pennywort.' }
+    ],
+    faqs: [
+      { question: 'Does this block balcony walkways?', answer: 'Depth is only 45cm against the railing, preserving 70% of balcony floor space for laundry and sitting.' },
+      { question: 'Is it sufficient for a family of four?', answer: 'Six troughs generate abundant fresh cilantro, scallions, perilla, and chili peppers for daily home cooking.' }
+    ],
+    monetization_tips: ['Offer all-in-one Urban Balcony Starter Kits (Stand + 6 Planters + Soil + Seedlings) for $40-$60.'],
+    tags: ['Compact Balcony', 'Stepped Tier Stand', 'Space Optimization', 'Kitchen Herb Garden', 'Apartment Living']
+  },
+
+  'space-05': {
+    common_name: 'Lightweight Multi-Layer Rooftop Planter Bed Blueprint',
+    aliases: ['Rooftop Planter Bed Blueprint', 'Drainage Cell Roof Bed', 'Lightweight Green Roof Bed'],
+    description: '3-tier sub-grade rooftop planter bed engineering: HDPE Root-Barrier + Plastic Drainage Cells + Non-woven Geotextile Filter. Prevents root intrusion, stops ponding, and insulates top-floor living rooms.',
+    quick_answer: 'Safe, ultra-light green roof installation with engineered drainage cell matrix. High drainage rate of 16.5 L/m²s prevents ponding under monsoon rains.',
+    growth_time: '2 days professional installation',
+    seasonality: {
+      north: 'Install in dry autumn months for optimal waterproofing adhesion',
+      central: 'Rapid drainage prevents root rot during torrential typhoons',
+      south: 'Reduces heat transfer to bedroom ceilings directly below by 4-6°C',
+      best_months: [1, 2, 3, 9, 10, 11, 12]
+    },
+    botanical_details: {
+      family: 'Rooftop Ecological Engineering / Drainage Systems',
+      native_range: 'Urban concrete flat roofs and penthouse terraces',
+      active_compounds: ['Anti-Root Penetration Membrane', 'High Flow 16.5 L/m²s Drainage', 'Ultra-light 0.55 kg/L Substrate', 'Roof Ceiling Thermal Insulation'],
+      soil_ph: '6.0 - 6.8',
+      ideal_temp: '22°C - 40°C',
+      pot_size: 'Raised planter beds 30-40cm deep with composite perimeter walls'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Polyurethane Waterproofing & Root Barrier', instruction: 'Apply double-coat polyurethane waterproofing and lay continuous anti-root puncture membrane.' },
+      { step: 2, title: 'Interlocking Drainage Cells & Geotextile', instruction: 'Snap together 30mm plastic drainage cell modules and overlay with non-woven filter fabric.' },
+      { step: 3, title: 'Load Lightweight Engineered Substrate', instruction: 'Fill bed with 40% perlite + 30% coco peat + 20% vermicompost + 10% topsoil; plant dwarf container trees.' }
+    ],
+    faqs: [
+      { question: 'Will this crack concrete roof slabs?', answer: 'Using lightweight expanded perlite mix cuts wet soil weight by 65%, remaining well within structural engineering safety margins.' },
+      { question: 'How long do drainage cells last?', answer: 'Virgin polypropylene drainage cells buried beneath soil outlast UV exposure for 20+ years.' }
+    ],
+    monetization_tips: ['Charge turnkey rooftop garden construction at $70-$120 per square meter with structural warranty.'],
+    tags: ['Rooftop Bed', 'Waterproof Membrane', 'Drainage Cells', 'Lightweight Substrate', 'Green Roof']
+  },
+
+  'recycle-02': {
+    common_name: 'Zero-Odor DIY Bokashi Composter (Upcycled 18L Paint Buckets)',
+    aliases: ['Recycled Bokashi Bucket', 'Zero-Odor Kitchen Composter', 'Apartment Food Scrap Fermenter'],
+    description: 'Two-tier anaerobic Bokashi kitchen composter crafted from upcycled 18L paint buckets with bottom spigot. Employs beneficial EM microbes to ferment food scraps into nutrient-rich organic fertilizer with zero apartment odors.',
+    quick_answer: 'Ferments kitchen scraps anaerobically in 14 days without foul smells or pests. Generates liquid Bokashi tea fertilizer and organic pre-compost for potting soil.',
+    growth_time: '14 days anaerobic fermentation',
+    seasonality: {
+      north: 'Works year-round; keep near warm kitchen in winter to accelerate microbe activity',
+      central: 'Hygienic food waste disposal during humid monsoon weather',
+      south: 'Fast fermentation at tropical ambient temperatures (28-32°C)',
+      best_months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    },
+    botanical_details: {
+      family: 'Anaerobic Composting / Micro-organism Recycling',
+      native_range: 'Household circular zero-waste composting worldwide',
+      active_compounds: ['Effective Microorganisms (EM)', 'Natural Lactic Acid', 'NPK-rich Bio-fertilizer Tea', 'Zero Odor Decomposition'],
+      soil_ph: '3.5 - 4.5 (Acidic ferment neutralized upon soil burial)',
+      ideal_temp: '22°C - 35°C',
+      pot_size: 'Two nested 18L paint buckets with airtight rubber-gasket lid'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Drill Sieve Holes and Install Bottom Spigot', instruction: 'Drill 30-40 small 3mm holes in the inner bucket base and mount drainage tap in the outer bucket.' },
+      { step: 2, title: 'Layer Food Scraps with Bokashi Bran', instruction: 'Chop scraps small, sprinkle a handful of inoculated Bokashi bran over each 3cm layer, and compact firmly to expel air.' },
+      { step: 3, title: 'Harvest Nutrient Tea and Pre-Compost', instruction: 'Drain liquid Bokashi tea every 3-5 days (dilute 1:100 for watering). After 14 days, bury fermented solids in potting soil.' }
+    ],
+    faqs: [
+      { question: 'Does Bokashi smell in small apartments?', answer: 'Anaerobic fermentation smells like pickled cider, with zero rotting stench or fruit flies when sealed tight.' },
+      { question: 'What is liquid Bokashi tea used for?', answer: 'Diluted 1:100, it is an elite organic foliar and root booster; poured neat, it clears and deodorizes drain pipes.' }
+    ],
+    monetization_tips: ['Assemble and sell upcycled Bokashi buckets ($12-$18 each) and supply refill inoculated bran bags ($3/kg).'],
+    tags: ['Bokashi Composter', 'Zero Odor', 'Recycled Buckets', 'Organic Fertilizer', 'Kitchen Waste']
+  },
+
+  'recycle-03': {
+    common_name: 'Gravity-Fed Precision Drip Kit (Recycled PET Bottle & IV Tubing)',
+    aliases: ['PET Bottle Drip Kit', 'IV Drip Irrigation DIY', 'Gravity Waterer'],
+    description: 'Precision gravity-fed micro-drip emitter built from a repurposed 1.5L PET beverage bottle and recycled medical IV roller-clamp tubing. Delivers zero-power, drop-by-drop hydration for 3-5 days when away from home.',
+    quick_answer: 'Zero electricity, zero plumbing. Adjust roller clamp to dispense 1 drop every 10-15 seconds for effortless plant vacation care.',
+    growth_time: '15 minutes DIY build',
+    seasonality: {
+      north: 'Lifesaver during holiday travel, Lunar New Year visits, and business trips',
+      central: 'Saves water drop-by-drop in harsh dry summer months',
+      south: 'Protects balcony container plants from searing afternoon dehydration',
+      best_months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    },
+    botanical_details: {
+      family: 'Gravity Precision Micro-Irrigation',
+      native_range: 'Global eco-upcycling and resource conservation',
+      active_compounds: ['0W Electricity Consumption', 'Micro-drop Precision Rate', 'Deep Root Hydration', '85% Water Conservation'],
+      soil_ph: '6.0 - 7.5',
+      ideal_temp: '15°C - 40°C',
+      pot_size: '1.5L - 5L plastic bottles suspended 20-30cm above soil'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Mount IV Tube to Bottle Cap', instruction: 'Puncture the bottle cap with a warm awl, insert the IV spike fitting, and seal with silicone sealant.' },
+      { step: 2, title: 'Invert Bottle and Insert Soil Emitter', instruction: 'Hang inverted bottle above planter and insert the delivery needle deep into the active root ball.' },
+      { step: 3, title: 'Calibrate Roller Clamp Flow Rate', instruction: 'Dial flow rate to 1 drop every 12 seconds to supply steady sub-surface hydration for 4 days.' }
+    ],
+    faqs: [
+      { question: 'Will sediment clog the fine IV tubing?', answer: 'Use clean filtered tap water or place a small cotton ball inside the cap to filter out fine debris.' },
+      { question: 'How long does 1.5 liters last?', answer: 'At 1 drop per 12 seconds, 1.5 liters waters continuously for 72 to 96 hours (3-4 days).' }
+    ],
+    monetization_tips: ['Assemble 5-pack DIY Gravity Drip Kits ($4-$6) and bundle them with office desk plant sales.'],
+    tags: ['Drip Irrigation', 'Recycled PET Bottle', 'IV Tubing', 'Water Saving', 'Vacation Plant Care']
+  },
+
+  'recycle-04': {
+    common_name: 'Vertical Vermiculture Garden Tower (Upcycled 220L Plastic Drum)',
+    aliases: ['Vermicompost Tower', 'Recycled Drum Planter', '50-Pocket Worm Tower'],
+    description: 'Transform an industrial 220L plastic drum into a 50-pocket vertical garden tower with a perforated central worm chute. Red worms process kitchen food scraps into rich living vermicompost distributed directly to plant roots.',
+    quick_answer: 'Grow 50 plants vertically on less than 1m² of patio space. Internal red wiggler colony recycles kitchen food scraps directly into natural organic fertilizer.',
+    growth_time: '1 day fabrication and pocket forming',
+    seasonality: {
+      north: 'Produces fresh salads year-round; worms burrow deep into core during cold winters',
+      central: 'Tower shape prevents root inundation during heavy seasonal downpours',
+      south: 'Extremely high year-round harvest of fresh organic greens and herbs',
+      best_months: [1, 2, 3, 4, 8, 9, 10, 11, 12]
+    },
+    botanical_details: {
+      family: 'Permaculture / Vermiculture Urban Agriculture',
+      native_range: 'Circular closed-loop urban agriculture innovation',
+      active_compounds: ['Living Humic Vermicompost', 'Nitrogen-Fixing Microbes', 'Closed-Loop Circularity', '5x Vertical Yield Multiplier'],
+      soil_ph: '6.5 - 7.2',
+      ideal_temp: '22°C - 33°C',
+      pot_size: '220L drum (1m tall, 60cm diameter, 50 planting pockets)'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Cut and Heat-Form 50 Planter Pockets', instruction: 'Make horizontal 12cm slits around drum, warm with heat gun, and push inward to create flared planting cups.' },
+      { step: 2, title: 'Mount Central 160mm Perforated PVC Worm Chute', instruction: 'Drill 8mm holes along a central 160mm PVC pipe for earthworms to migrate through into the surrounding soil.' },
+      { step: 3, title: 'Load Potting Mix & Inoculate Red Worms', instruction: 'Fill soil around pipe, introduce 500g of red wiggler worm starter colony into central tube, and begin feeding kitchen scraps.' }
+    ],
+    faqs: [
+      { question: 'Will earthworms escape onto the patio?', answer: 'Earthworms are photophobic; they stay entirely within the damp, dark interior soil matrix and never venture out.' },
+      { question: 'How much produce does one tower yield?', answer: 'A 50-pocket tower harvests 8-12kg of clean organic salads, herbs, and leafy greens each month on a continuous rotation.' }
+    ],
+    monetization_tips: ['Fabricate and deliver finished garden towers to rooftop homeowners ($45-$80 each) and supply live red worm starter cultures.'],
+    tags: ['Vermiculture Tower', 'Red Wiggler Worms', '220L Drum Upcycling', 'Circular Permaculture', 'Rooftop Farm']
+  },
+
+  'recycle-05': {
+    common_name: 'Organic Botanical Bio-Pesticide (Garlic-Chili-Ginger Alcohol Tincture)',
+    aliases: ['Garlic Chili Bio-Pesticide', 'Organic Plant Spray', 'Zero-Chemical Pest Shield'],
+    description: 'Artisan cold extraction of pungent Allicin, Capsaicin, and Gingerol from raw garlic, hot chili peppers, and ginger steeped in 45-degree rice spirit. Knocks down mealybugs, thrips, and aphids without toxic synthetic residues.',
+    quick_answer: 'Safe natural pest barrier for balcony gardens. Destroys soft-bodied insect pests while remaining completely safe around children and household pets.',
+    growth_time: '15 days alcohol maceration',
+    seasonality: {
+      north: 'Apply most heavily during humid spring aphid surges (February - April)',
+      central: 'Controls thrips and spider mites through dry summer spells',
+      south: 'Provides dependable four-season biological pest protection for city gardens',
+      best_months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    },
+    botanical_details: {
+      family: 'Botanical Pesticide / Biochemical Protection',
+      native_range: 'Traditional Vietnamese organic agriculture practice',
+      active_compounds: ['Allicin (Antifungal & Antibacterial)', 'Capsaicin (Mucosal Irritant to Insect Pests)', 'Gingerol (Repels Beetles)', '100% Biodegradable Residue'],
+      soil_ph: 'Neutral impact on soil biology; degrades into organic nutrients',
+      ideal_temp: 'Store in cool pantry at 20°C - 30°C',
+      pot_size: 'Glass jar or 5L jug for steeping extract'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Mince Ingredients at 1:1:1 Ratio', instruction: 'Crush 1kg dried garlic + 1kg spicy fresh chilies + 1kg mature ginger roots in mortar or food processor.' },
+      { step: 2, title: 'Steep in 45-degree Rice Spirit', instruction: 'Transfer to glass carboy, cover with 3 liters of 45-degree distilled rice alcohol, seal and steep for 15 days.' },
+      { step: 3, title: 'Dilute and Spray with Biodegradable Surfactant', instruction: 'Mix 20ml strained extract + 2 liters water + 5ml organic soap surfactant; mist leaf surfaces thoroughly at dawn.' }
+    ],
+    faqs: [
+      { question: 'Is this spray harmful to dogs or cats?', answer: 'Ingredients are purely edible kitchen culinary staples. It causes mild eye tearing if directly contacted, with zero chemical toxicity.' },
+      { question: 'How long does the bottled concentrate keep?', answer: 'Stored in sealed amber bottles in a dark pantry, the alcohol extract remains potent for 1 to 2 years.' }
+    ],
+    monetization_tips: ['Bottle ready-to-use 500ml organic spray bottles for balcony gardeners ($3-$4) and sell 250ml pure concentrate refills.'],
+    tags: ['Bio-Pesticide', 'Garlic Chili Ginger', 'Mealybug Control', 'Pet Safe', 'Zero Chemicals']
+  },
+
+  'culinary-02': {
+    common_name: 'Color-Changing Butterfly Pea Flower Antioxidant Elixir',
+    aliases: ['Butterfly Pea Citrus Tea', 'Color Changing Tea', 'Anthocyanin Elixir'],
+    description: 'Artisanal tea brewed from freshly picked balcony butterfly pea blossoms. The intense sapphire-blue infusion transforms into radiant magenta upon contact with natural citric acid from fresh calamondin and raw honey.',
+    quick_answer: 'Packed with potent anthocyanin antioxidants that fight free radicals, enhance eyesight, and rejuvenate skin elasticity. Transforms colors before your eyes!',
+    growth_time: '10 minutes infusion time',
+    seasonality: {
+      north: 'Served warm in winter; chilled with crushed ice for summer refreshment',
+      central: 'Beloved soothing herbal cooler across Central Vietnam',
+      south: 'Trending natural detox drink in urban cafes',
+      best_months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    },
+    botanical_details: {
+      family: 'Nutraceutical / Botanical Infusion',
+      native_range: 'Cultivated in home gardens throughout tropical Vietnam',
+      active_compounds: ['Anthocyanins (10x antioxidant strength of Vitamin C)', 'Bioflavonoids', 'Proanthocyanidins (Collagen Protection)'],
+      soil_ph: 'Organic blossoms harvested from chemical-free home trellises',
+      ideal_temp: 'Brew at 85°C - 90°C',
+      pot_size: 'Clear glass teapot to showcase color transition'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Harvest Fresh Morning Blossoms', instruction: 'Pick 5-8 freshly opened butterfly pea flowers at dawn, remove green calyxes, and rinse gently in cold water.' },
+      { step: 2, title: 'Steep for Deep Sapphire Hue', instruction: 'Place blossoms into glass teapot, pour 250ml 90°C hot water, and steep for 5-7 minutes until sapphire blue.' },
+      { step: 3, title: 'Add Citrus to Trigger Color Shift', instruction: 'Stir in 1-2 spoons of raw honey, squeeze half a fresh lime or calamondin, and watch the liquid transform into vibrant purple.' }
+    ],
+    faqs: [
+      { question: 'Why does butterfly pea tea change color with lime?', answer: 'Natural anthocyanin pigments alter molecular shape based on pH: blue in neutral water, shifting to vibrant magenta in citric acid.' },
+      { question: 'Can I drink this tea daily?', answer: 'Drinking 3-5 flowers daily supports deep sleep, ocular health, and glowing skin; avoid exceeding 10 flowers daily.' }
+    ],
+    monetization_tips: ['Freeze-dry balcony-grown flowers in 50g glass jars ($3-$5) and offer bottled ready-to-drink purple tea in cafes.'],
+    tags: ['Butterfly Pea Tea', 'Color Changing', 'Anthocyanin', 'Anti-Aging', 'Vision Health']
+  },
+
+  'culinary-03': {
+    common_name: 'Southern Vietnamese Cooling Herbal Detox Infusion (Mia Lau La Dua)',
+    aliases: ['Nuoc Sam Mia Lau', 'Southern Vietnamese Detox Drink', 'Cooling Herb Infusion'],
+    description: 'Traditional Southern Vietnamese folk cooling recipe simmered with purple sugarcane, pandan leaves, cogon grass roots (re tranh), and plantain herb. Flushes toxins via gentle diuresis and cools internal body heat.',
+    quick_answer: 'Classic Saigon street-side cooling tea. Lightly sweet from simmered sugarcane, aromatic with pandan leaves, and deeply soothing for liver and kidney detox.',
+    growth_time: '1 hour gentle simmering',
+    seasonality: {
+      north: 'Ideal cooling relief during scorching summer heatwaves (May - August)',
+      central: 'Quenches thirst during blistering dry foehn winds',
+      south: 'Quintessential daily street beverage across Saigon all year round',
+      best_months: [3, 4, 5, 6, 7, 8, 9]
+    },
+    botanical_details: {
+      family: 'Traditional Herbal Cooling Drinks',
+      native_range: 'Southern Vietnamese folk medicinal cuisine',
+      active_compounds: ['Arundoin (Natural Diuretic from Cogon Root)', 'Pandan Chlorophyll', 'Natural Sucrose & Minerals from Sugarcane'],
+      soil_ph: 'Fresh harvested natural herbs washed free of loam',
+      ideal_temp: 'Serve warm or chilled over ice (10°C - 15°C)',
+      pot_size: '5-10 liter stainless steel stockpot'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Split Sugarcane and Wash Cogon Roots', instruction: 'Split 2 joints of purple sugarcane into thin batons to line pot bottom; wash 50g cogon grass roots and tie into neat bundles.' },
+      { step: 2, title: 'Simmer and Add Fragrant Pandan Leaves', instruction: 'Cover with 3 liters of water, simmer on gentle heat for 45 minutes, then add 5 knotted pandan leaves for the final 10 minutes.' },
+      { step: 3, title: 'Strain Clear and Sweeten with Rock Sugar', instruction: 'Discard botanical solids, stir in 50g organic yellow rock sugar, cool, bottle, and chill for 2-3 days.' }
+    ],
+    faqs: [
+      { question: 'Why line the pot bottom with split sugarcane?', answer: 'Split sugarcane imparts deep natural sweetness and acts as a barrier preventing delicate herbal roots from scorching on pot metal.' },
+      { question: 'Does this drink reduce liver heat?', answer: 'Cogon grass root and plantain herb promote active renal excretion, lowering heat accumulation and clearing complexion.' }
+    ],
+    monetization_tips: ['Bottle sterilized 330ml bottles ($0.80-$1.20) for farmers markets and sell dried herbal ingredient bundles ($2/bag).'],
+    tags: ['Nuoc Sam Mia Lau', 'Liver Detox', 'Summer Cooling', 'Fragrant Pandan', 'Cogon Grass Root']
+  },
+
+  'culinary-04': {
+    common_name: 'Artisan Northwest Highland Forest Spice Salt (Mac Khen Hat Doi)',
+    aliases: ['Northwest Herb Salt', 'Cham Cheo Spice Salt', 'Wild Highland Seasoning'],
+    description: 'Iconic wild spice blend from the high Northwest mountain forests: stone-ground roasted Mac Khen peppercorns, charcoal-toasted wild Doi seeds, mountain bird-eye chilies, and hand-toasted sea salt.',
+    quick_answer: 'Signature Northwest spice seasoning. Intoxicating aromatic camphor from roasted wild Doi seeds combined with mild tongue-tingling numbing from Mac Khen pepper.',
+    growth_time: '30 minutes artisan roasting and stone grinding',
+    seasonality: {
+      north: 'Essential warming condiment for winter barbecues in mountain villages',
+      central: 'Pairs exceptionally with poached hill-tribe chicken and wild game',
+      south: 'Highly sought-after artisan delicacy among Southern food enthusiasts',
+      best_months: [1, 2, 9, 10, 11, 12]
+    },
+    botanical_details: {
+      family: 'Indigenous Highland Spice Blend',
+      native_range: 'Old-growth mountain canopies of Dien Bien, Son La, and Lai Chau',
+      active_compounds: ['Limonene and Phellandrene (Mild Tongue Numbing)', 'Wild Doi Camphor Aroma', 'Capsaicin from Mountain Chilies'],
+      soil_ph: '100% pure wild harvest with zero MSG or chemical preservatives',
+      ideal_temp: 'Store in airtight jars at dry room temperature',
+      pot_size: '150g - 250g bamboo containers or glass spice jars'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Toast Wild Doi Seeds and Mac Khen', instruction: 'Toast 3-5 wild Doi seeds over hot coals until fragrant and cracked; roast Mac Khen peppercorns over low heat for 3 minutes.' },
+      { step: 2, title: 'Dry Roast Sea Salt and Chili Flakes', instruction: 'Pan-roast coarse sea salt with dried chilies and chiffonade lime leaves in cast-iron skillet until crisp.' },
+      { step: 3, title: 'Coarse Stone Mortar Grinding', instruction: 'Pound mixture in a granite mortar into coarse textured granules (avoid fine powder to preserve essential oil pockets).' }
+    ],
+    faqs: [
+      { question: 'Why are wild Doi seeds called Northwest Black Gold?', answer: 'Wild Doi trees grow wild in ancient mountain canopies for decades before yielding precious, deeply aromatic spice pods.' },
+      { question: 'What dishes does this salt best accompany?', answer: 'Sublime with poached free-range chicken, grilled river fish, roast pork, boiled bamboo shoots, and fresh orchard fruits.' }
+    ],
+    monetization_tips: ['Package 200g artisan spice jars ($3-$5 each) for specialty food stores and create premium holiday gift boxes.'],
+    tags: ['Wild Forest Salt', 'Mac Khen Peppercorn', 'Hat Doi Seed', 'Northwest Seasoning', 'Stone Ground']
+  },
+
+  'culinary-05': {
+    common_name: 'Probiotic Wild Docynia & Chrysanthemum Fermented Vinegar',
+    aliases: ['Tao Meo Vinegar', 'Chrysanthemum Fruit Vinegar', 'Probiotic Herbal Vinegar'],
+    description: 'Bio-fermentation of wild Northwest highland docynia (Tao Meo) fruits with organic chrysanthemum blossoms and live mother of vinegar (Scoby). Loaded with live acetic acid enzymes supporting healthy digestion and lipid balance.',
+    quick_answer: 'Raw probiotic fruit vinegar with pleasant floral aroma and bright fruity tartness. Sip with warm water and raw honey after meals to stimulate digestion.',
+    growth_time: '30-45 days biological fermentation',
+    seasonality: {
+      north: 'Brew during wild Tao Meo mountain harvest season (August - October)',
+      central: 'Refreshing acidifying dressing for summer salads and dipping sauces',
+      south: 'Popular daily morning wellness tonic for metabolic health',
+      best_months: [8, 9, 10, 11]
+    },
+    botanical_details: {
+      family: 'Probiotic Bio-Fermentation / Functional Vinegar',
+      native_range: 'High-altitude forests of Mu Cang Chai, Yen Bai & Son La',
+      active_compounds: ['Living Acetic Acid Bacteria', 'Gut-Friendly Enzymes', 'Docynia Polyphenols', 'Chrysanthemum Bioflavonoids'],
+      soil_ph: 'Naturally fermented vinegar pH 3.0 - 3.5',
+      ideal_temp: 'Ferment at 22°C - 30°C in dark ventilated pantry',
+      pot_size: '3-5L wide-mouth glass carboys covered with muslin cloth'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Prepare Wild Docynia & Dried Chrysanthemum', instruction: 'Halve 1.5kg wild Tao Meo fruits keeping seeds intact; rinse 30g dried organic chrysanthemum flowers in boiling water.' },
+      { step: 2, title: 'Combine with Scoby and Rock Sugar Solution', instruction: 'Layer fruits and flowers into glass jar, pour warm rock sugar solution (200g sugar + 2L water), and float vinegar mother.' },
+      { step: 3, title: 'Cover with Muslin Cloth for Aerobic Ferment', instruction: 'Cover opening with 2 layers of breathable muslin, ferment undisturbed in dark pantry for 30-45 days until golden clear.' }
+    ],
+    faqs: [
+      { question: 'Is the white film on top of the vinegar mold?', answer: 'No, that is the living cellulose mother of vinegar (Scoby), confirming active colony proliferation of beneficial bacteria.' },
+      { question: 'How is Tao Meo vinegar consumed for wellness?', answer: 'Stir 1-2 spoons into a warm glass of water with 1 spoon raw honey, drinking 30 minutes after breakfast to aid lipid metabolism.' }
+    ],
+    monetization_tips: ['Bottle 500ml artisan fermented docynia vinegar ($5-$8) and sell live starter Scoby cultures to home fermentation crafters.'],
+    tags: ['Docynia Vinegar', 'Tao Meo', 'Chrysanthemum', 'Live Probiotic', 'Metabolic Health']
+  },
+
+  'forest-02': {
+    common_name: 'Cat Tien National Park Sanctuary (UNESCO Biosphere Reserve)',
+    aliases: ['Cat Tien Primary Forest', 'Cat Tien National Park', 'Bau Sau Wetland Reserve'],
+    description: "UNESCO World Biosphere Reserve covering 71,920 hectares (719,200,000 m²). The premier green lung of Southern Vietnam, harboring the critically endangered Siamese crocodiles of Bau Sau Lake, wild Asian elephants, and centennial giant Tung trees.",
+    quick_answer: 'Immense tropical lowland rainforest sanctuary across Dong Nai, Lam Dong, and Binh Phuoc. Mint 10,000 m² (1 hectare) lots when physically present in the reserve.',
+    growth_time: 'Perpetual primeval ecosystem',
+    seasonality: {
+      north: 'Major winter pilgrimage for northern nature and eco-tourism enthusiasts',
+      central: 'Vital reservoir of Indochinese tropical biodiversity',
+      south: 'Dry season (December - May) is prime time for wildlife spotting and trekking',
+      best_months: [12, 1, 2, 3, 4, 5]
+    },
+    botanical_details: {
+      family: 'Tropical Lowland Evergreen Rainforest',
+      native_range: 'Spans Dong Nai, Lam Dong, and Binh Phuoc provinces',
+      active_compounds: ['1,610 Vascular Plant Species', '400-Year-Old Giant Tung Trees', 'International Ramsar Bau Sau Wetland', 'Massive Regional Carbon Sink'],
+      soil_ph: '5.5 - 6.5 (Rich basalt red loam and ancient alluvial terraces)',
+      ideal_temp: '22°C - 34°C',
+      pot_size: '71,920 hectares core sanctuary (10,000 m² per conservation NFT)'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Visit Sanctuary & Enable Device GPS', instruction: 'Travel to Cat Tien National Park (within 25km radius from forest center). Enable GPS on your phone.' },
+      { step: 2, title: 'Verify On-Site GPS via Web3 Sandbox', instruction: 'Press "Verify Forest GPS Location". System calculates Haversine distance and grants 24-hour Check-in Pass.' },
+      { step: 3, title: 'Mint 10,000 m² Cat Tien Forest Lot NFT', instruction: 'Sign transaction to permanently record your conservation lot number on the blockchain.' }
+    ],
+    faqs: [
+      { question: 'How many NFTs can be minted for Cat Tien?', answer: 'Each NFT represents 10,000 m² (1 hectare). With 71,920 hectares total, supply is capped at exactly 71,920 NFTs.' },
+      { question: 'What makes Bau Sau Lake in Cat Tien famous?', answer: 'Bau Sau is Vietnam’s 2nd International Ramsar Wetland, successfully reviving the endangered freshwater Siamese crocodile population.' }
+    ],
+    monetization_tips: ['Holders earn digital eco-conservation credentials and receive discounts on night safari wildlife watching excursions.'],
+    tags: ['National Park', 'Cat Tien', 'Bau Sau', 'Siamese Crocodile', 'UNESCO Biosphere', 'Dong Nai']
+  },
+
+  'forest-03': {
+    common_name: 'Phong Nha - Ke Bang National Park (UNESCO World Natural Heritage)',
+    aliases: ['Phong Nha Sanctuary', 'Phong Nha Ke Bang National Park', 'Ancient Karst Forest'],
+    description: "UNESCO World Natural Heritage site encompassing 123,326 hectares (1,233,260,000 m²). The oldest 400-million-year-old limestone karst biome in Asia, cradling Son Doong—the largest natural cave on Earth—and 500-year-old calocedrus forests.",
+    quick_answer: 'Globally celebrated subterranean and rainforest sanctuary in Quang Binh. Allocation of 10,000 m² lots verifiable only via physical GPS presence in the park zone.',
+    growth_time: '400-million-year-old Karst geological biome',
+    seasonality: {
+      north: 'World-class expedition destination for adventurers globally',
+      central: 'Ideal exploration window from March to August during dry months',
+      south: 'Premier adventure and speleological destination in Vietnam',
+      best_months: [3, 4, 5, 6, 7, 8]
+    },
+    botanical_details: {
+      family: 'Limestone Karst Primeval Ecosystem',
+      native_range: 'Bo Trach and Minh Hoa districts, Quang Binh province',
+      active_compounds: ['Son Doong Largest Cave on Earth', '500-Year-Old Calocedrus rupestris Forest', '400-Million-Year Geological Museum', '2,900+ Vascular Flora Species'],
+      soil_ph: '6.8 - 7.8 (Mildly alkaline limestone weathered soil)',
+      ideal_temp: '18°C - 28°C outside (caves stay 20°C year-round)',
+      pot_size: '123,326 hectares World Heritage site (10,000 m² per conservation NFT)'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Visit Phong Nha & Turn On Satellite GPS', instruction: 'Travel to Phong Nha - Ke Bang (within 30km radius from park center). Turn on satellite GPS.' },
+      { step: 2, title: 'Verify Location in World Heritage Zone', instruction: 'Press "Verify Forest GPS Location" on Web3 Sandbox to claim a 24-hour verifiable Check-in Pass.' },
+      { step: 3, title: 'Mint 10,000 m² Heritage Lot NFT', instruction: 'Confirm cryptographic proof of presence and mint 1 hectare of Phong Nha primeval conservation land on-chain.' }
+    ],
+    faqs: [
+      { question: 'Why was Phong Nha recognized twice by UNESCO?', answer: 'First in 2003 for outstanding global geological and geomorphological values, and second in 2015 for terrestrial biodiversity and ecosystems.' },
+      { question: 'What is the maximum NFT lot supply?', answer: 'Covering 123,326 hectares, the maximum lot supply is capped at 123,326 NFTs (1 ha per lot).' }
+    ],
+    monetization_tips: ['NFT holders receive priority booking perks for cave expeditions and support conservation patrols in buffer zones.'],
+    tags: ['UNESCO Heritage', 'Phong Nha Ke Bang', 'Son Doong', 'Giant Caves', 'Ancient Karst', 'Quang Binh']
+  },
+
+  'forest-04': {
+    common_name: 'Hoang Lien National Park Sanctuary (Roof of Indochina Biome)',
+    aliases: ['Hoang Lien National Park', 'Fansipan Alpine Forest', 'Hoang Lien Sa Pa Sanctuary'],
+    description: "Roof of Indochina Fansipan Peak (3,143m) spanning 29,845 hectares (298,450,000 m²). ASEAN Heritage Park conserving centennial Rhododendron cloud forests, rare Himalayan yew trees, and unique sub-alpine montane ecosystems.",
+    quick_answer: 'Sub-alpine cloud forest and alpine peak biome in Sa Pa. Mint 10,000 m² conservation lots when trekking within the park boundaries.',
+    growth_time: 'Ancient sub-alpine temperate cloud forest',
+    seasonality: {
+      north: 'Peak rhododendron blooming season from February to April; winter frost and snowfall',
+      central: 'Most distinctive high-altitude alpine ecosystem in Indochina',
+      south: 'Dream trekking pilgrimage for outdoor adventurers',
+      best_months: [2, 3, 4, 9, 10, 11]
+    },
+    botanical_details: {
+      family: 'High Mountain Alpine & Subtropical Cloud Forest',
+      native_range: 'Hoang Lien Son mountain range across Sa Pa (Lao Cai) and Than Uyen (Lai Chau)',
+      active_compounds: ['Mount Fansipan Peak (3,143m)', '30 Endemic Rhododendron Species', 'Rare Himalayan Yew (Taxus wallichiana)', '2,000+ Highland Plant Species'],
+      soil_ph: '4.5 - 5.5 (Acidic alpine humus and peat soils)',
+      ideal_temp: '5°C - 20°C (drops below 0°C with winter snow)',
+      pot_size: '29,845 hectares alpine reserve (10,000 m² per conservation NFT)'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Visit Sa Pa / Hoang Lien & Enable GPS', instruction: 'Travel to Hoang Lien National Park (within 20km radius from park center). Turn on smartphone GPS.' },
+      { step: 2, title: 'Verify On-Site GPS via Web3 Sandbox', instruction: 'Press "Verify Forest GPS Location" to receive an authenticated 24-hour Check-in Pass.' },
+      { step: 3, title: 'Mint 10,000 m² Alpine Forest Lot NFT', instruction: 'Confirm on-chain transaction registering your 1 hectare conservation lot of Hoang Lien cloud forest.' }
+    ],
+    faqs: [
+      { question: 'Why does Hoang Lien have so many rhododendrons?', answer: 'Between 1,500m and 3,000m altitude, persistent mountain mist creates an ideal cradle for over 30 endemic Rhododendron species.' },
+      { question: 'What is the conservation lot quota?', answer: 'Covering 29,845 hectares, supply is capped at 29,845 NFTs (1 ha per lot).' }
+    ],
+    monetization_tips: ['Holders earn digital Roof of Indochina Conqueror badges and receive trekking perks in Sa Pa.'],
+    tags: ['Hoang Lien Sa Pa', 'Fansipan', 'Rhododendron Forest', 'ASEAN Heritage Park', 'Alpine Biome']
+  },
+
+  'forest-05': {
+    common_name: 'Con Dao National Park Sanctuary (Ramsar Marine & Forest Biome)',
+    aliases: ['Con Dao National Park', 'Con Dao Ramsar Marine Reserve', 'Sea Turtle Sanctuary'],
+    description: "International Ramsar Wetland covering 19,998 hectares (199,980,000 m²). Renowned island and marine sanctuary protecting pristine coral reefs, seagrass feeding beds of rare Dugongs, and Vietnam's largest sea turtle nesting grounds.",
+    quick_answer: 'Protected island archipelago and marine coral sanctuary in Ba Ria - Vung Tau. Mint 10,000 m² marine-terrestrial conservation lots when on the island.',
+    growth_time: 'Perpetual marine and island primeval ecosystem',
+    seasonality: {
+      north: 'Sacred spiritual and pristine eco-tourism paradise',
+      central: 'Richest clear-water marine coral archipelago in Vietnam',
+      south: 'Calmest seas and peak green sea turtle nesting from March to September',
+      best_months: [3, 4, 5, 6, 7, 8, 9]
+    },
+    botanical_details: {
+      family: 'Island & Marine Coral Reef Ramsar Wetland Ecosystem',
+      native_range: 'Con Dao Archipelago, Ba Ria - Vung Tau province',
+      active_compounds: ['Largest Sea Turtle Nesting Ground in Vietnam', 'Dugong Seagrass Beds', '360 Pristine Coral Reef Species', 'Island Mangrove Biome'],
+      soil_ph: '7.5 - 8.2 (Coastal coral sand and island feralit soil)',
+      ideal_temp: '25°C - 32°C warm tropical maritime',
+      pot_size: '19,998 hectares marine-terrestrial reserve (10,000 m² per conservation NFT)'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Visit Con Dao Islands & Enable GPS', instruction: 'Travel to Con Dao Archipelago (within 15km radius from island center). Turn on satellite GPS.' },
+      { step: 2, title: 'Verify On-Site GPS at Con Dao', instruction: 'Press "Verify Forest GPS Location" on Web3 Sandbox to claim an authenticated 24-hour Check-in Pass.' },
+      { step: 3, title: 'Mint 10,000 m² Island Marine Lot NFT', instruction: 'Sign transaction to permanently record your 1 hectare sea turtle conservation lot on the blockchain.' }
+    ],
+    faqs: [
+      { question: 'Why is Con Dao recognized as an International Ramsar site?', answer: 'Con Dao is Vietnam’s 6th Ramsar site due to its exceptional marine biodiversity, coral ecosystems, and strictly protected sea turtle beaches.' },
+      { question: 'What is the maximum NFT quota for Con Dao?', answer: 'Encompassing 19,998 hectares, the maximum supply is capped at exactly 19,998 NFTs.' }
+    ],
+    monetization_tips: ['Holders receive Sea Turtle Guardian credentials and special access to guided hatchling release excursions.'],
+    tags: ['Con Dao', 'National Park', 'Ramsar Wetland', 'Sea Turtle Nesting', 'Dugong Sanctuary', 'Marine Reserve']
   }
 };
 

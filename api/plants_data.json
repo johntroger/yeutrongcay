@@ -6008,5 +6008,1541 @@
       "herb-17",
       "orn-01"
     ]
+  },
+  {
+    "id": "space-02",
+    "slug": "ban-ve-gian-leo-san-thuong-sieu-nhe-chong-bao",
+    "common_name": "Bản Vẽ Giàn Leo Sân Thượng Siêu Nhẹ Khung Thép Căng Cáp Chịu Bão",
+    "scientific_name": "Urban Architecture Blueprint: Lightweight Storm-Resistant Rooftop Trellis",
+    "aliases": [
+      "Giàn leo sân thượng chịu bão",
+      "Khung giàn thép bọc nhựa sân thượng",
+      "Rooftop Trellis Blueprint"
+    ],
+    "category": "space",
+    "nft_class": "space_method",
+    "description": "Thiết kế giàn leo sân thượng module tháo lắp nhanh bằng thép mạ kẽm bọc nhựa kết hợp dây cáp bọc nhựa PVC. Chịu sức gió cấp 9-10, tải trọng cực nhẹ không ảnh hưởng chống thấm trần nhà.",
+    "image_url": "https://images.unsplash.com/photo-1592150621744-aca64f48394a?auto=format&fit=crop&w=1200&q=80",
+    "image_sha256": "b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 2,
+    "growth_time": "1 ngày lắp ráp hoàn thiện",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Lắp dựng lý tưởng đầu mùa xuân (tháng 2-3) trước mùa dông bão miền Bắc",
+      "central": "Chịu bão biển và gió giật mạnh cấp 10 miền Trung",
+      "south": "Tạo bóng râm che mát sân thượng quanh năm",
+      "best_months": [
+        2,
+        3,
+        4,
+        10,
+        11,
+        12
+      ],
+      "warning": "Không khoan thủng sàn bê tông; dùng chân đế bê tông đúc sẵn đặt trên cao su giảm chấn"
+    },
+    "botanical_details": {
+      "family": "Urban Architecture / Structural Engineering",
+      "native_range": "Sân thượng nhà phố và biệt thự đô thị Việt Nam",
+      "active_compounds": [
+        "Chịu gió giật cấp 10",
+        "Thép bọc nhựa PE chống rỉ 10 năm",
+        "Tải trọng nhẹ <15 kg/m²",
+        "Giảm nhiệt mái 5°C"
+      ],
+      "soil_ph": "6.0 - 7.0 (Đất hữu cơ tơi xốp chậu chữ nhật chân giàn)",
+      "ideal_temp": "20°C - 42°C",
+      "pot_size": "Chậu thông minh cỡ đại 67x43x20cm hoặc thùng xốp gia cố đáy"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Bố trí chân đế trọng lực không khoan sàn",
+        "instruction": "Đặt 4-6 cục chân đế bê tông nặng 25-30kg trên miếng lót cao su chống xước màng chống thấm mái."
+      },
+      {
+        "step": 2,
+        "title": "Dựng khung cột thép bọc nhựa phi 20mm",
+        "instruction": "Liên kết các thanh thép bọc nhựa bằng khớp nối chữ thập chuyên dụng, tạo hệ khung vòm hoặc phẳng cao 2.2m."
+      },
+      {
+        "step": 3,
+        "title": "Đan lưới cáp căng chống võng",
+        "instruction": "Dùng dây cáp bọc nhựa đan ô vuông 15x15cm, dùng tăng đơ siết căng để cây leo bám vững khi có gió lốc."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Giàn leo sân thượng này có bị sét đánh hoặc gió bão cuốn bay không?",
+        "answer": "Kết cấu hở cho gió xuyên qua giảm 80% lực cản, đồng thời chân đế trọng lực giữ vững khung không cần đục sàn."
+      },
+      {
+        "question": "Cây leo nào nhanh phủ mát giàn nhất?",
+        "answer": "Cúc tần Ấn Độ, nho Ninh Thuận, chanh leo vàng ngọt và đậu biếc leo phủ xanh kín giàn chỉ sau 2-3 tháng."
+      }
+    ],
+    "monetization_tips": [
+      "Gia công bộ KIT giàn leo sân thượng tự lắp ráp bán lẻ 1.200.000đ - 2.500.000đ/bộ.",
+      "Dịch vụ thi công giàn quả ăn trái sân thượng trọn gói 5-10 triệu đồng/công trình."
+    ],
+    "tags": [
+      "Giàn leo sân thượng",
+      "Chịu bão",
+      "Thép bọc nhựa",
+      "Cây leo giàn",
+      "Chống nóng mái"
+    ],
+    "related_plant_ids": [
+      "fruit-09",
+      "fruit-14",
+      "fruit-20",
+      "fruit-23"
+    ]
+  },
+  {
+    "id": "space-03",
+    "slug": "ban-ve-vuon-tuong-dung-module-thoat-nuoc-trong-nha",
+    "common_name": "Bản Vẽ Vườn Tường Đứng Module Vải Nỉ Tự Ngấm Cho Giếng Trời & Logia",
+    "scientific_name": "Urban Architecture Blueprint: Modular Felt Vertical Living Wall",
+    "aliases": [
+      "Vườn tường đứng trong nhà",
+      "Module tường xanh vải nỉ",
+      "Vertical Living Wall Loggia"
+    ],
+    "category": "space",
+    "nft_class": "space_method",
+    "description": "Bản vẽ module tường cây thẳng đứng bằng túi vải địa kỹ thuật 3 lớp chống thấm tường nhà. Tích hợp bơm tuần hoàn nhỏ 12V hẹn giờ tưới ngấm tự động cho giếng trời và phòng khách.",
+    "image_url": "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=1200&q=80",
+    "image_sha256": "c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5",
+    "sunlight": "indoor",
+    "watering": "moderate",
+    "propagation_difficulty": 2,
+    "growth_time": "3-4 giờ thi công lắp đặt",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Trồng cây quanh năm trong nhà có đèn quang hợp chuyên dụng bổ trợ",
+      "central": "Tạo vi khí hậu mát mẻ cho nhà ống giếng trời",
+      "south": "Thanh lọc bụi mịn và điều hòa độ ẩm phòng máy lạnh",
+      "best_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "warning": "Tấm ốp alu/nhựa ngăn cách tường phải kín khít 100% để bảo vệ sơn tường"
+    },
+    "botanical_details": {
+      "family": "Vertical Urban Agriculture / Bio-Filtration",
+      "native_range": "Thiết kế sinh thái cho căn hộ và nhà phố không có sân vườn",
+      "active_compounds": [
+        "Lọc bụi mịn PM2.5",
+        "Nhả oxy ban đêm",
+        "Cách âm tường",
+        "Tăng độ ẩm tự nhiên 15-20%"
+      ],
+      "soil_ph": "6.0 - 6.8 (Giá thể xơ dừa vi sinh khử khuẩn trộn perlite)",
+      "ideal_temp": "18°C - 32°C",
+      "pot_size": "Túi vải địa kỹ thuật may 3 lớp 15x15cm mỗi hốc"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Bắn khung xương và tấm chống ẩm",
+        "instruction": "Bắn khung sắt hộp mạ kẽm cách tường 3cm, ốp tấm nhựa PVC/Alu chống ẩm bảo vệ tường."
+      },
+      {
+        "step": 2,
+        "title": "Gắn thảm túi vải nỉ địa kỹ thuật",
+        "instruction": "Bắn thảm túi vải nỉ 12-24 hốc vào khung xương. Đặt máng thu nước đáy dẫn về bể lọc tuần hoàn."
+      },
+      {
+        "step": 3,
+        "title": "Cài đặt timer tưới nhỏ giọt 12V",
+        "instruction": "Cài đặt bơm mini hẹn giờ tưới 2 lần/ngày (mỗi lần 3 phút) cấp nước ẩm từ đỉnh tường ngấm đều xuống dưới."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Vườn tường đứng trong nhà có bị ẩm mốc tường không?",
+        "answer": "Nhờ khoảng hở 3cm lưu thông không khí và tấm alu cách ly nên tường nhà khô ráo 100%."
+      },
+      {
+        "question": "Cây nào sống bền nhất trên tường đứng nội thất?",
+        "answer": "Trầu bà thanh xuân, ngọc ngân, vạn lộc, lan ý và dương xỉ phát triển tươi tốt hàng năm chỉ với ánh sáng tán xạ."
+      }
+    ],
+    "monetization_tips": [
+      "Gia công module tường đứng 1m² kèm cây và hệ tưới bán 1.800.000đ - 3.200.000đ/m².",
+      "Hợp đồng bảo dưỡng định kỳ thay cây văn phòng và quán cà phê 300.000đ - 500.000đ/tháng."
+    ],
+    "tags": [
+      "Vườn tường đứng",
+      "Vải địa kỹ thuật",
+      "Lọc không khí",
+      "Giếng trời",
+      "Logia chung cư"
+    ],
+    "related_plant_ids": [
+      "orn-03",
+      "orn-06",
+      "orn-08",
+      "orn-10"
+    ]
+  },
+  {
+    "id": "space-04",
+    "slug": "ban-ve-vuon-rau-gia-vi-ke-bac-thang-ban-cong-nho",
+    "common_name": "Bản Vẽ Vườn Thảo Dược Kệ Bậc Thang Tối Ưu Diện Tích Ban Công 2m²",
+    "scientific_name": "Urban Architecture Blueprint: 3-Tier Stepped Balcony Herbal Stand",
+    "aliases": [
+      "Kệ bậc thang ban công 2m²",
+      "Vườn gia vị nhiều tầng",
+      "Stepped Balcony Herb Garden"
+    ],
+    "category": "space",
+    "nft_class": "space_method",
+    "description": "Giải pháp tối ưu hóa không gian ban công siêu nhỏ 1.5 - 2m² bằng hệ kệ bậc thang 3 tầng dốc 60 độ. Đảm bảo mọi tầng chậu đều nhận đủ 100% ánh sáng mặt trời không bị khuất bóng.",
+    "image_url": "https://images.unsplash.com/photo-1598880940371-c756e015fea1?auto=format&fit=crop&w=1200&q=80",
+    "image_sha256": "d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6",
+    "sunlight": "partial_shade",
+    "watering": "moderate",
+    "propagation_difficulty": 1,
+    "growth_time": "2 giờ lắp đặt",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Trồng rau gia vị tốt nhất từ tháng 8 đến tháng 5 năm sau",
+      "central": "Đặt nơi có lan can che chắn gió mùa",
+      "south": "Xanh tốt quanh năm cung cấp rau nêm tươi mỗi ngày",
+      "best_months": [
+        1,
+        2,
+        3,
+        4,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "warning": "Chọn khay có rãnh thoát nước đáy khớp với khay hứng tránh chảy nước bẩn xuống sàn"
+    },
+    "botanical_details": {
+      "family": "Compact Urban Balcony Architecture",
+      "native_range": "Ban công căn hộ chung cư diện tích nhỏ",
+      "active_compounds": [
+        "Tăng 300% diện tích trồng trọt",
+        "Hấp thụ 100% ánh sáng mặt trời",
+        "Gọn gàng sạch sẽ",
+        "Tiện chăm sóc hái lá"
+      ],
+      "soil_ph": "6.0 - 7.0",
+      "ideal_temp": "20°C - 35°C",
+      "pot_size": "Khay chữ nhật thông minh dài 65cm rộng 25cm"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Lắp ráp khung thép sơn tĩnh điện 3 tầng",
+        "instruction": "Ghép khung kệ bậc thang dốc 60 độ, kiểm tra độ cân bằng và gắn chân cao su chống trượt trên gạch ban công."
+      },
+      {
+        "step": 2,
+        "title": "Đặt khay thông minh có lưới ngăn đất",
+        "instruction": "Xếp 3-6 khay trồng lên từng bậc. Mỗi khay đều có khoang trữ nước 2cm phía dưới ngăn đất rơi vãi."
+      },
+      {
+        "step": 3,
+        "title": "Phối giống thảo dược theo độ cao",
+        "instruction": "Tầng 1 (trên cùng): Húng chanh, húng quế ưa nắng. Tầng 2: Tía tô, ngải cứu. Tầng 3 (dưới): Diếp cá, rau má ưa mát."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Kệ bậc thang có chắn lối đi ban công không?",
+        "answer": "Chiều sâu kệ chỉ 45cm áp sát lan can nên vẫn giữ được 70% không gian ban công để phơi đồ và ngắm cảnh."
+      },
+      {
+        "question": "Một gia đình 4 người trồng kệ này có đủ rau gia vị không?",
+        "answer": "6 khay trồng thảo dược cung cấp đủ hành, tía tô, húng chanh, ớt tươi quanh năm cho các bữa ăn gia đình."
+      }
+    ],
+    "monetization_tips": [
+      "Bán combo trọn gói Kệ + 6 Khay + Đất hữu cơ + Cây giống sẵn 850.000đ - 1.250.000đ/set.",
+      "Cung cấp dịch vụ thay đất bảo dưỡng vườn rau mini định kỳ 200.000đ/lần."
+    ],
+    "tags": [
+      "Ban công 2m²",
+      "Kệ bậc thang",
+      "Tối ưu diện tích",
+      "Vườn thảo dược",
+      "Chung cư nhỏ"
+    ],
+    "related_plant_ids": [
+      "herb-01",
+      "herb-02",
+      "herb-03",
+      "herb-12"
+    ]
+  },
+  {
+    "id": "space-05",
+    "slug": "ban-ve-he-thong-bon-luong-sieu-nhe-chong-tham-mai",
+    "common_name": "Bản Vẽ Bồn Trồng Đa Lớp Siêu Nhẹ Vải Chống Thấm & Vỉ Thoát Nước Mái",
+    "scientific_name": "Urban Architecture Blueprint: Multi-Layer Lightweight Rooftop Planter Bed",
+    "aliases": [
+      "Bồn luống sân thượng siêu nhẹ",
+      "Vỉ thoát nước bồn cây mái",
+      "Rooftop Planter Bed"
+    ],
+    "category": "space",
+    "nft_class": "space_method",
+    "description": "Thiết kế bồn trồng âm sàn sân thượng 3 lớp: Màng chống thấm HDPE + Vỉ thoát nước nhựa cell + Vải địa lọc cát. Ngăn chặn 100% rễ cây đâm xuyên bê tông và chống ứ đọng nước mái nhà.",
+    "image_url": "https://images.unsplash.com/photo-1584473457406-6240486418e9?auto=format&fit=crop&w=1200&q=80",
+    "image_sha256": "e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 3,
+    "growth_time": "2 ngày thi công",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Thi công tốt nhất vào mùa thu hanh khô (tháng 9-11) để chống thấm khô nhanh",
+      "central": "Thoát nước cực nhanh trong các đợt mưa bão lớn ngập úng miền Trung",
+      "south": "Giảm nhiệt truyền xuống phòng ngủ tầng trên cùng 4-6°C",
+      "best_months": [
+        1,
+        2,
+        3,
+        9,
+        10,
+        11,
+        12
+      ],
+      "warning": "Bắt buộc kiểm tra ngâm thử nước sàn mái 24h trước khi đổ giá thể vào bồn"
+    },
+    "botanical_details": {
+      "family": "Rooftop Ecological Engineering / Drainage Systems",
+      "native_range": "Mái bằng nhà phố và sân thượng biệt thự đô thị",
+      "active_compounds": [
+        "Chống rễ cây đâm thủng sàn",
+        "Thoát nước 16.5 L/m²s",
+        "Giá thể siêu nhẹ 0.55 kg/L",
+        "Cách nhiệt mái bê tông"
+      ],
+      "soil_ph": "6.0 - 6.8",
+      "ideal_temp": "22°C - 40°C",
+      "pot_size": "Bồn luống xây cao 30-40cm hoặc ghép tấm nhựa composite module"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Xử lý chống thấm và trải màng bảo vệ",
+        "instruction": "Quét 2 lớp chống thấm gốc polyurethane/sika, trải lớp màng chống rễ đâm bảo vệ sàn mái."
+      },
+      {
+        "step": 2,
+        "title": "Lắp vỉ thoát nước Plastic Drainage Cell và vải địa",
+        "instruction": "Lắp vỉ thoát nước cell cao 3cm kết nối khóa ngàm, trải vải địa kỹ thuật không dệt lọc cát phía trên."
+      },
+      {
+        "step": 3,
+        "title": "Nạp giá thể phối trộn siêu nhẹ và trồng cây",
+        "instruction": "Đổ giá thể hỗn hợp: 40% perlite + 30% xơ dừa + 20% phân trùn quế + 10% đất màu, trồng cây ăn quả thân gỗ lùn."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Bồn luống sân thượng này có làm nứt trần nhà không?",
+        "answer": "Nhờ dùng giá thể đá khoáng perlite siêu nhẹ, trọng lượng ướt chỉ bằng 1/3 đất thịt nên hoàn toàn an toàn cho trần nhà."
+      },
+      {
+        "question": "Vỉ thoát nước cell có tuổi thọ bao lâu?",
+        "answer": "Vỉ làm từ nhựa PP nguyên sinh chôn dưới đất không tiếp xúc tia UV có độ bền trên 20 năm."
+      }
+    ],
+    "monetization_tips": [
+      "Thi công vườn luống sân thượng trọn gói tính theo mét vuông (1.500.000đ - 2.800.000đ/m²).",
+      "Cung cấp vật tư trọn gói (Vỉ cell + Vải địa + Giá thể trộn sẵn) cho thầu xây dựng."
+    ],
+    "tags": [
+      "Bồn trồng sân thượng",
+      "Chống thấm sàn mái",
+      "Vỉ thoát nước cell",
+      "Giá thể siêu nhẹ",
+      "Vườn mái"
+    ],
+    "related_plant_ids": [
+      "fruit-01",
+      "fruit-04",
+      "fruit-10",
+      "orn-15"
+    ]
+  },
+  {
+    "id": "recycle-02",
+    "slug": "thung-u-rac-huu-co-bokashi-khong-mui-tu-thung-son-cu",
+    "common_name": "Thùng Ủ Rác Nhà Bếp Bokashi Không Mùi Từ Thùng Sơn Cũ Tái Chế",
+    "scientific_name": "Eco Invention: Zero-Odor DIY Bokashi Composter from Recycled Buckets",
+    "aliases": [
+      "Thùng ủ Bokashi tự chế",
+      "Ủ rác nhà bếp không mùi",
+      "Compost thùng sơn cũ"
+    ],
+    "category": "recycle",
+    "nft_class": "eco_invention",
+    "description": "Sáng chế thùng ủ yếm khí Bokashi 2 tầng từ thùng sơn 18L tái chế có vòi xả dịch dinh dưỡng. Lên men vi sinh EM biến rác thải nhà bếp thành phân hữu cơ giàu đạm không hôi thối trong căn hộ.",
+    "image_url": "https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?auto=format&fit=crop&w=1200&q=80",
+    "image_sha256": "f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8",
+    "sunlight": "indoor",
+    "watering": "drought_tolerant",
+    "propagation_difficulty": 1,
+    "growth_time": "14 ngày lên men yếm khí",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Hoạt động quanh năm; mùa đông để nơi ấm cạnh bếp giúp vi sinh lên men nhanh",
+      "central": "Xử lý triệt để rác hữu cơ mùa mưa ẩm",
+      "south": "Ủ rác phân giải cực nhanh ở nhiệt độ phòng 28-32°C",
+      "best_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "warning": "Đậy nắp thật kín khí; nắp hở sẽ chuyển sang phân hủy hiếu khí gây mùi hôi"
+    },
+    "botanical_details": {
+      "family": "Anaerobic Composting / Micro-organism Recycling",
+      "native_range": "Hệ thống tuần hoàn rác hữu cơ tại gia",
+      "active_compounds": [
+        "Vi sinh vật hữu hiệu EM (Lactobacillus, nấm men)",
+        "Axit Lactic tự nhiên",
+        "Dịch trà Bokashi giàu NPK",
+        "Khử 100% mùi thối rữa"
+      ],
+      "soil_ph": "3.5 - 4.5 (Axit hữu cơ lên men, trung hòa khi vùi vào đất)",
+      "ideal_temp": "22°C - 35°C",
+      "pot_size": "2 thùng sơn 18L lồng vào nhau có nắp gioăng cao su"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Khoan lỗ thoát nước thùng trên",
+        "instruction": "Khoan 30-40 lỗ nhỏ 3mm dưới đáy thùng thứ nhất để dịch ủ chảy xuống. Lắp vòi xả đáy ở thùng thứ hai."
+      },
+      {
+        "step": 2,
+        "title": "Nạp rác và rắc cám men Bokashi",
+        "instruction": "Cắt nhỏ rác nhà bếp (rau, củ, cơm nguội, vỏ trứng). Cứ một lớp rác 3cm rắc một nắm cám men vi sinh Bokashi, nén chặt đẩy hết không khí ra ngoài."
+      },
+      {
+        "step": 3,
+        "title": "Thu hoạch nước trà Bokashi và phân ủ",
+        "instruction": "Sau 3-5 ngày, mở vòi xả dịch trà Bokashi pha loãng 1:100 tưới cây. Sau 14 ngày, vùi bã ủ vào đất làm phân bón giàu dinh dưỡng."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Ủ rác Bokashi trong chung cư có bị hôi không?",
+        "answer": "Quá trình lên men yếm khí tạo mùi thơm chua nhẹ như dưa muối, tuyệt đối không có mùi hôi thối hay ruồi nhặng nếu nắp đậy kín."
+      },
+      {
+        "question": "Dịch trà Bokashi dùng làm gì tốt nhất?",
+        "answer": "Pha loãng 1:100 tưới gốc giúp rễ cây phát triển vượt trội, hoặc đổ thẳng vào cống thoát sàn để thông tắc và khử mùi hôi cống."
+      }
+    ],
+    "monetization_tips": [
+      "Gia công thùng ủ Bokashi tái chế hoàn thiện bán lẻ 250.000đ - 380.000đ/bộ.",
+      "Sản xuất cám men vi sinh Bokashi đóng gói 1kg bán kèm định kỳ 65.000đ/gói."
+    ],
+    "tags": [
+      "Ủ rác Bokashi",
+      "Không mùi",
+      "Thùng sơn cũ",
+      "Phân bón hữu cơ",
+      "Rác thải nhà bếp"
+    ],
+    "related_plant_ids": [
+      "herb-01",
+      "fruit-02",
+      "orn-01"
+    ]
+  },
+  {
+    "id": "recycle-03",
+    "slug": "he-thong-tuoi-nho-giot-trong-luc-chai-nhua-pet",
+    "common_name": "Bộ Tưới Nhỏ Giọt Trọng Lực Tự Chế Từ Chai Nhựa PET & Dây Truyền Dịch",
+    "scientific_name": "Eco Invention: Gravity-Fed Drip Irrigation Kit from Recycled PET Bottles",
+    "aliases": [
+      "Tưới nhỏ giọt chai nhựa",
+      "Tưới trọng lực dây truyền",
+      "DIY Drip Kit"
+    ],
+    "category": "recycle",
+    "nft_class": "eco_invention",
+    "description": "Bộ cấp nước vi điểm chính xác từng giọt từ chai nhựa nước khoáng 1.5L gắn van điều tiết dây truyền y tế. Hoạt động bằng trọng lực 0W điện năng, giữ ẩm liên tục 3-5 ngày khi vắng nhà.",
+    "image_url": "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&w=1200&q=80",
+    "image_sha256": "a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9",
+    "sunlight": "partial_shade",
+    "watering": "daily",
+    "propagation_difficulty": 1,
+    "growth_time": "15 phút chế tạo thủ công",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Hữu ích nhất khi gia đình đi du lịch hoặc về quê dịp lễ Tết",
+      "central": "Tiết kiệm nước tưới từng giọt trong mùa khô hạn miền Trung",
+      "south": "Chống mất nước khô cháy chậu cây ban công hướng Tây",
+      "best_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "warning": "Khoan 1 lỗ kim nhỏ trên đỉnh chai để không khí lọt vào tránh móp chai ngắt dòng nước"
+    },
+    "botanical_details": {
+      "family": "Gravity Precision Micro-Irrigation",
+      "native_range": "Giải pháp tái chế chai nhựa bảo vệ môi trường",
+      "active_compounds": [
+        "Không dùng điện 0W",
+        "Điều tiết tốc độ nhỏ giọt chính xác",
+        "Cấp nước sâu vùng rễ",
+        "Tiết kiệm 85% nước"
+      ],
+      "soil_ph": "6.0 - 7.5",
+      "ideal_temp": "15°C - 40°C",
+      "pot_size": "Chai nhựa 1.5L - 5L treo cao hơn mặt chậu 20-30cm"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Gắn đầu kim truyền vào nắp chai",
+        "instruction": "Dùng dùi nhọn đục lỗ nắp chai nhựa 1.5L, cắm chặt đầu nối dây truyền dịch y tế và dán keo silicon chống rò rỉ."
+      },
+      {
+        "step": 2,
+        "title": "Cố định chai và cắm kim truyền vào gốc",
+        "instruction": "Treo ngược chai lên cọc chống, cắm đầu kim truyền vào sát bầu rễ cây."
+      },
+      {
+        "step": 3,
+        "title": "Điều chỉnh con lăn tốc độ nhỏ giọt",
+        "instruction": "Xoay con lăn điều chỉnh tốc độ 1 giọt mỗi 10-15 giây để cấp ẩm liên tục 3-5 ngày liên tục."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Dây truyền dịch có bị cặn bẩn làm tắc không?",
+        "answer": "Dùng nước sạch hoặc bọc một miếng bông gòn nhỏ ở đầu lọc trong chai sẽ ngăn sạch cặn rác không lo tắc van."
+      },
+      {
+        "question": "Chai 1.5L tưới được cho cây bao lâu?",
+        "answer": "Với tốc độ 1 giọt/12 giây, 1.5 lít nước tưới liên tục từ 72 đến 96 tiếng (3-4 ngày)."
+      }
+    ],
+    "monetization_tips": [
+      "Gia công bộ tưới nhỏ giọt 5 đầu kèm dây dẫn bán lẻ 85.000đ - 120.000đ/bộ.",
+      "Bán kèm các chậu cây phong thủy văn phòng làm điểm cộng giữ ẩm."
+    ],
+    "tags": [
+      "Tưới nhỏ giọt",
+      "Chai nhựa PET",
+      "Dây truyền dịch",
+      "Tiết kiệm nước",
+      "Chăm sóc khi vắng nhà"
+    ],
+    "related_plant_ids": [
+      "herb-02",
+      "fruit-03",
+      "orn-06"
+    ]
+  },
+  {
+    "id": "recycle-04",
+    "slug": "thap-rau-huu-co-u-trun-que-tu-thung-phuy-nhua-220l",
+    "common_name": "Tháp Rau Hữu Cơ Tuần Hoàn Nuôi Trùn Quế Từ Thùng Phuy Nhựa 220L",
+    "scientific_name": "Eco Invention: Vertical Vermiculture Garden Tower from Recycled 220L Drum",
+    "aliases": [
+      "Tháp rau nuôi trùn quế",
+      "Tháp trồng rau thùng phuy",
+      "Vermicompost Tower"
+    ],
+    "category": "recycle",
+    "nft_class": "eco_invention",
+    "description": "Biến thùng phuy nhựa cũ thành tháp rau 50 hốc trồng xoay vòng tích hợp ống nuôi trùn quế ở giữa. Trùn xử lý rác rau củ thừa và tự phân bổ phân trùn đều khắp đất bồn không cần bón phân hóa học.",
+    "image_url": "https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?auto=format&fit=crop&w=1200&q=80",
+    "image_sha256": "b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 3,
+    "growth_time": "1 ngày gia công đục hốc",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Trồng rau xanh quanh năm; mùa đông trùn quế rúc sâu tránh rét",
+      "central": "Chống ngập úng mùa lũ nhờ cấu trúc tháp đứng thoát nước",
+      "south": "Năng suất cực cao thu hái rau ăn lá liên tục",
+      "best_months": [
+        1,
+        2,
+        3,
+        4,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "warning": "Không thả vỏ cam quýt chua, ớt cay hoặc thức ăn mặn vào lõi nuôi trùn"
+    },
+    "botanical_details": {
+      "family": "Permaculture / Vermiculture Urban Agriculture",
+      "native_range": "Mô hình tháp rau đô thị tuần hoàn sinh học",
+      "active_compounds": [
+        "Phân trùn quế tươi giàu humic",
+        "Vi khuẩn cố định đạm",
+        "Nông nghiệp tuần hoàn khép kín",
+        "Năng suất gấp 5 lần mặt phẳng"
+      ],
+      "soil_ph": "6.5 - 7.2",
+      "ideal_temp": "22°C - 33°C",
+      "pot_size": "Thùng phuy nhựa 220L cao 1m, đường kính 60cm, 50 hốc trồng"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Cắt và tạo 50 hốc trồng dập nổi",
+        "instruction": "Rạch các đường ngang 12cm quanh thân phuy, dùng súng nhiệt làm mềm nhựa và uốn lượn tạo hốc đựng đất."
+      },
+      {
+        "step": 2,
+        "title": "Lắp ống nuôi trùn PVC phi 160mm ở tâm",
+        "instruction": "Khoan hàng trăm lỗ nhỏ 8mm trên thân ống PVC phi 160mm đặt thẳng đứng ở giữa để trùn tự do bò qua lại ăn rác."
+      },
+      {
+        "step": 3,
+        "title": "Nạp đất và thả sinh khối trùn quế",
+        "instruction": "Đổ giá thể quanh ống, thả 0.5kg sinh khối trùn quế vào lõi giữa, thường xuyên cho rác củ quả để trùn tạo phân bón."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Trùn quế có bò ra ngoài nhà không?",
+        "answer": "Trùn quế kỵ ánh sáng, chúng chỉ sống ẩn mình trong bóng tối ẩm ướt ở lõi tháp và đất nên không bao giờ bò ra ngoài."
+      },
+      {
+        "question": "Tháp 50 hốc này trồng được bao nhiêu kg rau/tháng?",
+        "answer": "Trung bình mỗi tháng thu hoạch từ 8-12kg rau sạch luân phiên (xà lách, cải ngọt, tía tô, rau thơm)."
+      }
+    ],
+    "monetization_tips": [
+      "Gia công tháp rau thành phẩm bán cho hộ gia đình có sân thượng giá 950.000đ - 1.600.000đ/tháp.",
+      "Cung cấp sinh khối trùn quế giống và dịch trùn quế bón lá bổ trợ."
+    ],
+    "tags": [
+      "Tháp rau hữu cơ",
+      "Trùn quế",
+      "Thùng phuy 220L",
+      "Nông nghiệp tuần hoàn",
+      "Sân thượng"
+    ],
+    "related_plant_ids": [
+      "herb-01",
+      "herb-04",
+      "herb-09",
+      "fruit-01"
+    ]
+  },
+  {
+    "id": "recycle-05",
+    "slug": "thuoc-tru-sau-sinh-hoc-toi-ot-gung-ruou-tu-che",
+    "common_name": "Công Thức Ngâm Thuốc Trừ Sâu Sinh Học Tỏi Ớt Gừng Rượu Bảo Vệ Vườn Phố",
+    "scientific_name": "Eco Invention: Organic Botanical Bio-Pesticide (Garlic-Chili-Ginger Extract)",
+    "aliases": [
+      "Thuốc trừ sâu tỏi ớt gừng",
+      "Thuốc trừ sâu sinh học tại nhà",
+      "Bio-Pesticide DIY"
+    ],
+    "category": "recycle",
+    "nft_class": "eco_invention",
+    "description": "Phương pháp chiết xuất tinh chất cay nóng Allicin và Capsaicin từ tỏi, ớt hiểm, gừng gió ngâm rượu trắng 45 độ. Tiêu diệt rệp sáp, bọ trĩ, sâu tơ cực mạnh mà không độc hại cho trẻ nhỏ và vật nuôi.",
+    "image_url": "https://images.unsplash.com/photo-1574316071802-0d684efa7cd5?auto=format&fit=crop&w=1200&q=80",
+    "image_sha256": "c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1",
+    "sunlight": "indoor",
+    "watering": "drought_tolerant",
+    "propagation_difficulty": 1,
+    "growth_time": "15 ngày ngâm ủ chiết xuất",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Phun phòng trừ rầy rệp nhiều nhất vào mùa xuân ẩm ướt (tháng 2-4)",
+      "central": "Kiểm soát bọ trĩ sâu vẽ bùa mùa nắng nóng",
+      "south": "Bảo vệ vườn rau trái ban công bốn mùa an toàn",
+      "best_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "warning": "Thời gian cách ly an toàn trước khi hái ăn: 3-5 ngày sau khi phun; rửa sạch dưới vòi nước"
+    },
+    "botanical_details": {
+      "family": "Botanical Pesticide / Biochemical Protection",
+      "native_range": "Dân gian phòng trừ sâu bệnh nông nghiệp hữu cơ Việt Nam",
+      "active_compounds": [
+        "Allicin (Kháng nấm diệt khuẩn)",
+        "Capsaicin (Làm bỏng niêm mạc sâu bọ)",
+        "Gingerol (Xua đuổi bọ cánh cứng)",
+        "Phân hủy sinh học 100%"
+      ],
+      "soil_ph": "Không ảnh hưởng pH đất, phân hủy thành mùn hữu cơ",
+      "ideal_temp": "Bảo quản nơi râm mát 20°C - 30°C",
+      "pot_size": "Bình thủy tinh hoặc can nhựa 5L ngâm chiết xuất"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Chuẩn bị nguyên liệu theo tỷ lệ 1:1:1",
+        "instruction": "1kg tỏi khô + 1kg ớt hiểm chín cay + 1kg gừng già rửa sạch để ráo nước, giã nát hoặc xay nhỏ."
+      },
+      {
+        "step": 2,
+        "title": "Ngâm cùng rượu trắng 45 độ",
+        "instruction": "Cho hỗn hợp vào bình thủy tinh, đổ 3 lít rượu gạo trắng 45 độ ngập nguyên liệu, đậy nắp ủ kín 15 ngày."
+      },
+      {
+        "step": 3,
+        "title": "Pha loãng và phun xịt phòng trị",
+        "instruction": "Lọc lấy 20ml nước cốt pha với 2 lít nước sạch + 5ml nước rửa chén (chất bám dính), phun ướt 2 mặt lá vào sáng sớm."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Thuốc trừ sâu tỏi ớt này có hại cho chó mèo hay trẻ nhỏ không?",
+        "answer": "Thành phần hoàn toàn từ gia vị ăn uống tự nhiên, chỉ gây cay mắt tạm thời chứ không có độc tính hóa học tồn dư."
+      },
+      {
+        "question": "Dung dịch ngâm xong để được bao lâu?",
+        "answer": "Dung dịch ngâm rượu có nắp kín để nơi thoáng mát dùng tốt trong vòng 1-2 năm không hỏng."
+      }
+    ],
+    "monetization_tips": [
+      "Đóng chai xịt pha sẵn 500ml bán cho người trồng cây ban công giá 65.000đ - 85.000đ/chai.",
+      "Bán theo chai cốt đậm đặc 250ml hướng dẫn pha tại nhà 95.000đ/chai."
+    ],
+    "tags": [
+      "Thuốc trừ sâu sinh học",
+      "Tỏi ớt gừng",
+      "Trừ rệp sáp",
+      "An toàn trẻ nhỏ",
+      "Không hóa chất"
+    ],
+    "related_plant_ids": [
+      "fruit-01",
+      "fruit-04",
+      "fruit-12",
+      "orn-02"
+    ]
+  },
+  {
+    "id": "culinary-02",
+    "slug": "tra-dau-biec-chanh-mat-ong-doi-mau",
+    "common_name": "Trà Hoa Đậu Biếc Đổi Màu Giàu Anthocyanin Chống Lão Hóa Cùng Chanh Mật Ong",
+    "scientific_name": "Botanical Culinary Recipe: Color-Changing Butterfly Pea Flower Antioxidant Elixir",
+    "aliases": [
+      "Trà hoa đậu biếc chanh",
+      "Trà đậu biếc đổi màu",
+      "Butterfly Pea Tea"
+    ],
+    "category": "culinary",
+    "nft_class": "culinary_recipe",
+    "description": "Nghệ thuật pha chế trà hoa đậu biếc tươi thu hái từ giàn ban công. Sắc xanh lam chuyển sang tím hoa cà rực rỡ khi gặp axit citric tự nhiên từ chanh, dồi dào chất chống oxy hóa bảo vệ thị lực và trẻ hóa làn da.",
+    "image_url": "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&w=1200&q=80",
+    "image_sha256": "d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2",
+    "sunlight": "indoor",
+    "watering": "daily",
+    "propagation_difficulty": 1,
+    "growth_time": "10 phút pha hãm trà",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Thưởng thức ấm vào mùa thu đông, uống mát giải nhiệt mùa hè",
+      "central": "Món trà thanh nhiệt phổ biến khắp miền Trung",
+      "south": "Thức uống detox thời thượng cho cư dân đô thị",
+      "best_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "warning": "Phụ nữ mang thai hoặc người đang dùng thuốc chống đông máu không nên uống lượng lớn"
+    },
+    "botanical_details": {
+      "family": "Nutraceutical / Botanical Infusion",
+      "native_range": "Hoa đậu biếc nhiệt đới thuần dưỡng vườn nhà Việt Nam",
+      "active_compounds": [
+        "Anthocyanin (Chống oxy hóa mạnh gấp 10 lần Vitamin C)",
+        "Bioflavonoid",
+        "Proanthocyanidin (Bảo vệ collagen da)"
+      ],
+      "soil_ph": "Chỉ dùng hoa hữu cơ hái từ giàn không phun thuốc hóa học",
+      "ideal_temp": "Hãm nước sôi 85°C - 90°C",
+      "pot_size": "Ấm trà thủy tinh trong suốt để chiêm ngưỡng màu sắc"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Hái hoa tươi và tráng sạch",
+        "instruction": "Hái 5-8 bông hoa đậu biếc tươi mới nở buổi sớm, bỏ cuống xanh, rửa nhẹ dưới vòi nước."
+      },
+      {
+        "step": 2,
+        "title": "Hãm trà lấy sắc xanh lam đậm",
+        "instruction": "Cho hoa vào bình thủy tinh, rót 250ml nước nóng 90°C, đậy nắp ủ 5-7 phút cho hoa tiết trọn màu xanh biếc."
+      },
+      {
+        "step": 3,
+        "title": "Thêm mật ong và vắt chanh tạo phép màu",
+        "instruction": "Hòa tan 1-2 thìa mật ong rừng, vắt 1/2 quả chanh tươi; quan sát nước trà chuyển từ xanh lam sang tím hoa cà tuyệt đẹp."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao trà hoa đậu biếc lại đổi màu khi vắt chanh?",
+        "answer": "Hợp chất Anthocyanin tự nhiên trong hoa đổi cấu trúc hóa học theo độ pH: môi trường trung tính có màu xanh lam, gặp axit citric trong chanh đổi sang màu tím hồng."
+      },
+      {
+        "question": "Uống trà hoa đậu biếc hàng ngày có tốt không?",
+        "answer": "Mỗi ngày dùng 3-5 bông giúp ngủ ngon, đẹp da và sáng mắt; không nên lạm dụng quá 10 bông/ngày."
+      }
+    ],
+    "monetization_tips": [
+      "Sấy lạnh hoa đậu biếc vườn nhà đóng lọ thủy tinh 50g bán giá 75.000đ - 110.000đ/lọ.",
+      "Kinh doanh đồ uống trà thảo mộc đóng chai take-away cho dân văn phòng."
+    ],
+    "tags": [
+      "Trà đậu biếc",
+      "Đổi màu kỳ diệu",
+      "Anthocyanin",
+      "Chống lão hóa",
+      "Sáng mắt"
+    ],
+    "related_plant_ids": [
+      "fruit-03",
+      "fruit-12"
+    ]
+  },
+  {
+    "id": "culinary-03",
+    "slug": "nuoc-sam-mat-gan-mia-lau-la-dua-re-tranh",
+    "common_name": "Nước Sâm Mía Lau Lá Dứa Rễ Tranh Thanh Nhiệt Mát Gan Nam Bộ",
+    "scientific_name": "Botanical Culinary Recipe: Southern Vietnamese Cooling Herbal Detox Infusion",
+    "aliases": [
+      "Nước sâm mía lau",
+      "Nước sâm mát gan",
+      "Southern Herbal Drink"
+    ],
+    "category": "culinary",
+    "nft_class": "culinary_recipe",
+    "description": "Bí phương nấu nước sâm gia truyền giải nhiệt mùa hè Nam Bộ từ mía lau, lá dứa thơm nếp, rễ cỏ tranh và mã đề. Thúc đẩy bài tiết độc tố qua đường tiết niệu và hạ nhiệt cơ thể nhanh chóng.",
+    "image_url": "https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=1200&q=80",
+    "image_sha256": "e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3",
+    "sunlight": "indoor",
+    "watering": "daily",
+    "propagation_difficulty": 1,
+    "growth_time": "1 giờ nấu sôi ninh nhỏ lửa",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Uống giải nhiệt mùa hè oi bức (tháng 5-8)",
+      "central": "Giải khát tức thì mùa gió Lào khô bỏng",
+      "south": "Thức uống đường phố linh hồn quanh năm của người Sài Gòn",
+      "best_months": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "warning": "Người tỳ vị hư hàn (hay lạnh bụng, tiêu chảy) nên uống ấm, không uống lạnh với đá"
+    },
+    "botanical_details": {
+      "family": "Traditional Herbal Cooling Drinks",
+      "native_range": "Dược thiện giải khát dân gian miền Nam Việt Nam",
+      "active_compounds": [
+        "Arundoin từ rễ tranh (Lợi tiểu)",
+        "Chlorophyll lá dứa (Thơm mát)",
+        "Đường saccaroza tự nhiên từ mía lau"
+      ],
+      "soil_ph": "Thảo mộc tươi tự nhiên rửa sạch bùn đất",
+      "ideal_temp": "Uống ấm hoặc uống mát với đá lạnh 10°C - 15°C",
+      "pot_size": "Nồi inox 5-10 lít nấu nước sâm gia đình"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Sơ chế chẻ mía lau và rửa rễ tranh",
+        "instruction": "Mía lau 2 lóng róc vỏ chẻ thanh mỏng lót đáy nồi. Rễ cỏ tranh 50g + mã đề 50g rửa sạch cát bùn cuộn tròn."
+      },
+      {
+        "step": 2,
+        "title": "Nấu sôi và hãm lá dứa thơm",
+        "instruction": "Đổ 3 lít nước sôi ninh nhỏ lửa 45 phút cho mía tiết vị ngọt mát. Cho 5 nhánh lá dứa nếp vào nấu thêm 10 phút để không mất mùi thơm."
+      },
+      {
+        "step": 3,
+        "title": "Lọc trong và nêm đường phèn",
+        "instruction": "Vớt bỏ bã thảo mộc, nêm 50g đường phèn thanh nhẹ, để nguội rót chai bảo quản tủ lạnh dùng 2-3 ngày."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao phải chẻ mía lau mỏng lót đáy nồi?",
+        "answer": "Mía lau lót đáy giúp nước sâm ngọt thanh tự nhiên và ngăn các loại rễ thảo mộc bị bén cháy khét đáy nồi."
+      },
+      {
+        "question": "Nước sâm mía lau có hạ men gan được không?",
+        "answer": "Thành phần rễ tranh và mã đề kích thích bài tiết độc tố qua thận, giúp giảm nhiệt độc tích tụ trong gan rất hiệu quả."
+      }
+    ],
+    "monetization_tips": [
+      "Đóng chai nước sâm mát gan tiệt trùng 330ml bán lẻ 18.000đ - 25.000đ/chai tại các hội chợ sinh thái.",
+      "Bán theo set thảo mộc khô (combo gói sẵn) gửi ship toàn quốc 45.000đ/set nấu 5 lít nước."
+    ],
+    "tags": [
+      "Nước sâm mía lau",
+      "Thanh nhiệt mát gan",
+      "Giải độc mùa hè",
+      "Lá dứa thơm",
+      "Rễ tranh"
+    ],
+    "related_plant_ids": [
+      "herb-03",
+      "herb-12",
+      "herb-13"
+    ]
+  },
+  {
+    "id": "culinary-04",
+    "slug": "muoi-thao-moc-tieu-rung-mac-khen-hat-doi-tay-bac",
+    "common_name": "Muối Thảo Mộc Tiêu Rừng Mắc Khén Hạt Dổi Tây Bắc Rang Tay Dân Tộc",
+    "scientific_name": "Botanical Culinary Recipe: Artisan Northwest Highland Forest Spice Salt",
+    "aliases": [
+      "Muối thảo mộc Tây Bắc",
+      "Chẩm chéo khô mắc khén",
+      "Northwest Wild Herb Salt"
+    ],
+    "category": "culinary",
+    "nft_class": "culinary_recipe",
+    "description": "Bí phương muối thảo mộc trứ danh vùng cao Tây Bắc kết hợp hạt mắc khén thơm lừng, hạt dổi rừng nướng than hồng, ớt gió nương và muối hầm truyền thống. Đánh thức trọn vẹn vị giác mọi món nướng hấp.",
+    "image_url": "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=1200&q=80",
+    "image_sha256": "f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4",
+    "sunlight": "indoor",
+    "watering": "drought_tolerant",
+    "propagation_difficulty": 2,
+    "growth_time": "30 phút sao thơm nghiền thô",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Gia vị ấm nồng không thể thiếu trong các bữa tiệc nướng mùa đông Tây Bắc",
+      "central": "Chấm thịt luộc gà đồi chuẩn vị đặc sản",
+      "south": "Được các tín đồ ẩm thực phương Nam cực kỳ ưa chuộng",
+      "best_months": [
+        1,
+        2,
+        9,
+        10,
+        11,
+        12
+      ],
+      "warning": "Rang hạt mắc khén ở lửa nhỏ vừa chín tới; nếu rang quá lửa sẽ bị đắng khét"
+    },
+    "botanical_details": {
+      "family": "Indigenous Highland Spice Blend",
+      "native_range": "Rừng đại ngàn Tây Bắc (Điện Biên, Sơn La, Lai Châu)",
+      "active_compounds": [
+        "Limonene và tinh dầu mắc khén (Tê nhẹ đầu lưỡi)",
+        "Hợp chất thơm hạt dổi rừng",
+        "Capsaicin ớt chỉ thiên nương"
+      ],
+      "soil_ph": "Gia vị khô sạch 100% tự nhiên không mì chính hóa học",
+      "ideal_temp": "Bảo quản hũ kín nhiệt độ phòng nơi khô ráo",
+      "pot_size": "Lọ thủy tinh hoặc hũ tre 150g - 250g"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Nướng hạt dổi và rang mắc khén",
+        "instruction": "Nướng 3-5 hạt dổi rừng trên than hồng hoặc chảo nóng đến khi nứt vỏ dậy mùi thơm nức. Mắc khén rang lửa liu riu 3 phút."
+      },
+      {
+        "step": 2,
+        "title": "Rang khô muối hạt và ớt gió",
+        "instruction": "Sao khô muối biển hạt hầm trên chảo gang cùng ớt khô và lá chanh thái chỉ mịn đến khi khô giòn."
+      },
+      {
+        "step": 3,
+        "title": "Giã cối đá nghiền thô truyền thống",
+        "instruction": "Cho toàn bộ hỗn hợp vào cối đá giã dập thô (không xay bột quá mịn để giữ nguyên hạt vỡ tinh dầu), đóng hũ kín."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao hạt dổi rừng lại được mệnh danh là vàng đen Tây Bắc?",
+        "answer": "Hạt dổi rừng tự nhiên thu hái từ cây cổ thụ hàng chục năm tuổi trên rừng già, có hương thơm quyến rũ nồng nàn độc nhất vô nhị."
+      },
+      {
+        "question": "Muối này chấm món gì ngon nhất?",
+        "answer": "Tuyệt đỉnh khi chấm gà luộc, thịt nướng, cá suối nướng, măng luộc và các món luộc dân dã."
+      }
+    ],
+    "monetization_tips": [
+      "Đóng hũ muối thảo mộc 200g bán đặc sản vùng miền 65.000đ - 95.000đ/hũ.",
+      "Gói thành set quà biếu Tết gia vị Tây Bắc sang trọng lợi nhuận cao."
+    ],
+    "tags": [
+      "Muối thảo mộc",
+      "Mắc khén hạt dổi",
+      "Gia vị Tây Bắc",
+      "Chẩm chéo",
+      "Rang tay thủ công"
+    ],
+    "related_plant_ids": [
+      "herb-22",
+      "fruit-08"
+    ]
+  },
+  {
+    "id": "culinary-05",
+    "slug": "giam-tao-meo-hoa-cuc-len-men-tu-nhien",
+    "common_name": "Giấm Táo Mèo Hoa Cúc Lên Men Tự Nhiên Giàu Lợi Khuẩn Đẹp Da Giảm Mỡ",
+    "scientific_name": "Botanical Culinary Recipe: Probiotic Wild Docynia & Chrysanthemum Fermented Vinegar",
+    "aliases": [
+      "Giấm táo mèo hoa cúc",
+      "Giấm lên men tự nhiên",
+      "Wild Apple Herbal Vinegar"
+    ],
+    "category": "culinary",
+    "nft_class": "culinary_recipe",
+    "description": "Phương thức lên men sinh học giấm quả sơn tra (táo mèo rừng Tây Bắc) kết hợp hoa cúc chi hữu cơ và giấm cái mẹ Scoby. Giàu enzyme sống axit axetic tự nhiên hỗ trợ tiêu hóa dầu mỡ và hạ mỡ máu.",
+    "image_url": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=1200&q=80",
+    "image_sha256": "a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5",
+    "sunlight": "indoor",
+    "watering": "drought_tolerant",
+    "propagation_difficulty": 2,
+    "growth_time": "30-45 ngày lên men sinh học",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Làm giấm vào mùa thu hoạch táo mèo rừng (tháng 8 - tháng 10 hàng năm)",
+      "central": "Gia vị lên men thanh mát cho các món gỏi trộn",
+      "south": "Thức uống giấm thanh lọc cơ thể rất được ưa chuộng",
+      "best_months": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "warning": "Người viêm loét dạ dày nặng không nên uống giấm lúc bụng đói"
+    },
+    "botanical_details": {
+      "family": "Probiotic Bio-Fermentation / Functional Vinegar",
+      "native_range": "Rừng núi cao Mù Cang Chải, Yên Bái & Sơn La",
+      "active_compounds": [
+        "Axit Axetic sống",
+        "Enzyme đường ruột",
+        "Polyphenol quả sơn tra",
+        "Flavonoid hoa cúc chi"
+      ],
+      "soil_ph": "Giấm lên men tự nhiên pH 3.0 - 3.5",
+      "ideal_temp": "22°C - 30°C nơi tối thoáng khí",
+      "pot_size": "Bình thủy tinh miệng rộng 3-5 lít bọc vải xô"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Sơ chế táo mèo rừng và hoa cúc chi",
+        "instruction": "1.5kg táo mèo rửa sạch bổ đôi giữ nguyên hạt. 30g hoa cúc chi hữu cơ sấy khô tráng nước sôi để ráo."
+      },
+      {
+        "step": 2,
+        "title": "Ủ cùng giấm cái Scoby và nước đường phèn",
+        "instruction": "Xếp táo mèo và hoa cúc vào bình thủy tinh, rót nước đường phèn ấm (200g đường + 2 lít nước) và thả giấm cái Scoby giống."
+      },
+      {
+        "step": 3,
+        "title": "Bọc vải xô thở và ủ lên men tự nhiên",
+        "instruction": "Bọc miệng bình bằng vải xô sạch 2 lớp để vi khuẩn acetic thở, đặt nơi râm mát 30-45 ngày đến khi nước giấm trong vắt thơm chua dịu."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Lớp màng trắng nổi trên mặt giấm có phải bị mốc hỏng không?",
+        "answer": "Đó chính là con giấm mẹ (Scoby) sinh trưởng tự nhiên chứng tỏ mẻ giấm sống rất giàu lợi khuẩn hữu ích."
+      },
+      {
+        "question": "Dùng giấm táo mèo giảm mỡ bụng thế nào hiệu quả?",
+        "answer": "Pha 1-2 thìa giấm táo mèo cùng 1 ly nước ấm và 1 thìa mật ong, uống sau bữa ăn sáng 30 phút giúp giảm hấp thụ chất béo."
+      }
+    ],
+    "monetization_tips": [
+      "Đóng chai thủy tinh 500ml giấm táo mèo hoa cúc ủ mộc bán giá 120.000đ - 165.000đ/chai.",
+      "Bán kèm con giấm mẹ Scoby giống cho người yêu thích tự làm thực phẩm lên men."
+    ],
+    "tags": [
+      "Giấm táo mèo",
+      "Hoa cúc chi",
+      "Lên men tự nhiên",
+      "Giàu probiotic",
+      "Giảm mỡ máu"
+    ],
+    "related_plant_ids": [
+      "fruit-06",
+      "herb-18"
+    ]
+  },
+  {
+    "id": "forest-02",
+    "slug": "vuon-quoc-gia-cat-tien",
+    "common_name": "Vườn Quốc Gia Cát Tiên (Khu Dự Trữ Sinh Quyển Thế Giới UNESCO)",
+    "scientific_name": "Cat Tien National Park Sanctuary (UNESCO Biosphere Reserve)",
+    "aliases": [
+      "Rừng Cát Tiên",
+      "VQG Cát Tiên",
+      "Cat Tien Biosphere Reserve"
+    ],
+    "category": "forest",
+    "nft_class": "geo_forest_10000m2",
+    "description": "Khu Dự Trữ Sinh Quyển Thế Giới rộng 71.920 ha (719.200.000 m²). Lá phổi xanh lớn nhất Đông Nam Bộ, nơi cư ngụ của cá sấu Xiêm hồ Bàu Sấu, đàn voi rừng châu Á và quần thể cây Tung cổ thụ trăm tuổi.",
+    "image_url": "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=80",
+    "image_sha256": "b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 5,
+    "growth_time": "Hệ sinh thái bảo tồn vĩnh cửu",
+    "container_suitable": false,
+    "seasonality": {
+      "north": "Điểm đến sinh thái miền Nam thu hút đông đảo du khách mùa khô",
+      "central": "Bảo tồn hệ động thực vật nhiệt đới gió mùa phong phú",
+      "south": "Đẹp nhất vào mùa khô (tháng 12 đến tháng 5 năm sau) dễ quan sát động vật hoang dã",
+      "best_months": [
+        12,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "warning": "Bắt buộc mang vớ chống vắt khi đi bộ xuyên rừng trong mùa mưa ẩm"
+    },
+    "botanical_details": {
+      "family": "Tropical Lowland Evergreen Rainforest",
+      "native_range": "Ranh giới 3 tỉnh Đồng Nai, Lâm Đồng và Bình Phước",
+      "active_compounds": [
+        "1.610 loài thực vật bậc cao",
+        "Cây Tung đại thụ 400 năm tuổi",
+        "Quần thể Bàu Sấu Ramsar quốc tế",
+        "Bể hấp thụ Carbon khổng lồ"
+      ],
+      "soil_ph": "5.5 - 6.5 (Đất đỏ bazan và phù sa cổ màu mỡ)",
+      "ideal_temp": "22°C - 34°C",
+      "pot_size": "Khu bảo tồn nguyên sinh 71.920 ha (Mỗi NFT tương ứng 10.000 m² rừng)"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Có mặt tại VQG Cát Tiên và bật định vị GPS",
+        "instruction": "Di chuyển đến khu vực VQG Cát Tiên (bán kính 25km từ tâm rừng). Bật định vị GPS trên điện thoại."
+      },
+      {
+        "step": 2,
+        "title": "Xác thực khoảng cách trên Web3 Sandbox",
+        "instruction": "Bấm nút Xác Thực GPS Check-in. Hệ thống tính khoảng cách Haversine và cấp vé check-in hiệu lực 24h."
+      },
+      {
+        "step": 3,
+        "title": "Đúc NFT Lô Rừng 10.000m² Cát Tiên",
+        "instruction": "Ký ví Web3 nhận chứng nhận số bảo tồn 1 ha rừng Cát Tiên lưu trữ vĩnh viễn trên sổ cái Blockchain."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Diện tích 71.920 ha của Cát Tiên tương ứng với bao nhiêu Lô NFT?",
+        "answer": "Mỗi NFT bảo tồn tương ứng 10.000 m² (1 ha). Toàn bộ VQG Cát Tiên có quỹ giới hạn tối đa 71.920 Lô NFT độc bản số thứ tự cố định."
+      },
+      {
+        "question": "Bàu Sấu trong VQG Cát Tiên có gì đặc biệt?",
+        "answer": "Bàu Sấu là vùng đất ngập nước Ramsar quốc tế thứ 2 của Việt Nam, nơi bảo tồn thành công loài cá sấu Xiêm nước ngọt cực kỳ nguy cấp."
+      }
+    ],
+    "monetization_tips": [
+      "Chủ sở hữu NFT Lô Rừng Cát Tiên được nhận huy hiệu Nhà Bảo Tồn Sinh Thái số và giảm giá dịch vụ xem thú đêm tại vườn.",
+      "Tích lũy chỉ số xanh đóng góp tín chỉ bảo tồn thiên nhiên quốc gia."
+    ],
+    "tags": [
+      "Vườn quốc gia",
+      "Cát Tiên",
+      "Bàu Sấu",
+      "Cá sấu Xiêm",
+      "Khu sinh quyển UNESCO",
+      "Đồng Nai"
+    ],
+    "forest_spec": {
+      "center_lat": 11.4328,
+      "center_lng": 107.4286,
+      "radius_km": 25,
+      "total_area_m2": 719200000,
+      "unit_area_m2": 10000,
+      "max_nft_supply": 71920,
+      "province": "Đồng Nai - Lâm Đồng - Bình Phước",
+      "unesco_or_status": "Khu Dự Trữ Sinh Quyển Thế Giới UNESCO (2001)"
+    },
+    "related_plant_ids": [
+      "herb-01",
+      "fruit-01",
+      "orn-01"
+    ]
+  },
+  {
+    "id": "forest-03",
+    "slug": "vuon-quoc-gia-phong-nha-ke-bang",
+    "common_name": "Vườn Quốc Gia Phong Nha - Kẻ Bàng (Di Sản Thiên Nhiên Thế Giới UNESCO)",
+    "scientific_name": "Phong Nha - Ke Bang National Park (UNESCO World Natural Heritage)",
+    "aliases": [
+      "Rừng Phong Nha",
+      "VQG Phong Nha Kẻ Bàng",
+      "Phong Nha Karst Sanctuary"
+    ],
+    "category": "forest",
+    "nft_class": "geo_forest_10000m2",
+    "description": "Di Sản Thiên Nhiên Thế Giới rộng 123.326 ha (1.233.260.000 m²). Vùng Karst đá vôi cổ nhất châu Á 400 triệu năm, ôm trọn Sơn Đoòng - hang động tự nhiên lớn nhất hành tinh cùng rừng bách xanh ngàn năm.",
+    "image_url": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=80",
+    "image_sha256": "c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 5,
+    "growth_time": "Hệ sinh thái Karst 400 triệu năm tuổi",
+    "container_suitable": false,
+    "seasonality": {
+      "north": "Kỳ quan thiên nhiên hùng vĩ hàng đầu thế giới",
+      "central": "Thời gian tham quan thám hiểm lý tưởng từ tháng 3 đến tháng 8 mùa khô",
+      "south": "Điểm đến du lịch mạo hiểm đẳng cấp toàn cầu",
+      "best_months": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "warning": "Mùa mưa lũ từ tháng 9 đến tháng 11 nước sông Son dâng cao hạn chế vào hang"
+    },
+    "botanical_details": {
+      "family": "Limestone Karst Primeval Ecosystem",
+      "native_range": "Huyện Bố Trạch và Minh Hóa, tỉnh Quảng Bình",
+      "active_compounds": [
+        "Hang động lớn nhất thế giới Sơn Đoòng",
+        "Rừng bách xanh đá vôi 500 năm tuổi",
+        "Bảo tàng địa chất sống 400 triệu năm",
+        "Hơn 2.900 loài thực vật bậc cao"
+      ],
+      "soil_ph": "6.8 - 7.8 (Đất phong hóa đá vôi kiềm nhẹ)",
+      "ideal_temp": "18°C - 28°C trong hang mát lạnh 20°C quanh năm",
+      "pot_size": "Khu di sản thiên nhiên 123.326 ha (Mỗi NFT tương ứng 10.000 m² rừng)"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Có mặt tại Phong Nha - Kẻ Bàng và bật định vị GPS",
+        "instruction": "Di chuyển đến khu vực VQG Phong Nha - Kẻ Bàng (bán kính 30km từ tâm rừng). Bật định vị GPS."
+      },
+      {
+        "step": 2,
+        "title": "Xác thực tọa độ vùng Di Sản Thế Giới",
+        "instruction": "Nhấn nút Xác Thực GPS Check-in trên Web3 Sandbox, nhận vé check-in số bảo tồn 24 giờ."
+      },
+      {
+        "step": 3,
+        "title": "Ký ví Web3 nhận NFT Lô Rừng 10.000m²",
+        "instruction": "Khẳng định quyền bảo tồn độc bản 1 Lô (10.000 m² = 1 ha) kỳ quan Phong Nha Kẻ Bàng trên chuỗi khối."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao Phong Nha - Kẻ Bàng lại được UNESCO công nhận di sản 2 lần?",
+        "answer": "Lần 1 (2003) vì tiêu chí địa chất địa mạo nổi bật toàn cầu; Lần 2 (2015) vì tiêu chí đa dạng sinh học và các hệ sinh thái trên cạn độc nhất vô nhị."
+      },
+      {
+        "question": "Quỹ NFT bảo tồn của Phong Nha - Kẻ Bàng là bao nhiêu Lô?",
+        "answer": "Với diện tích 123.326 ha, tổng quỹ tối đa là 123.326 Lô NFT (1 ha/lô), đúc hết sẽ ngừng vĩnh viễn."
+      }
+    ],
+    "monetization_tips": [
+      "Chủ sở hữu NFT nhận đặc quyền tri ân ưu tiên vé tour thám hiểm hang động sinh thái.",
+      "Đóng góp vào quỹ số bảo tồn động thực vật quý hiếm vùng đệm vườn quốc gia."
+    ],
+    "tags": [
+      "Di sản UNESCO",
+      "Phong Nha Kẻ Bàng",
+      "Sơn Đoòng",
+      "Hang động",
+      "Đá vôi cổ",
+      "Quảng Bình"
+    ],
+    "forest_spec": {
+      "center_lat": 17.5833,
+      "center_lng": 106.2833,
+      "radius_km": 30,
+      "total_area_m2": 1233260000,
+      "unit_area_m2": 10000,
+      "max_nft_supply": 123326,
+      "province": "Quảng Bình",
+      "unesco_or_status": "Di Sản Thiên Nhiên Thế Giới UNESCO (2003, 2015)"
+    },
+    "related_plant_ids": [
+      "herb-05",
+      "herb-17",
+      "orn-05"
+    ]
+  },
+  {
+    "id": "forest-04",
+    "slug": "vuon-quoc-gia-hoang-lien",
+    "common_name": "Vườn Quốc Gia Hoàng Liên (Đỉnh Fansipan & Rừng Đỗ Quyên Mây Ngàn)",
+    "scientific_name": "Hoang Lien National Park Sanctuary (Roof of Indochina Biome)",
+    "aliases": [
+      "Rừng Hoàng Liên",
+      "VQG Hoàng Liên Sa Pa",
+      "Hoang Lien Alpine Forest"
+    ],
+    "category": "forest",
+    "nft_class": "geo_forest_10000m2",
+    "description": "Nóc nhà Đông Dương Fansipan (3.143m) với diện tích bảo tồn 29.845 ha (298.450.000 m²). Vườn Di Sản ASEAN lưu giữ rừng Đỗ quyên cổ thụ trăm hoa đua nở, thông đỏ quý hiếm và khí hậu á nhiệt đới núi cao.",
+    "image_url": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80",
+    "image_sha256": "d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 5,
+    "growth_time": "Hệ sinh thái rừng núi cao ôn đới cổ xưa",
+    "container_suitable": false,
+    "seasonality": {
+      "north": "Mùa hoa đỗ quyên rực rỡ nhất từ tháng 2 đến tháng 4; mùa đông có tuyết rơi băng giá",
+      "central": "Hệ sinh thái núi cao đặc sắc nhất bán đảo Đông Dương",
+      "south": "Điểm trekking mạo hiểm mơ ước của mọi phượt thủ",
+      "best_months": [
+        2,
+        3,
+        4,
+        9,
+        10,
+        11
+      ],
+      "warning": "Thời tiết núi cao thay đổi cực nhanh, sương mù dày đặc cần trang bị đồ giữ nhiệt"
+    },
+    "botanical_details": {
+      "family": "High Mountain Alpine & Subtropical Cloud Forest",
+      "native_range": "Dãy Hoàng Liên Sơn, thuộc Sa Pa (Lào Cai) và Than Uyên (Lai Châu)",
+      "active_compounds": [
+        "Đỉnh Fansipan 3.143m",
+        "30 loài hoa Đỗ quyên bản địa độc hữu",
+        "Quần thể Thông đỏ quý hiếm",
+        "Hơn 2.000 loài thực vật bậc cao"
+      ],
+      "soil_ph": "4.5 - 5.5 (Đất mùn than bùn trên núi cao)",
+      "ideal_temp": "5°C - 20°C (mùa đông dưới 0°C có băng tuyết)",
+      "pot_size": "Khu bảo tồn nguyên sinh 29.845 ha (Mỗi NFT tương ứng 10.000 m² rừng)"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Có mặt tại Sa Pa / Hoàng Liên và bật GPS",
+        "instruction": "Di chuyển đến khu vực VQG Hoàng Liên (bán kính 20km từ tâm rừng). Bật định vị GPS."
+      },
+      {
+        "step": 2,
+        "title": "Bấm nút Xác Thực GPS Check-in trên Web3 Sandbox",
+        "instruction": "Hệ thống đối chiếu tọa độ thực tế và cấp Vé Check-in GPS hiệu lực 24h."
+      },
+      {
+        "step": 3,
+        "title": "Đúc NFT Lô Rừng 10.000m² Hoàng Liên",
+        "instruction": "Ký ví Web3 ghi nhận đóng góp bảo tồn 1 ha rừng mây ngàn Hoàng Liên trên Blockchain."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao Hoàng Liên Sơn lại có nhiều loài Đỗ quyên đến vậy?",
+        "answer": "Nhờ độ cao từ 1.500m đến trên 3.000m quanh năm mây mù ẩm ướt, Hoàng Liên là thủ phủ của hơn 30 loài đỗ quyên cổ thụ bản địa đua nhau khoe sắc."
+      },
+      {
+        "question": "Quỹ Lô NFT bảo tồn của VQG Hoàng Liên là bao nhiêu?",
+        "answer": "Tổng diện tích 29.845 ha tương ứng với 29.845 Lô NFT độc bản (1 ha/lô)."
+      }
+    ],
+    "monetization_tips": [
+      "Nhận huy hiệu Người Chinh Phục Nóc Nhà Đông Dương Fansipan và ưu đãi dịch vụ hướng dẫn viên Sa Pa.",
+      "Chứng chỉ bảo tồn hệ sinh thái rừng á nhiệt đới núi cao trên Web3."
+    ],
+    "tags": [
+      "Hoàng Liên Sa Pa",
+      "Fansipan",
+      "Rừng Đỗ Quyên",
+      "Vườn Di sản ASEAN",
+      "Lào Cai - Lai Châu"
+    ],
+    "forest_spec": {
+      "center_lat": 22.3039,
+      "center_lng": 103.8267,
+      "radius_km": 20,
+      "total_area_m2": 298450000,
+      "unit_area_m2": 10000,
+      "max_nft_supply": 29845,
+      "province": "Lào Cai - Lai Châu",
+      "unesco_or_status": "Vườn Di Sản ASEAN (2003)"
+    },
+    "related_plant_ids": [
+      "herb-22",
+      "herb-36",
+      "orn-19"
+    ]
+  },
+  {
+    "id": "forest-05",
+    "slug": "vuon-quoc-gia-con-dao",
+    "common_name": "Vườn Quốc Gia Côn Đảo (Khu Bảo Tồn Biển & Rùa Biển Lên Đẻ Trứng)",
+    "scientific_name": "Con Dao National Park Sanctuary (Ramsar Marine & Forest Biome)",
+    "aliases": [
+      "Rừng Côn Đảo",
+      "VQG Côn Đảo",
+      "Con Dao Marine Ramsar Reserve"
+    ],
+    "category": "forest",
+    "nft_class": "geo_forest_10000m2",
+    "description": "Vùng đất ngập nước Ramsar quốc tế rộng 19.998 ha (199.980.000 m²). Khu bảo tồn đa dạng sinh học biển - đảo trứ danh bảo vệ rạn san hô nguyên vẹn, thảm cỏ biển của bò biển Dugong và bãi đẻ rùa biển lớn nhất Việt Nam.",
+    "image_url": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
+    "image_sha256": "e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 5,
+    "growth_time": "Hệ sinh thái biển đảo bảo tồn vĩnh cửu",
+    "container_suitable": false,
+    "seasonality": {
+      "north": "Hòn đảo thiên đường du lịch sinh thái và tâm linh thiêng liêng",
+      "central": "Vùng biển đảo trong xanh giàu có bậc nhất biển Đông",
+      "south": "Thời gian biển êm đẹp nhất từ tháng 3 đến tháng 9, mùa rùa biển lên đẻ trứng",
+      "best_months": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "warning": "Nghiêm cấm chiếu đèn pin sáng mạnh hoặc làm ồn tại các bãi biển khi rùa mẹ lên đẻ trứng"
+    },
+    "botanical_details": {
+      "family": "Island & Marine Coral Reef Ramsar Wetland Ecosystem",
+      "native_range": "Quần đảo Côn Đảo, tỉnh Bà Rịa - Vũng Tàu",
+      "active_compounds": [
+        "Bãi đẻ rùa biển Vích và Đồi mồi lớn nhất Việt Nam",
+        "Thảm cỏ biển nơi cư ngụ bò biển Dugong",
+        "360 loài san hô nguyên sơ",
+        "Rừng ngập mặn trên nền cát san hô"
+      ],
+      "soil_ph": "7.5 - 8.2 (Cát san hô ven biển và đất Feralit đảo)",
+      "ideal_temp": "25°C - 32°C biển nhiệt đới ấm",
+      "pot_size": "Khu bảo tồn 19.998 ha biển đảo (Mỗi NFT tương ứng 10.000 m²)"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Có mặt tại Côn Đảo và bật định vị GPS",
+        "instruction": "Di chuyển đến quần đảo Côn Đảo (trong bán kính 15km từ tâm vườn). Bật GPS trên điện thoại."
+      },
+      {
+        "step": 2,
+        "title": "Xác thực định vị GPS tại Côn Đảo",
+        "instruction": "Bấm Xác Thực GPS Check-in trên Web3 Sandbox, nhận Vé Check-in số 24 giờ."
+      },
+      {
+        "step": 3,
+        "title": "Đúc NFT Lô Rừng Biển Đảo Côn Đảo 10.000m²",
+        "instruction": "Ký ví Web3 nhận chứng nhận số bảo tồn 1 ha hệ sinh thái rùa biển Côn Đảo trên Blockchain."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao Côn Đảo được công nhận là vùng Ramsar thế giới?",
+        "answer": "Côn Đảo là vùng đất ngập nước Ramsar thứ 6 của Việt Nam nhờ hệ sinh thái rạn san hô, cỏ biển và bãi đẻ của rùa biển quý hiếm được bảo vệ nghiêm ngặt."
+      },
+      {
+        "question": "Tổng quỹ Lô NFT của VQG Côn Đảo là bao nhiêu?",
+        "answer": "Tổng diện tích 19.998 ha tương ứng với tối đa 19.998 Lô NFT độc bản (1 ha/lô)."
+      }
+    ],
+    "monetization_tips": [
+      "Chủ sở hữu NFT nhận chứng nhận Người Bảo Vệ Rùa Biển Côn Đảo và ưu đãi tour sinh thái thả rùa con về biển.",
+      "Tín chỉ bảo tồn đại dương xanh Web3 Blue Carbon."
+    ],
+    "tags": [
+      "Côn Đảo",
+      "Vườn quốc gia",
+      "Khu Ramsar",
+      "Rùa biển đẻ trứng",
+      "Bò biển Dugong",
+      "Bà Rịa - Vũng Tàu"
+    ],
+    "forest_spec": {
+      "center_lat": 8.6833,
+      "center_lng": 106.6,
+      "radius_km": 15,
+      "total_area_m2": 199980000,
+      "unit_area_m2": 10000,
+      "max_nft_supply": 19998,
+      "province": "Bà Rịa - Vũng Tàu",
+      "unesco_or_status": "Khu Đất Ngập Nước Ramsar Thế Giới (2013)"
+    },
+    "related_plant_ids": [
+      "herb-01",
+      "fruit-08",
+      "orn-01"
+    ]
   }
 ]
