@@ -96,7 +96,15 @@ if (file_exists($jsonFile)) {
             if (!isset($allPlants[$slug])) {
                 $allPlants[$slug] = $jp;
             } else {
-                // Hợp nhất dữ liệu bài thuốc và mùa vụ
+                // Hợp nhất dữ liệu bài thuốc, mùa vụ và cập nhật ảnh mới nhất
+                if (!empty($jp['image_url'])) {
+                    $allPlants[$slug]['image_url'] = $jp['image_url'];
+                    if ($pdo && !empty($allPlants[$slug]['id'])) {
+                        try {
+                            $pdo->prepare("UPDATE plants SET image_url = :img WHERE slug = :slug")->execute([':img' => $jp['image_url'], ':slug' => $slug]);
+                        } catch (\Throwable $e) {}
+                    }
+                }
                 if (!empty($jp['medical_info'])) $allPlants[$slug]['medical_info'] = $jp['medical_info'];
                 if (!empty($jp['seasonality'])) $allPlants[$slug]['seasonality'] = $jp['seasonality'];
                 if (!empty($jp['monetization_tips'])) $allPlants[$slug]['monetization_tips'] = $jp['monetization_tips'];
@@ -421,14 +429,14 @@ if (!$enabled || empty($pageId) || empty($pageToken) || strpos($pageToken, 'YOUR
     $plantCacheDir = __DIR__ . '/../uploads/og_cache';
     $plantCacheFile = $plantCacheDir . "/{$slug}.jpg";
 
-    if (!file_exists($plantCacheFile) && !empty($plantImgUrl)) {
+    if ((!file_exists($plantCacheFile) || filesize($plantCacheFile) < 1024) && !empty($plantImgUrl)) {
         if (!is_dir($plantCacheDir)) {
             @mkdir($plantCacheDir, 0755, true);
         }
         $ch = curl_init($plantImgUrl);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 8);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 12);
         curl_setopt($ch, CURLOPT_USERAGENT, 'YeuTrongCayBot/1.0 (https://yeutrongcay.com; dev@yeutrongcay.com)');
         $imgRaw = curl_exec($ch);
         $imgHttp = curl_getinfo($ch, CURLINFO_HTTP_CODE);
