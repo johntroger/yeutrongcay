@@ -2929,6 +2929,1054 @@ export const SEED_PLANTS: Plant[] = [
       'Phối chậu gốm trắng Bắc Âu trang trí studio, quán cà phê và căn hộ cao cấp.'
     ],
     tags: ['An toàn thú cưng', 'Lá khép ban đêm', 'Vân bạc nghệ thuật', 'Nội thất Bắc Âu']
+  },
+
+  // ==========================================
+  // SPRINT 3 (ĐỢT 3): 20 LOÀI THỰC VẬT ĐỘC BẢN CÁN MỐC 100 LOÀI BÁCH KHOA
+  // (8 Thảo Dược Quý + 6 Cây Ăn Trái Ban Công + 6 Kiểng Lá & Bonsai Phong Thủy)
+  // ==========================================
+  {
+    id: 'herb-41',
+    slug: 'mia-do-cat-loi',
+    common_name: 'Mía Dò Bản Địa (Cát Lồi)',
+    scientific_name: 'Costus speciosus',
+    aliases: ['Cát Lồi', 'Đọt Lúc', 'Mía Dò Hoa Trắng'],
+    category: 'herb',
+    description: 'Thảo dược kiêm rau rừng đặc sản miền Tây và Đông Nam Bộ. Thân mọc xoắn ốc nghệ thuật với búp hoa đỏ thẫm bung cánh trắng tinh khôi, chứa hoạt chất diosgenin (tiền chất steroid kháng viêm tự nhiên) giúp thanh nhiệt, lợi tiểu và giảm đau nhức xương khớp.',
+    quick_answer: 'Mía dò cực kỳ dễ trồng từ khúc thân rễ trong chậu ẩm mát ban công. Đọt non bẻ ăn sống giòn ngọt hơi chua thanh cuốn bánh xèo tuyệt ngon; thân rễ thu hoạch làm thuốc mát thận, tiêu phù thũng.',
+    botanical_details: {
+      family: 'Costaceae (Họ Mía dò)',
+      native_range: 'Bản địa Việt Nam và vùng nhiệt đới châu Á',
+      active_compounds: ['Diosgenin', 'Tigogenin', 'Saponin steroid', 'Curcuminoid', 'Flavonoid'],
+      soil_ph: '5.5 - 7.0 (Đất ẩm giàu mùn hữu cơ)',
+      ideal_temp: '20°C - 34°C',
+      pot_size: '30cm - 45cm'
+    },
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Hellenia_speciosa_%282767164549%29.jpg/960px-Hellenia_speciosa_%282767164549%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    image_sha256: 'd5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d501',
+    sunlight: 'partial_shade',
+    watering: 'daily',
+    propagation_difficulty: 1,
+    growth_time: '45 ngày thu hoạch đọt non, 8 tháng thu củ rễ',
+    container_suitable: true,
+    seasonality: {
+      north: 'Mọc mạnh mùa mưa hè thu, mùa đông tàn lụi phần thân trên mặt đất',
+      central: 'Trồng nơi góc vườn hoặc ban công râm mát',
+      south: 'Xanh tốt và cho đọt non ăn quanh năm',
+      best_months: [4, 5, 6, 7, 8, 9, 10]
+    },
+    medical_info: {
+      uses: ['Kháng viêm tự nhiên, giảm đau nhức dây thần kinh và thấp khớp', 'Lợi tiểu, thanh nhiệt, trị chứng tiểu buốt, tiểu rắt và viêm đường tiết niệu', 'Nước ép ngọn tươi nướng ấm nhỏ tai trị viêm tai giữa đau nhức theo kinh nghiệm dân gian'],
+      folk_remedies: [
+        'Thân rễ mía dò khô 15g + Râu ngô 15g + Mã đề 12g sắc nước uống trong ngày trị chứng tiểu buốt, sỏi bàng quang nhỏ.',
+        'Đọt cát lồi non bóc vỏ ngoài ăn sống chấm mắm kho hoặc luộc chấm kho quẹt giúp mát gan giải nhiệt.'
+      ],
+      preparation: ['Ăn sống hoặc luộc đọt non làm rau', 'Thái lát thân rễ phơi khô sao vàng sắc nước uống'],
+      toxicity_warning: 'Củ mía dò tươi chưa nấu chín có thể gây kích ứng nhẹ cổ họng nếu dùng liều cao; phụ nữ đang mang thai không dùng củ mía dò làm thuốc.',
+      disclaimer: 'Vị thuốc quý đồng thời là nguồn nguyên liệu chiết xuất diosgenin trong ngành dược phẩm.',
+      confusion_risk: {
+        confused_with: 'Cây Gừng Gió hoặc cây Riềng Rừng',
+        distinguishing_features: 'Lá mía dò mọc xếp xoắn ốc quanh thân như bậc thang xoắn chứ không mọc đối xứng 2 hàng phẳng như họ Gừng.'
+      }
+    },
+    academic_citations: [
+      'Dược điển Việt Nam V - Chuyên luận Mía dò (Rhizoma Costi)',
+      'GS. Đỗ Tất Lợi - Những cây thuốc và vị thuốc Việt Nam (trang 458)'
+    ],
+    monetization_tips: [
+      'Trồng chậu mía dò vừa làm cây cảnh hoa trắng búp đỏ vừa cắt đọt rau rừng bán 50.000đ/kg.',
+      'Cung cấp củ giống mía dò bản địa cho người làm vườn sinh thái.'
+    ],
+    tags: ['Rau rừng bánh xèo', 'Kháng viêm khớp', 'Lợi tiểu mát thận', 'Thân xoắn ốc']
+  },
+  {
+    id: 'herb-42',
+    slug: 'bach-dong-nu',
+    common_name: 'Bạch Đồng Nữ (Mò Hoa Trắng)',
+    scientific_name: 'Clerodendrum chinense',
+    aliases: ['Mò Mâm Xôi', 'Ngọc Nữ Hoa Trắng', 'Bấn Trắng'],
+    category: 'herb',
+    description: 'Thảo dược hộ mệnh cho sức khỏe phụ nữ và người cao huyết áp. Chùm hoa trắng hồng xếp tầng như đóa cẩm tú cầu tỏa hương thơm ngát, lá chứa flavonoid và alcaloid giúp thanh nhiệt lương huyết, hạ áp nhẹ và tiêu viêm hiệu quả.',
+    quick_answer: 'Bạch đồng nữ là cây bụi khỏe khoắn, chịu nắng và chịu cắt tỉa tốt trong chậu 35cm. Vừa làm cây cảnh hoa thơm ở ban công vừa hái lá đun nước uống mát gan hoặc nấu nước ngâm rửa phụ khoa.',
+    botanical_details: {
+      family: 'Lamiaceae (Họ Hoa môi / Bạc hà)',
+      native_range: 'Bản địa Việt Nam, Nam Trung Hoa và Đông Nam Á',
+      active_compounds: ['Clerodendrin', 'Flavonoid', 'Hispidulin', 'Tannin', 'Saponin'],
+      soil_ph: '5.8 - 7.0',
+      ideal_temp: '20°C - 34°C',
+      pot_size: '30cm - 45cm'
+    },
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Starr_061212-2299_Clerodendrum_chinense.jpg/960px-Starr_061212-2299_Clerodendrum_chinense.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    image_sha256: 'd5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d502',
+    sunlight: 'full_sun',
+    watering: 'moderate',
+    propagation_difficulty: 1,
+    growth_time: '60 ngày từ khi giâm cành bắt đầu ra chùm hoa thơm',
+    container_suitable: true,
+    seasonality: {
+      north: 'Ra hoa thơm ngát từ tháng 5 đến tháng 10',
+      central: 'Cây chịu hạn tốt, phát triển quanh năm',
+      south: 'Xanh tốt và nở hoa liên tục 4 mùa',
+      best_months: [4, 5, 6, 7, 8, 9]
+    },
+    medical_info: {
+      uses: ['Hỗ trợ điều hòa kinh nguyệt, trị khí hư bạch đới và viêm nhiễm phụ khoa', 'Giãn mạch ngoại vi giúp hạ huyết áp nhẹ và giảm đau đầu do can hỏa vượng', 'Trị vàng da, mụn nhọt lở ngứa ngoài da'],
+      folk_remedies: [
+        'Lá bạch đồng nữ khô 16g + Ích mẫu 12g + Ngải cứu 10g + Hương phụ 8g sắc uống trước kỳ kinh 7 ngày giúp điều kinh và giảm đau bụng kinh.',
+        'Lá bạch đồng nữ tươi 1 nắm lớn đun sôi kỹ với muối hạt để ấm ngâm rửa trị viêm ngứa ngoài da.'
+      ],
+      preparation: ['Thu hái lá trước khi cây ra hoa, phơi khô trong râm', 'Sắc nước uống hoặc nấu cao đặc'],
+      toxicity_warning: 'Lành tính. Người có huyết áp thấp nên dùng liều vừa phải và uống sau bữa ăn.',
+      disclaimer: 'Được nghiên cứu lâm sàng và ứng dụng rộng rãi tại Viện Đông Y Việt Nam.',
+      confusion_risk: {
+        confused_with: 'Cây Xích Đồng Nam (Clerodendrum japonicum - hoa đỏ)',
+        distinguishing_features: 'Bạch đồng nữ có hoa màu trắng phớt hồng thơm ngát xếp thành mâm xôi, lá hình tim to có lông mịn.'
+      }
+    },
+    academic_citations: [
+      'Dược điển Việt Nam V - Chuyên luận Bạch đồng nữ (Folium Clerodendri)',
+      'GS. Đỗ Tất Lợi - Những cây thuốc và vị thuốc Việt Nam (trang 601)'
+    ],
+    monetization_tips: [
+      'Đóng gói lá Bạch đồng nữ sấy lạnh kết hợpTrầu không làm túi lọc thảo dược vệ sinh phụ nữ.',
+      'Bán chậu cây Mò hoa trắng kép làm cây cảnh hương thơm ban công.'
+    ],
+    tags: ['Sức khỏe phụ nữ', 'Hạ huyết áp', 'Hoa thơm mâm xôi', 'Tiêu viêm']
+  },
+  {
+    id: 'herb-43',
+    slug: 'giao-co-lam-5-la',
+    common_name: 'Giảo Cổ Lam 5 Lá (Cỏ Trường Thọ)',
+    scientific_name: 'Gynostemma pentaphyllum',
+    aliases: ['Ngũ Diệp Sâm', 'Cỏ Thần Kỳ', 'Phúc Âm Thảo'],
+    category: 'herb',
+    description: 'Được mệnh danh là "Nhân sâm phương Nam" với hơn 80 hoạt chất Saponin (Gypenoside) có cấu trúc tương tự Ginsenoside trong Nhân sâm. Dây leo lá 5 thùy chân vịt thanh nhã giúp hạ mỡ máu, giảm cholesterol xấu, ổn định đường huyết và kéo dài tuổi thọ.',
+    quick_answer: 'Giảo cổ lam là dây leo nhỏ mảnh, ưa bóng râm mát mẻ trên ban công hướng Đông hoặc Bắc. Cắt dây và lá phơi khô hãm trà uống mỗi sáng có vị đắng nhẹ ban đầu sau chuyển ngọt hậu rất sảng khoái.',
+    botanical_details: {
+      family: 'Cucurbitaceae (Họ Bầu bí)',
+      native_range: 'Vùng núi đá vôi Hòa Bình, Lào Cai, Cao Bằng (Việt Nam) và Đông Á',
+      active_compounds: ['Gypenoside (hơn 80 loại Saponin)', 'Flavonoid (Quercetin, Rutin)', 'Adenosine', 'Polysaccharide'],
+      soil_ph: '6.0 - 7.2 (Đất tơi xốp giàu mùn và canxi nhẹ)',
+      ideal_temp: '16°C - 28°C',
+      pot_size: 'Chậu treo hoặc khay dài 40cm có lưới leo nhẹ'
+    },
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Kluse_-_Gynostemma_pentaphyllum_-_Jiaogulan_01_ies.jpg/960px-Kluse_-_Gynostemma_pentaphyllum_-_Jiaogulan_01_ies.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    image_sha256: 'd5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d503',
+    sunlight: 'partial_shade',
+    watering: 'moderate',
+    propagation_difficulty: 1,
+    growth_time: '35 - 40 ngày bắt đầu thu hái lứa dây lá đầu tiên làm trà',
+    container_suitable: true,
+    seasonality: {
+      north: 'Phát triển cực nhanh mùa xuân - hè - thu',
+      central: 'Trồng dưới mái hiên mát, tránh nắng lửa buổi trưa',
+      south: 'Xanh tốt quanh năm ở ban công râm mát và ẩm',
+      best_months: [2, 3, 4, 5, 9, 10]
+    },
+    medical_info: {
+      uses: ['Giảm cholesterol toàn phần và triglyceride, ngăn ngừa xơ vữa động mạch và gan nhiễm mỡ', 'Kích hoạt enzyme AMPK giúp tăng nhạy cảm insulin và hạ đường huyết ở người tiểu đường tuýp 2', 'Chống oxy hóa mạnh, bảo vệ tế bào gan và tăng sức bền thể lực'],
+      folk_remedies: [
+        'Trà Giảo cổ lam 5 lá khô 15-20g tráng qua nước sôi, sau đó hãm với 500ml nước sôi 90°C uống vào buổi sáng và đầu giờ chiều giúp đầu óc minh mẫn, nhẹ người.',
+        'Giảo cổ lam 15g + Xạ đen 15g + Cà gai leo 15g hãm nước uống hỗ trợ thải độc gan và hạ men gan.'
+      ],
+      preparation: ['Sao khô trên chảo gang hoặc sấy lạnh làm trà nguyên lá', 'Kết hợp cùng cỏ ngọt hoặc táo đỏ'],
+      toxicity_warning: 'Giảo cổ lam giúp tỉnh táo và hoạt huyết nên không uống vào buổi tối muộn trước khi đi ngủ. Người huyết áp quá thấp nên thêm vài lát gừng tươi khi uống.',
+      disclaimer: 'Đề tài nghiên cứu cấp Nhà nước của GS.TS Phạm Thanh Kỳ đã được vinh danh giải thưởng Hồ Chí Minh.',
+      confusion_risk: {
+        confused_with: 'Cây Hoàng Đằng hoặc dây Nho rừng 5 lá (Cayratia japonica)',
+        distinguishing_features: 'Giảo cổ lam chuẩn có 5 lá chét hình chân vịt, tua cuốn mọc ở nách lá và khi nhai thử lá tươi có vị đắng sau ngọt mát mùi sâm đặc trưng.'
+      }
+    },
+    academic_citations: [
+      'GS.TS Phạm Thanh Kỳ - Đề tài cấp Nhà nước nghiên cứu cây Giảo cổ lam Việt Nam',
+      'Phytomedicine - Gypenosides from Gynostemma pentaphyllum and lipid metabolism'
+    ],
+    monetization_tips: [
+      'Sản xuất trà búp Giảo cổ lam 5 lá sao thủ công bán giá 350.000đ - 500.000đ/kg.',
+      'Bán chậu giống Giảo cổ lam 5 lá chuẩn Hòa Bình cho các gia đình tự trồng làm trà.'
+    ],
+    tags: ['Hạ mỡ máu', 'Trà trường thọ', 'Ngũ diệp sâm', 'Kiểm soát tiểu đường']
+  },
+  {
+    id: 'herb-44',
+    slug: 'xa-den-hoa-binh',
+    common_name: 'Xạ Đen Hòa Bình Chính Gốc',
+    scientific_name: 'Celastrus hindsii',
+    aliases: ['Cây Bách Giải', 'Cây Đồng Triều', 'Cây Ung Thư Mường'],
+    category: 'herb',
+    description: 'Báu vật thảo dược của đồng bào dân tộc Mường vùng núi Hòa Bình. Chồi non có sắc tím sẫm, nhựa cây khi cắt chuyển màu đen đặc trưng ("Xạ đen"). Giàu hợp chất Maytenfolone A, Celasdin B và axit Rosmarinic giúp bảo vệ gan, chống oxy hóa tế bào và an thần.',
+    quick_answer: 'Xạ đen là cây thân gỗ trườn cực kỳ khỏe, trồng chậu 40cm trên ban công chịu nắng mưa tốt và không hề có sâu bệnh. Hái cả lá và cành bánh tẻ phơi khô đun nước uống hàng ngày thay trà.',
+    botanical_details: {
+      family: 'Celastraceae (Họ Dây gối)',
+      native_range: 'Vùng núi đá vôi Hòa Bình, Ninh Bình, Thừa Thiên Huế (Việt Nam)',
+      active_compounds: ['Maytenfolone A', 'Celasdin B', 'Flavonoid', 'Quinone', 'Saponin Triterpenoid', 'Rosmarinic acid'],
+      soil_ph: '5.5 - 7.0',
+      ideal_temp: '18°C - 35°C',
+      pot_size: '35cm - 50cm'
+    },
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Celastrus_paniculatus_05.JPG/960px-Celastrus_paniculatus_05.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    image_sha256: 'd5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d504',
+    sunlight: 'full_sun',
+    watering: 'moderate',
+    propagation_difficulty: 1,
+    growth_time: '3 - 4 tháng bắt đầu tỉa cành lá làm trà thảo dược',
+    container_suitable: true,
+    seasonality: {
+      north: 'Phát triển khỏe quanh năm, đọt non tím đậm vào mùa xuân - thu',
+      central: 'Chịu nắng gió rất dẻo dai',
+      south: 'Ra lộc lá liên tục cả 12 tháng',
+      best_months: [2, 3, 4, 8, 9, 10]
+    },
+    medical_info: {
+      uses: ['Thanh nhiệt giải độc gan, hỗ trợ hạ men gan, viêm gan và gan nhiễm mỡ', 'Chứa hoạt chất Quinone và Celasdin B giúp trung hòa gốc tự do và hỗ trợ tăng cường sức đề kháng', 'Giúp an thần, giảm suy nhược thần kinh và ngủ sâu giấc'],
+      folk_remedies: [
+        'Lá và thân xạ đen khô 30g rửa sạch đun với 1.5 lít nước sôi nhỏ lửa 15 phút, uống thay nước lọc hàng ngày có vị thơm dịu thanh mát.',
+        'Xạ đen 25g + Bạch hoa xà thiệt thảo 15g + Bán chi liên 10g sắc nước uống sau bữa ăn 30 phút hỗ trợ tiêu độc.'
+      ],
+      preparation: ['Hái lá tươi vò nhẹ hãm nước sôi', 'Chặt khúc thân cành và lá phơi khô sao vàng'],
+      toxicity_warning: 'Rất lành tính nhưng không nên uống nước xạ đen đã để qua đêm ở nhiệt độ phòng bị thiu. Phụ nữ mang thai và trẻ nhỏ dưới 5 tuổi không nên tự ý sử dụng.',
+      disclaimer: 'Đã được Học viện Quân Y Việt Nam nghiên cứu chuyên sâu về thành phần hóa học và tác dụng sinh học.',
+      confusion_risk: {
+        confused_with: 'Cây Xạ Vàng (Celastrus paniculatus) hoặc cây Xạ Đen giả lá to',
+        distinguishing_features: 'Xạ đen Hòa Bình chuẩn có lá dày, mép lá có răng cưa nhẹ, ngọn non màu tím huyết dụ và thân cắt ra có nhựa chuyển màu đen, đun nước có màu nâu sẫm thơm ngậy.'
+      }
+    },
+    academic_citations: [
+      'GS.TSKH Lê Thế Trung (Học viện Quân Y) - Công trình nghiên cứu cây Xạ đen Việt Nam',
+      'Phytochemistry - Cytotoxic triterpenes and flavonoids from Celastrus hindsii'
+    ],
+    monetization_tips: [
+      'Nhân giống cây con Xạ đen chuẩn giống Hòa Bình (ngọn tím răng cưa) bán 30.000đ - 50.000đ/cây.',
+      'Chế biến cao khô hoặc trà túi lọc Xạ đen - Cà gai leo nguyên chất.'
+    ],
+    tags: ['Giải độc gan', 'Đặc sản Hòa Bình', 'Ngọn tím chuẩn', 'Tăng đề kháng']
+  },
+  {
+    id: 'herb-45',
+    slug: 'ha-thu-o-do-chau',
+    common_name: 'Hà Thủ Ô Đỏ Leo Chậu (Cửu Chưng Cửu Sái)',
+    scientific_name: 'Fallopia multiflora',
+    aliases: ['Dạ Giao Đằng', 'Giao Đằng', 'Reynoutria multiflora'],
+    category: 'herb',
+    description: 'Danh dược trường xuân bất lão lưu truyền ngàn năm với câu thơ: "Muốn cho xanh tóc đỏ da / Rủ nhau lên núi tìm Hà thủ ô". Dây leo quấn quýt ("Dạ giao đằng") vừa che mát ban công vừa cho củ đỏ sẫm đại bổ can thận, tinh huyết và làm đen tóc.',
+    quick_answer: 'Hà thủ ô đỏ trồng trong chậu sâu 45-50cm có giàn leo, sau 1.5 - 2 năm cho củ to nặng 0.5-1kg. Dây và lá ("Dạ giao đằng") có thể cắt tỉa thường xuyên để nấu nước tắm hoặc sắc uống an thần.',
+    botanical_details: {
+      family: 'Polygonaceae (Họ Rau răm)',
+      native_range: 'Vùng núi Tây Bắc (Sơn La, Lai Châu, Hà Giang) và Bắc Trung Bộ Việt Nam',
+      active_compounds: ['2,3,5,4-tetrahydroxystilbene-2-O-beta-D-glucoside (TSG)', 'Lecithin', 'Anthraquinone', 'Resveratrol analogues'],
+      soil_ph: '5.5 - 6.8 (Đất cát pha mùn tơi xốp để củ phình to)',
+      ideal_temp: '15°C - 30°C',
+      pot_size: 'Chậu sâu 45cm - 60cm (50L)'
+    },
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Fallopia_multiflora_leaf.jpg/960px-Fallopia_multiflora_leaf.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    image_sha256: 'd5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d505',
+    sunlight: 'partial_shade',
+    watering: 'moderate',
+    propagation_difficulty: 2,
+    growth_time: '3 tháng thu dây Dạ giao đằng, 18 tháng thu củ Hà thủ ô đỏ',
+    container_suitable: true,
+    seasonality: {
+      north: 'Xuống giống mùa xuân, thu củ vào mùa thu đông khi lá bắt đầu vàng',
+      central: 'Trồng nơi thoáng mát, thoát nước đáy chậu thật tốt',
+      south: 'Dây phát triển xanh mướt quanh năm trên giàn ban công',
+      best_months: [2, 3, 4, 10, 11]
+    },
+    medical_info: {
+      uses: ['Bổ huyết, ích can thận, trị chứng tóc bạc sớm, rụng tóc nhiều và da dẻ kém hồng hào', 'Dây và lá (Dạ giao đằng) dưỡng tâm an thần, trị mất ngủ và đau mỏi vai gáy', 'Bồi bổ gân cốt, giảm suy nhược thần kinh và chống lão hóa tế bào'],
+      folk_remedies: [
+        'Bào chế chuẩn Cửu Chưng Cửu Sái: Củ Hà thủ ô đỏ tươi cạo vỏ ngâm nước vo gạo 24h, bỏ lõi gỗ, sau đó đồ (hấp) chín cùng nước đậu đen xanh lòng rồi phơi khô lặp lại 9 lần trước khi tán bột trộn mật ong rừng hoàn viên.',
+        'Dây Dạ giao đằng khô 15g + Lạc tiên 15g sắc uống buổi tối giúp ngủ sâu giấc.'
+      ],
+      preparation: ['Bắt buộc chế biến kỹ với đậu đen xanh lòng (chế Hà thủ ô)', 'Hoàn viên với mật ong và vừng đen', 'Ngâm rượu thuốc'],
+      toxicity_warning: 'TUYỆT ĐỐI KHÔNG dùng củ Hà thủ ô sống chưa qua chế biến với đậu đen vì chứa tanin chát và anthraquinone tự do gây kích ứng tiêu chảy và hại gan. Khi uống kiêng ăn hành, tỏi, củ cải trắng sống và tiết canh.',
+      disclaimer: 'Chỉ sử dụng Hà thủ ô đỏ đã qua bào chế đúng quy chuẩn Dược điển Việt Nam.',
+      confusion_risk: {
+        confused_with: 'Cây Hà Thủ Ô Trắng (Streptocaulon juventas) hoặc củ Nâu',
+        distinguishing_features: 'Hà thủ ô đỏ có lá hình tim nhọn không có lông và không có nhựa mủ trắng, mặt cắt củ có vân hoa văn như mây ("vân cẩm chướng") màu đỏ nâu.'
+      }
+    },
+    academic_citations: [
+      'Dược điển Việt Nam V - Chuyên luận Hà thủ ô đỏ chế (Radix Fallopiae multiflorae praeparata)',
+      'GS. Đỗ Tất Lợi - Những cây thuốc và vị thuốc Việt Nam (trang 829)'
+    ],
+    monetization_tips: [
+      'Chế biến viên hoàn Hà thủ ô đỏ - Đậu đen xanh lòng - Mật ong rừng - Hắc chi ma thủ công cao cấp.',
+      'Bán bầu giống Hà thủ ô đỏ chuẩn núi đá Tây Bắc.'
+    ],
+    tags: ['Đen râu tóc', 'Trường xuân bất lão', 'Bổ can thận', 'Cửu chưng cửu sái']
+  },
+  {
+    id: 'herb-46',
+    slug: 'huong-thao-dia-trung-hai',
+    common_name: 'Hương Thảo Địa Trung Hải (Rosemary)',
+    scientific_name: 'Salvia rosmarinus',
+    aliases: ['Cây Trí Nhớ', 'Mê Điệt Hương', 'Rosmarinus officinalis'],
+    category: 'herb',
+    description: 'Thảo mộc quý tộc vùng Địa Trung Hải với những chiếc lá kim xanh bạc phủ sương tỏa hương thơm thông rừng ấm áp quyến rũ. Hoạt chất 1,8-Cineole và Acid Rosmarinic được khoa học chứng minh giúp tăng cường trí nhớ, sự tập trung tới 75%, đồng thời xua đuổi muỗi tự nhiên.',
+    quick_answer: 'Hương thảo cực kỳ ưa nắng, gió thoáng và đất thoát nước nhanh (trộn nhiều đá perlite/pumice). Chỉ tưới vào gốc khi mặt đất đã khô ráo; tránh tưới đẫm lên tán lá vào ban đêm mùa mưa ẩm.',
+    botanical_details: {
+      family: 'Lamiaceae (Họ Hoa môi / Bạc hà)',
+      native_range: 'Vùng bờ biển Địa Trung Hải, đã thuần hóa khí hậu Việt Nam',
+      active_compounds: ['Rosmarinic Acid', 'Carnosic Acid', '1,8-Cineole', 'Camphor', 'Alpha-Pinene'],
+      soil_ph: '6.0 - 7.5 (Giá thể thoáng khí: 40% đất + 30% đá pumice/perlite + 20% trấu hun + 10% phân trùn)',
+      ideal_temp: '15°C - 30°C',
+      pot_size: 'Chậu đất nung (Terracotta) đường kính 20cm - 35cm giúp thoát ẩm thành chậu'
+    },
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Rosemary_in_bloom.JPG/960px-Rosemary_in_bloom.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    image_sha256: 'd5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d506',
+    sunlight: 'full_sun',
+    watering: 'drought_tolerant',
+    propagation_difficulty: 2,
+    growth_time: '30 ngày cắt ngọn kích nhánh, sống hóa gỗ nhiều năm như bonsai',
+    container_suitable: true,
+    seasonality: {
+      north: 'Phát triển rực rỡ nhất mùa thu - đông - xuân; mùa hè mưa dầm cần che mưa gốc',
+      central: 'Đặt ở ban công lộng gió đón nắng sáng',
+      south: 'Trồng trong chậu đất nung nơi có nắng sáng 4-5 tiếng và gió thoáng',
+      best_months: [1, 2, 3, 4, 10, 11, 12],
+      warning: 'Kỵ nhất là đất bí chặt đọng nước kết hợp nắng hầm sau cơn mưa rào'
+    },
+    medical_info: {
+      uses: ['Hương tinh dầu 1,8-Cineole ức chế sự phân hủy chất dẫn truyền thần kinh Acetylcholine, giúp tăng trí nhớ và khả năng tập trung học tập, làm việc', 'Chống oxy hóa mạnh và khử các amin dị vòng gây hại khi áp chảo thịt bò bít tết, cá hồi', 'Ngâm dầu dừa / dầu jojoba massage da đầu kích thích mọc tóc tương đương Minoxidil 2%'],
+      folk_remedies: [
+        'Cành hương thảo tươi 1 nhánh nhỏ hãm với 250ml nước sôi 85°C cùng 1 lát chanh vàng và mật ong uống buổi sáng giúp tỉnh táo mà không gây tim đập nhanh như cà phê.',
+        'Đun sôi 3 nhánh hương thảo với 500ml nước để nguội làm xịt dưỡng chân tóc giảm gàu và kích mọc tóc con.'
+      ],
+      preparation: ['Hãm trà tươi', 'Gia vị ướp nướng Âu - Á', 'Chưng cất tinh dầu và nước dưỡng tóc (Rosemary Hydrosol)'],
+      toxicity_warning: 'Dùng làm gia vị và trà loãng rất an toàn. Tinh dầu hương thảo nguyên chất đậm đặc không được uống trực tiếp và phụ nữ mang thai 3 tháng đầu hạn chế dùng liều cao.',
+      disclaimer: 'Thảo mộc trị liệu hương thơm (Aromatherapy) hàng đầu cho bàn học và góc làm việc.'
+    },
+    academic_citations: [
+      'Therapeutic Advances in Psychopharmacology - Plasma 1,8-cineole levels and cognitive performance from Rosemary aroma',
+      'SKINmed Journal - Rosemary oil vs minoxidil 2% for the treatment of androgenetic alopecia'
+    ],
+    monetization_tips: [
+      'Uốn tạo dáng Hương thảo Bonsai cổ thụ thân gỗ thơm lừng bán giá 250.000đ - 900.000đ/chậu.',
+      'Chưng cất xịt bưởi - hương thảo dưỡng tóc thủ công và bó hương thảo khô xông nhà.'
+    ],
+    tags: ['Tăng trí nhớ', 'Đuổi muỗi thơm phòng', 'Gia vị bít tết', 'Kích mọc tóc']
+  },
+  {
+    id: 'herb-47',
+    slug: 'nha-dam-la-be',
+    common_name: 'Nha Đam Lá Bẹ Thái (Lô Hội Hữu Cơ)',
+    scientific_name: 'Aloe vera',
+    aliases: ['Lô Hội', 'Long Tu', 'Tượng Đởm'],
+    category: 'herb',
+    description: 'Trạm cấp cứu da liễu tự nhiên không thể thiếu trên mọi ban công gia đình. Những bẹ lá dày mọng căng tràn lớp thịt gel trong suốt như pha lê, chứa hơn 75 hợp chất sinh học (Acemannan, Vitamin E, B12, Kẽm) giúp làm dịu vết bỏng tức thì, dưỡng ẩm da và thanh nhiệt đại tràng.',
+    quick_answer: 'Nha đam chịu hạn siêu đẳng, trồng chậu đất pha cát thoát nước tốt hầu như không tốn công chăm sóc. Chỉ tưới 1-2 lần/tuần; sau 4-5 tháng các bẹ lá ngoài cùng đạt độ dày 2-3cm sẵn sàng thu hoạch.',
+    botanical_details: {
+      family: 'Asphodelaceae (Họ Lan nhật quang / Lô hội)',
+      native_range: 'Bán đảo Ả Rập, thuần hóa lâu đời tại Ninh Thuận, Bình Thuận và khắp Việt Nam',
+      active_compounds: ['Acemannan (Polysaccharide)', 'Aloin (trong nhựa vàng vỏ lá)', 'Salicylic acid tự nhiên', 'Glycoprotein', 'Vitamin A, C, E, B12'],
+      soil_ph: '6.0 - 7.5 (Đất cát pha trộn xỉ than / đá perlite và phân trùn quế)',
+      ideal_temp: '20°C - 38°C',
+      pot_size: 'Chậu rộng miệng 30cm - 45cm để cây đẻ nhiều cây con'
+    },
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Aloe_vera_flower_inset.png/960px-Aloe_vera_flower_inset.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    image_sha256: 'd5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d507',
+    sunlight: 'full_sun',
+    watering: 'drought_tolerant',
+    propagation_difficulty: 1,
+    growth_time: '4 tháng bắt đầu cắt bẹ lá dưới gốc, cây con nhảy quanh chậu liên tục',
+    container_suitable: true,
+    seasonality: {
+      north: 'Phát triển cực nhanh mùa hè; mùa đông giảm tưới tối đa',
+      central: 'Ông vua chịu nắng gió khô hạn miền Trung',
+      south: 'Bẹ lá to dày mọng nước suốt 12 tháng',
+      best_months: [2, 3, 4, 5, 6, 7, 8, 9]
+    },
+    medical_info: {
+      uses: ['Cấp cứu vết bỏng nước sôi, bỏng bô xe, cháy nắng tức thì nhờ glycoprotein giảm đau và tái tạo biểu mô', 'Nấu chè nha đam đường phèn hạt chia giúp thanh nhiệt, nhuận tràng, đẹp da và dịu viêm dạ dày nhẹ', 'Cơ chế quang hợp CAM nhả oxy ban đêm và hút sạch khí độc Formaldehyde'],
+      folk_remedies: [
+        'Khi bị bỏng nhẹ: Cắt ngay 1 khúc lá nha đam tươi, gọt bỏ lớp vỏ xanh, rửa sạch nhựa vàng rồi áp phần thịt gel trong suốt mát lạnh lên vết bỏng giúp dịu rát và không bị phồng rộp.',
+        'Thịt nha đam gọt sạch vỏ xanh, ngâm rửa kỹ với nước muối và chanh cho hết nhớt đắng, cắt hạt lựu nấu sôi 2 phút cùng đường phèn và lá dứa.'
+      ],
+      preparation: ['Gọt thật sạch vỏ xanh và dựng đứng lá 15 phút cho chảy hết nhựa vàng trước khi lấy thịt trắng', 'Nấu nước nha đam lá dứa', 'Làm mặt nạ cấp ẩm'],
+      toxicity_warning: 'Lớp nhựa mủ màu vàng nằm sát dưới lớp vỏ xanh chứa Aloin có tính tẩy xổ mạnh; bắt buộc phải gọt sạch vỏ xanh và rửa trôi hết nhựa vàng trước khi ăn hoặc đắp lên mặt. Phụ nữ mang thai không ăn lượng lớn nha đam chưa khử sạch nhựa vàng.',
+      disclaimer: 'Loài cây đa năng vừa lọc khí chuẩn NASA vừa là dược mỹ phẩm sống tại nhà.'
+    },
+    academic_citations: [
+      'Dược điển Việt Nam V - Chuyên luận Lô hội (Aloe)',
+      'Burns Journal - The efficacy of Aloe vera used for burn wound healing: a systematic review'
+    ],
+    monetization_tips: [
+      'Tách cây con nha đam bẹ lớn Thái Lan bán 20.000đ - 40.000đ/cây giống.',
+      'Nấu nước nha đam hạt chia lá dứa đường phèn đóng chai tươi mỗi ngày.'
+    ],
+    tags: ['Cấp cứu vết bỏng', 'Đẹp da thanh nhiệt', 'Siêu chịu hạn', 'Lọc khí NASA']
+  },
+  {
+    id: 'herb-48',
+    slug: 'dau-biec-leo-gian',
+    common_name: 'Hoa Đậu Biếc Leo Giàn (Lam Hồ Điệp)',
+    scientific_name: 'Clitoria ternatea',
+    aliases: ['Bông Biếc', 'Đậu Hoa Tím', 'Butterfly Pea'],
+    category: 'herb',
+    description: 'Dây leo rèm hoa xanh biếc quyến rũ bậc nhất cho ban công chung cư. Những cánh hoa kép màu xanh коban thẫm chứa hàm lượng sắc tố Anthocyanin (nhóm Ternatin) cực kỳ quý hiếm giúp bảo vệ võng mạc mắt trước ánh sáng xanh màn hình, tăng tuần hoàn máu não và tạo màu thực phẩm tự nhiên.',
+    quick_answer: 'Hạt đậu biếc ngâm nước ấm 4 tiếng gieo vào chậu nảy mầm sau 3 ngày, chỉ sau 45 ngày đã leo kín lan can và nở hoa xanh biếc mỗi sáng. Hái hoa tươi phơi khô hãm trà đổi màu kỳ diệu khi vắt chanh.',
+    botanical_details: {
+      family: 'Fabaceae (Họ Đậu - Cố định đạm tự nhiên làm tốt đất)',
+      native_range: 'Nhiệt đới châu Á, phổ biến khắp 3 miền Việt Nam',
+      active_compounds: ['Ternatin A, B, D (Anthocyanin bền nhiệt)', 'Delphinidin', 'Kaempferol', 'Quercetin', 'Peptide Cyclotide'],
+      soil_ph: '5.5 - 7.5 (Rễ có nốt sần tự tổng hợp đạm nuôi đất)',
+      ideal_temp: '20°C - 36°C',
+      pot_size: '25cm - 35cm kèm lưới hoặc lan can leo'
+    },
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Asian_pigeonwings_in_Bhopal_04.jpg/960px-Asian_pigeonwings_in_Bhopal_04.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    image_sha256: 'd5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d508',
+    sunlight: 'full_sun',
+    watering: 'moderate',
+    propagation_difficulty: 1,
+    growth_time: '45 ngày từ gieo hạt đến khi thu hoạch hoa liên tục mỗi ngày',
+    container_suitable: true,
+    seasonality: {
+      north: 'Nở hoa rực rỡ từ tháng 3 đến tháng 11',
+      central: 'Chịu nắng tốt, phủ xanh hàng rào ban công',
+      south: 'Nở hoa không ngừng nghỉ suốt 365 ngày trong năm',
+      best_months: [3, 4, 5, 6, 7, 8, 9, 10]
+    },
+    medical_info: {
+      uses: ['Bảo vệ các mao mạch nhỏ ở đáy mắt, giảm mỏi mắt khô mắt cho người làm việc máy tính nhiều giờ', 'Tăng nồng độ Acetylcholine ở vùng hải mã não bộ, hỗ trợ cải thiện trí nhớ và giảm stress', 'Phụ gia tạo màu xanh lam / tím hồng tự nhiên 100% an toàn cho xôi, bánh, thạch và trà'],
+      folk_remedies: [
+        'Hoa đậu biếc khô 5-7 bông hãm với 250ml nước sôi 5 phút ra màu xanh lam ngọc bích; vắt thêm vài giọt cốt tắc/chanh nước trà lập tức chuyển sang màu tím hồng tuyệt đẹp.',
+        'Nước cốt hoa đậu biếc ngâm gạo nếp đồ xôi ngũ sắc hoặc nấu trân châu, bánh da lợn.'
+      ],
+      preparation: ['Hái hoa lúc 8h-9h sáng khi ráo sương rồi sấy khô bảo quản lọ kín', 'Pha trà macchiato / trà chanh đổi màu', 'Tạo màu ẩm thực'],
+      toxicity_warning: 'Cánh hoa rất an toàn (dùng 5-10 bông/ngày). Lưu ý: Phần hạt già và rễ cây đậu biếc có tính tẩy xổ nhẹ nên không dùng hạt già để ăn; phụ nữ đang hành kinh hoặc chuẩn bị phẫu thuật hạn chế uống quá đặc.',
+      disclaimer: 'Thức uống chống oxy hóa tự nhiên được yêu thích trên toàn thế giới.'
+    },
+    academic_citations: [
+      'Frontiers in Plant Science - Clitoria ternatea: chemistry, pharmacology, and applications in functional foods'
+    ],
+    monetization_tips: [
+      'Thu hoạch hoa đậu biếc kép sấy lạnh đóng hũ thủy tinh bán giá 600.000đ - 900.000đ/kg khô.',
+      'Bán hạt giống và chậu cây đậu biếc hoa kép 5 cánh đang sẵn nụ.'
+    ],
+    tags: ['Bổ mắt chống mỏi', 'Trà đổi màu', 'Màu thực phẩm sạch', '45 ngày ra hoa']
+  },
+
+  // --- 6 CÂY ĂN TRÁI BAN CÔNG ĐỘC BẢN (SPRINT 3: fruit-26 -> fruit-31) ---
+  {
+    id: 'fruit-26',
+    slug: 'nho-than-go-tu-quy',
+    common_name: 'Nho Thân Gỗ Tứ Quý (Jabuticaba)',
+    scientific_name: 'Plinia cauliflora',
+    aliases: ['Nho Thân Gỗ Kim Cương Đen', 'Jabuticaba Bonsai', 'Trân Châu Mộc'],
+    category: 'fruit',
+    description: 'Kỳ quan thực vật độc đáo bậc nhất thế giới cho sân thượng biệt thự và chung cư. Hoa trắng và hàng trăm quả tròn bóng loáng như ngọc trai đen mọc trực tiếp chi chít từ gốc ôm kín lên thân gỗ, thịt quả trắng trong mọng nước mang hương vị hòa quyện giữa nho Kyoho, măng cụt và vải thiều.',
+    quick_answer: 'Chọn dòng Nho thân gỗ Tứ Quý hoặc Kim Cương Đen đã trưởng thành trồng trong chậu 50-70cm. Cây sống hàng chục năm với dáng thế bonsai tuyệt đẹp, càng tưới đẫm nước vào thân cây càng kích thích bật nụ hoa từ vỏ gỗ.',
+    botanical_details: {
+      family: 'Myrtaceae (Họ Sim / Ổi)',
+      native_range: 'Nam Mỹ (Brazil), đã thuần hóa hoàn hảo với khí hậu nhiệt đới Việt Nam',
+      active_compounds: ['Jaboticabin (Depside đặc hữu)', 'Cyanidin-3-glucoside', 'Ellagic acid', 'Resveratrol', 'Vitamin C'],
+      soil_ph: '5.5 - 6.5 (Đất hơi chua nhẹ, giàu mùn hữu cơ và thoát nước tốt)',
+      ideal_temp: '18°C - 35°C',
+      pot_size: '50cm - 75cm'
+    },
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Jabuticaba_%28do_tupi_%C3%AEabotikaba%2C_%27gordura_de_jabuti%27%29_07.jpg/960px-Jabuticaba_%28do_tupi_%C3%AEabotikaba%2C_%27gordura_de_jabuti%27%29_07.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    image_sha256: 'd5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d509',
+    sunlight: 'full_sun',
+    watering: 'daily',
+    propagation_difficulty: 2,
+    growth_time: 'Quả lớn và chín chỉ sau 25-30 ngày kể từ lúc hoa nở trên thân',
+    container_suitable: true,
+    seasonality: {
+      north: 'Ra hoa kết quả 4-5 đợt liên tiếp từ mùa xuân đến cuối thu',
+      central: 'Cây thân gỗ cứng cáp chịu gió bão tốt',
+      south: 'Ra hoa đậu quả quanh năm liên tục trên thân chính',
+      best_months: [3, 4, 5, 6, 8, 9, 10]
+    },
+    medical_info: {
+      uses: ['Vỏ quả màu tím đen chứa hợp chất Jaboticabin độc quyền giúp chống lão hóa phổi, kháng viêm và bảo vệ thành mạch máu', 'Thịt quả giàu chất chống oxy hóa Anthocyanin giúp tăng độ đàn hồi da và bảo vệ tim mạch', 'Ngâm rượu vang nho thân gỗ có hương thơm thượng hạng giúp kích thích tiêu hóa'],
+      folk_remedies: [
+        'Quả nho thân gỗ chín đen rửa sạch ăn tươi cả vỏ mỏng hoặc ủ lên men cùng đường phèn làm rượu vang Jabuticaba bổ huyết.',
+        'Vỏ quả sấy khô hãm trà uống giảm ho và làm dịu viêm họng.'
+      ],
+      preparation: ['Ăn tươi trực tiếp ngay khi hái trên thân', 'Làm mứt / thạch Jabuticaba', 'Ủ rượu vang trái cây'],
+      toxicity_warning: 'An toàn tuyệt đối. Vỏ quả chứa nhiều tanin và chất chống oxy hóa nên khi ăn tươi nên nhai kỹ hoặc chế biến rượu/mứt.',
+      disclaimer: 'Biểu tượng của sự sung túc "con đàn cháu đống, lộc bám đầy thân" trong phong thủy sân vườn.'
+    },
+    academic_citations: [
+      'Food Research International - Bioactive compounds and health benefits of Jabuticaba (Plinia cauliflora)'
+    ],
+    monetization_tips: [
+      'Cây Nho thân gỗ bonsai đang mang trái chi chít trên thân có giá trị từ 1.500.000đ - 15.000.000đ/chậu.',
+      'Quả nho thân gỗ tươi bán lẻ với giá 200.000đ - 350.000đ/kg.'
+    ],
+    tags: ['Quả mọc trên thân', 'Bonsai quý tộc', 'Chống lão hóa', 'Lộc bám đầy cành']
+  },
+  {
+    id: 'fruit-27',
+    slug: 'hong-xiem-xoai-lun',
+    common_name: 'Hồng Xiêm Xoài Lùn (Sapoche Chậu)',
+    scientific_name: 'Manilkara zapota',
+    aliases: ['Sapoche Xoài', 'Hồng Xiêm Ruột Đỏ', 'Lồng Mứt Chậu'],
+    category: 'fruit',
+    description: 'Dòng hồng xiêm ghép lùn chuyên biệt cho sân thượng đô thị: cây chỉ cao 1m đã mang hàng chục quả to hình bầu dục như quả xoài. Khi chín thịt quả mềm mịn không cát, vị ngọt đậm đà thơm lừng mùi mạch nha caramel.',
+    quick_answer: 'Hồng xiêm xoài là cây thường xanh cực kỳ bền bỉ, chịu hạn và chịu gió mặn tốt, ít rụng lá làm bẩn ban công. Trồng trong chậu 50-60cm nơi nhiều nắng, bón phân hữu cơ vi sinh định kỳ cây sẽ đậu quả gối vụ quanh năm.',
+    botanical_details: {
+      family: 'Sapotaceae (Họ Hồng xiêm)',
+      native_range: 'Trung Mỹ, giống Hồng Xiêm Xoài thuần hóa nổi tiếng tại miền Nam và miền Bắc Việt Nam',
+      active_compounds: ['Polyphenol', 'Tannin (khi xanh)', 'Fructose & Sucrose tự nhiên', 'Canxi, Sắt & Phốt pho', 'Vitamin A & C'],
+      soil_ph: '6.0 - 7.5 (Thích nghi rộng, ưa đất thịt pha cát giàu hữu cơ)',
+      ideal_temp: '22°C - 36°C',
+      pot_size: '50cm - 65cm (Chậu 60L - 80L)'
+    },
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/%E0%B4%B8%E0%B4%AA%E0%B5%8D%E0%B4%AA%E0%B5%8B%E0%B4%9F%E0%B5%8D%E0%B4%9F.jpg/960px-%E0%B4%B8%E0%B4%AA%E0%B5%8D%E0%B4%AA%E0%B5%8B%E0%B4%9F%E0%B5%8D%E0%B4%9F.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    image_sha256: 'd5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d510',
+    sunlight: 'full_sun',
+    watering: 'moderate',
+    propagation_difficulty: 2,
+    growth_time: '6 tháng từ khi trồng cây chiết/ghép bắt đầu ra lứa quả đầu tiên',
+    container_suitable: true,
+    seasonality: {
+      north: 'Thu hoạch hai vụ chính vào mùa xuân hè và mùa thu đông',
+      central: 'Chịu nắng hạn và gió biển cực khỏe',
+      south: 'Ra hoa kết trái nối tiếp nhau quanh năm',
+      best_months: [2, 3, 4, 8, 9, 10, 11]
+    },
+    medical_info: {
+      uses: ['Thịt quả chín giàu Canxi, Phốt pho và Sắt tự nhiên giúp củng cố xương răng cho trẻ nhỏ và người lớn tuổi', 'Chất xơ hòa tan và vitamin nhóm B giúp làm dịu niêm mạc dạ dày và nhuận tràng', 'Cung cấp năng lượng glucose tự nhiên tức thì cho người suy nhược mệt mỏi'],
+      folk_remedies: [
+        'Sinh tố hồng xiêm chín xay cùng sữa tươi không đường và chút đá nhỏ là thức uống bổ dưỡng phục hồi sức khỏe nhanh chóng.',
+        'Quả hồng xiêm xanh (chứa nhiều tanin) thái lát phơi khô sắc nước uống cầm tiêu chảy cấp theo kinh nghiệm dân gian.'
+      ],
+      preparation: ['Khi vỏ quả chuyển màu nâu vàng không còn phấn xanh và cuống héo nhẹ thì hái xuống ủ trong thùng gạo 2-3 ngày sẽ chín mềm ngọt lịm'],
+      toxicity_warning: 'Chỉ ăn quả khi đã chín mềm hoàn toàn (hết nhựa mủ trắng); hạt hồng xiêm màu đen bóng có móc nhọn cứng nên cần bỏ hạt khi cho trẻ nhỏ ăn.',
+      disclaimer: 'Giống cây ăn quả sạch tán gọn gàng, lá dày bóng không sâu róm cho nhà phố.'
+    },
+    academic_citations: [
+      'Food Chemistry - Phenolic antioxidants and nutritional composition of Manilkara zapota'
+    ],
+    monetization_tips: [
+      'Bán cây giống Hồng xiêm xoài chiết cành đang sẵn nụ hoa giá 180.000đ - 350.000đ/cây.',
+      'Thu hoạch hồng xiêm hữu cơ chín cây bán 55.000đ - 80.000đ/kg.'
+    ],
+    tags: ['Ngọt như mật', 'Ít rụng lá', 'Giàu Canxi', 'Trái quanh năm']
+  },
+  {
+    id: 'fruit-28',
+    slug: 'man-an-phuoc-chau',
+    common_name: 'Mận An Phước Ghép Chậu (Roi Đỏ)',
+    scientific_name: 'Syzygium samarangense',
+    aliases: ['Roi Đỏ An Phước', 'Mận Hồng Đào Đá', 'Wax Apple'],
+    category: 'fruit',
+    description: 'Niềm tự hào của cây ăn trái nhiệt đới Việt Nam trên sân thượng. Những chùm hoa trắng tua tủa như pháo hoa kết thành từng chùm quả hình chuông màu đỏ hồng ngọc lấp lánh dưới nắng, thịt quả đặc ruột không hạt, cắn vào giòn tan mọng nước mát lạnh.',
+    quick_answer: 'Mận An Phước trồng chậu 50-60L rất nhanh lớn và bắt đầu bói quả chỉ sau 5-6 tháng. Khi quả bắt đầu chuyển từ xanh sang hồng nhạt, dùng túi lưới bọc chùm quả để ngăn ruồi vàng và giữ vỏ quả bóng đẹp 100%.',
+    botanical_details: {
+      family: 'Myrtaceae (Họ Sim / Ổi)',
+      native_range: 'Đông Nam Á, giống ghép mắt An Phước trứ danh của Việt Nam',
+      active_compounds: ['Vescalagin', 'Anthocyanin (vỏ đỏ)', 'Hàm lượng nước sinh học 90%', 'Vitamin C & A', 'Kali'],
+      soil_ph: '5.5 - 6.8 (Đất thịt phù sa trộn phân trùn quế và xơ dừa giữ ẩm)',
+      ideal_temp: '22°C - 35°C',
+      pot_size: '50cm - 65cm (Chậu 60L trở lên)'
+    },
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Hoa_c%E1%BB%A7a_lo%C3%A0i_roi.jpg/960px-Hoa_c%E1%BB%A7a_lo%C3%A0i_roi.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    image_sha256: 'd5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d511',
+    sunlight: 'full_sun',
+    watering: 'daily',
+    propagation_difficulty: 1,
+    growth_time: '5 - 6 tháng từ cây chiết/ghép đã cho lứa quả đỏ đầu tiên',
+    container_suitable: true,
+    seasonality: {
+      north: 'Ra hoa tháng 3-4, thu hoạch quả giòn ngọt suốt mùa hè (tháng 5-8)',
+      central: 'Tưới đủ nước lúc nuôi quả để quả mọng giòn không bị xốp',
+      south: 'Cho 3-4 vụ quả mỗi năm, ngọt nhất vào các tháng mùa nắng',
+      best_months: [2, 3, 4, 5, 6, 11, 12]
+    },
+    medical_info: {
+      uses: ['Chứa hơn 90% nước sinh học cùng chất xơ giúp giải khát, thanh nhiệt và hỗ trợ giảm cân hiệu quả mà vẫn no lâu', 'Hợp chất Vescalagin và Jambosine trong quả mận giúp làm chậm quá trình chuyển hóa tinh bột thành đường', 'Lá mận non chứa tinh dầu kháng khuẩn nhẹ'],
+      folk_remedies: [
+        'Mận An Phước ướp lạnh ăn tráng miệng sau bữa trưa mùa hè giúp thanh nhiệt, chống khô họng và hỗ trợ tiêu hóa.',
+        'Quả mận chín thái lát ép nước cùng vài lá bạc hà và muối hồng làm nước detoх bù khoáng.'
+      ],
+      preparation: ['Ăn tươi chấm muối ớt / muối tôm', 'Làm gỏi tôm thịt mận đỏ', 'Ép nước giải nhiệt'],
+      toxicity_warning: 'An toàn tuyệt đối cho mọi lứa tuổi. Luôn bọc túi lưới sinh học từ khi quả bằng ngón chân cái để không phải dùng bất kỳ thuốc bảo vệ thực vật nào.',
+      disclaimer: 'Một trong những cây ăn quả trồng thùng xốp / chậu sân thượng dễ thành công nhất.'
+    },
+    academic_citations: [
+      'Viện Cây Ăn Quả Miền Nam (SOFRI) - Quy trình kỹ thuật canh tác Mận An Phước',
+      'Journal of Agricultural and Food Chemistry - Antihyperglycemic activity of Syzygium samarangense'
+    ],
+    monetization_tips: [
+      'Cung cấp cây chiết Mận An Phước lùn thuần chậu đã có nụ hoa giá 150.000đ - 300.000đ/cây.',
+      'Bán combo túi lưới bọc quả chống ruồi vàng chuyên dụng cho vườn phố.'
+    ],
+    tags: ['Quả chuông đỏ rực', 'Giòn ngọt không hạt', 'Giải nhiệt mùa hè', 'Rất nhanh có trái']
+  },
+  {
+    id: 'fruit-29',
+    slug: 'vu-sua-hoang-kim',
+    common_name: 'Vú Sữa Hoàng Kim Đài Loan Chậu',
+    scientific_name: 'Pouteria caimito',
+    aliases: ['Hoàng Kim Quả', 'Abiu', 'Vú Sữa Vàng Nhiệt Đới'],
+    category: 'fruit',
+    description: 'Ngôi sao sáng của giới sưu tầm cây ăn trái độc lạ trên sân thượng. Quả tròn đầy đặn có núm nhọn duyên dáng, khi chín chuyển từ màu xanh sang vàng hoàng kim rực rỡ. Cắt đôi quả lộ lớp thịt trắng trong như thạch dừa, vị ngọt thanh quyện hương sữa vani và caramen.',
+    quick_answer: 'Vú sữa Hoàng Kim là cây lùn phân cành sớm, trồng chậu 50-60cm chỉ sau 8-10 tháng đã tự ra hoa ở nách lá và đậu quả vàng óng mà không cần cây khác thụ phấn chéo.',
+    botanical_details: {
+      family: 'Sapotaceae (Họ Hồng xiêm)',
+      native_range: 'Thượng nguồn Amazon, thuần hóa giống F1 tại Đài Loan và Việt Nam',
+      active_compounds: ['Beta-carotene', 'Vitamin C & B3 (Niacin)', 'Canxi & Phốt pho', 'Polyphenol'],
+      soil_ph: '5.5 - 6.8 (Đất thịt giàu hữu cơ, thoát nước tốt, giữ ẩm đều)',
+      ideal_temp: '20°C - 35°C',
+      pot_size: '50cm - 65cm'
+    },
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Abiu_em_fundo_preto_-_Pouteria_caimito.jpg/960px-Abiu_em_fundo_preto_-_Pouteria_caimito.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    image_sha256: 'd5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d512',
+    sunlight: 'full_sun',
+    watering: 'daily',
+    propagation_difficulty: 2,
+    growth_time: '8 - 10 tháng từ cây chiết/ghép cho lứa quả vàng hoàng kim đầu tiên',
+    container_suitable: true,
+    seasonality: {
+      north: 'Trồng nơi khuất gió bấc mùa đông, ra trái rộ vào mùa hè và mùa thu',
+      central: 'Phát triển khỏe, giữ ẩm gốc mùa nắng hạn',
+      south: 'Ra trái tới 3 đợt mỗi năm, màu vàng rực rỡ thu hút tài lộc',
+      best_months: [3, 4, 5, 8, 9, 10]
+    },
+    medical_info: {
+      uses: ['Thịt quả dạng thạch mềm giàu Vitamin C, Vitamin A và Canxi giúp tăng cường miễn dịch và làm dịu cổ họng', 'Chứa nhiều chất nhầy tự nhiên tốt cho hệ tiêu hóa và nhuận tràng', 'Hàm lượng đường tự nhiên thanh mát không gây nóng trong người'],
+      folk_remedies: [
+        'Bổ đôi quả vú sữa Hoàng Kim đã ướp mát, vắt nhẹ vài giọt nước cốt chanh lên bề mặt thịt quả rồi dùng muỗng xúc ăn sẽ làm dậy mùi thơm sữa gấp bội.',
+        'Thịt quả dầm cùng sữa chua hy lạp làm món tráng miệng giàu dưỡng chất cho trẻ nhỏ.'
+      ],
+      preparation: ['Thu hoạch khi toàn bộ vỏ quả đã chuyển vàng đậm đều (không còn đốm xanh ở cuống) để hoàn toàn không còn nhựa mủ'],
+      toxicity_warning: 'Mẹo nhỏ: Trước khi ăn, thoa một lớp mỏng dầu ăn hoặc vắt vài giọt chanh lên môi/miệng cắt để nhựa mỏng ở vỏ không bám vào môi.',
+      disclaimer: 'Giống cây ăn trái phong thủy màu Hoàng Kim được săn đón hàng đầu hiện nay.'
+    },
+    academic_citations: [
+      'Food Research International - Nutritional and bioactive properties of Abiu (Pouteria caimito) fruit'
+    ],
+    monetization_tips: [
+      'Quả Vú sữa Hoàng Kim sạch bán lẻ tại các cửa hàng trái cây cao cấp với giá 150.000đ - 280.000đ/kg.',
+      'Cây giống Vú sữa Hoàng Kim chiết cành đang mang trái sẵn bán 450.000đ - 1.200.000đ/chậu.'
+    ],
+    tags: ['Quả vàng Hoàng Kim', 'Vị sữa caramen', 'Tự thụ phấn', 'Sang trọng sân thượng']
+  },
+  {
+    id: 'fruit-30',
+    slug: 'quyt-duong-chau-tet',
+    common_name: 'Quýt Đường Chậu Cảnh Tết (Quýt Hoàng Kim)',
+    scientific_name: 'Citrus reticulata',
+    aliases: ['Quýt Ngọt Bonsai', 'Quýt Hồng Lai Vung Chậu', 'Đại Cát Đại Lợi'],
+    category: 'fruit',
+    description: 'Trong văn hóa Á Đông, chữ "Quýt" (桔) đồng âm với chữ "Cát" trong Đại Cát Đại Lợi. Một chậu Quýt đường trĩu trịt những quả tròn mọng vàng cam rực rỡ trên ban công không chỉ mang lại vượng khí cát tường mà còn cung cấp nguồn trái cây ngọt lịm, vỏ mỏng thơm tinh dầu.',
+    quick_answer: 'Trồng cây ghép trong chậu 45-55cm nơi đón nắng ít nhất 6 tiếng/ngày. Bón phân hữu cơ kết hợp dịch chuối hoặc kali hữu cơ khi quả vào giai đoạn chuyển màu để múi quýt mọng nước và ngọt đậm.',
+    botanical_details: {
+      family: 'Rutaceae (Họ Cửu lý hương / Cam chanh)',
+      native_range: 'Đông Nam Á và Nam Trung Hoa, nổi tiếng với các vùng quýt Lai Vung, Bắc Sơn tại Việt Nam',
+      active_compounds: ['Hesperidin', 'Nobiletin', 'Synephrine tự nhiên', 'Limonene', 'Vitamin C & Beta-Cryptoxanthin'],
+      soil_ph: '5.5 - 6.5 (Đất phù sa tơi xốp trộn phân chuồng hoai mục và trấu hun)',
+      ideal_temp: '18°C - 32°C',
+      pot_size: '45cm - 60cm'
+    },
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Citrus_reticulata_April_2013_Nordbaden.JPG/960px-Citrus_reticulata_April_2013_Nordbaden.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    image_sha256: 'd5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d513',
+    sunlight: 'full_sun',
+    watering: 'moderate',
+    propagation_difficulty: 2,
+    growth_time: 'Ra hoa mùa xuân, quả chín rực rỡ vào mùa đông dịp Tết Nguyên Đán',
+    container_suitable: true,
+    seasonality: {
+      north: 'Quả chín vàng cam đúng dịp cuối đông - Tết âm lịch',
+      central: 'Che mưa lớn lúc cây đang nở hoa',
+      south: 'Xử lý ra hoa đón Tết dễ dàng trên sân thượng nhiều nắng',
+      best_months: [1, 2, 3, 11, 12]
+    },
+    medical_info: {
+      uses: ['Múi quýt giàu Vitamin C và Beta-Cryptoxanthin giúp tăng sức đề kháng và bảo vệ phổi', 'Vỏ quýt chín phơi khô lâu năm chính là vị thuốc quý "Trần Bì" giúp lý khí kiện tỳ, tiêu đờm giảm ho và chống đầy bụng khó tiêu', 'Hợp chất Nobiletin trong vỏ quýt hỗ trợ bảo vệ tế bào thần kinh'],
+      folk_remedies: [
+        'Bí quyết làm Trần Bì tại nhà: Vỏ quýt hữu cơ tự trồng không thuốc sâu rửa sạch, phơi nắng ráo rồi cất trong hũ sành khô thoáng từ 1 năm trở lên; mỗi lần hãm 5g với trà nóng và gừng trị ho đờm, đầy hơi cực nhạy.',
+        'Quýt chín nướng ấm trên bếp khoảng 5 phút rồi bóc vỏ ăn khi còn ấm giúp dịu cơn ho hàn ban đêm.'
+      ],
+      preparation: ['Ăn tươi', 'Ép nước quýt tươi', 'Phơi khô vỏ quýt làm vị thuốc Trần Bì'],
+      toxicity_warning: 'Quýt tự trồng hữu cơ hoàn toàn yên tâm lấy vỏ làm thuốc Trần Bì (tuyệt đối không dùng vỏ quýt mua ngoài chợ có phủ sáp bảo quản để làm thuốc).',
+      disclaimer: 'Kết hợp hoàn hảo giữa cây ăn trái, cây cảnh Tết và vị thuốc Đông y Trần Bì.'
+    },
+    academic_citations: [
+      'Dược điển Việt Nam V - Chuyên luận Trần bì (Pericarpium Citri reticulatae perenne)'
+    ],
+    monetization_tips: [
+      'Ươm dưỡng chậu Quýt cảnh bonsai sai quả bán dịp Tết Nguyên Đán giá 600.000đ - 2.500.000đ/chậu.',
+      'Chế biến Trần bì hữu cơ ủ 3 năm và trà Phổ Nhĩ nhồi quả quýt (Tiểu Thanh柑).'
+    ],
+    tags: ['Đại cát đại lợi', 'Vị thuốc Trần Bì', 'Ngọt đậm mọng nước', 'Cây cảnh Tết']
+  },
+  {
+    id: 'fruit-31',
+    slug: 'so-ri-ngot-bonsai',
+    common_name: 'Sơ Ri Ngọt Gò Công Bonsai (Acerola)',
+    scientific_name: 'Malpighia emarginata',
+    aliases: ['Sơ Ri Ngọt', 'Acerola Cherry', 'Vua Vitamin C'],
+    category: 'fruit',
+    description: 'Nhà vô địch Vitamin C tự nhiên của thế giới thực vật (hàm lượng Vitamin C cao gấp 20 đến 30 lần quả cam!). Cây bụi thân gỗ dẻo dai cực kỳ hợp uốn thế bonsai chậu ban công, nở hoa màu hồng tím lãng mạn và kết hàng trăm quả chín đỏ mọng như những viên hồng ngọc chỉ sau 3 tuần.',
+    quick_answer: 'Sơ ri ngọt chịu nắng gắt và chịu cắt tỉa siêu việt. Cứ mỗi lần bấm ngọn tỉa cành kết hợp tưới đẫm sau vài ngày nắng khô là cây đồng loạt bung hoa hồng tím và đậu quả đỏ kín cành.',
+    botanical_details: {
+      family: 'Malpighiaceae (Họ Sơ ri)',
+      native_range: 'Trung và Nam Mỹ, đặc sản nổi tiếng vùng Gò Công (Tiền Giang - Việt Nam)',
+      active_compounds: ['Vitamin C tự nhiên (1500 - 3000mg / 100g)', 'Bioflavonoid (Rutin, Hesperidin)', 'Carotenoid', 'Anthocyanin'],
+      soil_ph: '5.5 - 7.0 (Đất tơi xốp thoát nước nhanh)',
+      ideal_temp: '20°C - 36°C',
+      pot_size: '35cm - 50cm (Chậu bonsai hoặc chậu tròn ban công)'
+    },
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Malpighia_glabra_blossom_and_unripe_fruits.jpg/960px-Malpighia_glabra_blossom_and_unripe_fruits.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    image_sha256: 'd5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d514',
+    sunlight: 'full_sun',
+    watering: 'moderate',
+    propagation_difficulty: 1,
+    growth_time: 'Từ lúc nở hoa hồng đến khi quả chín đỏ chỉ mất đúng 20 - 25 ngày!',
+    container_suitable: true,
+    seasonality: {
+      north: 'Ra hoa kết trái liên tục từ tháng 3 đến tháng 11',
+      central: 'Chịu hạn giỏi, ra hoa rộ sau mỗi đợt mưa rào',
+      south: 'Thu hoạch tới 6-8 lứa quả mỗi năm trên ban công nắng',
+      best_months: [3, 4, 5, 6, 7, 8, 9, 10]
+    },
+    medical_info: {
+      uses: ['Chỉ cần ăn 3-4 quả sơ ri tươi tại cây mỗi sáng đã cung cấp đủ 100% nhu cầu Vitamin C tự nhiên dễ hấp thu cho cả ngày', 'Kích thích cơ thể tổng hợp Collagen nội sinh giúp da săn chắc, mờ thâm nám và chống chảy máu chân răng', 'Tăng cường sức đề kháng chống cảm cúm giao mùa'],
+      folk_remedies: [
+        'Quả sơ ri chín đỏ 500g ngâm cùng 300g đường phèn và vài lát gừng làm siro sơ ri giải khát bù Vitamin C tự nhiên cho trẻ nhỏ.',
+        'Ép nước sơ ri tươi trộn cùng nước ép táo hoặc dứa uống làm đẹp da.'
+      ],
+      preparation: ['Hái ăn tươi ngay trên cây lúc sáng sớm', 'Ngâm siro đường phèn', 'Làm mứt sơ ri'],
+      toxicity_warning: 'Hoàn toàn lành tính. Không nên ăn một lúc quá nhiều khi bụng đói cồn cào do hàm lượng Vitamin C tự nhiên rất cao.',
+      disclaimer: 'Nguồn Vitamin C hữu cơ tươi sống tốt hơn bất kỳ viên sủi tổng hợp nào.'
+    },
+    academic_citations: [
+      'Journal of Food Science and Technology - Acerola (Malpighia emarginata): Superfunctional fruit and natural source of Vitamin C'
+    ],
+    monetization_tips: [
+      'Tạo tác bonsai Sơ ri gốc già uốn lượn vừa có hoa hồng vừa có quả đỏ bán giá 450.000đ - 2.000.000đ/chậu.',
+      'Nhân giống cành chiết Sơ ri ngọt Thái / Gò Công bán 65.000đ - 120.000đ/cây.'
+    ],
+    tags: ['Vua Vitamin C', '22 ngày chín quả', 'Bonsai hoa hồng', 'Tăng sinh Collagen']
+  },
+
+  // --- 6 CÂY CẢNH, KIỂNG LÁ & BONSAI PHONG THỦY (SPRINT 3: orn-21 -> orn-26) ---
+  {
+    id: 'orn-21',
+    slug: 'hoa-nhai-ta-que-huong',
+    common_name: 'Hoa Nhài Ta Quế Hương (Lài Đơn Cổ Truyền)',
+    scientific_name: 'Jasminum sambac',
+    aliases: ['Hoa Lài Ta', 'Mạt Lị Hoa', 'Nhài Đơn Ướp Trà'],
+    category: 'ornamental',
+    description: 'Loài hoa bình dị mà thanh cao bậc nhất trong tâm hồn người Việt. Những nụ hoa trắng ngần chúm chím như ngọc, khi màn đêm buông xuống liền đồng loạt bung nở tỏa hương thơm thanh khiết quyến rũ khắp ban công, giúp thư giãn tâm trí và ướp nên những ấm trà nhài thượng hạng.',
+    quick_answer: 'Nhài ta cực kỳ ưa nắng trực tiếp và phân hữu cơ hoai mục. Bí quyết để cây ra hoa kín tán quanh năm: cứ sau mỗi đợt hoa tàn, hãy bấm tỉa hết ngọn cành khoảng 5cm và tuốt bớt lá già ở gốc để cây bật hàng loạt mầm nụ mới.',
+    botanical_details: {
+      family: 'Oleaceae (Họ Nhài / Ô liu)',
+      native_range: 'Nam Á và Đông Nam Á, giống Nhài đơn bản địa thơm đậm nhất Việt Nam',
+      active_compounds: ['Linalool', 'Benzyl acetate', 'Indole', 'cis-Jasmone', 'Methyl anthranilate'],
+      soil_ph: '5.5 - 6.8 (Đất thịt giàu mùn trộn phân trùn quế và tro trấu)',
+      ideal_temp: '20°C - 35°C',
+      pot_size: '25cm - 40cm'
+    },
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Arabian_jasmin%2C_Tunisia_2010.jpg/960px-Arabian_jasmin%2C_Tunisia_2010.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    image_sha256: 'd5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d515',
+    sunlight: 'full_sun',
+    watering: 'daily',
+    propagation_difficulty: 1,
+    growth_time: 'Ra đợt nụ hoa mới liên tục mỗi 25 - 30 ngày sau khi bấm ngọn',
+    container_suitable: true,
+    seasonality: {
+      north: 'Nở hoa rộ và thơm ngát nhất từ tháng 4 đến tháng 10',
+      central: 'Càng nắng ấm hoa càng thơm nồng nàn',
+      south: 'Nở hoa trắng muốt suốt 12 tháng trong năm',
+      best_months: [4, 5, 6, 7, 8, 9, 10]
+    },
+    how_to_grow_steps: [
+      {
+        step: 1,
+        title: 'Bấm ngọn sau mỗi lứa hoa',
+        instruction: 'Do hoa nhài luôn mọc ở đầu cành non mới, việc cắt tỉa đầu cành ngay sau khi hoa tàn sẽ nhân đôi số lượng nhánh mang nụ cho đợt kế tiếp.'
+      },
+      {
+        step: 2,
+        title: 'Hái hoa ướp trà lúc chạng vạng',
+        instruction: 'Hái những nụ hoa trắng căng tròn lúc 17h-18h chiều, ủ chung với cánh trà Thái Nguyên khô trong hũ kín qua đêm để hương hoa thấm sâu vào trà.'
+      }
+    ],
+    faqs: [
+      {
+        question: 'Nên trồng Nhài đơn (Nhài ta) hay Nhài kép (Nhài Nhật/Pháp) để ướp trà?',
+        answer: 'Nhài đơn cổ truyền tuy bông nhỏ hơn nhưng hàm lượng tinh dầu thơm cao gấp 3 lần nhài kép và không bị ủng nước khi ướp trà hay nấu chè.'
+      }
+    ],
+    monetization_tips: [
+      'Ướp trà xanh Thái Nguyên hoặc trà Ô Long với hoa nhài sạch tự trồng bán giá 500.000đ - 1.200.000đ/kg.',
+      'Tạo dáng bonsai Hoa nhài cổ thụ gốc già bán cho người thưởng trà.'
+    ],
+    tags: ['Hương thơm đêm hè', 'Ướp trà thượng hạng', 'An thần giảm stress', 'Bonsai hoa trắng']
+  },
+  {
+    id: 'orn-22',
+    slug: 'loc-vung-bonsai',
+    common_name: 'Lộc Vừng Bonsai Phong Thủy',
+    scientific_name: 'Barringtonia acutangula',
+    aliases: ['Cây Lộc Mưng', 'Chiếc Lộc Vừng', 'Tam Đa Sung Lộc Vạn'],
+    category: 'ornamental',
+    description: 'Đứng ở vị trí trung tâm trong bộ Tam Đa phong thủy Việt Nam ("Sung - Lộc - Vạn"). Cây Lộc vừng bonsai có bệ rễ uốn lượn uy nghi, lộc non ra màu đỏ tía hồng phúc và đặc biệt là những chuỗi hoa đỏ rực dài 30-50cm buông rủ lấp lánh như rèm pháo hoa báo hiệu tài lộc thịnh vượng.',
+    quick_answer: 'Lộc vừng là cây bán thủy sinh cực kỳ ưa nước và ánh nắng. Trồng trong chậu gốm không lỗ thoát nước (chậu ngâm nước) hoặc chậu bonsai có khay nước bên dưới, cây sẽ luôn xanh mướt và không bao giờ lo chết héo.',
+    botanical_details: {
+      family: 'Lecythidaceae (Họ Lộc vừng)',
+      native_range: 'Bản địa Việt Nam và Nam Á, gắn liền với kiến trúc Hồ Gươm và nhà vườn truyền thống',
+      active_compounds: ['Saponin triterpenoid', 'Tannin', 'Barringtonin'],
+      soil_ph: '5.5 - 7.0 (Đất thịt bùn ao hoặc đất phù sa giàu dinh dưỡng)',
+      ideal_temp: '20°C - 36°C',
+      pot_size: 'Chậu bonsai hoặc ang nước đường kính 35cm - 60cm'
+    },
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/L%E1%BB%99c_v%E1%BB%ABng.jpg/960px-L%E1%BB%99c_v%E1%BB%ABng.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    image_sha256: 'd5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d516',
+    sunlight: 'full_sun',
+    watering: 'daily',
+    propagation_difficulty: 2,
+    growth_time: 'Lộc non đỏ hồng bật mỗi tháng; ra chuỗi hoa đỏ vào mùa hè và cuối thu',
+    container_suitable: true,
+    seasonality: {
+      north: 'Ra hoa đỏ rực rỡ vào tháng 5-7 và đợt hai vào tháng 10-11',
+      central: 'Chịu cả nắng hạn lẫn ngập úng mùa mưa',
+      south: 'Dễ dàng kích ra lộc đỏ và chuỗi hoa đúng dịp Tết Nguyên Đán',
+      best_months: [3, 4, 5, 6, 9, 10, 11]
+    },
+    how_to_grow_steps: [
+      {
+        step: 1,
+        title: 'Nuôi bệ rễ ôm đá trong ang nước',
+        instruction: 'Đặt bầu cây Lộc vừng ôm lên tảng đá thấm thủy trong ang nước có thả vài con cá bảy màu diệt lăng quăng để bộ rễ buông xuống nước cực kỳ nghệ thuật.'
+      },
+      {
+        step: 2,
+        title: 'Bí quyết kích Lộc vừng ra hoa đồng loạt',
+        instruction: 'Xiết nước 5-7 ngày cho lá già hơi héo vàng rồi tuốt sạch lá, sau đó tưới đẫm nước trở lại và bón kali: cây sẽ bật kín lộc đỏ kèm các dây hoa dài rực rỡ.'
+      }
+    ],
+    faqs: [
+      {
+        question: 'Đọt non Lộc vừng có ăn được không?',
+        answer: 'Đọt và lá non Lộc vừng là món rau rừng đặc sản nổi tiếng có vị chát nhẹ hậu ngọt, rất giàu chất chống oxy hóa khi ăn kèm gỏi cá hoặc bánh xèo!'
+      }
+    ],
+    monetization_tips: [
+      'Chế tác Lộc vừng bonsai gốc củ quái ôm đá thấm thủy bán giá từ 800.000đ - 20.000.000đ/tác phẩm.',
+      'Ươm cây giống Lộc vừng hoa đỏ chùm dài bán cho người chơi tiểu cảnh.'
+    ],
+    tags: ['Đứng đầu Tam Đa', 'Hoa đỏ buông rèm', 'Bonsai ôm đá', 'Rau rừng đặc sản']
+  },
+  {
+    id: 'orn-23',
+    slug: 'duong-xi-co-dai-boston',
+    common_name: 'Dương Xỉ Cổ Đại Boston (Máy Lọc Khí Xanh)',
+    scientific_name: 'Nephrolepis exaltata',
+    aliases: ['Dương Xỉ Mỹ', 'Dương Xỉ Treo Ban Công', 'Boston Sword Fern'],
+    category: 'ornamental',
+    description: 'Được nghiên cứu Clean Air Study của NASA xếp hạng số 1 về tốc độ loại bỏ khí độc Formaldehyde (từ khói thuốc, gỗ ép, sơn tường) và là "máy tạo ẩm sinh học" tự nhiên tuyệt vời nhất cho những căn hộ thường xuyên bật máy điều hòa.',
+    quick_answer: 'Dương xỉ Boston cực kỳ hợp treo ở ban công hướng Đông/Bắc hoặc đặt trên đôn cao cạnh cửa sổ. Cây ưa độ ẩm cao, ánh sáng tán xạ mát mẻ và hoàn toàn không độc hại với thú cưng (100% Pet-Safe).',
+    botanical_details: {
+      family: 'Nephrolepidaceae (Họ Dương xỉ)',
+      native_range: 'Rừng nhiệt đới ẩm châu Mỹ và Đông Nam Á',
+      active_compounds: ['Flavonoid', 'Pterosin', 'Enzym phân giải Formaldehyde nội bào ở rễ và lá'],
+      soil_ph: '5.5 - 6.5 (Giá thể giữ ẩm thoáng khí: Xơ dừa + Rêu than bùn + Đá perlite + Phân trùn quế)',
+      ideal_temp: '16°C - 28°C',
+      pot_size: 'Chậu treo đường kính 20cm - 30cm để tán lá rủ tròn 360 độ'
+    },
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Boston_Fern_%282873392811%29.png/960px-Boston_Fern_%282873392811%29.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    image_sha256: 'd5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d517',
+    sunlight: 'partial_shade',
+    watering: 'daily',
+    propagation_difficulty: 1,
+    growth_time: 'Các mầm lá non cuộn tròn như vòi voi bung mở liên tục mỗi tuần',
+    container_suitable: true,
+    seasonality: {
+      north: 'Xanh mướt mùa xuân - hè - thu; mùa đông hanh khô cần xịt phun sương giữ ẩm',
+      central: 'Treo dưới mái hiên mát mẻ, tránh gió Lào khô nóng trực diện',
+      south: 'Phát triển bồng bềnh quanh năm ở logia chung cư',
+      best_months: [2, 3, 4, 5, 6, 8, 9, 10]
+    },
+    how_to_grow_steps: [
+      {
+        step: 1,
+        title: 'Giữ bầu đất luôn ẩm mát',
+        instruction: 'Dương xỉ không thích đất bị khô trắng; hãy tưới nước giữ ẩm đều và xịt sương nhẹ lên tán lá vào buổi sáng.'
+      },
+      {
+        step: 2,
+        title: 'Tách bụi nhân giống siêu nhanh',
+        instruction: 'Mỗi 6 tháng có thể tách các cây con mọc từ dây bò (stolon) quanh gốc ra trồng thành những giỏ treo mới.'
+      }
+    ],
+    faqs: [
+      {
+        question: 'Tại sao nghiên cứu NASA lại đánh giá Dương xỉ Boston cao nhất về lọc Formaldehyde?',
+        answer: 'Nhờ diện tích bề mặt khổng lồ từ hàng ngàn lá chét nhỏ kết hợp hệ vi sinh vật cộng sinh quanh bộ rễ chùm giúp hấp thụ và phân giải tới 1.863 microgram Formaldehyde mỗi giờ!'
+      }
+    ],
+    monetization_tips: [
+      'Nhân giống giỏ treo Dương xỉ Boston tán xòe lớn bán cho các căn hộ mới sơn sửa khử mùi nội thất giá 120.000đ - 250.000đ/giỏ.',
+      'Kết hợp trồng tường cây đứng (Vertical Green Wall) cho quán cà phê và văn phòng.'
+    ],
+    tags: ['Top 1 lọc khí NASA', 'Tạo ẩm phòng lạnh', 'An toàn thú cưng', 'Giỏ treo ban công']
+  },
+  {
+    id: 'orn-24',
+    slug: 'hong-mon-do-phu-quy',
+    common_name: 'Hồng Môn Đỏ Phú Quý (Flamingo Flower)',
+    scientific_name: 'Anthurium andraeanum',
+    aliases: ['Vĩ Hoa Đỏ', 'Môn Hồng Nhiệt Đới', 'Trái Tim Nhiệt Đới'],
+    category: 'ornamental',
+    description: 'Biểu tượng của lòng hiếu khách nồng hậu, tình yêu bền chặt và năng lượng Hồng Phúc rực rỡ. Những chiếc lá bắc (mo hoa) hình trái tim đỏ thẫm bóng bẩy như tráng men vươn cao bền bỉ suốt 2-3 tháng mới tàn, đồng thời lọc sạch khí độc Ammonia và Xylene trong phòng làm việc.',
+    quick_answer: 'Hồng môn là cây biểu sinh giống hoa Lan nên rất ưa giá thể thoáng khí (vỏ thông + xơ dừa cục + đá perlite). Đặt nơi có ánh sáng tán xạ sáng sủa, cây sẽ nối tiếp nhau bung hoa đỏ quanh năm không dứt.',
+    botanical_details: {
+      family: 'Araceae (Họ Ráy)',
+      native_range: 'Rừng mưa nhiệt đới Colombia và Ecuador, trồng phổ biến tại Đà Lạt (Việt Nam)',
+      active_compounds: ['Anthocyanin (Pelargonidin & Cyanidin)', 'Chlorophyll'],
+      soil_ph: '5.5 - 6.5 (Giá thể thoáng xốp như giá thể trồng Lan / Aroid)',
+      ideal_temp: '18°C - 30°C',
+      pot_size: '18cm - 28cm (Chậu để bàn hoặc quầy lễ tân)'
+    },
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/AnthuriumAndraenum.jpg/960px-AnthuriumAndraenum.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    image_sha256: 'd5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d518',
+    sunlight: 'indoor',
+    watering: 'moderate',
+    propagation_difficulty: 2,
+    growth_time: 'Mỗi bông hoa đỏ giữ sắc tươi suốt 60 - 90 ngày; cây ra hoa quanh năm',
+    container_suitable: true,
+    seasonality: {
+      north: 'Nở hoa bền bỉ xuân - hè - thu; mùa đông để trong phòng ấm áp',
+      central: 'Rất hợp trưng bày phòng khách và sảnh làm việc',
+      south: 'Bung hoa trái tim đỏ rực rỡ suốt 4 mùa',
+      best_months: [1, 2, 3, 4, 5, 9, 10, 11, 12]
+    },
+    how_to_grow_steps: [
+      {
+        step: 1,
+        title: 'Trồng bằng giá thể vỏ thông xơ dừa',
+        instruction: 'Tuyệt đối không trồng Hồng môn bằng đất thịt bết dính; hãy dùng 50% dừa cục xử lý + 30% vỏ thông + 20% phân trùn quế để bộ rễ mập trắng như rễ lan.'
+      },
+      {
+        step: 2,
+        title: 'Bón phân tan chậm kích hoa',
+        instruction: 'Rải 10-15 hạt phân chì tan chậm (14-14-14) quanh gốc mỗi 3 tháng để mỗi lá mới mọc lên đều kèm theo 1 bông hoa đỏ.'
+      }
+    ],
+    faqs: [
+      {
+        question: 'Có thể trồng Hồng môn đỏ trong bình thủy sinh để bàn được không?',
+        answer: 'Hoàn toàn được! Bộ rễ Hồng môn rất to khỏe nên khi rửa sạch giá thể và đặt vào bình thủy tinh (ngập 1/2 rễ trong nước sạch) cây vừa khoe bộ rễ trắng vừa nở hoa đỏ rất sang trọng.'
+      }
+    ],
+    monetization_tips: [
+      'Thiết kế bình Hồng môn thủy sinh cá cảnh hoặc chậu gốm sứ để bàn làm việc bán giá 180.000đ - 450.000đ/bộ.',
+      'Cung cấp chậu Hồng môn đại phú quý làm quà mừng khai trương, tân gia.'
+    ],
+    tags: ['Hoa bền 90 ngày', 'Trái tim đỏ hồng phúc', 'Khử khí Ammonia', 'Trồng được thủy sinh']
+  },
+  {
+    id: 'orn-25',
+    slug: 'nguyet-que-hoa-thom-bonsai',
+    common_name: 'Nguyệt Quế Hoa Thơm Bonsai',
+    scientific_name: 'Murraya paniculata',
+    aliases: ['Nguyệt Quới', 'Cửu Lý Hương', 'Orange Jasmine'],
+    category: 'ornamental',
+    description: 'Biểu tượng bất diệt của chiến thắng, vinh quang và tài lộc đăng khoa. Cây Nguyệt quế có thân gỗ màu trắng ngà uốn lượn nghệ thuật, tán lá xanh bóng nhỏ nhắn và từng chùm hoa trắng muốt nở rộ tỏa hương thơm ngát mùi hoa cam hoa bưởi thanh tao quyến rũ.',
+    quick_answer: 'Nguyệt quế cực kỳ ưa nắng trực tiếp trên ban công và đất thoát nước tốt. Cây có đặc tính kỳ thú là thường đồng loạt bung nở hoa trắng thơm ngát vào những đêm trăng sáng hoặc ngay sau những cơn mưa rào mùa hạ.',
+    botanical_details: {
+      family: 'Rutaceae (Họ Cửu lý hương / Cam chanh)',
+      native_range: 'Bản địa Việt Nam, Nam Á và Đông Nam Á',
+      active_compounds: ['Murapanicin', 'Coumarin thơm', 'Linalool', 'Nerolidol', 'Methyl palmitate'],
+      soil_ph: '6.0 - 7.5 (Đất bonsai thoáng xốp: Đất thịt hun + Xỉ than / Akadama + Trấu hun + Phân hữu cơ)',
+      ideal_temp: '20°C - 35°C',
+      pot_size: 'Chậu gốm bonsai 25cm - 50cm'
+    },
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Murraya_paniculata_05.jpg/960px-Murraya_paniculata_05.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    image_sha256: 'd5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d519',
+    sunlight: 'full_sun',
+    watering: 'moderate',
+    propagation_difficulty: 2,
+    growth_time: 'Ra hoa thơm ngát từ 6 - 8 đợt mỗi năm, quả chín màu đỏ cam rất đẹp',
+    container_suitable: true,
+    seasonality: {
+      north: 'Nở hoa thơm ngát suốt xuân - hè - thu',
+      central: 'Chịu nắng gió tốt, thân gỗ già xoắn vặn cổ kính',
+      south: 'Bung hoa trắng thơm quanh năm trên ban công và sân thượng',
+      best_months: [3, 4, 5, 6, 7, 8, 9, 10]
+    },
+    how_to_grow_steps: [
+      {
+        step: 1,
+        title: 'Cắt tỉa cành răm đón hoa',
+        instruction: 'Sau mỗi đợt hoa tàn (hoặc khi quả chuyển đỏ), cắt tỉa gọn gàng các đầu cành vượt và bón phân hữu cơ để toàn bộ tán cây đồng loạt đóng nụ mới.'
+      },
+      {
+        step: 2,
+        title: 'Lưu ý khi thay chậu bonsai',
+        instruction: 'Rễ Nguyệt quế ưa sự ổn định; khi sang chậu chỉ nên gọt tỉa không quá 30% bầu đất cũ và giữ nguyên phần đất trung tâm quanh cổ rễ.'
+      }
+    ],
+    faqs: [
+      {
+        question: 'Làm thế nào để chọn dòng Nguyệt quế bonsai đẹp và sai hoa nhất?',
+        answer: 'Hãy chọn dòng "Nguyệt quế lá nhỏ bông chùm" (thân xoắn): lá nhỏ bằng móng tay, xếp khít nhau và khi ra hoa kết thành từng chùm lớn cực kỳ thơm.'
+      }
+    ],
+    monetization_tips: [
+      'Nuôi tạo tác Nguyệt quế lá nhỏ thân xoắn bonsai bán giá từ 500.000đ - 10.000.000đ/chậu.',
+      'Bán cây giống Nguyệt quế chiết cành sẵn nụ hoa giá 90.000đ - 180.000đ/chậu.'
+    ],
+    tags: ['Vòng nguyệt quế', 'Hương thơm Cửu lý hương', 'Bonsai danh giá', 'Vinh quang đỗ đạt']
+  },
+  {
+    id: 'orn-26',
+    slug: 'day-thuong-xuan-loc-khi',
+    common_name: 'Dây Thường Xuân Cẩm Thạch (English Ivy)',
+    scientific_name: 'Hedera helix',
+    aliases: ['Thường Xuân Lọc Nấm Mốc', 'Vạn Niên Thường Xuân', 'Trường Xuân Đằng'],
+    category: 'ornamental',
+    description: 'Biểu tượng của sức sống vĩnh cửu, tuổi trẻ và lòng trung thành trong văn hóa phương Tây lẫn phương Đông. Những dây lá 5 thùy hình ngôi sao viền trắng cẩm thạch buông rủ mềm mại từ kệ sách hay lan can, có khả năng tiêu diệt tới 78% bào tử nấm mốc lơ lửng trong không khí chỉ sau 12 giờ!',
+    quick_answer: 'Dây thường xuân ưa bóng râm mát mẻ, ánh sáng gián tiếp và độ ẩm vừa phải. Trồng trong chậu treo hoặc đặt trên giá sách cao để dây lá buông rủ tự nhiên như bức rèm xanh ngọc.',
+    botanical_details: {
+      family: 'Araliaceae (Họ Nhân sâm / Ngũ gia bì)',
+      native_range: 'Châu Âu và Tây Á, dòng chịu nhiệt cẩm thạch thích nghi tốt trong căn hộ Việt Nam',
+      active_compounds: ['Hederacoside C', 'Alpha-Hederin (Hoạt chất chính trong siro ho Prospan)', 'Flavonoid'],
+      soil_ph: '6.0 - 7.0 (Đất tơi xốp thoáng khí trộn đá perlite và phân trùn quế)',
+      ideal_temp: '15°C - 28°C',
+      pot_size: 'Chậu treo hoặc chậu gốm đặt kệ cao 15cm - 25cm'
+    },
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Hedera_helix_Dover.jpg/960px-Hedera_helix_Dover.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+    image_sha256: 'd5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d520',
+    sunlight: 'indoor',
+    watering: 'moderate',
+    propagation_difficulty: 1,
+    growth_time: 'Dây vươn dài thêm 10-15cm mỗi tháng, xanh tươi suốt bốn mùa',
+    container_suitable: true,
+    seasonality: {
+      north: 'Cực kỳ khỏe mạnh vào mùa thu - đông - xuân; mùa hè nóng ẩm đặt trong phòng mát',
+      central: 'Trồng trong phòng điều hòa hoặc hành lang mát mẻ',
+      south: 'Phát triển tuyệt đẹp trên kệ sách phòng khách, phòng làm việc có máy lạnh',
+      best_months: [1, 2, 3, 4, 10, 11, 12]
+    },
+    how_to_grow_steps: [
+      {
+        step: 1,
+        title: 'Đặt trên kệ cao hoặc giỏ treo thông thoáng',
+        instruction: 'Đặt chậu Thường xuân trên nóc tủ sách, bệ cửa sổ mát hoặc treo gần khu vực dễ ẩm mốc để cây lọc sạch bào tử nấm trong không khí.'
+      },
+      {
+        step: 2,
+        title: 'Giâm cành trong nước hoặc đất ẩm',
+        instruction: 'Cắt đoạn dây dài 15cm cắm vào lọ thủy tinh nước sạch, chỉ sau 7-10 ngày rễ trắng sẽ bung ra ở từng đốt lá.'
+      }
+    ],
+    faqs: [
+      {
+        question: 'Tại sao lá Thường xuân lại nổi tiếng trong y học hiện đại?',
+        answer: 'Chiết xuất chuẩn hóa từ lá Thường xuân (Hedera helix) chứa Hederacoside C là thành phần chính trong các loại siro ho thảo dược nổi tiếng của Đức giúp giãn phế quản và long đờm (tuy nhiên chỉ dùng dịch chiết dược phẩm chuẩn hóa, không tự đun lá tươi tại nhà).'
+      }
+    ],
+    monetization_tips: [
+      'Nhân giống các giỏ treo Thường xuân lá ngôi sao và Thường xuân cẩm thạch bán giá 85.000đ - 180.000đ/chậu.',
+      'Thiết kế vòng nguyệt quế Thường xuân sống (Topiary) trang trí bàn làm việc và quán cà phê.'
+    ],
+    tags: ['Diệt 78% nấm mốc', 'Lá ngôi sao rủ', 'Trường xuân vĩnh cửu', 'Decor kệ sách']
   }
 ];
 

@@ -3015,6 +3015,757 @@ export const PLANT_ENGLISH_MAP: Record<string, LocalizedPlantData> = {
     ],
     monetization_tips: ['Divide rhizome clumps into Nordic white ceramic pots for pet-friendly apartments and design studios ($8-$20).'],
     tags: ['100% Pet Safe', 'Night Prayer Motion', 'Silver Peacock Stripes', 'Nordic Interior']
+  },
+
+  // ==========================================
+  // SPRINT 3 (BATCH 3): 20 NEW ENTRIES REACHING THE 100-SPECIES MILESTONE
+  // (herb-41 to herb-48, fruit-26 to fruit-31, orn-21 to orn-26)
+  // ==========================================
+  'herb-41': {
+    common_name: 'Crepe Ginger / Spiral Flag (Mia Do / Cat Loi)',
+    aliases: ['Costus Speciosus', 'Hellenia Speciosa', 'Wild Spiral Ginger'],
+    description: 'An indigenous medicinal herb and prized wild vegetable of Southern Vietnam. Spiraling stems crowned with crimson cones and crepe-white blossoms contain diosgenin, a natural steroidal saponin precursor that clears heat, promotes diuresis, and relieves joint inflammation.',
+    quick_answer: 'Easily grown from rhizome cuttings in moist, shaded balcony pots. Crisp, mildly tangy young shoots are delicious wrapped with Vietnamese savory pancakes (Banh Xeo), while rhizomes soothe urinary and joint discomfort.',
+    growth_time: '45 days for edible tender shoots, 8 months for medicinal rhizomes',
+    seasonality: {
+      north: 'Vigorous growth during warm summer-autumn rains; dormant above ground in winter',
+      central: 'Thrives in shaded courtyard corners and cool balconies',
+      south: 'Evergreen with year-round edible shoot production',
+      best_months: [4, 5, 6, 7, 8, 9, 10]
+    },
+    medical_info: {
+      uses: ['Natural anti-inflammatory that relieves neuralgia and rheumatic joint stiffness', 'Promotes diuresis, clears heat, and soothes painful urination and mild urinary tract inflammation', 'Traditionally used as a cooling liver tonic'],
+      folk_remedies: [
+        'Decoct 15g dried Costus rhizome, 15g corn silk, and 12g plantain herb (Ma de) as a daily tea for urinary comfort.',
+        'Peel tender young shoots to enjoy raw or blanched with braised fish sauce to cool the body.'
+      ],
+      preparation: ['Raw or blanched tender shoots as a wild vegetable', 'Sliced, sun-dried, and golden-roasted rhizome decoction'],
+      toxicity_warning: 'Raw unprocessed tubers in high doses may mildly irritate the throat; pregnant women should avoid medicinal rhizome doses.',
+      disclaimer: 'Valuable ethnobotanical source of natural diosgenin.'
+    },
+    botanical_details: {
+      family: 'Costaceae (Spiral Ginger Family)',
+      native_range: 'Indigenous to Vietnam and tropical Asia',
+      active_compounds: ['Diosgenin', 'Tigogenin', 'Steroidal Saponins', 'Curcuminoids', 'Flavonoids'],
+      soil_ph: '5.5 - 7.0 (Moist humus-rich loam)',
+      ideal_temp: '20°C - 34°C',
+      pot_size: '30cm - 45cm container'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Rhizome Division', instruction: 'Lay a 10cm rhizome segment with 2 buds horizontally 5cm deep in moist compost.' }
+    ],
+    faqs: [
+      { question: 'How to distinguish Crepe Ginger from regular ginger?', answer: 'Crepe Ginger leaves spiral around the stem like a winding staircase rather than growing in two flat opposite rows.' }
+    ],
+    monetization_tips: ['Grow dual-purpose ornamental and culinary pots, harvesting fresh wild shoots for specialty restaurants.'],
+    tags: ['Wild Culinary Shoot', 'Joint Anti-Inflammatory', 'Kidney Cooling', 'Spiral Stem']
+  },
+
+  'herb-42': {
+    common_name: 'Fragrant Glorybower (Bach Dong Nu / Mo Hoa Trang)',
+    aliases: ['Clerodendrum Chinense', 'Cashmere Bouquet', 'White Pagoda Flower'],
+    description: 'A premier women’s wellness and blood-pressure balancing botanical. Hydrangea-like clusters of blush-white blossoms perfume the air, while flavonoid-rich leaves cool blood heat, gently dilate peripheral vessels, and soothe inflammation.',
+    quick_answer: 'A hardy shrub that thrives in 35cm sunny pots. Serves both as a fragrant balcony ornamental and a fresh leaf source for liver-cooling tea and herbal washes.',
+    growth_time: '60 days from stem cutting to fragrant floral clusters',
+    seasonality: {
+      north: 'Blooms fragrantly from May through October',
+      central: 'Drought-tolerant and resilient year-round',
+      south: 'Evergreen with continuous four-season flowering',
+      best_months: [4, 5, 6, 7, 8, 9]
+    },
+    medical_info: {
+      uses: ['Supports menstrual regularity and relieves gynecological inflammation', 'Gently lowers elevated blood pressure and calms liver-yang headaches', 'Soothes skin rashes, jaundice, and inflammatory blemishes'],
+      folk_remedies: [
+        'Decoct 16g dried Clerodendrum leaves, 12g motherwort (Ich mau), 10g mugwort, and 8g Cyperus rhizome 7 days prior to menstruation for cycle comfort.',
+        'Boil a large handful of fresh leaves with sea salt for a soothing external skin wash.'
+      ],
+      preparation: ['Harvest leaves prior to flowering and shade-dry', 'Water decoction or concentrated herbal extract'],
+      toxicity_warning: 'Gentle and safe. Individuals with low blood pressure should use moderate amounts after meals.',
+      disclaimer: 'Clinically studied and widely prescribed in Vietnamese Traditional Medicine institutes.'
+    },
+    botanical_details: {
+      family: 'Lamiaceae (Mint Family)',
+      native_range: 'Indigenous to Vietnam, Southern China, and Southeast Asia',
+      active_compounds: ['Clerodendrin', 'Flavonoids', 'Hispidulin', 'Tannins', 'Saponins'],
+      soil_ph: '5.8 - 7.0',
+      ideal_temp: '20°C - 34°C',
+      pot_size: '30cm - 45cm pot'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Prune After Bloom', instruction: 'Trim spent flower heads to keep the shrub compact and stimulate fresh medicinal leaves.' }
+    ],
+    faqs: [
+      { question: 'How does it differ from Red Glorybower (Xich Dong Nam)?', answer: 'Bach Dong Nu bears double blush-white fragrant flower clusters, whereas Xich Dong Nam produces scarlet red flowers.' }
+    ],
+    monetization_tips: ['Package freeze-dried leaf herbal bath sachets with betel leaf and sell fragrant potted shrubs.'],
+    tags: ['Women’s Wellness', 'Blood Pressure Support', 'Fragrant Bouquet', 'Anti-Inflammatory']
+  },
+
+  'herb-43': {
+    common_name: 'Five-Leaf Jiaogulan / Immortality Herb (Giao Co Lam)',
+    aliases: ['Gynostemma Pentaphyllum', 'Southern Ginseng', 'Five-Leaf Ginseng'],
+    description: 'Celebrated as "Southern Ginseng", containing over 80 gypenoside saponins structurally mirroring Panax ginsenosides. This graceful five-leaf climbing vine lowers blood lipids, reduces LDL cholesterol, stabilizes blood sugar, and promotes longevity.',
+    quick_answer: 'A slender vine that loves cool dappled shade on east- or north-facing balconies. Dried leaves brew a revitalizing morning tea with a pleasant bitter-to-sweet ginseng aftertaste.',
+    growth_time: '35 - 40 days to first herbal tea vine harvest',
+    seasonality: {
+      north: 'Rapid growth throughout spring, summer, and autumn',
+      central: 'Grow under cool eaves away from scorching midday sun',
+      south: 'Flourishes year-round on shaded, humid balconies',
+      best_months: [2, 3, 4, 5, 9, 10]
+    },
+    medical_info: {
+      uses: ['Lowers total cholesterol and triglycerides while preventing fatty liver and atherosclerosis', 'Activates AMPK enzymes to improve insulin sensitivity and support healthy blood glucose', 'Potent cellular antioxidant that boosts physical stamina and protects liver hepatocytes'],
+      folk_remedies: [
+        'Steep 15-20g dried 5-leaf Jiaogulan in 500ml of 90°C water each morning and early afternoon for mental clarity and metabolic balance.',
+        'Combine 15g Jiaogulan, 15g Celastrus hindsii (Xa den), and 15g Solanum procumbens (Ca gai leo) for comprehensive liver detoxification.'
+      ],
+      preparation: ['Pan-fired or freeze-dried whole-leaf herbal tea', 'Blended with stevia or red dates'],
+      toxicity_warning: 'Because Jiaogulan boosts alertness and metabolism, avoid drinking late at night before sleep. Add a slice of fresh ginger if prone to low blood pressure.',
+      disclaimer: 'Subject of a Ho Chi Minh Prize-winning national pharmacological study by Prof. Dr. Pham Thanh Ky.'
+    },
+    botanical_details: {
+      family: 'Cucurbitaceae (Gourd Family)',
+      native_range: 'Limestone mountains of Hoa Binh, Lao Cai, Cao Bang (Vietnam) and East Asia',
+      active_compounds: ['Gypenosides (80+ Saponins)', 'Flavonoids (Quercetin, Rutin)', 'Adenosine', 'Polysaccharides'],
+      soil_ph: '6.0 - 7.2 (Loose humus with light calcium)',
+      ideal_temp: '16°C - 28°C',
+      pot_size: 'Hanging basket or 40cm planter box with light trellis'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Cool Dappled Shade', instruction: 'Hang baskets under 50% shade and keep soil evenly moist for tender, saponin-rich leaves.' }
+    ],
+    faqs: [
+      { question: 'How to verify authentic 5-leaf Jiaogulan?', answer: 'Authentic Gynostemma pentaphyllum has 5 palmately compound leaflets, axillary tendrils, and a distinct bitter-then-sweet ginseng flavor when chewed raw.' }
+    ],
+    monetization_tips: ['Produce artisanal pan-fired 5-leaf Jiaogulan tea ($15-$22/kg) and sell authenticated Hoa Binh starter pots.'],
+    tags: ['Cholesterol Support', 'Longevity Tea', 'Five-Leaf Ginseng', 'Glucose Balance']
+  },
+
+  'herb-44': {
+    common_name: 'Hoa Binh Black-Sap Vine (Xa Den Hoa Binh)',
+    aliases: ['Celastrus Hindsii', 'Muong Longevity Shrub', 'Hundred-Remedy Vine'],
+    description: 'The treasured medicinal shrub of the Muong ethnic people in Hoa Binh province. Young shoots flush deep purple, and cut stems exude sap that oxidizes jet-black. Rich in Maytenfolone A, Celasdin B, and rosmarinic acid for liver detoxification, free-radical scavenging, and deep sleep.',
+    quick_answer: 'A rugged woody climber that thrives in 40cm balcony pots under full sun or partial shade with zero pest issues. Prune leaves and semi-woody stems to dry for daily cooling tea.',
+    growth_time: '3 - 4 months to begin pruning branches and leaves for herbal tea',
+    seasonality: {
+      north: 'Vigorous year-round; young shoots turn deepest purple in spring and autumn',
+      central: 'Withstands intense sun and coastal winds effortlessly',
+      south: 'Continuous leaf flushes all 12 months',
+      best_months: [2, 3, 4, 8, 9, 10]
+    },
+    medical_info: {
+      uses: ['Clears liver heat and supports healthy liver enzymes in hepatitis and fatty liver conditions', 'Quinones and Celasdin B neutralize free radicals and strengthen cellular immunity', 'Calms nervous tension and promotes restorative sleep'],
+      folk_remedies: [
+        'Simmer 30g dried Xa Den leaves and stems in 1.5L water for 15 minutes; enjoy as a mild, nutty daily hydration tea.',
+        'Decoct 25g Celastrus hindsii, 15g Hedyotis diffusa, and 10g Scutellaria barbata 30 minutes after meals for cellular detoxification.'
+      ],
+      preparation: ['Fresh bruised leaf infusion', 'Dried and golden-roasted stem & leaf decoction'],
+      toxicity_warning: 'Very gentle, but do not drink decoctions left unrefrigerated overnight. Not recommended for pregnant women or children under 5.',
+      disclaimer: 'Extensively researched by the Vietnam Military Medical Academy (Prof. Dr. Le The Trung).'
+    },
+    botanical_details: {
+      family: 'Celastraceae (Staff-Vine Family)',
+      native_range: 'Limestone highlands of Hoa Binh, Ninh Binh, and Thua Thien Hue (Vietnam)',
+      active_compounds: ['Maytenfolone A', 'Celasdin B', 'Flavonoids', 'Quinones', 'Triterpenoid Saponins', 'Rosmarinic Acid'],
+      soil_ph: '5.5 - 7.0',
+      ideal_temp: '18°C - 35°C',
+      pot_size: '35cm - 50cm container'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Prune for Bushiness', instruction: 'Harvest semi-woody branches every 3 months to stimulate dense purple-tipped new shoots.' }
+    ],
+    faqs: [
+      { question: 'How to distinguish authentic Hoa Binh Xa Den from Xa Vang?', answer: 'Authentic Celastrus hindsii has finely serrated thick leaves, purple young tips, and brews a rich amber-brown fragrant tea.' }
+    ],
+    monetization_tips: ['Propagate certified purple-tip Hoa Binh saplings and craft concentrated Xa Den herbal extracts.'],
+    tags: ['Liver Detox', 'Hoa Binh Heritage', 'Purple Shoot Strain', 'Cellular Defense']
+  },
+
+  'herb-45': {
+    common_name: 'Red Fo-Ti / He Shou Wu (Ha Thu O Do)',
+    aliases: ['Fallopia Multiflora', 'Reynoutria Multiflora', 'Tuber Fleeceflower'],
+    description: 'The legendary longevity vine celebrated in Vietnamese verse: "For jet-black hair and rosy skin, climb the mountains for Ha Thu O." Twining vines shade balconies while underground red tubers nourish liver and kidney essence, replenish blood, and restore youthful hair pigment.',
+    quick_answer: 'Grow in a 45-50cm deep pot with a trellis; tubers reach 0.5-1kg after 18-24 months. The leafy vines (Caulis Polygoni Multiflori) can be pruned regularly for calming sleep teas.',
+    growth_time: '3 months for calming vine stems, 18 months for mature red tubers',
+    seasonality: {
+      north: 'Plant in spring; harvest heavy red tubers in late autumn-winter',
+      central: 'Provide airy placement and fast bottom drainage',
+      south: 'Vines form a lush green canopy year-round on balcony trellises',
+      best_months: [2, 3, 4, 10, 11]
+    },
+    medical_info: {
+      uses: ['Nourishes blood and liver-kidney essence, addressing premature gray hair, hair thinning, and pale complexion', 'Vine stems (Da Giao Dang) calm the spirit, relieve insomnia, and soothe aching shoulders', 'Fortifies tendons, bones, and antioxidant cellular longevity'],
+      folk_remedies: [
+        'Traditional Nine-Steaming Process (Cuu Chung Cuu Sai): Peel fresh red tubers, soak in rice water for 24h, remove the woody core, then steam with green-heart black bean broth and sun-dry for 9 cycles before rolling into honey-sesame pills.',
+        'Simmer 15g dried vine stems with 15g Passiflora foetida for a restful evening tea.'
+      ],
+      preparation: ['Must be traditionally processed with black bean broth', 'Honey & black sesame tonic pills', 'Herbal wine infusion'],
+      toxicity_warning: 'NEVER consume raw, unprocessed Fo-Ti tubers, as raw anthraquinones and tannins cause diarrhea and hepatotoxicity. Always use properly black-bean-steamed preparations.',
+      disclaimer: 'Use only processed Radix Fallopiae multiflorae praeparata per Vietnamese Pharmacopoeia standards.'
+    },
+    botanical_details: {
+      family: 'Polygonaceae (Buckwheat Family)',
+      native_range: 'Northwestern highlands (Son La, Lai Chau, Ha Giang) and North-Central Vietnam',
+      active_compounds: ['2,3,5,4-tetrahydroxystilbene-2-O-beta-D-glucoside (TSG)', 'Lecithin', 'Anthraquinones', 'Resveratrol Analogues'],
+      soil_ph: '5.5 - 6.8 (Deep sandy humus for tuber expansion)',
+      ideal_temp: '15°C - 30°C',
+      pot_size: '45cm - 60cm deep container (50L)'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Deep Loose Substrate', instruction: 'Mix 40% sandy loam, 30% compost, and 30% charred rice husk in a tall pot so tubers swell unhindered.' }
+    ],
+    faqs: [
+      { question: 'Why must Red Fo-Ti be steamed with black beans before use?', answer: 'Steaming with black bean juice neutralizes laxative anthraquinones and enriches kidney-nourishing bioactive glycosides.' }
+    ],
+    monetization_tips: ['Handcraft traditional 9-steamed Fo-Ti, black sesame, and wild honey wellness pills.'],
+    tags: ['Youthful Black Hair', 'Longevity Tonic', 'Liver & Kidney Essence', 'Nine-Steamed Heritage']
+  },
+
+  'herb-46': {
+    common_name: 'Mediterranean Rosemary (Huong Thao)',
+    aliases: ['Salvia Rosmarinus', 'Rosmarinus Officinalis', 'Dew of the Sea'],
+    description: 'The aristocratic Mediterranean herb with silver-frosted pine-like needles that release an invigorating woodsy aroma. Rich in 1,8-cineole and rosmarinic acid, clinically shown to boost memory and alertness by up to 75% while naturally repelling mosquitoes.',
+    quick_answer: 'Rosemary loves bright sun, breezy airflow, and gritty fast-draining soil (30% pumice/perlite). Water at the root base only when top soil is dry; avoid wetting foliage at night in humid weather.',
+    growth_time: '30 days to tip-prune for culinary sprigs; matures into woody bonsai over years',
+    seasonality: {
+      north: 'Peak vigor in autumn, winter, and spring; shelter pot from summer monsoon downpours',
+      central: 'Place on breezy balconies receiving morning sun',
+      south: 'Grow in breathable terracotta pots with 4-5 hours of morning sun and good airflow',
+      best_months: [1, 2, 3, 4, 10, 11, 12],
+      warning: 'Never allow heavy waterlogged soil in hot, stagnant humidity'
+    },
+    medical_info: {
+      uses: ['Inhaling 1,8-cineole inhibits acetylcholine breakdown, enhancing memory retention and study focus', 'Potent antioxidant that reduces heterocyclic amines when searing steaks or salmon', 'Rosemary oil or hydrosol scalp massage stimulates hair follicles comparably to 2% Minoxidil'],
+      folk_remedies: [
+        'Steep 1 fresh rosemary sprig in 250ml of 85°C water with a lemon slice and honey for jitter-free morning focus.',
+        'Simmer 3 rosemary sprigs in 500ml water, cool, and spritz onto the scalp daily to reduce dandruff and stimulate baby hair growth.'
+      ],
+      preparation: ['Fresh focus tea', 'Gourmet roast & steak marinade', 'Distilled Rosemary Hydrosol hair tonic'],
+      toxicity_warning: 'Culinary and tea amounts are completely safe. Undiluted essential oil must not be ingested orally.',
+      disclaimer: 'Premier desk-side aromatherapy plant for students and knowledge workers.'
+    },
+    botanical_details: {
+      family: 'Lamiaceae (Mint Family)',
+      native_range: 'Mediterranean coast, acclimated to Vietnamese container gardens',
+      active_compounds: ['Rosmarinic Acid', 'Carnosic Acid', '1,8-Cineole', 'Camphor', 'Alpha-Pinene'],
+      soil_ph: '6.0 - 7.5 (Aerobic mix: 40% soil + 30% pumice/perlite + 20% charred husk + 10% worm castings)',
+      ideal_temp: '15°C - 30°C',
+      pot_size: '20cm - 35cm breathable terracotta pot'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Terracotta & Pumice', instruction: 'Always plant Rosemary in unglazed clay pots with 30% volcanic pumice so roots breathe freely.' }
+    ],
+    faqs: [
+      { question: 'Why does Rosemary sometimes dry up at the base?', answer: 'Root suffocation from dense, soggy soil. Switch to gritty pumice mix and water only when the top 3cm is dry.' }
+    ],
+    monetization_tips: ['Train aged woody Rosemary bonsai trees ($10-$35) and distill artisan Rosemary-Pomelo hair growth sprays.'],
+    tags: ['Memory Booster', 'Mosquito Repellent', 'Culinary Steak Herb', 'Hair Growth Tonic']
+  },
+
+  'herb-47': {
+    common_name: 'Giant Leaf Aloe Vera (Nha Dam La Be)',
+    aliases: ['Aloe Barbadensis Miller', 'Miracle Burn Plant', 'First-Aid Succulent'],
+    description: 'The indispensable dermatological first-aid station for every family balcony. Thick, succulent leaves encase crystal-clear mucilage gel packed with over 75 bioactive compounds (Acemannan, Vitamins E & B12, Zinc) that instantly soothe burns, hydrate skin, and cool the digestive tract.',
+    quick_answer: 'Ultra-drought-tolerant in sandy, fast-draining soil with virtually zero maintenance. Water 1-2 times weekly; outer leaves reach 2-3cm thickness ready for harvest in 4-5 months.',
+    growth_time: '4 months to harvest thick basal leaves; produces abundant pups around the base',
+    seasonality: {
+      north: 'Rapid summer growth; keep nearly dry during cold winter months',
+      central: 'Champion of hot, dry coastal sun and winds',
+      south: 'Plump, crystal-gel leaves all 12 months',
+      best_months: [2, 3, 4, 5, 6, 7, 8, 9]
+    },
+    medical_info: {
+      uses: ['Instant first-aid relief for kitchen scalds, minor burns, and sunburn via cooling glycoproteins that accelerate epithelial healing', 'Cooked aloe cubes with rock sugar and pandan leaf cool the body, soothe mild gastritis, and promote regularity', 'CAM nighttime photosynthesis releases oxygen and scrubs indoor formaldehyde'],
+      folk_remedies: [
+        'For minor burns: Slice a fresh aloe leaf, peel off the green rind, rinse away yellow latex, and apply the chilled clear gel directly to prevent blistering.',
+        'Peel and dice clear aloe gel, rinse thoroughly with salt and lemon juice, then poach for 2 minutes in pandan-infused rock sugar water with chia seeds.'
+      ],
+      preparation: ['Peel green skin and stand upright for 15 minutes to drain yellow aloin latex completely before using clear gel', 'Aloe-pandan cooling drink', 'Soothing facial hydration mask'],
+      toxicity_warning: 'The yellow latex layer directly beneath the green skin contains strong laxative Aloin; always peel away all green skin and rinse the clear fillet thoroughly before eating or applying to facial skin.',
+      disclaimer: 'Dual-purpose NASA air purifier and living home skin clinic.'
+    },
+    botanical_details: {
+      family: 'Asphodelaceae (Aloe Family)',
+      native_range: 'Arabian Peninsula, long naturalized in Ninh Thuan, Binh Thuan, and across Vietnam',
+      active_compounds: ['Acemannan (Polysaccharide)', 'Aloin (in rind latex)', 'Natural Salicylic Acid', 'Glycoproteins', 'Vitamins A, C, E, B12'],
+      soil_ph: '6.0 - 7.5 (Sandy loam with crushed cinder/perlite and worm castings)',
+      ideal_temp: '20°C - 38°C',
+      pot_size: '30cm - 45cm wide-mouth pot to accommodate offset pups'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Harvest Outer Leaves First', instruction: 'Always slice the oldest, thickest outermost leaves at the base so the central rosette keeps growing.' }
+    ],
+    faqs: [
+      { question: 'How to remove all bitterness and slime from Aloe Vera before cooking?', answer: 'Peel the green skin completely, stand the leaf upright to drain yellow sap, then rub the diced clear cubes with sea salt and lemon juice and rinse in cold water.' }
+    ],
+    monetization_tips: ['Divide giant Thai Aloe pups and bottle fresh daily Aloe-Pandan-Chia beverages.'],
+    tags: ['Burn First-Aid', 'Skin Hydration', 'Drought Champion', 'NASA Air Purifier']
+  },
+
+  'herb-48': {
+    common_name: 'Butterfly Pea Vine (Hoa Dau Biec)',
+    aliases: ['Clitoria Ternatea', 'Asian Pigeonwings', 'Blue Pea Flower'],
+    description: 'The most enchanting cobalt-blue flowering vine for apartment balconies. Double sapphire petals boast extraordinary concentrations of heat-stable Ternatin anthocyanins that shield retinal capillaries from screen blue light, boost cerebral circulation, and color foods naturally.',
+    quick_answer: 'Soak seeds in warm water for 4 hours; they sprout in 3 days and blanket balcony railings in sapphire blooms within 45 days. Brew dried flowers into color-changing tea with a squeeze of lime.',
+    growth_time: '45 days from seed to daily continuous flower harvests',
+    seasonality: {
+      north: 'Blooms profusely from March through November',
+      central: 'Sun-loving climber that shades balcony railings',
+      south: 'Blooms non-stop 365 days a year',
+      best_months: [3, 4, 5, 6, 7, 8, 9, 10]
+    },
+    medical_info: {
+      uses: ['Protects retinal micro-capillaries and relieves digital eye strain and dry eyes', 'Elevates hippocampal acetylcholine levels to support memory and calm stress', '100% safe natural sapphire-blue and magenta food coloring for sticky rice, pastries, and jellies'],
+      folk_remedies: [
+        'Steep 5-7 dried butterfly pea flowers in 250ml hot water for 5 minutes for deep sapphire tea; add a few drops of kumquat or lime juice to watch it turn vibrant violet.',
+        'Soak glutinous rice in butterfly pea infusion to steam aromatic five-color sticky rice.'
+      ],
+      preparation: ['Harvest blooms at 8am-9am once morning dew dries and dehydrate for airtight storage', 'Color-changing citrus iced tea', 'Natural culinary dye'],
+      toxicity_warning: 'Flower petals are completely safe (5-10 blooms daily). Note: Mature hard seeds and roots have mild purgative properties and should not be eaten.',
+      disclaimer: 'Globally beloved antioxidant super-flower and natural culinary pigment.'
+    },
+    botanical_details: {
+      family: 'Fabaceae (Legume Family - naturally fixes nitrogen in soil)',
+      native_range: 'Tropical Asia, cultivated across all three regions of Vietnam',
+      active_compounds: ['Ternatins A, B, D (Polyacylated Anthocyanins)', 'Delphinidin', 'Kaempferol', 'Quercetin', 'Cyclotides'],
+      soil_ph: '5.5 - 7.5 (Root nodules naturally enrich soil nitrogen)',
+      ideal_temp: '20°C - 36°C',
+      pot_size: '25cm - 35cm pot with railing trellis'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Daily Morning Picking', instruction: 'Pick open flowers every morning to prevent seed pod formation and keep the vine blooming non-stop.' }
+    ],
+    faqs: [
+      { question: 'Why does Butterfly Pea tea change color from blue to purple?', answer: 'Ternatin anthocyanins are natural pH indicators that shift from sapphire blue in neutral water to luminous violet when acidity (lemon/lime) is added.' }
+    ],
+    monetization_tips: ['Dehydrate double-petal sapphire blooms in glass jars ($25-$38/kg) and sell blooming balcony pots.'],
+    tags: ['Eye Strain Relief', 'Color-Changing Tea', 'Natural Food Dye', '45-Day Bloom']
+  },
+
+  'fruit-26': {
+    common_name: 'Four-Season Jabuticaba / Brazilian Grape Tree (Nho Than Go)',
+    aliases: ['Plinia Cauliflora', 'Black Diamond Tree Grape', 'Trunk-Fruiting Bonsai'],
+    description: 'One of the plant kingdom’s most mesmerizing wonders for rooftop gardens. Snow-white blossoms and hundreds of glossy black-pearl fruits erupt directly along the main trunk and branches (cauliflory), offering translucent, juicy flesh with notes of Kyoho grape, mangosteen, and lychee.',
+    quick_answer: 'Select mature Four-Season or Black Diamond Jabuticaba trees for 50-70cm pots. Lives for decades as a majestic bonsai; spraying the woody trunk directly during watering stimulates prolific floral buds.',
+    growth_time: 'Fruit swells and ripens in just 25-30 days after trunk blossoms open',
+    seasonality: {
+      north: 'Produces 4-5 consecutive fruiting waves from spring to late autumn',
+      central: 'Sturdy hardwood trunk withstands coastal storms admirably',
+      south: 'Flowers and fruits year-round directly along the trunk',
+      best_months: [3, 4, 5, 6, 8, 9, 10]
+    },
+    medical_info: {
+      uses: ['Dark purple skin contains unique Jaboticabin depsides that protect lung tissue, combat inflammation, and strengthen blood vessels', 'Anthocyanin-rich pulp enhances skin elasticity and cardiovascular health', 'Fermented Jabuticaba wine offers an aristocratic aroma that aids digestion'],
+      folk_remedies: [
+        'Eat ripe black fruits fresh off the trunk or ferment with rock sugar into blood-nourishing Jabuticaba ruby wine.',
+        'Sun-dried fruit skins steeped as a warm tisane soothe sore throats.'
+      ],
+      preparation: ['Eat fresh immediately upon picking', 'Artisanal jam & jelly', 'Fermented fruit wine'],
+      toxicity_warning: '100% safe and delicious. Because the dark skin is rich in tannins, chew thoroughly or use for wine and preserves.',
+      disclaimer: 'Feng-shui symbol of abundant progeny and wealth clinging to the family tree.'
+    },
+    botanical_details: {
+      family: 'Myrtaceae (Myrtle / Guava Family)',
+      native_range: 'South America (Brazil), thoroughly acclimated to tropical Vietnam',
+      active_compounds: ['Jaboticabin', 'Cyanidin-3-glucoside', 'Ellagic Acid', 'Resveratrol', 'Vitamin C'],
+      soil_ph: '5.5 - 6.5 (Slightly acidic, humus-rich, well-draining soil)',
+      ideal_temp: '18°C - 35°C',
+      pot_size: '50cm - 75cm container'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Drench the Trunk', instruction: 'Hose down the woody bark daily when watering; moisture on the trunk wakes dormant cauliflorous flower buds.' }
+    ],
+    faqs: [
+      { question: 'How long does Jabuticaba fruit stay fresh after picking?', answer: 'Thin-skinned berries begin fermenting 3-4 days after harvest, making home-grown trees the best way to savor them fresh.' }
+    ],
+    monetization_tips: ['Cultivate trunk-fruiting bonsai specimen trees ($60-$600+) and sell fresh organic berries ($8-$15/kg).'],
+    tags: ['Cauliflorous Trunk Fruit', 'Aristocratic Bonsai', 'Anti-Aging Jaboticabin', 'Abundance Symbol']
+  },
+
+  'fruit-27': {
+    common_name: 'Dwarf Mango-Shaped Sapodilla (Hong Xiem Xoai Lun)',
+    aliases: ['Manilkara Zapota', 'Container Sapoche', 'Chico Fruit'],
+    description: 'A dwarf grafted sapodilla tailored for urban rooftops: trees barely 1 meter tall carry dozens of large, mango-shaped fruits. Fully ripened flesh is buttery-smooth and grit-free, bursting with rich caramel and malt sweetness.',
+    quick_answer: 'An ultra-hardy evergreen that resists drought and salt winds while shedding almost no messy leaves. Plant in a 50-60cm sunny pot and feed organic compost for overlapping year-round harvests.',
+    growth_time: '6 months from air-layered/grafted sapling to first fruit set',
+    seasonality: {
+      north: 'Two main harvests in spring-summer and autumn-winter',
+      central: 'Exceptionally resilient to heat, drought, and coastal breezes',
+      south: 'Continuous overlapping flowers and fruit all 12 months',
+      best_months: [2, 3, 4, 8, 9, 10, 11]
+    },
+    medical_info: {
+      uses: ['Ripe pulp is rich in natural Calcium, Phosphorus, and Iron to fortify bones and teeth', 'Soluble fiber and B-vitamins soothe the gastric mucosa and promote gentle regularity', 'Provides instant natural glucose energy for fatigue recovery'],
+      folk_remedies: [
+        'Blend ripe sapodilla with fresh unsweetened milk and crushed ice for a restorative calcium-rich smoothie.',
+        'Traditional remedy: Sliced, dried unripe sapodilla (high in tannins) decocted in water relieves acute diarrhea.'
+      ],
+      preparation: ['Harvest when skin turns golden-brown underneath and store in a rice bin for 2-3 days until soft and honey-sweet'],
+      toxicity_warning: 'Only consume when fully soft-ripened (free of white latex); remove the glossy black hooked seeds before serving to young children.',
+      disclaimer: 'Clean, glossy evergreen canopy with zero caterpillars, ideal for townhome rooftops.'
+    },
+    botanical_details: {
+      family: 'Sapotaceae (Sapodilla Family)',
+      native_range: 'Central America, prized Mango-Sapodilla cultivar grown across Vietnam',
+      active_compounds: ['Polyphenols', 'Tannins (unripe)', 'Natural Fructose & Sucrose', 'Calcium, Iron & Phosphorus', 'Vitamins A & C'],
+      soil_ph: '6.0 - 7.5 (Sandy loam enriched with organic compost)',
+      ideal_temp: '22°C - 36°C',
+      pot_size: '50cm - 65cm (60L - 80L planter)'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Organic Fish & Humic Feeding', instruction: 'Feed composted fish emulsion or worm castings monthly to support heavy, sweet fruit development.' }
+    ],
+    faqs: [
+      { question: 'How to tell when Sapodilla on the tree is mature enough to pick?', answer: 'Scratch the brown skin lightly with a fingernail: if the layer beneath is golden-yellow without green sap, it is ready to harvest and ripen.' }
+    ],
+    monetization_tips: ['Sell air-layered dwarf trees with flower buds ($8-$15) and tree-ripened organic sapodillas.'],
+    tags: ['Caramel Honey Sweet', 'Evergreen Clean Leaf', 'Calcium Rich', 'Year-Round Fruit']
+  },
+
+  'fruit-28': {
+    common_name: 'An Phuoc Red Wax Apple in Pot (Man An Phuoc)',
+    aliases: ['Syzygium Samarangense', 'Red Java Apple', 'Bell Fruit'],
+    description: 'The pride of Vietnamese tropical container orchards. Firework-like white blossom pom-poms transform into hanging clusters of ruby-red bell fruits that are seedless, solid-fleshed, and refreshingly crisp and juicy.',
+    quick_answer: 'Grows rapidly in 50-60L rooftop pots and bears fruit within 5-6 months. Slip breathable mesh bags over fruit clusters as soon as they blush pink to block fruit flies 100% organically.',
+    growth_time: '5 - 6 months from grafted/layered sapling to first ruby harvest',
+    seasonality: {
+      north: 'Blooms in Mar-Apr; crisp red harvest throughout summer (May-Aug)',
+      central: 'Water generously during fruit swelling for crisp, non-spongy texture',
+      south: '3-4 prolific harvests annually; sweetest during sunny dry months',
+      best_months: [2, 3, 4, 5, 6, 11, 12]
+    },
+    medical_info: {
+      uses: ['Over 90% biological water and dietary fiber quench summer thirst and support healthy weight management', 'Vescalagin and jambosine compounds help slow starch-to-sugar conversion', 'Tender leaves contain mild antibacterial essential oils'],
+      folk_remedies: [
+        'Enjoy chilled An Phuoc wax apples after summer lunches to clear heat and hydrate the throat.',
+        'Juice ripe red wax apples with fresh mint and pink salt for an electrolyte-replenishing drink.'
+      ],
+      preparation: ['Eat fresh with chili-plum salt', 'Vietnamese shrimp & pork wax-apple salad', 'Pressed cooling juice'],
+      toxicity_warning: 'Completely safe for all ages. Always bag developing fruit clusters with fine mesh to avoid any chemical sprays.',
+      disclaimer: 'One of the fastest and most rewarding fruit trees for rooftop containers.'
+    },
+    botanical_details: {
+      family: 'Myrtaceae (Myrtle / Guava Family)',
+      native_range: 'Southeast Asia, elite An Phuoc grafted cultivar of Southern Vietnam',
+      active_compounds: ['Vescalagin', 'Anthocyanins (red skin)', '90% Bio-Water', 'Vitamins C & A', 'Potassium'],
+      soil_ph: '5.5 - 6.8 (Alluvial loam with worm castings and moisture-retentive coco coir)',
+      ideal_temp: '22°C - 35°C',
+      pot_size: '50cm - 65cm (60L+ container)'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Bag Young Fruit Clusters', instruction: 'Enclose each cluster in a reusable nylon mesh bag right after petal drop to guarantee blemish-free fruit.' }
+    ],
+    faqs: [
+      { question: 'Why do wax apples sometimes crack before harvest?', answer: 'Sudden heavy watering after a dry spell. Keep soil moisture consistent while fruits are swelling.' }
+    ],
+    monetization_tips: ['Sell potted An Phuoc saplings and protective fruit-fly mesh bag bundles for urban gardeners.'],
+    tags: ['Ruby Bell Fruit', 'Crisp & Seedless', 'Summer Hydration', 'Fast Bearing']
+  },
+
+  'fruit-29': {
+    common_name: 'Taiwan Golden Abiu / Golden Star Apple (Vu Sua Hoang Kim)',
+    aliases: ['Pouteria Caimito', 'Abiu Fruit', 'Imperial Golden Star Apple'],
+    description: 'The crown jewel of exotic rooftop fruit collectors. Plump round fruits with a charming pointed tip ripen from emerald to dazzling imperial gold. Inside lies translucent, jelly-like flesh with a heavenly vanilla-caramel milk flavor.',
+    quick_answer: 'Naturally dwarf and early-branching; in a 50-60cm pot it self-pollinates along leaf axils and yields golden fruit within 8-10 months without needing a second tree.',
+    growth_time: '8 - 10 months from grafted/layered sapling to first golden harvest',
+    seasonality: {
+      north: 'Shelter from freezing winter winds; fruits heavily in summer and autumn',
+      central: 'Vigorous grower; mulch roots during dry hot spells',
+      south: 'Produces up to 3 golden harvests per year, symbolizing royal prosperity',
+      best_months: [3, 4, 5, 8, 9, 10]
+    },
+    medical_info: {
+      uses: ['Translucent jelly pulp rich in Vitamins C, A, Niacin (B3), and Calcium boosts immunity and soothes the throat', 'Natural mucilage comforts the digestive tract', 'Refreshing natural sweetness that does not cause internal heat'],
+      folk_remedies: [
+        'Halve a chilled Golden Abiu, squeeze a few drops of fresh lime juice over the translucent flesh, and scoop with a spoon to heighten its caramel-milk aroma.',
+        'Fold diced Abiu jelly pulp into Greek yogurt for a nutrient-dense children’s dessert.'
+      ],
+      preparation: ['Harvest only when the entire skin turns deep uniform gold (zero green at the stem) so all rind latex disappears'],
+      toxicity_warning: 'Pro tip: Dab a drop of lime juice or cooking oil on the cut rind edge before scooping so trace skin sap never sticks to the lips.',
+      disclaimer: 'Most sought-after golden feng-shui fruit tree for contemporary rooftop gardens.'
+    },
+    botanical_details: {
+      family: 'Sapotaceae (Sapodilla Family)',
+      native_range: 'Upper Amazon, selected into compact F1 cultivars in Taiwan and Vietnam',
+      active_compounds: ['Beta-carotene', 'Vitamins C & B3 (Niacin)', 'Calcium & Phosphorus', 'Polyphenols'],
+      soil_ph: '5.5 - 6.8 (Rich organic loam with steady moisture and good drainage)',
+      ideal_temp: '20°C - 35°C',
+      pot_size: '50cm - 65cm container'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Mulch Root Zone', instruction: 'Cover the top of the pot withcoco coir or dry leaves to keep surface feeder roots cool and moist.' }
+    ],
+    faqs: [
+      { question: 'Is Golden Abiu self-fertile in a single pot?', answer: 'Yes, a single tree sets abundant fruit along its branches without cross-pollination.' }
+    ],
+    monetization_tips: ['Retail organic Golden Abiu fruits ($6-$12/kg) and sell fruiting container trees ($20-$50).'],
+    tags: ['Imperial Golden Fruit', 'Caramel Jelly Pulp', 'Self-Fertile', 'Rooftop Luxury']
+  },
+
+  'fruit-30': {
+    common_name: 'Sweet Mandarin Orange in Pot (Quyt Duong Chau Tet)',
+    aliases: ['Citrus Reticulata', 'Lai Vung Mandarin Pot', 'Auspicious Tet Tangerine'],
+    description: 'In East Asian culture, the word for Mandarin ("Quyt" / 桔) is a homophone for "Good Fortune" (大吉大利). A balcony pot laden with glowing orange mandarins radiates Lunar New Year prosperity while providing thin-skinned, honey-sweet fruit and medicinal Chenpi peel.',
+    quick_answer: 'Grow grafted trees in 45-55cm pots receiving 6+ hours of sun. Feed organic compost and banana-peel potassium as fruits color up for juicy, high-Brix segments.',
+    growth_time: 'Blooms in spring; glowing orange fruit ripens for Lunar New Year',
+    seasonality: {
+      north: 'Ripens bright orange in late winter right for Tet celebrations',
+      central: 'Shield open spring blossoms from heavy rain',
+      south: 'Easily timed for Lunar New Year fruiting on sunny rooftops',
+      best_months: [1, 2, 3, 11, 12]
+    },
+    medical_info: {
+      uses: ['Segments rich in Vitamin C and Beta-Cryptoxanthin strengthen immunity and protect lung health', 'Sun-aged organic mandarin peel ("Tran Bi" / Chenpi) regulates qi, strengthens digestion, resolves phlegm, and relieves bloating', 'Nobiletin in the peel supports neuroprotection'],
+      folk_remedies: [
+        'Homemade Chenpi (Tran Bi): Wash pesticide-free homegrown mandarin peels, sun-dry thoroughly, and age in a dry ceramic jar for 1+ years; steep 5g with hot tea and ginger to relieve phlegm coughs and indigestion.',
+        'Roast a whole ripe mandarin over a gentle flame for 5 minutes and eat warm to soothe nighttime cold coughs.'
+      ],
+      preparation: ['Eat fresh', 'Fresh-pressed mandarin juice', 'Sun-age organic peels into medicinal Tran Bi'],
+      toxicity_warning: 'Homegrown organic mandarins allow safe harvesting of chemical-free peels for medicine (never use waxed supermarket peels for herbal decoctions).',
+      disclaimer: 'Unites fresh orchard fruit, auspicious Tet bonsai, and classical Oriental medicine.'
+    },
+    botanical_details: {
+      family: 'Rutaceae (Citrus Family)',
+      native_range: 'Southeast Asia and Southern China; famed in Lai Vung and Bac Son (Vietnam)',
+      active_compounds: ['Hesperidin', 'Nobiletin', 'Natural Synephrine', 'Limonene', 'Vitamin C & Beta-Cryptoxanthin'],
+      soil_ph: '5.5 - 6.5 (Alluvial loam mixed with aged manure and charred rice husk)',
+      ideal_temp: '18°C - 32°C',
+      pot_size: '45cm - 60cm container'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Potassium Sweetening', instruction: 'Water with fermented banana peel bio-enzyme every 15 days during autumn fruit maturation.' }
+    ],
+    faqs: [
+      { question: 'Why is homegrown mandarin peel so valuable?', answer: 'Because commercial citrus is heavily sprayed and waxed, only 100% organic homegrown peel can be safely aged into authentic medicinal Tran Bi.' }
+    ],
+    monetization_tips: ['Raise fruiting Tet mandarin bonsai pots ($25-$100) and craft 3-year aged organic Tran Bi peel jars.'],
+    tags: ['Great Fortune Symbol', 'Medicinal Chenpi Peel', 'Honey-Sweet Citrus', 'Tet Holiday Tree']
+  },
+
+  'fruit-31': {
+    common_name: 'Sweet Acerola Cherry Bonsai (So Ri Ngot Go Cong)',
+    aliases: ['Malpighia Emarginata', 'Barbados Cherry', 'Vitamin C Champion'],
+    description: 'The undisputed natural Vitamin C champion of the plant world (packing 20 to 30 times more Vitamin C than oranges!). A supple woody shrub ideal for balcony bonsai training, bursting with romantic pink-violet blossoms that ripen into glossy ruby cherries in just 3 weeks.',
+    quick_answer: 'Extremely sun-loving and responsive to pruning. Every tip-prune followed by deep watering after a dry spell triggers a synchronized flush of pink flowers and ruby fruit.',
+    growth_time: 'Only 20 - 25 days from pink blossom to ripe red cherry!',
+    seasonality: {
+      north: 'Flowers and fruits continuously from March through November',
+      central: 'Drought-hardy; bursts into bloom after every summer shower',
+      south: 'Yields 6-8 harvests per year on sunny balconies',
+      best_months: [3, 4, 5, 6, 7, 8, 9, 10]
+    },
+    medical_info: {
+      uses: ['Eating just 3-4 fresh acerola cherries off the tree each morning supplies 100% of daily bioavailable Vitamin C', 'Stimulates endogenous collagen synthesis for firm, radiant skin and healthy gums', 'Fortifies immune defenses against seasonal colds'],
+      folk_remedies: [
+        'Macerate 500g ripe red acerola cherries with 300g rock sugar and fresh ginger slices for a natural Vitamin C family syrup.',
+        'Blend fresh acerola with apple or pineapple juice for an anti-aging skin elixir.'
+      ],
+      preparation: ['Pick and eat fresh in the morning', 'Rock sugar acerola syrup', 'Artisanal acerola jam'],
+      toxicity_warning: 'Completely safe. Avoid eating excessive quantities on an empty stomach due to concentrated natural organic acids.',
+      disclaimer: 'Living bioavailable Vitamin C source superior to any synthetic effervescent tablet.'
+    },
+    botanical_details: {
+      family: 'Malpighiaceae (Acerola Family)',
+      native_range: 'Central & South America; famed specialty of Go Cong (Tien Giang - Vietnam)',
+      active_compounds: ['Natural Vitamin C (1500 - 3000mg / 100g)', 'Bioflavonoids (Rutin, Hesperidin)', 'Carotenoids', 'Anthocyanins'],
+      soil_ph: '5.5 - 7.0 (Fast-draining porous loam)',
+      ideal_temp: '20°C - 36°C',
+      pot_size: '35cm - 50cm (Bonsai tray or balcony pot)'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Prune & Drench Cycle', instruction: 'Trim leggy shoots after each harvest and water deeply to trigger the next wave of pink blossoms within 10 days.' }
+    ],
+    faqs: [
+      { question: 'Why is Acerola so popular for fruiting bonsai?', answer: 'It has small glossy leaves, gnarlednebari surface roots, delicate pink flowers, and ruby-red fruits that appear simultaneously.' }
+    ],
+    monetization_tips: ['Train gnarled fruiting Acerola bonsai ($20-$85) and propagate sweet Thai/Go Cong air-layered saplings.'],
+    tags: ['Vitamin C King', '22-Day Fruit Cycle', 'Pink-Blossom Bonsai', 'Collagen Booster']
+  },
+
+  'orn-21': {
+    common_name: 'Traditional Single-Petal Arabian Jasmine (Hoa Nhai Ta)',
+    aliases: ['Jasminum Sambac', 'Vietnamese Tea Jasmine', 'Maid of Orleans Jasmine'],
+    description: 'The most beloved, pure-scented blossom in Vietnamese tea culture. Pearl-white buds open at dusk to release an intoxicating, tranquil fragrance across the balcony, soothing mental fatigue and scenting artisan green tea.',
+    quick_answer: 'Thrives in direct sunlight and rich organic compost. Secret to non-stop blooms: after each flowering wave fades, snip 5cm off every branch tip and strip old basal leaves to force dozens of new bud-bearing shoots.',
+    growth_time: 'Produces a fresh wave of fragrant buds every 25 - 30 days after pruning',
+    seasonality: {
+      north: 'Most abundant and fragrant blooms from April to October',
+      central: 'Hotter sunshine yields deeper essential oil fragrance',
+      south: 'Blooms snow-white all 12 months of the year',
+      best_months: [4, 5, 6, 7, 8, 9, 10]
+    },
+    botanical_details: {
+      family: 'Oleaceae (Olive / Jasmine Family)',
+      native_range: 'South & Southeast Asia; heirloom single-petal Vietnamese tea cultivar',
+      active_compounds: ['Linalool', 'Benzyl Acetate', 'Indole', 'cis-Jasmone', 'Methyl Anthranilate'],
+      soil_ph: '5.5 - 6.8 (Rich loam mixed with worm castings and rice husk ash)',
+      ideal_temp: '20°C - 35°C',
+      pot_size: '25cm - 40cm pot'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Tip-Prune After Every Flush', instruction: 'Because jasmine flowers only on new wood, trimming branch tips right after blooms fade doubles the next bud flush.' },
+      { step: 2, title: 'Harvest Buds at Dusk for Tea', instruction: 'Pick plump white buds at 5pm-6pm and layer overnight in an airtight jar with dry Thai Nguyen green tea leaves.' }
+    ],
+    faqs: [
+      { question: 'Should I grow single-petal (Nhai Don) or multi-petal (Nhai Kep) for scenting tea?', answer: 'Traditional single-petal Jasmine contains 3x higher aromatic essential oils and never turns sour when layered with tea leaves.' }
+    ],
+    monetization_tips: ['Scent artisanal Thai Nguyen green or Oolong tea with homegrown organic jasmine ($20-$50/kg) and train old-trunk jasmine bonsai.'],
+    tags: ['Summer Night Aroma', 'Artisan Tea Scenting', 'Stress Relief', 'White Blossom Bonsai']
+  },
+
+  'orn-22': {
+    common_name: 'Freshwater Mangrove Bonsai (Loc Vung Bonsai)',
+    aliases: ['Barringtonia Acutangula', 'Indian Oak Bonsai', 'Prosperity Curtain Tree'],
+    description: 'Holds the central place of honor in Vietnam’s sacred Feng-Shui Triad ("Sung - Loc - Van" / Abundance - Prosperity - Longevity). Features majestic rock-clasping roots, ruby-pink young leaf flushes, and 30-50cm hanging garlands of scarlet blossoms resembling celebratory fireworks.',
+    quick_answer: 'A semi-aquatic tree that loves water and sunshine. Grow in a non-draining ceramic water basin or bonsai pot with a deep water tray so it stays lush and never wilts.',
+    growth_time: 'Flushes ruby young leaves monthly; drapes scarlet flower curtains in summer and late autumn',
+    seasonality: {
+      north: 'Dazzling red floral curtains in May-July and again in October-November',
+      central: 'Withstands both drought and monsoon flooding',
+      south: 'Easily timed to flush red leaves and flower garlands for Lunar New Year',
+      best_months: [3, 4, 5, 6, 9, 10, 11]
+    },
+    botanical_details: {
+      family: 'Lecythidaceae (Brazil Nut / Barringtonia Family)',
+      native_range: 'Indigenous to Vietnam and South Asia; iconic around Hanoi’s Hoan Kiem Lake',
+      active_compounds: ['Triterpenoid Saponins', 'Tannins', 'Barringtonin'],
+      soil_ph: '5.5 - 7.0 (Nutrient-rich pond loam or alluvial clay)',
+      ideal_temp: '20°C - 36°C',
+      pot_size: '35cm - 60cm bonsai tray or ceramic water basin'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Rock-Clasping Water Basin', instruction: 'Seat the swollen root caudex over a porous landscape rock in a water-filled ceramic basin stocked with guppies.' },
+      { step: 2, title: 'Synchronized Flower Induction', instruction: 'Withhold water for 5-7 days until old leaves droop, strip all foliage, then flood with water and potassium to trigger ruby shoots and hanging flower racemes.' }
+    ],
+    faqs: [
+      { question: 'Are young Loc Vung leaves edible?', answer: 'Yes! Tender ruby shoots are a prized Vietnamese culinary herb with a crisp, mildly astringent-sweet finish enjoyed with savory pancakes and fish salads.' }
+    ],
+    monetization_tips: ['Sculpt caudex rock-clasping Loc Vung bonsai masterpieces ($35-$800+).'],
+    tags: ['Feng Shui Triad Star', 'Scarlet Flower Curtain', 'Water-Basin Bonsai', 'Edible Young Shoots']
+  },
+
+  'orn-23': {
+    common_name: 'Boston Sword Fern (Duong Xi Co Dai Boston)',
+    aliases: ['Nephrolepis Exaltata', 'Hanging Balcony Fern', 'NASA #1 Air Humidifier'],
+    description: 'Ranked #1 in NASA’s Clean Air Study for formaldehyde removal speed (clearing 1,863 micrograms per hour!) and celebrated as nature’s finest biological humidifier for air-conditioned apartments.',
+    quick_answer: 'Perfect for hanging baskets on east/north balconies or tall pedestals near windows. Loves high humidity, cool filtered light, and is 100% Pet-Safe for cats and dogs.',
+    growth_time: 'Unfurls charming fiddlehead fronds continuously every week',
+    seasonality: {
+      north: 'Lush from spring through autumn; mist regularly during dry winter heating',
+      central: 'Hang under cool shaded eaves away from hot dry winds',
+      south: 'Forms cascading emerald clouds year-round on apartment loggias',
+      best_months: [2, 3, 4, 5, 6, 8, 9, 10]
+    },
+    botanical_details: {
+      family: 'Nephrolepidaceae (Sword Fern Family)',
+      native_range: 'Humid tropical forests of the Americas and Southeast Asia',
+      active_compounds: ['Flavonoids', 'Pterosins', 'Intracellular Formaldehyde-Degrading Enzymes'],
+      soil_ph: '5.5 - 6.5 (Moisture-retentive airy mix: Coco coir + Peat moss + Perlite + Worm castings)',
+      ideal_temp: '16°C - 28°C',
+      pot_size: '20cm - 30cm hanging basket for 360-degree cascading fronds'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Keep Root Ball Evenly Moist', instruction: 'Never let the potting mix dry bone-white; water consistently and mist fronds in the morning.' },
+      { step: 2, title: 'Stolon Runner Division', instruction: 'Every 6 months, pot up fuzzy runners (stolons) around the base to multiply hanging baskets.' }
+    ],
+    faqs: [
+      { question: 'Why did NASA rank Boston Fern #1 for formaldehyde removal?', answer: 'Thousands of feather-like pinnae combined with symbiotic root microbes rapidly metabolize airborne formaldehyde from new paint and pressed wood furniture.' }
+    ],
+    monetization_tips: ['Propagate full cascading baskets for newly renovated apartments ($5-$12) and vertical green walls.'],
+    tags: ['NASA #1 Formaldehyde Scrubber', 'Natural Humidifier', '100% Pet Safe', 'Hanging Basket']
+  },
+
+  'orn-24': {
+    common_name: 'Red Flamingo Flower / Tailflower (Hong Mon Do Phu Quy)',
+    aliases: ['Anthurium Andraeanum', 'Painter’s Palette', 'Tropical Heart Flower'],
+    description: 'Symbolizes warm hospitality, enduring love, and auspicious Fire-element fortune. Porcelain-glossy crimson heart-shaped spathes last 60-90 days per bloom while scrubbing airborne ammonia and xylene from offices.',
+    quick_answer: 'An epiphyte like orchids that craves chunky, breathable substrate (pine bark + coco chunks + perlite). Place in bright indirect light for non-stop year-round red heart blooms.',
+    growth_time: 'Each crimson spathe stays vibrant for 60 - 90 days; blooms year-round',
+    seasonality: {
+      north: 'Blooms steadily spring through autumn; keep in warm bright rooms in winter',
+      central: 'Ideal for living rooms and reception desks',
+      south: 'Unfurls crimson heart blooms all four seasons',
+      best_months: [1, 2, 3, 4, 5, 9, 10, 11, 12]
+    },
+    botanical_details: {
+      family: 'Araceae (Arum Family)',
+      native_range: 'Tropical rainforests of Colombia & Ecuador; widely grown in Da Lat (Vietnam)',
+      active_compounds: ['Anthocyanins (Pelargonidin & Cyanidin)', 'Chlorophyll'],
+      soil_ph: '5.5 - 6.5 (Chunky orchid/aroid bark mix)',
+      ideal_temp: '18°C - 30°C',
+      pot_size: '18cm - 28cm desktop or table planter'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Orchid-Grade Bark Substrate', instruction: 'Never plant Anthurium in heavy mud; use 50% washed coco chunks + 30% pine bark + 20% worm castings so thick white roots breathe.' },
+      { step: 2, title: 'Slow-Release Bloom Feeding', instruction: 'Sprinkle 10-15 slow-release balanced pellets around the rim every 3 months so every new leaf brings a flower.' }
+    ],
+    faqs: [
+      { question: 'Can Red Flamingo Flower grow in a clear glass hydroponic vase?', answer: 'Yes! Its thick epiphytic roots adapt beautifully to glass vases with the lower half of roots submerged in clean water.' }
+    ],
+    monetization_tips: ['Create hydroponic Anthurium & betta-fish glass displays or ceramic desk gifts ($8-$20).'],
+    tags: ['90-Day Lasting Bloom', 'Crimson Heart Spathe', 'Ammonia Scrubber', 'Hydroponic Ready']
+  },
+
+  'orn-25': {
+    common_name: 'Orange Jasmine Bonsai (Nguyet Que Hoa Thom)',
+    aliases: ['Murraya Paniculata', 'Mock Orange', 'Laurel of Victory'],
+    description: 'The timeless emblem of victory, academic honor, and noble triumph. Features ivory-white twisted woody trunks, miniature glossy emerald leaflets, and snow-white floral clusters that fill balconies with an enchanting orange-blossom perfume.',
+    quick_answer: 'Loves direct balcony sunshine and fast-draining bonsai soil. Famous for bursting into synchronized fragrant white bloom on bright full-moon nights or right after summer showers.',
+    growth_time: 'Blooms fragrantly 6 - 8 times a year, followed by ornamental ruby berries',
+    seasonality: {
+      north: 'Fragrant white blossoms from spring through autumn',
+      central: 'Thrives in sun and wind, developing ancient twisted bark',
+      south: 'Blooms year-round on sunny balconies and rooftops',
+      best_months: [3, 4, 5, 6, 7, 8, 9, 10]
+    },
+    botanical_details: {
+      family: 'Rutaceae (Citrus Family)',
+      native_range: 'Indigenous to Vietnam, South Asia, and Southeast Asia',
+      active_compounds: ['Murapanicin', 'Aromatic Coumarins', 'Linalool', 'Nerolidol', 'Methyl Palmitate'],
+      soil_ph: '6.0 - 7.5 (Porous bonsai mix: Fired loam + Cinder/Akadama + Charred husk + Compost)',
+      ideal_temp: '20°C - 35°C',
+      pot_size: '25cm - 50cm ceramic bonsai pot'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'Trim Fine Twigs for Synchronized Bloom', instruction: 'After each bloom wave fades, shear outer shoots evenly and feed organic fertilizer to trigger simultaneous flower buds across the entire crown.' },
+      { step: 2, title: 'Gentle Root Repotting', instruction: 'Murraya roots dislike disturbance; never bare-root completely—keep 70% of the central root ball intact when repotting.' }
+    ],
+    faqs: [
+      { question: 'Which Orange Jasmine variety is best for bonsai?', answer: 'Choose the "Small-Leaf Twisted-Trunk Cluster" cultivar: its nail-sized leaflets grow densely and produce heavy, intensely fragrant floral clusters.' }
+    ],
+    monetization_tips: ['Train twisted-trunk micro-leaf Murraya bonsai specimens ($25-$400+) and sell budding air-layered saplings.'],
+    tags: ['Victory Laurel', 'Citrus Blossom Perfume', 'Prestigious Bonsai', 'Academic Honor']
+  },
+
+  'orn-26': {
+    common_name: 'Variegated English Ivy (Day Thuong Xuan Cam Thach)',
+    aliases: ['Hedera Helix', 'Glacier Ivy', 'Mold-Scrubbing Trailing Vine'],
+    description: 'An enduring emblem of eternal youth, fidelity, and vitality. Graceful trailing vines with 5-pointed star leaves edged in marble-white cascade from bookshelves or railings, proven to eliminate up to 78% of airborne mold spores within 12 hours!',
+    quick_answer: 'Prefers cool shade, bright indirect light, and moderate moisture. Plant in hanging baskets or high bookshelf planters so star-shaped foliage drapes like a living emerald curtain.',
+    growth_time: 'Trails 10-15cm longer each month, staying evergreen all four seasons',
+    seasonality: {
+      north: 'Thrives vigorously in autumn, winter, and spring; keep in cool rooms during hot summers',
+      central: 'Grow in air-conditioned rooms or shaded breezy corridors',
+      south: 'Flourishes on living room bookshelves and air-conditioned study desks',
+      best_months: [1, 2, 3, 4, 10, 11, 12]
+    },
+    botanical_details: {
+      family: 'Araliaceae (Ginseng / Ivy Family)',
+      native_range: 'Europe and Western Asia; variegated cultivars adapted to Vietnamese apartments',
+      active_compounds: ['Hederacoside C', 'Alpha-Hederin (Active bronchodilator in standardized cough syrups)', 'Flavonoids'],
+      soil_ph: '6.0 - 7.0 (Loose airy potting mix with perlite and worm castings)',
+      ideal_temp: '15°C - 28°C',
+      pot_size: '15cm - 25cm hanging pot or bookshelf planter'
+    },
+    how_to_grow_steps: [
+      { step: 1, title: 'High Bookshelf or Damp-Corner Placement', instruction: 'Set on top of bookcases or near humid corners to actively scrub airborne mold spores and VOCs.' },
+      { step: 2, title: 'Water or Soil Stem Propagation', instruction: 'Snip a 15cm trailing stem and place in a glass of clean water; white roots emerge from leaf nodes within 7-10 days.' }
+    ],
+    faqs: [
+      { question: 'Why is English Ivy leaf extract famous in modern medicine?', answer: 'Standardized Hedera helix leaf extract (rich in Hederacoside C) is the active ingredient in German pediatric cough syrups like Prospan that relax bronchial spasms (use only standardized pharmacy extracts, not homemade raw leaf tea).' }
+    ],
+    monetization_tips: ['Propagate trailing variegated ivy baskets ($4-$8) and craft living wire-frame ivy topiary wreaths for desks and cafes.'],
+    tags: ['Eliminates 78% Mold Spores', 'Star-Leaf Cascade', 'Eternal Youth Symbol', 'Bookshelf Decor']
   }
 };
 

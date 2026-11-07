@@ -14,7 +14,7 @@ export const PLANT_COLLECTIONS: PlantCollection[] = [
     badge: 'Tủ Thuốc Gia Đình',
     badge_en: 'Family First-Aid',
     themeColor: 'emerald',
-    plantIds: ['herb-01', 'herb-02', 'herb-03', 'herb-12', 'fruit-08', 'herb-40'],
+    plantIds: ['herb-01', 'herb-02', 'herb-03', 'herb-12', 'fruit-08', 'herb-40', 'herb-47'],
     benefits: [
       'Tinh dầu Carvacrol & Thymol sát khuẩn vòm họng cực mạnh',
       'Hạ sốt tức thì bằng cách giã đắp trán và lòng bàn chân',
@@ -68,7 +68,7 @@ export const PLANT_COLLECTIONS: PlantCollection[] = [
     badge: 'Lọc Độc NASA',
     badge_en: 'NASA Certified Air',
     themeColor: 'teal',
-    plantIds: ['orn-06', 'orn-08', 'orn-03', 'orn-09', 'orn-10', 'orn-16', 'orn-18'],
+    plantIds: ['orn-06', 'orn-08', 'orn-03', 'orn-09', 'orn-10', 'orn-16', 'orn-18', 'orn-23', 'orn-26'],
     benefits: [
       'Cơ chế quang hợp CAM mở khí khổng nhả oxy vào ban đêm giúp ngủ sâu',
       'Hấp thụ các chất bay hơi độc hại (VOCs) từ keo dán nội thất',
@@ -95,7 +95,7 @@ export const PLANT_COLLECTIONS: PlantCollection[] = [
     badge: 'Siêu Sai Trái',
     badge_en: 'High Yield Patio',
     themeColor: 'rose',
-    plantIds: ['fruit-01', 'fruit-02', 'fruit-03', 'fruit-04', 'fruit-11', 'fruit-12', 'fruit-21', 'fruit-22', 'fruit-24'],
+    plantIds: ['fruit-01', 'fruit-02', 'fruit-03', 'fruit-04', 'fruit-11', 'fruit-12', 'fruit-21', 'fruit-22', 'fruit-24', 'fruit-26', 'fruit-28', 'fruit-31'],
     benefits: [
       'Thu hoạch trái tươi sạch 100% không hóa chất bảo quản ngay tại nhà',
       'Cây thân gỗ lùn chỉ cao từ 80cm - 1.4m, không tốn diện tích trần',
@@ -122,7 +122,7 @@ export const PLANT_COLLECTIONS: PlantCollection[] = [
     badge: 'Trà Dưỡng Sinh',
     badge_en: 'Herbal Tea Sanctuary',
     themeColor: 'purple',
-    plantIds: ['orn-11', 'herb-20', 'herb-19', 'herb-25', 'herb-04', 'orn-12', 'herb-37', 'herb-39'],
+    plantIds: ['orn-11', 'herb-20', 'herb-19', 'herb-25', 'herb-04', 'orn-12', 'herb-37', 'herb-39', 'herb-43', 'herb-48', 'orn-21'],
     benefits: [
       'Vị ngọt mát lành tự nhiên không chứa calorie từ lá Cỏ ngọt Stevia',
       'Hương thơm tinh dầu tự nhiên kích hoạt sóng alpha não bộ, giảm lo âu',
@@ -149,7 +149,7 @@ export const PLANT_COLLECTIONS: PlantCollection[] = [
     badge: 'Chiêu Tài Hút Lộc',
     badge_en: 'Prosperity Magnet',
     themeColor: 'amber',
-    plantIds: ['orn-04', 'orn-07', 'fruit-05', 'orn-14', 'orn-13', 'fruit-06', 'orn-17', 'orn-19', 'fruit-25'],
+    plantIds: ['orn-04', 'orn-07', 'fruit-05', 'orn-14', 'orn-13', 'fruit-06', 'orn-17', 'orn-19', 'fruit-25', 'orn-22', 'orn-24', 'orn-25'],
     benefits: [
       'Ngũ hành Mộc tương sinh Hỏa đem đến sinh khí dồi dào',
       'Lá xanh bóng quanh năm tượng trưng cho tài chính vững chắc',
@@ -203,7 +203,7 @@ export const PLANT_COLLECTIONS: PlantCollection[] = [
     badge: 'Đuổi Muỗi Tự Nhiên',
     badge_en: 'Eco Pest Shield',
     themeColor: 'emerald',
-    plantIds: ['herb-16', 'orn-11', 'orn-03', 'herb-19', 'herb-01'],
+    plantIds: ['herb-16', 'orn-11', 'orn-03', 'herb-19', 'herb-01', 'herb-46'],
     benefits: [
       'Hàm lượng Citronella, Eucalyptol và Cineole gây ức chế cơ quan khứu giác của muỗi',
       'Hoàn toàn không độc hại cho trẻ sơ sinh và thú cưng như bình xịt hóa học',
@@ -289,6 +289,14 @@ const PLANT_SUBCATEGORY_MAP: Record<string, string> = {
   'herb-38': 'thanh-nhiet-giai-doc',
   'herb-39': 'bo-huyet-duong-sinh',
   'herb-40': 'thanh-nhiet-giai-doc',
+  'herb-41': 'xuong-khop-phong-han',
+  'herb-42': 'thanh-nhiet-giai-doc',
+  'herb-43': 'bo-huyet-duong-sinh',
+  'herb-44': 'thanh-nhiet-giai-doc',
+  'herb-45': 'bo-huyet-duong-sinh',
+  'herb-46': 'tra-thao-moc-tieu-hoa',
+  'herb-47': 'thanh-nhiet-giai-doc',
+  'herb-48': 'tra-thao-moc-tieu-hoa',
 
   // Fruit
   'fruit-03': 'cam-chanh-gia-vi',
@@ -306,7 +314,7 @@ const PLANT_SUBCATEGORY_MAP: Record<string, string> = {
   'fruit-10': 'than-go-lun-ghep',
   'fruit-13': 'cay-bui-qua-mong',
   'fruit-09': 'day-leo-gian-qua',
-  // Sprint 1 & Sprint 2 Fruits
+  // Sprint 1, 2 & 3 Fruits
   'fruit-17': 'cay-bui-qua-mong',
   'fruit-18': 'cay-bui-qua-mong',
   'fruit-19': 'cay-bui-qua-mong',
@@ -316,6 +324,12 @@ const PLANT_SUBCATEGORY_MAP: Record<string, string> = {
   'fruit-23': 'day-leo-gian-qua',
   'fruit-24': 'day-leo-gian-qua',
   'fruit-25': 'than-go-lun-ghep',
+  'fruit-26': 'than-go-lun-ghep',
+  'fruit-27': 'than-go-lun-ghep',
+  'fruit-28': 'than-go-lun-ghep',
+  'fruit-29': 'than-go-lun-ghep',
+  'fruit-30': 'cam-chanh-gia-vi',
+  'fruit-31': 'cay-bui-qua-mong',
 
   // Ornamental
   'orn-03': 'loc-khong-khi-nasa',
@@ -333,12 +347,18 @@ const PLANT_SUBCATEGORY_MAP: Record<string, string> = {
   'orn-09': 'kieng-la-nhiet-doi',
   'orn-10': 'loc-khong-khi-nasa',
   'orn-15': 'phong-thuy-tai-loc',
-  // Sprint 2 Ornamentals
+  // Sprint 2 & 3 Ornamentals
   'orn-16': 'kieng-la-nhiet-doi',
   'orn-17': 'phong-thuy-tai-loc',
   'orn-18': 'loc-khong-khi-nasa',
   'orn-19': 'bonsai-huong-thom',
-  'orn-20': 'kieng-la-nhiet-doi'
+  'orn-20': 'kieng-la-nhiet-doi',
+  'orn-21': 'bonsai-huong-thom',
+  'orn-22': 'phong-thuy-tai-loc',
+  'orn-23': 'loc-khong-khi-nasa',
+  'orn-24': 'phong-thuy-tai-loc',
+  'orn-25': 'bonsai-huong-thom',
+  'orn-26': 'loc-khong-khi-nasa'
 };
 
 /**
