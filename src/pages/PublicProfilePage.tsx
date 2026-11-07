@@ -632,18 +632,21 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
           </div>
         )}
 
-        {/* Modal Chỉnh Sửa Thông Tin Hồ Sơ Cá Nhân (Mỗi Người Chỉ Được Sửa Duy Nhất 1 Lần) */}
+        {/* Modal Chỉnh Sửa Thông Tin Hồ Sơ Cá Nhân (Thiết kế gọn vừa màn hình, chỉ sửa duy nhất 1 lần) */}
         {isEditModalOpen && (
-          <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
-            <div className="bg-white dark:bg-charcoal-900 rounded-3xl max-w-xl w-full p-6 sm:p-7 border-2 border-amber-500/50 shadow-2xl space-y-5 my-8 animate-in fade-in zoom-in-95">
-              {/* Header */}
-              <div className="flex items-center justify-between pb-3 border-b border-forest-100 dark:border-forest-800">
+          <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-xs flex items-center justify-center p-2.5 sm:p-4">
+            <form
+              onSubmit={handleSaveOneTimeProfile}
+              className="bg-white dark:bg-charcoal-900 rounded-2xl sm:rounded-3xl max-w-2xl w-full max-h-[90vh] flex flex-col border-2 border-amber-500/50 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95"
+            >
+              {/* Header cố định */}
+              <div className="flex items-center justify-between px-4 sm:px-6 py-3 border-b border-forest-100 dark:border-forest-800 shrink-0 bg-forest-50/40 dark:bg-charcoal-950/40">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 flex items-center justify-center">
-                    <Edit3 className="w-5 h-5" />
+                  <div className="w-8 h-8 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 flex items-center justify-center shrink-0">
+                    <Edit3 className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="font-serif font-bold text-base sm:text-lg text-forest-950 dark:text-white">
+                    <h3 className="font-serif font-bold text-sm sm:text-base text-forest-950 dark:text-white leading-tight">
                       {isEn ? 'Edit Personal Profile (One-Time Only)' : 'Chỉnh Sửa Hồ Sơ Cá Nhân (1 Lần Duy Nhất)'}
                     </h3>
                     <p className="text-[11px] text-forest-600 dark:text-forest-400">
@@ -654,37 +657,39 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
                 <button
                   type="button"
                   onClick={() => setIsEditModalOpen(false)}
-                  className="w-8 h-8 rounded-full bg-forest-50 dark:bg-charcoal-800 hover:bg-forest-100 flex items-center justify-center text-gray-500 hover:text-gray-800 dark:hover:text-white transition"
+                  className="w-7 h-7 rounded-full bg-forest-100/80 dark:bg-charcoal-800 hover:bg-forest-200 flex items-center justify-center text-gray-500 hover:text-gray-800 dark:hover:text-white transition cursor-pointer"
                 >
                   <X className="w-4 h-4" />
                 </button>
               </div>
 
-              {/* HỘP CẢNH BÁO QUAN TRỌNG: CHỈ ĐƯỢC SỬA DUY NHẤT 1 LẦN */}
-              <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/60 border-2 border-amber-400 dark:border-amber-500/80 text-amber-950 dark:text-amber-200 space-y-1.5 shadow-xs">
-                <div className="flex items-center gap-2 font-bold text-xs sm:text-sm text-amber-900 dark:text-amber-300">
-                  <AlertTriangle className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0" />
-                  <span>
-                    {isEn
-                      ? 'IMPORTANT WARNING: YOU CAN ONLY EDIT THIS PROFILE ONCE (1/1)'
-                      : 'CẢNH BÁO QUAN TRỌNG: BẠN CHỈ ĐƯỢC SỬA HỒ SƠ DUY NHẤT 1 LẦN (1/1)'}
-                  </span>
+              {/* Nội dung Form gọn gàng vừa khít màn hình */}
+              <div className="px-4 sm:px-6 py-3.5 overflow-y-auto space-y-3 text-xs flex-1">
+                {/* HỘP CẢNH BÁO QUAN TRỌNG: CHỈ ĐƯỢC SỬA DUY NHẤT 1 LẦN */}
+                <div className="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/60 border border-amber-400 dark:border-amber-500/80 text-amber-950 dark:text-amber-200 flex items-start gap-2.5">
+                  <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+                  <div className="space-y-0.5">
+                    <div className="font-bold text-xs text-amber-900 dark:text-amber-300">
+                      {isEn
+                        ? 'WARNING: YOU CAN ONLY EDIT THIS PROFILE ONCE (1/1)'
+                        : 'CẢNH BÁO: BẠN CHỈ ĐƯỢC SỬA HỒ SƠ DUY NHẤT 1 LẦN (1/1)'}
+                    </div>
+                    <p className="text-[11px] leading-snug text-amber-900/90 dark:text-amber-200/90">
+                      {isEn
+                        ? 'Each gardener can customize their profile ONLY ONCE. After you save, your profile details will be permanently locked. Please check carefully!'
+                        : 'Mỗi tài khoản chỉ được phép chỉnh sửa thông tin hồ sơ ĐÚNG 1 LẦN DUY NHẤT. Sau khi bấm Lưu, quyền chỉnh sửa sẽ khóa vĩnh viễn. Vui lòng kiểm tra kỹ trước khi tự quyết định!'}
+                    </p>
+                  </div>
                 </div>
-                <p className="text-xs leading-relaxed text-amber-900/90 dark:text-amber-200/90">
-                  {isEn
-                    ? 'To protect the authenticity of Web3 Botanical NFT ownership, each gardener is permitted to customize their profile information ONLY ONCE. Once you confirm and save, your profile details will be permanently locked and cannot be edited again. Please review carefully before deciding!'
-                    : 'Để đảm bảo tính minh bạch và định danh độc bản của chủ sở hữu NFT trên Yêu Trồng Cây, mỗi người dùng chỉ được phép chỉnh sửa thông tin hồ sơ cá nhân ĐÚNG 1 LẦN DUY NHẤT. Sau khi bạn bấm Lưu xác nhận, quyền chỉnh sửa sẽ khóa vĩnh viễn. Vui lòng kiểm tra thật kỹ trước khi tự quyết định!'}
-                </p>
-              </div>
 
-              {editError && (
-                <div className="p-3 rounded-xl bg-red-50 dark:bg-red-950/70 border border-red-300 dark:border-red-800 text-xs text-red-700 dark:text-red-200 font-medium">
-                  {editError}
-                </div>
-              )}
+                {editError && (
+                  <div className="p-2.5 rounded-xl bg-red-50 dark:bg-red-950/70 border border-red-300 dark:border-red-800 text-xs text-red-700 dark:text-red-200 font-medium">
+                    {editError}
+                  </div>
+                )}
 
-              <form onSubmit={handleSaveOneTimeProfile} className="space-y-4 text-xs">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                {/* Hàng 1: Tên hiển thị + Mã định danh URL */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="block font-bold text-forest-900 dark:text-cream-100 mb-1">
                       {isEn ? '1. Gardener Display Name *' : '1. Tên hiển thị Nhà Vườn *'}
@@ -695,7 +700,7 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
                       value={editDisplayName}
                       onChange={(e) => setEditDisplayName(e.target.value)}
                       placeholder="VD: Trần Thanh Tùng"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-forest-50/70 dark:bg-charcoal-800 border border-forest-200 dark:border-forest-700 text-forest-950 dark:text-white font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="w-full px-3 py-2 rounded-xl bg-forest-50/70 dark:bg-charcoal-800 border border-forest-200 dark:border-forest-700 text-forest-950 dark:text-white font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     />
                   </div>
 
@@ -711,14 +716,15 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
                         value={editCustomHandle}
                         onChange={(e) => setEditCustomHandle(e.target.value.toLowerCase().replace(/[^a-z0-9_-]/g, ''))}
                         placeholder="tranthanhtung37"
-                        className="w-full pl-7 pr-3.5 py-2.5 rounded-xl bg-forest-50/70 dark:bg-charcoal-800 border border-forest-200 dark:border-forest-700 text-forest-950 dark:text-emerald-300 font-mono font-bold focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        className="w-full pl-7 pr-3 py-2 rounded-xl bg-forest-50/70 dark:bg-charcoal-800 border border-forest-200 dark:border-forest-700 text-forest-950 dark:text-emerald-300 font-mono font-bold focus:outline-none focus:ring-2 focus:ring-emerald-500"
                       />
                     </div>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                  <div>
+                {/* Hàng 2: Khu vực + Danh hiệu + Ảnh đại diện nằm chung 1 hàng gọn gàng */}
+                <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-end">
+                  <div className="sm:col-span-4">
                     <label className="block font-bold text-forest-900 dark:text-cream-100 mb-1">
                       {isEn ? '3. Location / City' : '3. Khu vực / Thành phố'}
                     </label>
@@ -726,107 +732,109 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
                       type="text"
                       value={editLocation}
                       onChange={(e) => setEditLocation(e.target.value)}
-                      placeholder="VD: TP. Hồ Chí Minh, Đà Lạt..."
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-forest-50/70 dark:bg-charcoal-800 border border-forest-200 dark:border-forest-700 text-forest-950 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      placeholder="VD: TP. Hồ Chí Minh"
+                      className="w-full px-3 py-2 rounded-xl bg-forest-50/70 dark:bg-charcoal-800 border border-forest-200 dark:border-forest-700 text-forest-950 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     />
                   </div>
 
-                  <div>
+                  <div className="sm:col-span-4">
                     <label className="block font-bold text-forest-900 dark:text-cream-100 mb-1">
-                      {isEn ? '4. Gardener Title / Specialty' : '4. Danh hiệu Nhà Vườn'}
+                      {isEn ? '4. Gardener Title' : '4. Danh hiệu Nhà Vườn'}
                     </label>
                     <input
                       type="text"
                       value={editSpecialtyTag}
                       onChange={(e) => setEditSpecialtyTag(e.target.value)}
-                      placeholder="VD: Nhà Vườn Độc Bản Xác Thực"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-forest-50/70 dark:bg-charcoal-800 border border-forest-200 dark:border-forest-700 text-forest-950 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      placeholder="VD: Nhà Vườn Độc Bản"
+                      className="w-full px-3 py-2 rounded-xl bg-forest-50/70 dark:bg-charcoal-800 border border-forest-200 dark:border-forest-700 text-forest-950 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     />
+                  </div>
+
+                  <div className="sm:col-span-4">
+                    <label className="block font-bold text-forest-900 dark:text-cream-100 mb-1">
+                      {isEn ? '5. Avatar (Optional)' : '5. Ảnh đại diện'}
+                    </label>
+                    <div className="flex items-center gap-2">
+                      {editAvatarUrl ? (
+                        <img
+                          src={editAvatarUrl}
+                          alt="Avatar"
+                          className="w-9 h-9 rounded-xl object-cover border border-amber-400 shrink-0"
+                        />
+                      ) : (
+                        <div className="w-9 h-9 rounded-xl bg-emerald-700 text-white font-serif font-bold flex items-center justify-center text-sm shrink-0">
+                          {(editDisplayName || 'U').charAt(0).toUpperCase()}
+                        </div>
+                      )}
+                      <label className="flex-1 px-2.5 py-2 rounded-xl bg-forest-100 dark:bg-charcoal-800 hover:bg-forest-200 text-forest-900 dark:text-cream-100 font-semibold cursor-pointer flex items-center justify-center gap-1 border border-forest-200 dark:border-forest-700 transition truncate">
+                        <Upload className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                        <span className="truncate">{isEn ? 'Upload' : 'Tải ảnh'}</span>
+                        <input type="file" accept="image/*" onChange={handleAvatarFileUpload} className="hidden" />
+                      </label>
+                      {editAvatarUrl && (
+                        <button
+                          type="button"
+                          onClick={() => setEditAvatarUrl('')}
+                          className="text-red-500 hover:underline font-semibold text-[11px]"
+                        >
+                          ✕
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
 
+                {/* Hàng 3: Lời giới thiệu (2 dòng gọn) */}
                 <div>
                   <label className="block font-bold text-forest-900 dark:text-cream-100 mb-1">
-                    {isEn ? '5. Garden Bio & Introduction' : '5. Lời giới thiệu khu vườn cá nhân'}
+                    {isEn ? '6. Garden Bio & Introduction' : '6. Lời giới thiệu khu vườn cá nhân'}
                   </label>
                   <textarea
-                    rows={3}
+                    rows={2}
                     value={editBio}
                     onChange={(e) => setEditBio(e.target.value)}
                     placeholder="Giới thiệu đôi nét về khu vườn và bộ sưu tập cây trồng của bạn..."
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-forest-50/70 dark:bg-charcoal-800 border border-forest-200 dark:border-forest-700 text-forest-950 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 leading-relaxed"
+                    className="w-full px-3 py-2 rounded-xl bg-forest-50/70 dark:bg-charcoal-800 border border-forest-200 dark:border-forest-700 text-forest-950 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 leading-snug resize-none"
                   />
                 </div>
 
-                <div>
-                  <label className="block font-bold text-forest-900 dark:text-cream-100 mb-1">
-                    {isEn ? '6. Profile Avatar (Optional)' : '6. Ảnh đại diện (Tuỳ chọn)'}
-                  </label>
-                  <div className="flex items-center gap-3">
-                    {editAvatarUrl ? (
-                      <img
-                        src={editAvatarUrl}
-                        alt="Avatar preview"
-                        className="w-11 h-11 rounded-xl object-cover border border-amber-400 shrink-0"
-                      />
-                    ) : (
-                      <div className="w-11 h-11 rounded-xl bg-emerald-700 text-white font-serif font-bold flex items-center justify-center text-base shrink-0">
-                        {(editDisplayName || 'U').charAt(0).toUpperCase()}
-                      </div>
-                    )}
-                    <label className="px-3.5 py-2 rounded-xl bg-forest-100 dark:bg-charcoal-800 hover:bg-forest-200 text-forest-900 dark:text-cream-100 font-semibold cursor-pointer flex items-center gap-1.5 border border-forest-200 dark:border-forest-700 transition">
-                      <Upload className="w-3.5 h-3.5 text-emerald-600" />
-                      <span>{isEn ? 'Upload Image' : 'Tải ảnh từ máy'}</span>
-                      <input type="file" accept="image/*" onChange={handleAvatarFileUpload} className="hidden" />
-                    </label>
-                    {editAvatarUrl && (
-                      <button
-                        type="button"
-                        onClick={() => setEditAvatarUrl('')}
-                        className="text-red-500 hover:underline font-semibold"
-                      >
-                        {isEn ? 'Remove' : 'Xóa ảnh'}
-                      </button>
-                    )}
-                  </div>
-                </div>
-
-                {/* Hộp kiểm xác nhận tự quyết định sửa 1 lần duy nhất */}
-                <label className="p-3.5 rounded-2xl bg-forest-50 dark:bg-charcoal-800/90 border border-forest-200 dark:border-forest-700 flex items-start gap-2.5 cursor-pointer select-none">
+                {/* Hàng 4: Hộp kiểm xác nhận tự quyết định sửa 1 lần duy nhất */}
+                <label className="p-2.5 rounded-xl bg-forest-50 dark:bg-charcoal-800/90 border border-forest-200 dark:border-forest-700 flex items-start gap-2.5 cursor-pointer select-none">
                   <input
                     type="checkbox"
                     checked={hasConfirmedOneTimeRule}
                     onChange={(e) => setHasConfirmedOneTimeRule(e.target.checked)}
                     className="mt-0.5 w-4 h-4 accent-emerald-600 rounded cursor-pointer shrink-0"
                   />
-                  <span className="text-forest-900 dark:text-cream-100 leading-relaxed font-medium">
+                  <span className="text-[11px] sm:text-xs text-forest-900 dark:text-cream-100 leading-snug font-medium">
                     {isEn
-                      ? 'I have verified all information above and understand that I can only edit my personal profile ONCE. After saving, this profile will be permanently locked from further edits.'
+                      ? 'I have verified all information above and understand that I can only edit my personal profile ONCE (1/1).'
                       : 'Tôi đã kiểm tra kỹ thông tin trên và đồng ý tự quyết định sử dụng lượt chỉnh sửa hồ sơ DUY NHẤT (1/1). Tôi hiểu sau khi lưu sẽ không thể sửa lại lần thứ hai.'}
                   </span>
                 </label>
+              </div>
 
-                <div className="flex items-center justify-end gap-2.5 pt-2">
-                  <button
-                    type="button"
-                    onClick={() => setIsEditModalOpen(false)}
-                    className="px-4 py-2.5 rounded-xl bg-gray-100 dark:bg-charcoal-800 hover:bg-gray-200 text-gray-700 dark:text-gray-200 font-bold transition cursor-pointer"
-                  >
-                    {isEn ? 'Cancel (Keep 1/1 Edit)' : 'Hủy (Giữ lại lượt sửa)'}
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={!hasConfirmedOneTimeRule}
-                    className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 disabled:opacity-40 text-white font-bold shadow-md transition flex items-center gap-1.5 cursor-pointer"
-                  >
-                    <Check className="w-4 h-4" />
-                    <span>
-                      {isEn ? 'Confirm & Lock Profile (1/1)' : 'Xác Nhận Lưu & Khóa Lượt Sửa (1/1)'}
-                    </span>
-                  </button>
-                </div>
-              </form>
-            </div>
+              {/* Footer cố định luôn hiển thị nút Hủy & Lưu */}
+              <div className="flex items-center justify-end gap-2.5 px-4 sm:px-6 py-3 border-t border-forest-100 dark:border-forest-800 bg-forest-50/40 dark:bg-charcoal-950/40 shrink-0 text-xs">
+                <button
+                  type="button"
+                  onClick={() => setIsEditModalOpen(false)}
+                  className="px-4 py-2 rounded-xl bg-gray-100 dark:bg-charcoal-800 hover:bg-gray-200 text-gray-700 dark:text-gray-200 font-bold transition cursor-pointer"
+                >
+                  {isEn ? 'Cancel (Keep 1/1 Edit)' : 'Hủy (Giữ lại lượt sửa)'}
+                </button>
+                <button
+                  type="submit"
+                  disabled={!hasConfirmedOneTimeRule}
+                  className="px-4 sm:px-5 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 disabled:opacity-40 text-white font-bold shadow-md transition flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Check className="w-4 h-4" />
+                  <span>
+                    {isEn ? 'Confirm & Lock Profile (1/1)' : 'Xác Nhận Lưu & Khóa Lượt Sửa (1/1)'}
+                  </span>
+                </button>
+              </div>
+            </form>
           </div>
         )}
 
