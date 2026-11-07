@@ -275,7 +275,7 @@ export const PlantCard: React.FC<PlantCardProps> = ({ plant: rawPlant, onSelect,
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  navigate(`/web3-sandbox?mint=${encodeURIComponent(rawPlant.slug)}`);
+                  navigate(`/web3-sandbox?mint=${encodeURIComponent(rawPlant.slug)}&class=geo_forest_10000m2`);
                 }}
                 title={isEn ? 'Mint a 10,000m² Forest Lot NFT' : 'Đúc 1 Lô Rừng 10.000m² (Yêu cầu có mặt tại tọa độ rừng)'}
                 className="w-full px-3 py-2 rounded-xl bg-teal-700 hover:bg-teal-800 text-white text-left flex items-center justify-between gap-2 transition cursor-pointer shadow-sm group/forest"
@@ -323,19 +323,19 @@ export const PlantCard: React.FC<PlantCardProps> = ({ plant: rawPlant, onSelect,
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                navigate(`/web3-sandbox?mint=${encodeURIComponent(rawPlant.slug)}`);
+                navigate(`/web3-sandbox?mint=${encodeURIComponent(rawPlant.slug)}&class=${nftClass}`);
               }}
               title={
                 isEn
                   ? `Be the first to mint ${nftClassConfig.nameEn}`
-                  : `Đúc NFT ${nftClassConfig.shortName} độc bản (Ai tạo trước sở hữu trước)`
+                  : `Đúc ${nftClassConfig.nameVi} độc bản (Ai tạo trước sở hữu trước)`
               }
               className="w-full px-3 py-2 rounded-xl bg-forest-50/90 hover:bg-emerald-600 dark:bg-charcoal-800 dark:hover:bg-emerald-600 text-forest-800 hover:text-white dark:text-emerald-300 dark:hover:text-white border border-emerald-500/30 hover:border-emerald-600 text-left flex items-center justify-between gap-2 transition cursor-pointer group/mint"
             >
               <span className="inline-flex items-center gap-1.5 text-[11px] font-bold truncate">
                 <Sparkles className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 group-hover/mint:text-amber-300 shrink-0 transition-colors" />
                 <span className="truncate">
-                  {isEn ? `Mint ${nftClassConfig.shortName}` : `Tạo NFT ${nftClassConfig.shortName}`}
+                  {isEn ? nftClassConfig.mintButtonCompactEn : nftClassConfig.mintButtonCompactVi}
                 </span>
               </span>
               <span className="text-[10px] font-semibold opacity-80 group-hover/mint:opacity-100 shrink-0">

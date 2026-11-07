@@ -2295,8 +2295,8 @@ export const Web3SandboxSection: React.FC = () => {
                 <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-[11px] text-amber-800 dark:text-amber-300 flex items-start gap-2">
                   <ShieldCheck className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
                   <div>
-                    <span className="font-bold block">Bảo Vệ Độc Bản Tuyệt Đối:</span>
-                    <span>Mỗi giống cây và ảnh gốc chỉ có DUY NHẤT một Hộ Chiếu Số trên yeutrongcay.com. Cây đã đúc sẽ được bảo hộ độc quyền cho bạn trong Hồ Sơ Cá Nhân; người khác sẽ bị chặn không thể đúc lại!</span>
+                    <span className="font-bold block">{isEn ? `Strict Unique Verification (${currentNftConfig.nameEn}):` : `Bảo Vệ Độc Bản Tuyệt Đối (${currentNftConfig.nameVi}):`}</span>
+                    <span>{isEn ? `Each asset has only ONE unique digital certificate. Already minted assets are exclusively protected for your wallet.` : `Mỗi tài sản và ảnh gốc chỉ có DUY NHẤT một chứng nhận số trên yeutrongcay.com. Đã đúc sẽ được bảo hộ độc quyền cho bạn trong Hồ Sơ Cá Nhân; người khác sẽ bị chặn không thể đúc lại!`}</span>
                   </div>
                 </div>
 
@@ -2322,12 +2322,12 @@ export const Web3SandboxSection: React.FC = () => {
                   ) : mintMode === 'onchain' ? (
                     <>
                       <Sparkles className="w-4 h-4 text-amber-300" />
-                      <span>{isEn ? 'Mint Real On-chain NFT (MetaMask Confirm)' : 'Đúc NFT Thật Lên Blockchain (MetaMask Xác Nhận)'}</span>
+                      <span>{isEn ? `Mint Real On-chain ${currentNftConfig.shortName} (MetaMask Confirm)` : `Đúc ${currentNftConfig.shortName} Thật Lên Blockchain (MetaMask Xác Nhận)`}</span>
                     </>
                   ) : (
                     <>
                       <Award className="w-4 h-4" />
-                      <span>{isEn ? 'Sign with Real Wallet & Mint (0đ Gas)' : 'Ký Số Ví Thật & Đúc Hộ Chiếu (0đ Gas)'}</span>
+                      <span>{isEn ? `Sign with Real Wallet & Mint ${currentNftConfig.shortName} (0đ Gas)` : `Ký Số Ví Thật & Cấp ${currentNftConfig.certificateTitle} (0đ Gas)`}</span>
                     </>
                   )}
                 </button>
@@ -2341,7 +2341,7 @@ export const Web3SandboxSection: React.FC = () => {
                   <div className="flex items-center gap-2">
                     <span className="flex items-center gap-1.5 text-xs sm:text-sm font-bold text-emerald-600 dark:text-emerald-400">
                       <Check className="w-5 h-5" />
-                      <span>{isEn ? 'Digital Plant Passport Successfully Minted!' : 'Hộ Chiếu Cây Trồng Số Đã Cấp Thành Công!'}</span>
+                      <span>{isEn ? `${currentNftConfig.studioSuccessTitleEn}!` : `${currentNftConfig.studioSuccessTitleVi}!`}</span>
                     </span>
                     {mintedPassport.is_onchain && (
                       <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-600 flex items-center gap-1">
@@ -2396,7 +2396,7 @@ export const Web3SandboxSection: React.FC = () => {
                       className="px-3 py-1 rounded-xl bg-forest-100 dark:bg-forest-800 hover:bg-forest-200 dark:hover:bg-forest-700 text-forest-900 dark:text-white text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer shadow-xs"
                     >
                       <Printer className="w-3.5 h-3.5" />
-                      <span>{isEn ? 'Print Plant Tag' : 'In Thẻ Cây'}</span>
+                      <span>{isEn ? `Print ${currentNftConfig.shortName} Tag` : `In Thẻ ${currentNftConfig.shortName}`}</span>
                     </button>
                   </div>
                 </div>
@@ -2418,7 +2418,7 @@ export const Web3SandboxSection: React.FC = () => {
                     </div>
 
                     <div className="text-[11px] font-mono text-forest-600 dark:text-gray-400 flex flex-wrap gap-x-4 gap-y-1 pt-1">
-                      <span>Ví sở hữu thật: <span className="text-emerald-700 dark:text-emerald-300 font-semibold">{mintedPassport.owner_address}</span></span>
+                      <span>{isEn ? `${currentNftConfig.ownerRoleLabelEn}:` : `${currentNftConfig.ownerRoleLabelVi}:`} <span className="text-emerald-700 dark:text-emerald-300 font-semibold">{mintedPassport.owner_address}</span></span>
                       <span>Sổ cái: <span className="text-forest-950 dark:text-white font-semibold">{mintedPassport.network}</span></span>
                       {mintedPassport.contract_address && (
                         <span>Contract: <span className="text-amber-700 dark:text-amber-300 font-mono">{mintedPassport.contract_address.slice(0, 8)}...</span></span>
