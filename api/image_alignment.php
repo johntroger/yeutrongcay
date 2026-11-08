@@ -34,20 +34,20 @@ function verifyImageContentAlignment(string $category, string $commonName, strin
     // 3. Quy tắc tiêu cực (Negative Hard Constraints)
     $negativeRules = [
         'forest' => [
-            'pattern' => '/coffee|latte|restaurant|burger|pizza|alps|snow-mountain|swiss|canada|rockies|desert|arctic/i',
+            'pattern' => '/coffee|latte|restaurant|burger|pizza|alps|snow-mountain|swiss|canada|rockies|desert|arctic|indoor-living|bedroom|living-room/i',
             'reason' => 'Bài viết Vườn Quốc Gia Việt Nam không được sử dụng ảnh vùng núi tuyết châu Âu, phong cảnh ôn đới nước ngoài hoặc ảnh đồ ăn cà phê.'
         ],
         'culinary' => [
-            'pattern' => '/coffee-cup|black-coffee|latte|cappuccino|beer|whiskey|cocktail|vodka|wine-glass|fast-food|burger|pizza/i',
-            'reason' => 'Bài viết Dược thiện & Ẩm thực thảo mộc truyền thống không được sử dụng ảnh tách cà phê, bia rượu phương Tây hoặc thức ăn nhanh.'
+            'pattern' => '/coffee-cup|black-coffee|latte|cappuccino|beer|whiskey|cocktail|vodka|wine-glass|fast-food|burger|pizza|khoai[-_]mo/i',
+            'reason' => 'Bài viết Dược thiện & Ẩm thực thảo mộc truyền thống không được sử dụng ảnh tách cà phê, bia rượu phương Tây, thức ăn nhanh hoặc sai lệch tên món ăn đối lập (khoai mỡ tím).'
         ],
         'space' => [
-            'pattern' => '/macro-leaf|single-leaf|close-up-leaf|leaf-vein|underwater-coral/i',
-            'reason' => 'Bản vẽ & Thiết kế không gian xanh phải thể hiện cấu trúc giàn leo, vườn tường, kệ tầng hoặc sân vườn; cấm dùng ảnh cận cảnh 1 chiếc lá.'
+            'pattern' => '/macro-leaf|single-leaf|close-up-leaf|leaf-vein|underwater-coral|bedroom|living-room|bathroom|office-desk/i',
+            'reason' => 'Bản vẽ & Thiết kế không gian xanh phải thể hiện cấu trúc giàn leo, vườn tường, kệ tầng, ban công hoặc sân vườn cảnh quan; cấm dùng ảnh cận cảnh 1 chiếc lá hay phòng kín.'
         ],
         'recycle' => [
-            'pattern' => '/luxury-car|fashion-model|landfill-fire|toxic-smoke/i',
-            'reason' => 'Bài viết Sáng chế xanh phải minh họa mô hình tự chế hữu ích, không dùng ảnh bãi rác ô nhiễm tiêu cực.'
+            'pattern' => '/luxury-car|fashion-model|landfill|toxic-smoke|trash-pile|garbage-dump|urban-bio-materials|saving[-_]life|hospital|patient|surgery|clinical|syringe|blood|needle|infusion[-_]bag|principle\.png|schematic|vector[-_]diagram|flowchart|bernoulli|aerodynamic|tomato[-_]support/i',
+            'reason' => 'Bài viết Sáng chế xanh phải minh họa mô hình/dụng cụ tự chế hữu ích thực tế làm vườn; tuyệt đối cấm ảnh dụng cụ y tế/bệnh nhân, sơ đồ vật lý lý thuyết hay bãi rác ô nhiễm.'
         ]
     ];
 
@@ -63,7 +63,65 @@ function verifyImageContentAlignment(string $category, string $commonName, strin
         $score = min(100, $score + 10);
     }
 
-    // 5. Kiểm tra tính hiện diện của từ khóa thực thể
+    // 5. Kiểm tra Tiêu Chuẩn Ngữ Cảnh Bắt Buộc theo Chuyên Mục (space, recycle, culinary)
+    $positiveKeywordsMap = [
+        'forest' => ['cuc-phuong', 'cat-tien', 'phong-nha', 'hoang-lien', 'fansipan', 'con-dao', 'ba-be', 'ba-vi', 'pu-mat', 'tram-chim', 'can-gio', 'u-minh', 'yok-don', 'national-park', 'mangrove', 'lake', 'rainforest', 'vietnam'],
+        'culinary' => ['tea', 'syrup', 'honey', 'vinegar', 'sauce', 'soup', 'salt', 'spice', 'chili', 'ginger', 'perilla', 'sugarcane', 'papaya', 'sambal', 'elixir', 'herbal', 'vinaigrette', 'drink', 'broth', 'salad', 'dressing', 'canh', 'bayam', 'kemangi', 'ulek', 'seasoned', 'oil'],
+        'space' => ['pergola', 'trellis', 'living-wall', 'vertical-garden', 'terrace', 'balcony', 'atrium', 'courtyard', 'rooftop', 'planter', 'greenhouse', 'urban-garden', 'raised-bed', 'pond', 'hydroponic-tower', 'micro-forest', 'sky-garden', 'roof', 'garden', 'green', 'nest', 'architecture', 'permaculture'],
+        'recycle' => ['sip', 'sub-irrigated', 'bokashi', 'compost', 'worm', 'drip', 'irrigation', 'diy', 'upcycle', 'plastic-bottle', 'bucket', 'pvc', 'hydroponic', 'venturi', 'bottle', 'self-watering', 'emitter', 'fertigation', 'fertilizer', 'organic', 'fermentation', 'tank']
+    ];
+
+    $cleanUrl = strtolower($url);
+    $posKeywords = $positiveKeywordsMap[$cat] ?? [];
+    $matchedPositives = 0;
+    foreach ($posKeywords as $kw) {
+        if (str_contains($cleanUrl, strtolower($kw))) {
+            $matchedPositives++;
+        }
+    }
+
+    if (in_array($cat, ['space', 'recycle', 'culinary'])) {
+        if ($matchedPositives === 0) {
+            $issues[] = "CHUYÊN MỤC ĐẶC THÙ [" . strtoupper($cat) . "]: Tên tệp ảnh thiếu hoàn toàn các từ khóa ngữ cảnh chuyên mục bắt buộc.";
+            $score -= 35;
+        }
+
+        // Kiểm tra ẩm thực
+        if ($cat === 'culinary') {
+            $lowerCommon = mb_strtolower($commonName, 'UTF-8');
+            if (str_contains($lowerCommon, 'muối') || str_contains($lowerCommon, 'chấm')) {
+                if (!preg_match('/salt|sambal|ulek|mixture|spice|seasoning|seasoned/i', $url)) {
+                    $issues[] = 'Bài viết về Muối thảo mộc/Thức chấm thành phẩm nhưng ảnh không phản ánh muối hoặc hỗn hợp gia vị đã qua giã/pha chế.';
+                    $score -= 30;
+                }
+            }
+            if (str_contains($lowerCommon, 'dầu giấm') || str_contains($lowerCommon, 'sốt')) {
+                if (!preg_match('/vinaigrette|dressing|oil|vinegar|sauce|making/i', $url)) {
+                    $issues[] = 'Bài viết về Dầu giấm/Sốt trộn thành phẩm nhưng ảnh là cành lá tươi thô chưa qua chế biến.';
+                    $score -= 30;
+                }
+            }
+        }
+
+        // Kiểm tra tái chế
+        if ($cat === 'recycle') {
+            $lowerCommon = mb_strtolower($commonName, 'UTF-8');
+            if (str_contains($lowerCommon, 'chai nhựa') && str_contains($cleanUrl, 'saving_life')) {
+                $issues[] = 'Tệp ảnh là ảnh dụng cụ y tế bệnh viện cứu người, sai lệch với mô hình tưới nhỏ giọt làm vườn.';
+                $score -= 60;
+            }
+            if (str_contains($lowerCommon, 'xô sơn') && str_contains($cleanUrl, 'tomato_support')) {
+                $issues[] = 'Tệp ảnh chỉ là giàn leo cà chua thường, không thể hiện chậu tự hút nước SIP từ xô/thùng.';
+                $score -= 40;
+            }
+            if (str_contains($lowerCommon, 'venturi') && str_contains($cleanUrl, 'principle')) {
+                $issues[] = 'Tệp ảnh là sơ đồ nguyên lý vật lý lý thuyết, không phản ánh bộ châm phân thực tế.';
+                $score -= 50;
+            }
+        }
+    }
+
+    // 6. Kiểm tra tính hiện diện của từ khóa thực thể (Botanical)
     $cleanCommon = preg_replace('/[^a-z0-9]/', '', strtolower($commonName));
     $cleanSci = preg_replace('/[^a-z0-9]/', '', strtolower($scientificName));
     $cleanUrl = strtolower($url);

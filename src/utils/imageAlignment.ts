@@ -45,24 +45,29 @@ const CATEGORY_NEGATIVE_RULES: Record<string, { patterns: RegExp[]; reason: stri
       /coffee-cup|black-coffee|latte|cappuccino|espresso/i,
       /beer|whiskey|cocktail|vodka|wine-glass|bar-counter/i,
       /fast-food|french-fries|burger|hotdog|pizza/i,
-      /car-engine|factory|smoke|concrete/i
+      /car-engine|factory|smoke|concrete/i,
+      /khoai[-_]mo/i // Canh khoai mỡ (tím) đối lập hoàn toàn với canh rau tập tàng
     ],
-    reason: 'Bài viết Dược thiện & Ẩm thực thảo mộc truyền thống không được sử dụng ảnh tách cà phê, bia rượu phương Tây hoặc thức ăn nhanh.'
+    reason: 'Bài viết Dược thiện & Ẩm thực thảo mộc truyền thống không được sử dụng ảnh tách cà phê, bia rượu phương Tây, thức ăn nhanh hoặc sai lệch tên món ăn đối lập.'
   },
   space: {
     patterns: [
       /macro-leaf|single-leaf|close-up-leaf|leaf-vein/i,
       /underwater-coral|deep-sea/i,
-      /traffic-jam|highway|factory/i
+      /traffic-jam|highway|factory/i,
+      /bedroom|living-room|bathroom|office-desk/i
     ],
-    reason: 'Bản vẽ & Thiết kế không gian xanh phải thể hiện cấu trúc giàn leo, vườn tường, kệ tầng hoặc sân vườn; cấm dùng ảnh cận cảnh 1 chiếc lá.'
+    reason: 'Bản vẽ & Thiết kế không gian xanh phải thể hiện cấu trúc giàn leo, vườn tường, kệ tầng, ban công hoặc sân vườn cảnh quan; cấm dùng ảnh cận cảnh 1 chiếc lá hay phòng kín không cây cối.'
   },
   recycle: {
     patterns: [
       /luxury-car|gold-jewelry|fashion-model/i,
-      /plastic-ocean-pollution|landfill-fire|toxic-smoke/i
+      /plastic-ocean-pollution|landfill|toxic-smoke|trash-pile|garbage-dump|urban-bio-materials/i,
+      /saving[-_]life|hospital|patient|surgery|clinical|syringe|blood|needle|infusion[-_]bag/i,
+      /principle\.png|schematic|vector[-_]diagram|flowchart|bernoulli|aerodynamic/i,
+      /tomato[-_]support/i
     ],
-    reason: 'Bài viết Sáng chế xanh phải minh họa mô hình tự chế hữu ích, không dùng ảnh bãi rác ô nhiễm tiêu cực.'
+    reason: 'Bài viết Sáng chế xanh phải minh họa mô hình/dụng cụ tự chế hữu ích ngoài thực tế làm vườn; tuyệt đối cấm ảnh dụng cụ y tế/bệnh nhân, sơ đồ vật lý lý thuyết hay bãi rác ô nhiễm.'
   }
 };
 
@@ -76,17 +81,21 @@ const CATEGORY_POSITIVE_KEYWORDS: Record<string, string[]> = {
   culinary: [
     'tea', 'syrup', 'honey', 'vinegar', 'sauce', 'soup', 'salt', 'spice', 
     'chili', 'ginger', 'perilla', 'sugarcane', 'papaya', 'chrysanthemum', 
-    'butterfly-pea', 'sambal', 'gukhwacha', 'liangcha', 'elixir', 'herbal'
+    'butterfly-pea', 'sambal', 'gukhwacha', 'liangcha', 'elixir', 'herbal',
+    'vinaigrette', 'drink', 'beverage', 'broth', 'concoction', 'salad', 'dressing',
+    'canh', 'khoai', 'bayam', 'kemangi', 'ulek', 'seasoned', 'oil', 'making-vinaigrette'
   ],
   space: [
     'pergola', 'trellis', 'living-wall', 'vertical-garden', 'terrace', 'balcony', 
     'atrium', 'courtyard', 'rooftop', 'planter', 'greenhouse', 'urban-garden', 
-    'raised-bed', 'windowbox', 'pond', 'hydroponic-tower'
+    'raised-bed', 'windowbox', 'pond', 'hydroponic-tower', 'micro-forest', 'sky-garden',
+    'roof', 'garden', 'green', 'nest', 'architecture', 'permaculture'
   ],
   recycle: [
     'sip', 'sub-irrigated', 'bokashi', 'compost', 'worm', 'vermicompost', 
     'drip', 'irrigation', 'diy', 'upcycle', 'plastic-bottle', 'bucket', 
-    'pvc', 'hydroponic', 'venturi', 'capillary', 'aquaponics'
+    'pvc', 'hydroponic', 'venturi', 'capillary', 'aquaponics', 'bottle',
+    'self-watering', 'emitter', 'fertigation', 'fertilizer', 'organic', 'fermentation', 'tank'
   ]
 };
 
@@ -168,7 +177,66 @@ export function verifyImageAlignment(article: ArticleInput): ImageAlignmentResul
     }
   }
 
-  // 6. Kiểm tra Trùng khớp Tên khoa học / Thực thể đối với Botanical
+  // 6. Kiểm tra Tiêu Chuẩn Nghiêm Ngặt Cho Các Chuyên Mục Dễ Sai Lệch (space, recycle, culinary)
+  if (['space', 'recycle', 'culinary'].includes(cat)) {
+    if (matchedPositives === 0) {
+      issues.push(`CHUYÊN MỤC ĐẶC THÙ [${cat.toUpperCase()}]: Tên tệp ảnh thiếu hoàn toàn các từ khóa ngữ cảnh chuyên mục bắt buộc.`);
+      score -= 35;
+    }
+
+    // Kiểm tra chi tiết cho danh mục Ẩm Thực (culinary)
+    if (cat === 'culinary') {
+      const lowerCommon = commonName.toLowerCase();
+      // Yêu cầu ảnh thành phẩm đã chế biến thay vì cành lá thô
+      if (lowerCommon.includes('muối') || lowerCommon.includes('chấm')) {
+        const hasSaltIndicator = /salt|sambal|ulek|mixture|spice|seasoning|seasoned/i.test(url);
+        if (!hasSaltIndicator) {
+          issues.push('Bài viết về Muối thảo mộc/Thức chấm thành phẩm nhưng ảnh không phản ánh muối hoặc hỗn hợp gia vị đã qua giã/pha chế.');
+          score -= 30;
+          suggestions.push('Tìm ảnh cối giã muối ớt (sambal ulek) hoặc đĩa muối thảo mộc (seasoned herb salt).');
+        }
+      }
+      if (lowerCommon.includes('dầu giấm') || lowerCommon.includes('sốt')) {
+        const hasDressingIndicator = /vinaigrette|dressing|oil|vinegar|sauce|making/i.test(url);
+        if (!hasDressingIndicator) {
+          issues.push('Bài viết về Dầu giấm/Sốt trộn thành phẩm nhưng ảnh là cành lá tươi thô chưa qua chế biến.');
+          score -= 30;
+          suggestions.push('Tìm ảnh đánh sốt dầu giấm (making vinaigrette) hoặc chai/bát sốt salad.');
+        }
+      }
+      if (lowerCommon.includes('canh')) {
+        if (/khoai[-_]mo/i.test(url)) {
+          issues.push('Tệp ảnh thể hiện Canh khoai mỡ màu tím, sai lệch hoàn toàn với canh rau tập tàng/rau đồng quê.');
+          score -= 50;
+        }
+      }
+    }
+
+    // Kiểm tra chi tiết cho danh mục Tái Chế (recycle)
+    if (cat === 'recycle') {
+      const lowerCommon = commonName.toLowerCase();
+      if ((lowerCommon.includes('chai nhựa') || lowerCommon.includes('nhỏ giọt')) && /saving[-_]life/i.test(url)) {
+        issues.push('Tệp ảnh là ảnh dụng cụ y tế bệnh viện cứu người, sai lệch với mô hình tưới nhỏ giọt làm vườn.');
+        score -= 60;
+      }
+      if (lowerCommon.includes('xô sơn') || lowerCommon.includes('sip')) {
+        if (/tomato[-_]support/i.test(url)) {
+          issues.push('Tệp ảnh chỉ là giàn leo cà chua thường, không thể hiện chậu tự hút nước SIP từ xô/thùng.');
+          score -= 40;
+        }
+      }
+      if (lowerCommon.includes('venturi') && /principle/i.test(url)) {
+        issues.push('Tệp ảnh là sơ đồ nguyên lý vật lý lý thuyết, không phản ánh bộ châm phân thực tế trong hệ thống tưới.');
+        score -= 50;
+      }
+      if ((lowerCommon.includes('vỏ chuối') || lowerCommon.includes('nước ngâm')) && /urban[-_]bio[-_]materials/i.test(url)) {
+        issues.push('Tệp ảnh là đống rác thải sinh hoạt, không phản ánh bình/thùng ủ phân bón hữu cơ vi sinh.');
+        score -= 50;
+      }
+    }
+  }
+
+  // 7. Kiểm tra Trùng khớp Tên khoa học / Thực thể đối với Botanical
   if (['herb', 'fruit', 'ornamental'].includes(cat)) {
     const sciMatch = sciTokens.some(st => urlTokens.includes(st) || url.toLowerCase().includes(st));
     const nameMatch = nameTokens.some(nt => urlTokens.includes(nt) || url.toLowerCase().includes(nt));
@@ -187,7 +255,7 @@ export function verifyImageAlignment(article: ArticleInput): ImageAlignmentResul
     }
   }
 
-  // 7. Thưởng điểm cho nguồn ảnh uy tín, chuẩn bản quyền mở
+  // 8. Thưởng điểm cho nguồn ảnh uy tín, chuẩn bản quyền mở
   if (url.includes('wikimedia.org') || url.includes('wikipedia.org')) {
     score += 10;
     detectedMatches.push('trusted_wikimedia_source');
@@ -243,13 +311,30 @@ export function generateWikiSearchQuery(article: Partial<ArticleInput>): string 
     return `${common.replace(/vườn quốc gia|khu bảo tồn|khu dự trữ sinh quyển/gi, '').trim()} National Park Vietnam`;
   }
   if (cat === 'culinary') {
+    const lower = common.toLowerCase();
+    if (lower.includes('muối') || lower.includes('chấm')) return 'seasoned salt herb mixture OR sambal ulek';
+    if (lower.includes('dầu giấm') || lower.includes('sốt')) return 'making vinaigrette salad dressing';
+    if (lower.includes('canh')) return 'canh Vietnamese vegetable soup broth';
+    if (lower.includes('siro') || lower.includes('syrup')) return 'herbal syrup honey lemon';
+    if (lower.includes('trà') || lower.includes('tea')) return 'herbal tea cup glass';
     if (sci && !sci.includes('Botanical')) return `${sci} herbal tea food`;
     return `${common} Vietnamese herbal recipe`;
   }
   if (cat === 'space') {
-    return `${common} garden design architecture`;
+    const lower = common.toLowerCase();
+    if (lower.includes('mái') || lower.includes('sân thượng')) return 'rooftop micro forest permaculture garden';
+    if (lower.includes('tường đứng') || lower.includes('module')) return 'living green wall vertical garden';
+    if (lower.includes('giàn leo')) return 'trellis pergola rooftop garden';
+    if (lower.includes('ban công') || lower.includes('kệ')) return 'balcony vegetable garden planter';
+    return `${common} urban garden design architecture`;
   }
   if (cat === 'recycle') {
+    const lower = common.toLowerCase();
+    if (lower.includes('chai nhựa') || lower.includes('nhỏ giọt')) return 'bottle drip irrigation garden';
+    if (lower.includes('xô sơn') || lower.includes('sip')) return 'sub-irrigated planter bucket self-watering';
+    if (lower.includes('venturi') || lower.includes('châm phân')) return 'fertigation fertilizer injector irrigation';
+    if (lower.includes('bút bi') || lower.includes('đầu tưới')) return 'drip emitter irrigation dripper';
+    if (lower.includes('vỏ chuối') || lower.includes('vỏ trứng') || lower.includes('ngâm')) return 'organic liquid fertilizer fermentation tanks';
     return `${common} DIY garden upcycling`;
   }
   return sci || common;
