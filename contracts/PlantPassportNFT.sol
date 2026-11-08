@@ -1,12 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-/**
- * @title PlantPassportNFT - Hộ Chiếu Thực Vật Số (Yêu Trồng Cây - 100% Testnet)
- * @notice Hợp đồng thông minh chuẩn ERC-721 đúc thẻ căn cước số cho chậu cây
- * @dev Hỗ trợ mạng Ethereum Sepolia (Chain ID: 11155111) và Base Sepolia (Chain ID: 84532)
- */
-
 interface IERC165 {
     function supportsInterface(bytes4 interfaceId) external view returns (bool);
 }
@@ -16,7 +10,7 @@ interface IERC721Receiver {
         address operator,
         address from,
         uint256 tokenId,
-        bytes calldata data
+        bytes memory data
     ) external returns (bytes4);
 }
 
@@ -48,18 +42,12 @@ contract PlantPassportNFT is IERC721Metadata {
     uint256 private _nextTokenId;
     address public owner;
 
-    // Mapping tokenId => chủ sở hữu
     mapping(uint256 => address) private _owners;
-    // Mapping địa chỉ => số lượng NFT
     mapping(address => uint256) private _balances;
-    // Mapping tokenId => tokenURI metadata
     mapping(uint256 => string) private _tokenURIs;
-    // Mapping tokenId => địa chỉ được ủy quyền
     mapping(uint256 => address) private _tokenApprovals;
-    // Mapping owner => operator approvals
     mapping(address => mapping(address => bool)) private _operatorApprovals;
 
-    // Cấu trúc dữ liệu ghi lại thông tin hộ chiếu thực vật
     struct BotanicalRecord {
         string plantName;
         string scientificName;
@@ -136,14 +124,6 @@ contract PlantPassportNFT is IERC721Metadata {
             interfaceId == type(IERC721Metadata).interfaceId;
     }
 
-    /**
-     * @notice Đúc Hộ Chiếu Cây Trồng Số On-chain (Bất kỳ ai cũng có thể mint 0đ phí token, chỉ tốn testnet gas)
-     * @param plantName Tên cây trồng (VD: Mai Vàng Cổ Thụ, Ổi Lùn Ban Công)
-     * @param scientificName Tên khoa học hoặc giống cây
-     * @param stage Giai đoạn sinh trưởng (1: Mầm non, 2: Sinh trưởng, 3: Ra hoa/kết trái)
-     * @param sha256Proof Mã băm SHA-256 của ảnh cây làm bằng chứng độc bản
-     * @param uri Đường dẫn JSON metadata / ảnh cây
-     */
     function mintPassport(
         string memory plantName,
         string memory scientificName,
@@ -175,11 +155,6 @@ contract PlantPassportNFT is IERC721Metadata {
         return tokenId;
     }
 
-    /**
-     * @notice Đốt bỏ Hộ Chiếu Thực Vật Số cũ (Chỉ duy nhất chủ sở hữu ví mới có quyền đốt)
-     * @dev Bảo vệ nghiêm ngặt: msg.sender bắt buộc phải là ownerOf(tokenId)
-     * @param tokenId Mã token ID Hộ Chiếu muốn tiêu hủy
-     */
     function burn(uint256 tokenId) public {
         address tokenOwner = ownerOf(tokenId);
         require(msg.sender == tokenOwner, "PlantPassport: Only the token owner can burn this NFT");
@@ -241,13 +216,6 @@ contract PlantPassportNFT is IERC721Metadata {
         require(_checkOnERC721Received(from, to, tokenId, data), "Transfer to non ERC721Receiver");
     }
 
-    /**
-     * @notice Ghi nhận mốc sinh trưởng mới của cây (Dynamic Evolutionary Passport)
-     * @param tokenId Mã token của chậu cây
-     * @param newStage Giai đoạn sinh trưởng mới (1: Gieo hạt, 2: Cây con, 3: Sinh trưởng mạnh, 4: Đơm hoa, 5: Thu hoạch)
-     * @param newSha256Proof Mã băm ảnh thực tế mới
-     * @param newUri Đường dẫn metadata mới
-     */
     function recordGrowthMilestone(
         uint256 tokenId,
         uint8 newStage,
