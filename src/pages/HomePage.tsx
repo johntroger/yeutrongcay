@@ -7,8 +7,6 @@ import { useSEO } from '../utils/useSEO.ts';
 import { MedicalDisclaimer } from '../components/MedicalDisclaimer.tsx';
 import { PlantCard } from '../components/PlantCard.tsx';
 import { PlantFilterBar, FilterState, ActiveFilterPills, MobileFilterDrawer } from '../components/PlantFilterBar.tsx';
-import { CollectionsShowcase } from '../components/CollectionsShowcase.tsx';
-import { SeasonalCalendarSection } from '../components/SeasonalCalendarSection.tsx';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { PLANT_ENGLISH_MAP } from '../i18n/plantTranslations.ts';
 import { getPlantSubcategory, getPlantsForCollection } from '../data/collections.ts';
@@ -387,14 +385,8 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
-      {/* 2. Plants Catalog Grid with Smart Filter & Collections */}
+      {/* 2. Plants Catalog Grid with Smart Filter */}
       <main className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-10 flex-1 w-full space-y-8">
-        {/* Bộ Sưu Tập Cây Trồng Theo Giải Pháp */}
-        <CollectionsShowcase
-          selectedCollectionSlug={filters.collection}
-          onSelectCollection={(colSlug) => handleFilterChange({ ...filters, collection: colSlug })}
-        />
-
         {/* Nút Mở Bộ Lọc Cho Màn Hình Di Động (< lg) */}
         <div className="lg:hidden flex items-center justify-between gap-3 p-3 bg-white dark:bg-charcoal-900 rounded-2xl border border-forest-100 dark:border-forest-800 shadow-2xs">
           <button
@@ -603,12 +595,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </main>
 
-      {/* 5. Lịch Nông Vụ Đô Thị 3 Miền Chuẩn Tiết Khí (H4 - Ẩn thẻ cây đề xuất để tối giản trang chủ) */}
-      <div className="border-t border-forest-100 dark:border-forest-900 bg-cream-50 dark:bg-charcoal-900/40">
-        <SeasonalCalendarSection showRecommendedPlants={false} />
-      </div>
-
-      {/* 6. Hệ Sinh Thái Tính Năng Riêng Biệt (Mở Tab Mới Giải Phóng Trang Chủ) */}
+      {/* 3. Hệ Sinh Thái Tính Năng Riêng Biệt (Mở Tab Mới Giải Phóng Trang Chủ) */}
       <section className="bg-forest-900 text-white py-14 border-t border-forest-800">
         <div className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-10">
