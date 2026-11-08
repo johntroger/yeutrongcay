@@ -565,14 +565,14 @@ export const HomePage: React.FC<HomePageProps> = ({
                     </span>
                     <span className="flex items-center gap-1 font-bold">
                       <span>{activeCategoryItem.icon}</span>
-                      <span>{activeCategoryItem.label}</span>
+                      <span className="truncate max-w-[120px] sm:max-w-none">{activeCategoryItem.label}</span>
                       <span className="text-[10px] opacity-80">({activeCategoryItem.count})</span>
                     </span>
                     <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isCategoryDropdownOpen ? 'rotate-180' : ''}`} />
                   </button>
 
                   {isCategoryDropdownOpen && (
-                    <div className="absolute right-0 sm:right-auto sm:left-0 top-full mt-2 w-72 max-h-96 overflow-y-auto bg-white dark:bg-charcoal-900 rounded-2xl shadow-xl border border-forest-100 dark:border-forest-800 py-2 z-50 animate-in fade-in zoom-in-95 duration-150">
+                    <div className="absolute left-0 sm:left-auto sm:right-0 top-full mt-2 w-72 max-w-[calc(100vw-2rem)] max-h-96 overflow-y-auto bg-white dark:bg-charcoal-900 rounded-2xl shadow-xl border border-forest-100 dark:border-forest-800 py-2 z-50 animate-in fade-in zoom-in-95 duration-150">
                       <div className="px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-wider text-forest-500 dark:text-forest-400 border-b border-forest-100 dark:border-forest-800 flex items-center justify-between">
                         <span>{isEn ? 'Categories' : 'Chuyên Mục Hệ Sinh Thái'}</span>
                         <span className="text-[10px] lowercase font-normal">{allPlants.length} {isEn ? 'plants' : 'loài cây'}</span>
@@ -629,12 +629,12 @@ export const HomePage: React.FC<HomePageProps> = ({
                     <span className="hidden md:inline text-forest-400 dark:text-forest-300 font-normal">
                       {isEn ? 'Sort:' : 'Sắp xếp:'}
                     </span>
-                    <span>{currentSortOption.icon} {isEn ? currentSortOption.labelEn : currentSortOption.labelVi}</span>
-                    <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isSortDropdownOpen ? 'rotate-180' : ''}`} />
+                    <span className="truncate max-w-[130px] sm:max-w-none">{currentSortOption.icon} {isEn ? currentSortOption.labelEn : currentSortOption.labelVi}</span>
+                    <ChevronDown className={`w-3.5 h-3.5 shrink-0 transition-transform duration-200 ${isSortDropdownOpen ? 'rotate-180' : ''}`} />
                   </button>
 
                   {isSortDropdownOpen && (
-                    <div className="absolute right-0 top-full mt-2 w-64 bg-white dark:bg-charcoal-900 rounded-2xl shadow-xl border border-forest-100 dark:border-forest-800 py-2 z-50 animate-in fade-in zoom-in-95 duration-150">
+                    <div className="absolute left-0 sm:left-auto sm:right-0 top-full mt-2 w-64 max-w-[calc(100vw-2rem)] bg-white dark:bg-charcoal-900 rounded-2xl shadow-xl border border-forest-100 dark:border-forest-800 py-2 z-50 animate-in fade-in zoom-in-95 duration-150">
                       <div className="px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-wider text-forest-500 dark:text-forest-400 border-b border-forest-100 dark:border-forest-800">
                         {isEn ? 'Sort Publications By' : 'Tiêu Chí Sắp Xếp'}
                       </div>
