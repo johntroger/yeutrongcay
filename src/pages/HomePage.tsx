@@ -387,10 +387,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
-      {/* 2. Medical Disclaimer (Chỉ hiển thị khi đang lọc chuyên mục Thảo Dược) */}
-      {filters.category === 'herb' && <MedicalDisclaimer />}
-
-      {/* 3. Plants Catalog Grid with Smart Filter & Collections */}
+      {/* 2. Plants Catalog Grid with Smart Filter & Collections */}
       <main className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-10 flex-1 w-full space-y-8">
         {/* Bộ Sưu Tập Cây Trồng Theo Giải Pháp */}
         <CollectionsShowcase
@@ -816,6 +813,11 @@ export const HomePage: React.FC<HomePageProps> = ({
           </div>
         </div>
       </section>
+
+      {/* 4. Tuyên Bố Miễn Trừ Y Tế & An Toàn Thảo Dược Bản Địa (Dưới Cùng Trang Chủ) */}
+      <div className="py-2">
+        <MedicalDisclaimer />
+      </div>
     </div>
   );
 };
