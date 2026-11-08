@@ -606,9 +606,9 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </main>
 
-      {/* 5. Lịch Nông Vụ Đô Thị 3 Miền Chuẩn Tiết Khí (H4) */}
+      {/* 5. Lịch Nông Vụ Đô Thị 3 Miền Chuẩn Tiết Khí (H4 - Ẩn thẻ cây đề xuất để tối giản trang chủ) */}
       <div className="border-t border-forest-100 dark:border-forest-900 bg-cream-50 dark:bg-charcoal-900/40">
-        <SeasonalCalendarSection />
+        <SeasonalCalendarSection showRecommendedPlants={false} />
       </div>
 
       {/* 6. Hệ Sinh Thái Tính Năng Riêng Biệt (Mở Tab Mới Giải Phóng Trang Chủ) */}

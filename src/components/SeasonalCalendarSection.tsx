@@ -23,12 +23,14 @@ interface SeasonalCalendarSectionProps {
   initialMonth?: number;
   initialRegion?: RegionKey;
   standalone?: boolean;
+  showRecommendedPlants?: boolean;
 }
 
 export const SeasonalCalendarSection: React.FC<SeasonalCalendarSectionProps> = ({
   initialMonth,
   initialRegion = 'north',
-  standalone = false
+  standalone = false,
+  showRecommendedPlants = true
 }) => {
   const { isEn } = useLanguage();
   
@@ -233,89 +235,91 @@ export const SeasonalCalendarSection: React.FC<SeasonalCalendarSectionProps> = (
         </div>
 
         {/* 4. Recommended Plants to Seed / Plant This Month */}
-        <div className="space-y-4 pt-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="text-lg sm:text-xl font-serif font-bold text-forest-950 dark:text-cream-50 flex items-center gap-2">
-                <Leaf className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-                <span>
+        {showRecommendedPlants && (
+          <div className="space-y-4 pt-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-lg sm:text-xl font-serif font-bold text-forest-950 dark:text-cream-50 flex items-center gap-2">
+                  <Leaf className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                  <span>
+                    {isEn
+                      ? `Recommended Species to Plant in Month ${selectedMonth} (${selectedRegion.toUpperCase()})`
+                      : `Các Loài Nên Gieo Trồng Trong Tháng ${selectedMonth} (Miền ${selectedRegion === 'north' ? 'Bắc' : selectedRegion === 'central' ? 'Trung' : 'Nam'})`}
+                  </span>
+                </h3>
+                <p className="text-xs text-charcoal-500 dark:text-charcoal-400 mt-0.5">
                   {isEn
-                    ? `Recommended Species to Plant in Month ${selectedMonth} (${selectedRegion.toUpperCase()})`
-                    : `Các Loài Nên Gieo Trồng Trong Tháng ${selectedMonth} (Miền ${selectedRegion === 'north' ? 'Bắc' : selectedRegion === 'central' ? 'Trung' : 'Nam'})`}
-                </span>
-              </h3>
-              <p className="text-xs text-charcoal-500 dark:text-charcoal-400 mt-0.5">
-                {isEn
-                  ? 'Species with optimal germination and climate compatibility this season'
-                  : 'Loài cây có tỉ lệ nảy mầm và sinh trưởng tối ưu nhất theo tiết khí mùa vụ này'}
-              </p>
+                    ? 'Species with optimal germination and climate compatibility this season'
+                    : 'Loài cây có tỉ lệ nảy mầm và sinh trưởng tối ưu nhất theo tiết khí mùa vụ này'}
+                </p>
+              </div>
+
+              <Link
+                to="/thao-duoc"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-bold text-emerald-700 dark:text-emerald-400 hover:underline flex items-center gap-1 shrink-0"
+              >
+                <span>{isEn ? 'View all 50 species' : 'Xem toàn bộ 50 loài'}</span>
+                <ChevronRight className="w-3.5 h-3.5" />
+              </Link>
             </div>
 
-            <Link
-              to="/thao-duoc"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs font-bold text-emerald-700 dark:text-emerald-400 hover:underline flex items-center gap-1 shrink-0"
-            >
-              <span>{isEn ? 'View all 50 species' : 'Xem toàn bộ 50 loài'}</span>
-              <ChevronRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {recommendedPlants.map((plant: Plant) => (
+                <div
+                  key={plant.id}
+                  className="bg-white dark:bg-charcoal-800 rounded-3xl overflow-hidden border border-forest-100 dark:border-forest-800 shadow-2xs hover:shadow-md transition flex flex-col justify-between group"
+                >
+                  <div>
+                    {/* Plant Image */}
+                    <div className="relative aspect-4/3 w-full overflow-hidden bg-forest-50 dark:bg-charcoal-900">
+                      <img
+                        src={plant.image_url}
+                        alt={plant.common_name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                        loading="lazy"
+                      />
+                      <div className="absolute top-2.5 left-2.5">
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-forest-900/80 text-white backdrop-blur-md">
+                          {plant.category === 'herb' && (isEn ? 'Native Herb' : 'Thảo Dược')}
+                          {plant.category === 'fruit' && (isEn ? 'Balcony Fruit' : 'Cây Ăn Quả')}
+                          {plant.category === 'ornamental' && (isEn ? 'Ornamental' : 'Cây Cảnh & Hoa')}
+                        </span>
+                      </div>
+                    </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {recommendedPlants.map((plant: Plant) => (
-              <div
-                key={plant.id}
-                className="bg-white dark:bg-charcoal-800 rounded-3xl overflow-hidden border border-forest-100 dark:border-forest-800 shadow-2xs hover:shadow-md transition flex flex-col justify-between group"
-              >
-                <div>
-                  {/* Plant Image */}
-                  <div className="relative aspect-4/3 w-full overflow-hidden bg-forest-50 dark:bg-charcoal-900">
-                    <img
-                      src={plant.image_url}
-                      alt={plant.common_name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
-                      loading="lazy"
-                    />
-                    <div className="absolute top-2.5 left-2.5">
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-forest-900/80 text-white backdrop-blur-md">
-                        {plant.category === 'herb' && (isEn ? 'Native Herb' : 'Thảo Dược')}
-                        {plant.category === 'fruit' && (isEn ? 'Balcony Fruit' : 'Cây Ăn Quả')}
-                        {plant.category === 'ornamental' && (isEn ? 'Ornamental' : 'Cây Cảnh & Hoa')}
-                      </span>
+                    {/* Plant Info */}
+                    <div className="p-4 space-y-1.5">
+                      <h4 className="font-serif font-bold text-sm text-forest-950 dark:text-cream-50 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition">
+                        {plant.common_name}
+                      </h4>
+                      <p className="text-[11px] font-mono italic text-charcoal-500 dark:text-charcoal-400">
+                        {plant.scientific_name}
+                      </p>
+                      <p className="text-xs text-charcoal-600 dark:text-charcoal-300 line-clamp-2 pt-1">
+                        {plant.description}
+                      </p>
                     </div>
                   </div>
 
-                  {/* Plant Info */}
-                  <div className="p-4 space-y-1.5">
-                    <h4 className="font-serif font-bold text-sm text-forest-950 dark:text-cream-50 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition">
-                      {plant.common_name}
-                    </h4>
-                    <p className="text-[11px] font-mono italic text-charcoal-500 dark:text-charcoal-400">
-                      {plant.scientific_name}
-                    </p>
-                    <p className="text-xs text-charcoal-600 dark:text-charcoal-300 line-clamp-2 pt-1">
-                      {plant.description}
-                    </p>
+                  {/* Card Action Footer */}
+                  <div className="px-4 pb-4 pt-1 border-t border-forest-50 dark:border-forest-800/60">
+                    <Link
+                      to={`/cay/${plant.slug}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full py-2 rounded-xl bg-forest-50 hover:bg-forest-100 dark:bg-charcoal-700 dark:hover:bg-charcoal-600 text-forest-900 dark:text-cream-100 text-xs font-bold transition flex items-center justify-center gap-1"
+                    >
+                      <span>{isEn ? 'Planting Guide' : 'Xem Cách Trồng'}</span>
+                      <ExternalLink className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
+                    </Link>
                   </div>
                 </div>
-
-                {/* Card Action Footer */}
-                <div className="px-4 pb-4 pt-1 border-t border-forest-50 dark:border-forest-800/60">
-                  <Link
-                    to={`/cay/${plant.slug}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full py-2 rounded-xl bg-forest-50 hover:bg-forest-100 dark:bg-charcoal-700 dark:hover:bg-charcoal-600 text-forest-900 dark:text-cream-100 text-xs font-bold transition flex items-center justify-center gap-1"
-                  >
-                    <span>{isEn ? 'Planting Guide' : 'Xem Cách Trồng'}</span>
-                    <ExternalLink className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
-                  </Link>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
       </div>
     </section>
