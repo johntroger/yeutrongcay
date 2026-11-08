@@ -4,7 +4,6 @@ import { Plant, PlantCategory } from '../types/index.ts';
 import { SEED_PLANTS } from '../data/plants.ts';
 import { getPlants } from '../services/apiService.ts';
 import { useSEO } from '../utils/useSEO.ts';
-import { Hero } from '../components/Hero.tsx';
 import { MedicalDisclaimer } from '../components/MedicalDisclaimer.tsx';
 import { PlantCard } from '../components/PlantCard.tsx';
 import { PlantFilterBar, FilterState, ActiveFilterPills, MobileFilterDrawer } from '../components/PlantFilterBar.tsx';
@@ -325,15 +324,8 @@ export const HomePage: React.FC<HomePageProps> = ({
 
   return (
     <div className="min-h-screen bg-cream-100 dark:bg-charcoal-950 text-charcoal-900 dark:text-cream-100 flex flex-col transition-colors duration-200">
-      {/* 1. Hero Banner */}
-      <Hero
-        activeMode={activeMode}
-        onExploreMonetization={() => window.open('/kiem-tien-tu-vuon', '_blank')}
-        onOpenClinic={() => window.open('/bac-si-cay-trong', '_blank')}
-      />
-
-      {/* 2. Hệ Thống Chuyên Mục Hệ Sinh Thái (Cơ Chế Động - Tự Động Cập Nhật Khi Có Category Mới) */}
-      <section className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 -mt-6 relative z-20 w-full">
+      {/* 1. Hệ Thống Chuyên Mục Hệ Sinh Thái (Cơ Chế Động - Tự Động Cập Nhật Khi Có Category Mới) */}
+      <section className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-2 relative z-20 w-full">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
           {ecosystemCategories.map((cat) => {
             const itemCount = allPlants.filter((p) => p.category === cat.id).length;
@@ -395,10 +387,10 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
-      {/* 3. Medical Disclaimer */}
-      {activeMode === 'herb' && <MedicalDisclaimer />}
+      {/* 2. Medical Disclaimer (Chỉ hiển thị khi đang lọc chuyên mục Thảo Dược) */}
+      {filters.category === 'herb' && <MedicalDisclaimer />}
 
-      {/* 4. Plants Catalog Grid with Smart Filter & Collections */}
+      {/* 3. Plants Catalog Grid with Smart Filter & Collections */}
       <main className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-10 flex-1 w-full space-y-8">
         {/* Bộ Sưu Tập Cây Trồng Theo Giải Pháp */}
         <CollectionsShowcase
