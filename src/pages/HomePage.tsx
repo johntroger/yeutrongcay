@@ -322,71 +322,8 @@ export const HomePage: React.FC<HomePageProps> = ({
 
   return (
     <div className="min-h-screen bg-cream-100 dark:bg-charcoal-950 text-charcoal-900 dark:text-cream-100 flex flex-col transition-colors duration-200">
-      {/* 1. Hệ Thống Chuyên Mục Hệ Sinh Thái (Cơ Chế Động - Tự Động Cập Nhật Khi Có Category Mới) */}
-      <section className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-2 relative z-20 w-full">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
-          {ecosystemCategories.map((cat) => {
-            const itemCount = allPlants.filter((p) => p.category === cat.id).length;
-            const categoryLabel = isEn ? cat.labelEn : cat.labelVi;
-            const categoryDesc = isEn ? (cat.summaryEn || cat.descriptionEn) : (cat.summaryVi || cat.descriptionVi);
-            const unitLabel = isEn ? cat.unitEn : cat.unitVi;
-
-            return (
-              <Link
-                key={cat.id}
-                to={cat.dedicatedPath}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`p-5 rounded-3xl bg-white dark:bg-charcoal-900 border border-forest-100 dark:border-forest-900 shadow-md hover:shadow-xl ${
-                  cat.cardBorderHover || 'hover:border-emerald-400 dark:hover:border-emerald-500'
-                } transition-all duration-200 group flex flex-col justify-between`}
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-2xl drop-shadow-xs">{cat.icon}</span>
-                    <span
-                      className={`text-[11px] font-semibold px-2.5 py-1 rounded-full flex items-center gap-1 border transition-colors ${
-                        cat.cardBadgeClass ||
-                        'text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200/50 dark:border-emerald-800/40'
-                      }`}
-                    >
-                      <span>{t('common.openTab')}</span>
-                      <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
-                    </span>
-                  </div>
-
-                  <h3
-                    className={`text-base font-serif font-bold text-forest-950 dark:text-cream-50 ${
-                      cat.cardTitleHover || 'group-hover:text-emerald-700 dark:group-hover:text-emerald-400'
-                    } transition-colors`}
-                  >
-                    {categoryLabel}
-                  </h3>
-
-                  <p className="text-xs text-forest-700/80 dark:text-forest-300 mt-1 line-clamp-2 leading-relaxed">
-                    {categoryDesc}
-                  </p>
-                </div>
-
-                {itemCount > 0 && (
-                  <div className="pt-3 mt-3 border-t border-forest-100/60 dark:border-forest-800/60 flex items-center justify-between text-[11px] text-forest-500 dark:text-forest-400 font-medium">
-                    <span className="flex items-center gap-1 font-mono font-semibold text-forest-700 dark:text-forest-300">
-                      <span>{itemCount}</span>
-                      <span>{unitLabel}</span>
-                    </span>
-                    <span className="text-[10px] opacity-75 group-hover:opacity-100 group-hover:underline transition">
-                      {isEn ? 'Explore →' : 'Khám phá →'}
-                    </span>
-                  </div>
-                )}
-              </Link>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* 2. Plants Catalog Grid with Smart Filter */}
-      <main className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-10 flex-1 w-full space-y-8">
+      {/* Plants Catalog Grid with Smart Filter */}
+      <main className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8 flex-1 w-full space-y-8">
         {/* Nút Mở Bộ Lọc Cho Màn Hình Di Động (< lg) */}
         <div className="lg:hidden flex items-center justify-between gap-3 p-3 bg-white dark:bg-charcoal-900 rounded-2xl border border-forest-100 dark:border-forest-800 shadow-2xs">
           <button
