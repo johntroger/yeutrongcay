@@ -3,6 +3,7 @@ import { PlantCategory } from '../types/index.ts';
 import { SUBCATEGORIES } from '../data/collections.ts';
 import { allPlants as seedPlants } from '../data/plants.ts';
 import { useLanguage } from '../context/LanguageContext.tsx';
+import { getAllEcosystemCategories, getCategoryConfig } from '../config/ecosystemRegistry.ts';
 import {
   Filter,
   Sun,
@@ -174,13 +175,12 @@ export const PlantFilterBar: React.FC<PlantFilterBarProps> = ({
               <div className="space-y-1.5">
                 {[
                   { id: 'all', label: isEn ? 'All Categories' : 'Tất Cả Ngành Hàng', icon: '🌿', count: plants.length },
-                  { id: 'herb', label: isEn ? 'Native Medicinal Herbs' : 'Thảo Dược Bản Địa', icon: '🌱', count: plants.filter((p) => p.category === 'herb').length },
-                  { id: 'fruit', label: isEn ? 'Balcony Fruit Trees' : 'Cây Ăn Trái Ban Công', icon: '🍋', count: plants.filter((p) => p.category === 'fruit').length },
-                  { id: 'ornamental', label: isEn ? 'Ornamentals & Bonsai' : 'Cây Cảnh & Bonsai', icon: '🌸', count: plants.filter((p) => p.category === 'ornamental').length },
-                  { id: 'space', label: isEn ? 'Urban Growing Spaces' : 'Không Gian Trồng Phố', icon: '🏡', count: plants.filter((p) => p.category === 'space').length },
-                  { id: 'recycle', label: isEn ? 'Upcycled Garden DIY' : 'Tái Chế Làm Vườn', icon: '♻️', count: plants.filter((p) => p.category === 'recycle').length },
-                  { id: 'culinary', label: isEn ? 'Herbal Kitchen & Tonics' : 'Ẩm Thực Dưỡng Sinh', icon: '🍵', count: plants.filter((p) => p.category === 'culinary').length },
-                  { id: 'forest', label: isEn ? 'Natural Forests & Parks' : 'Rừng & Khu Sinh Thái', icon: '🌲', count: plants.filter((p) => p.category === 'forest').length }
+                  ...getAllEcosystemCategories(plants as any).map((cat) => ({
+                    id: cat.id,
+                    label: isEn ? cat.labelEn : cat.labelVi,
+                    icon: cat.icon,
+                    count: plants.filter((p) => p.category === cat.id).length,
+                  })),
                 ].map((cat) => {
                   const isSelected = filters.category === cat.id;
                   return (
@@ -451,12 +451,8 @@ export const ActiveFilterPills: React.FC<ActiveFilterPillsProps> = ({
   const activePills: { label: string; onRemove: () => void }[] = [];
 
   if (!hideCategoryBadge && filters.category !== 'all') {
-    const catName =
-      filters.category === 'herb'
-        ? isEn ? 'Herbs' : 'Thảo dược'
-        : filters.category === 'fruit'
-        ? isEn ? 'Fruit Trees' : 'Ăn trái'
-        : isEn ? 'Ornamentals' : 'Cây cảnh';
+    const catCfg = getCategoryConfig(filters.category);
+    const catName = isEn ? catCfg.labelEn : catCfg.labelVi;
     activePills.push({
       label: `${isEn ? 'Category: ' : 'Danh mục: '}${catName}`,
       onRemove: () => onFilterChange({ ...filters, category: 'all', subcategory: undefined })

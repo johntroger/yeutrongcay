@@ -332,74 +332,66 @@ export const HomePage: React.FC<HomePageProps> = ({
         onOpenClinic={() => window.open('/bac-si-cay-trong', '_blank')}
       />
 
-      {/* 2. Bộ 3 Chuyên Mục Lớn Mở Tab Riêng Biệt */}
+      {/* 2. Hệ Thống Chuyên Mục Hệ Sinh Thái (Cơ Chế Động - Tự Động Cập Nhật Khi Có Category Mới) */}
       <section className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 -mt-6 relative z-20 w-full">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Link
-            to="/thao-duoc"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-5 rounded-3xl bg-white dark:bg-charcoal-900 border border-forest-100 dark:border-forest-900 shadow-md hover:shadow-xl hover:border-herbal-400 dark:hover:border-herbal-500 transition group flex flex-col justify-between"
-          >
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-2xl">🌿</span>
-                <span className="text-[11px] font-semibold text-herbal-700 dark:text-herbal-300 bg-herbal-50 dark:bg-herbal-950/60 px-2.5 py-1 rounded-full flex items-center gap-1 border border-herbal-200/50 dark:border-herbal-800/40">
-                  {t('common.openTab')} <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
-                </span>
-              </div>
-              <h3 className="text-base font-serif font-bold text-forest-950 dark:text-cream-50 group-hover:text-herbal-700 dark:group-hover:text-herbal-400 transition">
-                {t('categories.herb')}
-              </h3>
-              <p className="text-xs text-forest-700/80 dark:text-forest-300 mt-1 line-clamp-2">
-                {t('categories.herbDesc')}
-              </p>
-            </div>
-          </Link>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+          {ecosystemCategories.map((cat) => {
+            const itemCount = allPlants.filter((p) => p.category === cat.id).length;
+            const categoryLabel = isEn ? cat.labelEn : cat.labelVi;
+            const categoryDesc = isEn ? (cat.summaryEn || cat.descriptionEn) : (cat.summaryVi || cat.descriptionVi);
+            const unitLabel = isEn ? cat.unitEn : cat.unitVi;
 
-          <Link
-            to="/cay-an-trai"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-5 rounded-3xl bg-white dark:bg-charcoal-900 border border-forest-100 dark:border-forest-900 shadow-md hover:shadow-xl hover:border-amber-400 dark:hover:border-amber-500 transition group flex flex-col justify-between"
-          >
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-2xl">🍋</span>
-                <span className="text-[11px] font-semibold text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 px-2.5 py-1 rounded-full flex items-center gap-1 border border-amber-200/50 dark:border-amber-800/40">
-                  {t('common.openTab')} <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
-                </span>
-              </div>
-              <h3 className="text-base font-serif font-bold text-forest-950 dark:text-cream-50 group-hover:text-amber-800 dark:group-hover:text-amber-400 transition">
-                {t('categories.fruit')}
-              </h3>
-              <p className="text-xs text-forest-700/80 dark:text-forest-300 mt-1 line-clamp-2">
-                {t('categories.fruitDesc')}
-              </p>
-            </div>
-          </Link>
+            return (
+              <Link
+                key={cat.id}
+                to={cat.dedicatedPath}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`p-5 rounded-3xl bg-white dark:bg-charcoal-900 border border-forest-100 dark:border-forest-900 shadow-md hover:shadow-xl ${
+                  cat.cardBorderHover || 'hover:border-emerald-400 dark:hover:border-emerald-500'
+                } transition-all duration-200 group flex flex-col justify-between`}
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-2xl drop-shadow-xs">{cat.icon}</span>
+                    <span
+                      className={`text-[11px] font-semibold px-2.5 py-1 rounded-full flex items-center gap-1 border transition-colors ${
+                        cat.cardBadgeClass ||
+                        'text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200/50 dark:border-emerald-800/40'
+                      }`}
+                    >
+                      <span>{t('common.openTab')}</span>
+                      <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
+                    </span>
+                  </div>
 
-          <Link
-            to="/cay-canh"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-5 rounded-3xl bg-white dark:bg-charcoal-900 border border-forest-100 dark:border-forest-900 shadow-md hover:shadow-xl hover:border-purple-400 dark:hover:border-purple-500 transition group flex flex-col justify-between"
-          >
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-2xl">🌸</span>
-                <span className="text-[11px] font-semibold text-purple-800 dark:text-purple-300 bg-purple-50 dark:bg-purple-950/60 px-2.5 py-1 rounded-full flex items-center gap-1 border border-purple-200/50 dark:border-purple-800/40">
-                  {t('common.openTab')} <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
-                </span>
-              </div>
-              <h3 className="text-base font-serif font-bold text-forest-950 dark:text-cream-50 group-hover:text-purple-800 dark:group-hover:text-purple-400 transition">
-                {t('categories.ornamental')}
-              </h3>
-              <p className="text-xs text-forest-700/80 dark:text-forest-300 mt-1 line-clamp-2">
-                {t('categories.ornamentalDesc')}
-              </p>
-            </div>
-          </Link>
+                  <h3
+                    className={`text-base font-serif font-bold text-forest-950 dark:text-cream-50 ${
+                      cat.cardTitleHover || 'group-hover:text-emerald-700 dark:group-hover:text-emerald-400'
+                    } transition-colors`}
+                  >
+                    {categoryLabel}
+                  </h3>
+
+                  <p className="text-xs text-forest-700/80 dark:text-forest-300 mt-1 line-clamp-2 leading-relaxed">
+                    {categoryDesc}
+                  </p>
+                </div>
+
+                {itemCount > 0 && (
+                  <div className="pt-3 mt-3 border-t border-forest-100/60 dark:border-forest-800/60 flex items-center justify-between text-[11px] text-forest-500 dark:text-forest-400 font-medium">
+                    <span className="flex items-center gap-1 font-mono font-semibold text-forest-700 dark:text-forest-300">
+                      <span>{itemCount}</span>
+                      <span>{unitLabel}</span>
+                    </span>
+                    <span className="text-[10px] opacity-75 group-hover:opacity-100 group-hover:underline transition">
+                      {isEn ? 'Explore →' : 'Khám phá →'}
+                    </span>
+                  </div>
+                )}
+              </Link>
+            );
+          })}
         </div>
       </section>
 
@@ -445,19 +437,10 @@ export const HomePage: React.FC<HomePageProps> = ({
           />
         </MobileFilterDrawer>
 
-        {/* 7-Category 1-Tap Horizontal Shelf */}
+        {/* Horizontal Category Shelf (Cơ Chế Động Theo Hệ Thống Chuyên Mục) */}
         <div className="mb-6 -mt-2">
           <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-            {[
-              { id: 'all', label: isEn ? 'All Categories' : 'Tất Cả 7 Ngành Hàng', icon: '🌿', count: allPlants.length },
-              { id: 'herb', label: isEn ? 'Native Herbs' : 'Thảo Dược', icon: '🌱', count: allPlants.filter(p => p.category === 'herb').length },
-              { id: 'fruit', label: isEn ? 'Balcony Fruits' : 'Cây Ăn Trái', icon: '🍋', count: allPlants.filter(p => p.category === 'fruit').length },
-              { id: 'ornamental', label: isEn ? 'Ornamentals' : 'Cây Cảnh', icon: '🌸', count: allPlants.filter(p => p.category === 'ornamental').length },
-              { id: 'space', label: isEn ? 'Urban Spaces' : 'Không Gian Trồng', icon: '🏡', count: allPlants.filter(p => p.category === 'space').length },
-              { id: 'recycle', label: isEn ? 'Upcycled DIY' : 'Tái Chế', icon: '♻️', count: allPlants.filter(p => p.category === 'recycle').length },
-              { id: 'culinary', label: isEn ? 'Herbal Kitchen' : 'Ẩm Thực', icon: '🍵', count: allPlants.filter(p => p.category === 'culinary').length },
-              { id: 'forest', label: isEn ? 'Natural Forests' : 'Rừng Sinh Thái', icon: '🌲', count: allPlants.filter(p => p.category === 'forest').length },
-            ].map((catItem) => {
+            {horizontalFilterCategories.map((catItem) => {
               const isSelected = filters.category === catItem.id;
               return (
                 <button

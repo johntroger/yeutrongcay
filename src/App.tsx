@@ -63,6 +63,7 @@ function DynamicCategoryWrapper({
   else if (cat === 'sang-che-tai-che' || cat === 'tai-che' || cat === 'recycle') mode = 'recycle';
   else if (cat === 'am-thuc-duoc-thien' || cat === 'duoc-thien' || cat === 'culinary') mode = 'culinary';
   else if (cat === 'vuon-quoc-gia' || cat === 'rung-viet-nam' || cat === 'forest') mode = 'forest';
+  else if (cat) mode = cat as PlantCategory;
 
   useEffect(() => {
     setCategory(mode);
