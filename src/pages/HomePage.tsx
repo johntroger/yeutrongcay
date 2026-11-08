@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect, useDeferredValue } from 'react';
+import React, { useMemo, useState, useEffect, useDeferredValue, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Plant, PlantCategory } from '../types/index.ts';
 import { SEED_PLANTS } from '../data/plants.ts';
@@ -6,6 +6,7 @@ import { getPlants } from '../services/apiService.ts';
 import { useSEO } from '../utils/useSEO.ts';
 import { MedicalDisclaimer } from '../components/MedicalDisclaimer.tsx';
 import { PlantCard } from '../components/PlantCard.tsx';
+import { PlantListItem } from '../components/PlantListItem.tsx';
 import { PlantFilterBar, FilterState, ActiveFilterPills, MobileFilterDrawer } from '../components/PlantFilterBar.tsx';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { PLANT_ENGLISH_MAP } from '../i18n/plantTranslations.ts';
@@ -24,8 +25,24 @@ import {
   Calendar,
   ShieldCheck,
   RotateCcw,
-  Heart
+  ChevronDown,
+  Check,
+  ArrowUpDown,
+  LayoutGrid,
+  List,
+  X
 } from 'lucide-react';
+
+export type SortOption = 'default' | 'hearts' | 'easy' | 'name_asc' | 'drought' | 'newest';
+
+const SORT_OPTIONS: { id: SortOption; labelVi: string; labelEn: string; icon: string }[] = [
+  { id: 'default', labelVi: 'Mặc định (Tuyển chọn)', labelEn: 'Curated (Default)', icon: '⚡' },
+  { id: 'hearts', labelVi: 'Được yêu thích nhất', labelEn: 'Most Loved (Hearts)', icon: '❤️' },
+  { id: 'easy', labelVi: 'Dễ trồng nhất (1/5 sao)', labelEn: 'Easiest to Grow (1/5)', icon: '🌱' },
+  { id: 'name_asc', labelVi: 'Tên thực vật A → Z', labelEn: 'Name (A → Z)', icon: '🔤' },
+  { id: 'drought', labelVi: 'Ít tốn công tưới (Chịu hạn)', labelEn: 'Drought Tolerant', icon: '💧' },
+  { id: 'newest', labelVi: 'Mới cập nhật gần đây', labelEn: 'Recently Added', icon: '⏱️' },
+];
 
 interface HomePageProps {
   activeMode: PlantCategory;
@@ -61,7 +78,41 @@ export const HomePage: React.FC<HomePageProps> = ({
     };
   });
 
-  const [sortBy, setSortBy] = useState<'default' | 'hearts'>('default');
+  const [sortBy, setSortBy] = useState<SortOption>('default');
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>(() => {
+    try {
+      return (localStorage.getItem('ytc_plant_view_mode') as 'grid' | 'list') || 'grid';
+    } catch {
+      return 'grid';
+    }
+  });
+
+  const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
+  const [isSortDropdownOpen, setIsSortDropdownOpen] = useState(false);
+  const categoryDropdownRef = useRef<HTMLDivElement>(null);
+  const sortDropdownRef = useRef<HTMLDivElement>(null);
+
+  const handleViewModeChange = (mode: 'grid' | 'list') => {
+    setViewMode(mode);
+    try {
+      localStorage.setItem('ytc_plant_view_mode', mode);
+    } catch {}
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (categoryDropdownRef.current && !categoryDropdownRef.current.contains(e.target as Node)) {
+        setIsCategoryDropdownOpen(false);
+      }
+      if (sortDropdownRef.current && !sortDropdownRef.current.contains(e.target as Node)) {
+        setIsSortDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   // Sidebar phản hồi tức thì; lưới sản phẩm lọc ở mức ưu tiên thấp để không bị giật
   const deferredFilters = useDeferredValue(filters);
@@ -234,13 +285,46 @@ export const HomePage: React.FC<HomePageProps> = ({
       return matched;
     }
 
+    // Dễ trồng nhất (Độ khó 1/5 sao lên đầu)
+    if (sortBy === 'easy') {
+      matched.sort((a, b) => {
+        const diffA = a.propagation_difficulty || 1;
+        const diffB = b.propagation_difficulty || 1;
+        return diffA - diffB;
+      });
+      return matched;
+    }
+
+    // Tên thực vật A -> Z
+    if (sortBy === 'name_asc') {
+      matched.sort((a, b) => {
+        const nameA = isEn ? (a.common_name_en || a.common_name) : a.common_name;
+        const nameB = isEn ? (b.common_name_en || b.common_name) : b.common_name;
+        return nameA.localeCompare(nameB, isEn ? 'en' : 'vi');
+      });
+      return matched;
+    }
+
+    // Ít tốn công tưới nước (Chịu hạn tốt)
+    if (sortBy === 'drought') {
+      const waterScore = (w: string) => (w === 'drought_tolerant' ? 1 : w === 'moderate' ? 2 : 3);
+      matched.sort((a, b) => waterScore(a.watering) - waterScore(b.watering));
+      return matched;
+    }
+
+    // Mới cập nhật gần đây
+    if (sortBy === 'newest') {
+      matched.sort((a, b) => b.id.localeCompare(a.id, undefined, { numeric: true }));
+      return matched;
+    }
+
     // Khi duyệt Tất Cả: Áp dụng thuật toán Smart Marketplace Interleaving trộn đều 7 ngành hàng
     if (deferredFilters.category === 'all') {
       return interleaveMarketplaceItems(matched);
     }
 
     return matched;
-  }, [allPlants, deferredFilters, searchQuery, sortBy]);
+  }, [allPlants, deferredFilters, searchQuery, sortBy, isEn]);
 
   // Danh sách tags có sẵn kèm số lượng bài viết
   const availableTags = useMemo(() => {
@@ -310,6 +394,42 @@ export const HomePage: React.FC<HomePageProps> = ({
       name: isEn ? 'Natural Forests & Eco-Zones' : 'Rừng & Khu Sinh Thái',
     },
   };
+
+  const currentSortOption = useMemo(() => {
+    return SORT_OPTIONS.find((s) => s.id === sortBy) || SORT_OPTIONS[0];
+  }, [sortBy]);
+
+  const activeCategoryItem = useMemo(() => {
+    if (filters.category === 'all') {
+      return {
+        id: 'all',
+        label: isEn ? 'All Categories' : 'Tất Cả Chuyên Mục',
+        icon: '🌿',
+        count: allPlants.length,
+      };
+    }
+    const found = horizontalFilterCategories.find((c) => c.id === filters.category);
+    if (found) return found;
+    const cfg = getCategoryConfig(filters.category as PlantCategory);
+    return {
+      id: filters.category,
+      label: isEn ? cfg.labelEn : cfg.labelVi,
+      icon: cfg.icon,
+      count: allPlants.filter((p) => p.category === filters.category).length,
+    };
+  }, [filters.category, horizontalFilterCategories, allPlants, isEn]);
+
+  const hasActiveFilters = Boolean(
+    filters.category !== 'all' ||
+    filters.difficulty !== 'all' ||
+    filters.sunlight !== 'all' ||
+    filters.watering !== 'all' ||
+    filters.tag ||
+    filters.subcategory ||
+    filters.collection ||
+    sortBy !== 'default' ||
+    searchQuery.trim()
+  );
 
   useSEO({
     title: isEn
@@ -422,26 +542,250 @@ export const HomePage: React.FC<HomePageProps> = ({
                 </p>
               </div>
 
+              {/* Toolbar điều khiển: Chuyên mục nhanh, Sắp xếp thông minh, Chuyển Grid/List */}
               <div className="self-start sm:self-auto flex items-center gap-2 flex-wrap">
-                <button
-                  type="button"
-                  onClick={() => setSortBy(prev => prev === 'hearts' ? 'default' : 'hearts')}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer border ${
-                    sortBy === 'hearts'
-                      ? 'bg-rose-500 text-white border-rose-600 shadow-sm'
-                      : 'bg-white dark:bg-charcoal-900 text-rose-600 dark:text-rose-400 border-rose-200 dark:border-rose-900/60 hover:bg-rose-50'
-                  }`}
-                >
-                  <Heart className="w-3.5 h-3.5 fill-current" />
-                  <span>{isEn ? 'Most Loved' : 'Được Yêu Thích Nhất'}</span>
-                </button>
+                {/* 1. Interactive Category Dropdown */}
+                <div ref={categoryDropdownRef} className="relative">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsCategoryDropdownOpen((prev) => !prev);
+                      setIsSortDropdownOpen(false);
+                    }}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-2 transition cursor-pointer border shadow-2xs ${
+                      isCategoryDropdownOpen || filters.category !== 'all'
+                        ? 'bg-forest-900 text-white dark:bg-emerald-700 border-forest-900 dark:border-emerald-600'
+                        : 'bg-white dark:bg-charcoal-900 text-forest-800 dark:text-cream-100 border-forest-100 dark:border-forest-800 hover:bg-forest-50 dark:hover:bg-charcoal-800'
+                    }`}
+                    title={isEn ? 'Filter by category' : 'Chọn chuyên mục tra cứu'}
+                  >
+                    <Filter className="w-3.5 h-3.5 text-herbal-400 shrink-0" />
+                    <span className="hidden md:inline text-forest-300 dark:text-forest-200 font-normal">
+                      {t('common.category')}:
+                    </span>
+                    <span className="flex items-center gap-1 font-bold">
+                      <span>{activeCategoryItem.icon}</span>
+                      <span>{activeCategoryItem.label}</span>
+                      <span className="text-[10px] opacity-80">({activeCategoryItem.count})</span>
+                    </span>
+                    <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isCategoryDropdownOpen ? 'rotate-180' : ''}`} />
+                  </button>
 
-                <div className="flex items-center gap-2 text-xs font-semibold text-forest-800 dark:text-cream-100 bg-white dark:bg-charcoal-900 px-3.5 py-1.5 rounded-xl border border-forest-100 dark:border-forest-800 shadow-2xs">
-                  <Filter className="w-4 h-4 text-herbal-600 dark:text-herbal-400" />
-                  <span className="hidden sm:inline">{t('common.category')}:</span>
-                  <span className="capitalize">{filters.category}</span>
+                  {isCategoryDropdownOpen && (
+                    <div className="absolute right-0 sm:right-auto sm:left-0 top-full mt-2 w-72 max-h-96 overflow-y-auto bg-white dark:bg-charcoal-900 rounded-2xl shadow-xl border border-forest-100 dark:border-forest-800 py-2 z-50 animate-in fade-in zoom-in-95 duration-150">
+                      <div className="px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-wider text-forest-500 dark:text-forest-400 border-b border-forest-100 dark:border-forest-800 flex items-center justify-between">
+                        <span>{isEn ? 'Categories' : 'Chuyên Mục Hệ Sinh Thái'}</span>
+                        <span className="text-[10px] lowercase font-normal">{allPlants.length} {isEn ? 'plants' : 'loài cây'}</span>
+                      </div>
+                      {horizontalFilterCategories.map((cat) => {
+                        const isSelected = filters.category === cat.id;
+                        return (
+                          <button
+                            key={cat.id}
+                            type="button"
+                            onClick={() => {
+                              handleFilterChange({ ...filters, category: cat.id as any, subcategory: undefined });
+                              setIsCategoryDropdownOpen(false);
+                            }}
+                            className={`w-full text-left px-3.5 py-2 text-xs flex items-center justify-between transition cursor-pointer ${
+                              isSelected
+                                ? 'bg-forest-50 dark:bg-charcoal-800 font-bold text-forest-950 dark:text-cream-50'
+                                : 'text-forest-800 dark:text-cream-200 hover:bg-forest-50/70 dark:hover:bg-charcoal-800/70'
+                            }`}
+                          >
+                            <span className="flex items-center gap-2">
+                              <span className="text-base">{cat.icon}</span>
+                              <span>{cat.label}</span>
+                            </span>
+                            <span className="flex items-center gap-2">
+                              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-forest-100 dark:bg-charcoal-700 text-forest-700 dark:text-forest-300 font-mono">
+                                {cat.count}
+                              </span>
+                              {isSelected && <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+
+                {/* 2. Interactive Sort Dropdown */}
+                <div ref={sortDropdownRef} className="relative">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsSortDropdownOpen((prev) => !prev);
+                      setIsCategoryDropdownOpen(false);
+                    }}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer border shadow-2xs ${
+                      sortBy !== 'default'
+                        ? 'bg-rose-50 dark:bg-rose-950/50 text-rose-700 dark:text-rose-300 border-rose-300 dark:border-rose-800 font-bold'
+                        : 'bg-white dark:bg-charcoal-900 text-forest-800 dark:text-cream-100 border-forest-100 dark:border-forest-800 hover:bg-forest-50'
+                    }`}
+                    title={isEn ? 'Sort plants' : 'Sắp xếp danh sách cây'}
+                  >
+                    <ArrowUpDown className="w-3.5 h-3.5 text-rose-500 shrink-0" />
+                    <span className="hidden md:inline text-forest-400 dark:text-forest-300 font-normal">
+                      {isEn ? 'Sort:' : 'Sắp xếp:'}
+                    </span>
+                    <span>{currentSortOption.icon} {isEn ? currentSortOption.labelEn : currentSortOption.labelVi}</span>
+                    <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isSortDropdownOpen ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  {isSortDropdownOpen && (
+                    <div className="absolute right-0 top-full mt-2 w-64 bg-white dark:bg-charcoal-900 rounded-2xl shadow-xl border border-forest-100 dark:border-forest-800 py-2 z-50 animate-in fade-in zoom-in-95 duration-150">
+                      <div className="px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-wider text-forest-500 dark:text-forest-400 border-b border-forest-100 dark:border-forest-800">
+                        {isEn ? 'Sort Publications By' : 'Tiêu Chí Sắp Xếp'}
+                      </div>
+                      {SORT_OPTIONS.map((opt) => {
+                        const isSelected = sortBy === opt.id;
+                        return (
+                          <button
+                            key={opt.id}
+                            type="button"
+                            onClick={() => {
+                              setSortBy(opt.id);
+                              setIsSortDropdownOpen(false);
+                            }}
+                            className={`w-full text-left px-3.5 py-2 text-xs flex items-center justify-between transition cursor-pointer ${
+                              isSelected
+                                ? 'bg-rose-50 dark:bg-rose-950/50 font-bold text-rose-700 dark:text-rose-300'
+                                : 'text-forest-800 dark:text-cream-200 hover:bg-forest-50/70 dark:hover:bg-charcoal-800/70'
+                            }`}
+                          >
+                            <span className="flex items-center gap-2">
+                              <span>{opt.icon}</span>
+                              <span>{isEn ? opt.labelEn : opt.labelVi}</span>
+                            </span>
+                            {isSelected && <Check className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+
+                {/* 3. View Mode Switcher: Grid vs List */}
+                <div className="flex items-center bg-forest-100/70 dark:bg-charcoal-800 p-0.5 rounded-xl border border-forest-200/80 dark:border-forest-700">
+                  <button
+                    type="button"
+                    onClick={() => handleViewModeChange('grid')}
+                    className={`p-1.5 rounded-lg transition cursor-pointer ${
+                      viewMode === 'grid'
+                        ? 'bg-white dark:bg-charcoal-900 text-forest-950 dark:text-cream-50 shadow-2xs font-bold'
+                        : 'text-forest-600 dark:text-forest-400 hover:text-forest-900'
+                    }`}
+                    title={isEn ? 'Grid view' : 'Xem dạng lưới thẻ'}
+                  >
+                    <LayoutGrid className="w-3.5 h-3.5" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleViewModeChange('list')}
+                    className={`p-1.5 rounded-lg transition cursor-pointer ${
+                      viewMode === 'list'
+                        ? 'bg-white dark:bg-charcoal-900 text-forest-950 dark:text-cream-50 shadow-2xs font-bold'
+                        : 'text-forest-600 dark:text-forest-400 hover:text-forest-900'
+                    }`}
+                    title={isEn ? 'List view' : 'Xem dạng danh sách tra cứu'}
+                  >
+                    <List className="w-3.5 h-3.5" />
+                  </button>
                 </div>
               </div>
+            </div>
+
+            {/* Thanh phím lọc nhanh 1-Click (Quick Filter Chips) */}
+            <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none text-xs -mt-2">
+              <span className="text-[11px] font-semibold text-forest-600 dark:text-forest-400 uppercase tracking-wider shrink-0 flex items-center gap-1">
+                <Sparkles className="w-3 h-3 text-amber-500" />
+                <span>{isEn ? 'Quick filters:' : 'Lọc nhanh:'}</span>
+              </span>
+
+              {/* Chip 1: Dễ trồng nhất (1/5) */}
+              <button
+                type="button"
+                onClick={() => handleFilterChange({
+                  ...filters,
+                  difficulty: filters.difficulty === 'easy' ? 'all' : 'easy'
+                })}
+                className={`shrink-0 px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition border cursor-pointer ${
+                  filters.difficulty === 'easy'
+                    ? 'bg-emerald-600 text-white border-emerald-700 shadow-2xs'
+                    : 'bg-white dark:bg-charcoal-900 text-forest-800 dark:text-forest-200 border-forest-200 dark:border-forest-800 hover:bg-forest-50 dark:hover:bg-charcoal-800'
+                }`}
+              >
+                <span>🌱</span>
+                <span>{isEn ? 'Easy (1/5)' : 'Dễ trồng (1/5)'}</span>
+                {filters.difficulty === 'easy' && <X className="w-3 h-3" />}
+              </button>
+
+              {/* Chip 2: Ưa râm / Trong nhà */}
+              <button
+                type="button"
+                onClick={() => handleFilterChange({
+                  ...filters,
+                  sunlight: filters.sunlight === 'partial_shade' ? 'all' : 'partial_shade'
+                })}
+                className={`shrink-0 px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition border cursor-pointer ${
+                  filters.sunlight === 'partial_shade'
+                    ? 'bg-amber-600 text-white border-amber-700 shadow-2xs'
+                    : 'bg-white dark:bg-charcoal-900 text-forest-800 dark:text-forest-200 border-forest-200 dark:border-forest-800 hover:bg-forest-50 dark:hover:bg-charcoal-800'
+                }`}
+              >
+                <span>🌤️</span>
+                <span>{isEn ? 'Shade / Indoor' : 'Ưa râm / Bán râm'}</span>
+                {filters.sunlight === 'partial_shade' && <X className="w-3 h-3" />}
+              </button>
+
+              {/* Chip 3: Chịu hạn / Ít tưới */}
+              <button
+                type="button"
+                onClick={() => handleFilterChange({
+                  ...filters,
+                  watering: filters.watering === 'drought_tolerant' ? 'all' : 'drought_tolerant'
+                })}
+                className={`shrink-0 px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition border cursor-pointer ${
+                  filters.watering === 'drought_tolerant'
+                    ? 'bg-cyan-600 text-white border-cyan-700 shadow-2xs'
+                    : 'bg-white dark:bg-charcoal-900 text-forest-800 dark:text-forest-200 border-forest-200 dark:border-forest-800 hover:bg-forest-50 dark:hover:bg-charcoal-800'
+                }`}
+              >
+                <span>💧</span>
+                <span>{isEn ? 'Low Water' : 'Chịu hạn tốt'}</span>
+                {filters.watering === 'drought_tolerant' && <X className="w-3 h-3" />}
+              </button>
+
+              {/* Chip 4: Đã cấp Hộ Chiếu NFT */}
+              <button
+                type="button"
+                onClick={() => handleFilterChange({
+                  ...filters,
+                  tag: filters.tag === 'Hộ Chiếu NFT' ? undefined : 'Hộ Chiếu NFT'
+                })}
+                className={`shrink-0 px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition border cursor-pointer ${
+                  filters.tag === 'Hộ Chiếu NFT'
+                    ? 'bg-gradient-to-r from-amber-600 to-amber-700 text-white border-amber-800 shadow-2xs'
+                    : 'bg-white dark:bg-charcoal-900 text-forest-800 dark:text-forest-200 border-forest-200 dark:border-forest-800 hover:bg-forest-50 dark:hover:bg-charcoal-800'
+                }`}
+              >
+                <span>🛡️</span>
+                <span>{isEn ? 'NFT Passport' : 'Có Hộ Chiếu NFT'}</span>
+                {filters.tag === 'Hộ Chiếu NFT' && <X className="w-3 h-3" />}
+              </button>
+
+              {/* Nút đặt lại nhanh nếu có bộ lọc nào đang bật */}
+              {hasActiveFilters && (
+                <button
+                  type="button"
+                  onClick={handleResetFilters}
+                  className="shrink-0 px-2.5 py-1 rounded-lg text-xs font-semibold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/50 transition flex items-center gap-1 cursor-pointer ml-auto"
+                >
+                  <RotateCcw className="w-3 h-3" />
+                  <span>{isEn ? 'Reset all' : 'Đặt lại'}</span>
+                </button>
+              )}
             </div>
 
             {/* Thanh hiển thị các điều kiện đang lọc (Active filter chips kiểu Shopee/Tiki) */}
@@ -451,18 +795,31 @@ export const HomePage: React.FC<HomePageProps> = ({
               onReset={handleResetFilters}
             />
 
-            {/* Grid hiển thị sản phẩm cây trồng */}
+            {/* Grid hoặc Danh Sách hiển thị sản phẩm cây trồng */}
             {displayedPlants.length > 0 ? (
               <>
-                <div className={`grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 min-h-[50vh] content-start transition-opacity duration-200 ${isGridStale ? 'opacity-60' : 'opacity-100'}`}>
-                  {displayedPlants.map((plant) => (
-                    <PlantCard
-                      key={plant.id}
-                      plant={plant}
-                      onTagClick={(tag) => handleFilterChange({ ...filters, tag })}
-                    />
-                  ))}
-                </div>
+                {viewMode === 'grid' ? (
+                  <div className={`grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 min-h-[50vh] content-start transition-opacity duration-200 ${isGridStale ? 'opacity-60' : 'opacity-100'}`}>
+                    {displayedPlants.map((plant) => (
+                      <PlantCard
+                        key={plant.id}
+                        plant={plant}
+                        onTagClick={(tag) => handleFilterChange({ ...filters, tag })}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <div className={`space-y-3 min-h-[50vh] transition-opacity duration-200 ${isGridStale ? 'opacity-60' : 'opacity-100'}`}>
+                    {displayedPlants.map((plant) => (
+                      <PlantListItem
+                        key={plant.id}
+                        plant={plant}
+                        onTagClick={(tag) => handleFilterChange({ ...filters, tag })}
+                        isEn={isEn}
+                      />
+                    ))}
+                  </div>
+                )}
 
                 {/* Thanh điều hướng xem thêm & mở toàn bộ bách khoa sang tab mới */}
                 {!searchQuery && (
