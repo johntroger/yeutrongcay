@@ -120,9 +120,9 @@ export function getUsernameFromEmail(email?: string | null): string {
 }
 
 /**
- * Danh sách Hộ Chiếu Cây Độc Bản đã xác thực trên Smart Contract Ethereum Sepolia (0x05c59ff29a361ac200decd5d9aa378844535164e)
+ * Danh sách Hộ Chiếu Cây Độc Bản đã xác thực trên Smart Contract Ethereum Sepolia (0x5994cd371311fb1ddc1a3354b6979acd3cd342a7)
  */
-const SEPOLIA_CONTRACT_ADDR = '0x05c59ff29a361ac200decd5d9aa378844535164e';
+const SEPOLIA_CONTRACT_ADDR = '0x5994cd371311fb1ddc1a3354b6979acd3cd342a7';
 
 const DEFAULT_SEED_REGISTRY: RegisteredPlantPassport[] = [
   {
