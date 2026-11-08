@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import {
   ShieldCheck,
   Award,
@@ -7,79 +7,29 @@ import {
   RefreshCw,
   FileCheck2,
   Droplets,
-  Printer,
   Wallet,
   LogOut,
   Copy,
   AlertCircle,
   Sparkles,
-  ExternalLink,
   BookOpen,
   Coins,
-  KeyRound,
   ChevronDown,
-  ChevronRight,
-  X,
-  ArrowLeftRight,
-  Upload,
-  Trash2,
-  Camera,
-  MapPin,
-  Compass,
-  ShieldAlert,
-  Flame
+  X
 } from 'lucide-react';
-import { Web3TestnetPassport, NftAssetClass, ForestGeoSpec } from '../types/index.ts';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { web3WalletService, WalletState } from '../services/web3WalletService.ts';
 import { awardKarmaPoints, getKarmaState, KarmaState } from '../services/karmaService.ts';
 import { plantPassportRegistryService, RegisteredPlantPassport } from '../services/plantPassportRegistryService.ts';
 import { BurnPassportModal } from './BurnPassportModal.tsx';
-import { Web3LearnTab, Web3FaucetTab, Web3EscrowTab, Web3DeFiTab, Web3OwnedPassportsSection } from './web3';
-import { SEED_PLANTS } from '../data/plants.ts';
-import { getPlantBySlug } from '../services/apiService.ts';
 import {
-  NFT_ASSET_CLASSES,
-  NFT_ASSET_CLASSES_LIST,
-  getNftClassConfig,
-  calculateHaversineDistanceKm,
-  saveForestGpsCheckinPass,
-  getValidForestGpsCheckinPass
-} from '../config/ecosystemRegistry.ts';
-
-// 4 giống cây quý bản địa mẫu để cấp hộ chiếu thực vật số
-const SAMPLE_MINT_PLANTS = [
-  {
-    id: 'herb-04',
-    name_vi: 'Đinh Lăng Nếp Lá Nhỏ (3 Năm Tuổi)',
-    name_en: 'Small-Leaf Ming Aralia (3-Year Aged)',
-    scientific: 'Polyscias fruticosa',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Polyscias_fruticosa%2C_Hong_Kong_Park%2C_December_2019_16.jpg/330px-Polyscias_fruticosa%2C_Hong_Kong_Park%2C_December_2019_16.jpg',
-  },
-  {
-    id: 'herb-21',
-    name_vi: 'Sâm Đại Hành Bản Địa',
-    name_en: 'Eleutherine Bulb (Red Garlic Onion)',
-    scientific: 'Eleutherine bulbosa',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Eleutherine_bulbosa_%28Mill.%29_Urb._%287957758778%29.jpg/330px-Eleutherine_bulbosa_%28Mill.%29_Urb._%287957758778%29.jpg',
-  },
-  {
-    id: 'fruit-03',
-    name_vi: 'Ổi Lê Ruột Đỏ Lùn Ban Công',
-    name_en: 'Dwarf Red-Fleshed Guava',
-    scientific: 'Psidium guajava',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Guava_ID.jpg/330px-Guava_ID.jpg',
-  },
-  {
-    id: 'fruit-01',
-    name_vi: 'Cà Chua Bi Lùn Đỏ Mọng',
-    name_en: 'Dwarf Red Cherry Tomato',
-    scientific: 'Solanum lycopersicum var. cerasiforme',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Tomato_je.jpg/330px-Tomato_je.jpg',
-  }
-];
-
-
+  Web3LearnTab,
+  Web3FaucetTab,
+  Web3MintStudioTab,
+  Web3EscrowTab,
+  Web3DeFiTab
+} from './web3';
+import { Web3TestnetPassport } from '../types/index.ts';
 
 // 5 Phân khu học tập Web3 & DeFi Testnet
 export const LEARNING_TABS = [
@@ -165,33 +115,6 @@ export const Web3SandboxSection: React.FC = () => {
   );
   const [isMobileTabDrawerOpen, setIsMobileTabDrawerOpen] = useState(false);
 
-  // Trạng thái đúc hộ chiếu
-  const [mintMode, setMintMode] = useState<'onchain' | 'signature'>('onchain');
-  const [contractAddress, setContractAddress] = useState<string>(() => web3WalletService.getContractAddressForChain(null));
-  const [showContractConfig, setShowContractConfig] = useState(false);
-  const [addedToMetaMask, setAddedToMetaMask] = useState(false);
-  const [plantSource, setPlantSource] = useState<'sample' | 'custom'>('sample');
-  const [selectedPlantIndex, setSelectedPlantIndex] = useState(0);
-  const [customPlantName, setCustomPlantName] = useState('');
-  const [customScientific, setCustomScientific] = useState('');
-  const [customImage, setCustomImage] = useState<string | null>(null);
-  const [customImageSha, setCustomImageSha] = useState<string | null>(null);
-  const [selectedArticleSlug, setSelectedArticleSlug] = useState<string | null>(null);
-  const [targetLedger, setTargetLedger] = useState<string>('Ethereum Sepolia');
-  const [evolutionStage, setEvolutionStage] = useState<1 | 2 | 3>(1);
-  const [isMinting, setIsMinting] = useState(false);
-  const [mintSignature, setMintSignature] = useState<string | null>(null);
-  const [mintedPassport, setMintedPassport] = useState<Web3TestnetPassport | null>(null);
-
-  // 5 Lớp Tài Sản NFT & Xác thực Rừng Sinh Thái GPS (1 NFT = 10.000 m2)
-  const [selectedAssetClass, setSelectedAssetClass] = useState<NftAssetClass>('botanical');
-  const currentNftConfig = getNftClassConfig(selectedAssetClass);
-  void currentNftConfig;
-  const [forestSpec, setForestSpec] = useState<ForestGeoSpec | null>(null);
-  const [gpsCheckinStatus, setGpsCheckinStatus] = useState<'idle' | 'checking' | 'verified' | 'failed'>('idle');
-  const [gpsErrorMsg, setGpsErrorMsg] = useState<string | null>(null);
-  const [gpsDistanceKm, setGpsDistanceKm] = useState<number | null>(null);
-
   // Trạng thái DeFi Nông Nghiệp & Staking Hạt Giống On-chain Thật (100% Testnet Sandbox)
   const [stakeAmount, setStakeAmount] = useState<number>(100);
   const [stakedBalance, setStakedBalance] = useState<number>(() => {
@@ -231,7 +154,6 @@ export const Web3SandboxSection: React.FC = () => {
   });
 
   // Trạng thái Modal Đốt Bỏ & Tái Sinh Hộ Chiếu Thực Vật Số (Burn-to-Reincarnate)
-  // QUY TẮC BẢO MẬT: Chỉ người sở hữu NFT mới được quyền đốt!
   const [isBurnModalOpen, setIsBurnModalOpen] = useState(false);
   const [passportToBurn, setPassportToBurn] = useState<RegisteredPlantPassport | null>(null);
   const [reincarnationNotice, setReincarnationNotice] = useState<string | null>(null);
@@ -275,7 +197,7 @@ export const Web3SandboxSection: React.FC = () => {
       owner_address: passport.owner_address,
       creator_wallet: passport.owner_address,
       network: passport.network,
-      evolution_stage: passport.evolution_stage as any,
+      evolution_stage: passport.evolution_stage as 1 | 2 | 3,
       transaction_hash: passport.transaction_hash,
       contract_address: passport.contract_address || '',
       minted_at: passport.minted_at,
@@ -289,133 +211,23 @@ export const Web3SandboxSection: React.FC = () => {
 
   const handleBurnSuccess = (burnedPassport: RegisteredPlantPassport, txHash: string) => {
     setIsBurnModalOpen(false);
-    setMintedPassport(null);
+    setPassportToBurn(null);
+    loadOwnedPassports();
     setActiveTab('mint');
-    setPlantSource('custom');
-    setCustomPlantName(burnedPassport.plant_name);
-    setCustomScientific(burnedPassport.scientific_name);
-    setCustomImage(null);
-    setCustomImageSha(null);
     setReincarnationNotice(
       isEn
         ? `Passport #${burnedPassport.token_id} was successfully burned on-chain (Tx: ${txHash.slice(0, 10)}...)! The exclusivity lock is released with a 24h exclusive priority for your wallet. Upload a new photo and re-mint now!`
         : `Hộ Chiếu #${burnedPassport.token_id} đã được hóa vàng on-chain thành công (Tx: ${txHash.slice(0, 10)}...)! Khóa độc bản được giải phóng và ưu tiên riêng cho ví của bạn trong 24 giờ tới. Hãy tải ảnh mới và đúc lại ngay bây giờ!`
     );
-  };
-
-  // Tự động nạp thông tin loài cây khi bấm "Tạo NFT" từ bài viết (?mint=<slug>)
-  useEffect(() => {
-    if (!mintSlugParam) return;
-    setActiveTab('mint');
-    const classParam = searchParams.get('class') as NftAssetClass | null;
-    if (classParam && classParam in NFT_ASSET_CLASSES) {
-      setSelectedAssetClass(classParam);
-    }
-    const applyArticlePlant = (p: {
-      slug: string;
-      common_name: string;
-      scientific_name: string;
-      image_url: string;
-      image_sha256?: string;
-      category?: string;
-      nft_class?: NftAssetClass;
-      forest_spec?: ForestGeoSpec;
-    }) => {
-      setSelectedArticleSlug(p.slug);
-      setPlantSource('custom');
-      setCustomPlantName(p.common_name);
-      setCustomScientific(p.scientific_name);
-      setCustomImage(p.image_url);
-      setCustomImageSha(p.image_sha256 || null);
-      if (p.nft_class) {
-        setSelectedAssetClass(p.nft_class);
-      } else if (p.category === 'forest') {
-        setSelectedAssetClass('geo_forest_10000m2');
-      } else if (p.category === 'space') {
-        setSelectedAssetClass('space_method');
-      } else if (p.category === 'recycle') {
-        setSelectedAssetClass('eco_invention');
-      } else if (p.category === 'culinary') {
-        setSelectedAssetClass('culinary_recipe');
-      } else {
-        setSelectedAssetClass('botanical');
-      }
-      if (p.forest_spec) {
-        setForestSpec(p.forest_spec);
-      }
-    };
-
-    const seedMatch = SEED_PLANTS.find((p) => p.slug === mintSlugParam || p.id === mintSlugParam);
-    if (seedMatch) {
-      applyArticlePlant(seedMatch);
-    } else {
-      getPlantBySlug(mintSlugParam)
-        .then((livePlant) => {
-          if (livePlant) applyArticlePlant(livePlant as unknown as Parameters<typeof applyArticlePlant>[0]);
-        })
-        .catch(() => {});
-    }
-  }, [mintSlugParam]);
-
-  // Kiểm tra thẻ thông hành GPS 24h đã lưu cho khu rừng
-  useEffect(() => {
-    if (selectedAssetClass === 'geo_forest_10000m2' && selectedArticleSlug) {
-      const pass = getValidForestGpsCheckinPass(selectedArticleSlug);
-      if (pass) {
-        setGpsCheckinStatus('verified');
-        setGpsDistanceKm(pass.distanceKm);
-      } else {
-        setGpsCheckinStatus('idle');
-      }
-    }
-  }, [selectedAssetClass, selectedArticleSlug]);
-
-  const handleGpsCheckin = (simulate = false) => {
-    const targetLat = forestSpec?.center_lat || 20.3167; // Mặc định Cúc Phương
-    const targetLng = forestSpec?.center_lng || 105.6083;
-    const radiusKm = forestSpec?.radius_km || 15;
-
-    if (simulate) {
-      const simulatedLat = targetLat + 0.01;
-      const simulatedLng = targetLng + 0.01;
-      const dist = calculateHaversineDistanceKm(simulatedLat, simulatedLng, targetLat, targetLng);
-      saveForestGpsCheckinPass(selectedArticleSlug || 'forest', simulatedLat, simulatedLng, dist);
-      setGpsCheckinStatus('verified');
-      setGpsDistanceKm(dist);
-      setGpsErrorMsg(null);
-      return;
-    }
-
-    if (!navigator.geolocation) {
-      setGpsErrorMsg('Trình duyệt của bạn không hỗ trợ định vị GPS.');
-      setGpsCheckinStatus('failed');
-      return;
-    }
-
-    setGpsCheckinStatus('checking');
-    setGpsErrorMsg(null);
-
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        const userLat = pos.coords.latitude;
-        const userLng = pos.coords.longitude;
-        const dist = calculateHaversineDistanceKm(userLat, userLng, targetLat, targetLng);
-        setGpsDistanceKm(dist);
-
-        if (dist <= radiusKm) {
-          saveForestGpsCheckinPass(selectedArticleSlug || 'forest', userLat, userLng, dist);
-          setGpsCheckinStatus('verified');
-          setGpsErrorMsg(null);
-        } else {
-          setGpsCheckinStatus('failed');
-          setGpsErrorMsg(`Vị trí của bạn cách tâm khu rừng ${dist.toFixed(1)} km (bán kính vùng rừng cho phép: ${radiusKm} km). Bạn cần ở trong khu vực rừng để đúc NFT!`);
+    window.dispatchEvent(
+      new CustomEvent('ytc_passport_reincarnate_ready', {
+        detail: {
+          plantName: burnedPassport.plant_name,
+          scientificName: burnedPassport.scientific_name,
+          tokenId: burnedPassport.token_id,
+          txHash: txHash
         }
-      },
-      (err) => {
-        setGpsCheckinStatus('failed');
-        setGpsErrorMsg(`Không thể lấy tọa độ GPS (${err.message}). Vui lòng cho phép quyền truy cập vị trí trên trình duyệt!`);
-      },
-      { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
+      })
     );
   };
 
@@ -499,14 +311,12 @@ export const Web3SandboxSection: React.FC = () => {
   const handleDisconnect = () => {
     web3WalletService.disconnect();
     setWallet(null);
-    setMintSignature(null);
   };
 
   // Chuyển mạng sang Testnet (Ưu tiên Sepolia hoặc Base Sepolia)
   const handleSwitchNetwork = async () => {
     setWalletError(null);
     try {
-      // Ưu tiên chuyển sang Ethereum Sepolia Testnet
       await web3WalletService.switchToSepolia();
       const fresh = await web3WalletService.syncCurrentWalletState();
       if (fresh) {
@@ -514,7 +324,6 @@ export const Web3SandboxSection: React.FC = () => {
       }
     } catch (err: unknown) {
       try {
-        // Fallback chuyển sang Base Sepolia nếu Sepolia gặp lỗi
         await web3WalletService.switchToBaseSepolia();
         const fresh = await web3WalletService.syncCurrentWalletState();
         if (fresh) {
@@ -570,7 +379,6 @@ export const Web3SandboxSection: React.FC = () => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
 
-      // Thưởng điểm học tập Faucet 0đ (1 lần trong phiên)
       if (!hasClaimedFaucetReward) {
         awardKarmaPoints(
           10,
@@ -590,41 +398,6 @@ export const Web3SandboxSection: React.FC = () => {
     }
   };
 
-  // Tạo hàm băm SHA-256 từ chuỗi dữ liệu cây trồng
-  const generateSha256 = async (input: string): Promise<string> => {
-    try {
-      const msgBuffer = new TextEncoder().encode(input);
-      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
-    } catch {
-      return 'c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c19f8a3c21a4e5b6c7d8e9f0a1b2';
-    }
-  };
-
-  // Xử lý tải ảnh cây thật của người dùng
-  const handleCustomImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    if (file.size > 5 * 1024 * 1024) {
-      setWalletError(isEn ? 'Image size must be under 5MB' : 'Dung lượng ảnh tối đa 5MB');
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = async (ev) => {
-      const dataUrl = ev.target?.result as string;
-      setCustomImage(dataUrl);
-      setPlantSource('custom');
-      if (!customPlantName) {
-        const rawName = file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
-        setCustomPlantName(rawName.charAt(0).toUpperCase() + rawName.slice(1));
-      }
-      const hash = await generateSha256(dataUrl.slice(0, 8000) + file.size + file.name);
-      setCustomImageSha(hash);
-    };
-    reader.readAsDataURL(file);
-  };
-
   // Chuyển mạng trực tiếp sang bất kỳ Testnet nào
   const handleSwitchToSpecificNetwork = async (chainIdHex: string) => {
     setWalletError(null);
@@ -638,36 +411,11 @@ export const Web3SandboxSection: React.FC = () => {
     }
   };
 
-  // Xử lý chọn sổ cái tùy chọn
-  const handleLedgerSelect = async (newLedger: string) => {
-    setTargetLedger(newLedger);
-    if (!wallet?.isConnected) return;
-    try {
-      if (newLedger === 'Ethereum Sepolia') {
-        await web3WalletService.switchToSepolia();
-      } else if (newLedger === 'Base Sepolia') {
-        await web3WalletService.switchToBaseSepolia();
-      } else if (newLedger === 'BNB Smart Chain Testnet') {
-        await web3WalletService.switchToNetwork('0x61');
-      } else if (newLedger === 'Polygon Amoy') {
-        await web3WalletService.switchToNetwork('0x13882');
-      } else if (newLedger === 'Arbitrum Sepolia') {
-        await web3WalletService.switchToNetwork('0x66eee');
-      }
-      const fresh = await web3WalletService.syncCurrentWalletState();
-      if (fresh) setWallet(fresh);
-    } catch (err: unknown) {
-      const e = err as { message?: string };
-      setWalletError(e.message || (isEn ? 'Failed to switch ledger network' : 'Lỗi khi chuyển đổi sổ cái trên ví'));
-    }
-  };
-
-  // 1. GỬI HẠT GIỐNG VÀO STAKING ON-CHAIN THẬT (Giao dịch Smart Contract Testnet qua MetaMask/Rabby)
+  // 1. GỬI HẠT GIỐNG VÀO STAKING ON-CHAIN THẬT
   const handleStakeSeeds = async () => {
     if (stakeAmount <= 0) return;
     setWalletError(null);
 
-    // Bắt buộc phải kết nối ví Web3 thật
     if (!wallet || !wallet.isConnected) {
       setWalletError(
         isEn
@@ -677,7 +425,6 @@ export const Web3SandboxSection: React.FC = () => {
       return;
     }
 
-    // Kiểm tra an toàn: Không cho phép chạy trên Mainnet
     if (wallet.isMainnetDanger || !wallet.isCorrectNetwork) {
       setWalletError(
         isEn
@@ -691,21 +438,20 @@ export const Web3SandboxSection: React.FC = () => {
     setStakingNotice(null);
 
     try {
-      // Gửi giao dịch on-chain thật lên Testnet
       const realTxHash = await web3WalletService.stakeSeedsOnChain(
         stakeAmount,
         wallet.address as `0x${string}`,
         wallet.chainId
       );
 
-      const newStaked = stakedBalance + stakeAmount;
-      setStakedBalance(newStaked);
-      localStorage.setItem('ytc_testnet_staked_seeds', String(newStaked));
+      const nextStaked = stakedBalance + stakeAmount;
+      setStakedBalance(nextStaked);
+      localStorage.setItem('ytc_testnet_staked_seeds', String(nextStaked));
 
       const txRecord = {
         hash: realTxHash,
         type: 'stake' as const,
-        title: isEn ? `Staked ${stakeAmount} Seeds on ${wallet.networkName}` : `Gửi Staking ${stakeAmount} Hạt Giống trên ${wallet.networkName}`,
+        title: isEn ? `Staked ${stakeAmount} Heirloom Seeds` : `Đã gửi ${stakeAmount} Hạt Giống Bản Địa`,
         chainId: wallet.chainId,
         timestamp: new Date().toLocaleTimeString('vi-VN')
       };
@@ -714,38 +460,38 @@ export const Web3SandboxSection: React.FC = () => {
 
       setStakingNotice(
         isEn
-          ? `On-chain Staking tx broadcasted! Tx: ${realTxHash.slice(0, 10)}... (APY: 12.5%/year)`
-          : `Giao dịch Staking on-chain thật đã được gửi lên Testnet! Tx: ${realTxHash.slice(0, 10)}... (Lợi suất APY: 12.5%/năm)`
+          ? `Successfully staked ${stakeAmount} Seeds on-chain! Tx: ${realTxHash.slice(0, 10)}...`
+          : `Đã gửi thành công ${stakeAmount} hạt giống vào Staking Vault on-chain! Tx: ${realTxHash.slice(0, 10)}...`
       );
 
       awardKarmaPoints(
         20,
-        `Gửi Staking ${stakeAmount} hạt giống On-chain thật trên ${wallet.networkName}`,
-        `Executed real on-chain Seed Staking on ${wallet.networkName}`,
+        `Gửi Staking ${stakeAmount} hạt giống On-chain trên ${wallet.networkName}`,
+        `Staked ${stakeAmount} seeds on-chain on ${wallet.networkName}`,
         { isTestnet: true, isEn, txHash: realTxHash }
       );
       setRewardNotice({
         points: 20,
-        title: isEn ? 'Real On-chain Staking Confirmed (+20 Hearts ❤️)' : 'Giao Dịch Staking On-chain Thật (+20 Trái Tim ❤️)',
+        title: isEn ? 'On-chain Staking Reward (+20 Hearts ❤️)' : 'Thưởng Gửi Staking On-chain (+20 Trái Tim ❤️)',
         desc: isEn
-          ? `Your seeds are staked in the testnet smart contract! Tx: ${realTxHash.slice(0, 10)}...`
-          : `Hạt giống của bạn đã được khóa vào Smart Contract Testnet thật! Tx: ${realTxHash.slice(0, 10)}...`
+          ? `Smart contract transaction confirmed on ${wallet.networkName}! Tx: ${realTxHash.slice(0, 10)}...`
+          : `Giao dịch Smart contract đã ghi nhận thành công trên ${wallet.networkName}! Tx: ${realTxHash.slice(0, 10)}...`
       });
     } catch (err: unknown) {
       const e = err as { message?: string };
-      setWalletError(e.message || (isEn ? 'Staking transaction failed or rejected.' : 'Giao dịch Staking on-chain bị từ chối hoặc thất bại.'));
+      setWalletError(e.message || (isEn ? 'On-chain Staking transaction rejected or failed' : 'Giao dịch Staking on-chain bị từ chối hoặc thất bại'));
     } finally {
       setIsStakingRunning(false);
     }
   };
 
-  // 2. THU HOẠCH LỢI SUẤT PHÂN BÓN VI SINH ON-CHAIN THẬT
+  // 2. THU HOẠCH PHÂN BÓN SINH HỌC (HARVEST YIELD) ON-CHAIN THẬT
   const handleClaimYield = async () => {
     if (accumulatedYield <= 0) return;
     setWalletError(null);
 
     if (!wallet || !wallet.isConnected) {
-      setWalletError(isEn ? 'Please connect your Web3 wallet first!' : 'Vui lòng kết nối ví Web3 thật trước khi thu hoạch!');
+      setWalletError(isEn ? 'Please connect your Web3 wallet first!' : 'Vui lòng kết nối ví Web3 để thu hoạch!');
       return;
     }
 
@@ -783,7 +529,7 @@ export const Web3SandboxSection: React.FC = () => {
 
       awardKarmaPoints(
         15,
-        `Thu hoạch lợi suất Staking on-chain trên ${wallet.networkName}`,
+        `Thu hoạch lãi suất Staking on-chain trên ${wallet.networkName}`,
         `Harvested Bio-fertilizer yield on-chain on ${wallet.networkName}`,
         { isTestnet: true, isEn, txHash: realTxHash }
       );
@@ -838,24 +584,24 @@ export const Web3SandboxSection: React.FC = () => {
       );
       setRewardNotice({
         points: 25,
-        title: isEn ? 'On-Chain Carbon Offset Retired! (+25 Hearts ❤️)' : 'Chứng Nhận Bù Trừ Carbon On-chain! (+25 Trái Tim ❤️)',
+        title: isEn ? 'On-chain Carbon Offset Retired! (+25 Hearts ❤️)' : 'Bù Trừ Carbon Rừng On-chain! (+25 Trái Tim ❤️)',
         desc: isEn
-          ? `You retired ${hectares * 15} tons CO2 on ${wallet.networkName}! Tx: ${realTxHash.slice(0, 10)}...`
-          : `Bạn đã bù trừ thành công ${hectares * 15} tấn CO2 on-chain thật trên ${wallet.networkName}! Tx: ${realTxHash.slice(0, 10)}...`
+          ? `Smart contract burned testnet carbon credits! Tx: ${realTxHash.slice(0, 10)}...`
+          : `Giao dịch Smart contract đã thiêu hủy chứng chỉ carbon bảo vệ rừng! Tx: ${realTxHash.slice(0, 10)}...`
       });
     } catch (err: unknown) {
       const e = err as { message?: string };
-      setWalletError(e.message || (isEn ? 'Carbon offset transaction rejected or failed' : 'Giao dịch bù trừ Carbon on-chain bị từ chối hoặc thất bại'));
+      setWalletError(e.message || (isEn ? 'Carbon offset transaction rejected' : 'Giao dịch bù trừ carbon on-chain bị từ chối'));
     } finally {
       setIsCarbonRetiring(false);
     }
   };
 
-  // 4. BỎ PHIẾU QUẢN TRỊ DAO ON-CHAIN THẬT
+  // 4. BỎ PHIẾU QUẢN TRỊ DAO NÔNG NGHIỆP ON-CHAIN THẬT
   const handleVoteDao = async (choice: 'yes' | 'no') => {
     setWalletError(null);
     if (!wallet || !wallet.isConnected) {
-      setWalletError(isEn ? 'Please connect your Web3 wallet to vote on-chain!' : 'Vui lòng kết nối ví Web3 để bỏ phiếu DAO on-chain!');
+      setWalletError(isEn ? 'Please connect your Web3 wallet to vote in DAO!' : 'Vui lòng kết nối ví Web3 để bỏ phiếu DAO!');
       return;
     }
     if (wallet.isMainnetDanger || !wallet.isCorrectNetwork) {
@@ -875,15 +621,15 @@ export const Web3SandboxSection: React.FC = () => {
       setDaoVoteChoice(choice);
       localStorage.setItem('ytc_testnet_dao_voted', choice);
       if (choice === 'yes') {
-        setDaoYesCount((prev) => prev + 1);
+        setDaoYesCount(prev => prev + 1);
       } else {
-        setDaoNoCount((prev) => prev + 1);
+        setDaoNoCount(prev => prev + 1);
       }
 
       const txRecord = {
         hash: realTxHash,
         type: 'vote' as const,
-        title: isEn ? `Cast DAO Vote [${choice.toUpperCase()}] on Proposal #04` : `Bỏ phiếu DAO [${choice === 'yes' ? 'ĐỒNG Ý' : 'BÁC BỎ'}] Đề xuất #04`,
+        title: isEn ? `Cast vote [${choice.toUpperCase()}] on Proposal #4` : `Đã bỏ phiếu [${choice === 'yes' ? 'TÁN THÀNH' : 'PHẢN ĐỐI'}] Đề xuất #4`,
         chainId: wallet.chainId,
         timestamp: new Date().toLocaleTimeString('vi-VN')
       };
@@ -892,8 +638,8 @@ export const Web3SandboxSection: React.FC = () => {
 
       awardKarmaPoints(
         20,
-        `Bỏ phiếu DAO On-chain cho đề xuất bảo tồn Sâm Đại Hành (${choice.toUpperCase()})`,
-        `Cast on-chain DAO vote for Wild Ginseng proposal (${choice.toUpperCase()})`,
+        `Bỏ phiếu DAO On-chain cho đề xuất bảo tồn ngân hàng hạt giống`,
+        `Voted on-chain on Seed Bank conservation proposal #4`,
         { isTestnet: true, isEn, txHash: realTxHash }
       );
       setRewardNotice({
@@ -911,272 +657,6 @@ export const Web3SandboxSection: React.FC = () => {
     }
   };
 
-  // Ký số xác nhận hoặc Đúc Hộ Chiếu On-chain thật
-  const handleMintWithRealWallet = async () => {
-    if (!wallet || !wallet.isConnected) {
-      setWalletError(isEn ? 'Please connect your real Web3 wallet first!' : 'Vui lòng kết nối ví Web3 thật trước khi ký số!');
-      return;
-    }
-
-    if (wallet.isMainnetDanger || !wallet.isCorrectNetwork) {
-      setWalletError(
-        isEn
-          ? 'Transaction blocked for your safety! You are currently connected to Mainnet (Real Money). Please switch to a Testnet to practice safely.'
-          : 'Giao dịch bị chặn để bảo vệ tài sản! Bạn đang kết nối mạng Mainnet (Tiền thật). Vui lòng đổi sang mạng Testnet (Ethereum Sepolia hoặc Base Sepolia) để học tập an toàn 0đ.'
-      );
-      return;
-    }
-
-    setWalletError(null);
-    setIsMinting(true);
-    setAddedToMetaMask(false);
-    const isCustom = plantSource === 'custom' && !!customImage;
-    const chosenSample = SAMPLE_MINT_PLANTS[selectedPlantIndex];
-    const plantNameVi = isCustom ? (customPlantName.trim() || 'Cây Trồng Của Tôi') : chosenSample.name_vi;
-    const plantNameEn = isCustom ? (customPlantName.trim() || 'My Botanical Plant') : chosenSample.name_en;
-    const scientificName = isCustom ? (customScientific.trim() || 'Plantae Indigena') : chosenSample.scientific;
-    const plantImg = isCustom ? customImage! : chosenSample.image;
-    const timestampStr = new Date().toISOString();
-    const sha = (isCustom && customImageSha) ? customImageSha : await generateSha256(scientificName + timestampStr + evolutionStage + wallet.address);
-    const randomToken = Math.floor(1000 + Math.random() * 9000);
-    const activeNetwork = targetLedger || wallet.networkName || 'Ethereum Sepolia';
-    const isForestClass = selectedAssetClass === 'geo_forest_10000m2';
-    const forestSlug = selectedArticleSlug || plantPassportRegistryService.normalizeAssetKey(plantNameVi, '', 'geo_forest_10000m2');
-    const totalAreaM2 = forestSpec?.total_area_m2 || 1000000;
-    const forestStats = isForestClass ? plantPassportRegistryService.getForestMintedAreaStats(forestSlug, totalAreaM2) : null;
-    const lotNumber = forestStats ? forestStats.nextLotNumber : undefined;
-
-    // Kiểm tra định vị GPS nếu là lớp Rừng sinh thái (10.000 m2 / NFT)
-    if (isForestClass && gpsCheckinStatus !== 'verified') {
-      setWalletError(isEn ? 'Please complete the device GPS check-in to confirm you are in this forest zone!' : 'Vui lòng xác thực GPS (hoặc Thẻ thông hành 24h) để chứng minh bạn đang có mặt tại khu rừng này trước khi đúc NFT!');
-      setIsMinting(false);
-      return;
-    }
-
-    if (isForestClass && forestStats?.isSoldOut) {
-      setWalletError('Khu rừng này đã được bảo trợ 100% diện tích các lô NFT! Không thể đúc thêm.');
-      setIsMinting(false);
-      return;
-    }
-
-    // KIỂM TRA ĐỘC BẢN TUYỆT ĐỐI (Exclusivity Rule - Chặn đúc trùng lặp)
-    const exclusivity = plantPassportRegistryService.checkPlantExclusivity({
-      plantName: plantNameVi,
-      scientificName: scientificName,
-      sha256: sha,
-      walletAddress: wallet.address,
-      nftClass: selectedAssetClass,
-      forestSlug: isForestClass ? forestSlug : undefined,
-      lotNumber: lotNumber,
-      totalAreaM2: totalAreaM2
-    });
-
-    if (!exclusivity.isAllowed) {
-      setWalletError(exclusivity.reason || (isEn ? 'This specimen already has a unique Master NFT Passport in yeutrongcay.com!' : 'Tài sản này đã được cấp Hộ Chiếu Độc Bản trước đó trong thế giới Yêu Trồng Cây!'));
-      setIsMinting(false);
-      return;
-    }
-
-    const effectiveTokenId = isForestClass ? String(lotNumber) : String(randomToken);
-    const finalDisplayName = isForestClass ? `${plantNameVi} - Lô #${lotNumber} (10.000 m²)` : plantNameVi;
-    const finalDisplayNameEn = isForestClass ? `${plantNameEn} - Lot #${lotNumber} (10,000 m²)` : plantNameEn;
-
-    // 1. CHẾ ĐỘ 1: ĐÚC NFT ON-CHAIN THẬT (Gửi transaction gọi Smart Contract qua MetaMask)
-    if (mintMode === 'onchain') {
-      try {
-        // Tự động kiểm tra và chuyển MetaMask sang đúng mạng với Sổ cái đã chọn
-        if (targetLedger === 'Ethereum Sepolia') {
-          const currentChain = wallet.chainId?.toLowerCase();
-          if (currentChain !== '0xaa36a7' && currentChain !== '11155111') {
-            await web3WalletService.switchToSepolia();
-            const fresh = await web3WalletService.syncCurrentWalletState();
-            if (fresh) setWallet(fresh);
-          }
-        } else if (targetLedger === 'Base Sepolia') {
-          const currentChain = wallet.chainId?.toLowerCase();
-          if (currentChain !== '0x14a34' && currentChain !== '84532') {
-            await web3WalletService.switchToBaseSepolia();
-            const fresh = await web3WalletService.syncCurrentWalletState();
-            if (fresh) setWallet(fresh);
-          }
-        } else if (targetLedger === 'BNB Smart Chain Testnet') {
-          const currentChain = wallet.chainId?.toLowerCase();
-          if (currentChain !== '0x61' && currentChain !== '97') {
-            await web3WalletService.switchToNetwork('0x61');
-            const fresh = await web3WalletService.syncCurrentWalletState();
-            if (fresh) setWallet(fresh);
-          }
-        } else if (targetLedger === 'Polygon Amoy') {
-          const currentChain = wallet.chainId?.toLowerCase();
-          if (currentChain !== '0x13882' && currentChain !== '80002') {
-            await web3WalletService.switchToNetwork('0x13882');
-            const fresh = await web3WalletService.syncCurrentWalletState();
-            if (fresh) setWallet(fresh);
-          }
-        } else if (targetLedger === 'Arbitrum Sepolia') {
-          const currentChain = wallet.chainId?.toLowerCase();
-          if (currentChain !== '0x66eee' && currentChain !== '421614') {
-            await web3WalletService.switchToNetwork('0x66eee');
-            const fresh = await web3WalletService.syncCurrentWalletState();
-            if (fresh) setWallet(fresh);
-          }
-        }
-
-        const targetContract = (contractAddress.trim() || web3WalletService.getContractAddressForChain(wallet.chainId)) as `0x${string}`;
-
-        // Chuẩn bị Metadata JSON chuẩn ERC-721
-        const metadataJson = JSON.stringify({
-          name: `${finalDisplayName} #${effectiveTokenId}`,
-          description: `Hộ Chiếu Cây Trồng Số On-chain - Yêu Trồng Cây (yeutrongcay.com). Lớp tài sản: ${selectedAssetClass}. Mã SHA-256: ${sha}`,
-          image: plantImg,
-          attributes: [
-            { trait_type: 'Loài Cây', value: plantNameVi },
-            { trait_type: 'Tên Khoa Học', value: scientificName },
-            { trait_type: 'Lớp Tài Sản', value: selectedAssetClass },
-            { trait_type: 'Giai Đoạn', value: `${evolutionStage}/3` },
-            { trait_type: 'Bằng Chứng SHA-256', value: sha },
-            { trait_type: 'Sổ Cái', value: activeNetwork },
-            ...(isForestClass ? [{ trait_type: 'Diện Tích Lô', value: '10,000 m2 (1 ha)' }, { trait_type: 'Số Lô', value: String(lotNumber) }] : [])
-          ]
-        });
-        const tokenURI = `data:application/json;utf8,${encodeURIComponent(metadataJson)}`;
-
-        // Gửi transaction on-chain thật lên MetaMask
-        const realTxHash = await web3WalletService.mintPassportOnChain({
-          contractAddress: targetContract,
-          userAddress: wallet.address as `0x${string}`,
-          plantName: finalDisplayName,
-          scientificName: scientificName,
-          stage: evolutionStage,
-          sha256Proof: sha,
-          uri: tokenURI
-        });
-
-        setMintedPassport({
-          token_id: `#${effectiveTokenId}`,
-          plant_name: isEn ? finalDisplayNameEn : finalDisplayName,
-          scientific_name: scientificName,
-          owner_address: wallet.address,
-          minted_at: new Date().toLocaleString('vi-VN'),
-          image_url: plantImg,
-          image_sha256: sha,
-          network: activeNetwork,
-          evolution_stage: evolutionStage,
-          transaction_hash: realTxHash,
-          is_testnet: true,
-          is_onchain: true,
-          contract_address: targetContract
-        });
-
-        // Ghi danh vào Sổ Đăng Ký Hộ Chiếu Độc Bản Hệ Thống
-        plantPassportRegistryService.registerPassport({
-          token_id: effectiveTokenId,
-          plant_name: finalDisplayName,
-          scientific_name: scientificName,
-          image_url: plantImg,
-          image_sha256: sha,
-          owner_address: wallet.address,
-          network: activeNetwork,
-          evolution_stage: evolutionStage,
-          transaction_hash: realTxHash,
-          contract_address: targetContract,
-          minted_at: new Date().toLocaleString('vi-VN'),
-          is_onchain: true,
-          nft_class: selectedAssetClass,
-          forest_slug: isForestClass ? forestSlug : undefined,
-          lot_number: lotNumber,
-          forest_area_m2: isForestClass ? 10000 : undefined
-        });
-
-        awardKarmaPoints(
-          50,
-          `Đúc thành công NFT Hộ Chiếu Cây On-chain trên ${activeNetwork}`,
-          `Minted Real On-chain NFT Plant Passport on ${activeNetwork}`,
-          { isTestnet: true, isEn, txHash: realTxHash }
-        );
-        setRewardNotice({
-          points: 50,
-          title: isEn ? 'Real On-chain NFT Minted! (+50 Hearts ❤️)' : 'Đúc Thành Công NFT On-chain Thật! (+50 Trái Tim ❤️)',
-          desc: isEn
-            ? `Your plant passport NFT is live on blockchain! Tx: ${realTxHash.slice(0, 10)}...`
-            : `Hộ Chiếu Cây Trồng Số của bạn đã ghi nhận on-chain thành công! Tx: ${realTxHash.slice(0, 10)}...`
-        });
-      } catch (err: unknown) {
-        const e = err as { message?: string };
-        setWalletError(e.message || (isEn ? 'On-chain NFT transaction rejected or failed' : 'Giao dịch đúc NFT trên blockchain bị từ chối hoặc thất bại'));
-      } finally {
-        setIsMinting(false);
-      }
-      return;
-    }
-
-    // 2. CHẾ ĐỘ 2: KÝ SỐ MẬT MÃ HỌC 0Đ GAS (Cryptographic Signature Proof)
-    const simulatedTx = '0x' + Array.from({ length: 8 }, () => Math.floor(Math.random() * 16).toString(16)).join('') + '...' + Array.from({ length: 4 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
-
-    try {
-      // Yêu cầu ví thật ký xác nhận thông điệp mật mã học (personal_sign)
-      const signMsg = `Yêu Trồng Cây - Đúc Hộ Chiếu Thực Vật Số\nLoài Cây: ${finalDisplayName} (${scientificName})\nLớp Tài Sản: ${selectedAssetClass}\nGiai Đoạn: ${evolutionStage}/3\nBằng Chứng SHA-256: ${sha}\nVí Sở Hữu Thật: ${wallet.address}\nSổ Cái Blockchain: ${activeNetwork} (0đ Gas)\nThời Gian Ký: ${new Date().toLocaleString('vi-VN')}`;
-      
-      const sig = await web3WalletService.signBotanicalRecord(wallet.address, signMsg);
-      setMintSignature(sig);
-
-      setMintedPassport({
-        token_id: `#${effectiveTokenId}`,
-        plant_name: isEn ? finalDisplayNameEn : finalDisplayName,
-        scientific_name: scientificName,
-        owner_address: wallet.address,
-        minted_at: new Date().toLocaleString('vi-VN'),
-        image_url: plantImg,
-        image_sha256: sha,
-        network: activeNetwork,
-        evolution_stage: evolutionStage,
-        transaction_hash: simulatedTx,
-        is_testnet: true,
-        is_onchain: false
-      });
-
-      // Ghi danh vào Sổ Đăng Ký Hộ Chiếu Độc Bản Hệ Thống
-      plantPassportRegistryService.registerPassport({
-        token_id: effectiveTokenId,
-        plant_name: finalDisplayName,
-        scientific_name: scientificName,
-        image_url: plantImg,
-        image_sha256: sha,
-        owner_address: wallet.address,
-        network: activeNetwork,
-        evolution_stage: evolutionStage,
-        transaction_hash: simulatedTx,
-        contract_address: '0x0000000000000000000000000000000000000000',
-        minted_at: new Date().toLocaleString('vi-VN'),
-        is_onchain: false,
-        nft_class: selectedAssetClass,
-        forest_slug: isForestClass ? forestSlug : undefined,
-        lot_number: lotNumber,
-        forest_area_m2: isForestClass ? 10000 : undefined
-      });
-
-      // Tự động thưởng Điểm Karma Uy Tín khi ký số & đúc Hộ Chiếu thành công trên Testnet
-      awardKarmaPoints(
-        25,
-        `Đúc thành công Hộ Chiếu Cây Số ${plantNameVi} (${activeNetwork} 0đ)`,
-        `Minted Digital Plant Passport for ${plantNameEn} (${activeNetwork} 0đ)`,
-        { isTestnet: true, isEn, txHash: simulatedTx }
-      );
-      setRewardNotice({
-        points: 25,
-        title: isEn ? 'Passport Minting Reward (+25 Hearts ❤️)' : 'Thưởng Đúc Hộ Chiếu Cây Testnet (+25 Trái Tim ❤️)',
-        desc: isEn
-          ? `You successfully signed with your real wallet to create a digital genetic plant passport on ${activeNetwork}!`
-          : `Bạn đã dùng ví thật ký số mật mã học thành công cấp Hộ Chiếu Cây trên sổ cái ${activeNetwork}!`
-      });
-    } catch (err: unknown) {
-      const e = err as { message?: string };
-      setWalletError(e.message || (isEn ? 'Wallet signature rejected or failed.' : 'Ký số trên ví thất bại hoặc đã hủy.'));
-    } finally {
-      setIsMinting(false);
-    }
-  };
-
   const handleRunEscrowStep = () => {
     if (escrowStep < 3) {
       setIsEscrowSimulating(true);
@@ -1185,7 +665,6 @@ export const Web3SandboxSection: React.FC = () => {
         const nextStep = (escrowStep + 1) as 1 | 2 | 3;
         setEscrowStep(nextStep);
 
-        // Khi bước 3 hoàn tất (Nghiệm thu thành công, cây sống tốt -> Hoàn trả cọc & Thưởng Trái Tim)
         if (nextStep === 3) {
           awardKarmaPoints(
             15,
@@ -1246,7 +725,7 @@ export const Web3SandboxSection: React.FC = () => {
 
           {/* Right: Trạng thái Kết nối Ví Thật & Điểm Trái Tim Yêu Vườn */}
           <div className="flex items-center gap-2.5 flex-wrap">
-            {/* Badge Trái Tim Yêu Cây (Học Testnet Nhận Thưởng) */}
+            {/* Badge Trái Tim Yêu Cây */}
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-forest-50 dark:bg-forest-950/90 border border-rose-500/40 text-xs shadow-sm">
               <span className="text-base leading-none">{karmaState.badge.icon || '❤️'}</span>
               <div>
@@ -1262,295 +741,186 @@ export const Web3SandboxSection: React.FC = () => {
               </span>
             </div>
 
-            {!wallet || !wallet.isConnected ? (
+            {/* Trạng thái Ví Thật */}
+            {wallet?.isConnected ? (
               <div className="flex items-center gap-2 flex-wrap">
-                <button
-                  onClick={handleConnectWallet}
-                  disabled={isConnecting}
-                  className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 active:scale-[0.99] text-forest-950 font-bold text-xs flex items-center gap-2 shadow-md transition"
-                >
-                  {isConnecting ? (
-                    <RefreshCw className="w-4 h-4 animate-spin" />
-                  ) : (
-                    <Wallet className="w-4 h-4" />
-                  )}
-                  <span>{isEn ? 'Connect Real Web3 Wallet' : 'Kết Nối Ví Web3 Thật'}</span>
-                </button>
-              </div>
-            ) : (
-              <div className="flex items-center gap-2 flex-wrap">
-                {/* Badge địa chỉ ví thật */}
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-forest-50 dark:bg-forest-950 border border-forest-200 dark:border-forest-800 text-xs shadow-xs">
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse"></span>
-                  <span className="font-semibold text-forest-950 dark:text-white text-xs">{wallet.walletName}</span>
-                  <span className="font-mono text-emerald-700 dark:text-emerald-300 text-xs">
+                {wallet.isMainnetDanger && (
+                  <div className="px-3 py-1.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-600 dark:text-rose-400 text-xs flex items-center gap-1.5 animate-pulse">
+                    <AlertCircle className="w-3.5 h-3.5" />
+                    <span className="font-bold">{isEn ? 'MAINNET DANGER!' : 'CẢNH BÁO TIỀN THẬT!'}</span>
+                    <button
+                      onClick={handleSwitchNetwork}
+                      className="ml-1 px-2 py-0.5 rounded-lg bg-rose-600 text-white font-bold text-[10px] hover:bg-rose-500"
+                    >
+                      {isEn ? 'Switch to Testnet' : 'Chuyển Sang Testnet 0đ'}
+                    </button>
+                  </div>
+                )}
+
+                <div className="px-3 py-1.5 rounded-xl bg-forest-50 dark:bg-forest-950 border border-forest-200 dark:border-forest-800 flex items-center gap-2 text-xs">
+                  <div className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></div>
+                  <span className="font-mono text-emerald-700 dark:text-emerald-400 font-bold">
                     {wallet.address.slice(0, 6)}...{wallet.address.slice(-4)}
                   </span>
                   <button
                     onClick={handleCopyAddress}
-                    className="p-1 hover:text-forest-950 dark:hover:text-white text-forest-500 dark:text-gray-400 transition"
-                    title={isEn ? 'Copy wallet address' : 'Sao chép địa chỉ ví'}
+                    className="text-forest-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition cursor-pointer"
+                    title={isEn ? 'Copy full address' : 'Sao chép địa chỉ ví'}
                   >
-                    {copied ? <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                    {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
                   </button>
                 </div>
 
-                {/* Số dư ETH Testnet */}
-                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-forest-50 dark:bg-forest-950 border border-forest-200 dark:border-forest-800 text-xs shadow-xs">
-                  <Coins className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
-                  <span className="font-mono text-amber-700 dark:text-amber-300 font-bold">{wallet.balanceEth} ETH</span>
-                  <span className="text-[10px] text-forest-500 dark:text-forest-400">(Testnet)</span>
+                <div className="px-3 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-700/60 text-emerald-800 dark:text-emerald-300 text-xs font-mono font-bold flex items-center gap-1.5 shadow-xs">
+                  <span>{wallet.balanceEth} ETH</span>
                   <button
                     onClick={handleRefreshBalance}
-                    className="p-1 text-forest-500 hover:text-forest-950 dark:text-gray-400 dark:hover:text-white transition"
+                    className="text-emerald-600 dark:text-emerald-400 hover:rotate-180 transition duration-300 cursor-pointer"
                     title={isEn ? 'Refresh balance' : 'Làm mới số dư'}
                   >
                     <RefreshCw className="w-3 h-3" />
                   </button>
                 </div>
 
-                {/* Cảnh báo mạng & nút chuyển sang Testnet */}
-                {!wallet.isCorrectNetwork ? (
-                  <button
-                    onClick={handleSwitchNetwork}
-                    className="px-3 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs flex items-center gap-1.5 animate-pulse shadow-md transition"
-                  >
-                    <AlertCircle className="w-3.5 h-3.5" />
-                    <span>{isEn ? 'Switch to Testnet' : 'Đổi Sang Testnet'}</span>
-                  </button>
-                ) : (
+                <div className="flex items-center gap-1">
                   <button
                     onClick={handleToggleNetwork}
-                    className="px-2.5 py-1.5 rounded-xl bg-emerald-950 hover:bg-emerald-900 text-emerald-300 border border-emerald-700/80 text-[11px] font-bold flex items-center gap-1.5 transition cursor-pointer shadow-sm group"
-                    title={isEn ? 'Click to switch network (Sepolia ⇋ Base Sepolia)' : 'Bấm để đổi mạng (Sepolia ⇋ Base Sepolia)'}
+                    className="px-2.5 py-1.5 rounded-xl bg-forest-100 dark:bg-forest-900 hover:bg-emerald-100 dark:hover:bg-forest-800 text-forest-800 dark:text-emerald-300 border border-forest-200 dark:border-forest-700 text-xs font-semibold flex items-center gap-1 transition cursor-pointer"
+                    title={isEn ? 'Switch between Sepolia and Base Sepolia' : 'Bấm để đổi nhanh giữa Sepolia và Base Sepolia'}
                   >
-                    <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
                     <span>{wallet.networkName}</span>
-                    <ArrowLeftRight className="w-3 h-3 text-emerald-400 opacity-70 group-hover:opacity-100 group-hover:rotate-180 transition-transform duration-300" />
+                    <ChevronDown className="w-3 h-3 opacity-60" />
                   </button>
-                )}
 
-                {/* Gợi ý chuyển mạng nếu đang ở Base Sepolia mà số dư = 0 */}
-                {wallet.balanceEth === '0.0000' && (wallet.chainId?.toLowerCase() === '0x14a34' || wallet.chainId === '84532') && (
                   <button
-                    onClick={handleToggleNetwork}
-                    className="px-2.5 py-1 rounded-xl bg-amber-950/90 hover:bg-amber-900 text-amber-300 border border-amber-600/80 text-[11px] font-semibold flex items-center gap-1.5 transition animate-pulse cursor-pointer shadow-md"
-                    title="Bấm để chuyển sang mạng Ethereum Sepolia xem 0.05 ETH bạn vừa nhận"
+                    onClick={handleDisconnect}
+                    className="p-1.5 rounded-xl bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-900 border border-rose-200 dark:border-rose-900 transition cursor-pointer"
+                    title={isEn ? 'Disconnect wallet' : 'Ngắt kết nối ví'}
                   >
-                    <Sparkles className="w-3 h-3 text-amber-400 shrink-0" />
-                    <span>{isEn ? 'Switch to Sepolia (0.05 ETH)' : 'Đổi sang Sepolia (0.05 ETH)'}</span>
+                    <LogOut className="w-4 h-4" />
                   </button>
-                )}
-
-                <button
-                  onClick={handleDisconnect}
-                  className="p-2 rounded-xl bg-red-950/60 hover:bg-red-900 text-red-200 border border-red-800/80 transition"
-                  title={isEn ? 'Disconnect wallet' : 'Ngắt kết nối ví'}
-                >
-                  <LogOut className="w-3.5 h-3.5" />
-                </button>
+                </div>
               </div>
+            ) : (
+              <button
+                onClick={handleConnectWallet}
+                disabled={isConnecting}
+                className="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-forest-800 hover:from-emerald-500 hover:to-forest-700 text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-emerald-900/20 active:scale-95 transition cursor-pointer"
+              >
+                <Wallet className="w-4 h-4" />
+                <span>
+                  {isConnecting
+                    ? (isEn ? 'Connecting Wallet...' : 'Đang Kết Nối...')
+                    : hasInstalledWallet
+                    ? (isEn ? 'Connect Real Wallet (0đ)' : 'Kết Nối Ví Web3 Thật (0đ)')
+                    : (isEn ? 'Connect Wallet' : 'Kết Nối Ví Thật')}
+                </span>
+              </button>
             )}
           </div>
         </div>
 
-        {/* Thông báo lỗi nếu có */}
-        {walletError && (
-          <div className="p-3 rounded-2xl bg-red-950/80 border border-red-800 text-xs text-red-200 flex items-center justify-between gap-3 shadow-md">
-            <div className="flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
-              <span>{walletError}</span>
-            </div>
-            <button onClick={() => setWalletError(null)} className="text-red-300 hover:text-white font-bold text-xs">✕</button>
-          </div>
-        )}
-
-        {/* CẢNH BÁO NGUY HIỂM: NẾU VÍ ĐANG KẾT NỐI VÀO MAINNET (TIỀN THẬT) */}
-        {wallet?.isConnected && (wallet.isMainnetDanger || !wallet.isCorrectNetwork) && (
-          <div className="p-4 sm:p-5 rounded-2xl bg-red-600 dark:bg-red-700 text-white shadow-xl border-2 border-red-300 animate-pulse space-y-3">
-            <div className="flex items-start gap-3">
-              <ShieldAlert className="w-6 h-6 text-amber-300 shrink-0 mt-0.5" />
-              <div className="flex-1">
-                <h4 className="font-bold text-sm sm:text-base uppercase tracking-wide flex items-center gap-2">
-                  <span>🚨 {isEn ? 'SAFETY LOCK: MAINNET (REAL MONEY) DETECTED' : 'KHÓA AN TOÀN: PHÁT HIỆN MẠNG TIỀN THẬT (MAINNET)!'}</span>
-                </h4>
-                <p className="text-xs sm:text-sm text-red-100 leading-relaxed mt-1">
-                  {isEn
-                    ? 'Yeu Trong Cay is an educational platform operating strictly on TESTNET (0đ real money). All on-chain actions are blocked on Mainnet to keep your real assets 100% safe. Click a button below to switch to a free testnet:'
-                    : 'Yêu Trồng Cây là nền tảng giáo dục thực hành vận hành 100% trên TESTNET (0đ tiền thật). Hệ thống đã tự động khóa giao dịch trên Mainnet để bảo vệ tài sản của bạn tuyệt đối. Vui lòng bấm một nút bên dưới để chuyển sang mạng Testnet miễn phí:'}
-                </p>
-              </div>
-            </div>
-            <div className="flex flex-wrap items-center gap-2 pt-1 pl-0 sm:pl-9">
-              <button
-                onClick={() => handleSwitchToSpecificNetwork('0x14a34')}
-                className="px-3.5 py-1.5 rounded-xl bg-white text-red-700 hover:bg-cream-100 font-bold text-xs shadow-md transition flex items-center gap-1.5 cursor-pointer"
-              >
-                <ArrowLeftRight className="w-3.5 h-3.5" />
-                <span>Base Sepolia (0đ)</span>
-              </button>
-              <button
-                onClick={() => handleSwitchToSpecificNetwork('0xaa36a7')}
-                className="px-3.5 py-1.5 rounded-xl bg-red-950 hover:bg-black text-white font-bold text-xs border border-red-300 shadow-md transition flex items-center gap-1.5 cursor-pointer"
-              >
-                <ArrowLeftRight className="w-3.5 h-3.5" />
-                <span>Ethereum Sepolia</span>
-              </button>
-              <button
-                onClick={() => handleSwitchToSpecificNetwork('0x61')}
-                className="px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-forest-950 font-bold text-xs shadow-md transition flex items-center gap-1.5 cursor-pointer"
-              >
-                <ArrowLeftRight className="w-3.5 h-3.5" />
-                <span>BNB Testnet</span>
-              </button>
-              <button
-                onClick={() => handleSwitchToSpecificNetwork('0x13882')}
-                className="px-3.5 py-1.5 rounded-xl bg-purple-700 hover:bg-purple-600 text-white font-bold text-xs shadow-md transition flex items-center gap-1.5 cursor-pointer"
-              >
-                <ArrowLeftRight className="w-3.5 h-3.5" />
-                <span>Polygon Amoy</span>
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* Banner Chúc Mừng Thưởng Điểm Karma (Hiển thị khi giao dịch Testnet thành công) */}
+        {/* Thông báo thưởng Karma */}
         {rewardNotice && (
-          <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-950 via-forest-900 to-emerald-950 border-2 border-amber-400 text-white shadow-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 animate-in fade-in slide-in-from-top-2">
-            <div className="flex items-center gap-3.5">
-              <div className="w-11 h-11 rounded-2xl bg-rose-500 text-white flex items-center justify-center font-bold text-2xl shadow-md shrink-0">
-                ❤️
-              </div>
+          <div className="p-3.5 rounded-2xl bg-gradient-to-r from-rose-50 via-amber-50 to-emerald-50 dark:from-rose-950/60 dark:via-charcoal-900 dark:to-emerald-950/60 border border-rose-300/60 dark:border-rose-800/60 text-xs flex items-center justify-between gap-3 shadow-md animate-in slide-in-from-top-2">
+            <div className="flex items-center gap-3">
+              <span className="text-xl animate-bounce">❤️</span>
               <div>
-                <div className="flex items-center gap-2 flex-wrap">
-                  <span className="px-2.5 py-0.5 rounded-full bg-rose-500 text-white text-[10px] font-black uppercase tracking-wider">
-                    +{rewardNotice.points} Trái Tim Testnet ❤️
-                  </span>
-                  <h4 className="text-xs sm:text-sm font-bold text-white font-serif">
-                    {rewardNotice.title}
-                  </h4>
-                </div>
-                <p className="text-xs text-rose-100/90 mt-1 leading-relaxed">
-                  {rewardNotice.desc}
-                </p>
+                <span className="font-bold text-rose-800 dark:text-rose-300 block">{rewardNotice.title}</span>
+                <span className="text-forest-700 dark:text-gray-300 text-[11px]">{rewardNotice.desc}</span>
               </div>
             </div>
             <button
               onClick={() => setRewardNotice(null)}
-              className="px-4 py-2 rounded-xl bg-rose-500 hover:bg-rose-400 active:scale-95 text-white text-xs font-bold transition shrink-0 shadow-sm"
+              className="text-forest-400 hover:text-forest-900 dark:hover:text-white font-bold p-1"
             >
-              {isEn ? 'Got it! ❤️' : 'Tuyệt vời, đã nhận! ❤️'}
+              <X className="w-4 h-4" />
             </button>
           </div>
         )}
 
-        {/* Banner Hướng Dẫn Cài Ví Thật (Nếu người dùng chưa cài MetaMask) */}
-        {!hasInstalledWallet && (
-          <div className="p-5 rounded-2xl bg-gradient-to-r from-amber-950/60 via-charcoal-900 to-forest-950 border border-amber-500/40 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div className="space-y-1">
-              <span className="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
-                <KeyRound className="w-4 h-4" />
-                <span>{isEn ? 'Step 1: Get a Real Web3 Wallet (100% Free)' : 'Bước 1: Cài Đặt Ví Web3 Thật (100% Miễn Phí)'}</span>
-              </span>
-              <h3 className="text-sm sm:text-base font-bold text-white font-serif">
-                {isEn ? 'New to Web3? Install MetaMask to start your botanical crypto journey' : 'Chưa có ví? Cài đặt MetaMask để sở hữu "chùm chìa khóa số" đầu tiên của bạn'}
-              </h3>
-              <p className="text-xs text-forest-200/90 leading-relaxed max-w-3xl">
-                {isEn
-                  ? 'MetaMask is a secure browser extension and mobile app that holds your cryptographic credentials. It is 100% free to install. Once installed, refresh this page to connect.'
-                  : 'MetaMask là tiện ích mở rộng trên Chrome/Brave/Firefox và app điện thoại giúp bạn quản lý tài sản số an toàn. Cài đặt hoàn toàn miễn phí chỉ mất 1 phút.'}
-              </p>
+        {/* Thông báo lỗi nếu có */}
+        {walletError && (
+          <div className="p-3.5 rounded-2xl bg-rose-50 dark:bg-rose-950/60 border border-rose-200 dark:border-rose-900/60 text-xs text-rose-800 dark:text-rose-200 flex items-center justify-between gap-2 shadow-xs">
+            <div className="flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0 text-rose-600 dark:text-rose-400" />
+              <span>{walletError}</span>
             </div>
-            <a
-              href="https://metamask.io/download/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-forest-950 font-bold text-xs flex items-center justify-center gap-2 shadow-lg shrink-0 transition"
-            >
-              <span>{isEn ? 'Install MetaMask (Official)' : 'Cài Đặt MetaMask Chính Thức'}</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
+            <button onClick={() => setWalletError(null)} className="font-bold text-rose-700 dark:text-rose-300 hover:underline">
+              ✕
+            </button>
           </div>
         )}
 
-        {/* 2. Thanh Điều Hướng Các Phân Khu Học Tập (Navigation Tabs) */}
-        
-        {/* Mobile: Dạng Dropdown Trigger mở Popup / Drawer chọn tab ("bay ra tab mới, có nút X để tắt") */}
-        <div className="md:hidden">
-          <button
-            type="button"
-            onClick={() => setIsMobileTabDrawerOpen(true)}
-            className="w-full p-3.5 rounded-2xl bg-white dark:bg-charcoal-900 border border-forest-200 dark:border-emerald-500/50 shadow-md flex items-center justify-between gap-3 text-left transition active:scale-[0.99] hover:border-emerald-400"
-          >
-            <div className="flex items-center gap-3 min-w-0">
-              <div className="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-700/60 flex items-center justify-center shrink-0 shadow-sm">
-                {React.createElement(
-                  LEARNING_TABS.find((t) => t.id === activeTab)?.icon || BookOpen,
-                  { className: 'w-5 h-5' }
-                )}
-              </div>
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider block">
-                    {isEn ? 'Current Section' : 'Phân khu đang xem'}
-                  </span>
-                  <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-amber-400/20 text-amber-800 dark:text-amber-300 border border-amber-400/40">
-                    {isEn
-                      ? LEARNING_TABS.find((t) => t.id === activeTab)?.badgeEn
-                      : LEARNING_TABS.find((t) => t.id === activeTab)?.badgeVi}
-                  </span>
-                </div>
-                <p className="text-xs font-bold text-forest-950 dark:text-white truncate font-serif mt-0.5">
-                  {isEn
-                    ? LEARNING_TABS.find((t) => t.id === activeTab)?.nameEn
-                    : LEARNING_TABS.find((t) => t.id === activeTab)?.nameVi}
-                </p>
-              </div>
+        {/* Thanh chuyển đổi mạng nhanh khi kết nối sai mạng */}
+        {wallet?.isConnected && (!wallet.isCorrectNetwork || wallet.isMainnetDanger) && (
+          <div className="p-3 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-700/60 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
+              <span className="text-amber-950 dark:text-amber-200">
+                {isEn
+                  ? 'Your wallet is not on a supported Testnet. Click to switch to a recommended network (0đ):'
+                  : 'Ví của bạn chưa ở đúng mạng Testnet. Bấm chọn mạng khuyến nghị bên dưới để chuyển tự động (0đ):'}
+              </span>
             </div>
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shrink-0 shadow-sm transition">
-              <span>{isEn ? 'Switch' : 'Đổi Tab'}</span>
-              <ChevronDown className="w-3.5 h-3.5" />
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <button
+                onClick={() => handleSwitchToSpecificNetwork('0x14a34')}
+                className="px-2.5 py-1 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-[11px] transition shadow-xs cursor-pointer"
+              >
+                Base Sepolia
+              </button>
+              <button
+                onClick={() => handleSwitchToSpecificNetwork('0xaa36a7')}
+                className="px-2.5 py-1 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-[11px] transition shadow-xs cursor-pointer"
+              >
+                Sepolia ETH
+              </button>
+              <button
+                onClick={() => handleSwitchToSpecificNetwork('0x61')}
+                className="px-2.5 py-1 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-[11px] transition shadow-xs cursor-pointer"
+              >
+                BNB Testnet
+              </button>
+              <button
+                onClick={() => handleSwitchToSpecificNetwork('0x13882')}
+                className="px-2.5 py-1 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-[11px] transition shadow-xs cursor-pointer"
+              >
+                Polygon Amoy
+              </button>
             </div>
-          </button>
-        </div>
+          </div>
+        )}
 
-        {/* Mobile Popup Modal ("Bay ra tab mới, có nút X để tắt đi") */}
-        {isMobileTabDrawerOpen && (
-          <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center md:hidden p-0 sm:p-4">
-            {/* Backdrop */}
-            <div
-              className="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
-              onClick={() => setIsMobileTabDrawerOpen(false)}
-            />
-
-            {/* Modal Box */}
-            <div className="relative w-full max-w-lg bg-white dark:bg-charcoal-900 border-t sm:border border-forest-200 dark:border-forest-700 rounded-t-3xl sm:rounded-3xl p-5 shadow-2xl text-forest-950 dark:text-white max-h-[88vh] overflow-y-auto animate-in slide-in-from-bottom-6 duration-200 z-10 space-y-4">
-              {/* Header with Title and 'X' close button */}
-              <div className="flex items-center justify-between pb-3 border-b border-forest-100 dark:border-forest-800">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-700/60 flex items-center justify-center font-bold">
-                    <Sparkles className="w-4 h-4 text-amber-500 dark:text-amber-400" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-bold font-serif text-forest-950 dark:text-white">
-                      {isEn ? 'Select Learning Section' : 'Chọn Phân Khu Học Tập Web3'}
-                    </h3>
-                    <p className="text-[11px] text-forest-600 dark:text-forest-300">
-                      {isEn ? 'Base Sepolia Testnet (100% Free - 0đ)' : 'Mạng Thử Nghiệm Base Sepolia (0đ Gas)'}
-                    </p>
-                  </div>
-                </div>
-                <button
-                  onClick={() => setIsMobileTabDrawerOpen(false)}
-                  className="w-8 h-8 rounded-full bg-forest-100 dark:bg-forest-800/80 hover:bg-forest-200 dark:hover:bg-forest-700 flex items-center justify-center text-forest-700 dark:text-gray-300 hover:text-forest-950 dark:hover:text-white transition shadow-sm"
-                  aria-label="Đóng"
-                >
-                  <X className="w-4 h-4" />
-                </button>
+        {/* 2. Thanh Chuyển Tab Học Tập & Thực Hành Web3 (Tabs Navigation Bar) */}
+        <div className="relative z-20">
+          {/* Mobile Drawer Toggle */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsMobileTabDrawerOpen(!isMobileTabDrawerOpen)}
+              className="w-full flex items-center justify-between p-3.5 bg-white dark:bg-charcoal-900 rounded-2xl border border-forest-200 dark:border-forest-800 shadow-sm"
+            >
+              <div className="flex items-center gap-2.5">
+                {(() => {
+                  const curr = LEARNING_TABS.find(t => t.id === activeTab) || LEARNING_TABS[0];
+                  const Icon = curr.icon;
+                  return (
+                    <>
+                      <div className="p-1.5 rounded-lg bg-emerald-500/20 text-emerald-700 dark:text-emerald-400">
+                        <Icon className="w-4 h-4" />
+                      </div>
+                      <span className="font-bold text-xs text-forest-950 dark:text-white">
+                        {isEn ? curr.nameEn : curr.nameVi}
+                      </span>
+                    </>
+                  );
+                })()}
               </div>
+              <ChevronDown className={`w-4 h-4 text-forest-500 transition-transform ${isMobileTabDrawerOpen ? 'rotate-180' : ''}`} />
+            </button>
 
-              {/* List of 4 Interactive Learning Modules */}
-              <div className="space-y-2.5">
+            {isMobileTabDrawerOpen && (
+              <div className="mt-2 p-2 bg-white dark:bg-charcoal-900 rounded-2xl border border-forest-200 dark:border-forest-800 shadow-xl space-y-1">
                 {LEARNING_TABS.map((tab) => {
                   const Icon = tab.icon;
                   const isCurrent = activeTab === tab.id;
@@ -1561,100 +931,83 @@ export const Web3SandboxSection: React.FC = () => {
                         setActiveTab(tab.id);
                         setIsMobileTabDrawerOpen(false);
                       }}
-                      className={`w-full p-3.5 rounded-2xl text-left transition flex items-center justify-between gap-3 border ${
+                      className={`w-full text-left p-3 rounded-xl flex items-center justify-between text-xs transition cursor-pointer ${
                         isCurrent
-                          ? 'bg-emerald-50 dark:bg-emerald-950/90 border-emerald-500 text-forest-950 dark:text-white shadow-md ring-1 ring-emerald-400'
-                          : 'bg-forest-50/70 dark:bg-forest-950/70 border-forest-100 dark:border-forest-800 hover:bg-forest-100 dark:hover:bg-forest-900 text-forest-900 dark:text-forest-200'
+                          ? 'bg-emerald-600 text-white font-bold'
+                          : 'text-forest-700 dark:text-gray-300 hover:bg-forest-50 dark:hover:bg-charcoal-800'
                       }`}
                     >
-                      <div className="flex items-center gap-3 min-w-0">
-                        <div
-                          className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border ${
-                            isCurrent
-                              ? 'bg-emerald-600 text-white border-emerald-500 font-bold'
-                              : 'bg-forest-100 dark:bg-forest-900 text-emerald-700 dark:text-emerald-400 border-forest-200 dark:border-forest-800'
-                          }`}
-                        >
-                          <Icon className="w-5 h-5" />
-                        </div>
-                        <div className="min-w-0">
-                          <div className="flex items-center gap-2 flex-wrap">
-                            <span className="text-xs font-bold text-forest-950 dark:text-white font-serif">
-                              {isEn ? tab.nameEn : tab.nameVi}
-                            </span>
-                            <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-amber-400/20 text-amber-800 dark:text-amber-300 border border-amber-400/40">
-                              {isEn ? tab.badgeEn : tab.badgeVi}
-                            </span>
-                          </div>
-                          <p className="text-[11px] text-forest-600 dark:text-forest-300/90 mt-1 line-clamp-1">
-                            {isEn ? tab.descEn : tab.descVi}
-                          </p>
-                        </div>
+                      <div className="flex items-center gap-2.5">
+                        <Icon className="w-4 h-4" />
+                        <span>{isEn ? tab.nameEn : tab.nameVi}</span>
                       </div>
-
-                      {isCurrent ? (
-                        <span className="px-2.5 py-1 rounded-xl bg-emerald-600 text-white text-[10px] font-extrabold shrink-0 shadow-xs">
-                          {isEn ? 'Active' : 'Đang Xem ✓'}
-                        </span>
-                      ) : (
-                        <ChevronRight className="w-4 h-4 text-forest-400 dark:text-forest-500 shrink-0" />
-                      )}
+                      <span className={`text-[10px] px-2 py-0.5 rounded-full ${
+                        isCurrent ? 'bg-white/20 text-white' : 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 font-bold'
+                      }`}>
+                        {isEn ? tab.badgeEn : tab.badgeVi}
+                      </span>
                     </button>
                   );
                 })}
               </div>
-
-              {/* Close Button at bottom */}
-              <button
-                onClick={() => setIsMobileTabDrawerOpen(false)}
-                className="w-full py-2.5 rounded-xl bg-forest-100 dark:bg-forest-800 hover:bg-forest-200 dark:hover:bg-forest-700 text-forest-800 dark:text-forest-200 text-xs font-bold transition flex items-center justify-center gap-2"
-              >
-                <X className="w-3.5 h-3.5" />
-                <span>{isEn ? 'Close & Return' : 'Đóng Bảng Chọn (✕)'}</span>
-              </button>
-            </div>
+            )}
           </div>
-        )}
 
-        {/* Desktop: Navigation Tabs ngang đầy đủ */}
-        <div className="hidden md:flex items-center gap-2 border-b border-forest-200 dark:border-forest-800/80 pb-2 overflow-x-auto no-scrollbar">
-          {LEARNING_TABS.map((tab) => {
-            const Icon = tab.icon;
-            const isCurrent = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 shrink-0 ${
-                  isCurrent
-                    ? 'bg-emerald-600 text-white shadow-md'
-                    : 'bg-white dark:bg-charcoal-900/60 border border-forest-100 dark:border-forest-800 text-forest-700 dark:text-forest-300 hover:bg-forest-50 dark:hover:bg-charcoal-900 hover:text-forest-950 dark:hover:text-white shadow-xs'
-                }`}
-              >
-                <Icon className="w-4 h-4" />
-                <span>{isEn ? tab.nameEn : tab.nameVi}</span>
-                <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-amber-400/20 text-amber-800 dark:text-amber-300 border border-amber-400/40">
-                  {isEn ? tab.badgeEn : tab.badgeVi}
-                </span>
-              </button>
-            );
-          })}
+          {/* Desktop Tab Switcher */}
+          <div className="hidden md:grid grid-cols-5 gap-2 p-1.5 bg-white/80 dark:bg-charcoal-900/80 backdrop-blur-md rounded-2xl border border-forest-100 dark:border-forest-800 shadow-sm">
+            {LEARNING_TABS.map((tab) => {
+              const Icon = tab.icon;
+              const isCurrent = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`p-3 rounded-xl transition text-left relative flex flex-col justify-between gap-1 cursor-pointer group ${
+                    isCurrent
+                      ? 'bg-gradient-to-br from-emerald-600 to-forest-800 text-white shadow-md'
+                      : 'hover:bg-forest-50 dark:hover:bg-charcoal-800 text-forest-700 dark:text-gray-300'
+                  }`}
+                >
+                  <div className="flex items-center justify-between w-full">
+                    <div className="flex items-center gap-2">
+                      <div className={`p-1.5 rounded-lg ${
+                        isCurrent ? 'bg-white/20 text-white' : 'bg-forest-100 dark:bg-charcoal-700 text-emerald-600 dark:text-emerald-400 group-hover:scale-105 transition'
+                      }`}>
+                        <Icon className="w-4 h-4" />
+                      </div>
+                      <span className="font-bold text-xs line-clamp-1">{isEn ? tab.shortEn : tab.shortVi}</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between w-full mt-1">
+                    <span className={`text-[10px] line-clamp-1 ${isCurrent ? 'text-emerald-100' : 'text-forest-500 dark:text-gray-400'}`}>
+                      {isEn ? tab.descEn : tab.descVi}
+                    </span>
+                    <span className={`text-[9px] px-1.5 py-0.5 rounded-md shrink-0 font-bold ${
+                      isCurrent ? 'bg-white/20 text-white' : 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400'
+                    }`}>
+                      {isEn ? tab.badgeEn : tab.badgeVi}
+                    </span>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* ============================================================== */}
-        {/* TAB 1: VỠ LÒNG WEB3 TRONG 3 PHÚT (WEB3 101) */}
+        {/* TAB 1: VỠ LÒNG WEB3 TRONG 3 PHÚT */}
         {/* ============================================================== */}
         {activeTab === 'learn' && <Web3LearnTab isEn={isEn} />}
 
         {/* ============================================================== */}
-        {/* TAB 2: HƯỚNG DẪN LẤY ETH TESTNET MIỄN PHÍ (FAUCET GUIDE) */}
+        {/* TAB 2: TRẠM CẤP COIN TESTNET ĐA MẠNG (MULTI-CHAIN FAUCETS) */}
         {/* ============================================================== */}
         {activeTab === 'faucet' && (
           <Web3FaucetTab
             isEn={isEn}
             wallet={wallet}
-            handleCopyAddress={handleCopyAddress}
             copied={copied}
+            handleCopyAddress={handleCopyAddress}
           />
         )}
 
@@ -1662,703 +1015,19 @@ export const Web3SandboxSection: React.FC = () => {
         {/* TAB 3: XƯỞNG ĐÚC HỘ CHIẾU & KÝ SỐ MẬT MÃ HỌC */}
         {/* ============================================================== */}
         {activeTab === 'mint' && (
-          <div className="bg-white dark:bg-charcoal-900/90 rounded-2xl p-4 sm:p-6 border border-forest-100 dark:border-forest-800 shadow-xl space-y-4 animate-in fade-in">
-            <div className="flex items-center justify-between pb-3 border-b border-forest-100 dark:border-forest-800 flex-wrap gap-3">
-              <div className="flex items-center gap-2">
-                <Award className="w-5 h-5 text-amber-500 dark:text-amber-400" />
-                <h3 className="text-base font-serif font-bold text-forest-950 dark:text-white">
-                  {isEn ? currentNftConfig.studioTitleEn : currentNftConfig.studioTitleVi}
-                </h3>
-              </div>
-
-              {/* Tùy chọn Sổ cái (Ledger Selector) */}
-              <div className="flex items-center gap-2">
-                <label className="text-xs text-forest-600 dark:text-forest-300 font-semibold flex items-center gap-1.5">
-                  <Coins className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                  <span>{isEn ? 'Target Ledger:' : 'Sổ cái (Ledger):'}</span>
-                </label>
-                <select
-                  value={targetLedger}
-                  onChange={(e) => handleLedgerSelect(e.target.value)}
-                  className="px-3 py-1.5 bg-forest-50 dark:bg-forest-950 text-emerald-700 dark:text-emerald-300 rounded-xl text-xs font-mono font-bold border border-forest-200 dark:border-emerald-700/80 focus:outline-none focus:ring-1 focus:ring-emerald-500 cursor-pointer shadow-xs"
-                >
-                  <option value="Ethereum Sepolia">Ethereum Sepolia Testnet (0đ)</option>
-                  <option value="Base Sepolia">Base Sepolia L2 Testnet (0đ)</option>
-                  <option value="BNB Smart Chain Testnet">BNB Chain Testnet (0đ)</option>
-                  <option value="Polygon Amoy">Polygon Amoy Testnet (0đ)</option>
-                  <option value="Arbitrum Sepolia">Arbitrum Sepolia L2 (0đ)</option>
-                </select>
-              </div>
-            </div>
-
-            {/* Thông báo Tái Sinh Hộ Chiếu Thành Công (24h Priority Remint Window) */}
-            {reincarnationNotice && (
-              <div className="p-4 rounded-2xl bg-gradient-to-r from-rose-50 to-amber-50 dark:from-rose-950/70 dark:to-amber-950/70 border border-rose-300 dark:border-rose-800 text-xs text-rose-950 dark:text-rose-100 flex items-center justify-between gap-3 shadow-md">
-                <div className="flex items-center gap-2.5">
-                  <Flame className="w-5 h-5 text-rose-600 dark:text-rose-400 shrink-0 animate-bounce" />
-                  <div>
-                    <span className="font-bold block text-rose-800 dark:text-rose-300">
-                      {isEn ? 'Botanical Reincarnation Window Active' : 'Thời Hạn Tái Sinh Độc Quyền (24h)'}
-                    </span>
-                    <span>{reincarnationNotice}</span>
-                  </div>
-                </div>
-                <button onClick={() => setReincarnationNotice(null)} className="font-bold text-rose-700 dark:text-rose-300 hover:text-rose-950">✕</button>
-              </div>
-            )}
-
-            {/* Banner thông báo khi người dùng bấm "Tạo NFT" từ một bài viết cụ thể (?mint=<slug>) */}
-            {selectedArticleSlug && (
-              <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-950 via-forest-900 to-amber-950/60 border border-amber-400/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div className="flex items-start sm:items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/50 text-amber-300 flex items-center justify-center shrink-0">
-                    <Sparkles className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span className="px-2 py-0.5 rounded-full bg-amber-400 text-forest-950 text-[10px] font-black uppercase tracking-wider">
-                        {isEn ? `${currentNftConfig.shortName} Claim` : `Đúc ${currentNftConfig.nameVi}`}
-                      </span>
-                      <span className="text-xs font-bold text-white">
-                        {customPlantName} ({customScientific})
-                      </span>
-                    </div>
-                    <p className="text-xs text-forest-200 mt-1">
-                      {isEn
-                        ? `All data from the article has been pre-filled below. Connect your wallet and confirm to become the permanent owner of this ${currentNftConfig.shortName}!`
-                        : `Thông tin & mã SHA-256 đã được nạp sẵn bên dưới. Hãy kết nối ví và bấm Đúc ngay để gắn huy hiệu sở hữu ${currentNftConfig.shortName} của bạn lên bài viết!`}
-                    </p>
-                  </div>
-                </div>
-                <Link
-                  to={`/cay/${selectedArticleSlug}`}
-                  className="px-3.5 py-2 rounded-xl bg-forest-800 hover:bg-forest-700 text-emerald-300 hover:text-white text-xs font-bold border border-forest-700 shrink-0 transition text-center"
-                >
-                  {isEn ? '← Back to Article' : '← Xem Bài Viết Cây Này'}
-                </Link>
-              </div>
-            )}
-
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-start">
-              {/* Preview Cây & Upload Ảnh Thật & Mã Băm SHA-256 (md:col-span-5) */}
-              <div className="md:col-span-5 bg-forest-50 dark:bg-forest-950 rounded-2xl p-4 border border-forest-200 dark:border-forest-800 space-y-3">
-                <div className="relative rounded-xl overflow-hidden aspect-video bg-forest-100 dark:bg-charcoal-900 border border-forest-200 dark:border-forest-800 group">
-                  <img
-                    src={plantSource === 'custom' && customImage ? customImage : SAMPLE_MINT_PLANTS[selectedPlantIndex].image}
-                    alt={plantSource === 'custom' ? (customPlantName || 'Cây của bạn') : SAMPLE_MINT_PLANTS[selectedPlantIndex].name_vi}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute top-2 left-2 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-forest-950/80 backdrop-blur-xs text-emerald-300 border border-emerald-700/60">
-                    Giai đoạn {evolutionStage}/3
-                  </div>
-
-                  {plantSource === 'custom' && (
-                    <div className="absolute top-2 right-2 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-950/90 text-amber-300 border border-amber-600/70 shadow-sm flex items-center gap-1">
-                      <Camera className="w-3 h-3 text-amber-400" />
-                      <span>{isEn ? 'Custom Photo' : 'Ảnh Tự Tải'}</span>
-                    </div>
-                  )}
-                </div>
-
-                {/* Nút tải ảnh cây thật của bạn lên */}
-                <div className="space-y-1.5">
-                  <label className="w-full py-2.5 px-3 rounded-xl bg-white dark:bg-forest-900/90 hover:bg-forest-50 dark:hover:bg-forest-800 border border-dashed border-emerald-500/80 hover:border-emerald-600 dark:hover:border-emerald-400 text-emerald-700 dark:text-emerald-300 text-xs font-bold flex items-center justify-center gap-2 cursor-pointer transition shadow-xs active:scale-[0.99]">
-                    <Upload className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                    <span>
-                      {plantSource === 'custom' && customImage
-                        ? (isEn ? 'Change Tree Photo' : 'Đổi Ảnh Cây Khác Từ Máy')
-                        : (isEn ? 'Upload Your Own Plant Photo' : '📸 Tải Ảnh Cây Thật Của Bạn Lên')}
-                    </span>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleCustomImageUpload}
-                      className="hidden"
-                    />
-                  </label>
-
-                  {plantSource === 'custom' && (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setPlantSource('sample');
-                        setCustomImage(null);
-                        setCustomImageSha(null);
-                      }}
-                      className="w-full py-1 text-[11px] text-forest-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-300 flex items-center justify-center gap-1 transition cursor-pointer"
-                    >
-                      <Trash2 className="w-3 h-3" />
-                      <span>{isEn ? 'Back to sample species' : 'Quay lại dùng giống mẫu'}</span>
-                    </button>
-                  )}
-                </div>
-
-                <div>
-                  <h4 className="font-bold text-sm text-forest-950 dark:text-white">
-                    {plantSource === 'custom' && customPlantName
-                      ? customPlantName
-                      : isEn
-                      ? SAMPLE_MINT_PLANTS[selectedPlantIndex].name_en
-                      : SAMPLE_MINT_PLANTS[selectedPlantIndex].name_vi}
-                  </h4>
-                  <p className="font-mono italic text-xs text-emerald-700 dark:text-emerald-400 mt-0.5">
-                    {plantSource === 'custom'
-                      ? (customScientific || (isEn ? 'Personal Botanical Specimen' : 'Mẫu thực vật cá nhân'))
-                      : SAMPLE_MINT_PLANTS[selectedPlantIndex].scientific}
-                  </p>
-                </div>
-
-                <div className="p-2.5 rounded-xl bg-white dark:bg-charcoal-900 border border-forest-200 dark:border-forest-800 text-[10px] font-mono text-forest-600 dark:text-gray-400 space-y-1 shadow-xs">
-                  <span className="text-forest-900 dark:text-gray-300 font-semibold block">Bằng chứng mật mã học (SHA-256):</span>
-                  <span className="text-emerald-700 dark:text-emerald-300 truncate block">
-                    {plantSource === 'custom' && customImageSha
-                      ? `sha256:${customImageSha.slice(0, 24)}...stage${evolutionStage}`
-                      : `sha256:${SAMPLE_MINT_PLANTS[selectedPlantIndex].id}...stage${evolutionStage}`}
-                  </span>
-                </div>
-              </div>
-
-              {/* Form Lựa Chọn & Nút Ký Ví Thật (md:col-span-7) */}
-              <div className="md:col-span-7 space-y-4">
-                {/* Lựa chọn 5 Lớp Tài Sản NFT */}
-                <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-forest-700 dark:text-forest-300 flex items-center justify-between">
-                    <span>{isEn ? 'NFT Asset Class (5 Classes):' : 'Lớp tài sản NFT (5 phân loại):'}</span>
-                    <span className="text-[10px] text-amber-600 dark:text-amber-400 font-mono font-bold">
-                      {getNftClassConfig(selectedAssetClass).name}
-                    </span>
-                  </label>
-                  <div className="grid grid-cols-2 sm:grid-cols-5 gap-1.5 text-xs">
-                    {NFT_ASSET_CLASSES_LIST.map((cls) => {
-                      const isSel = selectedAssetClass === cls.id;
-                      return (
-                        <button
-                          key={cls.id}
-                          type="button"
-                          onClick={() => {
-                            setSelectedAssetClass(cls.id);
-                            if (cls.id !== 'geo_forest_10000m2') {
-                              setGpsErrorMsg(null);
-                            }
-                          }}
-                          className={`p-2 rounded-xl border text-center font-semibold transition cursor-pointer flex flex-col items-center gap-1 ${
-                            isSel
-                              ? 'bg-emerald-600 text-white border-emerald-500 shadow-sm ring-1 ring-emerald-500'
-                              : 'bg-forest-50 dark:bg-forest-950 border-forest-200 dark:border-forest-800 text-forest-700 dark:text-forest-300 hover:border-emerald-400'
-                          }`}
-                        >
-                          <span className="text-base">{cls.icon}</span>
-                          <span className="text-[11px] leading-tight line-clamp-1">{cls.shortName}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* Nếu chọn Lớp Rừng Sinh Thái (10.000 m2 / NFT) -> Khối Kiểm Tra GPS & Phân Lô */}
-                {selectedAssetClass === 'geo_forest_10000m2' && (() => {
-                  const forestSlug = selectedArticleSlug || plantPassportRegistryService.normalizeAssetKey(customPlantName || 'Rừng Tự Nhiên', '', 'geo_forest_10000m2');
-                  const totalM2 = forestSpec?.total_area_m2 || 1000000;
-                  const fStats = plantPassportRegistryService.getForestMintedAreaStats(forestSlug, totalM2);
-
-                  return (
-                    <div className="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/40 text-xs space-y-3">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-1.5 font-bold text-emerald-300">
-                          <MapPin className="w-4 h-4 text-emerald-400" />
-                          <span>Xác Thực GPS Thực Địa Vùng Rừng (1 NFT = 10.000 m²)</span>
-                        </div>
-                        <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-mono font-bold">
-                          1 ha/lô
-                        </span>
-                      </div>
-
-                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px] font-mono">
-                        <div className="p-2 rounded-xl bg-forest-950/60 border border-forest-800">
-                          <span className="text-gray-400 block text-[10px]">Lô Tiếp Theo</span>
-                          <span className="text-amber-300 font-bold">Lô #{fStats.nextLotNumber} / {fStats.maxSupply}</span>
-                        </div>
-                        <div className="p-2 rounded-xl bg-forest-950/60 border border-forest-800">
-                          <span className="text-gray-400 block text-[10px]">Đã Bảo Trợ</span>
-                          <span className="text-emerald-300 font-bold">{(fStats.mintedM2 / 10000).toLocaleString('vi-VN')} ha</span>
-                        </div>
-                        <div className="p-2 rounded-xl bg-forest-950/60 border border-forest-800">
-                          <span className="text-gray-400 block text-[10px]">Còn Lại</span>
-                          <span className="text-teal-300 font-bold">{(fStats.remainingM2 / 10000).toLocaleString('vi-VN')} ha</span>
-                        </div>
-                        <div className="p-2 rounded-xl bg-forest-950/60 border border-forest-800">
-                          <span className="text-gray-400 block text-[10px]">Bán Kính Rừng</span>
-                          <span className="text-white font-bold">{forestSpec?.radius_km || 15} km</span>
-                        </div>
-                      </div>
-
-                      {/* Trạng thái GPS check-in */}
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-1 border-t border-emerald-900/40">
-                        <div className="space-y-0.5">
-                          {gpsCheckinStatus === 'verified' ? (
-                            <div className="flex items-center gap-1.5 text-emerald-400 font-bold text-xs">
-                              <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                              <span>Đã xác thực tọa độ trong vùng rừng (Cách tâm {gpsDistanceKm !== null ? `${gpsDistanceKm.toFixed(1)} km` : '< 15 km'}) • Thẻ thông hành 24h hiệu lực</span>
-                            </div>
-                          ) : gpsCheckinStatus === 'checking' ? (
-                            <div className="flex items-center gap-1.5 text-amber-300 text-xs">
-                              <RefreshCw className="w-4 h-4 animate-spin shrink-0" />
-                              <span>Đang quét tọa độ GPS thiết bị...</span>
-                            </div>
-                          ) : (
-                            <div className="flex items-center gap-1.5 text-forest-300 text-xs">
-                              <Compass className="w-4 h-4 text-amber-400 shrink-0" />
-                              <span>Cần xác thực GPS bạn đang có mặt tại khu rừng để đúc NFT.</span>
-                            </div>
-                          )}
-                          {gpsErrorMsg && (
-                            <p className="text-[11px] text-rose-300 leading-tight">{gpsErrorMsg}</p>
-                          )}
-                        </div>
-
-                        <div className="flex items-center gap-2 shrink-0">
-                          <button
-                            type="button"
-                            onClick={() => handleGpsCheckin(false)}
-                            disabled={gpsCheckinStatus === 'checking'}
-                            className="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1 transition shadow-sm cursor-pointer"
-                          >
-                            <MapPin className="w-3.5 h-3.5" />
-                            <span>Định Vị GPS</span>
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => handleGpsCheckin(true)}
-                            className="px-2.5 py-1.5 rounded-xl bg-forest-800 hover:bg-forest-700 text-amber-300 font-bold text-[11px] flex items-center gap-1 transition border border-forest-700 cursor-pointer"
-                            title="Mô phỏng thiết bị đang trong khu rừng để kiểm thử"
-                          >
-                            <span>🧪 Mô Phỏng</span>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })()}
-
-                {/* Chuyển đổi giữa giống mẫu hoặc tự tải ảnh cây riêng */}
-                <div className="flex items-center gap-2 p-1 bg-forest-50 dark:bg-forest-950 rounded-xl border border-forest-200 dark:border-forest-800 text-xs">
-                  <button
-                    type="button"
-                    onClick={() => setPlantSource('sample')}
-                    className={`flex-1 py-1.5 px-2 rounded-lg font-semibold transition cursor-pointer ${
-                      plantSource === 'sample'
-                        ? 'bg-emerald-600 text-white shadow-sm'
-                        : 'text-forest-600 dark:text-forest-300 hover:text-forest-950 dark:hover:text-white'
-                    }`}
-                  >
-                    🌿 {isEn ? 'Choose Sample Plant' : 'Chọn Cây Mẫu Bản Địa'}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setPlantSource('custom')}
-                    className={`flex-1 py-1.5 px-2 rounded-lg font-semibold transition cursor-pointer ${
-                      plantSource === 'custom'
-                        ? 'bg-emerald-600 text-white shadow-sm'
-                        : 'text-forest-600 dark:text-forest-300 hover:text-forest-950 dark:hover:text-white'
-                    }`}
-                  >
-                    📸 {isEn ? 'Custom Plant & Photo' : 'Tự Up Ảnh & Tên Cây'}
-                  </button>
-                </div>
-
-                {plantSource === 'sample' ? (
-                  <div>
-                    <label className="text-xs font-semibold text-forest-700 dark:text-forest-300 block mb-1.5">
-                      {isEn ? `Select ${currentNftConfig.shortName} to Certify:` : `1. Chọn mẫu ${currentNftConfig.shortName.toLowerCase()} muốn đăng ký:`}
-                    </label>
-                    <select
-                      value={selectedPlantIndex}
-                      onChange={(e) => setSelectedPlantIndex(Number(e.target.value))}
-                      className="w-full px-3.5 py-2.5 bg-forest-50 dark:bg-forest-950 border border-forest-200 dark:border-forest-800 rounded-xl text-xs text-forest-950 dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
-                    >
-                      {SAMPLE_MINT_PLANTS.map((p, idx) => (
-                        <option key={p.id} value={idx}>
-                          {isEn ? p.name_en : p.name_vi} ({p.scientific})
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                ) : (
-                  <div className="space-y-3">
-                    <div>
-                      <label className="text-xs font-semibold text-forest-700 dark:text-forest-300 block mb-1.5">
-                        {isEn ? currentNftConfig.studioNameLabelEn : currentNftConfig.studioNameLabelVi}
-                      </label>
-                      <input
-                        type="text"
-                        value={customPlantName}
-                        onChange={(e) => setCustomPlantName(e.target.value)}
-                        placeholder={
-                          selectedAssetClass === 'geo_forest_10000m2'
-                            ? (isEn ? 'e.g. Cuc Phuong National Park Plot #108' : 'VD: Vườn Quốc Gia Cúc Phương Lô #108, Rừng Cần Giờ...')
-                            : selectedAssetClass === 'culinary_recipe'
-                            ? (isEn ? 'e.g. Steamed Ginger & Húng Chanh Syrup' : 'VD: Siro Húng Chanh Gừng Đường Phèn, Trà Hoa Cúc Mật Ong...')
-                            : selectedAssetClass === 'space_method'
-                            ? (isEn ? 'e.g. Lightweight Balcony Vertical Trellis' : 'VD: Giàn Leo Sân Thượng Siêu Nhẹ, Vườn Ban Công Hướng Tây...')
-                            : selectedAssetClass === 'eco_invention'
-                            ? (isEn ? 'e.g. Self-watering Capillary Planter' : 'VD: Chậu Tự Tưới Bấc Thấm Tái Chế, Thùng Ủ Rác Hữu Cơ...')
-                            : (isEn ? 'e.g. My 5-Petal Golden Apricot, Balcony Guava...' : 'VD: Cây Mai Vàng Cổ Thụ, Chậu Ổi Lùn Ban Công...')
-                        }
-                        className="w-full px-3.5 py-2.5 bg-forest-50 dark:bg-forest-950 border border-forest-200 dark:border-forest-800 rounded-xl text-xs text-forest-950 dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500 placeholder-forest-400 dark:placeholder-forest-600"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-xs font-semibold text-forest-700 dark:text-forest-300 block mb-1.5">
-                        {isEn ? currentNftConfig.studioDetailLabelEn : currentNftConfig.studioDetailLabelVi}
-                      </label>
-                      <input
-                        type="text"
-                        value={customScientific}
-                        onChange={(e) => setCustomScientific(e.target.value)}
-                        placeholder={
-                          selectedAssetClass === 'geo_forest_10000m2'
-                            ? (isEn ? 'e.g. Lat: 20.3167, Lng: 105.6083' : 'VD: Phân khu bảo vệ nghiêm ngặt / 20.3167°N, 105.6083°E')
-                            : selectedAssetClass === 'culinary_recipe'
-                            ? (isEn ? 'e.g. Traditional Folk Formula' : 'VD: Bài thuốc gia truyền / Dược thiện bổ phế')
-                            : selectedAssetClass === 'space_method'
-                            ? (isEn ? 'e.g. Modular Architecture System' : 'VD: Hệ module thoát nước ban công / Khung chịu lực')
-                            : selectedAssetClass === 'eco_invention'
-                            ? (isEn ? 'e.g. Circular Upcycling Solution' : 'VD: Bấc thấm sợi thủy tinh / Tái chế bình HDPE')
-                            : (isEn ? 'e.g. Ochna integerrima / Ba Vi Garden' : 'VD: Ochna integerrima / Vườn nhà Ba Vì')
-                        }
-                        className="w-full px-3.5 py-2.5 bg-forest-50 dark:bg-forest-950 border border-forest-200 dark:border-forest-800 rounded-xl text-xs text-forest-950 dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500 placeholder-forest-400 dark:placeholder-forest-600"
-                      />
-                    </div>
-                  </div>
-                )}
-
-                <div>
-                  <label className="text-xs font-semibold text-forest-700 dark:text-forest-300 block mb-1.5">
-                    {isEn ? 'Evolution Stage:' : '2. Giai đoạn sinh trưởng / tiến trình:'}
-                  </label>
-                  <select
-                    value={evolutionStage}
-                    onChange={(e) => setEvolutionStage(Number(e.target.value) as 1 | 2 | 3)}
-                    className="w-full px-3.5 py-2.5 bg-forest-50 dark:bg-forest-950 border border-forest-200 dark:border-forest-800 rounded-xl text-xs text-forest-950 dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
-                  >
-                    {(() => {
-                      const stages = getNftClassConfig(selectedAssetClass).evolutionStages;
-                      return (
-                        <>
-                          <option value={1}>1. {stages[0]}</option>
-                          <option value={2}>2. {stages[1]}</option>
-                          <option value={3}>3. {stages[2]}</option>
-                        </>
-                      );
-                    })()}
-                  </select>
-                </div>
-
-                {/* Lựa chọn phương thức đúc: On-chain thật hay Ký số 0đ */}
-                <div className="p-3 rounded-xl bg-forest-50 dark:bg-forest-950 border border-forest-200 dark:border-forest-800 space-y-2">
-                  <div className="flex items-center justify-between">
-                    <label className="text-xs font-semibold text-forest-950 dark:text-white flex items-center gap-1.5">
-                      <Sparkles className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
-                      <span>{isEn ? `Minting Method for ${currentNftConfig.shortName}:` : `Phương thức cấp ${currentNftConfig.certificateTitle}:`}</span>
-                    </label>
-                    <button
-                      type="button"
-                      onClick={() => setShowContractConfig(!showContractConfig)}
-                      className="text-[11px] text-emerald-600 dark:text-emerald-400 hover:underline cursor-pointer"
-                    >
-                      {showContractConfig ? 'Ẩn cấu hình Contract' : '⚙️ Cấu hình Contract'}
-                    </button>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-2 text-xs">
-                    <button
-                      type="button"
-                      onClick={() => setMintMode('onchain')}
-                      className={`p-2.5 rounded-xl border text-left font-semibold transition cursor-pointer ${
-                        mintMode === 'onchain'
-                          ? 'bg-emerald-50 dark:bg-emerald-950 border-emerald-500 text-forest-950 dark:text-white shadow-sm ring-1 ring-emerald-500'
-                          : 'bg-white dark:bg-charcoal-900 border-forest-200 dark:border-forest-800 text-forest-700 dark:text-forest-300 hover:text-forest-950 dark:hover:text-white'
-                      }`}
-                    >
-                      <div className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-bold">
-                        <span>🚀 Đúc On-chain Thật</span>
-                      </div>
-                      <div className="text-[10px] text-forest-500 dark:text-forest-300 mt-0.5">Gọi Smart Contract ERC-721 thật qua MetaMask</div>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => setMintMode('signature')}
-                      className={`p-2.5 rounded-xl border text-left font-semibold transition cursor-pointer ${
-                        mintMode === 'signature'
-                          ? 'bg-emerald-50 dark:bg-emerald-950 border-emerald-500 text-forest-950 dark:text-white shadow-sm ring-1 ring-emerald-500'
-                          : 'bg-white dark:bg-charcoal-900 border-forest-200 dark:border-forest-800 text-forest-700 dark:text-forest-300 hover:text-forest-950 dark:hover:text-white'
-                      }`}
-                    >
-                      <div className="flex items-center gap-1.5 text-amber-600 dark:text-amber-400 font-bold">
-                        <span>✍️ Ký Số 0đ Gas</span>
-                      </div>
-                      <div className="text-[10px] text-forest-500 dark:text-forest-300 mt-0.5">Ký mật mã EIP-191, không tốn gas testnet</div>
-                    </button>
-                  </div>
-
-                  {/* Cấu hình địa chỉ hợp đồng Smart Contract NFT */}
-                  {showContractConfig && (
-                    <div className="p-2.5 rounded-xl bg-white dark:bg-charcoal-900 border border-forest-200 dark:border-forest-800 text-xs space-y-2 mt-2">
-                      <div className="flex items-center justify-between">
-                        <span className="text-[11px] text-forest-700 dark:text-forest-300 font-semibold">Địa chỉ Contract NFT ({targetLedger}):</span>
-                        <a
-                          href="https://remix.ethereum.org"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[10px] text-amber-600 dark:text-amber-300 hover:underline flex items-center gap-1"
-                        >
-                          <span>Mở Remix IDE deploy ↗</span>
-                        </a>
-                      </div>
-                      <input
-                        type="text"
-                        value={contractAddress}
-                        onChange={(e) => setContractAddress(e.target.value)}
-                        placeholder="0x..."
-                        className="w-full px-3 py-1.5 bg-forest-50 dark:bg-forest-950 border border-forest-200 dark:border-forest-700 rounded-lg text-xs font-mono text-emerald-700 dark:text-emerald-300 focus:outline-none"
-                      />
-                      <p className="text-[10px] text-forest-500 dark:text-gray-400 leading-relaxed">
-                        Mã nguồn contract có sẵn tại <span className="font-mono text-emerald-600 dark:text-emerald-300">contracts/PlantPassportNFT.sol</span>. Bạn có thể dán vào Remix, bấm Deploy bằng MetaMask với 0.05 SepoliaETH, sau đó dán địa chỉ contract vào đây.
-                      </p>
-                    </div>
-                  )}
-                </div>
-
-                <div className="p-3.5 rounded-xl bg-forest-50 dark:bg-forest-950 border border-forest-200 dark:border-forest-800/80 text-xs text-forest-700 dark:text-forest-200/90 leading-relaxed shadow-xs">
-                  💡 <span className="font-semibold text-forest-950 dark:text-white">Xác thực ví thật:</span>{' '}
-                  {mintMode === 'onchain'
-                    ? `Khi bấm nút, MetaMask sẽ mở popup yêu cầu xác nhận giao dịch ghi vào Smart Contract NFT trên sổ cái ${targetLedger}. Giao dịch này sử dụng gas testnet và tạo ra NFT thật có thể tra cứu trên Blockchain Explorer.`
-                    : `Khi bấm nút, ví Web3 của bạn sẽ mở popup yêu cầu ký xác nhận thông điệp EIP-191. Chữ ký số này chứng minh quyền sở hữu độc bản và hoàn toàn 0đ gas.`}
-                </div>
-
-                {/* Banner Cơ Chế Độc Bản yeutrongcay.com */}
-                <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-[11px] text-amber-800 dark:text-amber-300 flex items-start gap-2">
-                  <ShieldCheck className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
-                  <div>
-                    <span className="font-bold block">{isEn ? `Strict Unique Verification (${currentNftConfig.nameEn}):` : `Bảo Vệ Độc Bản Tuyệt Đối (${currentNftConfig.nameVi}):`}</span>
-                    <span>{isEn ? `Each asset has only ONE unique digital certificate. Already minted assets are exclusively protected for your wallet.` : `Mỗi tài sản và ảnh gốc chỉ có DUY NHẤT một chứng nhận số trên yeutrongcay.com. Đã đúc sẽ được bảo hộ độc quyền cho bạn trong Hồ Sơ Cá Nhân; người khác sẽ bị chặn không thể đúc lại!`}</span>
-                  </div>
-                </div>
-
-                <button
-                  onClick={handleMintWithRealWallet}
-                  disabled={isMinting || !wallet?.isConnected}
-                  className={`w-full py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg transition active:scale-[0.99] disabled:opacity-50 text-white ${
-                    mintMode === 'onchain'
-                      ? 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 shadow-emerald-900/40 cursor-pointer'
-                      : 'bg-emerald-600 hover:bg-emerald-500 cursor-pointer'
-                  }`}
-                >
-                  {isMinting ? (
-                    <>
-                      <RefreshCw className="w-4 h-4 animate-spin text-white" />
-                      <span>{isEn ? 'Please Confirm on Your Wallet...' : 'Vui Lòng Mở MetaMask & Xác Nhận...'}</span>
-                    </>
-                  ) : !wallet?.isConnected ? (
-                    <>
-                      <Wallet className="w-4 h-4" />
-                      <span>{isEn ? 'Connect Real Wallet to Mint' : 'Cần Kết Nối Ví Thật Để Đúc'}</span>
-                    </>
-                  ) : mintMode === 'onchain' ? (
-                    <>
-                      <Sparkles className="w-4 h-4 text-amber-300" />
-                      <span>{isEn ? `Mint Real On-chain ${currentNftConfig.shortName} (MetaMask Confirm)` : `Đúc ${currentNftConfig.shortName} Thật Lên Blockchain (MetaMask Xác Nhận)`}</span>
-                    </>
-                  ) : (
-                    <>
-                      <Award className="w-4 h-4" />
-                      <span>{isEn ? `Sign with Real Wallet & Mint ${currentNftConfig.shortName} (0đ Gas)` : `Ký Số Ví Thật & Cấp ${currentNftConfig.certificateTitle} (0đ Gas)`}</span>
-                    </>
-                  )}
-                </button>
-              </div>
-            </div>
-
-            {/* Thẻ Hộ Chiếu Đã Đúc Thành Công */}
-            {mintedPassport && (
-              <div className="mt-5 bg-white dark:bg-forest-950 rounded-2xl p-5 border border-emerald-500 shadow-2xl space-y-3 animate-in fade-in">
-                <div className="flex items-center justify-between pb-3 border-b border-forest-100 dark:border-forest-800 flex-wrap gap-2">
-                  <div className="flex items-center gap-2">
-                    <span className="flex items-center gap-1.5 text-xs sm:text-sm font-bold text-emerald-600 dark:text-emerald-400">
-                      <Check className="w-5 h-5" />
-                      <span>{isEn ? `${currentNftConfig.studioSuccessTitleEn}!` : `${currentNftConfig.studioSuccessTitleVi}!`}</span>
-                    </span>
-                    {mintedPassport.is_onchain && (
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-600 flex items-center gap-1">
-                        <Sparkles className="w-3 h-3 text-amber-500 dark:text-amber-300" />
-                        <span>ON-CHAIN THẬT</span>
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700">
-                      Token ID: {mintedPassport.token_id}
-                    </span>
-
-                    {mintedPassport.is_onchain && mintedPassport.contract_address && (
-                      <button
-                        onClick={async () => {
-                          const res = await web3WalletService.addNftToMetaMask(
-                            mintedPassport.contract_address!,
-                            mintedPassport.token_id.replace('#', '')
-                          );
-                          if (res) setAddedToMetaMask(true);
-                        }}
-                        className="px-3 py-1 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-800 dark:text-amber-300 border border-amber-500/50 text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer"
-                        title="Thêm thẻ NFT này vào danh sách quản lý của MetaMask"
-                      >
-                        <Sparkles className="w-3.5 h-3.5" />
-                        <span>{addedToMetaMask ? 'Đã thêm vào ví' : 'Thêm NFT vào MetaMask'}</span>
-                      </button>
-                    )}
-
-                    {selectedArticleSlug && (
-                      <Link
-                        to={`/cay/${selectedArticleSlug}`}
-                        className="px-3 py-1 rounded-xl bg-amber-500 hover:bg-amber-400 text-forest-950 text-xs font-bold flex items-center gap-1.5 transition shadow-sm"
-                      >
-                        <ShieldCheck className="w-3.5 h-3.5" />
-                        <span>{isEn ? 'See Badge on Article' : 'Xem Huy Hiệu Trên Bài Viết'}</span>
-                      </Link>
-                    )}
-
-                    <Link
-                      to="/vuon-cua-toi?tab=nft_gallery"
-                      className="px-3 py-1 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white text-xs font-semibold flex items-center gap-1.5 transition shadow-sm"
-                    >
-                      <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                      <span>{isEn ? 'View in My Garden Gallery' : 'Xem trong Hồ Sơ Cá Nhân'}</span>
-                    </Link>
-
-                    <button
-                      onClick={() => window.print()}
-                      className="px-3 py-1 rounded-xl bg-forest-100 dark:bg-forest-800 hover:bg-forest-200 dark:hover:bg-forest-700 text-forest-900 dark:text-white text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer shadow-xs"
-                    >
-                      <Printer className="w-3.5 h-3.5" />
-                      <span>{isEn ? `Print ${currentNftConfig.shortName} Tag` : `In Thẻ ${currentNftConfig.shortName}`}</span>
-                    </button>
-                  </div>
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-4 items-center">
-                  <img
-                    src={mintedPassport.image_url}
-                    alt={mintedPassport.plant_name}
-                    className="w-24 h-24 rounded-2xl object-cover border border-forest-200 dark:border-forest-700 shrink-0 shadow-md"
-                  />
-                  <div className="space-y-1.5 text-xs text-forest-700 dark:text-forest-200 w-full">
-                    <div className="flex items-center justify-between">
-                      <span className="font-bold text-forest-950 dark:text-white text-sm sm:text-base">
-                        {mintedPassport.plant_name} ({mintedPassport.scientific_name})
-                      </span>
-                      <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-100 dark:bg-amber-900/80 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-700/60">
-                        Giai đoạn {mintedPassport.evolution_stage}/3
-                      </span>
-                    </div>
-
-                    <div className="text-[11px] font-mono text-forest-600 dark:text-gray-400 flex flex-wrap gap-x-4 gap-y-1 pt-1">
-                      <span>{isEn ? `${currentNftConfig.ownerRoleLabelEn}:` : `${currentNftConfig.ownerRoleLabelVi}:`} <span className="text-emerald-700 dark:text-emerald-300 font-semibold">{mintedPassport.owner_address}</span></span>
-                      <span>Sổ cái: <span className="text-forest-950 dark:text-white font-semibold">{mintedPassport.network}</span></span>
-                      {mintedPassport.contract_address && (
-                        <span>Contract: <span className="text-amber-700 dark:text-amber-300 font-mono">{mintedPassport.contract_address.slice(0, 8)}...</span></span>
-                      )}
-                    </div>
-
-                    <div className="p-2 rounded-xl bg-forest-50 dark:bg-charcoal-900 border border-forest-200 dark:border-forest-800 text-[10px] font-mono text-forest-600 dark:text-gray-400 flex flex-wrap items-center justify-between gap-2 shadow-xs">
-                      <div className="truncate max-w-md">
-                        SHA-256: <span className="text-emerald-700 dark:text-emerald-300">{mintedPassport.image_sha256}</span>
-                        {mintSignature && (
-                          <span className="ml-2 text-amber-700 dark:text-amber-300 block sm:inline">Chữ ký ví: {mintSignature.slice(0, 16)}...{mintSignature.slice(-8)}</span>
-                        )}
-                      </div>
-                      
-                      {mintedPassport.network.includes('Sepolia') && !mintedPassport.network.includes('Base') ? (
-                        <div className="flex flex-wrap items-center gap-4">
-                          <a
-                            href={`https://sepolia.etherscan.io/tx/${mintedPassport.transaction_hash}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-amber-700 dark:text-amber-300 hover:underline flex items-center gap-1 font-semibold"
-                          >
-                            <span>Xem giao dịch trên Sepolia Etherscan</span>
-                            <ExternalLink className="w-3 h-3" />
-                          </a>
-
-                          {mintedPassport.contract_address && (
-                            <a
-                              href={`https://eth-sepolia.blockscout.com/token/${mintedPassport.contract_address}/instance/${mintedPassport.token_id.replace('#', '')}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-emerald-700 dark:text-emerald-400 hover:underline flex items-center gap-1 font-semibold"
-                            >
-                              <span>Xem hình ảnh & Metadata NFT trên Blockscout</span>
-                              <ExternalLink className="w-3 h-3" />
-                            </a>
-                          )}
-                        </div>
-                      ) : (
-                        <div className="flex flex-wrap items-center gap-4">
-                          <a
-                            href={`https://sepolia.basescan.org/tx/${mintedPassport.transaction_hash}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-amber-700 dark:text-amber-300 hover:underline flex items-center gap-1 font-semibold"
-                          >
-                            <span>Xem giao dịch trên BaseScan Sepolia</span>
-                            <ExternalLink className="w-3 h-3" />
-                          </a>
-
-                          {mintedPassport.contract_address && (
-                            <a
-                              href={`https://base-sepolia.blockscout.com/token/${mintedPassport.contract_address}/instance/${mintedPassport.token_id.replace('#', '')}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-emerald-700 dark:text-emerald-400 hover:underline flex items-center gap-1 font-semibold"
-                            >
-                              <span>Xem hình ảnh & Metadata NFT trên Blockscout</span>
-                              <ExternalLink className="w-3 h-3" />
-                            </a>
-                          )}
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Nút Đốt Bỏ & Tái Sinh: QUY TẮC BẢO MẬT: CHỈ NGƯỜI SỞ HỮU MỚI ĐƯỢC QUYỀN ĐỐT */}
-                    {wallet?.isConnected && wallet.address.toLowerCase() === mintedPassport.owner_address.toLowerCase() && (
-                      <div className="pt-3 mt-3 border-t border-forest-100 dark:border-forest-800 flex items-center justify-between flex-wrap gap-2">
-                        <div className="text-[11px] text-forest-500">
-                          {isEn
-                            ? 'Don\'t like the current photo? As the verified owner, you can burn this NFT to release the exclusivity lock and re-mint with a better photo.'
-                            : 'Không ưng ý ảnh hiện tại? Là chủ sở hữu độc quyền, bạn có quyền đốt bỏ NFT này để giải phóng khóa độc bản và đúc lại ảnh mới.'}
-                        </div>
-                        <button
-                          onClick={() => handleOpenBurnModal(mintedPassport)}
-                          className="px-3.5 py-1.5 rounded-xl bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 hover:bg-rose-100 dark:hover:bg-rose-900/80 border border-rose-300 dark:border-rose-800 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-sm"
-                        >
-                          <Flame className="w-3.5 h-3.5 text-rose-600" />
-                          <span>{isEn ? 'Burn & Re-mint with New Photo' : '🔥 Đốt Bỏ & Tái Sinh Ảnh Mới'}</span>
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            <Web3OwnedPassportsSection
-              isEn={isEn}
-              wallet={wallet}
-              ownedPassports={ownedPassports}
-              handleOpenBurnModal={handleOpenBurnModal}
-            />
-          </div>
+          <Web3MintStudioTab
+            isEn={isEn}
+            wallet={wallet}
+            setWallet={setWallet}
+            walletError={walletError}
+            setWalletError={setWalletError}
+            mintSlugParam={mintSlugParam}
+            reincarnationNotice={reincarnationNotice}
+            setReincarnationNotice={setReincarnationNotice}
+            ownedPassports={ownedPassports}
+            handleOpenBurnModal={handleOpenBurnModal}
+            setRewardNotice={setRewardNotice}
+          />
         )}
 
         {/* ============================================================== */}
