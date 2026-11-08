@@ -28,10 +28,10 @@ const CATEGORY_NEGATIVE_RULES = {
 };
 
 const CATEGORY_POSITIVE_KEYWORDS = {
-  forest: ['cuc-phuong', 'cat-tien', 'phong-nha', 'hoang-lien', 'fansipan', 'con-dao', 'ba-be', 'ba-vi', 'pu-mat', 'tram-chim', 'can-gio', 'u-minh', 'yok-don', 'national-park', 'mangrove', 'lake', 'rainforest', 'vietnam'],
-  culinary: ['tea', 'syrup', 'honey', 'vinegar', 'sauce', 'soup', 'salt', 'spice', 'chili', 'ginger', 'perilla', 'sugarcane', 'papaya', 'sambal', 'elixir', 'herbal', 'vinaigrette', 'drink', 'broth', 'salad', 'dressing', 'canh', 'bayam', 'kemangi', 'ulek', 'seasoned', 'oil'],
-  space: ['pergola', 'trellis', 'living-wall', 'vertical-garden', 'terrace', 'balcony', 'atrium', 'courtyard', 'rooftop', 'planter', 'greenhouse', 'urban-garden', 'raised-bed', 'pond', 'hydroponic-tower', 'micro-forest', 'sky-garden', 'roof', 'garden', 'green', 'nest', 'architecture', 'permaculture'],
-  recycle: ['sip', 'sub-irrigated', 'bokashi', 'compost', 'worm', 'drip', 'irrigation', 'diy', 'upcycle', 'plastic-bottle', 'bucket', 'pvc', 'hydroponic', 'venturi', 'bottle', 'self-watering', 'emitter', 'fertigation', 'fertilizer', 'organic', 'fermentation', 'tank']
+  forest: ['cuc-phuong', 'cat-tien', 'phong-nha', 'hoang-lien', 'fansipan', 'con-dao', 'ba-be', 'ba-vi', 'pu-mat', 'tram-chim', 'can-gio', 'u-minh', 'yok-don', 'bidoup', 'bach-ma', 'bachma', 'national-park', 'np', 'mangrove', 'lake', 'rainforest', 'vietnam', 'hoanglienson', 'mountain', 'nature', 'reserve', 'falls', 'forest'],
+  culinary: ['tea', 'syrup', 'honey', 'vinegar', 'sauce', 'soup', 'salt', 'spice', 'chili', 'ginger', 'perilla', 'sugarcane', 'papaya', 'sambal', 'elixir', 'herbal', 'vinaigrette', 'drink', 'broth', 'salad', 'dressing', 'canh', 'bayam', 'kemangi', 'ulek', 'seasoned', 'oil', 'juice', 'lemonade', 'calamansi', 'infusion', 'extract'],
+  space: ['pergola', 'trellis', 'living-wall', 'vertical-garden', 'terrace', 'balcony', 'atrium', 'courtyard', 'rooftop', 'planter', 'greenhouse', 'urban-garden', 'raised-bed', 'pond', 'hydroponic-tower', 'hydroponic', 'tower', 'vertical', 'micro-forest', 'sky-garden', 'roof', 'garden', 'green', 'nest', 'architecture', 'permaculture', 'pflanzkasten', 'windowbox', 'modular', 'container'],
+  recycle: ['sip', 'sub-irrigated', 'bokashi', 'compost', 'worm', 'drip', 'irrigation', 'diy', 'upcycle', 'plastic-bottle', 'bucket', 'pvc', 'hydroponic', 'venturi', 'bottle', 'self-watering', 'emitter', 'fertigation', 'fertilizer', 'organic', 'fermentation', 'tank', 'aquaponics', 'wick', 'citrongraes', 'chili', 'garlic', 'ginger', 'spray', 'repellent', 'bio', 'pesticide']
 };
 
 /**

@@ -76,26 +76,30 @@ const CATEGORY_POSITIVE_KEYWORDS: Record<string, string[]> = {
   forest: [
     'cuc-phuong', 'cat-tien', 'phong-nha', 'hoang-lien', 'fansipan', 'con-dao', 
     'ba-be', 'ba-vi', 'pu-mat', 'tram-chim', 'can-gio', 'u-minh', 'yok-don', 
-    'bidoup', 'bach-ma', 'national-park', 'mangrove', 'lake', 'rainforest', 'vietnam'
+    'bidoup', 'bach-ma', 'bachma', 'national-park', 'np', 'mangrove', 'lake', 'rainforest', 'vietnam',
+    'hoanglienson', 'mountain', 'nature', 'reserve', 'falls', 'forest'
   ],
   culinary: [
     'tea', 'syrup', 'honey', 'vinegar', 'sauce', 'soup', 'salt', 'spice', 
     'chili', 'ginger', 'perilla', 'sugarcane', 'papaya', 'chrysanthemum', 
     'butterfly-pea', 'sambal', 'gukhwacha', 'liangcha', 'elixir', 'herbal',
     'vinaigrette', 'drink', 'beverage', 'broth', 'concoction', 'salad', 'dressing',
-    'canh', 'khoai', 'bayam', 'kemangi', 'ulek', 'seasoned', 'oil', 'making-vinaigrette'
+    'canh', 'khoai', 'bayam', 'kemangi', 'ulek', 'seasoned', 'oil', 'making-vinaigrette',
+    'juice', 'lemonade', 'calamansi', 'infusion', 'extract'
   ],
   space: [
     'pergola', 'trellis', 'living-wall', 'vertical-garden', 'terrace', 'balcony', 
     'atrium', 'courtyard', 'rooftop', 'planter', 'greenhouse', 'urban-garden', 
-    'raised-bed', 'windowbox', 'pond', 'hydroponic-tower', 'micro-forest', 'sky-garden',
-    'roof', 'garden', 'green', 'nest', 'architecture', 'permaculture'
+    'raised-bed', 'windowbox', 'pond', 'hydroponic-tower', 'hydroponic', 'tower',
+    'vertical', 'micro-forest', 'sky-garden', 'roof', 'garden', 'green', 'nest',
+    'architecture', 'permaculture', 'pflanzkasten', 'modular', 'container'
   ],
   recycle: [
     'sip', 'sub-irrigated', 'bokashi', 'compost', 'worm', 'vermicompost', 
     'drip', 'irrigation', 'diy', 'upcycle', 'plastic-bottle', 'bucket', 
     'pvc', 'hydroponic', 'venturi', 'capillary', 'aquaponics', 'bottle',
-    'self-watering', 'emitter', 'fertigation', 'fertilizer', 'organic', 'fermentation', 'tank'
+    'self-watering', 'emitter', 'fertigation', 'fertilizer', 'organic', 'fermentation', 'tank',
+    'wick', 'citrongraes', 'chili', 'garlic', 'ginger', 'spray', 'repellent', 'bio', 'pesticide'
   ]
 };
 
@@ -168,10 +172,12 @@ export function verifyImageAlignment(article: ArticleInput): ImageAlignmentResul
   }
 
   // 5. Kiểm tra Tương quan Tích cực (Positive Keywords)
+  const normUrl = url.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[-_\s%20]/g, '');
   const posKeywords = CATEGORY_POSITIVE_KEYWORDS[cat] || [];
   let matchedPositives = 0;
   for (const kw of posKeywords) {
-    if (urlTokens.includes(kw) || url.toLowerCase().includes(kw)) {
+    const normKw = kw.toLowerCase().replace(/[-_\s]/g, '');
+    if (normUrl.includes(normKw) || urlTokens.includes(kw) || url.toLowerCase().includes(kw)) {
       matchedPositives++;
       detectedMatches.push(kw);
     }
