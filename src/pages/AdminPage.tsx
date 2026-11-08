@@ -21,12 +21,17 @@ import {
   ExternalLink,
   Clock,
   Sparkles,
-  CheckCircle2
+  CheckCircle2,
+  Image as ImageIcon,
+  PlusCircle,
+  Search
 } from 'lucide-react';
 import { adminService, AdminStats, AdminReport, AdminClinicCase, AdminSwapOffer, AdminAutoPostStatus } from '../services/adminService.ts';
 import { useSEO } from '../utils/useSEO.ts';
 import { useLanguage } from '../context/LanguageContext';
 import { loginWithGoogle } from '../services/firebaseClient.ts';
+import { verifyImageAlignment, generateWikiSearchQuery } from '../utils/imageAlignment.ts';
+import { createPlantArticle } from '../services/apiService.ts';
 
 export const AdminPage: React.FC = () => {
   const { isEn } = useLanguage();
@@ -47,7 +52,7 @@ export const AdminPage: React.FC = () => {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   // Data states
-  const [activeTab, setActiveTab] = useState<'reports' | 'clinic' | 'swaps' | 'system' | 'autopost'>('reports');
+  const [activeTab, setActiveTab] = useState<'reports' | 'clinic' | 'swaps' | 'system' | 'autopost' | 'new_article'>('reports');
   const [stats, setStats] = useState<AdminStats | null>(null);
   const [reports, setReports] = useState<AdminReport[]>([]);
   const [reportFilter, setReportFilter] = useState<string>('all');
@@ -58,6 +63,74 @@ export const AdminPage: React.FC = () => {
   const [postTriggerResult, setPostTriggerResult] = useState<any | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [actionSuccess, setActionSuccess] = useState<string | null>(null);
+
+  // New Article State & CIRVA Verification
+  const [newArticle, setNewArticle] = useState({
+    category: 'herb',
+    common_name: '',
+    scientific_name: '',
+    description: '',
+    image_url: '',
+    sunlight: 'full_sun',
+    watering: 'moderate',
+    propagation_difficulty: 1,
+    growth_time: '60 ngày'
+  });
+  const [isSubmittingArticle, setIsSubmittingArticle] = useState(false);
+  const [articleSubmitResult, setArticleSubmitResult] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
+  const imageAlignment = verifyImageAlignment({
+    category: newArticle.category,
+    common_name: newArticle.common_name,
+    scientific_name: newArticle.scientific_name,
+    description: newArticle.description,
+    image_url: newArticle.image_url
+  });
+
+  const handleCreateArticle = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!imageAlignment.isApproved) {
+      setArticleSubmitResult({
+        type: 'error',
+        text: 'Thuật toán CIRVA từ chối: Hình ảnh không phù hợp với nội dung bài viết!'
+      });
+      return;
+    }
+    setIsSubmittingArticle(true);
+    setArticleSubmitResult(null);
+    try {
+      const res = await createPlantArticle(newArticle as any);
+      if (res.success) {
+        setArticleSubmitResult({
+          type: 'success',
+          text: 'Xuất bản bài viết mới thành công! Hệ thống đã ghi nhận và tự động dịch song ngữ.'
+        });
+        setNewArticle({
+          category: 'herb',
+          common_name: '',
+          scientific_name: '',
+          description: '',
+          image_url: '',
+          sunlight: 'full_sun',
+          watering: 'moderate',
+          propagation_difficulty: 1,
+          growth_time: '60 ngày'
+        });
+      } else {
+        setArticleSubmitResult({
+          type: 'error',
+          text: res.message || 'Không thể tạo bài viết mới.'
+        });
+      }
+    } catch (err: any) {
+      setArticleSubmitResult({
+        type: 'error',
+        text: err.message || 'Lỗi mạng khi kết nối máy chủ.'
+      });
+    } finally {
+      setIsSubmittingArticle(false);
+    }
+  };
 
   const loadData = async () => {
     setIsLoading(true);
@@ -470,6 +543,21 @@ export const AdminPage: React.FC = () => {
             <span>Auto-Post Fanpage (08:00 AM)</span>
             <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-mono">
               Auto
+            </span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('new_article')}
+            className={`px-4 py-2.5 rounded-2xl text-xs font-bold transition flex items-center gap-2 shrink-0 ${
+              activeTab === 'new_article'
+                ? 'bg-forest-900 text-white dark:bg-emerald-600 shadow-2xs'
+                : 'text-charcoal-600 dark:text-charcoal-300 hover:bg-forest-50 dark:hover:bg-charcoal-800'
+            }`}
+          >
+            <PlusCircle className="w-4 h-4 text-emerald-400" />
+            <span>Tạo Ấn Phẩm Mới (CIRVA AI)</span>
+            <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-amber-500/20 text-amber-500 dark:text-amber-300 border border-amber-500/40 font-mono">
+              AI Check
             </span>
           </button>
 
@@ -1064,6 +1152,291 @@ export const AdminPage: React.FC = () => {
                 </div>
               )}
             </div>
+          </div>
+        )}
+
+        {/* TAB 6: TẠO BÀI VIẾT MỚI (TÍCH HỢP CIRVA AI CHECK) */}
+        {activeTab === 'new_article' && (
+          <div className="bg-white dark:bg-charcoal-800 rounded-3xl p-6 sm:p-8 border border-forest-100 dark:border-forest-800 shadow-2xs space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-forest-100 dark:border-charcoal-700">
+              <div>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-base font-serif font-bold text-forest-950 dark:text-cream-50">
+                    Soạn Thảo Ấn Phẩm / Tạo Bài Viết Mới
+                  </h3>
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                    CIRVA Active
+                  </span>
+                </div>
+                <p className="text-xs text-charcoal-500 mt-1">
+                  Thuật toán CIRVA sẽ tự động kiểm tra tính phù hợp giữa hình ảnh và nội dung bài viết trước khi cho phép xuất bản.
+                </p>
+              </div>
+
+              {/* Cirva Score Indicator */}
+              <div className="flex items-center gap-3 bg-forest-50/50 dark:bg-charcoal-900/50 px-4 py-2 rounded-2xl border border-forest-100 dark:border-charcoal-700">
+                <div className="text-right">
+                  <div className="text-[10px] uppercase font-bold text-charcoal-400">Điểm CIRVA</div>
+                  <div className={`text-base font-black font-mono ${
+                    imageAlignment.score >= 75
+                      ? 'text-emerald-600 dark:text-emerald-400'
+                      : imageAlignment.score >= 60
+                      ? 'text-amber-500'
+                      : 'text-rose-500'
+                  }`}>
+                    {imageAlignment.score}/100
+                  </div>
+                </div>
+                <div className={`w-3 h-3 rounded-full ${
+                  imageAlignment.score >= 75
+                    ? 'bg-emerald-500 animate-pulse'
+                    : imageAlignment.score >= 60
+                    ? 'bg-amber-500'
+                    : 'bg-rose-500'
+                }`} />
+              </div>
+            </div>
+
+            {articleSubmitResult && (
+              <div className={`p-4 rounded-2xl text-xs flex items-center gap-2 ${
+                articleSubmitResult.type === 'success'
+                  ? 'bg-emerald-50 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-200 border border-emerald-200 dark:border-emerald-800'
+                  : 'bg-rose-50 text-rose-800 dark:bg-rose-950/60 dark:text-rose-200 border border-rose-200 dark:border-rose-800'
+              }`}>
+                {articleSubmitResult.type === 'success' ? (
+                  <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
+                ) : (
+                  <AlertTriangle className="w-4 h-4 shrink-0 text-rose-600" />
+                )}
+                <span>{articleSubmitResult.text}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleCreateArticle} className="space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Chuyên mục */}
+                <div>
+                  <label className="block text-xs font-bold text-forest-900 dark:text-cream-200 mb-1.5">
+                    Chuyên Mục Ấn Phẩm *
+                  </label>
+                  <select
+                    value={newArticle.category}
+                    onChange={(e) => setNewArticle({ ...newArticle, category: e.target.value })}
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-forest-200 dark:border-charcoal-700 bg-forest-50/30 dark:bg-charcoal-900 text-xs text-forest-950 dark:text-cream-50 focus:outline-emerald-500"
+                  >
+                    <option value="herb">Thảo Dược & Y Học Bản Địa (Herb)</option>
+                    <option value="fruit">Cây Ăn Trái Đô Thị (Fruit)</option>
+                    <option value="ornamental">Kiểng Lá & Cây Thanh Lọc (Ornamental)</option>
+                    <option value="space">Bản Vẽ & Thiết Kế Không Gian Xanh (Space)</option>
+                    <option value="recycle">Sáng Chế Xanh & Tái Chế Tự Tuần Hoàn (Recycle)</option>
+                    <option value="culinary">Dược Thiện & Ẩm Thực Bản Địa (Culinary)</option>
+                    <option value="forest">Rừng & Vườn Quốc Gia Việt Nam (Forest)</option>
+                  </select>
+                </div>
+
+                {/* Tên bài viết */}
+                <div>
+                  <label className="block text-xs font-bold text-forest-900 dark:text-cream-200 mb-1.5">
+                    Tên Bài Viết / Tên Cây Trồng *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Ví dụ: Siro Húng Chanh Quất Mật Ong / Vườn Quốc Gia Ba Bể"
+                    value={newArticle.common_name}
+                    onChange={(e) => setNewArticle({ ...newArticle, common_name: e.target.value })}
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-forest-200 dark:border-charcoal-700 bg-forest-50/30 dark:bg-charcoal-900 text-xs text-forest-950 dark:text-cream-50 focus:outline-emerald-500"
+                  />
+                </div>
+
+                {/* Tên khoa học */}
+                <div>
+                  <label className="block text-xs font-bold text-forest-900 dark:text-cream-200 mb-1.5">
+                    Tên Khoa Học / Định Danh Quốc Tế
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Ví dụ: Plectranthus amboinicus / Ba Be National Park"
+                    value={newArticle.scientific_name}
+                    onChange={(e) => setNewArticle({ ...newArticle, scientific_name: e.target.value })}
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-forest-200 dark:border-charcoal-700 bg-forest-50/30 dark:bg-charcoal-900 text-xs text-forest-950 dark:text-cream-50 focus:outline-emerald-500"
+                  />
+                </div>
+
+                {/* Thời gian sinh trưởng / thi công */}
+                <div>
+                  <label className="block text-xs font-bold text-forest-900 dark:text-cream-200 mb-1.5">
+                    Thời Gian Thu Hoạch / Thi Công
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Ví dụ: 45 phút chưng cất / 3 ngày thi công"
+                    value={newArticle.growth_time}
+                    onChange={(e) => setNewArticle({ ...newArticle, growth_time: e.target.value })}
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-forest-200 dark:border-charcoal-700 bg-forest-50/30 dark:bg-charcoal-900 text-xs text-forest-950 dark:text-cream-50 focus:outline-emerald-500"
+                  />
+                </div>
+              </div>
+
+              {/* Tóm tắt nội dung */}
+              <div>
+                <label className="block text-xs font-bold text-forest-900 dark:text-cream-200 mb-1.5">
+                  Tóm Tắt Nội Dung / Mô Tả Kỹ Thuật
+                </label>
+                <textarea
+                  rows={3}
+                  placeholder="Mô tả công thức, kỹ thuật thiết kế, sinh thái học hoặc dược tính..."
+                  value={newArticle.description}
+                  onChange={(e) => setNewArticle({ ...newArticle, description: e.target.value })}
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-forest-200 dark:border-charcoal-700 bg-forest-50/30 dark:bg-charcoal-900 text-xs text-forest-950 dark:text-cream-50 focus:outline-emerald-500"
+                />
+              </div>
+
+              {/* KHU VỰC HÌNH ẢNH VÀ WIDGET CIRVA */}
+              <div className="p-4 sm:p-5 rounded-2xl border border-forest-200 dark:border-charcoal-700 bg-forest-50/20 dark:bg-charcoal-900/30 space-y-4">
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-1.5">
+                    <label className="text-xs font-bold text-forest-900 dark:text-cream-200 flex items-center gap-1.5">
+                      <ImageIcon className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>URL Hình Ảnh Đại Diện *</span>
+                    </label>
+                    <a
+                      href={`https://commons.wikimedia.org/w/index.php?search=${encodeURIComponent(
+                        generateWikiSearchQuery(newArticle)
+                      )}&title=Special:MediaSearch&type=image`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-[11px] font-bold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 flex items-center gap-1 transition"
+                    >
+                      <Search className="w-3 h-3" />
+                      <span>Tra cứu ảnh chuẩn Wikimedia</span>
+                    </a>
+                  </div>
+                  <input
+                    type="url"
+                    required
+                    placeholder="https://upload.wikimedia.org/wikipedia/commons/..."
+                    value={newArticle.image_url}
+                    onChange={(e) => setNewArticle({ ...newArticle, image_url: e.target.value })}
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-forest-200 dark:border-charcoal-700 bg-white dark:bg-charcoal-900 text-xs text-forest-950 dark:text-cream-50 focus:outline-emerald-500 font-mono"
+                  />
+                </div>
+
+                {/* BẢNG KẾT QUẢ ĐÁNH GIÁ CIRVA REAL-TIME */}
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 pt-2">
+                  {/* Xem trước ảnh */}
+                  <div className="md:col-span-1">
+                    <div className="w-full aspect-video rounded-xl overflow-hidden bg-forest-100 dark:bg-charcoal-800 border border-forest-200 dark:border-charcoal-700 flex items-center justify-center relative">
+                      {newArticle.image_url ? (
+                        <img
+                          src={newArticle.image_url}
+                          alt="Preview"
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            (e.currentTarget as HTMLImageElement).src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="60" viewBox="0 0 100 60"><rect width="100%" height="100%" fill="%23fee2e2"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="10" fill="%23dc2626">Ảnh Lỗi / 404</text></svg>';
+                          }}
+                        />
+                      ) : (
+                        <span className="text-[11px] text-charcoal-400">Chưa nhập ảnh</span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Chi tiết phân tích CIRVA */}
+                  <div className="md:col-span-3 space-y-2">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-bold text-charcoal-600 dark:text-charcoal-300">
+                        Đánh giá tương thích:
+                      </span>
+                      <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold ${
+                        imageAlignment.isApproved
+                          ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300'
+                          : imageAlignment.score >= 60
+                          ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300'
+                          : 'bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300'
+                      }`}>
+                        {imageAlignment.isApproved
+                          ? `✓ ĐẠT CHUẨN CIRVA (${imageAlignment.score}/100)`
+                          : imageAlignment.score >= 60
+                          ? `⚠ CẢNH BÁO TƯƠNG THÍCH (${imageAlignment.score}/100)`
+                          : `✕ TỪ CHỐI BỞI CIRVA (${imageAlignment.score}/100)`}
+                      </span>
+                    </div>
+
+                    {imageAlignment.issues.length > 0 && (
+                      <div className="space-y-1">
+                        {imageAlignment.issues.map((iss, idx) => (
+                          <div key={idx} className="text-[11px] text-rose-600 dark:text-rose-400 flex items-start gap-1.5 font-medium">
+                            <span className="shrink-0">•</span>
+                            <span>{iss}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {imageAlignment.suggestions.length > 0 && (
+                      <div className="space-y-1 pt-1">
+                        {imageAlignment.suggestions.map((sug, idx) => (
+                          <div key={idx} className="text-[11px] text-amber-700 dark:text-amber-300 flex items-start gap-1.5">
+                            <span className="shrink-0">💡</span>
+                            <span>{sug}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {imageAlignment.isApproved && (
+                      <p className="text-[11px] text-emerald-700 dark:text-emerald-300">
+                        ✓ Hình ảnh hoàn toàn đáp ứng tiêu chí định danh và bối cảnh chuyên mục.
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Nút gửi */}
+              <div className="flex items-center justify-end gap-3 pt-4 border-t border-forest-100 dark:border-charcoal-700">
+                <button
+                  type="button"
+                  onClick={() => setNewArticle({
+                    category: 'herb',
+                    common_name: '',
+                    scientific_name: '',
+                    description: '',
+                    image_url: '',
+                    sunlight: 'full_sun',
+                    watering: 'moderate',
+                    propagation_difficulty: 1,
+                    growth_time: '60 ngày'
+                  })}
+                  className="px-4 py-2.5 rounded-xl border border-forest-200 dark:border-charcoal-700 text-xs font-bold text-charcoal-600 dark:text-charcoal-300 hover:bg-forest-50 dark:hover:bg-charcoal-700 transition"
+                >
+                  Xóa Làm Lại
+                </button>
+
+                <button
+                  type="submit"
+                  disabled={!imageAlignment.isApproved || isSubmittingArticle || !newArticle.common_name}
+                  className={`px-5 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-2 ${
+                    imageAlignment.isApproved && !isSubmittingArticle && newArticle.common_name
+                      ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm cursor-pointer'
+                      : 'bg-charcoal-200 dark:bg-charcoal-700 text-charcoal-400 dark:text-charcoal-500 cursor-not-allowed'
+                  }`}
+                >
+                  {isSubmittingArticle ? (
+                    <>
+                      <RefreshCw className="w-4 h-4 animate-spin" />
+                      <span>Đang Ghi Nhận & Dịch Song Ngữ...</span>
+                    </>
+                  ) : (
+                    <>
+                      <CheckCircle2 className="w-4 h-4" />
+                      <span>Xuất Bản Bài Viết Mới (CIRVA Phê Duyệt)</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </form>
           </div>
         )}
 

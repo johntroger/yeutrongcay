@@ -35,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 require_once __DIR__ . '/db.php';
 require_once __DIR__ . '/translate_service.php';
+require_once __DIR__ . '/image_alignment.php';
 
 $pdo = getDbConnection();
 
@@ -81,7 +82,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $scientificName = trim($data['scientific_name'] ?? '');
     $category = in_array($data['category'] ?? '', ['herb', 'fruit', 'ornamental', 'space', 'recycle', 'culinary', 'forest']) ? $data['category'] : 'herb';
     $descriptionVi = trim($data['description'] ?? '');
-    $imageUrl = trim($data['image_url'] ?? 'https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=600&q=80');
+    $imageUrl = trim($data['image_url'] ?? '');
+    
+    // 2. Kiểm định Tương thích Hình ảnh & Nội dung theo Thuật toán CIRVA
+    $alignmentResult = verifyImageContentAlignment($category, $commonNameVi, $scientificName, $descriptionVi, $imageUrl);
+    if (!$alignmentResult['is_approved']) {
+        http_response_code(422);
+        echo json_encode([
+            'success' => false,
+            'error_code' => 'CIRVA_IMAGE_MISMATCH',
+            'message' => 'Hình ảnh không phù hợp với nội dung bài viết theo Thuật toán CIRVA',
+            'alignment' => $alignmentResult
+        ], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
     $sunlight = in_array($data['sunlight'] ?? '', ['full_sun', 'partial_shade', 'indoor']) ? $data['sunlight'] : 'full_sun';
     $watering = in_array($data['watering'] ?? '', ['daily', 'moderate', 'drought_tolerant']) ? $data['watering'] : 'moderate';
     $difficulty = intval($data['propagation_difficulty'] ?? 1);

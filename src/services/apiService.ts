@@ -820,3 +820,41 @@ export async function deletePlantDiary(diaryId: string): Promise<{ success: bool
     return { success: true, message: 'Đã xóa mốc nhật ký (Offline)' };
   }
 }
+
+/**
+ * Thêm ấn phẩm / bài viết cây trồng mới (Kèm kiểm định CIRVA)
+ */
+export async function createPlantArticle(
+  plantData: Partial<Plant>,
+  adminToken?: string
+): Promise<{
+  success: boolean;
+  data?: Plant;
+  message?: string;
+  alignment?: any;
+}> {
+  try {
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    };
+    if (adminToken) {
+      headers['X-Admin-Token'] = adminToken;
+    }
+
+    const res = await fetch(`${API_BASE}/plants.php`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(plantData)
+    });
+
+    const json = await res.json();
+    return json;
+  } catch (err: any) {
+    return {
+      success: false,
+      message: err.message || 'Lỗi kết nối khi tạo bài viết mới'
+    };
+  }
+}
+
