@@ -12,10 +12,13 @@ $ErrorActionPreference = "Stop"
 Write-Host "===> 1. Kiem tra kieu du lieu (TypeScript Typecheck)..." -ForegroundColor Cyan
 npm run typecheck
 
-Write-Host "===> 2. Bien dich bundle production (Vite Build)..." -ForegroundColor Cyan
+Write-Host "===> 2. Chay kiem thu tu dong (Unit Tests)..." -ForegroundColor Cyan
+npm test
+
+Write-Host "===> 3. Bien dich bundle production (Vite Build)..." -ForegroundColor Cyan
 npm run build
 
-Write-Host "===> 3. Dong goi backend PHP & cau hinh bao mat..." -ForegroundColor Cyan
+Write-Host "===> 4. Dong goi backend PHP & cau hinh bao mat..." -ForegroundColor Cyan
 $deployDir = "dist"
 
 # Tao cac thu muc can thiet

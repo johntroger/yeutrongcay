@@ -31,10 +31,13 @@ jobs:
       - name: 4. Static typecheck
         run: npm run typecheck
 
-      - name: 5. Build Vite SPA
+      - name: 5. Automated Unit Tests
+        run: npm test
+
+      - name: 6. Build Vite SPA
         run: npm run build
 
-      - name: 6. Assemble Production Payload
+      - name: 7. Assemble Production Payload
         run: |
           mkdir -p dist/api dist/uploads dist/migrations
           cp -r api/* dist/api/ 2>/dev/null || true
@@ -45,7 +48,7 @@ jobs:
           echo "<?php header('HTTP/1.0 403 Forbidden'); exit; ?>" > dist/uploads/index.php
           echo "yeutrongcay.com build completed at $(date -u)" > dist/build-info.txt
 
-      - name: 7. Deploy to 'production' Branch (For Plesk Git Extension)
+      - name: 8. Deploy to 'production' Branch (For Plesk Git Extension)
         run: |
           cd dist
           git init -b production
@@ -55,7 +58,7 @@ jobs:
           git commit -m "deploy: sync production build to Plesk (${GITHUB_SHA::7})"
           git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" production
 
-      - name: 8. Trigger Plesk Git Webhook (If configured)
+      - name: 9. Trigger Plesk Git Webhook (If configured)
         if: env.PLESK_WEBHOOK != ''
         env:
           PLESK_WEBHOOK: ${{ secrets.PLESK_GIT_WEBHOOK_URL }}

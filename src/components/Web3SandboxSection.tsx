@@ -6,7 +6,7 @@ import {
   Check,
   RefreshCw,
   FileCheck2,
-  ArrowRight,
+  Droplets,
   Printer,
   Wallet,
   LogOut,
@@ -16,7 +16,6 @@ import {
   ExternalLink,
   BookOpen,
   Coins,
-  Droplets,
   KeyRound,
   ChevronDown,
   ChevronRight,
@@ -27,11 +26,7 @@ import {
   Camera,
   MapPin,
   Compass,
-  TrendingUp,
-  Vote,
-  Landmark,
   ShieldAlert,
-  Leaf,
   Flame
 } from 'lucide-react';
 import { Web3TestnetPassport, NftAssetClass, ForestGeoSpec } from '../types/index.ts';
@@ -40,6 +35,7 @@ import { web3WalletService, WalletState } from '../services/web3WalletService.ts
 import { awardKarmaPoints, getKarmaState, KarmaState } from '../services/karmaService.ts';
 import { plantPassportRegistryService, RegisteredPlantPassport } from '../services/plantPassportRegistryService.ts';
 import { BurnPassportModal } from './BurnPassportModal.tsx';
+import { Web3LearnTab, Web3FaucetTab, Web3EscrowTab, Web3DeFiTab, Web3OwnedPassportsSection } from './web3';
 import { SEED_PLANTS } from '../data/plants.ts';
 import { getPlantBySlug } from '../services/apiService.ts';
 import {
@@ -83,76 +79,10 @@ const SAMPLE_MINT_PLANTS = [
   }
 ];
 
-// Danh sách các vòi Faucet Crypto Testnet uy tín nhất thế giới (Hoàn toàn miễn phí 0đ)
-const REAL_FAUCETS = [
-  {
-    name: 'Google Cloud Web3 Faucet',
-    network: 'Ethereum Sepolia',
-    amount: '0.05 ETH / ngày',
-    url: 'https://cloud.google.com/application/web3/faucet/ethereum/sepolia',
-    descriptionVi: 'Vòi cấp chính thức của Google Cloud, đăng nhập tài khoản Google để nhận thẳng 0.05 SepoliaETH.',
-    descriptionEn: 'Official Google Cloud Web3 faucet granting 0.05 SepoliaETH daily with Google account.'
-  },
-  {
-    name: 'Sepolia PoW Faucet (pk910)',
-    network: 'Ethereum Sepolia',
-    amount: 'Không giới hạn (PoW)',
-    url: 'https://sepolia-faucet.pk910.de',
-    descriptionVi: 'Vòi đào miễn phí dùng CPU trình duyệt, không cần đăng nhập hay xác minh danh tính.',
-    descriptionEn: 'Proof-of-work faucet. Mine free SepoliaETH with your browser without logins.'
-  },
-  {
-    name: 'Coinbase Developer Faucet',
-    network: 'Base Sepolia',
-    amount: '0.1 ETH / ngày',
-    url: 'https://www.coinbase.com/faucets/base-ethereum-sepolia-faucet',
-    descriptionVi: 'Vòi chính thức của sàn Coinbase cấp ETH testnet cho mạng Base Sepolia.',
-    descriptionEn: 'Official Coinbase developer faucet granting daily Base Sepolia testnet ETH.'
-  },
-  {
-    name: 'Superchain Faucet (Optimism)',
-    network: 'Base Sepolia & OP',
-    amount: '0.05 ETH / lần',
-    url: 'https://console.optimism.io/faucet',
-    descriptionVi: 'Vòi cấp của liên minh Superchain, đăng nhập bằng GitHub nhận tức thì.',
-    descriptionEn: 'Superchain community faucet. Instant claim with your GitHub account.'
-  },
-  {
-    name: 'QuickNode Faucet',
-    network: 'Sepolia & Base',
-    amount: '0.05 ETH',
-    url: 'https://faucet.quicknode.com',
-    descriptionVi: 'Vòi cấp tốc độ cao từ nhà cung cấp hạ tầng QuickNode.',
-    descriptionEn: 'Fast RPC developer faucet powered by QuickNode infrastructure.'
-  },
-  {
-    name: 'BNB Chain Official Testnet Faucet',
-    network: 'BNB Smart Chain Testnet',
-    amount: '0.3 tBNB / ngày',
-    url: 'https://www.bnbchain.org/en/testnet-faucet',
-    descriptionVi: 'Vòi cấp chính thức từ BNB Chain cấp tBNB miễn phí để thử nghiệm smart contract.',
-    descriptionEn: 'Official BNB Chain testnet faucet granting daily tBNB for testing.'
-  },
-  {
-    name: 'Polygon Amoy Official Faucet',
-    network: 'Polygon Amoy',
-    amount: '0.2 MATIC / ngày',
-    url: 'https://faucet.polygon.technology/',
-    descriptionVi: 'Vòi cấp chính thức từ Polygon Labs nhận MATIC/POL testnet miễn phí trên mạng Amoy.',
-    descriptionEn: 'Official Polygon faucet granting testnet POL/MATIC tokens on Amoy.'
-  },
-  {
-    name: 'Chainlink Multi-Chain Testnet Faucet',
-    network: 'Arbitrum Sepolia & EVM',
-    amount: '0.1 ETH + LINK',
-    url: 'https://faucets.chain.link/',
-    descriptionVi: 'Vòi đa mạng uy tín của Chainlink hỗ trợ Arbitrum Sepolia, Ethereum Sepolia 0đ.',
-    descriptionEn: 'Chainlink multi-network faucet supporting Arbitrum Sepolia and EVM testnets.'
-  }
-];
+
 
 // 5 Phân khu học tập Web3 & DeFi Testnet
-const LEARNING_TABS = [
+export const LEARNING_TABS = [
   {
     id: 'learn' as const,
     num: '1',
@@ -490,7 +420,7 @@ export const Web3SandboxSection: React.FC = () => {
   };
 
   // Trạng thái Escrow Simulator
-  const [escrowStep, setEscrowStep] = useState<number>(1);
+  const [escrowStep, setEscrowStep] = useState<1 | 2 | 3>(1);
   const [isEscrowSimulating, setIsEscrowSimulating] = useState(false);
 
   // Trạng thái Điểm Uy Tín Karma & Thông Báo Thưởng (Testnet Learn-to-Earn)
@@ -1252,7 +1182,7 @@ export const Web3SandboxSection: React.FC = () => {
       setIsEscrowSimulating(true);
       setTimeout(() => {
         setIsEscrowSimulating(false);
-        const nextStep = escrowStep + 1;
+        const nextStep = (escrowStep + 1) as 1 | 2 | 3;
         setEscrowStep(nextStep);
 
         // Khi bước 3 hoàn tất (Nghiệm thu thành công, cây sống tốt -> Hoàn trả cọc & Thưởng Trái Tim)
@@ -1714,193 +1644,18 @@ export const Web3SandboxSection: React.FC = () => {
         {/* ============================================================== */}
         {/* TAB 1: VỠ LÒNG WEB3 TRONG 3 PHÚT (WEB3 101) */}
         {/* ============================================================== */}
-        {activeTab === 'learn' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 animate-in fade-in">
-            {/* Card 1: Ví Web3 */}
-            <div className="p-5 rounded-2xl bg-white dark:bg-charcoal-900/90 border border-forest-100 dark:border-forest-800 space-y-2.5 shadow-sm">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold">
-                🔑
-              </div>
-              <h3 className="text-sm font-serif font-bold text-forest-950 dark:text-white">
-                {isEn ? 'What is a Web3 Wallet?' : 'Ví Web3 là gì?'}
-              </h3>
-              <p className="text-xs text-forest-600 dark:text-forest-300 leading-relaxed">
-                {isEn
-                  ? 'Think of it as your digital keychain. Unlike banks, no central company owns it. You control your 12 secret seed words.'
-                  : 'Hãy tưởng tượng ví Web3 như chiếc chùm chìa khóa riêng của bạn. Không một ngân hàng hay công ty nào có thể khóa hay tịch thu tài sản của bạn.'}
-              </p>
-            </div>
-
-            {/* Card 2: Mạng Testnet */}
-            <div className="p-5 rounded-2xl bg-white dark:bg-charcoal-900/90 border border-forest-100 dark:border-forest-800 space-y-2.5 shadow-sm">
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold">
-                🧪
-              </div>
-              <h3 className="text-sm font-serif font-bold text-forest-950 dark:text-white">
-                {isEn ? 'What is a Testnet?' : 'Mạng Testnet là gì?'}
-              </h3>
-              <p className="text-xs text-forest-600 dark:text-forest-300 leading-relaxed">
-                {isEn
-                  ? 'A real blockchain network built for learning and testing. Transactions are real, but coins have 0 real monetary value. Zero risk!'
-                  : 'Là mạng thử nghiệm chạy song song với mạng thật. Mọi thao tác ký số, chuyển token đều là thật nhưng tiền có giá trị 0đ. Thoải mái bấm thử, không sợ mất tiền!'}
-              </p>
-            </div>
-
-            {/* Card 3: Faucet */}
-            <div className="p-5 rounded-2xl bg-white dark:bg-charcoal-900/90 border border-forest-100 dark:border-forest-800 space-y-2.5 shadow-sm">
-              <div className="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center font-bold">
-                🚰
-              </div>
-              <h3 className="text-sm font-serif font-bold text-forest-950 dark:text-white">
-                {isEn ? 'What is a Faucet?' : 'Faucet (Vòi nước) là gì?'}
-              </h3>
-              <p className="text-xs text-forest-600 dark:text-forest-300 leading-relaxed">
-                {isEn
-                  ? 'Websites that freely distribute small amounts of testnet ETH so anyone can experiment with smart contracts for free.'
-                  : 'Là các trang web do Coinbase, Google tài trợ để cấp ETH thử nghiệm miễn phí mỗi ngày. Chỉ cần dán địa chỉ ví là nhận được ETH để làm quen.'}
-              </p>
-            </div>
-
-            {/* Card 4: Hộ chiếu cây NFT */}
-            <div className="p-5 rounded-2xl bg-white dark:bg-charcoal-900/90 border border-forest-100 dark:border-forest-800 space-y-2.5 shadow-sm">
-              <div className="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold">
-                🌱
-              </div>
-              <h3 className="text-sm font-serif font-bold text-forest-950 dark:text-white">
-                {isEn ? 'Plant Passport NFT?' : 'Hộ chiếu cây NFT giúp gì?'}
-              </h3>
-              <p className="text-xs text-forest-600 dark:text-forest-300 leading-relaxed">
-                {isEn
-                  ? 'A tamper-proof birth certificate for your plant. Proves genetic lineage, planting age, and organic care without paperwork.'
-                  : 'Là thẻ căn cước công dân số cho chậu cây. Giúp người yêu cây chứng minh nguồn gen thuần chủng, ngày gieo trồng và không bị làm giả giống.'}
-              </p>
-            </div>
-
-            {/* GitBook Documentation Link Banner */}
-            <div className="md:col-span-2 lg:col-span-4 p-5 rounded-2xl bg-gradient-to-r from-emerald-50 via-teal-50/80 to-forest-50 dark:from-forest-900 dark:via-charcoal-900 dark:to-forest-950 border border-emerald-300 dark:border-emerald-500/40 shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-1">
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800">
-                    GitBook Academy
-                  </span>
-                  <h4 className="text-sm font-bold text-forest-950 dark:text-white font-serif">
-                    {isEn ? 'Yeu Trong Cay Web3 Academy - Comprehensive GitBook Guide' : 'Giáo Trình GitBook Toàn Tập: Web3 & Hộ Chiếu Thực Vật Số'}
-                  </h4>
-                </div>
-                <p className="text-xs text-forest-700 dark:text-forest-300 leading-relaxed max-w-3xl">
-                  {isEn
-                    ? 'Explore our full curriculum covering blockchain fundamentals, 12-seed phrase safety, Base Sepolia testnet faucets, Dynamic NFTs, and escrow contracts.'
-                    : 'Đọc tài liệu chuyên sâu 8 chương: bản chất chuỗi khối, bảo mật 12 từ khóa, cách hứng nước Faucet, cấu trúc hàm băm SHA-256 và thuật ngữ A-Z cho người làm vườn.'}
-                </p>
-              </div>
-              <a
-                href="https://vneconomics.gitbook.io/ytc-web3-academy"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md shrink-0 transition"
-              >
-                <span>{isEn ? 'Open Full GitBook' : 'Mở Giáo Trình GitBook'}</span>
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
-            </div>
-          </div>
-        )}
+        {activeTab === 'learn' && <Web3LearnTab isEn={isEn} />}
 
         {/* ============================================================== */}
         {/* TAB 2: HƯỚNG DẪN LẤY ETH TESTNET MIỄN PHÍ (FAUCET GUIDE) */}
         {/* ============================================================== */}
         {activeTab === 'faucet' && (
-          <div className="space-y-4 animate-in fade-in">
-            {/* Box sao chép địa chỉ ví nhanh */}
-            <div className="p-5 rounded-2xl bg-white dark:bg-charcoal-900 border border-emerald-400 dark:border-emerald-500/60 shadow-lg space-y-3">
-              <div className="flex items-center justify-between flex-wrap gap-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
-                  <Droplets className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
-                  <span>{isEn ? 'Step 1: Copy Your Real Wallet Address' : 'Bước 1: Sao Chép Địa Chỉ Ví Của Bạn'}</span>
-                </span>
-                {wallet?.isConnected && (
-                  <span className="text-xs font-mono text-amber-700 dark:text-amber-300 bg-forest-50 dark:bg-forest-950 px-3 py-1 rounded-full border border-forest-200 dark:border-forest-800">
-                    Số dư hiện tại: {wallet.balanceEth} ETH (Testnet)
-                  </span>
-                )}
-              </div>
-
-              <p className="text-xs text-forest-600 dark:text-forest-300">
-                {isEn
-                  ? 'To receive free testnet ETH, copy your address below, then open one of the trusted faucets to paste it.'
-                  : 'Để nhận ETH testnet miễn phí, hãy bấm nút sao chép địa chỉ ví dưới đây, sau đó nhấp vào 1 trong các vòi Faucet bên dưới để dán vào nhận tiền:'}
-              </p>
-
-              <div className="flex items-center gap-2 max-w-2xl">
-                <input
-                  type="text"
-                  readOnly
-                  value={wallet?.address || (isEn ? 'Please connect your real wallet first' : 'Vui lòng bấm Kết Nối Ví Thật ở góc trên trước')}
-                  className="w-full px-4 py-2.5 rounded-xl bg-forest-50 dark:bg-forest-950 border border-forest-200 dark:border-forest-800 font-mono text-xs text-emerald-700 dark:text-emerald-300 select-all focus:outline-none"
-                />
-                <button
-                  onClick={handleCopyAddress}
-                  disabled={!wallet?.isConnected}
-                  className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-bold text-xs flex items-center gap-1.5 transition shrink-0 shadow-md"
-                >
-                  {copied ? (
-                    <>
-                      <Check className="w-4 h-4 text-white" />
-                      <span>{isEn ? 'Copied!' : 'Đã Chép!'}</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-4 h-4" />
-                      <span>{isEn ? 'Copy Address' : 'Sao Chép'}</span>
-                    </>
-                  )}
-                </button>
-              </div>
-            </div>
-
-            {/* Danh sách 4 Vòi Faucet Chính Thức */}
-            <div>
-              <h3 className="text-xs font-bold uppercase tracking-wider text-forest-700 dark:text-forest-300 mb-3 flex items-center gap-1.5">
-                <ExternalLink className="w-3.5 h-3.5" />
-                <span>{isEn ? 'Step 2: Choose a Trusted Faucet & Paste Your Address' : 'Bước 2: Mở Vòi Faucet & Dán Địa Chỉ Nhận ETH (0đ)'}</span>
-              </h3>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {REAL_FAUCETS.map((f, i) => (
-                  <div key={i} className="p-5 rounded-2xl bg-white dark:bg-charcoal-900/90 border border-forest-100 dark:border-forest-800 hover:border-emerald-500/50 transition shadow-sm hover:shadow-md flex flex-col justify-between space-y-3">
-                    <div className="space-y-1.5">
-                      <div className="flex items-center justify-between">
-                        <h4 className="font-bold text-sm text-forest-950 dark:text-white flex items-center gap-1.5">
-                          <span>{f.name}</span>
-                        </h4>
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800">
-                          {f.amount}
-                        </span>
-                      </div>
-                      <p className="text-xs text-forest-600 dark:text-forest-300">
-                        {isEn ? f.descriptionEn : f.descriptionVi}
-                      </p>
-                    </div>
-
-                    <div className="pt-2 border-t border-forest-100 dark:border-forest-800/80 flex items-center justify-between">
-                      <span className="text-[11px] font-mono text-forest-500 dark:text-gray-400">
-                        Mạng: <span className="text-forest-950 dark:text-white font-semibold">{f.network}</span>
-                      </span>
-                      <a
-                        href={f.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-3.5 py-1.5 rounded-xl bg-forest-100 dark:bg-forest-800 hover:bg-forest-200 dark:hover:bg-forest-700 text-forest-950 dark:text-white font-bold text-xs flex items-center gap-1 transition shadow-xs"
-                      >
-                        <span>{isEn ? 'Open Faucet' : 'Mở Vòi Này'}</span>
-                        <ExternalLink className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
-                      </a>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          <Web3FaucetTab
+            isEn={isEn}
+            wallet={wallet}
+            handleCopyAddress={handleCopyAddress}
+            copied={copied}
+          />
         )}
 
         {/* ============================================================== */}
@@ -2597,74 +2352,12 @@ export const Web3SandboxSection: React.FC = () => {
               </div>
             )}
 
-            {/* DANH SÁCH HỘ CHIẾU BẠN ĐANG SỞ HỮU (HIỂN THỊ SẴN NÚT ĐỐT BỎ & TÁI SINH TRỰC TIẾP) */}
-            {wallet?.isConnected && ownedPassports.length > 0 && (
-              <div className="mt-8 pt-6 border-t border-forest-100 dark:border-forest-800 space-y-4">
-                <div className="flex items-center justify-between flex-wrap gap-2">
-                  <div className="flex items-center gap-2">
-                    <span className="text-xl">🌿</span>
-                    <div>
-                      <h4 className="text-sm sm:text-base font-bold text-forest-950 dark:text-white font-serif">
-                        {isEn ? `Your Owned Plant Passports (${ownedPassports.length})` : `Hộ Chiếu Cây Bạn Đang Sở Hữu (${ownedPassports.length})`}
-                      </h4>
-                      <p className="text-[11px] text-forest-500">
-                        {isEn ? 'Direct on-chain management: burn to release exclusivity lock or view on explorer' : 'Quản lý on-chain trực tiếp: đốt bỏ để giải phóng khóa độc bản hoặc đổi ảnh mới'}
-                      </p>
-                    </div>
-                  </div>
-                  <span className="px-2.5 py-1 rounded-full text-[11px] font-mono font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700">
-                    {wallet.address.slice(0, 6)}...{wallet.address.slice(-4)}
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {ownedPassports.map((p) => (
-                    <div
-                      key={p.id || p.token_id}
-                      className="p-4 rounded-2xl bg-white dark:bg-forest-950/70 border border-forest-200 dark:border-forest-800 shadow-md hover:shadow-lg transition space-y-3"
-                    >
-                      <div className="flex gap-3 items-center">
-                        <img
-                          src={p.image_url}
-                          alt={p.plant_name}
-                          className="w-16 h-16 rounded-xl object-cover border border-forest-200 dark:border-forest-700 shrink-0"
-                        />
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2">
-                            <span className="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400">
-                              Token #{p.token_id}
-                            </span>
-                            <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-300 font-semibold">
-                              {p.network || 'Sepolia'}
-                            </span>
-                          </div>
-                          <h5 className="text-sm font-bold text-forest-950 dark:text-white truncate mt-0.5">
-                            {p.plant_name}
-                          </h5>
-                          <p className="text-[11px] italic text-forest-500 truncate">
-                            {p.scientific_name}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="pt-2 border-t border-forest-100 dark:border-forest-800/80 flex items-center justify-between gap-2">
-                        <span className="text-[10px] text-forest-400">
-                          {isEn ? 'Exclusivity active' : 'Đang giữ độc bản'}
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() => handleOpenBurnModal(p)}
-                          className="px-3 py-1.5 rounded-xl bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 hover:bg-rose-100 dark:hover:bg-rose-900/80 border border-rose-300 dark:border-rose-800 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-sm"
-                        >
-                          <Flame className="w-3.5 h-3.5 text-rose-600" />
-                          <span>{isEn ? 'Burn & Reincarnate' : '🔥 Đốt Bỏ & Tái Sinh Ảnh Mới'}</span>
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+            <Web3OwnedPassportsSection
+              isEn={isEn}
+              wallet={wallet}
+              ownedPassports={ownedPassports}
+              handleOpenBurnModal={handleOpenBurnModal}
+            />
           </div>
         )}
 
@@ -2672,456 +2365,42 @@ export const Web3SandboxSection: React.FC = () => {
         {/* TAB 4: MÔ PHỎNG SMART CONTRACT ESCROW ĐỔI CÂY AN TOÀN */}
         {/* ============================================================== */}
         {activeTab === 'escrow' && (
-          <div className="bg-white dark:bg-charcoal-900/90 rounded-2xl p-5 sm:p-6 border border-forest-100 dark:border-forest-800 shadow-xl space-y-4 animate-in fade-in">
-            <div className="flex items-center justify-between pb-3 border-b border-forest-100 dark:border-forest-800">
-              <span className="text-xs font-bold uppercase tracking-wider text-teal-700 dark:text-teal-400 flex items-center gap-2">
-                <FileCheck2 className="w-4 h-4" />
-                <span>{isEn ? 'Smart Contract P2P Plant Swap Escrow' : 'Mô Phỏng Smart Contract Escrow Đổi Cây An Toàn'}</span>
-              </span>
-              <button
-                onClick={handleRunEscrowStep}
-                disabled={isEscrowSimulating}
-                className="px-3 py-1.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-md"
-              >
-                {isEscrowSimulating ? (
-                  <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                ) : (
-                  <>
-                    <span>{escrowStep === 3 ? (isEn ? 'Reset Simulator' : 'Thực Hiện Lại') : (isEn ? `Advance Step ${escrowStep}/3` : `Bấm Chuyển Bước ${escrowStep}/3`)}</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </>
-                )}
-              </button>
-            </div>
-
-            <p className="text-xs text-forest-600 dark:text-forest-200 leading-relaxed">
-              {isEn
-                ? 'How Smart Contracts eliminate fraud when swapping rare plants online: The contract locks deposits and automatically enforces a 7-day quarantine.'
-                : 'Smart Contract loại trừ rủi ro lừa đảo khi giao lưu cây giống trên mạng: Hợp đồng tự động khóa cọc làm tin và cưỡng chế quy trình cách ly 7 ngày kiểm tra mầm bệnh.'}
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-              {/* Step 1 */}
-              <div className={`p-4 rounded-2xl border transition ${
-                escrowStep === 1
-                  ? 'bg-teal-50 dark:bg-teal-950/80 border-teal-500 text-teal-950 dark:text-white shadow-md'
-                  : escrowStep > 1
-                  ? 'bg-forest-50/60 dark:bg-forest-900/40 border-forest-200 dark:border-forest-800 text-forest-700 dark:text-forest-300 opacity-90'
-                  : 'bg-forest-50/30 dark:bg-forest-900/20 border-forest-100 dark:border-forest-800 text-forest-400 dark:text-gray-500'
-              }`}>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="font-bold text-xs text-forest-950 dark:text-cream-100 flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-full bg-teal-600 text-white inline-flex items-center justify-center text-xs font-black">1</span>
-                    Khóa Cọc Hạt Giống
-                  </span>
-                  {escrowStep > 1 && <Check className="w-4 h-4 text-teal-600 dark:text-teal-400" />}
-                </div>
-                <p className="text-[11px] text-forest-600 dark:text-forest-300 leading-relaxed">
-                  Hai bên cùng ký xác nhận trên ví thật để khóa cọc 20 Token thử nghiệm vào hợp đồng thông minh làm tin trước khi gửi bưu phẩm.
-                </p>
-              </div>
-
-              {/* Step 2 */}
-              <div className={`p-4 rounded-2xl border transition ${
-                escrowStep === 2
-                  ? 'bg-teal-50 dark:bg-teal-950/80 border-teal-500 text-teal-950 dark:text-white shadow-md'
-                  : escrowStep > 2
-                  ? 'bg-forest-50/60 dark:bg-forest-900/40 border-forest-200 dark:border-forest-800 text-forest-700 dark:text-forest-300 opacity-90'
-                  : 'bg-forest-50/30 dark:bg-forest-900/20 border-forest-100 dark:border-forest-800 text-forest-400 dark:text-gray-500'
-              }`}>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="font-bold text-xs text-forest-950 dark:text-cream-100 flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-full bg-teal-600 text-white inline-flex items-center justify-center text-xs font-black">2</span>
-                    Giao Nhận & 7 Ngày Cách Ly
-                  </span>
-                  {escrowStep > 2 && <Check className="w-4 h-4 text-teal-600 dark:text-teal-400" />}
-                </div>
-                <p className="text-[11px] text-forest-600 dark:text-forest-300 leading-relaxed">
-                  Đơn vị vận chuyển giao cây. Đồng hồ Smart Contract tự đếm ngược 7 ngày cách ly phòng mầm nấm bệnh rệp sáp lây chéo vườn nhà.
-                </p>
-              </div>
-
-              {/* Step 3 */}
-              <div className={`p-4 rounded-2xl border transition ${
-                escrowStep === 3
-                  ? 'bg-emerald-50 dark:bg-emerald-950/90 border-emerald-500 text-emerald-950 dark:text-white shadow-md'
-                  : 'bg-forest-50/30 dark:bg-forest-900/20 border-forest-100 dark:border-forest-800 text-forest-400 dark:text-gray-500'
-              }`}>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="font-bold text-xs text-forest-950 dark:text-cream-100 flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-full bg-emerald-600 text-white inline-flex items-center justify-center text-xs font-black">3</span>
-                    Nghiệm Thu & Thưởng Trái Tim ❤️
-                  </span>
-                  {escrowStep === 3 && <Check className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />}
-                </div>
-                <p className="text-[11px] text-forest-600 dark:text-forest-300 leading-relaxed">
-                  Bên nhận bấm "Cây sống xanh tốt". Smart Contract hoàn trả cọc tức thì và cộng +15 Trái Tim Yêu Vườn ❤️ cho người chia sẻ giống.
-                </p>
-              </div>
-            </div>
-          </div>
+          <Web3EscrowTab
+            isEn={isEn}
+            escrowStep={escrowStep}
+            isEscrowSimulating={isEscrowSimulating}
+            handleRunEscrowStep={handleRunEscrowStep}
+          />
         )}
 
         {/* ============================================================== */}
         {/* TAB 5: DEFI NÔNG NGHIỆP SINH THÁI & STAKING HẠT GIỐNG (100% TESTNET ON-CHAIN) */}
         {/* ============================================================== */}
         {activeTab === 'defi' && (
-          <div className="space-y-6 animate-in fade-in">
-            {/* Header Phân Khu DeFi */}
-            <div className="p-6 rounded-3xl bg-gradient-to-r from-emerald-950 via-forest-900 to-teal-950 border border-emerald-500/50 text-white shadow-xl space-y-3">
-              <div className="flex items-center justify-between flex-wrap gap-2">
-                <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
-                  <Coins className="w-3.5 h-3.5" />
-                  <span>{isEn ? 'Agri-DeFi & ReFi Sandbox (100% Testnet On-Chain)' : 'Vườn Ươm DeFi Nông Nghiệp & Staking Sinh Thái (100% Testnet On-Chain Thật)'}</span>
-                </span>
-                <span className="text-[11px] font-mono text-amber-300 bg-amber-950/60 px-3 py-0.5 rounded-full border border-amber-600/60">
-                  {isEn ? '100% Real Blockchain on Testnet (0đ Real Money)' : '100% Blockchain Thật trên Testnet (0đ Tiền Thật)'}
-                </span>
-              </div>
-
-              <h3 className="text-lg sm:text-xl font-bold font-serif text-white">
-                {isEn
-                  ? 'Decentralized Finance (DeFi) & Regenerative Finance (ReFi) on Real Testnet'
-                  : 'Tài Chính Phi Tập Trung (DeFi) & Tài Chính Tái Tạo (ReFi) Tương Tác Blockchain Thật Trên Testnet'}
-              </h3>
-
-              <p className="text-xs sm:text-sm text-forest-200/90 leading-relaxed max-w-4xl">
-                {isEn
-                  ? 'DeFi eliminates traditional banking intermediaries using transparent smart contracts. Every action below sends a REAL on-chain transaction through your Web3 wallet (MetaMask / Rabby) to our testnet smart contracts (Base Sepolia, Ethereum Sepolia, BNB Testnet, Polygon Amoy) with 0đ real cost.'
-                  : 'DeFi loại bỏ trung gian bằng các hợp đồng thông minh minh bạch. Mọi thao tác bên dưới đều kích hoạt giao dịch ON-CHAIN THẬT thông qua ví Web3 của bạn (MetaMask, Rabby, Coinbase Wallet) tới Smart Contract Testnet (Base Sepolia, Sepolia, BNB Testnet, Polygon Amoy) với chi phí 0đ tiền thật nhằm giáo dục cách sử dụng Web3 an toàn.'}
-              </p>
-            </div>
-
-            {/* Trạng Thái Kết Nối Ví On-chain Cho Phân Hệ DeFi */}
-            <div className="p-4 rounded-2xl bg-white dark:bg-charcoal-900/90 border border-forest-100 dark:border-forest-800 shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div className="flex items-center gap-3">
-                <div className={`w-3.5 h-3.5 rounded-full shrink-0 ${wallet?.isConnected ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'}`} />
-                <div>
-                  <div className="text-xs font-bold text-forest-950 dark:text-white flex items-center gap-2">
-                    <span>{isEn ? 'DeFi Execution Wallet:' : 'Ví Tương Tác On-chain DeFi:'}</span>
-                    {wallet?.isConnected ? (
-                      <span className="font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-300 dark:border-emerald-800">
-                        {wallet.address.slice(0, 6)}...{wallet.address.slice(-4)} ({wallet.walletName})
-                      </span>
-                    ) : (
-                      <span className="text-amber-600 dark:text-amber-400 font-normal">
-                        {isEn ? 'Not Connected (Connect to execute real on-chain actions)' : 'Chưa kết nối (Cần kết nối ví thật để duyệt giao dịch)'}
-                      </span>
-                    )}
-                  </div>
-                  <div className="text-[11px] text-forest-500 mt-0.5">
-                    {wallet?.isConnected ? (
-                      <span>
-                        Sổ cái: <strong>{wallet.networkName}</strong> • Số dư gas testnet: <strong>{wallet.balanceEth} {wallet.currencySymbol}</strong>
-                      </span>
-                    ) : (
-                      <span>{isEn ? 'Compatible with MetaMask, Rabby, Coinbase Wallet' : 'Tương thích MetaMask, Rabby, Brave, Coinbase Wallet'}</span>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              {!wallet?.isConnected ? (
-                <button
-                  onClick={handleConnectWallet}
-                  className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-2 shadow-md transition shrink-0 cursor-pointer"
-                >
-                  <Wallet className="w-4 h-4" />
-                  <span>{isEn ? 'Connect Web3 Wallet' : 'Kết Nối Ví Web3 Thật'}</span>
-                </button>
-              ) : (
-                <div className="flex items-center gap-2">
-                  <span className="text-[11px] text-emerald-700 dark:text-emerald-300 font-mono font-bold bg-emerald-100/60 dark:bg-emerald-950 px-2.5 py-1 rounded-lg border border-emerald-300 dark:border-emerald-700">
-                    ✓ Testnet Ready
-                  </span>
-                </div>
-              )}
-            </div>
-
-            {/* Thẻ Giao Dịch DeFi On-chain Mới Nhất (Real Transaction Tracker) */}
-            {latestDeFiTx && (
-              <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/60 dark:to-teal-950/60 border border-emerald-400/80 shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-sm">
-                    <Check className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-xs font-bold text-emerald-950 dark:text-emerald-200">
-                        {latestDeFiTx.title}
-                      </span>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-200 dark:bg-emerald-900 text-emerald-900 dark:text-emerald-200 font-bold">
-                        ON-CHAIN CONFIRMED
-                      </span>
-                    </div>
-                    <div className="text-[11px] font-mono text-emerald-800 dark:text-emerald-300/90 mt-0.5 flex items-center gap-2 flex-wrap">
-                      <span>Tx: {latestDeFiTx.hash.slice(0, 14)}...{latestDeFiTx.hash.slice(-8)}</span>
-                      <span>• {latestDeFiTx.timestamp}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <a
-                  href={web3WalletService.getExplorerTxUrl(latestDeFiTx.hash, latestDeFiTx.chainId)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-3.5 py-2 rounded-xl bg-white dark:bg-charcoal-900 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700 hover:bg-emerald-50 dark:hover:bg-charcoal-800 font-bold text-xs flex items-center gap-1.5 transition shrink-0 shadow-sm"
-                >
-                  <span>{isEn ? 'View on Block Explorer' : 'Xem trên Block Explorer'}</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
-              </div>
-            )}
-
-            {/* Thông báo kết quả Staking */}
-            {stakingNotice && (
-              <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/90 border border-emerald-400 text-xs text-emerald-900 dark:text-emerald-100 flex items-center justify-between gap-3 shadow-md">
-                <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                  <span>{stakingNotice}</span>
-                </div>
-                <button onClick={() => setStakingNotice(null)} className="font-bold text-emerald-700 dark:text-emerald-300 hover:text-white">✕</button>
-              </div>
-            )}
-
-            {/* PHẦN 1: KHO GỬI HẠT GIỐNG SINH LỜI (SEED STAKING VAULT) */}
-            <div className="p-6 rounded-3xl bg-white dark:bg-charcoal-900/90 border border-forest-100 dark:border-forest-800 shadow-lg space-y-5">
-              <div className="flex items-center justify-between pb-3 border-b border-forest-100 dark:border-forest-800 flex-wrap gap-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 flex items-center gap-2">
-                  <TrendingUp className="w-4 h-4" />
-                  <span>{isEn ? '1. Green Seed Staking Vault (Smart Contract APY: 12.5%)' : '1. Kho Gửi Hạt Giống Sinh Lời (Smart Contract Staking APY: 12.5%)'}</span>
-                </span>
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800 flex items-center gap-1">
-                  <Check className="w-3 h-3 text-emerald-600" />
-                  <span>{isEn ? 'On-Chain Real Tx' : 'Giao Dịch On-chain Thật'}</span>
-                </span>
-              </div>
-
-              {/* 3 Thẻ Chỉ Số Staking */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div className="p-4 rounded-2xl bg-forest-50/60 dark:bg-forest-950/60 border border-forest-100 dark:border-forest-800">
-                  <span className="text-[11px] text-forest-600 dark:text-forest-400 font-medium block">
-                    {isEn ? 'Total Staked Seeds' : 'Hạt Giống Đang Gửi'}
-                  </span>
-                  <div className="text-xl font-bold font-mono text-emerald-700 dark:text-emerald-300 mt-1 flex items-baseline gap-1">
-                    <span>{stakedBalance}</span>
-                    <span className="text-xs font-sans font-normal text-forest-500">Hạt testnet</span>
-                  </div>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-forest-50/60 dark:bg-forest-950/60 border border-forest-100 dark:border-forest-800">
-                  <span className="text-[11px] text-forest-600 dark:text-forest-400 font-medium block">
-                    {isEn ? 'Bio-Fertilizer Yield' : 'Lợi Suất Phân Bón Tích Lũy'}
-                  </span>
-                  <div className="text-xl font-bold font-mono text-amber-600 dark:text-amber-400 mt-1 flex items-baseline gap-1">
-                    <span>{accumulatedYield.toFixed(2)}</span>
-                    <span className="text-xs font-sans font-normal text-forest-500">Bao vi sinh</span>
-                  </div>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-forest-50/60 dark:bg-forest-950/60 border border-forest-100 dark:border-forest-800">
-                  <span className="text-[11px] text-forest-600 dark:text-forest-400 font-medium block">
-                    {isEn ? 'Yield Rate' : 'Tỷ Suất Lợi Nhuận (APY)'}
-                  </span>
-                  <div className="text-xl font-bold font-mono text-emerald-600 dark:text-emerald-400 mt-1 flex items-baseline gap-1">
-                    <span>12.5%</span>
-                    <span className="text-xs font-sans font-normal text-forest-500">/ năm</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Form Tương Tác Staking Thật On-Chain */}
-              <div className="p-4 rounded-2xl bg-cream-50/80 dark:bg-forest-950/40 border border-forest-100 dark:border-forest-800 space-y-3">
-                <label className="text-xs font-bold text-forest-900 dark:text-white flex items-center justify-between">
-                  <span>{isEn ? 'Enter Seeds to Stake (On-chain):' : 'Nhập Số Lượng Hạt Giống Gửi Staking On-Chain:'}</span>
-                  <span className="text-[11px] text-forest-500 font-normal">
-                    {isEn ? '100% Testnet • Gas: 0đ Real Money' : '100% Testnet • Phí Gas: 0đ tiền thật'}
-                  </span>
-                </label>
-                <div className="flex items-center gap-3 flex-wrap sm:flex-nowrap">
-                  <input
-                    type="number"
-                    min="10"
-                    step="10"
-                    value={stakeAmount}
-                    onChange={(e) => setStakeAmount(Math.max(1, Number(e.target.value)))}
-                    className="w-full sm:flex-1 px-4 py-2.5 rounded-xl bg-white dark:bg-charcoal-950 border border-forest-200 dark:border-forest-800 text-sm font-mono font-bold text-forest-950 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                  />
-                  <button
-                    onClick={handleStakeSeeds}
-                    disabled={isStakingRunning}
-                    className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md transition shrink-0 cursor-pointer"
-                  >
-                    {isStakingRunning ? (
-                      <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                    ) : (
-                      <Leaf className="w-3.5 h-3.5" />
-                    )}
-                    <span>{isEn ? 'Stake Seeds On-chain (+20 Hearts ❤️)' : 'Gửi Vào Staking On-chain (+20 Trái Tim ❤️)'}</span>
-                  </button>
-                  <button
-                    onClick={handleClaimYield}
-                    disabled={accumulatedYield <= 0 || isStakingRunning}
-                    className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 disabled:opacity-40 text-forest-950 font-bold text-xs flex items-center justify-center gap-1.5 shadow-md transition shrink-0 cursor-pointer"
-                  >
-                    <Sparkles className="w-3.5 h-3.5" />
-                    <span>{isEn ? 'Claim Fertilizer On-chain (+15 Hearts ❤️)' : 'Thu Hoạch Lợi Suất On-chain (+15 Trái Tim ❤️)'}</span>
-                  </button>
-                </div>
-
-                <p className="text-[11px] text-forest-600 dark:text-forest-400 leading-relaxed italic">
-                  💡 <strong>Bản chất DeFi On-chain:</strong> Khi bấm nút, ví Web3 (MetaMask/Rabby) sẽ mở cửa sổ yêu cầu ký duyệt giao dịch <code>eth_sendTransaction</code> gọi hàm <code>stakeSeeds(uint256)</code> vào Smart Contract <code>AgriDeFiVault</code>. Giao dịch được khai thác và ghi nhận vĩnh viễn trên sổ cái Testnet với mã TxHash thật.
-                </p>
-              </div>
-            </div>
-
-            {/* PHẦN 2: TÀI CHÍNH TÁI TẠO (REFI) & TÍN CHỈ CARBON RỪNG */}
-            <div className="p-6 rounded-3xl bg-white dark:bg-charcoal-900/90 border border-forest-100 dark:border-forest-800 shadow-lg space-y-4">
-              <div className="flex items-center justify-between pb-3 border-b border-forest-100 dark:border-forest-800 flex-wrap gap-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-teal-700 dark:text-teal-400 flex items-center gap-2">
-                  <Landmark className="w-4 h-4" />
-                  <span>{isEn ? '2. Forest Biodiversity ReFi & Green Carbon Credits (On-Chain)' : '2. Tài Chính Tái Tạo (ReFi) & Tín Chỉ Carbon Rừng Tự Nhiên On-Chain'}</span>
-                </span>
-                <span className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-3 py-0.5 rounded-full border border-emerald-300 dark:border-emerald-800">
-                  Đã bù trừ: {carbonOffsetCount} Tấn CO₂ (Testnet)
-                </span>
-              </div>
-
-              <p className="text-xs text-forest-700 dark:text-forest-300 leading-relaxed">
-                {isEn
-                  ? 'ReFi (Regenerative Finance) connects blockchain with ecological restoration. Every 1-hectare lot of Cúc Phương or U Minh protected forest absorbs ~15 tons of CO2 annually. Click below to execute a real on-chain transaction retiring carbon offsets via testnet smart contract!'
-                  : 'ReFi (Tài chính Tái tạo) kết nối công nghệ chuỗi khối với bảo tồn sinh thái. Mỗi lô rừng 1 hecta (10.000 m²) tại Cúc Phương hoặc U Minh Hạ hấp thụ trung bình 15 tấn CO₂ mỗi năm. Hãy bấm nút dưới đây để thực hiện giao dịch ON-CHAIN THẬT bù trừ khí thải qua Smart Contract Testnet!'}
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
-                <div className="p-4 rounded-2xl bg-teal-50/50 dark:bg-teal-950/30 border border-teal-200 dark:border-teal-800/60 space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-xs text-teal-950 dark:text-teal-200">Rừng Nguyên Sinh Cúc Phương</span>
-                    <span className="text-[10px] font-mono text-teal-600 dark:text-teal-400 font-bold">Lô #01 (10.000 m²)</span>
-                  </div>
-                  <p className="text-[11px] text-teal-800 dark:text-teal-300 leading-relaxed">
-                    Hấp thụ ~15 tấn CO₂/năm. Đúc chứng nhận bù trừ Carbon On-chain hỗ trợ bảo tồn quần thể cây Chò ngàn năm.
-                  </p>
-                  <button
-                    onClick={() => handleOffsetCarbonOnChain('CUC-PHUONG-LOT-01', 1)}
-                    disabled={isCarbonRetiring}
-                    className="w-full py-2.5 px-3 rounded-xl bg-teal-600 hover:bg-teal-500 disabled:opacity-50 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-md transition cursor-pointer"
-                  >
-                    {isCarbonRetiring ? (
-                      <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                    ) : (
-                      <Check className="w-3.5 h-3.5" />
-                    )}
-                    <span>{isEn ? 'Retire 15T CO2 On-chain (+25 Hearts ❤️)' : 'Bù trừ 15 Tấn CO₂ On-chain (+25 Trái Tim ❤️)'}</span>
-                  </button>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-emerald-50/50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/60 space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-xs text-emerald-950 dark:text-emerald-200">Đầm Than Bùn U Minh Hạ</span>
-                    <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold">Lô #02 (10.000 m²)</span>
-                  </div>
-                  <p className="text-[11px] text-emerald-800 dark:text-emerald-300 leading-relaxed">
-                    Lưu trữ carbon gấp 3 lần rừng cạn. Bù trừ khí thải on-chain tài trợ dự án giám sát rái cá lông mũi.
-                  </p>
-                  <button
-                    onClick={() => handleOffsetCarbonOnChain('U-MINH-HA-LOT-01', 1)}
-                    disabled={isCarbonRetiring}
-                    className="w-full py-2.5 px-3 rounded-xl bg-emerald-700 hover:bg-emerald-600 disabled:opacity-50 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-md transition cursor-pointer"
-                  >
-                    {isCarbonRetiring ? (
-                      <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                    ) : (
-                      <Check className="w-3.5 h-3.5" />
-                    )}
-                    <span>{isEn ? 'Retire 15T CO2 On-chain (+25 Hearts ❤️)' : 'Bù trừ 15 Tấn CO₂ On-chain (+25 Trái Tim ❤️)'}</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* PHẦN 3: QUẢN TRỊ DAO PHI TẬP TRUNG (GARDENER DAO GOVERNANCE) */}
-            <div className="p-6 rounded-3xl bg-white dark:bg-charcoal-900/90 border border-forest-100 dark:border-forest-800 shadow-lg space-y-4">
-              <div className="flex items-center justify-between pb-3 border-b border-forest-100 dark:border-forest-800 flex-wrap gap-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-purple-700 dark:text-purple-400 flex items-center gap-2">
-                  <Vote className="w-4 h-4" />
-                  <span>{isEn ? '3. Gardener DAO Governance (Real On-Chain Voting)' : '3. Quản Trị DAO Phi Tập Trung (Biểu Quyết On-Chain Thật)'}</span>
-                </span>
-                <span className="text-[11px] font-mono text-purple-600 dark:text-purple-300 bg-purple-50 dark:bg-purple-950/60 px-3 py-0.5 rounded-full border border-purple-300 dark:border-purple-800">
-                  {isEn ? '1 Wallet = 1 On-chain Vote' : '1 Ví = 1 Phiếu Bầu On-chain'}
-                </span>
-              </div>
-
-              <div className="p-4 rounded-2xl bg-purple-50/50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800/60 space-y-3">
-                <div className="flex items-center justify-between flex-wrap gap-2">
-                  <h4 className="font-bold text-xs sm:text-sm text-purple-950 dark:text-purple-200">
-                    Đề xuất #04: Cấp vốn Testnet bảo tồn 500 cây Sâm Đại Hành (Tỏi đỏ) bản địa tại Trạm Vườn Ươm Tây Nguyên
-                  </h4>
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-300">
-                    Đang bỏ phiếu (Còn 4 ngày)
-                  </span>
-                </div>
-
-                <p className="text-xs text-purple-900/80 dark:text-purple-200/80 leading-relaxed">
-                  Sâm Đại Hành là dược thảo quý bản địa có nguy cơ mai một nguồn gen. Đề xuất kêu gọi trích 5.000 Token Hạt Giống từ quỹ Kho bạc DAO để nhân giống 500 bầu cây sạch bệnh chia sẻ cho cư dân đô thị.
-                </p>
-
-                {/* Thanh Tỷ Lệ Biểu Quyết */}
-                <div className="space-y-1.5 pt-1">
-                  <div className="flex items-center justify-between text-xs font-mono font-bold">
-                    <span className="text-emerald-600 dark:text-emerald-400">Đồng ý: {daoYesCount} phiếu ({((daoYesCount / (daoYesCount + daoNoCount)) * 100).toFixed(0)}%)</span>
-                    <span className="text-rose-600 dark:text-rose-400">Bác bỏ: {daoNoCount} phiếu</span>
-                  </div>
-                  <div className="w-full h-2.5 rounded-full bg-forest-100 dark:bg-forest-950 overflow-hidden flex">
-                    <div className="h-full bg-emerald-500 transition-all duration-500" style={{ width: `${(daoYesCount / (daoYesCount + daoNoCount)) * 100}%` }}></div>
-                    <div className="h-full bg-rose-500 transition-all duration-500" style={{ width: `${(daoNoCount / (daoYesCount + daoNoCount)) * 100}%` }}></div>
-                  </div>
-                </div>
-
-                {/* Nút Bỏ Phiếu On-Chain */}
-                <div className="flex items-center gap-3 pt-2 flex-wrap">
-                  <button
-                    onClick={() => handleVoteDao('yes')}
-                    disabled={daoVoteChoice !== null || isDaoVoting}
-                    className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer ${
-                      daoVoteChoice === 'yes'
-                        ? 'bg-emerald-600 text-white ring-2 ring-emerald-400'
-                        : 'bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-200 disabled:opacity-50'
-                    }`}
-                  >
-                    {isDaoVoting && daoVoteChoice === null ? (
-                      <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                    ) : (
-                      <Check className="w-3.5 h-3.5" />
-                    )}
-                    <span>{daoVoteChoice === 'yes' ? 'Đã Bỏ Phiếu Đồng Ý On-chain' : 'Bỏ Phiếu ĐỒNG Ý On-chain (Vote YES)'}</span>
-                  </button>
-
-                  <button
-                    onClick={() => handleVoteDao('no')}
-                    disabled={daoVoteChoice !== null || isDaoVoting}
-                    className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer ${
-                      daoVoteChoice === 'no'
-                        ? 'bg-rose-600 text-white ring-2 ring-rose-400'
-                        : 'bg-rose-100 dark:bg-rose-950 text-rose-800 dark:text-rose-300 hover:bg-rose-200 disabled:opacity-50'
-                    }`}
-                  >
-                    <X className="w-3.5 h-3.5" />
-                    <span>{daoVoteChoice === 'no' ? 'Đã Bỏ Phiếu Bác Bỏ On-chain' : 'Bỏ Phiếu BÁC BỎ On-chain (Vote NO)'}</span>
-                  </button>
-
-                  {daoVoteChoice && (
-                    <span className="text-[11px] text-purple-600 dark:text-purple-300 font-semibold italic flex items-center gap-1">
-                      <Check className="w-3.5 h-3.5 text-purple-600" />
-                      <span>✓ Đã ghi nhận phiếu bầu của bạn on-chain trên Testnet (+20 Trái Tim ❤️)</span>
-                    </span>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
+          <Web3DeFiTab
+            isEn={isEn}
+            wallet={wallet}
+            handleConnectWallet={handleConnectWallet}
+            latestDeFiTx={latestDeFiTx}
+            stakingNotice={stakingNotice}
+            setStakingNotice={setStakingNotice}
+            stakedBalance={stakedBalance}
+            accumulatedYield={accumulatedYield}
+            stakeAmount={stakeAmount}
+            setStakeAmount={setStakeAmount}
+            handleStakeSeeds={handleStakeSeeds}
+            handleClaimYield={handleClaimYield}
+            isStakingRunning={isStakingRunning}
+            carbonOffsetCount={carbonOffsetCount}
+            handleOffsetCarbonOnChain={handleOffsetCarbonOnChain}
+            isCarbonRetiring={isCarbonRetiring}
+            daoYesCount={daoYesCount}
+            daoNoCount={daoNoCount}
+            daoVoteChoice={daoVoteChoice}
+            isDaoVoting={isDaoVoting}
+            handleVoteDao={handleVoteDao}
+          />
         )}
-
       </div>
 
       {/* Modal Đốt Bỏ & Tái Sinh Hộ Chiếu Thực Vật Số (Burn-to-Reincarnate) */}

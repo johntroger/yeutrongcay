@@ -8,6 +8,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
+    "test": "node --test tests/*.test.mjs",
     "export:plesk": "powershell -ExecutionPolicy Bypass -File scripts/prepare-plesk-package.ps1"
   },
   "dependencies": {
