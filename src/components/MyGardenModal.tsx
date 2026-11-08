@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Sprout, Plus, Droplets, Calendar, MapPin, Award, Sparkles } from 'lucide-react';
-import { UserGardenPlant, UserProfile } from '../types/index.ts';
+import { UserGardenPlant, UserProfile, GardenPlant } from '../types/index.ts';
 import { SEED_PLANTS } from '../data/plants.ts';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { localizePlant } from '../i18n/plantTranslations.ts';
@@ -20,33 +20,69 @@ export const MyGardenModal: React.FC<MyGardenModalProps> = ({
   onOpenWeb3ForPlant,
 }) => {
   const { language, t, isEn } = useLanguage();
-  const [gardenPlants, setGardenPlants] = useState<UserGardenPlant[]>([
-    {
-      id: 'gp-01',
-      plant_id: 'herb-01',
-      plant_name: isEn ? 'Indian Borage (Throat Relief)' : 'Húng Chanh Trị Ho',
-      scientific_name: 'Plectranthus amboinicus',
-      category: 'herb',
-      planted_date: '2026-09-15',
-      location: isEn ? 'East-facing balcony' : 'Ban công hướng Đông',
-      image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Leaf_-pani_koorkka.JPG/330px-Leaf_-pani_koorkka.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
-      watering_interval_days: 2,
-      last_watered_date: isEn ? 'Today' : 'Hôm nay',
-      passport_token_id: '#7842',
-    },
-    {
-      id: 'gp-02',
-      plant_id: 'fruit-01',
-      plant_name: isEn ? 'Taiwan Guava in 50L Pot' : 'Ổi Lê Đài Loan Chậu 50L',
-      scientific_name: 'Psidium guajava',
-      category: 'fruit',
-      planted_date: '2026-06-10',
-      location: isEn ? '4th floor rooftop' : 'Sân thượng tầng 4',
-      image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Psidium_guajava_fruit.jpg/330px-Psidium_guajava_fruit.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
-      watering_interval_days: 1,
-      last_watered_date: isEn ? 'Yesterday' : 'Hôm qua',
-    },
-  ]);
+
+  const loadInitialGardenPlants = (): UserGardenPlant[] => {
+    try {
+      const saved = localStorage.getItem('ytc_garden_plants');
+      if (saved) {
+        const parsed: GardenPlant[] = JSON.parse(saved);
+        if (parsed.length > 0) {
+          return parsed.map((gp) => {
+            const seed = SEED_PLANTS.find((s) => s.id === gp.plant_id || s.slug === gp.plant_id);
+            return {
+              id: gp.id,
+              plant_id: gp.plant_id || 'custom',
+              plant_name: gp.custom_name,
+              scientific_name: gp.species_name || seed?.scientific_name || '',
+              category: seed?.category || 'herb',
+              planted_date: gp.planted_date,
+              location: gp.pot_type || (isEn ? 'Balcony' : 'Ban công'),
+              image_url: gp.cover_image_url,
+              watering_interval_days: gp.watering_interval_days || 2,
+              last_watered_date: gp.last_watered_at || (isEn ? 'Today' : 'Hôm nay'),
+              notes: gp.notes,
+            };
+          });
+        }
+      }
+    } catch {}
+
+    return [
+      {
+        id: 'gp-01',
+        plant_id: 'herb-01',
+        plant_name: isEn ? 'Indian Borage (Throat Relief)' : 'Húng Chanh Trị Ho',
+        scientific_name: 'Plectranthus amboinicus',
+        category: 'herb',
+        planted_date: '2026-09-15',
+        location: isEn ? 'East-facing balcony' : 'Ban công hướng Đông',
+        image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Leaf_-pani_koorkka.JPG/330px-Leaf_-pani_koorkka.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+        watering_interval_days: 2,
+        last_watered_date: isEn ? 'Today' : 'Hôm nay',
+        passport_token_id: '#7842',
+      },
+      {
+        id: 'gp-02',
+        plant_id: 'fruit-01',
+        plant_name: isEn ? 'Taiwan Guava in 50L Pot' : 'Ổi Lê Đài Loan Chậu 50L',
+        scientific_name: 'Psidium guajava',
+        category: 'fruit',
+        planted_date: '2026-06-10',
+        location: isEn ? '4th floor rooftop' : 'Sân thượng tầng 4',
+        image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Psidium_guajava_fruit.jpg/330px-Psidium_guajava_fruit.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+        watering_interval_days: 1,
+        last_watered_date: isEn ? 'Yesterday' : 'Hôm qua',
+      },
+    ];
+  };
+
+  const [gardenPlants, setGardenPlants] = useState<UserGardenPlant[]>(loadInitialGardenPlants);
+
+  useEffect(() => {
+    if (isOpen) {
+      setGardenPlants(loadInitialGardenPlants());
+    }
+  }, [isOpen]);
 
   const [isAdding, setIsAdding] = useState(false);
   const [selectedSeedId, setSelectedSeedId] = useState(SEED_PLANTS[0].id);
@@ -77,6 +113,32 @@ export const MyGardenModal: React.FC<MyGardenModalProps> = ({
       watering_interval_days: seed.watering === 'daily' ? 1 : 2,
       last_watered_date: isEn ? 'Today' : 'Hôm nay',
     };
+
+    const gardenPlantItem: GardenPlant = {
+      id: newPlant.id,
+      garden_id: 'gdn-default-01',
+      plant_id: seed.id,
+      custom_name: seed.common_name,
+      species_name: seed.scientific_name,
+      planted_date: newPlant.planted_date,
+      pot_type: customLocation,
+      current_status: 'healthy',
+      cover_image_url: seed.image_url,
+      watering_interval_days: newPlant.watering_interval_days,
+      fertilizing_interval_days: 14,
+      last_watered_at: newPlant.planted_date,
+      last_fertilized_at: newPlant.planted_date,
+      notes: seed.quick_answer || (seed.description ? seed.description.slice(0, 160) : undefined),
+      created_at: new Date().toISOString(),
+    };
+
+    try {
+      const saved = localStorage.getItem('ytc_garden_plants');
+      const currentList: GardenPlant[] = saved ? JSON.parse(saved) : [];
+      const updated = [gardenPlantItem, ...currentList];
+      localStorage.setItem('ytc_garden_plants', JSON.stringify(updated));
+      window.dispatchEvent(new CustomEvent('ytc_garden_updated', { detail: gardenPlantItem }));
+    } catch {}
 
     setGardenPlants([newPlant, ...gardenPlants]);
     setIsAdding(false);

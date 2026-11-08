@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Plant } from '../types/index.ts';
 import { SEED_PLANTS } from '../data/plants.ts';
-import { getPlantBySlug } from '../services/apiService.ts';
+import { getPlantBySlug, isPlantInMyGarden, savePlantToMyGarden } from '../services/apiService.ts';
 import { useSEO } from '../utils/useSEO.ts';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { localizePlant } from '../i18n/plantTranslations.ts';
@@ -34,7 +34,8 @@ import {
   ExternalLink,
   UserCheck,
   MapPin,
-  Heart
+  Heart,
+  X
 } from 'lucide-react';
 import { ReportModal } from '../components/ReportModal.tsx';
 import { ShareModal } from '../components/ShareModal.tsx';
@@ -54,13 +55,23 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const { language, t, isEn } = useLanguage();
-  const [isSaved, setIsSaved] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   // Tìm cây theo slug (kết hợp cache tức thì + dữ liệu động từ MySQL)
   const [rawPlant, setRawPlant] = useState<Plant | undefined>(() => SEED_PLANTS.find((p) => p.slug === slug));
+
+  const [isSaved, setIsSaved] = useState<boolean>(() => {
+    return rawPlant ? isPlantInMyGarden(rawPlant.id) || isPlantInMyGarden(rawPlant.slug) : false;
+  });
+  const [saveToast, setSaveToast] = useState<{ message: string; showGardenLink: boolean } | null>(null);
+
+  useEffect(() => {
+    if (rawPlant) {
+      setIsSaved(isPlantInMyGarden(rawPlant.id) || isPlantInMyGarden(rawPlant.slug));
+    }
+  }, [rawPlant]);
 
   useEffect(() => {
     if (slug) {
@@ -458,11 +469,28 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
   }
 
   const handleSaveToGarden = () => {
+    if (!plant) return;
+
+    if (isSaved) {
+      // Nếu cây đã có trong Vườn của tôi, click sẽ điều hướng sang Vườn của tôi để người dùng kiểm tra ngay
+      navigate('/vuon-cua-toi');
+      return;
+    }
+
+    savePlantToMyGarden(plant);
     if (onAddPlantToGarden) {
       onAddPlantToGarden(plant.id);
     }
     setIsSaved(true);
-    setTimeout(() => setIsSaved(false), 2500);
+    setSaveToast({
+      message: isEn
+        ? `Added "${plant.common_name}" to My Garden!`
+        : `Đã thêm "${plant.common_name}" vào Vườn của tôi!`,
+      showGardenLink: true
+    });
+    setTimeout(() => {
+      setSaveToast(null);
+    }, 5000);
   };
 
   // Cây liên quan cùng category
@@ -536,14 +564,23 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
             <span className="hidden sm:inline">{t('common.share')}</span>
           </button>
 
-          {/* Bookmark Button */}
+          {/* Bookmark / Add to Garden Button */}
           <button
             onClick={handleSaveToGarden}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-forest-900 hover:bg-forest-800 px-4 py-2 rounded-xl shadow-xs transition"
+            className={`inline-flex items-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-xl shadow-xs transition ${
+              isSaved
+                ? 'bg-emerald-800 hover:bg-emerald-700 text-white border border-emerald-600/80 cursor-pointer'
+                : 'bg-forest-900 hover:bg-forest-800 text-white cursor-pointer'
+            }`}
+            title={
+              isSaved
+                ? (isEn ? 'Already in your garden - Click to open My Garden' : 'Đã có trong vườn - Bấm để mở Vườn của tôi')
+                : (isEn ? 'Add to My Garden' : 'Thêm vào Vườn của tôi')
+            }
           >
             {isSaved ? (
               <>
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                <CheckCircle2 className="w-4 h-4 text-emerald-300" />
                 <span>{t('plantDetail.inMyGarden')}</span>
               </>
             ) : (
@@ -1537,6 +1574,29 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
           targetId={plant.id}
           targetTitle={isEn ? `Species: ${plant.common_name} (${plant.scientific_name})` : `Loài: ${plant.common_name} (${plant.scientific_name})`}
         />
+      )}
+
+      {/* Toast thông báo lưu thành công vào Vườn của tôi */}
+      {saveToast && (
+        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 bg-forest-950/95 text-white rounded-2xl shadow-2xl border border-emerald-500/50 backdrop-blur-md animate-fade-in text-xs font-medium">
+          <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+          <span>{saveToast.message}</span>
+          {saveToast.showGardenLink && (
+            <Link
+              to="/vuon-cua-toi"
+              className="px-3 py-1 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-bold transition ml-1 shrink-0"
+            >
+              {isEn ? 'Open Garden' : 'Mở Vườn'}
+            </Link>
+          )}
+          <button
+            onClick={() => setSaveToast(null)}
+            className="p-1 text-forest-400 hover:text-white transition ml-1 cursor-pointer"
+            title={isEn ? 'Close' : 'Đóng'}
+          >
+            <X className="w-3.5 h-3.5" />
+          </button>
+        </div>
       )}
 
     </article>

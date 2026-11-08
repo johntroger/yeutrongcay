@@ -858,3 +858,111 @@ export async function createPlantArticle(
   }
 }
 
+/**
+ * Kiểm tra xem một cây đã có trong Vườn của tôi chưa
+ */
+export function isPlantInMyGarden(plantIdOrSlug: string): boolean {
+  if (!plantIdOrSlug) return false;
+  try {
+    const saved = localStorage.getItem('ytc_garden_plants');
+    const plants: GardenPlant[] = saved ? JSON.parse(saved) : SEED_GARDEN_PLANTS;
+    return plants.some(
+      (p) =>
+        p.plant_id === plantIdOrSlug ||
+        p.id === plantIdOrSlug ||
+        (p.species_name && p.species_name.toLowerCase() === plantIdOrSlug.toLowerCase())
+    );
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Thêm một cây từ từ điển thực vật vào Vườn của tôi và đồng bộ localStorage + API
+ */
+export function savePlantToMyGarden(plant: Plant): {
+  success: boolean;
+  alreadyExists: boolean;
+  gardenPlant: GardenPlant;
+} {
+  try {
+    const saved = localStorage.getItem('ytc_garden_plants');
+    const currentList: GardenPlant[] = saved ? JSON.parse(saved) : [...SEED_GARDEN_PLANTS];
+
+    // Kiểm tra xem cây này đã có trong vườn chưa
+    const existingIndex = currentList.findIndex(
+      (p) =>
+        p.plant_id === plant.id ||
+        p.plant_id === plant.slug ||
+        p.custom_name.toLowerCase() === plant.common_name.toLowerCase()
+    );
+
+    if (existingIndex >= 0) {
+      return {
+        success: true,
+        alreadyExists: true,
+        gardenPlant: currentList[existingIndex],
+      };
+    }
+
+    const newGardenPlant: GardenPlant = {
+      id: `gp-${Date.now()}`,
+      garden_id: 'gdn-default-01',
+      plant_id: plant.id,
+      custom_name: plant.common_name,
+      species_name: plant.scientific_name,
+      planted_date: new Date().toISOString().split('T')[0],
+      pot_type: plant.botanical_details?.pot_size || 'Chậu ban công 35cm',
+      current_status: 'healthy',
+      cover_image_url: plant.image_url,
+      watering_interval_days: plant.watering === 'daily' ? 1 : 2,
+      fertilizing_interval_days: 14,
+      last_watered_at: new Date().toISOString().split('T')[0],
+      last_fertilized_at: new Date().toISOString().split('T')[0],
+      notes: plant.quick_answer || (plant.description ? plant.description.slice(0, 160) : undefined),
+      created_at: new Date().toISOString(),
+    };
+
+    const updated = [newGardenPlant, ...currentList];
+    localStorage.setItem('ytc_garden_plants', JSON.stringify(updated));
+
+    // Thử gửi lên API ngầm (nếu có backend PHP đang chạy)
+    addGardenPlant(newGardenPlant).catch(() => {});
+
+    // Phát sự kiện toàn cục để GardenPage hoặc các widget cập nhật ngay lập tức
+    window.dispatchEvent(new CustomEvent('ytc_garden_updated', { detail: newGardenPlant }));
+
+    return {
+      success: true,
+      alreadyExists: false,
+      gardenPlant: newGardenPlant,
+    };
+  } catch (err) {
+    console.error('Error saving plant to garden:', err);
+    return {
+      success: false,
+      alreadyExists: false,
+      gardenPlant: {} as GardenPlant,
+    };
+  }
+}
+
+/**
+ * Xóa một cây khỏi Vườn của tôi
+ */
+export function removePlantFromMyGarden(plantIdOrSlug: string): { success: boolean } {
+  try {
+    const saved = localStorage.getItem('ytc_garden_plants');
+    const currentList: GardenPlant[] = saved ? JSON.parse(saved) : [...SEED_GARDEN_PLANTS];
+    const updated = currentList.filter(
+      (p) => p.plant_id !== plantIdOrSlug && p.id !== plantIdOrSlug
+    );
+    localStorage.setItem('ytc_garden_plants', JSON.stringify(updated));
+    window.dispatchEvent(new CustomEvent('ytc_garden_updated', { detail: { removedId: plantIdOrSlug } }));
+    return { success: true };
+  } catch {
+    return { success: false };
+  }
+}
+
+

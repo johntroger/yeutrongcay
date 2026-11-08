@@ -234,10 +234,22 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
     };
     window.addEventListener('ytc_passport_registry_updated', handlePassportUpdate);
 
+    const handleGardenLiveUpdate = () => {
+      if (isMounted) {
+        getGardenData(currentUserId).then(({ garden: g, plants: p, diaries: d }) => {
+          setGarden(g);
+          setPlants(p);
+          setDiaries(d);
+        });
+      }
+    };
+    window.addEventListener('ytc_garden_updated', handleGardenLiveUpdate);
+
     return () => {
       isMounted = false;
       window.removeEventListener('ytc_karma_awarded', handleKarmaLiveUpdate);
       window.removeEventListener('ytc_passport_registry_updated', handlePassportUpdate);
+      window.removeEventListener('ytc_garden_updated', handleGardenLiveUpdate);
     };
   }, [currentUserId, isEn]);
 

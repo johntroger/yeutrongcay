@@ -13,6 +13,8 @@ import { MobileBottomNav } from './components/MobileBottomNav.tsx';
 import { trackPageView } from './utils/analytics.ts';
 import { useLanguage } from './context/LanguageContext';
 import { subscribeToAuthState, logoutFirebase } from './services/firebaseClient.ts';
+import { savePlantToMyGarden } from './services/apiService.ts';
+import { SEED_PLANTS } from './data/plants.ts';
 
 // Code-splitting các trang thứ cấp để giảm bundle khởi tạo và tăng tốc độ tải
 const CategoryPage = lazy(() => import('./pages/CategoryPage.tsx').then((m) => ({ default: m.CategoryPage })));
@@ -378,7 +380,10 @@ export default function App() {
                 <PlantDetailPage
                   onOpenMyGarden={() => setIsMyGardenOpen(true)}
                   onAddPlantToGarden={(plantId) => {
-                    console.log('Added plant to garden:', plantId);
+                    const target = SEED_PLANTS.find((p) => p.id === plantId || p.slug === plantId);
+                    if (target) {
+                      savePlantToMyGarden(target);
+                    }
                   }}
                 />
               }
