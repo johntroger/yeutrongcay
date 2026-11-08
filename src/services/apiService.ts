@@ -648,6 +648,11 @@ export async function getGardenData(userId: string = 'usr-local-me'): Promise<{
   diaries: PlantDiaryEntry[];
   isLive: boolean;
 }> {
+  let liveGarden: UserGarden | null = null;
+  let livePlants: GardenPlant[] = [];
+  let liveDiaries: PlantDiaryEntry[] = [];
+  let isLive = false;
+
   try {
     const res = await fetch(`${API_BASE}/garden.php?user_id=${encodeURIComponent(userId)}`, {
       headers: { 'Accept': 'application/json' },
@@ -655,38 +660,71 @@ export async function getGardenData(userId: string = 'usr-local-me'): Promise<{
     if (res.ok) {
       const json = await res.json();
       if (json.success && json.garden) {
-        return {
-          garden: json.garden,
-          plants: json.plants || [],
-          diaries: json.diaries || [],
-          isLive: true,
-        };
+        liveGarden = json.garden;
+        livePlants = json.plants || [];
+        liveDiaries = json.diaries || [];
+        isLive = true;
       }
     }
   } catch (err) {
     console.warn('API garden.php unreachable, using local storage fallback:', err);
   }
 
-  // Fallback cục bộ
+  // Luôn nạp dữ liệu từ localStorage để không bao giờ làm mất cây của người dùng
+  let localPlants: GardenPlant[] = [];
+  let localDiaries: PlantDiaryEntry[] = [];
+  let localGarden: UserGarden | null = null;
   try {
     const savedPlants = localStorage.getItem('ytc_garden_plants');
+    if (savedPlants) localPlants = JSON.parse(savedPlants);
     const savedDiaries = localStorage.getItem('ytc_garden_diaries');
+    if (savedDiaries) localDiaries = JSON.parse(savedDiaries);
     const savedGarden = localStorage.getItem('ytc_garden_profile');
+    if (savedGarden) localGarden = JSON.parse(savedGarden);
+  } catch {}
 
-    return {
-      garden: savedGarden ? JSON.parse(savedGarden) : SEED_GARDEN,
-      plants: savedPlants ? JSON.parse(savedPlants) : SEED_GARDEN_PLANTS,
-      diaries: savedDiaries ? JSON.parse(savedDiaries) : SEED_PLANT_DIARIES,
-      isLive: false,
-    };
-  } catch {
-    return {
-      garden: SEED_GARDEN,
-      plants: SEED_GARDEN_PLANTS,
-      diaries: SEED_PLANT_DIARIES,
-      isLive: false,
-    };
+  const finalGarden = liveGarden || localGarden || SEED_GARDEN;
+
+  // Hợp nhất danh sách cây: ưu tiên cây từ server + bảo toàn mọi cây đã lưu ở local
+  const plantMap = new Map<string, GardenPlant>();
+
+  // 1. Thêm cây từ server
+  livePlants.forEach((p) => {
+    plantMap.set(p.id, p);
+    if (p.plant_id) plantMap.set(p.plant_id, p);
+  });
+
+  // 2. Thêm cây từ localStorage (nếu chưa có trên server)
+  localPlants.forEach((p) => {
+    const key = p.plant_id || p.id;
+    if (!plantMap.has(p.id) && (!p.plant_id || !plantMap.has(p.plant_id))) {
+      p.garden_id = finalGarden.id;
+      plantMap.set(key, p);
+
+      // Đẩy cây lên server ngầm nếu server đang online
+      if (isLive && finalGarden) {
+        addGardenPlant({ ...p, garden_id: finalGarden.id, user_id: userId }).catch(() => {});
+      }
+    }
+  });
+
+  let mergedPlants = Array.from(new Set(plantMap.values()));
+
+  // Nếu cả server và local đều chưa có cây nào và không kết nối server, dùng seed
+  if (mergedPlants.length === 0 && !isLive) {
+    mergedPlants = [...SEED_GARDEN_PLANTS];
   }
+
+  // Đồng bộ lại vào localStorage
+  localStorage.setItem('ytc_garden_plants', JSON.stringify(mergedPlants));
+  localStorage.setItem('ytc_garden_profile', JSON.stringify(finalGarden));
+
+  return {
+    garden: finalGarden,
+    plants: mergedPlants,
+    diaries: liveDiaries.length > 0 ? liveDiaries : localDiaries,
+    isLive,
+  };
 }
 
 /**
@@ -709,7 +747,7 @@ export async function updateGardenProfile(garden: Partial<UserGarden>): Promise<
 /**
  * Thêm cây mới vào vườn
  */
-export async function addGardenPlant(plant: Partial<GardenPlant>): Promise<{ success: boolean; data?: GardenPlant; message?: string }> {
+export async function addGardenPlant(plant: Partial<GardenPlant> & { user_id?: string }): Promise<{ success: boolean; data?: GardenPlant; message?: string }> {
   try {
     const res = await fetch(`${API_BASE}/garden.php?action=add_plant`, {
       method: 'POST',
@@ -865,7 +903,7 @@ export function isPlantInMyGarden(plantIdOrSlug: string): boolean {
   if (!plantIdOrSlug) return false;
   try {
     const saved = localStorage.getItem('ytc_garden_plants');
-    const plants: GardenPlant[] = saved ? JSON.parse(saved) : SEED_GARDEN_PLANTS;
+    const plants: GardenPlant[] = saved ? JSON.parse(saved) : [];
     return plants.some(
       (p) =>
         p.plant_id === plantIdOrSlug ||
@@ -886,8 +924,29 @@ export function savePlantToMyGarden(plant: Plant): {
   gardenPlant: GardenPlant;
 } {
   try {
+    // 1. Xác định tài khoản và mã vườn thực tế của người dùng
+    let userId = 'usr-local-me';
+    let gardenId = 'gdn-default-01';
+
+    try {
+      const savedUser = localStorage.getItem('ytc_user');
+      if (savedUser) {
+        const u = JSON.parse(savedUser);
+        if (u && (u.id || u.uid || u.email)) {
+          userId = u.id || u.uid || u.email;
+        }
+      }
+      const savedGarden = localStorage.getItem('ytc_garden_profile');
+      if (savedGarden) {
+        const g = JSON.parse(savedGarden);
+        if (g && g.id) {
+          gardenId = g.id;
+        }
+      }
+    } catch {}
+
     const saved = localStorage.getItem('ytc_garden_plants');
-    const currentList: GardenPlant[] = saved ? JSON.parse(saved) : [...SEED_GARDEN_PLANTS];
+    const currentList: GardenPlant[] = saved ? JSON.parse(saved) : [];
 
     // Kiểm tra xem cây này đã có trong vườn chưa
     const existingIndex = currentList.findIndex(
@@ -907,7 +966,7 @@ export function savePlantToMyGarden(plant: Plant): {
 
     const newGardenPlant: GardenPlant = {
       id: `gp-${Date.now()}`,
-      garden_id: 'gdn-default-01',
+      garden_id: gardenId,
       plant_id: plant.id,
       custom_name: plant.common_name,
       species_name: plant.scientific_name,
@@ -926,8 +985,22 @@ export function savePlantToMyGarden(plant: Plant): {
     const updated = [newGardenPlant, ...currentList];
     localStorage.setItem('ytc_garden_plants', JSON.stringify(updated));
 
-    // Thử gửi lên API ngầm (nếu có backend PHP đang chạy)
-    addGardenPlant(newGardenPlant).catch(() => {});
+    // Gửi lên API kèm user_id để backend PHP tự động gán đúng garden_id của tài khoản
+    addGardenPlant({ ...newGardenPlant, user_id: userId }).then((res) => {
+      if (res.success && res.data) {
+        try {
+          const freshSaved = localStorage.getItem('ytc_garden_plants');
+          if (freshSaved) {
+            const list: GardenPlant[] = JSON.parse(freshSaved);
+            const idx = list.findIndex(p => p.id === newGardenPlant.id);
+            if (idx >= 0) {
+              list[idx] = { ...list[idx], ...res.data };
+              localStorage.setItem('ytc_garden_plants', JSON.stringify(list));
+            }
+          }
+        } catch {}
+      }
+    }).catch(() => {});
 
     // Phát sự kiện toàn cục để GardenPage hoặc các widget cập nhật ngay lập tức
     window.dispatchEvent(new CustomEvent('ytc_garden_updated', { detail: newGardenPlant }));

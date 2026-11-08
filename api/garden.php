@@ -231,6 +231,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action === 'add_plant') {
         $plantId = !empty($input['id']) ? trim($input['id']) : 'gp-' . uniqid();
         $gardenId = trim($input['garden_id'] ?? '');
+        $userId = trim($input['user_id'] ?? '');
         $refPlantId = trim($input['plant_id'] ?? '');
         $customName = trim($input['custom_name'] ?? '');
         $speciesName = trim($input['species_name'] ?? '');
@@ -239,6 +240,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $status = in_array($input['current_status'] ?? '', ['healthy', 'flowering', 'fruiting', 'recovering', 'dormant']) ? $input['current_status'] : 'healthy';
         $coverImageUrl = trim($input['cover_image_url'] ?? '');
         $notes = trim($input['notes'] ?? '');
+
+        // Tự động tìm hoặc tạo vườn cho người dùng nếu có user_id
+        if (!empty($userId)) {
+            $userGardenStmt = $pdo->prepare("SELECT id FROM gardens WHERE user_id = :user_id LIMIT 1");
+            $userGardenStmt->execute([':user_id' => $userId]);
+            $ug = $userGardenStmt->fetch(PDO::FETCH_ASSOC);
+            if ($ug) {
+                $gardenId = $ug['id'];
+            } else {
+                $defaultGardenId = 'gdn-' . substr(md5($userId), 0, 12);
+                $createGardenStmt = $pdo->prepare("INSERT INTO gardens (id, user_id, user_name, garden_name, garden_type, city, description) 
+                    VALUES (:id, :user_id, :user_name, :garden_name, 'balcony', 'TP. Hồ Chí Minh', 'Khu vườn nhỏ phủ xanh ban công đô thị')");
+                $createGardenStmt->execute([
+                    ':id' => $defaultGardenId,
+                    ':user_id' => $userId,
+                    ':user_name' => 'Chủ Vườn Phố',
+                    ':garden_name' => 'Vườn Của Tôi'
+                ]);
+                $gardenId = $defaultGardenId;
+            }
+        }
 
         if (empty($gardenId) || empty($customName) || empty($coverImageUrl)) {
             http_response_code(400);
