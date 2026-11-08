@@ -127,6 +127,7 @@ export interface Plant {
   growth_time: string;          // Thời gian từ ươm đến thu hoạch (ví dụ: 45 ngày, 6 tháng)
   container_suitable: boolean;  // Trồng được trong chậu/ban công không
   seasonality?: RegionalSeason; // Lịch nông vụ theo vùng
+  cultivation_guide?: { soil?: string; watering?: string; sunlight?: string; fertilizing?: string }; // Hướng dẫn kỹ thuật canh tác
   medical_info?: PlantMedicalInfo; // Thông tin y tế & cảnh báo (dành cho herb)
   how_to_grow_steps?: PlantHowToStep[]; // GEO & HowTo Schema
   faqs?: PlantFAQ[];            // AEO FAQPage Schema
