@@ -20,7 +20,8 @@ import {
   Calendar,
   ChevronDown,
   LogOut,
-  Settings
+  Settings,
+  Coins
 } from 'lucide-react';
 import { PlantCategory, UserProfile, Plant } from '../types/index.ts';
 import { useLanguage } from '../context/LanguageContext.tsx';
@@ -413,6 +414,18 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>{isEn ? 'Calendar' : 'Lịch Nông Vụ'}</span>
             </Link>
 
+            {/* Kinh Tế Xanh (Kiếm Tiền Từ Vườn) */}
+            <Link
+              to="/kiem-tien-tu-vuon"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-2.5 xl:px-3 py-2 rounded-xl text-xs font-semibold bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/40 dark:hover:bg-amber-900/60 text-amber-900 dark:text-amber-300 flex items-center gap-1.5 border border-amber-200 dark:border-amber-800/60 transition shadow-2xs shrink-0"
+              title={t('nav.monetizationFull')}
+            >
+              <Coins className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+              <span>{t('nav.monetization')}</span>
+            </Link>
+
             {/* Vườn Số Cá Nhân (MS4) */}
             <Link
               to="/vuon-cua-toi"
@@ -801,6 +814,33 @@ export const Navbar: React.FC<NavbarProps> = ({
                     </div>
                     <p className="text-[11px] text-forest-600 dark:text-forest-400 truncate">
                       {isEn ? 'Monthly sowing schedule, weather & pest alerts' : 'Thời khóa biểu gieo trồng, tưới nước & phòng sâu bệnh'}
+                    </p>
+                  </div>
+                </div>
+                <ChevronRight className="w-4 h-4 text-forest-400 group-hover:text-forest-900 dark:group-hover:text-cream-100 shrink-0 ml-2" />
+              </Link>
+
+              {/* Kinh Tế Xanh - Kiếm Tiền Từ Vườn */}
+              <Link
+                to="/kiem-tien-tu-vuon"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setIsMenuOpen(false)}
+                className="p-3 rounded-2xl bg-forest-50/60 hover:bg-forest-100/80 dark:bg-charcoal-800/80 dark:hover:bg-charcoal-700 border border-forest-100 dark:border-forest-700/60 flex items-center justify-between transition group"
+              >
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-9 h-9 rounded-xl bg-amber-600 text-white flex items-center justify-center shrink-0 shadow-2xs">
+                    <Coins className="w-4 h-4 text-white" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-1.5">
+                      <span className="font-bold text-forest-950 dark:text-cream-50 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 truncate">
+                        {t('nav.monetization')}
+                      </span>
+                      <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-white dark:bg-charcoal-700 text-forest-800 dark:text-cream-100 border border-forest-200 dark:border-forest-600 shrink-0">Thu nhập</span>
+                    </div>
+                    <p className="text-[11px] text-forest-600 dark:text-forest-400 truncate">
+                      {isEn ? 'Garden monetization, propagation ROI & urban business models' : 'Mô hình kinh tế vườn, nhân giống & tạo thu nhập'}
                     </p>
                   </div>
                 </div>
