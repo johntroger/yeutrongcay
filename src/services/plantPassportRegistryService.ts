@@ -44,6 +44,11 @@ export interface RegisteredPlantPassport {
   generation?: number;                    // Thế hệ cây (1: Gốc, 2: Tái sinh lần 1...)
   reincarnation_locked_until?: number;    // Thời hạn ân hạn 24h độc quyền cho chủ cũ
   reincarnation_owner?: string;           // Địa chỉ ví chủ cũ được ưu tiên tái sinh
+  current_owner_username?: string;        // Tên người dùng yeutrongcay sở hữu hiện tại (sau khi chuyển nhượng)
+  current_owner_email?: string;           // Email người dùng sở hữu hiện tại
+  current_owner_user_id?: string;         // User ID người sở hữu hiện tại
+  transferred_at?: string;                // Thời điểm chuyển nhượng quyền sở hữu gần nhất
+  transfer_tx_hash?: string;              // Mã băm transaction chuyển nhượng on-chain
   nft_class?: NftAssetClass;             // 5 lớp NFT: botanical, space_method, eco_invention, culinary_recipe, geo_forest_10000m2
   category?: PlantCategory;              // 7 danh mục
   forest_slug?: string;                  // Slug định danh khu rừng (nếu là geo_forest_10000m2)
@@ -1152,9 +1157,83 @@ export const plantPassportRegistryService = {
   },
 
   /**
+   * CHUYỂN NHƯỢNG QUYỀN SỞ HỮU HỘ CHIẾU THỰC VẬT SỐ (P2P NFT Transfer)
+   * QUY TẮC BẢO MẬT:
+   * - Người mới (chủ sở hữu mới) nhận toàn quyền sở hữu và QUYỀN ĐỐT / TÁI SINH NFT.
+   * - Người cũ (chủ cũ) MẤT HOÀN TOÀN QUYỀN ĐỐT VÀ QUYỀN QUẢN LÝ.
+   */
+  transferPassportOwnership(params: {
+    tokenId: string;
+    fromWallet: string;
+    toWallet: string;
+    toUsername?: string;
+    toEmail?: string;
+    toUserId?: string;
+    txHash?: string;
+  }): {
+    success: boolean;
+    transferredPassport?: RegisteredPlantPassport;
+    message: string;
+  } {
+    const all = this.getAllRegistrations();
+    const cleanTokenId = params.tokenId.replace('#', '').trim();
+    const from = params.fromWallet.toLowerCase().trim();
+    const to = params.toWallet.toLowerCase().trim();
+
+    const targetIndex = all.findIndex(
+      p => (p.token_id === cleanTokenId || p.token_id === `#${cleanTokenId}` || p.id === cleanTokenId) && p.status === 'ACTIVE_ORIGINAL'
+    );
+
+    if (targetIndex === -1) {
+      return {
+        success: false,
+        message: `Không tìm thấy Hộ Chiếu Độc Bản còn hiệu lực với Token ID #${cleanTokenId}`
+      };
+    }
+
+    const passport = all[targetIndex];
+    const currentOwner = (passport.owner_address || passport.creator_wallet).toLowerCase().trim();
+
+    // KIỂM TRA BẢO MẬT: Bắt buộc người gửi phải là chủ sở hữu hiện tại!
+    if (currentOwner !== from) {
+      return {
+        success: false,
+        message: `Bảo mật vi phạm: Ví của bạn (${from.slice(0, 6)}...${from.slice(-4)}) không phải là chủ sở hữu hiện tại của Hộ Chiếu này!`
+      };
+    }
+
+    // Cập nhật chủ sở hữu mới (Người cũ mất quyền, người mới nhận quyền)
+    const updatedRecord: RegisteredPlantPassport = {
+      ...passport,
+      owner_address: to,
+      current_owner_username: params.toUsername || to.slice(0, 8),
+      current_owner_email: params.toEmail,
+      current_owner_user_id: params.toUserId,
+      transferred_at: new Date().toLocaleString('vi-VN'),
+      transfer_tx_hash: params.txHash || passport.transaction_hash
+    };
+
+    all[targetIndex] = updatedRecord;
+    localStorage.setItem(REGISTRY_STORAGE_KEY, JSON.stringify(all));
+
+    // Đồng bộ lên Cloud Firestore
+    this.uploadToCloud(updatedRecord).catch(() => {});
+
+    // Phát sự kiện chuyển nhượng quyền sở hữu
+    window.dispatchEvent(new CustomEvent('ytc_passport_transferred', { detail: updatedRecord }));
+
+    return {
+      success: true,
+      transferredPassport: updatedRecord,
+      message: `Đã chuyển nhượng thành công Hộ Chiếu #${cleanTokenId} cho ví ${to.slice(0, 6)}...${to.slice(-4)}! Người mới hiện có toàn quyền quản lý và quyền đốt NFT.`
+    };
+  },
+
+  /**
    * LẤY DANH SÁCH HỘ CHIẾU ĐỘC BẢN HỢP LỆ CỦA NGƯỜI DÙNG ĐỂ HIỂN THỊ GALLERY
    * BỘ LỌC NGHIÊM NGẶT:
    * - Ai đăng nhập (email/username/id) thì chỉ hiển thị NFT thuộc sở hữu của người đó.
+   * - Người cũ sau khi chuyển nhượng sẽ MẤT QUYỀN hiển thị trong bộ sưu tập cá nhân.
    * - Loại bỏ hoàn toàn các NFT trùng lặp (DUPLICATE_REJECTED).
    */
   getUserVerifiedGallery(walletAddress?: string, userId?: string, emailOrHandle?: string): RegisteredPlantPassport[] {
@@ -1166,22 +1245,28 @@ export const plantPassportRegistryService = {
       // 1. Chỉ hiển thị các NFT Độc Bản Hợp Lệ
       if (p.status !== 'ACTIVE_ORIGINAL') return false;
 
+      // Xác định định danh người sở hữu hiện tại (Ưu tiên current_owner_* nếu đã từng chuyển nhượng)
+      const currentOwnerHandle = (p.current_owner_username || p.creator_username || '').toLowerCase();
+      const currentOwnerEmail = (p.current_owner_email || p.creator_email || '').toLowerCase();
+      const currentOwnerAddress = (p.owner_address || p.creator_wallet).toLowerCase();
+      const currentUserId = p.current_owner_user_id || p.creator_user_id;
+
       // 2. Khớp với email hoặc username của người đang đăng nhập
       if (cleanHandle) {
-        if (p.creator_username && p.creator_username.toLowerCase() === cleanHandle) return true;
-        if (p.creator_email && p.creator_email.toLowerCase().startsWith(cleanHandle)) return true;
-        if (cleanHandle === 'tranthanhtung37' && (p.token_id === '1' || p.creator_user_id === 'usr-local-me')) return true;
+        if (currentOwnerHandle && currentOwnerHandle === cleanHandle) return true;
+        if (currentOwnerEmail && currentOwnerEmail.startsWith(cleanHandle)) return true;
+        if (cleanHandle === 'tranthanhtung37' && (p.token_id === '1' || currentUserId === 'usr-local-me') && !p.current_owner_username) return true;
       }
 
-      // 3. Khớp với địa chỉ ví hoặc ID người dùng
-      if (cleanWallet && (p.owner_address.toLowerCase() === cleanWallet || p.creator_wallet.toLowerCase() === cleanWallet)) {
+      // 3. Khớp với địa chỉ ví của chủ sở hữu hiện tại (Người cũ MẤT QUYỀN hiển thị)
+      if (cleanWallet && currentOwnerAddress === cleanWallet) {
         return true;
       }
-      if (userId && p.creator_user_id === userId) {
+      if (userId && currentUserId === userId) {
         return true;
       }
 
-      // Nếu chưa đăng nhập (không có email, không có id) và chưa kết nối ví -> không có NFT cá nhân
+      // Nếu chưa đăng nhập và chưa kết nối ví -> không có NFT cá nhân
       return false;
     });
   },
@@ -1189,6 +1274,7 @@ export const plantPassportRegistryService = {
   /**
    * LẤY DANH SÁCH HỘ CHIẾU ĐỘC BẢN CÔNG KHAI DỰA TRÊN USERNAME / EMAIL (VD: "tranthanhtung37")
    * Phục vụ trang hồ sơ công khai https://yeutrongcay.com/:username
+   * Sau khi chuyển nhượng, NFT thuộc về hồ sơ của người nhận mới
    */
   getUserVerifiedGalleryByUsername(usernameOrHandle?: string): RegisteredPlantPassport[] {
     if (!usernameOrHandle) return [];
@@ -1204,29 +1290,28 @@ export const plantPassportRegistryService = {
     return all.filter(p => {
       if (p.status !== 'ACTIVE_ORIGINAL') return false;
 
-      // Khớp theo username hoặc custom_handle
-      if (p.creator_username && matchHandles.has(p.creator_username.toLowerCase())) {
+      const currentOwnerHandle = (p.current_owner_username || p.creator_username || '').toLowerCase();
+      const currentOwnerEmail = (p.current_owner_email || p.creator_email || '').toLowerCase();
+      const currentOwnerAddress = (p.owner_address || p.creator_wallet).toLowerCase();
+
+      // Khớp theo username của chủ sở hữu hiện tại
+      if (currentOwnerHandle && matchHandles.has(currentOwnerHandle)) {
         return true;
       }
 
       // Khớp theo email prefix
-      const emailPrefix = getUsernameFromEmail(p.creator_email);
+      const emailPrefix = getUsernameFromEmail(currentOwnerEmail);
       if (emailPrefix && matchHandles.has(emailPrefix)) {
         return true;
       }
 
-      // Khớp theo ID người dùng
-      if (p.creator_user_id && p.creator_user_id.toLowerCase().includes(cleanHandle)) {
-        return true;
-      }
-
       // Khớp theo địa chỉ ví (nếu URL truyền ví 0x...)
-      if (cleanHandle.startsWith('0x') && (p.owner_address.toLowerCase() === cleanHandle || p.creator_wallet.toLowerCase() === cleanHandle)) {
+      if (cleanHandle.startsWith('0x') && currentOwnerAddress === cleanHandle) {
         return true;
       }
 
       // Nếu là hồ sơ gốc tranthanhtung37, ưu tiên luôn Token #1
-      if (matchHandles.has('tranthanhtung37') && (p.token_id === '1' || p.creator_user_id === 'usr-local-me')) {
+      if (matchHandles.has('tranthanhtung37') && (p.token_id === '1' || p.creator_user_id === 'usr-local-me') && !p.current_owner_username) {
         return true;
       }
 

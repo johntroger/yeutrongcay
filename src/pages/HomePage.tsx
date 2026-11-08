@@ -14,7 +14,7 @@ import { useLanguage } from '../context/LanguageContext.tsx';
 import { PLANT_ENGLISH_MAP } from '../i18n/plantTranslations.ts';
 import { getPlantSubcategory, getPlantsForCollection } from '../data/collections.ts';
 import { matchPlantSearch, calculateRelevance } from '../utils/searchUtils.ts';
-import { interleaveMarketplaceItems, getCategoryConfig } from '../config/ecosystemRegistry.ts';
+import { interleaveMarketplaceItems, getCategoryConfig, getAllEcosystemCategories } from '../config/ecosystemRegistry.ts';
 import { plantReviewService } from '../services/plantReviewService.ts';
 import {
   Filter,
@@ -121,6 +121,40 @@ export const HomePage: React.FC<HomePageProps> = ({
       isMounted = false;
     };
   }, []);
+
+  // Danh sách chuyên mục hệ sinh thái động (Tự động mở rộng khi có category mới)
+  const [extraCategoryRevision, setExtraCategoryRevision] = useState(0);
+
+  useEffect(() => {
+    const handleCategoryUpdate = () => {
+      setExtraCategoryRevision((prev) => prev + 1);
+    };
+    window.addEventListener('ytc_ecosystem_categories_updated', handleCategoryUpdate);
+    return () => {
+      window.removeEventListener('ytc_ecosystem_categories_updated', handleCategoryUpdate);
+    };
+  }, []);
+
+  const ecosystemCategories = useMemo(() => {
+    return getAllEcosystemCategories(allPlants);
+  }, [allPlants, extraCategoryRevision]);
+
+  const horizontalFilterCategories = useMemo(() => {
+    return [
+      {
+        id: 'all',
+        label: isEn ? `All Categories (${ecosystemCategories.length})` : `Tất Cả ${ecosystemCategories.length} Ngành Hàng`,
+        icon: '🌿',
+        count: allPlants.length,
+      },
+      ...ecosystemCategories.map((cat) => ({
+        id: cat.id,
+        label: isEn ? (cat.shortLabelEn || cat.labelEn) : (cat.shortLabelVi || cat.labelVi),
+        icon: cat.icon,
+        count: allPlants.filter((p) => p.category === cat.id).length,
+      })),
+    ];
+  }, [ecosystemCategories, allPlants, isEn]);
 
   // Lọc cây đa chiều: Category, Subcategory, Collection, Tag, Điều kiện sinh trưởng, Tìm kiếm
   const filteredPlants = useMemo(() => {

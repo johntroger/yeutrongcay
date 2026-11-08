@@ -541,6 +541,51 @@ export const web3WalletService = {
   },
 
   /**
+   * Chuyển nhượng Hộ Chiếu Thực Vật Số ON-CHAIN THẬT cho người khác trong hệ sinh thái
+   * Người mới nhận toàn quyền sở hữu và quyền đốt NFT, người cũ mất hoàn toàn quyền
+   */
+  async transferPassportOnChain(params: {
+    tokenId: number;
+    fromAddress: `0x${string}`;
+    toAddress: `0x${string}`;
+    contractAddress?: `0x${string}`;
+    chainId?: string;
+  }): Promise<string> {
+    if (!window.ethereum) {
+      throw new Error('Không phát hiện tiện ích ví Web3 để thực hiện giao dịch chuyển nhượng.');
+    }
+
+    const targetContract = params.contractAddress || this.getContractAddressForChain(params.chainId || null);
+
+    const callData = encodeFunctionData({
+      abi: PLANT_PASSPORT_ABI,
+      functionName: 'transferFrom',
+      args: [params.fromAddress, params.toAddress, BigInt(params.tokenId)]
+    });
+
+    try {
+      const txHash = (await window.ethereum.request({
+        method: 'eth_sendTransaction',
+        params: [
+          {
+            from: params.fromAddress,
+            to: targetContract,
+            data: callData
+          }
+        ]
+      })) as string;
+
+      return txHash;
+    } catch (err: unknown) {
+      const e = err as { code?: number; message?: string };
+      if (e.code === 4001) {
+        throw new Error('Bạn đã hủy phê duyệt giao dịch chuyển nhượng trên ví.');
+      }
+      throw new Error(e.message || 'Lỗi khi gửi giao dịch chuyển nhượng lên blockchain.');
+    }
+  },
+
+  /**
    * Yêu cầu MetaMask thêm NFT vừa đúc vào tab NFTs của ví (EIP-747)
    */
   async addNftToMetaMask(contractAddress: string, tokenId: string): Promise<boolean> {

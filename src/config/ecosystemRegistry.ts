@@ -14,12 +14,19 @@ export interface EcosystemCategoryConfig {
   badgeColorClass: string;
   labelVi: string;
   labelEn: string;
+  shortLabelVi?: string;
+  shortLabelEn?: string;
   headingVi: string;
   headingEn: string;
   descriptionVi: string;
   descriptionEn: string;
+  summaryVi?: string;
+  summaryEn?: string;
   unitVi: string;
   unitEn: string;
+  cardBadgeClass?: string;
+  cardBorderHover?: string;
+  cardTitleHover?: string;
 }
 
 export interface NftAssetClassConfig {
@@ -71,12 +78,19 @@ export const ECOSYSTEM_CATEGORIES: Record<PlantCategory, EcosystemCategoryConfig
     badgeColorClass: 'bg-emerald-900/85 text-emerald-100 border border-emerald-400/30',
     labelVi: 'Thảo Dược Bản Địa',
     labelEn: 'Native Medicinal Herbs',
+    shortLabelVi: 'Thảo Dược',
+    shortLabelEn: 'Native Herbs',
     headingVi: 'Tủ Thuốc Xanh (Thảo Dược Bản Địa)',
     headingEn: 'Green Pharmacy (Native Medicinal Herbs)',
     descriptionVi: 'Tra cứu các loài thảo dược bản địa Việt Nam: công dụng trị ho, giải cảm, bổ huyết, liều dùng an toàn và bài thuốc dân gian.',
     descriptionEn: 'Discover native Vietnamese medicinal herbs: safe dosages, folk remedies, and home cultivation.',
+    summaryVi: 'Cây thuốc nam, rau gia vị chữa bệnh gia đình & bài thuốc dân gian',
+    summaryEn: 'Folk remedies & fresh culinary herbs for household wellness',
     unitVi: 'loài thảo dược',
     unitEn: 'herbal species',
+    cardBadgeClass: 'text-herbal-700 dark:text-herbal-300 bg-herbal-50 dark:bg-herbal-950/60 border border-herbal-200/50 dark:border-herbal-800/40',
+    cardBorderHover: 'hover:border-herbal-400 dark:hover:border-herbal-500',
+    cardTitleHover: 'group-hover:text-herbal-700 dark:group-hover:text-herbal-400',
   },
   fruit: {
     id: 'fruit',
@@ -85,14 +99,21 @@ export const ECOSYSTEM_CATEGORIES: Record<PlantCategory, EcosystemCategoryConfig
     defaultNftClass: 'botanical',
     icon: '🍋',
     badgeColorClass: 'bg-amber-800/85 text-amber-100 border border-amber-400/30',
-    labelVi: 'Cây Ăn Trái Ban Công',
+    labelVi: 'Cây Ăn Quả Ban Công',
     labelEn: 'Balcony Fruit Trees',
+    shortLabelVi: 'Cây Ăn Trái',
+    shortLabelEn: 'Balcony Fruits',
     headingVi: 'Trái Ngọt Phố (Cây Ăn Quả Ban Công)',
     headingEn: 'Balcony Fruits (Urban Orchards)',
     descriptionVi: 'Cẩm nang trồng cây ăn trái lùn đô thị: ổi lê, cóc Thái, sung Mỹ, dâu tằm, chanh tứ quý trĩu quả quanh năm.',
     descriptionEn: 'Handbook for growing dwarf container fruit varieties: guava, ambarella, honey figs, and continuous limes.',
+    summaryVi: 'Giống lùn sai quả, thu hoạch trên sân thượng & ban công đô thị',
+    summaryEn: 'Dwarf container fruit varieties & urban rooftop harvesting',
     unitVi: 'giống cây',
     unitEn: 'fruit varieties',
+    cardBadgeClass: 'text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 border border-amber-200/50 dark:border-amber-800/40',
+    cardBorderHover: 'hover:border-amber-400 dark:hover:border-amber-500',
+    cardTitleHover: 'group-hover:text-amber-800 dark:group-hover:text-amber-400',
   },
   ornamental: {
     id: 'ornamental',
@@ -103,12 +124,19 @@ export const ECOSYSTEM_CATEGORIES: Record<PlantCategory, EcosystemCategoryConfig
     badgeColorClass: 'bg-purple-900/85 text-purple-100 border border-purple-400/30',
     labelVi: 'Cây Cảnh & Bonsai',
     labelEn: 'Ornamentals & Bonsai',
+    shortLabelVi: 'Cây Cảnh',
+    shortLabelEn: 'Ornamentals',
     headingVi: 'Cây Cảnh & Thư Thái (Bonsai & Phong Thủy)',
     headingEn: 'Bonsai & Calming Living Spaces',
     descriptionVi: 'Các loài cây cảnh thanh lọc không khí NASA, nghệ thuật tạo tác bonsai phong thủy và cây cảnh nội thất.',
     descriptionEn: 'Air-purifying houseplants, fragrant bonsai creations, and prosperity greenery.',
+    summaryVi: 'Cây lọc không khí, bonsai thư giãn, phong thủy & cây nội thất',
+    summaryEn: 'Air-purifying houseplants, bonsai serenity, & feng shui greenery',
     unitVi: 'loài cây cảnh',
     unitEn: 'ornamental varieties',
+    cardBadgeClass: 'text-purple-800 dark:text-purple-300 bg-purple-50 dark:bg-purple-950/60 border border-purple-200/50 dark:border-purple-800/40',
+    cardBorderHover: 'hover:border-purple-400 dark:hover:border-purple-500',
+    cardTitleHover: 'group-hover:text-purple-800 dark:group-hover:text-purple-400',
   },
   space: {
     id: 'space',
@@ -119,12 +147,19 @@ export const ECOSYSTEM_CATEGORIES: Record<PlantCategory, EcosystemCategoryConfig
     badgeColorClass: 'bg-cyan-900/85 text-cyan-100 border border-cyan-400/30',
     labelVi: 'Không Gian Trồng Phố',
     labelEn: 'Urban Growing Spaces',
+    shortLabelVi: 'Không Gian Trồng',
+    shortLabelEn: 'Urban Spaces',
     headingVi: 'Không Gian & Mô Hình Trồng Phố',
     headingEn: 'Urban Growing Spaces & Living Blueprints',
     descriptionVi: 'Bản vẽ kiến trúc vườn ban công hướng Tây, logia khuất nắng, giàn leo sân thượng siêu nhẹ và tiểu cảnh trong nhà.',
     descriptionEn: 'Architectural blueprints for heat-shield balconies, low-light loggias, lightweight rooftops, and indoor greens.',
+    summaryVi: 'Bản vẽ kiến trúc ban công hướng Tây, logia khuất nắng & giàn leo',
+    summaryEn: 'Architectural blueprints for heat-shield balconies & compact loggias',
     unitVi: 'thiết kế',
     unitEn: 'blueprints',
+    cardBadgeClass: 'text-cyan-800 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950/60 border border-cyan-200/50 dark:border-cyan-800/40',
+    cardBorderHover: 'hover:border-cyan-400 dark:hover:border-cyan-500',
+    cardTitleHover: 'group-hover:text-cyan-800 dark:group-hover:text-cyan-400',
   },
   recycle: {
     id: 'recycle',
@@ -135,12 +170,19 @@ export const ECOSYSTEM_CATEGORIES: Record<PlantCategory, EcosystemCategoryConfig
     badgeColorClass: 'bg-lime-900/85 text-lime-100 border border-lime-400/30',
     labelVi: 'Tái Chế Làm Vườn',
     labelEn: 'Upcycled Garden DIY',
+    shortLabelVi: 'Tái Chế',
+    shortLabelEn: 'Upcycled DIY',
     headingVi: 'Sáng Chế Tái Chế & Tuần Hoàn Xanh',
     headingEn: 'Upcycled Garden DIY & Circular Inventions',
     descriptionVi: 'Chế tạo chậu tự tưới bấc thấm từ can nhựa an toàn, thùng ủ Bokashi không mùi và thuốc trừ sâu sinh học tại gia.',
     descriptionEn: 'Self-watering capillary planters from safe HDPE jugs, zero-odor Bokashi composting, and organic pest shields.',
+    summaryVi: 'Chế tạo chậu tự tưới bấc thấm từ can nhựa, ủ Bokashi & phân bón',
+    summaryEn: 'Self-watering wicking planters, zero-odor Bokashi & organic shields',
     unitVi: 'sáng chế',
     unitEn: 'inventions',
+    cardBadgeClass: 'text-lime-800 dark:text-lime-300 bg-lime-50 dark:bg-lime-950/60 border border-lime-200/50 dark:border-lime-800/40',
+    cardBorderHover: 'hover:border-lime-400 dark:hover:border-lime-500',
+    cardTitleHover: 'group-hover:text-lime-800 dark:group-hover:text-lime-400',
   },
   culinary: {
     id: 'culinary',
@@ -149,14 +191,21 @@ export const ECOSYSTEM_CATEGORIES: Record<PlantCategory, EcosystemCategoryConfig
     defaultNftClass: 'culinary_recipe',
     icon: '🍵',
     badgeColorClass: 'bg-rose-900/85 text-rose-100 border border-rose-400/30',
-    labelVi: 'Ẩm Thực & Đồ Uống Xanh',
-    labelEn: 'Herbal Kitchen & Drinks',
+    labelVi: 'Ẩm Thực Dưỡng Sinh',
+    labelEn: 'Herbal Kitchen & Tonics',
+    shortLabelVi: 'Ẩm Thực',
+    shortLabelEn: 'Herbal Kitchen',
     headingVi: 'Ẩm Thực & Đồ Uống Thảo Mộc (Dược Thiện)',
     headingEn: 'Herbal Kitchen, Tonics & Natural Elixirs',
     descriptionVi: 'Siro trị ho chưng cách thủy, trà hoa đổi màu, nước sâm mát gan và món ăn bài thuốc từ thảo mộc thu hái tại vườn.',
     descriptionEn: 'Steamed herbal cough elixirs, antioxidant floral infusions, detox tonics, and medicinal kitchen recipes.',
+    summaryVi: 'Siro chưng cách thủy, trà hoa thảo mộc, nước sâm & món ăn bài thuốc',
+    summaryEn: 'Steamed herbal cough elixirs, antioxidant teas & medicinal dishes',
     unitVi: 'bí phương',
     unitEn: 'recipes',
+    cardBadgeClass: 'text-rose-800 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/60 border border-rose-200/50 dark:border-rose-800/40',
+    cardBorderHover: 'hover:border-rose-400 dark:hover:border-rose-500',
+    cardTitleHover: 'group-hover:text-rose-800 dark:group-hover:text-rose-400',
   },
   forest: {
     id: 'forest',
@@ -166,13 +215,20 @@ export const ECOSYSTEM_CATEGORIES: Record<PlantCategory, EcosystemCategoryConfig
     icon: '🌲',
     badgeColorClass: 'bg-teal-900/85 text-teal-100 border border-teal-400/30',
     labelVi: 'Rừng & Khu Sinh Thái',
-    labelEn: 'Natural Forests & Eco-Zones',
+    labelEn: 'Natural Forests & Parks',
+    shortLabelVi: 'Rừng Sinh Thái',
+    shortLabelEn: 'Natural Forests',
     headingVi: 'Rừng Tự Nhiên & Khu Sinh Thái',
     headingEn: 'Natural Forests, National Parks & Biospheres',
     descriptionVi: 'Bảo tồn hệ sinh thái 15 Vườn Quốc Gia & Khu Dự Trữ Sinh Quyển Việt Nam. Đúc chứng chỉ 10.000m² rừng khi có mặt tại khu vực.',
     descriptionEn: 'Conserving Vietnam\'s 15 National Parks and UNESCO Biospheres. Mint 10,000m² conservation NFTs when physically present in the forest zone.',
+    summaryVi: 'Bảo tồn 15 Vườn Quốc Gia & Khu Sinh Quyển. Đúc chứng chỉ 10.000m² rừng',
+    summaryEn: 'Preserving 15 National Parks & UNESCO Biospheres with 10,000m² NFTs',
     unitVi: 'khu bảo tồn',
     unitEn: 'reserves',
+    cardBadgeClass: 'text-teal-800 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/60 border border-teal-200/50 dark:border-teal-800/40',
+    cardBorderHover: 'hover:border-teal-400 dark:hover:border-teal-500',
+    cardTitleHover: 'group-hover:text-teal-800 dark:group-hover:text-teal-400',
   },
 };
 
@@ -366,8 +422,72 @@ export const NFT_ASSET_CLASSES: Record<NftAssetClass, NftAssetClassConfig> = {
 
 export const NFT_ASSET_CLASSES_LIST: NftAssetClassConfig[] = Object.values(NFT_ASSET_CLASSES);
 
-export function getCategoryConfig(category: PlantCategory): EcosystemCategoryConfig {
-  return ECOSYSTEM_CATEGORIES[category] || ECOSYSTEM_CATEGORIES.herb;
+export function getCategoryConfig(category: string | PlantCategory): EcosystemCategoryConfig {
+  if (category && (category in ECOSYSTEM_CATEGORIES)) {
+    return ECOSYSTEM_CATEGORIES[category as PlantCategory];
+  }
+  // Dynamic fallback cho bất kỳ category mới nào được thêm vào hệ thống
+  const safeCat = String(category || 'other');
+  const formattedName = safeCat
+    .split(/[-_]/)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
+
+  return {
+    id: safeCat as PlantCategory,
+    placement: 'home_only',
+    dedicatedPath: `/danh-muc/${encodeURIComponent(safeCat)}`,
+    defaultNftClass: 'botanical',
+    icon: '🌿',
+    badgeColorClass: 'bg-emerald-900/85 text-emerald-100 border border-emerald-400/30',
+    labelVi: formattedName,
+    labelEn: formattedName,
+    shortLabelVi: formattedName,
+    shortLabelEn: formattedName,
+    headingVi: `Chuyên mục: ${formattedName}`,
+    headingEn: `Category: ${formattedName}`,
+    descriptionVi: `Khám phá các ấn phẩm, cây trồng và giải pháp thuộc chuyên mục ${formattedName}.`,
+    descriptionEn: `Explore publications, botanical knowledge, and solutions for ${formattedName}.`,
+    summaryVi: `Tri thức và giải pháp thuộc chuyên mục ${formattedName}`,
+    summaryEn: `Knowledge and solutions for ${formattedName}`,
+    unitVi: 'ấn phẩm',
+    unitEn: 'items',
+    cardBadgeClass: 'text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200/50 dark:border-emerald-800/40',
+    cardBorderHover: 'hover:border-emerald-400 dark:hover:border-emerald-500',
+    cardTitleHover: 'group-hover:text-emerald-700 dark:group-hover:text-emerald-400',
+  };
+}
+
+/**
+ * Lấy danh sách toàn bộ chuyên mục hệ sinh thái (Cơ chế động)
+ * - Tự động nạp toàn bộ categories đã đăng ký
+ * - Quét thêm từ dữ liệu thực vật/ấn phẩm nếu có chuyên mục mới phát sinh
+ */
+export function getAllEcosystemCategories(plants?: Plant[]): EcosystemCategoryConfig[] {
+  const registered = Object.values(ECOSYSTEM_CATEGORIES);
+
+  if (plants && plants.length > 0) {
+    const knownIds = new Set(registered.map((c) => c.id as string));
+    const extraCategoryIds = Array.from(
+      new Set(plants.map((p) => p.category).filter(Boolean))
+    ).filter((cat) => !knownIds.has(cat as string));
+
+    for (const extraId of extraCategoryIds) {
+      registered.push(getCategoryConfig(extraId));
+    }
+  }
+
+  return registered;
+}
+
+/**
+ * Đăng ký chuyên mục mới vào hệ thống tại runtime
+ */
+export function registerEcosystemCategory(config: EcosystemCategoryConfig): void {
+  ECOSYSTEM_CATEGORIES[config.id] = config;
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('ytc_ecosystem_categories_updated', { detail: config }));
+  }
 }
 
 export function getNftClassConfig(nftClass: NftAssetClass): NftAssetClassConfig {
