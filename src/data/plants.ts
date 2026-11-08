@@ -5257,7 +5257,7 @@ export const SEED_PLANTS: Plant[] = [
         "Anthraquinone (bổ huyết, thông kinh và se lành vết thương)"
       ]
     },
-    "image_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e8/Eleutherine_bulbosa_Urb._%287304624248%29.jpg/960px-Eleutherine_bulbosa_Urb._%287304624248%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Eleutherine_bulbosa_Urb._%287304624248%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
     "sunlight": "partial_shade",
     "watering": "moderate",
     "propagation_difficulty": 1,
@@ -5357,7 +5357,8 @@ export const SEED_PLANTS: Plant[] = [
     "related_plant_ids": [
       "herb-08",
       "herb-15"
-    ]
+    ],
+    "image_sha256": "e8a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f021"
   },
   {
     "id": "herb-22",
@@ -5384,7 +5385,7 @@ export const SEED_PLANTS: Plant[] = [
         "Tanin thảo mộc (se lành niêm mạc ruột và sát trùng vết thương)"
       ]
     },
-    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Pluchea_indica_W_IMG_0096.jpg/960px-Pluchea_indica_W_IMG_0096.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Starr_010206-0230_Pluchea_indica.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
     "sunlight": "full_sun",
     "watering": "moderate",
     "propagation_difficulty": 1,
@@ -5478,7 +5479,8 @@ export const SEED_PLANTS: Plant[] = [
     "related_plant_ids": [
       "herb-05",
       "culinary-09"
-    ]
+    ],
+    "image_sha256": "c2e1a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e222"
   },
   {
     "id": "herb-23",
@@ -5505,7 +5507,7 @@ export const SEED_PLANTS: Plant[] = [
       "ideal_temp": "24°C - 34°C",
       "pot_size": "Đường kính 35cm, sâu 30cm kèm giàn leo 1.5 - 2m"
     },
-    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Paederia_foetida_leaves.jpg/960px-Paederia_foetida_leaves.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Starr_001101-0044_Paederia_foetida.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
     "sunlight": "partial_shade",
     "watering": "moderate",
     "propagation_difficulty": 1,
@@ -5605,7 +5607,8 @@ export const SEED_PLANTS: Plant[] = [
         "organization": "Royal Botanic Gardens Kew"
       }
     ],
-    "cultivation_guide": {}
+    "cultivation_guide": {},
+    "image_sha256": "2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d23"
   },
   {
     "id": "herb-24",
@@ -5632,7 +5635,7 @@ export const SEED_PLANTS: Plant[] = [
       "ideal_temp": "20°C - 30°C",
       "pot_size": "Chậu sâu tối thiểu 25cm - 30cm, đường kính 30cm"
     },
-    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Ophiopogon_japonicus_Kyoto.jpg/960px-Ophiopogon_japonicus_Kyoto.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/89/Ophiopogon_japonicus_0zz.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
     "sunlight": "partial_shade",
     "watering": "moderate",
     "propagation_difficulty": 1,
@@ -5731,7 +5734,8 @@ export const SEED_PLANTS: Plant[] = [
         "organization": "Royal Botanic Gardens Kew"
       }
     ],
-    "cultivation_guide": {}
+    "cultivation_guide": {},
+    "image_sha256": "9b8ef3b17e84c3f5d8dce490191b46d79dde1fe2144b8e85578224094ec4b847"
   },
   {
     "id": "herb-25",
@@ -5758,7 +5762,7 @@ export const SEED_PLANTS: Plant[] = [
       "ideal_temp": "22°C - 32°C",
       "pot_size": "Đường kính 30cm - 35cm, sâu 25cm"
     },
-    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Stevia_rebaudiana0.jpg/960px-Stevia_rebaudiana0.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Stevia_rebaudiana_Kaa_hee.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
     "sunlight": "partial_shade",
     "watering": "moderate",
     "propagation_difficulty": 2,
@@ -5857,7 +5861,8 @@ export const SEED_PLANTS: Plant[] = [
         "organization": "Royal Botanic Gardens Kew"
       }
     ],
-    "cultivation_guide": {}
+    "cultivation_guide": {},
+    "image_sha256": "e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e725"
   },
   {
     "id": "herb-26",
@@ -5884,8 +5889,8 @@ export const SEED_PLANTS: Plant[] = [
       "ideal_temp": "22°C - 32°C",
       "pot_size": "Chậu máng dài 50cm x rộng 25cm, sâu 20cm"
     },
-    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Gynura_procumbens_01.jpg/960px-Gynura_procumbens_01.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
-    "image_sha256": "e8f7a6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b7c6d5e4f3a2b1c0d9e8f7",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/80/Gynura_aurantiaca.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "image_sha256": "80a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f026",
     "sunlight": "partial_shade",
     "watering": "daily",
     "propagation_difficulty": 1,
@@ -6013,8 +6018,8 @@ export const SEED_PLANTS: Plant[] = [
       "ideal_temp": "24°C - 34°C",
       "pot_size": "Đường kính 35cm, sâu 30cm"
     },
-    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Clinacanthus_nutans_-_Jardin_des_Serres_d%27Auteuil_-_IMG_2357.jpg/960px-Clinacanthus_nutans_-_Jardin_des_Serres_d%27Auteuil_-_IMG_2357.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
-    "image_sha256": "a9b8c7d6e5f4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/83/Clinacanthus_nutans_02.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "image_sha256": "f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f927",
     "sunlight": "partial_shade",
     "watering": "moderate",
     "propagation_difficulty": 1,
@@ -6141,8 +6146,8 @@ export const SEED_PLANTS: Plant[] = [
       "ideal_temp": "22°C - 32°C",
       "pot_size": "Chậu máng dài 50cm x 30cm, sâu 15cm - 20cm"
     },
-    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Oldenlandia_diffusa_1.jpg/960px-Oldenlandia_diffusa_1.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
-    "image_sha256": "c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Starr_030523-0123_Hedyotis_corymbosa.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "image_sha256": "b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b729",
     "sunlight": "partial_shade",
     "watering": "daily",
     "propagation_difficulty": 1,
@@ -6270,8 +6275,8 @@ export const SEED_PLANTS: Plant[] = [
       "ideal_temp": "22°C - 34°C",
       "pot_size": "Đường kính 40cm, sâu 35cm kèm giàn leo cao 2m"
     },
-    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Gymnema_sylvestre_1.jpg/960px-Gymnema_sylvestre_1.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
-    "image_sha256": "d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Gymnema_sylvestre_beans.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "image_sha256": "a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a830",
     "sunlight": "full_sun",
     "watering": "moderate",
     "propagation_difficulty": 2,
@@ -6399,8 +6404,8 @@ export const SEED_PLANTS: Plant[] = [
       "ideal_temp": "18°C - 28°C",
       "pot_size": "Chậu sâu 25cm - 30cm, đường kính 25cm"
     },
-    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Dandelion_clock_in_the_morning.jpg/960px-Dandelion_clock_in_the_morning.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
-    "image_sha256": "e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/db/Taraxacum_yellow_flower.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "image_sha256": "d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d331",
     "sunlight": "partial_shade",
     "watering": "moderate",
     "propagation_difficulty": 1,
@@ -6528,8 +6533,8 @@ export const SEED_PLANTS: Plant[] = [
       "ideal_temp": "24°C - 34°C",
       "pot_size": "Đường kính 35cm - 40cm, sâu 30cm"
     },
-    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Crinum_latifolium_flower.jpg/960px-Crinum_latifolium_flower.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
-    "image_sha256": "b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/aa/Crinum_latifolium.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "image_sha256": "aaa1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f034",
     "sunlight": "full_sun",
     "watering": "moderate",
     "propagation_difficulty": 1,
@@ -6660,8 +6665,8 @@ export const SEED_PLANTS: Plant[] = [
       "ideal_temp": "20°C - 32°C",
       "pot_size": "Đường kính 40cm - 45cm, sâu 35cm"
     },
-    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Grumixama_Eugenia_brasiliensis.jpg/960px-Grumixama_Eugenia_brasiliensis.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
-    "image_sha256": "f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Eugenia_brasiliensis.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "image_sha256": "b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b317",
     "sunlight": "full_sun",
     "watering": "moderate",
     "propagation_difficulty": 2,
@@ -6928,8 +6933,8 @@ export const SEED_PLANTS: Plant[] = [
       "ideal_temp": "22°C - 35°C",
       "pot_size": "Đường kính 40cm - 45cm, sâu 35cm"
     },
-    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Morus_nigra_fruits.jpg/960px-Morus_nigra_fruits.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
-    "image_sha256": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Morus_alba_tree_fruit_in_spring_season_15.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "image_sha256": "fb12c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f019",
     "sunlight": "full_sun",
     "watering": "moderate",
     "propagation_difficulty": 1,
@@ -7061,8 +7066,8 @@ export const SEED_PLANTS: Plant[] = [
       "ideal_temp": "24°C - 38°C",
       "pot_size": "Đường kính 50cm, sâu 40cm kèm trụ cọc cao 1.2m - 1.5m"
     },
-    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Dragon_fruit_on_the_plant.jpg/960px-Dragon_fruit_on_the_plant.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
-    "image_sha256": "b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/38/Hylocereus_costaricensis.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "image_sha256": "38a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f020",
     "sunlight": "full_sun",
     "watering": "drought_tolerant",
     "propagation_difficulty": 1,

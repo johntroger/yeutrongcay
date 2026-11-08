@@ -32,7 +32,8 @@ import {
   Bell,
   BellRing,
   Copy,
-  ExternalLink
+  ExternalLink,
+  Search
 } from 'lucide-react';
 import { UserGarden, GardenPlant, PlantDiaryEntry, PlantGrowthStatus, UserProfile } from '../types/index.ts';
 import { SEED_PLANTS } from '../data/plants.ts';
@@ -245,11 +246,31 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
     };
     window.addEventListener('ytc_garden_updated', handleGardenLiveUpdate);
 
+    // Lắng nghe sự kiện storage để đồng bộ đa tab tức thì khi người dùng bấm Lưu cây ở tab khác
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'ytc_garden_plants' || e.key === 'ytc_user') {
+        handleGardenLiveUpdate();
+      }
+    };
+    window.addEventListener('storage', handleStorageChange);
+
+    // Tự động kiểm tra cập nhật khi người dùng chuyển tab quay lại vườn
+    const handleVisibilityOrFocus = () => {
+      if (document.visibilityState === 'visible') {
+        handleGardenLiveUpdate();
+      }
+    };
+    window.addEventListener('focus', handleVisibilityOrFocus);
+    document.addEventListener('visibilitychange', handleVisibilityOrFocus);
+
     return () => {
       isMounted = false;
       window.removeEventListener('ytc_karma_awarded', handleKarmaLiveUpdate);
       window.removeEventListener('ytc_passport_registry_updated', handlePassportUpdate);
       window.removeEventListener('ytc_garden_updated', handleGardenLiveUpdate);
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('focus', handleVisibilityOrFocus);
+      document.removeEventListener('visibilitychange', handleVisibilityOrFocus);
     };
   }, [currentUserId, isEn]);
 
@@ -1088,7 +1109,47 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
 
         {/* 5. Tab 1: Plants Grid */}
         {activeTab === 'plants' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          plants.length === 0 ? (
+            <div className="bg-white dark:bg-charcoal-900 rounded-3xl p-8 sm:p-12 border border-forest-100 dark:border-forest-800 text-center shadow-xs flex flex-col items-center justify-center animate-fade-in">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-herbal-50 dark:bg-herbal-950/60 text-herbal-600 rounded-3xl flex items-center justify-center mx-auto mb-4 border border-herbal-200 dark:border-herbal-800 shadow-2xs">
+                <Sprout className="w-8 h-8 sm:w-10 sm:h-10 text-emerald-600 dark:text-emerald-400" />
+              </div>
+              <h3 className="text-lg sm:text-xl font-black text-forest-950 dark:text-cream-100 mb-2">
+                {isEn ? 'Your urban garden has no plants yet' : 'Vườn ban công của bạn chưa có chậu cây nào'}
+              </h3>
+              <p className="text-sm text-forest-700 dark:text-cream-200 max-w-md mx-auto mb-6 leading-relaxed">
+                {isEn
+                  ? 'Explore the botanical encyclopedia and tap "Add to My Garden" or mint a Plant NFT Passport to start tracking daily care!'
+                  : 'Hãy duyệt Từ Điển Cây và bấm "Thêm vào Vườn của tôi", hoặc thêm chậu cây đầu tiên để bắt đầu theo dõi lịch tưới nước và dinh dưỡng thông minh!'}
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-3">
+                <button
+                  onClick={() => setIsAddPlantOpen(true)}
+                  className="px-5 py-2.5 rounded-2xl bg-forest-900 text-white font-bold text-sm hover:bg-forest-800 transition flex items-center gap-2 shadow-xs cursor-pointer"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>{isEn ? 'Add First Plant' : 'Thêm Chậu Cây Mới'}</span>
+                </button>
+                <Link
+                  to="/"
+                  className="px-5 py-2.5 rounded-2xl bg-white dark:bg-charcoal-800 border border-forest-200 dark:border-forest-700 text-forest-900 dark:text-cream-100 font-bold text-sm hover:bg-forest-50 dark:hover:bg-charcoal-700 transition flex items-center gap-2 cursor-pointer"
+                >
+                  <Search className="w-4 h-4 text-emerald-600" />
+                  <span>{isEn ? 'Explore Plant Encyclopedia' : 'Khám Phá Từ Điển Cây'}</span>
+                </Link>
+                {galleryCount > 0 && (
+                  <button
+                    onClick={() => setActiveTab('nft_gallery')}
+                    className="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold text-sm hover:from-amber-700 hover:to-amber-800 transition flex items-center gap-2 shadow-xs cursor-pointer"
+                  >
+                    <Sparkles className="w-4 h-4 text-amber-300" />
+                    <span>{isEn ? `View ${galleryCount} NFT Passports` : `Xem ${galleryCount} Hộ Chiếu NFT Đã Cấp`}</span>
+                  </button>
+                )}
+              </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {plants.map((plant) => {
               const days = calculateDaysPlanted(plant.planted_date);
               const plantDiaries = diaries.filter((d) => d.garden_plant_id === plant.id);
@@ -1106,6 +1167,11 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
                         src={plant.cover_image_url}
                         alt={plant.custom_name}
                         className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.onerror = null;
+                          target.src = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><rect width="100%" height="100%" fill="%23064e3b"/><g fill="none" stroke="%2334d399" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" transform="translate(250, 120)"><path d="M50 160 C50 100, 10 70, 0 50 C40 50, 80 80, 80 160"/><path d="M50 160 C50 90, 90 60, 100 40 C70 40, 40 70, 30 140"/><line x1="50" y1="160" x2="50" y2="20"/></g><text x="50%" y="82%" text-anchor="middle" fill="%23a7f3d0" font-family="system-ui,sans-serif" font-size="16" font-weight="600" letter-spacing="1">YEU TRONG CAY</text></svg>`;
+                        }}
                       />
                       <div className="absolute top-3 left-3">
                         <span
@@ -1213,7 +1279,8 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
                 </div>
               );
             })}
-          </div>
+            </div>
+          )
         )}
 
         {/* 5. Tab: Smart Care Engine (Lịch Chăm Sóc Thông Minh 3 Miền & Từng Chậu Cây) */}

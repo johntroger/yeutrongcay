@@ -262,6 +262,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
+        $wateringInterval = intval($input['watering_interval_days'] ?? 2);
+        if ($wateringInterval <= 0) $wateringInterval = 2;
+        $fertilizingInterval = intval($input['fertilizing_interval_days'] ?? 14);
+        if ($fertilizingInterval <= 0) $fertilizingInterval = 14;
+        $lastWateredAt = !empty($input['last_watered_at']) ? trim($input['last_watered_at']) : $plantedDate;
+        $lastFertilizedAt = !empty($input['last_fertilized_at']) ? trim($input['last_fertilized_at']) : $plantedDate;
+
         if (empty($gardenId) || empty($customName) || empty($coverImageUrl)) {
             http_response_code(400);
             echo json_encode(['success' => false, 'error' => 'Vui lòng điền tên cây và cung cấp ảnh đại diện'], JSON_UNESCAPED_UNICODE);
@@ -271,16 +278,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $stmt = $pdo->prepare("INSERT INTO garden_plants (
                 id, garden_id, plant_id, custom_name, species_name,
-                planted_date, pot_type, current_status, cover_image_url, notes
+                planted_date, pot_type, current_status, cover_image_url, notes,
+                watering_interval_days, fertilizing_interval_days, last_watered_at, last_fertilized_at
             ) VALUES (
                 :id, :garden_id, :plant_id, :custom_name, :species_name,
-                :planted_date, :pot_type, :current_status, :cover_image_url, :notes
+                :planted_date, :pot_type, :current_status, :cover_image_url, :notes,
+                :watering_interval, :fertilizing_interval, :last_watered_at, :last_fertilized_at
             ) ON DUPLICATE KEY UPDATE
                 custom_name = VALUES(custom_name),
                 pot_type = VALUES(pot_type),
                 current_status = VALUES(current_status),
                 cover_image_url = VALUES(cover_image_url),
-                notes = VALUES(notes)");
+                notes = VALUES(notes),
+                watering_interval_days = VALUES(watering_interval_days),
+                fertilizing_interval_days = VALUES(fertilizing_interval_days),
+                last_watered_at = VALUES(last_watered_at),
+                last_fertilized_at = VALUES(last_fertilized_at)");
 
             $stmt->execute([
                 ':id' => $plantId,
@@ -292,7 +305,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ':pot_type' => htmlspecialchars($potType, ENT_QUOTES, 'UTF-8'),
                 ':current_status' => $status,
                 ':cover_image_url' => filter_var($coverImageUrl, FILTER_SANITIZE_URL),
-                ':notes' => htmlspecialchars($notes, ENT_QUOTES, 'UTF-8')
+                ':notes' => htmlspecialchars($notes, ENT_QUOTES, 'UTF-8'),
+                ':watering_interval' => $wateringInterval,
+                ':fertilizing_interval' => $fertilizingInterval,
+                ':last_watered_at' => $lastWateredAt,
+                ':last_fertilized_at' => $lastFertilizedAt
             ]);
 
             echo json_encode([
@@ -301,6 +318,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'data' => [
                     'id' => $plantId,
                     'garden_id' => $gardenId,
+                    'plant_id' => $refPlantId ?: null,
                     'custom_name' => $customName,
                     'species_name' => $speciesName,
                     'planted_date' => $plantedDate,
@@ -308,6 +326,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'current_status' => $status,
                     'cover_image_url' => $coverImageUrl,
                     'notes' => $notes,
+                    'watering_interval_days' => $wateringInterval,
+                    'fertilizing_interval_days' => $fertilizingInterval,
+                    'last_watered_at' => $lastWateredAt,
+                    'last_fertilized_at' => $lastFertilizedAt,
                     'created_at' => date('Y-m-d H:i:s')
                 ]
             ], JSON_UNESCAPED_UNICODE);
