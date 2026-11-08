@@ -18697,5 +18697,1782 @@
         "organization": "Royal Botanic Gardens Kew"
       }
     ]
+  },
+  {
+    "id": "herb-49",
+    "slug": "kinh-gioi-ban-dia-chua-cam",
+    "common_name": "Kinh Giới Bản Địa (Rau Kinh Giới)",
+    "scientific_name": "Elsholtzia ciliata",
+    "aliases": [
+      "Khương Giới",
+      "Bạch Tô",
+      "Kinh Giới Rìa"
+    ],
+    "category": "herb",
+    "description": "Rau gia vị kiêm cây thuốc quý bản địa giải cảm phong hàn, trừ ngứa và ban chẩn cực kỳ quen thuộc trong vườn nhà Việt Nam. Toàn cây chứa tinh dầu Elsholtziaketone nồng ấm giúp thông kinh hoạt lạc, hạ sốt, sát khuẩn vòm họng và tăng cường miễn dịch tự nhiên.",
+    "quick_answer": "Kinh giới bản địa (Elsholtzia ciliata) là thảo dược giải cảm hàn, tiêu độc, trừ ban ngứa và sát trùng đường hô hấp thuộc họ Hoa môi (Lamiaceae). Cây ưa nắng trực tiếp 5-7 giờ/ngày, đất tơi xốp giàu mùn pH 6.0-7.0, tưới nước ngày 1 lần, và có thể thu hoạch cành lá liên tục sau 30-35 ngày trồng từ hạt.",
+    "botanical_details": {
+      "family": "Lamiaceae (Họ Hoa môi)",
+      "native_range": "Bản địa Đông Á và Đông Nam Á, mọc rộng khắp 3 miền Việt Nam",
+      "active_compounds": [
+        "Elsholtziaketone & Dehydroelsholtziaketone (tinh dầu cay ấm giải cảm phong hàn, trừ ban sởi)",
+        "Luteolin & Apigenin (flavonoid ức chế virus đường hô hấp, chống dị ứng mẩn ngứa)",
+        "Rosmarinic acid (polyphenol chống oxy hóa mạnh, bảo vệ niêm mạc phế quản)"
+      ],
+      "soil_ph": "6.0 - 7.0",
+      "ideal_temp": "20°C - 32°C",
+      "pot_size": "Đường kính 25cm - 30cm, sâu 20cm"
+    },
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 1,
+    "growth_time": "30-35 ngày từ gieo hạt đến đợt thu hoạch lá đầu tiên",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Gieo trồng từ tháng 2 - 8 đón nắng xuân hè; vụ thu đông cây phát triển chậm hơn nhưng hương thơm đậm đà.",
+      "central": "Trồng từ tháng 9 - 4 năm sau đón mùa mưa mát mẻ và nắng vừa.",
+      "south": "Sinh trưởng và cho thu hoạch đọt non quanh năm dưới nắng phương Nam.",
+      "best_months": [
+        2,
+        3,
+        4,
+        5,
+        8,
+        9,
+        10
+      ],
+      "warning": "Phụ nữ có thai hoặc người sốt do âm hư nội nhiệt, mồ hôi tự chảy không nên dùng liều lượng quá cao."
+    },
+    "medical_info": {
+      "uses": [
+        "Giải cảm phong hàn, sốt gai rét, đau đầu, nghẹt mũi và không ra mồ hôi",
+        "Tiêu độc trừ ban chẩn, giảm mẩn ngứa mề đay dị ứng thời tiết ngoài da",
+        "Kinh giới sao đen (kinh giới than) hỗ trợ cầm máu chảy máu cam, đại tiện ra máu"
+      ],
+      "folk_remedies": [
+        "Giải cảm hàn: Kinh giới tươi 20g, tía tô tươi 15g, gừng tươi 3 lát, sắc cùng 400ml nước còn 200ml, uống ấm rồi đắp chăn cho toát mồ hôi.",
+        "Mẩn ngứa mề đay: Dùng một nắm lá kinh giới tươi rửa sạch, vò nát chà xát nhẹ lên vùng da ngứa hoặc nấu nước tắm."
+      ],
+      "preparation": [
+        "Dùng tươi ăn ghém cùng bún chả, cháo cá",
+        "Nấu nước xông giải cảm cùng tía tô, sả, lá bưởi",
+        "Phơi bóng râm sao than cầm máu"
+      ],
+      "toxicity_warning": "Lá kinh giới lành tính không độc; tuy nhiên người có chứng nhiệt thịnh, mồ hôi ra đầm đìa (tự hãn) không nên lạm dụng vị thuốc này.",
+      "disclaimer": "Bài thuốc y học cổ truyền dân gian theo Dược Điển Việt Nam."
+    },
+    "academic_citations": [
+      "Journal of Ethnopharmacology - Phytochemical constituents and pharmacological actions of Elsholtzia ciliata"
+    ],
+    "monetization_tips": [
+      "Cung cấp rau kinh giới hữu cơ chuẩn VietGAP cho các nhà hàng bún đậu mắm tôm và chuỗi ẩm thực truyền thống.",
+      "Bán chậu kinh giới giống ban công đô thị và hạt giống f1 tỷ lệ nảy mầm cao."
+    ],
+    "tags": [
+      "Giải cảm phong hàn",
+      "Trừ ban ngứa",
+      "Gia vị bản địa",
+      "Dễ trồng chậu"
+    ],
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Gieo hạt mỏng đều trên giá thể hữu cơ xốp",
+        "instruction": "Trộn giá thể 40% đất thịt, 30% phân trùn quế hoai mục và 30% trấu hun xơ dừa. Rải hạt kinh giới mỏng đều trên mặt chậu rồi phủ lớp tro trấu mỏng 0.5cm, xịt phun sương giữ ẩm mỗi sáng; hạt nảy mầm sau 4-6 ngày."
+      },
+      {
+        "step": 2,
+        "title": "Tỉa thưa và đặt chậu đón ánh sáng mặt trời",
+        "instruction": "Khi cây con mọc cao 5cm có 3-4 lá thật, tỉa bớt giữ khoảng cách 10-12cm mỗi cây trong chậu. Đặt chậu ở ban công hoặc sân thượng hứng nắng trực tiếp từ 5-7 tiếng/ngày để tinh dầu trong lá tích tụ đậm đặc."
+      },
+      {
+        "step": 3,
+        "title": "Bấm đọt non thu hoạch và tưới thúc vi sinh",
+        "instruction": "Sau 30 ngày, dùng kéo sắc cắt ngang thân cách gốc 8-10cm để thu hoạch lá ăn ghém. Sau mỗi đợt cắt đọt, tưới dặm nước ngâm phân chuối trứng đậu nành pha loãng 1:20 để cây nảy chồi con xum xuê gấp ba."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Làm sao phân biệt rau kinh giới với rau tía tô khi cây còn nhỏ?",
+        "answer": "Kinh giới có phiến lá màu xanh sáng bóng hai mặt, mép lá răng cưa nông và tỏa mùi thơm cay ngọt đặc trưng; trong khi tía tô mặt dưới hoặc cả hai mặt lá có màu tím tía thẫm, mép răng cưa sâu hơn và mùi hương cay nồng đậm hơn."
+      },
+      {
+        "question": "Vì sao trồng kinh giới trong chậu ban công lá hay bị xoăn và vàng úa?",
+        "answer": "Lá kinh giới bị xoăn vàng chủ yếu do 2 nguyên nhân: rệp mềm chích hút dưới mặt lá hoặc giá thể bị úng rễ do đáy chậu thoát nước kém. Hãy xịt nước enzyme bồ hòn tỏi ớt trừ rệp và kiểm tra thông lỗ đáy chậu, giữ độ ẩm vừa phải."
+      }
+    ],
+    "related_plant_ids": [
+      "herb-01",
+      "herb-02",
+      "herb-18"
+    ],
+    "reference_sources": [
+      {
+        "title": "Dược Điển Việt Nam V - Chuyên luận Vị thuốc Kinh Giới (Herba Elsholtziae ciliatae)",
+        "organization": "Bộ Y Tế Việt Nam"
+      },
+      {
+        "title": "Những cây thuốc và vị thuốc Việt Nam - Kinh Giới",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học"
+      },
+      {
+        "title": "Kew Plants of the World Online - Elsholtzia ciliata (Thunb.) Hyl.",
+        "organization": "Royal Botanic Gardens Kew"
+      }
+    ],
+    "cultivation_guide": {},
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Elsholtzia_ciliata-1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "image_sha256": "3bfb66e714a8c2d779167363e77ec283982bb7e37268c68013004cf3293b0539"
+  },
+  {
+    "id": "herb-50",
+    "slug": "huong-nhu-tia-duoc-lieu",
+    "common_name": "Hương Nhu Tía (Tulsi Dược Liệu)",
+    "scientific_name": "Ocimum tenuiflorum",
+    "aliases": [
+      "É Rừng",
+      "Hương Nhu Đỏ",
+      "Tulsi",
+      "Holy Basil"
+    ],
+    "category": "herb",
+    "description": "Vua thảo dược kích thích mọc tóc, xông giải cảm và thông xoang vòm họng trứ danh phương Đông. Toàn thân cành lá màu tím sẫm tỏa hương thơm tinh dầu nồng nàn chứa hàm lượng Eugenol cao vượt trội, giúp thư giãn hệ thần kinh và làm sạch gàu ngứa chân tóc.",
+    "quick_answer": "Hương nhu tía (Ocimum tenuiflorum) là dược thảo kích thích mọc tóc, xông giải cảm, kháng khuẩn vòm họng và an thần tự nhiên thuộc họ Hoa môi (Lamiaceae). Cây ưa nắng gắt 6-8 giờ/ngày, đất xốp thoát nước tốt pH 5.8-7.2, tưới ẩm ngày 1 lần, và bắt đầu cho thu hoạch cành lá sau 40-45 ngày gieo trồng.",
+    "botanical_details": {
+      "family": "Lamiaceae (Họ Hoa môi)",
+      "native_range": "Bản địa vùng nhiệt đới Nam Á và Đông Nam Á, phân bố tự nhiên khắp Việt Nam",
+      "active_compounds": [
+        "Eugenol (70-80% trong tinh dầu, kháng khuẩn vòm họng cực mạnh, làm tê dịu cơn đau)",
+        "Methyl eugenol & Caryophyllene (thông xoang mũi, giãn phế quản, xua tan cảm lạnh)",
+        "Ursolic acid (kháng viêm mao mạch da đầu, kích thích tế bào mầm nang tóc phát triển)"
+      ],
+      "soil_ph": "5.8 - 7.2",
+      "ideal_temp": "22°C - 35°C",
+      "pot_size": "Đường kính 30cm - 35cm, sâu 25cm"
+    },
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 1,
+    "growth_time": "40-45 ngày từ gieo hạt hoặc giâm cành đến kỳ thu hái",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Gieo trồng từ tháng 3 - 9 mùa nắng ấm rực rỡ; mùa đông sương muối cây cần che chắn tránh rét đậm.",
+      "central": "Trồng từ tháng 10 - 4 đón tiết trời dịu mát, cây cho hoa tím ngát hương.",
+      "south": "Phát triển mạnh mẽ, đâm chồi tím thẫm quanh năm dưới nắng ấm nhiệt đới.",
+      "best_months": [
+        3,
+        4,
+        5,
+        6,
+        9,
+        10
+      ],
+      "warning": "Người ra nhiều mồ hôi do biểu hư hoặc đang sốt cao mất nước không nên uống trà hương nhu nóng."
+    },
+    "medical_info": {
+      "uses": [
+        "Nấu nước gội đầu dưỡng tóc, sạch gàu ngứa nấm và kích thích mọc tóc dày đen nhánh",
+        "Xông hơi giải cảm mạo phong hàn, thông nghẹt mũi, ra mồ hôi hạ sốt mùa đông",
+        "Trà lá hương nhu giúp ổn định huyết áp, hạ cortisol giảm stress và an thần sâu giấc"
+      ],
+      "folk_remedies": [
+        "Nước gội dưỡng tóc mọc dày: Hương nhu tía 50g, bồ kết nướng 3 quả, vỏ bưởi tươi 30g, đun sôi 10 phút, để ấm gội đầu mỗi tuần 2 lần.",
+        "Xông cảm lạnh nghẹt mũi: Hương nhu 30g, lá bưởi 20g, lá sả 20g đun sôi kín nắp rồi trùm chăn xông 15 phút."
+      ],
+      "preparation": [
+        "Hái búp cành hoa phơi khô hãm trà",
+        "Nấu nước gội đầu dưỡng sinh",
+        "Chiết xuất tinh dầu thơm xông phòng"
+      ],
+      "toxicity_warning": "Dược liệu rất an toàn khi dùng ngoài và uống lượng vừa phải (10-15g khô/ngày). Không dùng kéo dài cho người huyết áp quá thấp.",
+      "disclaimer": "Dược liệu truyền thống ghi nhận trong Dược Điển Việt Nam."
+    },
+    "academic_citations": [
+      "Journal of Ayurveda and Integrative Medicine - Ocimum sanctum L. (Holy Basil or Tulsi): A reservoir plant for therapeutic applications"
+    ],
+    "monetization_tips": [
+      "Chiết xuất tinh dầu hương nhu tía nguyên chất bán hũ xông phòng giá 180.000đ - 250.000đ/10ml.",
+      "Kinh doanh túi thảo mộc gội đầu bồ kết hương nhu sấy khô đóng túi lọc tiện lợi."
+    ],
+    "tags": [
+      "Mọc tóc dưỡng da đầu",
+      "Xông giải cảm",
+      "Tulsi thần thảo",
+      "Dễ trồng sân thượng"
+    ],
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Ươm hạt giống trong khay giá thể ẩm",
+        "instruction": "Hạt hương nhu rất nhỏ, trộn đều hạt với cát mịn rồi rắc lên mặt khay ươm xơ dừa phân trùn quế. Phun sương nhẹ giữ ẩm, đặt nơi râm mát có ánh sáng tán xạ; sau 5-7 ngày hạt nảy mầm chồi tím xinh xắn."
+      },
+      {
+        "step": 2,
+        "title": "Sang chậu lớn và đón nắng chiếu trực tiếp",
+        "instruction": "Cây con cao 8-10cm đem trồng vào chậu đường kính 30cm có đục nhiều lỗ đáy. Bổ sung đất trộn phân bò hoai mục hoặc trùn quế. Đặt chậu ở nơi đón nắng từ 6 tiếng/ngày để tinh dầu hương nhu đạt nồng độ cao nhất."
+      },
+      {
+        "step": 3,
+        "title": "Ngắt ngọn kích nhánh xum xuê và thu hái cành hoa",
+        "instruction": "Khi cây cao 25cm, bấm ngọn chính để kích thích các cành bên mọc tỏa tròn thành bụi rậm. Thu hoạch phần ngọn mang nụ hoa tím trước khi hoa nở rộ để giữ trọn vẹn hương thơm và hàm lượng Eugenol quý giá."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Hương nhu tía khác gì so với hương nhu trắng?",
+        "answer": "Hương nhu tía có thân cành và gân lá ánh tím sẫm, hoa màu tím hồng, hàm lượng tinh dầu Eugenol cao hơn và mùi hương cay ấm nồng đậm hơn hương nhu trắng. Trong y học cổ truyền, hương nhu tía được đánh giá có dược tính bồi bổ và dưỡng tóc tốt hơn."
+      },
+      {
+        "question": "Cây hương nhu tía có thể trồng thủy canh trong nhà được không?",
+        "answer": "Không nên trồng thủy canh trong nhà lâu dài. Hương nhu tía là loài cây háo nắng quang hợp mạnh để tổng hợp tinh dầu. Nếu thiếu nắng, thân cây sẽ vống dài, lá nhạt màu, mùi hương rất nhạt và dễ bị thối rễ."
+      }
+    ],
+    "related_plant_ids": [
+      "herb-02",
+      "herb-49",
+      "culinary-10"
+    ],
+    "reference_sources": [
+      {
+        "title": "Dược Điển Việt Nam V - Chuyên luận Vị thuốc Hương Nhu Tía (Herba Ocimi tenuiflori)",
+        "organization": "Bộ Y Tế Việt Nam"
+      },
+      {
+        "title": "Những cây thuốc và vị thuốc Việt Nam - Hương Nhu Tía",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học"
+      },
+      {
+        "title": "Viện Dược Liệu Quốc Gia - Nghiên cứu thành phần hóa học tinh dầu Ocimum tenuiflorum",
+        "organization": "NIMMM"
+      }
+    ],
+    "cultivation_guide": {},
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/54/Thulasi2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "image_sha256": "f06f2425a816b7841f1e3c0655b44e72dce5463f7be82f3506877f5c2c815ab3"
+  },
+  {
+    "id": "herb-51",
+    "slug": "rau-om-tri-soi-than",
+    "common_name": "Rau Om (Ngò Ôm / Rau Ngổ Thơm)",
+    "scientific_name": "Limnophila aromatica",
+    "aliases": [
+      "Rau Ngổ Ba Lá",
+      "Ngò Ôm Canh Chua",
+      "Thạch Xương Bồ Đầm"
+    ],
+    "category": "herb",
+    "description": "Rau gia vị canh chua Nam Bộ trứ danh kiêm bài thuốc thảo dược tán sỏi thận đường tiết niệu, lợi tiểu và tiêu viêm bàng quang. Cây thân thảo mọng nước có hương thơm tinh dầu chua cay thanh mát đặc trưng, cực kỳ dễ trồng trong chậu sình bùn hoặc khay ngập nước nông.",
+    "quick_answer": "Rau om (Limnophila aromatica) là thảo dược tán sỏi thận, lợi tiểu, giảm co thắt cơ trơn bàng quang và gia vị canh chua Nam Bộ thuộc họ Mã đề (Plantaginaceae). Cây ưa sáng toàn phần đến bán râm 4-6 giờ/ngày, đất bùn phù sa ẩm ướt pH 5.5-6.8, mực nước ngập 2-3cm, thu hoạch sau 20-25 ngày trồng.",
+    "botanical_details": {
+      "family": "Plantaginaceae (Họ Mã đề)",
+      "native_range": "Bản địa vùng đất ngập nước Đông Nam Á, phổ biến khắp kênh rạch Đồng bằng sông Cửu Long",
+      "active_compounds": [
+        "Limonene & Diterpenoids (giãn cơ trơn niệu quản, bài sỏi canxi oxalat đường tiết niệu)",
+        "Flavonoid Nevadensin & Salvigenin (kháng viêm bàng quang, ức chế vi khuẩn E. coli niệu đạo)",
+        "Tinh dầu thơm Aldehyd Perillic (tạo hương vị đặc trưng, chống co thắt dạ dày ruột)"
+      ],
+      "soil_ph": "5.5 - 6.8",
+      "ideal_temp": "24°C - 35°C",
+      "pot_size": "Chậu bọc màng giữ nước hoặc khay nhựa sâu 15cm - 20cm"
+    },
+    "sunlight": "partial_shade",
+    "watering": "daily",
+    "propagation_difficulty": 1,
+    "growth_time": "20-25 ngày từ giâm cành đến khi thu hoạch kín mặt chậu",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Trồng từ tháng 4 - 9 khi tiết trời nóng ấm nhiều mưa; mùa đông cây tàn lụi cần giữ rễ qua đông.",
+      "central": "Trồng quanh năm tại các vùng ẩm trũng, đặc biệt tốt vào mùa hè thu.",
+      "south": "Phát triển thần tốc quanh năm trong các chậu nước ven ban công miền Tây.",
+      "best_months": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "warning": "Phụ nữ mang thai không nên uống nước cốt rau om đặc vì tác dụng giãn cơ trơn tử cung."
+    },
+    "medical_info": {
+      "uses": [
+        "Hỗ trợ tán sỏi thận kích thước nhỏ, tăng lượng nước tiểu tống sỏi ra ngoài êm dịu",
+        "Tiêu viêm bàng quang, giảm chứng tiểu buốt, tiểu rắt và nước tiểu đục",
+        "Kích thích dịch tiêu hóa, chống đầy bụng và là gia vị không thể thiếu cho canh chua cá lóc"
+      ],
+      "folk_remedies": [
+        "Bài thuốc tán sỏi thận dân gian: Dùng 50-70g rau om tươi rửa sạch bằng nước muối loãng, giã nát vắt lấy nước cốt, hòa thêm 1 thìa mật ong hoặc hạt muối hạt, uống vào buổi sáng liên tục 7-10 ngày.",
+        "Trị tiểu buốt tiểu rắt: Rau om 40g, râu ngô 20g, bông mã đề 20g, sắc nước uống thay trà trong ngày."
+      ],
+      "preparation": [
+        "Ăn sống kèm canh chua, lẩu mắm",
+        "Giã vắt nước cốt tươi uống trị sỏi",
+        "Sắc nước uống lợi niệu tiêu viêm"
+      ],
+      "toxicity_warning": "Rau om mọc nơi ẩm ướt dễ bám ấu trùng sán lá gan, cần ngâm rửa nước muối loãng kỹ lưỡng trước khi giã vắt tươi.",
+      "disclaimer": "Kinh nghiệm dân gian kết hợp y học cổ truyền Việt Nam."
+    },
+    "academic_citations": [
+      "Phytomedicine - Spasmolytic and diuretic properties of Limnophila aromatica in urolithiasis models"
+    ],
+    "monetization_tips": [
+      "Bán khay rau om thủy sinh sạch hữu cơ cho các hộ gia đình chung cư tự hái nấu canh chua.",
+      "Cung ứng cọng rau om tươi đóng túi hút chân không cho các siêu thị thực phẩm sạch."
+    ],
+    "tags": [
+      "Tán sỏi thận",
+      "Lợi tiểu bàng quang",
+      "Gia vị canh chua",
+      "Dễ trồng ngập nước"
+    ],
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Chuẩn bị chậu không lỗ thoát nước và đất bùn giàu dinh dưỡng",
+        "instruction": "Sử dụng chậu nhựa không đục lỗ đáy hoặc bịt kín đáy chậu. Cho vào 10cm đất phù sa trộn 20% phân trùn quế nhuyễn tạo lớp bùn sánh mềm, đổ nước xăm xắp mặt đất 2cm."
+      },
+      {
+        "step": 2,
+        "title": "Giâm cành rau om tươi vào lớp bùn ướt",
+        "instruction": "Chọn các đoạn cọng rau om bánh tẻ dài 10-15cm có sẵn rễ đốt trắng. Cắm nghiêng từng cọng xuống bùn sâu 3-4cm, khoảng cách 5cm/cây. Đặt chậu ở nơi có nắng tán xạ hoặc nắng sáng 4-5 tiếng."
+      },
+      {
+        "step": 3,
+        "title": "Duy trì mực nước nông và cắt tỉa luân phiên",
+        "instruction": "Luôn châm thêm nước giữ lớp nước 2-3cm ngập mặt đất bùn. Sau 20 ngày cành lá đâm chồi bò kín mặt chậu. Cắt ngọn thu hoạch cách gốc 4cm, châm thêm chút dịch trùn quế lỏng cây sẽ đâm nhánh mới liên tục."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Rau om tươi giã uống trị sỏi thận có khỏi hoàn toàn sỏi lớn không?",
+        "answer": "Rau om có tác dụng giãn cơ trơn niệu quản và tăng bài niệu rất tốt đối với sỏi bùn hoặc sỏi canxi kích thước nhỏ dưới 5-6mm. Đối với sỏi san hô lớn hoặc đã gây ứ nước bể thận, bệnh nhân bắt buộc phải can thiệp y tế chuyên khoa."
+      },
+      {
+        "question": "Có thể trồng rau om chung một chậu với rau húng quế hay tía tô không?",
+        "answer": "Không nên trồng chung. Rau om là thực vật bán thủy sinh cần đất bùn ngập nước quanh năm; trong khi tía tô và húng quế là cây cạn ưa thoát nước tốt, nếu ngập nước rễ tía tô sẽ úng thối chết sau vài ngày."
+      }
+    ],
+    "related_plant_ids": [
+      "herb-08",
+      "herb-14",
+      "herb-52"
+    ],
+    "reference_sources": [
+      {
+        "title": "Những cây thuốc và vị thuốc Việt Nam - Rau Om (Rau Ngổ)",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học"
+      },
+      {
+        "title": "Kew Plants of the World Online - Limnophila aromatica (Lam.) Merr.",
+        "organization": "Royal Botanic Gardens Kew"
+      },
+      {
+        "title": "Viện Dược Liệu Quốc Gia - Đánh giá hoạt tính lợi tiểu của chiết xuất Limnophila aromatica",
+        "organization": "NIMMM"
+      }
+    ],
+    "cultivation_guide": {},
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/44/Ng%E1%BB%95_%28Limnophila_aromatica%29.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "image_sha256": "a9f02d28dc5ecbf42e3fb38cf0d1fce9a52b15a740a20b973aaaf57501d17b86"
+  },
+  {
+    "id": "herb-52",
+    "slug": "ngo-gai-tri-day-hoi",
+    "common_name": "Ngò Gai (Mùi Tàu Răng Cưa)",
+    "scientific_name": "Eryngium foetidum",
+    "aliases": [
+      "Mùi Tàu",
+      "Rau Răng Cưa",
+      "Ngò Tây",
+      "Culantro"
+    ],
+    "category": "herb",
+    "description": "Rau gia vị hương thơm hăng ấm không thể thiếu trong bát phở bò Hà Nội kiêm vị thuốc chữa đầy hơi chướng bụng, hạ sốt và tiêu thực cực kỳ nhạy. Lá thuôn dài viền răng cưa cứng cáp, cực kỳ ưa bóng râm mát dưới tán cây lớn hoặc ban công khuất nắng.",
+    "quick_answer": "Ngò gai hay mùi tàu (Eryngium foetidum) là dược thảo trị đầy hơi sình bụng, kích thích tiêu hóa, hạ sốt và gia vị phở truyền thống thuộc họ Hoa tán (Apiaceae). Cây ưa bóng râm bán phần 3-5 giờ nắng sáng, đất ẩm giàu mùn pH 6.0-7.2, tưới ẩm ngày 1 lần, và bắt đầu tỉa lá thu hoạch sau 45-50 ngày trồng.",
+    "botanical_details": {
+      "family": "Apiaceae (Họ Hoa tán)",
+      "native_range": "Nhiệt đới châu Mỹ, du nhập và thuần hóa sâu sắc vào văn hóa ẩm thực y học Việt Nam",
+      "active_compounds": [
+        "Eryngial (E-2-dodecenal - tạo mùi thơm hăng ấm, kích thích dịch mật và men tiêu hóa)",
+        "Stigmasterol & Beta-Sitosterol (hỗ trợ hạ đường huyết và giảm tích tụ cholesterol mỡ máu)",
+        "Saponin triterpenoid (chống co thắt đại tràng, trục khí tích tụ gây sình bụng ợ hơi)"
+      ],
+      "soil_ph": "6.0 - 7.2",
+      "ideal_temp": "18°C - 32°C",
+      "pot_size": "Đường kính 25cm - 30cm, sâu 18cm"
+    },
+    "sunlight": "partial_shade",
+    "watering": "moderate",
+    "propagation_difficulty": 1,
+    "growth_time": "45-50 ngày từ gieo hạt hoặc tách nhánh con đến khi hái lá",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Trồng quanh năm, xanh tốt nhất vào mùa xuân hè ẩm mát; mùa đông cây chậm lớn nhưng lá dày dặn.",
+      "central": "Phát triển lý tưởng từ tháng 9 - 4 năm sau dưới bóng râm tán cây ăn quả.",
+      "south": "Cho lá xanh đậm thu hoạch liên tục 12 tháng tại các khu vườn ban công có lưới che.",
+      "best_months": [
+        2,
+        3,
+        4,
+        5,
+        8,
+        9,
+        10
+      ],
+      "warning": "Người mắc bệnh da liễu dị ứng nặng hoặc viêm loét dạ dày đang xuất huyết hạn chế ăn sống quá nhiều."
+    },
+    "medical_info": {
+      "uses": [
+        "Trị đầy hơi, chướng bụng, ăn không tiêu, ợ chua và cảm giác ấm ách dạ dày",
+        "Sắc uống hạ sốt nhẹ, trừ đờm nhớt nghẹt trong cổ họng khi bị cảm lạnh",
+        "Khử mùi tanh nồng của thịt bò, cá trắm, ốc, làm dậy hương vị bát phở truyền thống"
+      ],
+      "folk_remedies": [
+        "Chữa đầy hơi ăn không tiêu: Ngò gai 50g thái khúc nhỏ, gừng tươi 3 lát nướng qua, đun với 400ml nước còn 200ml, uống ấm sau bữa ăn 15 phút, bụng sẽ xẹp êm chỉ sau 1 giờ.",
+        "Hạ sốt tiêu đờm: Ngò gai tươi 30g, lá tía tô 15g, sắc nước uống ấm kết hợp ăn cháo hành nóng."
+      ],
+      "preparation": [
+        "Thái nhỏ ăn kèm phở bò, bún riêu cua, canh măng chua",
+        "Hãm nước nóng làm trà tiêu thực sau bữa tiệc",
+        "Giã đắp mụn nhọt ngoài da sưng đau"
+      ],
+      "toxicity_warning": "Ngò gai lành tính, phụ nữ mang thai dùng như gia vị ẩm thực bình thường không gây ảnh hưởng.",
+      "disclaimer": "Kinh nghiệm dân gian chuẩn mực theo Dược Điển Việt Nam."
+    },
+    "academic_citations": [
+      "Journal of Essential Oil Research - Chemical composition and antimicrobial activity of Eryngium foetidum essential oil"
+    ],
+    "monetization_tips": [
+      "Trồng ngò gai hữu cơ bóng râm đóng hộp cung cấp trực tiếp cho chuỗi quán phở truyền thống.",
+      "Bán bầu cây ngò gai giống sai lá sẵn trong chậu nhựa mini cho cư dân đô thị."
+    ],
+    "tags": [
+      "Trị đầy hơi ợ chua",
+      "Gia vị phở bò",
+      "Ưa bóng râm",
+      "Cực dễ chăm sóc"
+    ],
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Xử lý ngâm ủ hạt giống vỏ cứng",
+        "instruction": "Hạt giống mùi tàu có tinh dầu bao bọc, ngâm nước ấm 2 sôi 3 lạnh trong 8 giờ. Vớt ra rửa sạch lớp nhớt rồi gieo vào chậu đất mùn tơi xốp, phủ lớp trấu mục mỏng 0.5cm; sau 10-14 ngày hạt sẽ nhú mầm xanh."
+      },
+      {
+        "step": 2,
+        "title": "Bố trí chậu ở vị trí râm mát tránh nắng gắt trưa hè",
+        "instruction": "Ngò gai là cây ưa bóng bán phần; nếu đặt nắng gắt lá sẽ bị vàng xỉn và cứng đanh. Hãy đặt chậu dưới tán cây khác hoặc ban công hướng Đông chỉ đón 3-4 giờ nắng sớm dịu mát để phiến lá xanh mướt mọng nước."
+      },
+      {
+        "step": 3,
+        "title": "Cắt tỉa ngồng hoa và hái dần các bẹ lá ngoài cùng",
+        "instruction": "Khi cây bắt đầu bắn ngồng hoa nhọn ở tâm, dùng kéo bấm bỏ ngồng hoa ngay để cây dồn sức nuôi lá to. Khi thu hoạch, dùng dao sắc tách các bẹ lá già ở vòng ngoài cùng, giữ lại tim đọt non cho cây phát triển bền vững nhiều năm."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao cây ngò gai trong chậu hay bị trổ ngồng hoa nhọn làm lá bị nhỏ lại?",
+        "answer": "Khi cây ngò gai già hoặc gặp thời tiết nắng nóng kéo dài, cây sẽ chuyển sang giai đoạn sinh sản trổ hoa kết hạt. Muốn lá luôn to dày mọng nước, bạn phải chủ động bấm ngọn hoa nhọn ngay khi vừa nhú."
+      },
+      {
+        "question": "Ngò gai có thể trồng bằng cách cắt cuống rễ sau khi mua từ chợ về không?",
+        "answer": "Rất dễ thành công. Khi mua rau ngò gai ngoài chợ còn nguyên phần gốc rễ dài 2-3cm, bạn chỉ cần tỉa bớt lá già, cắm gốc vào đất ẩm giàu trùn quế; chỉ sau 7 ngày rễ mới sẽ bám đất đâm chồi xanh mơn mởn."
+      }
+    ],
+    "related_plant_ids": [
+      "herb-01",
+      "herb-18",
+      "herb-51"
+    ],
+    "reference_sources": [
+      {
+        "title": "Những cây thuốc và vị thuốc Việt Nam - Mùi Tàu (Ngò Gai)",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học"
+      },
+      {
+        "title": "Dược Điển Việt Nam V - Chuyên luận Vị thuốc Mùi Tàu",
+        "organization": "Bộ Y Tế Việt Nam"
+      },
+      {
+        "title": "Viện Dược Liệu Quốc Gia - Nghiên cứu hợp chất thơm và tính kháng khuẩn của Eryngium foetidum",
+        "organization": "NIMMM"
+      }
+    ],
+    "cultivation_guide": {},
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/77/Hombay3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "image_sha256": "728b6cf312b8343a9c33771915cf4a81151d5751466818f851a919732ae14a29"
+  },
+  {
+    "id": "herb-53",
+    "slug": "bac-ha-a-menthol",
+    "common_name": "Bạc Hà Á Bản Địa (Bạc Hà Việt Nam)",
+    "scientific_name": "Mentha arvensis",
+    "aliases": [
+      "Dã Bạc Hà",
+      "Bạc Hà Nam",
+      "Field Mint",
+      "Bạc Hà Thơm"
+    ],
+    "category": "herb",
+    "description": "Giống bạc hà dược liệu bản địa giàu tinh dầu Menthol tự nhiên bậc nhất phương Đông, vượt trội hoàn toàn so with các dòng bạc hà Âu về độ cay the và tác dụng thông xoang. Cây sinh trưởng bò lan cực nhanh, xua đuổi muỗi dĩn và làm dịu ngay cơn đau rát cổ họng.",
+    "quick_answer": "Bạc hà Á (Mentha arvensis) là dược thảo giàu hàm lượng menthol tự nhiên (70-85%), thông xoang mũi, hạ sốt, làm dịu đau rát họng và xua muỗi thuộc họ Hoa môi (Lamiaceae). Cây ưa nắng nhẹ đến nắng vừa 4-6 giờ/ngày, đất tơi xốp giữ ẩm pH 6.2-7.0, tưới nước ngày 1 lần, thu hoạch cành lá sau 25-30 ngày trồng.",
+    "botanical_details": {
+      "family": "Lamiaceae (Họ Hoa môi)",
+      "native_range": "Bản địa châu Á ôn đới và nhiệt đới, mọc hoang dã và trồng rộng rãi tại Việt Nam",
+      "active_compounds": [
+        "Menthol tự nhiên (chiếm tới 70-85% trong tinh dầu, làm mát thụ thể thần kinh, thông mũi)",
+        "Menthone & Isomenthone (kích hoạt thụ thể lạnh TRPM8, hạ sốt nhanh, giảm ngứa da)",
+        "Luteolin-7-O-rutinoside (chống dị ứng phế quản, làm dịu ho khan và co thắt thanh quản)"
+      ],
+      "soil_ph": "6.2 - 7.0",
+      "ideal_temp": "18°C - 30°C",
+      "pot_size": "Chậu dài hoặc chậu tròn rộng miệng đường kính 35cm, sâu 20cm"
+    },
+    "sunlight": "partial_shade",
+    "watering": "daily",
+    "propagation_difficulty": 1,
+    "growth_time": "25-30 ngày từ giâm cành đến khi thu hoạch kín mặt chậu",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Phát triển rực rỡ từ tháng 2 - 10; mùa đông sương muối cây tạm ngưng sinh trưởng và đâm chồi vào đầu xuân.",
+      "central": "Trồng từ tháng 9 - 4 năm sau trong điều kiện đất ẩm mát dưới bóng râm.",
+      "south": "Sinh trưởng quanh năm nếu được che bớt 30% nắng gắt ban trưa và tưới nước đủ ẩm.",
+      "best_months": [
+        2,
+        3,
+        4,
+        5,
+        8,
+        9,
+        10
+      ],
+      "warning": "Không dùng tinh dầu bạc hà nguyên chất cho trẻ sơ sinh và trẻ nhỏ dưới 2 tuổi vì nguy cơ co thắt thanh quản."
+    },
+    "medical_info": {
+      "uses": [
+        "Thông mũi họng tức thì, giảm nghẹt mũi, viêm xoang, cảm cúm và nhức đầu phong nhiệt",
+        "Kích thích tiêu hóa, giảm co thắt dạ dày, chống buồn nôn say tàu xe",
+        "Tinh dầu khuếch tán trong không gian phòng xua đuổi muỗi, ruồi cánh bướm và gián cực nhạy"
+      ],
+      "folk_remedies": [
+        "Trà bạc hà thông xoang: Hái 10-15 lá bạc hà tươi vò nhẹ, thả vào cốc nước sôi 200ml, đậy nắp 5 phút; hít hà hơi nóng xông mũi rồi uống ấm.",
+        "Giải cảm sốt phong nhiệt: Lá bạc hà 15g, lá kinh giới 10g, lá tía tô 10g đun sôi 3 phút rồi uống ấm."
+      ],
+      "preparation": [
+        "Hãm trà lá tươi hoặc sấy lạnh pha trà thảo mộc",
+        "Chiết tinh dầu bạc hà bôi xoa huyệt thái dương",
+        "Pha chế cocktail mojito, siro bạc hà thanh mát"
+      ],
+      "toxicity_warning": "Tuyệt đối không nhỏ trực tiếp tinh dầu bạc hà nguyên chất vào mũi trẻ sơ sinh vì có thể ức chế hô hấp.",
+      "disclaimer": "Vị thuốc tân lương giải biểu kinh điển trong Dược Điển Việt Nam."
+    },
+    "academic_citations": [
+      "Industrial Crops and Products - Chemical profile and therapeutic potential of Mentha arvensis essential oil"
+    ],
+    "monetization_tips": [
+      "Chiết xuất tinh dầu bạc hà Á tự nhiên nguyên chất bán giá 220.000đ - 300.000đ/lọ 20ml.",
+      "Cung cấp chậu bạc hà mini để bàn văn phòng thanh lọc không khí và xua đuổi côn trùng."
+    ],
+    "tags": [
+      "Giàu Menthol tự nhiên",
+      "Thông xoang trị ho",
+      "Xua đuổi muỗi",
+      "Dễ giâm cành"
+    ],
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Giâm cành bạc hà khỏe mạnh vào giá thể tơi xốp",
+        "instruction": "Cắt các đoạn cành bạc hà bánh tẻ dài 10cm, ngắt bỏ các lá ở 2 đốt gốc. Cắm cành nghiêng 45 độ vào chậu đất trộn 40% đất thịt, 30% xơ dừa và 30% phân trùn quế; giữ ẩm đều tay, sau 3-5 ngày rễ trắng mọc tủa ra khắp đốt."
+      },
+      {
+        "step": 2,
+        "title": "Tưới nước thường xuyên và đón ánh sáng buổi sáng",
+        "instruction": "Bạc hà là loài háo nước nhưng sợ úng nước đọng; tưới đẫm nước vào buổi sáng sớm mỗi ngày. Đặt chậu ở nơi đón 4-5 giờ nắng sáng dịu nhẹ để lá giữ màu xanh biếc và không bị cháy bìa lá do nắng gắt trưa hè."
+      },
+      {
+        "step": 3,
+        "title": "Cắt tỉa thu hái kích thích mọc rễ ngầm đâm chồi",
+        "instruction": "Sau 25 ngày thân cây bò kín mép chậu, dùng kéo cắt sát cành cách mặt đất 3-5cm. Bón bổ sung một lớp mỏng phân trùn quế hoai mục lên bề mặt; các mắt ngủ ở rễ ngầm sẽ bật mầm xanh vọt lên tua tủa chỉ sau 1 tuần."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Bạc hà Á (Mentha arvensis) khác gì so với cây húng lủi (Mentha spicata) ăn rau sống?",
+        "answer": "Bạc hà Á có lá thon dài, mép răng cưa nhọn, mùi thơm cay the the buốt cổ họng do chứa hàm lượng Menthol rất cao chuyên dùng làm thuốc; trong khi húng lủi lá tròn nhỏ, phiến lá nhăn hơn, mùi thơm dịu nhẹ ngọt ngào dùng để ăn kèm nem rán bún chả."
+      },
+      {
+        "question": "Tại sao chậu bạc hà trồng một thời gian cành bị khẳng khiu và rụng lá dưới gốc?",
+        "answer": "Hiện tượng cành vống dài rụng lá gốc xảy ra khi chậu cây bị thiếu ánh sáng quang hợp hoặc bộ rễ ngầm đã đan kín chậu ăn hết dinh dưỡng. Bạn chỉ cần cắt trụi ngang gốc, nhổ tỉa bớt rễ già và thay đất mới giàu phân hữu cơ là cây hồi sinh."
+      }
+    ],
+    "related_plant_ids": [
+      "herb-02",
+      "herb-18",
+      "herb-49"
+    ],
+    "reference_sources": [
+      {
+        "title": "Dược Điển Việt Nam V - Chuyên luận Vị thuốc Bạc Hà (Herba Menthae)",
+        "organization": "Bộ Y Tế Việt Nam"
+      },
+      {
+        "title": "Những cây thuốc và vị thuốc Việt Nam - Cây Bạc Hà",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học"
+      },
+      {
+        "title": "Kew Plants of the World Online - Mentha arvensis L.",
+        "organization": "Royal Botanic Gardens Kew"
+      }
+    ],
+    "cultivation_guide": {},
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Corn_Mint_%28Mentha_arvensis%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "image_sha256": "3a4aecc4298967e045f8d8f8de7752d1249ff5a185bf41c574bc84111290e9dc"
+  },
+  {
+    "id": "herb-54",
+    "slug": "sam-bo-chinh-nam-duoc",
+    "common_name": "Sâm Bố Chính (Thổ Hào Sâm)",
+    "scientific_name": "Abelmoschus sagittifolius",
+    "aliases": [
+      "Sâm Thổ Hào",
+      "Nhân Sâm Người Nghèo",
+      "Sâm Núi Bố Trạch"
+    ],
+    "category": "herb",
+    "description": "Nhân sâm quý phương Nam từng là cống vật triều Nguyễn với hoa đỏ lộng lẫy kiêm củ sâm đại bổ tỳ vị, dưỡng phế nhuận tràng. Củ sâm chứa tới 40% chất nhầy tự nhiên và saponin quý, phục hồi thể lực thần tốc cho người mới ốm dậy, người viêm dạ dày mãn tính.",
+    "quick_answer": "Sâm Bố Chính (Abelmoschus sagittifolius) là nam dược đại bổ phế tỳ, sinh tân dịch, an thần và bồi bổ thể lực suy nhược thuộc họ Bông (Malvaceae). Cây ưa nắng trực tiếp 6-8 giờ/ngày, đất cát pha thịt xốp thoát nước tốt pH 6.0-7.0, tưới nước ngày 1 lần, thu hoạch củ sâm sau 8-10 tháng gieo trồng.",
+    "botanical_details": {
+      "family": "Malvaceae (Họ Bông / Cẩm quỳ)",
+      "native_range": "Bản địa vùng núi Bố Trạch (Quảng Bình), mọc rải rác khắp miền Trung và Tây Nguyên",
+      "active_compounds": [
+        "Chất nhầy Mucilage tự nhiên (35-40% trong củ sâm, bao bọc niêm mạc dạ dày nhuận phế)",
+        "Saponin triterpenoid steroid (bổ khí huyết, tăng lực cơ bắp, cải thiện suy nhược cơ thể)",
+        "Acid béo thiết yếu & tinh bột (linoleic acid, palmitic acid bồi bổ tỳ vị cho trẻ còi xương)"
+      ],
+      "soil_ph": "6.0 - 7.0",
+      "ideal_temp": "22°C - 34°C",
+      "pot_size": "Chậu sâu đáy đường kính 40cm, sâu tối thiểu 40cm - 50cm để củ đâm dài"
+    },
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 2,
+    "growth_time": "8 - 10 tháng để củ đạt trọng lượng 200g - 400g chuẩn dược liệu",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Gieo hạt vào mùa xuân tháng 2 - 3 đón mưa ấm; thu hoạch củ vào mùa đông tháng 11 - 12.",
+      "central": "Trồng từ tháng 9 - 10 đón mùa mưa, cây thích nghi tuyệt hảo với chất đất đồi dốc cát pha.",
+      "south": "Gieo trồng đầu mùa mưa tháng 4 - 5, cây sinh trưởng hoa đỏ rực rỡ quanh năm.",
+      "best_months": [
+        2,
+        3,
+        4,
+        8,
+        9,
+        10
+      ],
+      "warning": "Người bị đầy bụng tiêu chảy do hàn thấp thực chứng cần sao sấy sâm với gừng trước khi sắc uống."
+    },
+    "medical_info": {
+      "uses": [
+        "Bồi bổ cơ thể suy nhược, kém ăn, mất ngủ, người già mỏi gối hoa mắt",
+        "Bảo vệ niêm mạc dạ dày tá tràng, giảm đau rát viêm loét dạ dày nhờ chất nhầy tự nhiên",
+        "Dưỡng phế trị ho khan lâu ngày, viêm họng mãn tính và lao phổi phục hồi"
+      ],
+      "folk_remedies": [
+        "Bài thuốc bồi bổ tỳ vị kém ăn: Sâm Bố Chính khô 20g, hạt sen 15g, ý dĩ sao 15g, trần bì 6g, sắc với 600ml nước còn 300ml chia 2 lần uống trong ngày.",
+        "Súp gà hầm sâm Bố Chính: Củ sâm tươi 150g rửa sạch thái lát, hầm cùng nửa con gà ta, kỷ tử, táo đỏ tẩm bổ cuối tuần."
+      ],
+      "preparation": [
+        "Ngâm rượu sâm Bố Chính hoa đỏ bồi bổ sinh lực",
+        "Thái lát sấy khô tán bột làm viên hoàn dưỡng tỳ",
+        "Hầm bồ câu, chân giò bồi bổ sản phụ"
+      ],
+      "toxicity_warning": "Củ sâm hoàn toàn không độc tính, tính bình mát, dùng được cho cả người già và trẻ nhỏ gầy yếu.",
+      "disclaimer": "Vị thuốc bổ truyền thống danh tiếng ghi chép trong Dược Điển Việt Nam."
+    },
+    "academic_citations": [
+      "Natural Product Research - Chemical constituents of Abelmoschus sagittifolius roots and their immunomodulatory activity"
+    ],
+    "monetization_tips": [
+      "Bán củ sâm Bố Chính tươi hữu cơ loại 1 giá 350.000đ - 500.000đ/kg phục vụ ngâm bình rượu phong thủy.",
+      "Cung cấp hạt giống f1 và chậu sâm hoa đỏ cảnh ban công giá 120.000đ - 180.000đ/chậu."
+    ],
+    "tags": [
+      "Nhân sâm người nghèo",
+      "Bổ tỳ dưỡng phế",
+      "Hoa đỏ kiểng đẹp",
+      "Củ đại bổ"
+    ],
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Xử lý ngâm hạt giống và chọn thùng xốp sâu đáy",
+        "instruction": "Hạt giống sâm Bố Chính vỏ cứng, chà xát nhẹ rồi ngâm nước ấm 2 sôi 3 lạnh trong 6 giờ, ủ khăn ẩm 24 giờ cho nứt nanh. Chuẩn bị thùng xốp sâu 40-50cm có đục lỗ đáy, trộn 50% đất cát pha, 30% phân chuồng hoai mục và 20% tro trấu."
+      },
+      {
+        "step": 2,
+        "title": "Gieo cây con và bố trí nơi đón nắng rực rỡ",
+        "instruction": "Gieo hạt sâu 1cm, cách nhau 25-30cm mỗi gốc trong thùng xốp. Đặt chậu ở sân thượng đón nắng trực tiếp từ 6-8 tiếng/ngày. Cây con bén rễ nhanh, sau 2 tháng bắt đầu trổ những đóa hoa đỏ rực 5 cánh tuyệt đẹp như hoa dâm bụt."
+      },
+      {
+        "step": 3,
+        "title": "Ngắt hoa hãm trà và kích dinh dưỡng dồn vào củ",
+        "instruction": "Muốn củ sâm to mập mạp, sau đợt hoa nở rộ hãy ngắt bớt trái non phơi khô làm trà, tránh để cây nuôi quá nhiều hạt làm teo củ. Định kỳ mỗi tháng bón bổ sung kali hữu cơ từ tro trấu hoặc dịch chuối ủ để củ sâm phình to nạc thịt."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Củ sâm Bố Chính trồng trong thùng xốp sân thượng có dược tính bằng sâm rừng không?",
+        "answer": "Nếu được trồng trên đất cát pha tơi xốp, bón phân hữu cơ vi sinh và hấp thụ đủ nắng trên 8 tháng, hàm lượng saponin và chất nhầy mucilage trong củ sâm trồng thùng xốp đạt tương đương 90-95% so với sâm tự nhiên ngoài tự nhiên."
+      },
+      {
+        "question": "Hoa sâm Bố Chính có ăn được hoặc pha trà uống được không?",
+        "answer": "Hoa sâm Bố Chính ăn rất ngọt mát và lành tính. Bạn có thể hái những đóa hoa tươi nấu canh thịt nạc, xào tỏi hoặc phơi sấy khô hãm trà thanh nhiệt giải độc, an thần ngủ ngon rất thơm mát."
+      }
+    ],
+    "related_plant_ids": [
+      "herb-01",
+      "herb-14",
+      "fruit-05"
+    ],
+    "reference_sources": [
+      {
+        "title": "Dược Điển Việt Nam V - Chuyên luận Vị thuốc Sâm Bố Chính (Radix Abelmoschi sagittifolii)",
+        "organization": "Bộ Y Tế Việt Nam"
+      },
+      {
+        "title": "Những cây thuốc và vị thuốc Việt Nam - Sâm Bố Chính",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học"
+      },
+      {
+        "title": "Viện Dược Liệu Quốc Gia - Nghiên cứu đa dạng di truyền và hoạt tính sinh học sâm Bố Chính",
+        "organization": "NIMMM"
+      }
+    ],
+    "cultivation_guide": {},
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/48/%E0%B4%9A%E0%B5%86%E0%B4%AE%E0%B5%8D%E0%B4%AA%E0%B4%B0%E0%B4%A4%E0%B5%8D%E0%B4%A4%E0%B4%BF%E0%B4%AF%E0%B5%81%E0%B4%9F%E0%B5%86_%E0%B4%AA%E0%B5%82%E0%B4%B5%E0%B5%8D.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "image_sha256": "cce3588677ec00895aa35672f50abaef2b722b52ec834dfeaed1129eb427c81d"
+  },
+  {
+    "id": "herb-55",
+    "slug": "co-xuoc-tri-khop",
+    "common_name": "Cỏ Xước Nam (Ngưu Tất Nam)",
+    "scientific_name": "Achyranthes aspera",
+    "aliases": [
+      "Ngưu Tất Nam",
+      "Cây Bách Bội",
+      "Cỏ Xước Rễ Đỏ"
+    ],
+    "category": "herb",
+    "description": "Khắc tinh của chứng đau nhức xương khớp, thoái hóa khớp gối, viêm đa khớp và tê bì tay chân ở người cao tuổi. Cây thảo mọc dại mạnh mẽ với bộ rễ cọc ăn sâu chứa hàm lượng Saponin Oleanolic Acid vượt trội giúp tiêu trừ phong thấp và lưu thông khí huyết.",
+    "quick_answer": "Cỏ xước nam (Achyranthes aspera) là dược thảo kinh điển chữa đau nhức xương khớp, tê bì chân tay, thoái hóa cột sống và hạ mỡ máu thuộc họ Rau dền (Amaranthaceae). Cây ưa sáng toàn phần 5-7 giờ/ngày, đất tơi xốp giàu dinh dưỡng pH 6.0-7.5, tưới ẩm vừa phải, thu hoạch bộ rễ quý sau 5-6 tháng trồng.",
+    "botanical_details": {
+      "family": "Amaranthaceae (Họ Rau dền)",
+      "native_range": "Bản địa vùng nhiệt đới châu Á và châu Phi, mọc hoang dã khắp bãi đất ven làng quê Việt Nam",
+      "active_compounds": [
+        "Achyranthine (alkaloid làm giãn mạch ngoại vi, hạ huyết áp và giảm đau dây thần kinh)",
+        "Saponin Triterpenoid Oleanolic Acid (kháng viêm sưng ổ khớp, chống thoái hóa sụn gối)",
+        "Ecdysterone (kích thích tái tạo mô sụn, tăng mật độ khoáng chất xương chắc khỏe)"
+      ],
+      "soil_ph": "6.0 - 7.5",
+      "ideal_temp": "20°C - 35°C",
+      "pot_size": "Chậu sâu tối thiểu 35cm - 40cm để bộ rễ cọc phát triển dài mập"
+    },
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 1,
+    "growth_time": "5 - 6 tháng từ gieo hạt đến khi thu hoạch đào bộ rễ",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Gieo hạt vào tháng 2 - 4 mùa xuân; đào củ thu rễ vào cuối thu đầu đông tháng 10 - 12 khi lá ngả vàng.",
+      "central": "Trồng từ tháng 8 - 9, cây chịu hạn và chịu đất cằn cỗi ven đồi rất tốt.",
+      "south": "Phát triển quanh năm, hạt già bám vào quần áo tự phát tán sinh sôi mãnh liệt.",
+      "best_months": [
+        2,
+        3,
+        4,
+        9,
+        10,
+        11
+      ],
+      "warning": "Phụ nữ có thai hoặc đang trong kỳ kinh nguyệt ra nhiều huyết tuyệt đối không dùng rễ cỏ xước."
+    },
+    "medical_info": {
+      "uses": [
+        "Chữa đau nhức khớp gối, phong thấp tê bại, đau lưng mỏi gối do thoái hóa xương khớp",
+        "Hỗ trợ hạ cholesterol máu, hạ huyết áp cho người cao tuổi xơ vữa động mạch",
+        "Lợi tiểu thông lâm, hỗ trợ đào thải acid uric phòng ngừa các cơn đau gút cấp tính"
+      ],
+      "folk_remedies": [
+        "Bài thuốc chữa đau khớp thoái hóa: Rễ cỏ xước khô 20g, rễ bưởi bung 15g, củ ráy leo 12g, thiên niên kiện 10g, sắc với 700ml nước còn 300ml, uống chia 2 lần sau ăn.",
+        "Trị chứng tiểu buốt tiểu rắt: Rễ cỏ xước tươi 30g, bông mã đề 20g, cỏ mần trầu 20g, sắc uống trong ngày."
+      ],
+      "preparation": [
+        "Rễ đào về rửa sạch phơi khô thái lát sao vàng hạ thổ",
+        "Rễ cỏ xước tẩm rượu gừng sao thơm dẫn thuốc vào kinh can thận",
+        "Nấu cao xương khớp cùng các vị nam dược"
+      ],
+      "toxicity_warning": "Rễ cỏ xước có hoạt tính trục ứ huyết mạnh, cấm dùng cho phụ nữ mang thai vì có thể gây sảy thai.",
+      "disclaimer": "Vị thuốc hoạt huyết trừ thấp chuẩn mực theo Dược Điển Việt Nam."
+    },
+    "academic_citations": [
+      "Phytotherapy Research - Anti-inflammatory and anti-arthritic activities of Achyranthes aspera root extracts"
+    ],
+    "monetization_tips": [
+      "Chế biến rễ cỏ xước thái lát sao vàng hạ thổ đóng gói túi 500g bán giá 150.000đ - 220.000đ/túi.",
+      "Kinh doanh trà túi lọc thảo dược cỏ xước kết hợp dây đau xương cho người cao tuổi."
+    ],
+    "tags": [
+      "Trị đau nhức khớp",
+      "Hạ acid uric gút",
+      "Hoạt huyết trừ thấp",
+      "Cực kỳ dễ sống"
+    ],
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Thu nhặt quả gai dính hoặc mua hạt giống gieo bầu",
+        "instruction": "Hạt cỏ xước có gai móc ngược nhọn hoắt tự bám dính. Lấy hạt gieo trực tiếp vào khay đất ẩm, tưới nhẹ sau 3-5 ngày hạt nảy mầm chồi xanh tua tủa với sức sống cực kỳ bền bỉ."
+      },
+      {
+        "step": 2,
+        "title": "Trồng vào chậu sâu đất cát pha nhiều mùn",
+        "instruction": "Cỏ xước lấy dược liệu chính ở bộ rễ cọc; do đó hãy chọn chậu hoặc thùng sâu từ 35cm trở lên. Trộn đất cát pha 40%, phân chuồng hoai 30% và trấu hun xơ dừa 30% để đất tơi xốp, giúp rễ cọc đâm thẳng sâu không bị cong queo."
+      },
+      {
+        "step": 3,
+        "title": "Chăm sóc đón nắng và đào thu hoạch bộ rễ vàng óng",
+        "instruction": "Đặt chậu đón trọn vẹn nắng trời 6-8 tiếng/ngày. Sau 5 tháng khi cây trổ bông hoa xù và các lá gốc bắt đầu úa vàng, ngưng tưới nước 3 ngày rồi dùng xẻng bứng trọn bộ rễ, rửa sạch phơi khô thái lát tẩm rượu sao vàng."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Cỏ xước nam có giống với vị thuốc ngưu tất bắc nhập từ Trung Quốc không?",
+        "answer": "Cỏ xước nam (Achyranthes aspera) cùng họ Rau dền và có tác dụng dược lý hoạt huyết khử ứ, bổ can thận gần tương tự như Ngưu tất bắc (Achyranthes bidentata). Dược thảo nam mọc tự nhiên tại Việt Nam có hàm lượng ecdysterone rất cao, hoàn toàn có thể thay thế hiệu quả."
+      },
+      {
+        "question": "Lá non của cây cỏ xước có ăn được như rau luộc không?",
+        "answer": "Lá non và đọt non cỏ xước có thể luộc ăn hoặc nấu canh tôm tép rất ngọt mát. Món canh này giúp thanh nhiệt, nhuận tràng và hỗ trợ người cao tuổi đi lại nhẹ nhàng khớp gối."
+      }
+    ],
+    "related_plant_ids": [
+      "herb-01",
+      "herb-14",
+      "herb-56"
+    ],
+    "reference_sources": [
+      {
+        "title": "Dược Điển Việt Nam V - Chuyên luận Vị thuốc Ngưu Tất Nam (Radix Achyranthis asperae)",
+        "organization": "Bộ Y Tế Việt Nam"
+      },
+      {
+        "title": "Những cây thuốc và vị thuốc Việt Nam - Cây Cỏ Xước",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học"
+      },
+      {
+        "title": "Viện Dược Liệu Quốc Gia - Đánh giá tác dụng chống viêm khớp của cao chiết rễ cỏ xước",
+        "organization": "NIMMM"
+      }
+    ],
+    "cultivation_guide": {},
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Achyranthes_aspera_kz1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "image_sha256": "ace50aeada1026ba201b2c6051bdef90eab38e38e8cd8b65a57e8ca7aa425a7d"
+  },
+  {
+    "id": "herb-56",
+    "slug": "ba-kich-tim-quang-ninh",
+    "common_name": "Ba Kích Tím Trồng Chậu (Dược Liệu Bổ Khí)",
+    "scientific_name": "Morinda officinalis",
+    "aliases": [
+      "Ba Kích Thiên",
+      "Dây Ruột Gà",
+      "Chẩu Phóng Xì"
+    ],
+    "category": "herb",
+    "description": "Thần dược bồi bổ thận dương, kiện cường gân cốt, tăng sức bền sinh lý nam giới và chống loãng xương trứ danh đất rừng Quảng Ninh. Cây dây leo lâu năm với chùm củ nạc thắt từng khúc tựa ruột gà, lõi tím ngắt khi ngâm rượu cho sắc tím huyền bí tuyệt mỹ.",
+    "quick_answer": "Ba kích tím (Morinda officinalis) là thảo dược bổ thận tráng dương, cường kiện gân cốt, chống loãng xương và tăng cường thể lực thuộc họ Cà phê (Rubiaceae). Cây ưa sáng tán xạ hoặc nắng nhẹ 4-6 giờ/ngày, đất đồi feralit chua thoát nước tốt pH 5.0-6.5, tưới ẩm 2 ngày 1 lần, thu củ sau 3 năm trồng.",
+    "botanical_details": {
+      "family": "Rubiaceae (Họ Cà phê)",
+      "native_range": "Bản địa vùng đồi núi trung du phía Bắc Việt Nam (Quảng Ninh, Vĩnh Phúc, Phú Thọ)",
+      "active_compounds": [
+        "Monotropein & Asperuloside (iridoid glycoside chống loãng xương, giảm đau nhức lưng gối)",
+        "Rubiadin & Physcion (anthraquinone tăng cường miễn dịch, kích thích nội tiết tố nam)",
+        "Polysaccharide Morinda (chống mệt mỏi thể lực, kéo dài sức bền cơ bắp)"
+      ],
+      "soil_ph": "5.0 - 6.5",
+      "ideal_temp": "18°C - 30°C",
+      "pot_size": "Thùng phuy hoặc chậu composite lớn đường kính 50cm, sâu 60cm"
+    },
+    "sunlight": "partial_shade",
+    "watering": "moderate",
+    "propagation_difficulty": 2,
+    "growth_time": "3 năm để bộ củ tích lũy đầy đủ hoạt chất monotropein và sắc tố tím",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Trồng vào mùa xuân tháng 2 - 4; đào củ vào mùa đông tháng 11 - 12 khi cây tích lũy dinh dưỡng cao nhất.",
+      "central": "Trồng ở vùng đất đồi gò từ tháng 9 - 10, làm giàn che chắn bớt nắng gắt.",
+      "south": "Có thể trồng tại vùng đất đỏ Đông Nam Bộ và Tây Nguyên mát mẻ che lưới lan.",
+      "best_months": [
+        2,
+        3,
+        4,
+        9,
+        10
+      ],
+      "warning": "Bắt buộc phải rút bỏ lõi gỗ của củ ba kích trước khi ngâm rượu hoặc nấu uống để tránh kích ứng tim mạch."
+    },
+    "medical_info": {
+      "uses": [
+        "Bổ thận tráng dương, tăng cường sinh lý nam, cải thiện chứng xuất tinh sớm và di mộng tinh",
+        "Mạnh gân cốt, trừ phong thấp, chữa đau lưng mỏi gối, chân tay lạnh buốt ở người trung niên",
+        "Chống loãng xương, kích thích tạo cốt bào tăng mật độ xương cho phụ nữ mãn kinh"
+      ],
+      "folk_remedies": [
+        "Rượu ba kích tím Quảng Ninh chuẩn vị: Củ ba kích tươi 1kg rửa sạch phơi ráo nước, dùng dao chẻ dọc rút sạch lõi gỗ bên trong. Cho phần thịt củ vào bình thủy tinh, đổ 3-4 lít rượu nếp trắng 40 độ ngâm sau 3 tháng rượu chuyển màu tím đen thơm ngát.",
+        "Bài thuốc chữa đau lưng mỏi gối: Ba kích nhục 15g, đỗ trọng sao muối 12g, ngưu tất 10g sắc uống."
+      ],
+      "preparation": [
+        "Rút bỏ lõi gỗ rồi ngâm rượu nếp truyền thống",
+        "Thái lát sao rượu hoặc chưng thấu phơi khô làm hoàn",
+        "Hầm đuôi bò, cật heo bồi bổ cơ thể suy nhược"
+      ],
+      "toxicity_warning": "Lõi gỗ của củ ba kích chứa chất có thể gây hồi hộp đánh trống ngực; quy trình chế biến bắt buộc phải bóc bỏ lõi gỗ chỉ lấy phần thịt củ.",
+      "disclaimer": "Vị thuốc bổ dương thượng hạng ghi danh trong Dược Điển Việt Nam."
+    },
+    "academic_citations": [
+      "Journal of Ethnopharmacology - Morinda officinalis How. - A review of its phytochemistry and pharmacology"
+    ],
+    "monetization_tips": [
+      "Bình rượu ngâm ba kích tím rừng Quảng Ninh rút lõi thủ công bán giá 600.000đ - 1.200.000đ/bình 5 lít.",
+      "Cung ứng cành giống giâm bầu rễ khỏe mạnh giá 35.000đ - 50.000đ/cây giống cho nhà vườn."
+    ],
+    "tags": [
+      "Bổ thận tráng dương",
+      "Mạnh gân cốt",
+      "Rượu tím thượng hạng",
+      "Cây thuốc lâu năm"
+    ],
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Chuẩn bị chậu sâu và đất đồi dốc chua nhẹ",
+        "instruction": "Ba kích tạo chùm củ dài đâm sâu, sử dụng thùng phuy 100L cắt đôi hoặc chậu đường kính 50cm sâu 60cm. Trộn 50% đất đỏ feralit hoặc đất đồi, 30% phân trùn quế hoai mục và 20% cát sỏi vụn để nước thoát nhanh tuyệt đối."
+      },
+      {
+        "step": 2,
+        "title": "Trồng cây giống và cắm giàn leo chữ A",
+        "instruction": "Đặt bầu cây giống vào tâm chậu lấp đất ngang cổ rễ. Cắm cọc tre cao 1.5m - 2m hình chữ A hoặc căng lưới ban công cho ngọn dây leo tự quấn bám. Đặt chậu ở nơi có ánh nắng tán xạ mát mẻ 4-5 tiếng/ngày."
+      },
+      {
+        "step": 3,
+        "title": "Bón kali hữu cơ định kỳ và thu hoạch củ sau 3 năm",
+        "instruction": "Hàng năm bón thúc 2 lần phân hữu cơ hoai mục và tro bếp giàu kali để kích thích rễ phình to tạo chuỗi củ nạc. Sau 3 năm vào đầu mùa đông, bới đất nhẹ nhàng thu hoạch những chùm củ tím mập mạp."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao khi ngâm rượu ba kích bắt buộc phải bóc bỏ lõi củ đi?",
+        "answer": "Lõi gỗ ở tâm củ ba kích không chứa hoạt chất có lợi mà chứa thành phần gây ức chế nhẹ dẫn truyền tim mạch, gây cảm giác bồn chồn đánh trống ngực nếu uống nhiều. Trong y học cổ truyền từ xưa đến nay, quy tắc bất di bất dịch là phải chẻ bỏ lõi gỗ trước khi dùng."
+      },
+      {
+        "question": "Rượu ba kích ngâm bao lâu thì chuyển sang màu tím thẫm và uống được?",
+        "answer": "Sau khi ngâm với rượu nếp 40 độ khoảng 20-30 ngày, hợp chất anthraquinone và rubiadin trong thịt củ bắt đầu thôi ra làm nước rượu ngả màu tím hồng. Sau 3 đến 6 tháng, rượu sẽ chuyển sang màu tím đen ánh ngọc bích, thơm ngọt êm dịu."
+      }
+    ],
+    "related_plant_ids": [
+      "herb-01",
+      "herb-14",
+      "herb-55"
+    ],
+    "reference_sources": [
+      {
+        "title": "Dược Điển Việt Nam V - Chuyên luận Vị thuốc Ba Kích (Radix Morindae officinalis)",
+        "organization": "Bộ Y Tế Việt Nam"
+      },
+      {
+        "title": "Những cây thuốc và vị thuốc Việt Nam - Cây Ba Kích",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học"
+      },
+      {
+        "title": "Viện Dược Liệu Quốc Gia - Nghiên cứu chuẩn hóa nguồn giống và hoạt chất cây ba kích",
+        "organization": "NIMMM"
+      }
+    ],
+    "cultivation_guide": {},
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/24/Dried_morinda_officinale.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "image_sha256": "cca209e9bba088ef93190d19522aaf628e80150e99d883cbb004d308db9f850d"
+  },
+  {
+    "id": "herb-57",
+    "slug": "la-gai-an-thai",
+    "common_name": "Cây Lá Gai (Gai Bánh / Trữ Ma Căn)",
+    "scientific_name": "Boehmeria nivea",
+    "aliases": [
+      "Cây Bánh Gai",
+      "Trữ Ma",
+      "Cây Gai Tuyết",
+      "Ramie"
+    ],
+    "category": "herb",
+    "description": "Nguyên liệu làm nên món bánh gai truyền thống đen dẻo thơm ngào ngạt kiêm vị thuốc an thai, cầm máu dọa sảy thai và tiêu viêm nổi tiếng của nền y học cổ truyền. Rễ củ (Trữ ma căn) chứa hàm lượng cao Acid Chlorogenic bảo vệ phôi thai và thanh nhiệt giải độc cơ thể.",
+    "quick_answer": "Cây lá gai (Boehmeria nivea) là thảo dược an thai, chỉ huyết cầm máu dọa sảy thai, làm bánh gai và thanh nhiệt giải độc thuộc họ Gai (Urticaceae). Cây ưa nắng trực tiếp 5-7 giờ/ngày, đất tơi xốp ẩm giàu hữu cơ pH 5.5-6.8, tưới nước ngày 1 lần, thu hái lá làm bánh sau 40 ngày và đào rễ sau 1 năm.",
+    "botanical_details": {
+      "family": "Urticaceae (Họ Gai)",
+      "native_range": "Bản địa Đông Á và Đông Nam Á, trồng phổ biến khắp các làng quê đồng bằng Bắc Bộ",
+      "active_compounds": [
+        "Chlorogenic acid & Caffeic acid (chống oxy hóa cực mạnh, bảo vệ tế bào phôi thai, giảm co thắt tử cung)",
+        "Rhoifolin (flavonoid tăng cường sức bền thành mao mạch máu, hỗ trợ cầm máu xuất huyết âm đạo)",
+        "Flavone glycosides (thanh nhiệt tiêu viêm, giải độc gan và lợi tiểu tiện tự nhiên)"
+      ],
+      "soil_ph": "5.5 - 6.8",
+      "ideal_temp": "20°C - 34°C",
+      "pot_size": "Đường kính 35cm - 40cm, sâu 30cm"
+    },
+    "sunlight": "full_sun",
+    "watering": "daily",
+    "propagation_difficulty": 1,
+    "growth_time": "40-45 ngày để hái lá xanh và 1 năm để đào củ rễ trữ ma căn",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Phát triển mạnh mẽ nhất từ tháng 3 - 10 mùa mưa nắng dồi dào; mùa đông rụng bớt lá và nảy mầm khỏe vào xuân.",
+      "central": "Trồng từ tháng 9 - 4 năm sau tại các vùng đất phù sa màu mỡ ven sông.",
+      "south": "Cho lá xanh tốt quanh năm, cắt tỉa liên tục lá làm bánh dẻo thơm.",
+      "best_months": [
+        2,
+        3,
+        4,
+        5,
+        8,
+        9,
+        10
+      ],
+      "warning": "Rễ gai tính hàn lương; người thể trạng tỳ vị hư hàn đi ngoài phân lỏng không nên uống nước rễ gai quá đặc kéo dài."
+    },
+    "medical_info": {
+      "uses": [
+        "An thai, chống động thai, dọa sảy thai, làm dịu các cơn co thắt tử cung ở phụ nữ mang thai",
+        "Cầm máu xuất huyết cơ năng, tiểu ra máu, trĩ ra máu và phụ nữ rong kinh kéo dài",
+        "Lá gai giã nhuyễn làm bánh gai đặc sản dẻo quánh, đen nhánh thơm bùi ngào ngạt"
+      ],
+      "folk_remedies": [
+        "Bài thuốc an thai khi bị động thai ra máu: Củ gai tươi (Trữ ma căn) 30g rửa sạch thái lát mỏng, đun cùng 500ml nước trong 20 phút, gạn lấy nước uống ấm ngày 2 lần liên tục 3-5 ngày thai sẽ an ổn.",
+        "Nấu cháo củ gai dưỡng thai: Củ gai khô 20g sắc lấy nước, dùng nước đó nấu cháo gạo nếp với đỗ đen bồi bổ mẹ bầu."
+      ],
+      "preparation": [
+        "Hái lá tươi phơi khô nghiền bột làm bánh gai, bánh ít",
+        "Củ rễ tươi thái lát phơi khô sắc nước an thai",
+        "Lá tươi giã đắp vết thương ngoài da cầm máu"
+      ],
+      "toxicity_warning": "Lá gai và củ gai hoàn toàn lành tính không có độc chất; là một trong số rất ít dược thảo được các danh y chỉ định an toàn cho phụ nữ mang thai.",
+      "disclaimer": "Vị thuốc an thai kinh điển ghi trong Dược Điển Việt Nam và Nam Dược Thần Hiệu."
+    },
+    "academic_citations": [
+      "Phytomedicine - Phenolic compounds from Boehmeria nivea and their protective effects against oxidative stress"
+    ],
+    "monetization_tips": [
+      "Sản xuất bột lá gai nguyên chất sấy lạnh đóng gói phục vụ các cơ sở làm bánh gai, bánh ít truyền thống giá 250.000đ/kg bột.",
+      "Cung ứng củ gai tươi chuẩn VietGAP cho các mẹ bầu với giá 150.000đ - 200.000đ/kg củ tươi."
+    ],
+    "tags": [
+      "An thai động thai",
+      "Làm bánh gai",
+      "Cầm máu chỉ huyết",
+      "Rất dễ trồng chậu"
+    ],
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Tách gốc hoặc giâm cành cây lá gai",
+        "instruction": "Cây lá gai nhân giống cực dễ bằng đoạn gốc có rễ hoặc cành bánh tẻ. Cắm gốc cành vào chậu đất thịt trộn 30% phân chuồng hoai mục và 30% xơ dừa trấu hun, giữ ẩm đều tay; sau 7-10 ngày mầm non bật lên xanh mướt."
+      },
+      {
+        "step": 2,
+        "title": "Đặt chậu hứng nắng và tưới ẩm mỗi ngày",
+        "instruction": "Đặt chậu cây ở ban công hoặc góc sân hứng nắng 5-7 tiếng/ngày. Cây lá gai phiến to thoát nước nhanh nên cần tưới đẫm nước ngày 1 lần. Mặt dưới lá có lớp lông tơ màu trắng bạc tuyết rất đặc trưng."
+      },
+      {
+        "step": 3,
+        "title": "Thu hái lá làm bánh và dưỡng củ rễ",
+        "instruction": "Sau 40 ngày cành lá sum suê, dùng kéo cắt các cành lá bánh tẻ đem phơi khô làm bột bánh gai. Phần gốc bón thêm phân trùn quế cây sẽ đâm nhánh mới rậm rạp; sau 1 năm có thể đào lấy củ rễ dự trữ làm thuốc an thai."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Bột lá gai tự làm từ cây trồng chậu có làm bánh gai đen nhánh được không?",
+        "answer": "Hoàn toàn đen nhánh và thơm bùi. Bí quyết của các nghệ nhân làng bánh gai là sau khi phơi khô lá gai, đem luộc chín nhừ với một chút tro bếp hoặc nước vôi trong rồi giã mịn quết với bột nếp; bánh gai sẽ có màu đen tuyền bóng bẩy và dẻo quánh."
+      },
+      {
+        "question": "Củ gai tươi bảo quản trong tủ lạnh được bao lâu để dùng cho phụ nữ mang thai?",
+        "answer": "Củ gai tươi sau khi đào về rửa sạch đất, để ráo nước rồi bọc giấy báo kín cho vào ngăn mát tủ lạnh có thể giữ tươi nguyên vẹn dược tính trong 2-3 tuần. Muốn bảo quản lâu cả năm, nên thái lát mỏng 2mm phơi hoặc sấy khô giòn đóng túi kín."
+      }
+    ],
+    "related_plant_ids": [
+      "herb-01",
+      "herb-14",
+      "culinary-10"
+    ],
+    "reference_sources": [
+      {
+        "title": "Dược Điển Việt Nam V - Chuyên luận Vị thuốc Trữ Ma Căn (Radix Boehmeriae niveae)",
+        "organization": "Bộ Y Tế Việt Nam"
+      },
+      {
+        "title": "Những cây thuốc và vị thuốc Việt Nam - Cây Gai (Trữ Ma)",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học"
+      },
+      {
+        "title": "Kew Plants of the World Online - Boehmeria nivea (L.) Gaudich.",
+        "organization": "Royal Botanic Gardens Kew"
+      }
+    ],
+    "cultivation_guide": {},
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Boehmeria_nivea_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "image_sha256": "d31a8cfab00d658711bcec70aba64cb634d158c3d8e15f8ec71f069245b7cad5"
+  },
+  {
+    "id": "herb-58",
+    "slug": "che-day-tay-bac-da-day",
+    "common_name": "Chè Dây Rừng Tây Bắc (Bạch Liễm Dây)",
+    "scientific_name": "Ampelopsis cantoniensis",
+    "aliases": [
+      "Thau Rả",
+      "Khau Trà",
+      "Chè Hoàng Gia",
+      "Dây Chè Tuyết"
+    ],
+    "category": "herb",
+    "description": "Đệ nhất thảo dược trị viêm loét dạ dày, diệt trừ vi khuẩn Helicobacter pylori (HP) và làm liền sẹo vết loét của đồng bào vùng cao Tây Bắc. Dây leo họ Nho với lá chè phủ lớp phấn tuyết trắng mốc tự nhiên chứa hàm lượng hoạt chất Ampelopsin kỷ lục giúp an thần và làm sạch đường tiêu hóa.",
+    "quick_answer": "Chè dây (Ampelopsis cantoniensis) là dược thảo trị viêm loét dạ dày tá tràng, ức chế vi khuẩn HP, làm dịu trào ngược dạ dày và an thần thuộc họ Nho (Vitaceae). Cây ưa sáng bán phần đến nắng nhẹ 4-6 giờ/ngày, đất mùn rừng thoát nước tốt pH 5.5-6.5, tưới ẩm 2 ngày 1 lần, thu hái cành lá sau 3-4 tháng trồng.",
+    "botanical_details": {
+      "family": "Vitaceae (Họ Nho)",
+      "native_range": "Bản địa vùng núi cao phía Bắc Việt Nam (Cao Bằng, Lào Cai, Hà Giang, Lạng Sơn)",
+      "active_compounds": [
+        "Dihydromyricetin / Ampelopsin (chiếm tới 35-50% trong dịch chiết lá chè tuyết trắng, diệt vi khuẩn Helicobacter pylori - HP dạ dày)",
+        "Myricetin (ức chế bài tiết acid dịch vị thừa, làm liền sẹo ổ loét dạ dày tá tràng)",
+        "Tannin ngưng tụ (kháng viêm niêm mạc, làm sạch đường ruột và an thần dễ ngủ)"
+      ],
+      "soil_ph": "5.5 - 6.5",
+      "ideal_temp": "16°C - 28°C",
+      "pot_size": "Chậu đường kính 40cm, sâu 35cm kèm giàn leo lưới ban công"
+    },
+    "sunlight": "partial_shade",
+    "watering": "moderate",
+    "propagation_difficulty": 2,
+    "growth_time": "90-120 ngày để cây leo phủ giàn và cho đợt thu hái lá đầu tiên",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Phát triển tuyệt hảo từ tháng 3 - 10 mùa ấm áp nhiều mưa; mùa đông cây rụng bớt lá tránh rét.",
+      "central": "Trồng tại vùng đồi núi cao mát mẻ từ tháng 9 - 4 năm sau.",
+      "south": "Thích hợp trồng tại Đà Lạt, Lâm Đồng hoặc sân thượng đô thị có lưới che giảm nắng gắt.",
+      "best_months": [
+        3,
+        4,
+        5,
+        8,
+        9,
+        10
+      ],
+      "warning": "Người huyết áp quá thấp nên uống chè dây sau khi ăn no, không nên uống vào lúc đói cồn cào."
+    },
+    "medical_info": {
+      "uses": [
+        "Ức chế và tiêu diệt xoắn khuẩn Helicobacter pylori (HP) gây viêm loét dạ dày",
+        "Trung hòa acid dịch vị dạ dày, giảm các cơn ợ chua, nóng rát thượng vị và trào ngược thực quản",
+        "Tác dụng an thần nhẹ nhàng, giúp bệnh nhân đau dạ dày ngủ ngon giấc không bị thức giấc nửa đêm"
+      ],
+      "folk_remedies": [
+        "Hãm trà chè dây trị đau dạ dày: Dùng 30-40g chè dây sao khô có phấn tuyết trắng, hãm với 1 lít nước sôi trong bình giữ nhiệt 15 phút. Rót uống thay nước trong ngày, uống đều đặn 15-30 ngày ổ loét sẽ se lành.",
+        "Kết hợp dạ bẩm: Chè dây 30g kết hợp lá khôi tía 15g sắc nước uống gia tăng hiệu quả diệt HP."
+      ],
+      "preparation": [
+        "Ủ lên men tự nhiên tạo lớp phấn tuyết trắng rồi phơi sao khô",
+        "Hãm nước sôi uống ấm hàng ngày",
+        "Chiết cao lỏng chè dây chữa dạ dày"
+      ],
+      "toxicity_warning": "Chè dây rất an toàn, không có độc tính phụ, không gây kích ứng niêm mạc ruột như trà xanh búp non.",
+      "disclaimer": "Công trình nghiên cứu cấp nhà nước của Viện Dược Liệu và Dược Điển Việt Nam."
+    },
+    "academic_citations": [
+      "Phytomedicine - Ampelopsin from Ampelopsis cantoniensis inhibits Helicobacter pylori growth and gastric mucosal inflammation"
+    ],
+    "monetization_tips": [
+      "Kinh doanh chè dây tuyết Tây Bắc sấy chuẩn phấn trắng tự nhiên đóng gói túi thiếc giá 180.000đ - 260.000đ/kg.",
+      "Cung ứng giống chè dây giâm hom cho các vườn dược liệu gia đình đô thị giá 40.000đ/bầu cây."
+    ],
+    "tags": [
+      "Diệt vi khuẩn HP",
+      "Trị loét dạ dày",
+      "Chè phấn tuyết",
+      "Giàn leo xanh mát"
+    ],
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Chuẩn bị hom giống và đất mùn tơi xốp giàu dinh dưỡng",
+        "instruction": "Chè dây nhân giống bằng cành bánh tẻ có sẵn mắt rễ. Chọn chậu đường kính 40cm, lót đáy bằng sỏi nhẹ thoát nước. Trộn đất gồm 40% đất thịt phù sa, 30% phân trùn quế hoai mục và 30% mùn lá xơ dừa tạo độ xốp."
+      },
+      {
+        "step": 2,
+        "title": "Trồng cây và làm giàn leo ban công đón nắng dịu",
+        "instruction": "Trồng bầu cây vào chậu, cắm cọc tre hoặc căng lưới cước ban công cao 2m cho ngọn dây chè quấn leo. Đặt chậu ở nơi đón 4-5 giờ nắng sáng, tránh nắng rát buổi trưa hè để lá chè không bị khô cháy mép."
+      },
+      {
+        "step": 3,
+        "title": "Bấm ngọn thu hái và bí quyết ủ phấn tuyết trắng",
+        "instruction": "Khi dây leo dài 1.5m, cắt thu hoạch các ngọn non và cành mang lá dài 25-30cm. Bí quyết gia truyền: vò nhẹ cành lá rồi ủ kín trong túi vải ẩm 1-2 đêm cho lên men phấn trắng, sau đó đem phơi nắng giòn để hoạt chất Ampelopsin đạt đỉnh cao."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Lớp phấn lấm tấm màu trắng mốc trên cánh chè dây khô là phấn mốc hỏng hay dược chất?",
+        "answer": "Đó là lớp tuyết chè dây quý giá chứ không phải mốc hỏng! Khi ủ lên men tự nhiên đúng kỹ thuật, nhựa và hoạt chất flavonoit (ampelopsin) sẽ kết tinh ra bề mặt lá tạo thành lớp phấn trắng tuyết mỏng. Càng nhiều phấn tuyết trắng tự nhiên, chè dây càng thơm ngon và dược tính chữa dạ dày càng cao."
+      },
+      {
+        "question": "Uống chè dây lâu ngày thay nước lọc có gây mất ngủ như chè búp xanh Thái Nguyên không?",
+        "answer": "Hoàn toàn không gây mất ngủ. Khác với chè xanh chứa nhiều caffein gây kích thích thần kinh, chè dây không chứa caffein mà chứa hoạt chất flavonoit có tác dụng an thần nhẹ, giúp ngủ sâu giấc và thư giãn thần kinh."
+      }
+    ],
+    "related_plant_ids": [
+      "herb-01",
+      "herb-14",
+      "herb-48"
+    ],
+    "reference_sources": [
+      {
+        "title": "Dược Điển Việt Nam V - Chuyên luận Vị thuốc Chè Dây (Folium Ampelopsis)",
+        "organization": "Bộ Y Tế Việt Nam"
+      },
+      {
+        "title": "Những cây thuốc và vị thuốc Việt Nam - Cây Chè Dây",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học"
+      },
+      {
+        "title": "Viện Dược Liệu Quốc Gia - Nghiên cứu tác dụng diệt Helicobacter pylori và chống loét dạ dày của chè dây",
+        "organization": "NIMMM"
+      }
+    ],
+    "cultivation_guide": {},
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Ampelopsis_cantoniensis_var_leeoides01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "image_sha256": "79f832e6f8c2a0082132a2de6023774d8bb8c0ab8912a12d5e8ec10fbc76479c"
+  },
+  {
+    "id": "herb-59",
+    "slug": "danh-danh-chi-tu-thanh-nhiet",
+    "common_name": "Dành Dành (Chi Tử / Hoa Dành Dành)",
+    "scientific_name": "Gardenia jasminoides",
+    "aliases": [
+      "Chi Tử",
+      "Mộc Đan",
+      "Bạch Thiền Hương",
+      "Gardenia"
+    ],
+    "category": "herb",
+    "description": "Cây hoa kiểng phong thủy hoa trắng tinh khôi thơm ngát nức tiếng kiêm vị thuốc Chi Tử thanh nhiệt tả hỏa, giải độc gan mật và hạ sốt kinh điển. Quả chín chứa sắc tố Crocin tạo màu vàng ngọc bích tự nhiên cho xôi bánh và ức chế các phản ứng viêm sưng mao mạch.",
+    "quick_answer": "Dành dành hay Chi tử (Gardenia jasminoides) là dược thảo thanh nhiệt giải độc, bảo vệ gan mật, tạo màu thực phẩm vàng tự nhiên và hoa thơm phong thủy thuộc họ Cà phê (Rubiaceae). Cây ưa nắng trực tiếp 5-7 giờ/ngày, đất chua ẩm giàu mùn pH 5.0-6.0, tưới nước ngày 1 lần, thu hái hoa mùa hè và thu quả vào mùa đông.",
+    "botanical_details": {
+      "family": "Rubiaceae (Họ Cà phê)",
+      "native_range": "Bản địa vùng nhiệt đới và cận nhiệt đới châu Á, mọc tự nhiên và trồng kiểng khắp 3 miền Việt Nam",
+      "active_compounds": [
+        "Geniposide & Genipin (iridoid glycoside hạ sốt cao, bảo vệ tế bào gan mật, ức chế enzyme thoái hóa tế bào)",
+        "Crocin & Crocetin (carotenoid tạo sắc tố vàng ngọc bích tự nhiên, an thần chống mất ngủ)",
+        "Gardenoside (kháng viêm mao mạch, tiêu diệt vi khuẩn tụ cầu vàng, làm mát máu tả hỏa)"
+      ],
+      "soil_ph": "5.0 - 6.0",
+      "ideal_temp": "18°C - 32°C",
+      "pot_size": "Đường kính 35cm - 40cm, sâu 30cm"
+    },
+    "sunlight": "full_sun",
+    "watering": "daily",
+    "propagation_difficulty": 1,
+    "growth_time": "6 tháng cho hoa thơm ngát và 1 năm để thu hoạch lứa quả vàng đầu tiên",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Hoa nở rộ ngát hương từ tháng 4 - 7; quả chín vàng đỏ thu hoạch vào cuối thu đầu đông tháng 10 - 12.",
+      "central": "Trồng quanh năm, cây phát triển xanh tốt quanh các bờ ao sân vườn đẫm nắng.",
+      "south": "Sinh trưởng hoa nở liên tục nhiều đợt trong năm dưới nắng ấm phương Nam.",
+      "best_months": [
+        3,
+        4,
+        5,
+        6,
+        10,
+        11,
+        12
+      ],
+      "warning": "Người tỳ vị hư hàn, thường xuyên đi ngoài phân lỏng hoặc tiêu chảy không nên uống nước quả chi tử."
+    },
+    "medical_info": {
+      "uses": [
+        "Thanh nhiệt tả hỏa, giải độc cơ thể, hạ sốt cao, làm giảm chứng bứt rứt khó ngủ phát cuồng",
+        "Lợi mật tiêu viêm, hỗ trợ điều trị vàng da viêm gan, viêm túi mật cấp tính",
+        "Chiết xuất màu vàng cam tự nhiên từ quả đồ xôi, làm thạch, nhuộm bánh an toàn 100%"
+      ],
+      "folk_remedies": [
+        "Bài thuốc thanh nhiệt hạ sốt: Quả dành dành (Chi tử) 12g, hoàng cầm 10g, cam thảo 4g sắc với 500ml nước còn 250ml uống ấm.",
+        "Trị vết thương bầm tím bong gân: Quả dành dành giã nát trộn với bột mì và một chén giấm thanh đắp vào chỗ đau sưng, băng cố định sau 1 đêm giảm sưng đau rõ rệt."
+      ],
+      "preparation": [
+        "Quả phơi khô hãm nước sôi lấy nước màu vàng ngọc bích nấu xôi",
+        "Chi tử sao đen (sao than) chữa chảy máu cam, thổ huyết",
+        "Hoa tươi ướp trà thơm thượng hạng"
+      ],
+      "toxicity_warning": "Dược liệu lành tính; tuy nhiên Chi tử tính đại hàn nên người tỳ vị hư yếu không dùng liều cao kéo dài.",
+      "disclaimer": "Vị thuốc thanh nhiệt tả hỏa kinh điển theo Dược Điển Việt Nam."
+    },
+    "academic_citations": [
+      "Frontiers in Pharmacology - Geniposide: A review of its pharmacology, pharmacokinetics, and toxicity"
+    ],
+    "monetization_tips": [
+      "Quả dành dành khô đóng gói bán làm chất tạo màu vàng tự nhiên cho các xưởng bánh chưng, xôi ngũ sắc giá 200.000đ - 280.000đ/kg.",
+      "Bán cây dành dành bonsai hoa kép đang nụ thơm ngát giá 150.000đ - 350.000đ/chậu kiểng phong thủy."
+    ],
+    "tags": [
+      "Hoa thơm phong thủy",
+      "Quả vàng tạo màu",
+      "Thanh nhiệt tả hỏa",
+      "Hạ sốt bảo vệ gan"
+    ],
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Giâm cành bánh tẻ vào đất chua nhẹ",
+        "instruction": "Dành dành cực kỳ ưa đất chua (pH 5.0-6.0). Cắt cành bánh tẻ dài 15cm cắm vào chậu đất thịt trộn 40% mùn dừa chua và 20% tro trấu. Tưới nước giữ ẩm; sau 15-20 ngày cành bén rễ đâm chồi xanh non."
+      },
+      {
+        "step": 2,
+        "title": "Đặt chậu đón nắng trực tiếp và bón phân hữu cơ",
+        "instruction": "Đặt cây ở vị trí hứng trọn vẹn ánh nắng mặt trời từ 5-7 tiếng mỗi ngày. Dành dành háo nước và háo sắt (Fe); định kỳ tưới nước ngâm đậu nành hoặc bổ sung chút vi lượng chelate sắt để phiến lá luôn xanh đen bóng mượt."
+      },
+      {
+        "step": 3,
+        "title": "Thưởng hoa ngát hương và thu hoạch quả chín",
+        "instruction": "Đầu hè cây bung nở những đóa hoa trắng kép thơm nức lan tỏa cả góc vườn. Vào cuối thu, các quả hình bầu dục có cạnh sẽ chuyển từ xanh sang màu vàng cam đỏ rực; hái quả phơi nắng giòn để dành làm thuốc và làm bánh quanh năm."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Dành dành hoa đơn và dành dành hoa kép có điểm gì khác nhau về quả?",
+        "answer": "Dành dành hoa đơn (hoa 5-6 cánh) đậu quả rất sai, quả to mọng chứa nhiều hạt giàu sắc tố crocin chuyên dùng làm thuốc và lấy màu thực phẩm; trong khi dành dành hoa kép (nhiều lớp cánh như hoa hồng) hoa nở to thơm ngát nhưng ít khi đậu quả, chủ yếu trồng làm kiểng cảnh quan."
+      },
+      {
+        "question": "Tại sao lá cây dành dành trồng chậu hay bị vàng lá gân xanh?",
+        "answer": "Hiện tượng lá vàng nhưng gân lá vẫn xanh là biểu hiện kinh điển của thiếu sắt (Iron chlorosis) do độ pH của đất quá kiềm (pH > 7.0). Hãy tưới nước chua nhẹ (nước ngâm vỏ dứa hoặc pha giấm loãng 1 thìa/lít nước) để hạ pH đất, cây sẽ xanh mướt trở lại."
+      }
+    ],
+    "related_plant_ids": [
+      "herb-01",
+      "herb-48",
+      "orn-04"
+    ],
+    "reference_sources": [
+      {
+        "title": "Dược Điển Việt Nam V - Chuyên luận Vị thuốc Chi Tử (Fructus Gardeniae)",
+        "organization": "Bộ Y Tế Việt Nam"
+      },
+      {
+        "title": "Những cây thuốc và vị thuốc Việt Nam - Cây Dành Dành (Chi Tử)",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học"
+      },
+      {
+        "title": "Kew Plants of the World Online - Gardenia jasminoides J.Ellis",
+        "organization": "Royal Botanic Gardens Kew"
+      }
+    ],
+    "cultivation_guide": {},
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/83/Gardenia_jasminoides_in_Mount_Yagi_2008-06-13.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "image_sha256": "41663112eba740d8278293fb3fab509e351eb0f09668a53579ccbdca8533b4b4"
+  },
+  {
+    "id": "herb-60",
+    "slug": "bach-bo-tri-ho",
+    "common_name": "Bách Bộ (Dây Ba Mươi Rễ)",
+    "scientific_name": "Stemona tuberosa",
+    "aliases": [
+      "Dây Ba Mươi",
+      "Bách Củ",
+      "Củ Dũa Bão",
+      "Stemona Root"
+    ],
+    "category": "herb",
+    "description": "Thảo dược hàng đầu chuyên trị ho dai dẳng lâu ngày, ho lao, giun kim và sát trùng ký sinh trùng rận rệp ngoài da. Cây dây leo với chùm củ nạc mọc chùm hàng chục củ dưới gốc tựa chùm chuối, chứa hàm lượng Stemonine quý giá làm tê liệt phản xạ ho thần kinh trung ương.",
+    "quick_answer": "Bách bộ hay Dây ba mươi (Stemona tuberosa) là dược thảo kinh điển trị ho dai dẳng, viêm phế quản, diệt giun kim và sát trùng ngoài da thuộc họ Bách bộ (Stemonaceae). Cây ưa sáng bán phần đến râm mát 3-5 giờ/ngày, đất mùn xốp đồi núi pH 5.8-6.8, tưới ẩm vừa phải, thu hoạch chùm củ sau 1-2 năm gieo trồng.",
+    "botanical_details": {
+      "family": "Stemonaceae (Họ Bách bộ)",
+      "native_range": "Bản địa vùng nhiệt đới và cận nhiệt đới châu Á, mọc hoang dã khắp vùng núi rừng trung du Việt Nam",
+      "active_compounds": [
+        "Stemonine & Tuberostemonine (alkaloid ức chế phản xạ ho của trung khu thần kinh, làm giãn cơ trơn phế quản)",
+        "Stemofoline (kháng khuẩn phế cầu, diệt giun kim đường ruột và ký sinh trùng rận rệp)",
+        "Neotuberostemonine (kháng virus đường hô hấp, làm loãng đờm đặc lâu ngày)"
+      ],
+      "soil_ph": "5.8 - 6.8",
+      "ideal_temp": "18°C - 30°C",
+      "pot_size": "Thùng xốp hoặc chậu sâu đường kính 45cm, sâu 40cm cho chùm củ phình to"
+    },
+    "sunlight": "partial_shade",
+    "watering": "moderate",
+    "propagation_difficulty": 2,
+    "growth_time": "1 - 2 năm để chùm củ nạc phát triển 20-30 củ to mọng",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Trồng vào mùa xuân tháng 2 - 4; đào củ vào cuối thu đầu đông khi thân dây tàn lụi để tích dồn dưỡng chất.",
+      "central": "Trồng ở vùng đồi núi từ tháng 9 - 10 đón mùa mưa ẩm.",
+      "south": "Phát triển tốt dưới bóng râm tán cây ăn quả, dây leo xanh quanh năm.",
+      "best_months": [
+        2,
+        3,
+        4,
+        9,
+        10,
+        11
+      ],
+      "warning": "Người tỳ vị hư hàn tiêu chảy hoặc sốt ho do âm hư nội nhiệt không nên dùng đơn độc liều cao."
+    },
+    "medical_info": {
+      "uses": [
+        "Trị ho gà, ho lâu ngày không khỏi, ho do viêm phế quản mãn tính và ho lao có đờm",
+        "Diệt giun kim, giun đũa ở trẻ em bằng nước sắc củ thụt rửa hậu môn",
+        "Nấu nước tắm sát trùng trị ghẻ lở, ngứa da, diệt chấy rận rệp trên người và vật nuôi"
+      ],
+      "folk_remedies": [
+        "Siro bách bộ trị ho dai dẳng: Củ bách bộ khô 20g thái lát, mạch môn đông 15g, cát cánh 10g đun với 600ml nước còn 300ml, hòa thêm 2 thìa mật ong uống ấm ngày 3 lần, cơn ho dứt hẳn sau 3 ngày.",
+        "Trị giun kim ngứa hậu môn: Bách bộ 30g sắc thật đặc 100ml, gạn lấy nước nguội bơm thụt rửa hậu môn trước khi đi ngủ."
+      ],
+      "preparation": [
+        "Củ đào về rửa sạch, đồ chín rồi bổ đôi phơi khô",
+        "Bách bộ tẩm mật ong sao vàng (Mật bách bộ) nhuận phế trị ho khan",
+        "Nấu cao lỏng cô đặc đóng lọ siro ho"
+      ],
+      "toxicity_warning": "Dùng quá liều alkaloid stemonine có thể gây tê liệt hô hấp nhẹ; cần tuân thủ đúng liều lượng chỉ định (6-12g khô/ngày).",
+      "disclaimer": "Vị thuốc trừ ho chỉ khái kinh điển ghi trong Dược Điển Việt Nam."
+    },
+    "academic_citations": [
+      "Journal of Natural Products - Antitussive alkaloids from the roots of Stemona tuberosa"
+    ],
+    "monetization_tips": [
+      "Chế biến củ bách bộ tẩm mật sao vàng đóng gói bán cho các nhà thuốc đông y giá 180.000đ - 250.000đ/kg khô.",
+      "Kinh doanh siro ho thảo dược bách bộ kết hợp húng chanh gia truyền."
+    ],
+    "tags": [
+      "Đệ nhất trị ho",
+      "Chùm ba mươi củ",
+      "Diệt giun kim",
+      "Dây leo bóng râm"
+    ],
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Chọn chậu sâu rộng và giá thể mùn rừng tơi xốp",
+        "instruction": "Bách bộ tạo chùm 20-30 củ dài như nải chuối đâm tỏa tròn; do đó cần chậu hoặc thùng xốp rộng từ 45cm, sâu 40cm. Trộn 40% đất thịt, 30% mùn lá mục ủ hoai và 30% tro trấu cát thô để đất luôn tơi xốp."
+      },
+      {
+        "step": 2,
+        "title": "Trồng củ mầm và cắm giàn leo dưới bóng mát",
+        "instruction": "Vùi củ mầm sâu 4-5cm dưới lớp đất ẩm. Cắm cọc giàn cho dây leo bám. Đặt chậu ở nơi có bóng râm mát hoặc chỉ đón nắng nhẹ buổi sáng; nếu bị nắng gắt chiếu trực tiếp lá sẽ bị cháy sém và thân dây ngừng lớn."
+      },
+      {
+        "step": 3,
+        "title": "Bón phân hữu cơ và thu hoạch đào chùm củ",
+        "instruction": "Định kỳ 2 tháng bổ sung một lớp phân trùn quế quanh gốc. Sau 1.5 - 2 năm vào cuối thu khi lá ngả vàng, bới nhẹ đất nhấc trọn chùm rễ củ nạc trắng ngà. Rửa sạch, đồ hơi nước 10 phút rồi phơi khô tích trữ làm thuốc."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao củ bách bộ sau khi đào về bắt buộc phải đem đồ chín rồi mới phơi khô?",
+        "answer": "Củ bách bộ tươi chứa nhiều nước và dịch nhựa mủ; nếu phơi sống củ rất dễ bị thâm đen, chảy nước chua và mốc thối. Đồ hơi nước nóng 10-15 phút sẽ làm chín enzyme, diệt nấm mốc và giúp củ khô nhanh, giữ nguyên vẹn hoạt chất stemonine màu vàng ngà."
+      },
+      {
+        "question": "Cây bách bộ có thể trồng làm cảnh leo ban công râm mát được không?",
+        "answer": "Rất đẹp và duyên dáng. Bách bộ có phiến lá hình tim xanh bóng mượt với các đường gân nổi rõ như lá trầu bà, hoa màu lục ánh đỏ tía độc đáo, dây leo gọn gàng che mát ban công không gây rụng lá bẩn."
+      }
+    ],
+    "related_plant_ids": [
+      "herb-01",
+      "herb-14",
+      "herb-58"
+    ],
+    "reference_sources": [
+      {
+        "title": "Dược Điển Việt Nam V - Chuyên luận Vị thuốc Bách Bộ (Radix Stemonae)",
+        "organization": "Bộ Y Tế Việt Nam"
+      },
+      {
+        "title": "Những cây thuốc và vị thuốc Việt Nam - Cây Bách Bộ (Dây Ba Mươi)",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học"
+      },
+      {
+        "title": "Viện Dược Liệu Quốc Gia - Chiết tách và đánh giá tác dụng giảm ho của alkaloid từ Stemona tuberosa",
+        "organization": "NIMMM"
+      }
+    ],
+    "cultivation_guide": {},
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/10/Stemona_tuberosa-6-kottachedu-yercaud-salem-India.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "image_sha256": "ae5ea3f768ba627a8ce7b5fda01a2c834fa98337868f8e5b9a20f5648f5d3f5d"
+  },
+  {
+    "id": "herb-61",
+    "slug": "xuong-rong-nopal-tieu-duong",
+    "common_name": "Xương Rồng Nopal (Lê Gai Dược Liệu)",
+    "scientific_name": "Opuntia ficus-indica",
+    "aliases": [
+      "Nha Đam Gai",
+      "Vợt Gai Ăn Quả",
+      "Prickly Pear Cactus",
+      "Xương Rồng Tai Thỏ Ăn Được"
+    ],
+    "category": "herb",
+    "description": "Siêu thảo dược dinh dưỡng hàng đầu thế giới được Tổ chức Nông lương LHQ (FAO) khuyến nông, nổi tiếng với khả năng hạ đường huyết, chống viêm mạch máu và thanh lọc đại tràng. Nhánh bẹ non mọng nước giòn ngọt làm salad xào thịt bò tuyệt hảo kiêm quả mọng đỏ giàu chất chống oxy hóa Betalain.",
+    "quick_answer": "Xương rồng Nopal (Opuntia ficus-indica) là thảo dược dinh dưỡng hạ chỉ số đường huyết, giảm cholesterol mỡ máu xấu, bảo vệ gan tụy và cung cấp chất xơ prebiotic thuộc họ Xương rồng (Cactaceae). Cây ưa nắng gắt trực tiếp 6-8 giờ/ngày, đất cát sỏi khô thoáng pH 6.5-8.0, tưới 1 lần/tuần, thu hái bẹ non sau 2-3 tháng.",
+    "botanical_details": {
+      "family": "Cactaceae (Họ Xương rồng)",
+      "native_range": "Bản địa Mexico, thuần hóa và nhân rộng khắp các vùng đất cát ven biển khô hạn miền Trung Việt Nam (Ninh Thuận, Bình Thuận)",
+      "active_compounds": [
+        "Pectin & Mucin hòa tan (chất xơ sánh nhớt làm chậm hấp thu glucose ruột non, ổn định chỉ số đường huyết sau ăn)",
+        "Betalain (Betanin & Indicaxanthin - sắc tố chống viêm mạch máu, bảo vệ tế bào gan tụy)",
+        "Quercetin & Kaempferol glycosides (hạ lipid máu xấu LDL, chống oxy hóa xơ vữa động mạch)"
+      ],
+      "soil_ph": "6.5 - 8.0",
+      "ideal_temp": "22°C - 38°C",
+      "pot_size": "Chậu sành hoặc đất nung đường kính 35cm - 40cm, thoát nước cực tốt"
+    },
+    "sunlight": "full_sun",
+    "watering": "drought_tolerant",
+    "propagation_difficulty": 1,
+    "growth_time": "60-90 ngày từ cắm nhánh bẹ đến đợt thu hoạch bẹ non đầu tiên",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Trồng từ tháng 3 - 9 đón nắng hè gay gắt; mùa đông rét lạnh tưới rất ít nước để cây tránh thối nhũn.",
+      "central": "Phát triển thần tốc tại vùng đất cát nắng bỏng Ninh Thuận, Bình Thuận quanh năm.",
+      "south": "Sinh trưởng cực mạnh 12 tháng, cho thu hoạch bẹ non và quả đỏ liên tục trên sân thượng.",
+      "best_months": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "warning": "Người bệnh tiểu đường đang dùng thuốc hạ đường huyết liều cao cần theo dõi đường huyết khi ăn thường xuyên."
+    },
+    "medical_info": {
+      "uses": [
+        "Hạ và ổn định chỉ số đường huyết sau ăn cho bệnh nhân đái tháo đường tuýp 2",
+        "Giảm nồng độ cholesterol xấu (LDL) và triglyceride, bảo vệ thành mạch tim mạch",
+        "Hỗ trợ giải độc gan, giảm cảm giác nôn nao sau khi uống rượu bia và thanh lọc ruột"
+      ],
+      "folk_remedies": [
+        "Món xào hạ đường huyết: Bẹ xương rồng nopal non gọt sạch mắt gai, thái con chì luộc sơ 1 phút rồi xào thịt bò hoặc nấm hương, ăn tuần 2-3 lần giúp đường huyết ổn định êm dịu.",
+        "Nước ép sinh tố thanh lọc gan: Bẹ non 100g bỏ gai, xay cùng 1 quả táo xanh và nửa quả dưa chuột uống buổi sáng."
+      ],
+      "preparation": [
+        "Gọt sạch mắt gai non làm salad, món xào, nấu canh chua",
+        "Ép nước sinh tố thanh lọc mỡ máu",
+        "Quả chín màu đỏ tía ăn ngọt lịm như quả thanh long"
+      ],
+      "toxicity_warning": "Phải gọt cẩn thận các mắt gai tơ li ti (glochids) trên bẹ trước khi chế biến để tránh gây cộm ngứa niêm mạc miệng.",
+      "disclaimer": "Siêu thực phẩm được FAO và các công trình y học quốc tế công nhận."
+    },
+    "academic_citations": [
+      "Nutrition Research - Opuntia ficus-indica: A review of its beneficial effects in metabolic syndrome and diabetes"
+    ],
+    "monetization_tips": [
+      "Bán bẹ xương rồng nopal tươi làm thực phẩm ăn kiêng cho bệnh nhân tiểu đường giá 80.000đ - 120.000đ/kg.",
+      "Cung ứng nhánh giống bẹ mẹ F1 bản to cho các hộ gia đình trồng sân thượng giải nhiệt giá 50.000đ/bẹ giống."
+    ],
+    "tags": [
+      "Hạ đường huyết",
+      "Siêu thực phẩm FAO",
+      "Chịu hạn sân thượng",
+      "Ăn giòn ngọt"
+    ],
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Phơi se vết cắt bẹ giống trước khi cắm đất",
+        "instruction": "Khi cắt bẹ xương rồng bánh tẻ, để nơi râm mát thoáng gió 3-5 ngày cho vết cắt khô se lại tạo lớp màng sẹo cứng chống nhiễm khuẩn. Chuẩn bị chậu có lỗ thoát lớn, trộn 50% cát sỏi thô xỉ than và 50% đất thịt tơi xốp."
+      },
+      {
+        "step": 2,
+        "title": "Cắm bẹ vào chậu cát sỏi và đón nắng gắt trực tiếp",
+        "instruction": "Cắm 1/3 phần gốc bẹ giống xuống đất, lèn chặt nhẹ quanh gốc. Đặt chậu ở sân thượng nơi hứng trọn vẹn nắng gắt từ 6-8 tiếng mỗi ngày. Trong tuần đầu tiên không cần tưới nước; sau 10 ngày rễ cám bật ra bám chắc vào đất."
+      },
+      {
+        "step": 3,
+        "title": "Tưới nước điều độ và thu hái bẹ non ngọt mát",
+        "instruction": "Chỉ tưới nước khi đất trong chậu đã khô kiệt hoàn toàn (mùa hè 5-7 ngày tưới 1 lần). Sau 2 tháng, từ các mắt gai sẽ mọc vọt ra những bẹ non xanh mướt mỏng manh. Dùng dao cắt lấy bẹ non bằng bàn tay gọt gai làm món ăn bổ dưỡng."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Xương rồng Nopal có phải loài xương rồng dại đầy gai ngoài bờ rào không?",
+        "answer": "Không phải. Xương rồng ngoài bờ rào thường là loài Euphorbia (họ Thầu dầu) chứa nhựa mủ trắng cực độc có thể làm mù mắt. Xương rồng Nopal thuộc họ Cactaceae, bẹ phẳng hình vợt, hoàn toàn không có nhựa mủ trắng độc hại và là thực phẩm rau ăn an toàn trên toàn cầu."
+      },
+      {
+        "question": "Cách gọt bẹ xương rồng Nopal nhanh nhất mà không bị gai đâm vào tay?",
+        "answer": "Dùng kẹp gắp bẹ đặt lên thớt, cầm dao sắc lia ngang cạo sạch các mắt gai li ti trên bề mặt cả 2 mặt và gọt nhẹ đường viền xung quanh mép bẹ. Sau đó rửa qua vòi nước chảy là hoàn toàn sạch gai và sẵn sàng nấu nướng."
+      }
+    ],
+    "related_plant_ids": [
+      "herb-01",
+      "herb-14",
+      "fruit-10"
+    ],
+    "reference_sources": [
+      {
+        "title": "Kew Plants of the World Online - Opuntia ficus-indica (L.) Mill.",
+        "organization": "Royal Botanic Gardens Kew"
+      },
+      {
+        "title": "Viện Cây Ăn Quả SOFRI - Đánh giá khả năng sinh trưởng và giá trị dinh dưỡng của xương rồng Nopal",
+        "organization": "Viện Cây Ăn Quả Miền Nam"
+      },
+      {
+        "title": "Tổ Chức Nông Lương Liên Hiệp Quốc FAO - Crop Ecology, Cultivation and Uses of Cactus Pear",
+        "organization": "FAO UN"
+      }
+    ],
+    "cultivation_guide": {},
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9e/Prickly_pears.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "image_sha256": "92777d1d112b9ff557e8d999f363dbac1a44d8c9f90138480c2ed983a2820967"
+  },
+  {
+    "id": "herb-62",
+    "slug": "cay-dau-tam-duoc-lieu",
+    "common_name": "Dâu Tằm Thuốc (Tang Thầm & Tang Diệp)",
+    "scientific_name": "Morus alba",
+    "aliases": [
+      "Dâu Trắng",
+      "Tang Thầm Quả",
+      "Cây Nuôi Tằm",
+      "Mulberry"
+    ],
+    "category": "herb",
+    "description": "Cây đại thụ của nền y học cổ truyền phương Đông khi toàn bộ các bộ phận: lá (Tang diệp), quả (Tang thầm), vỏ rễ (Tang bạch bì) và cành (Tang chi) đều là các vị thuốc quý. Cây sinh trưởng thần tốc trong chậu, sai trĩu quả chín đen mọng ngọt ngào giúp bổ huyết, sáng mắt và hạ đường huyết tự nhiên.",
+    "quick_answer": "Dâu tằm thuốc (Morus alba) là cây ăn quả kiêm thảo dược bổ can thận, dưỡng huyết sáng mắt, hạ đường huyết và trị ho hen thuộc họ Dâu tằm (Moraceae). Cây ưa nắng trực tiếp 6-8 giờ/ngày, đất thịt pha cát tơi xốp pH 6.0-7.5, tưới nước ngày 1 lần, cho thu hoạch lá sau 30 ngày và quả ngọt sau 5-6 tháng trồng.",
+    "botanical_details": {
+      "family": "Moraceae (Họ Dâu tằm)",
+      "native_range": "Bản địa Đông Á và Đông Nam Á, gắn bó hàng nghìn năm với nghề trồng dâu nuôi tằm và y học dân tộc Việt Nam",
+      "active_compounds": [
+        "1-Deoxynojirimycin (DNJ trong lá dâu, ức chế enzyme alpha-glucosidase giúp hạ đường huyết vượt trội)",
+        "Resveratrol & Moracin (stilbenoid chống đông máu, giãn mao mạch hạ huyết áp và bảo vệ tim mạch)",
+        "Cyanidin-3-glucoside (anthocyanin trong quả dâu chín đen, bổ huyết sáng mắt, kích thích đen râu tóc)"
+      ],
+      "soil_ph": "6.0 - 7.5",
+      "ideal_temp": "20°C - 35°C",
+      "pot_size": "Đường kính 40cm - 50cm, sâu 40cm để tán cây tỏa rộng sai quả"
+    },
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 1,
+    "growth_time": "5 - 6 tháng từ giâm cành đến mùa ra hoa trĩu quả đen ngọt",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Sau tiết lập xuân tháng 2 cây đâm chồi nảy lộc mang hoa; quả chín rộ đỏ thẫm vào tháng 3 - 5 đầu hạ.",
+      "central": "Trồng quanh năm, cây phát triển xanh tốt và sai quả vào mùa nắng ấm.",
+      "south": "Cắt tỉa tuốt lá ép ra quả ngọt 2-3 vụ mỗi năm trên ban công sân thượng.",
+      "best_months": [
+        2,
+        3,
+        4,
+        5,
+        9,
+        10
+      ],
+      "warning": "Quả dâu tằm có tính nhuận tràng thanh nhiệt; người đang bị đau bụng tiêu chảy lạnh không nên ăn nhiều."
+    },
+    "medical_info": {
+      "uses": [
+        "Lá dâu (Tang diệp) sắc nước hạ đường huyết, thanh can sáng mắt và tiêu trừ cảm mạo phong nhiệt",
+        "Quả dâu chín (Tang thầm) ngâm siro bồi bổ can thận, dưỡng huyết, chữa mất ngủ râu tóc bạc sớm",
+        "Vỏ rễ dâu (Tang bạch bì) chữa ho hen phế quản, phù thũng bí tiểu tiện"
+      ],
+      "folk_remedies": [
+        "Siro dâu tằm bổ huyết đen tóc: Quả dâu tằm chín đen 1kg rửa sạch ráo nước, xếp vào lọ thủy tinh xen kẽ 800g đường phèn ngâm 10-15 ngày; siro thơm lừng pha nước uống đá giải nhiệt bồi bổ can thận.",
+        "Trà lá dâu hạ đường huyết: Lá dâu bánh tẻ tươi 20g hãm với 400ml nước sôi uống sau bữa ăn."
+      ],
+      "preparation": [
+        "Ngâm rượu hoặc ngâm đường siro quả dâu chín",
+        "Hái lá tươi sao vàng pha trà thanh nhiệt",
+        "Cạo vỏ rễ rửa sạch phơi khô sắc thuốc trị hen"
+      ],
+      "toxicity_warning": "Dâu tằm rất lành tính không có độc chất; là dược thực lưỡng dụng (vừa là thức ăn vừa là thuốc) an toàn bậc nhất.",
+      "disclaimer": "Vị thuốc thượng phẩm ghi danh trong Dược Điển Việt Nam và Thần Nông Bản Thảo Kinh."
+    },
+    "academic_citations": [
+      "Journal of Functional Foods - 1-Deoxynojirimycin from Mulberry leaves: Pharmacology and clinical benefits for glucose metabolism"
+    ],
+    "monetization_tips": [
+      "Chế biến siro dâu tằm cốt đường phèn hữu cơ đóng chai thủy tinh bán giá 90.000đ - 140.000đ/chai 500ml.",
+      "Bán chậu cây dâu tằm bonsai mini đang trĩu trịt quả chín đỏ đen giá 250.000đ - 500.000đ/chậu."
+    ],
+    "tags": [
+      "Bổ can thận",
+      "Hạ đường huyết",
+      "Trái đen ngọt lịm",
+      "Cực kỳ dễ giâm cành"
+    ],
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Giâm cành dâu tằm to bằng ngón tay vào chậu đất tốt",
+        "instruction": "Chọn cành dâu tằm bánh tẻ mập mạp to bằng ngón tay trỏ dài 20-25cm có nhiều mắt ngủ. Cắt vát gốc 45 độ, cắm vào chậu đất thịt trộn 30% phân chuồng hoai mục và 20% tro trấu; chỉ sau 7-10 ngày mầm lá xanh mơn mởn nhú ra."
+      },
+      {
+        "step": 2,
+        "title": "Đặt chậu đón nắng gắt và tưới nước hàng ngày",
+        "instruction": "Dâu tằm là loài cây háo nắng quang hợp mạnh, đặt chậu ở sân thượng hoặc ban công hứng trọn vẹn nắng trời 6-8 tiếng/ngày. Tưới đẫm nước mỗi sáng sớm. Khi cây cao 80cm, bấm ngọn để cây phân nhiều nhánh tỏa tàng rộng."
+      },
+      {
+        "step": 3,
+        "title": "Bí quyết tuốt lá ép cây trĩu quả đồng loạt",
+        "instruction": "Muốn cây dâu tằm ra quả rực rỡ, siết nước 3-4 ngày cho đất khô nhẹ rồi dùng tay tuốt sạch toàn bộ lá trên cây và cắt tỉa đầu cành. Sau đó bón bổ sung phân trùn quế và tưới đẫm nước; chỉ 10 ngày sau mỗi nách lá sẽ đồng loạt bung chồi mang theo chùm quả non xanh biếc."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Cây dâu tằm trồng trong chậu ban công có cho quả ngọt nhiều như trồng đất vườn không?",
+        "answer": "Nếu chậu có đường kính từ 40cm trở lên và đặt ở nơi đủ nắng từ 6 tiếng/ngày, áp dụng kỹ thuật tuốt lá kích hoa thì cây dâu tằm trồng chậu cho quả cực kỳ sai và ngọt lịm, chùm quả chín đen óng ả không thua kém gì trồng đất vườn."
+      },
+      {
+        "question": "Lá dâu tằm non có thể dùng nấu canh ăn như rau sạch được không?",
+        "answer": "Rất ngon và bổ dưỡng. Đọt lá dâu tằm non rửa sạch thái nhỏ nấu canh với tôm đồng, thịt băm hoặc nghêu sò cho nước canh ngọt thanh mát, giúp giải nhiệt mùa hè, an thần ngủ ngon và làm mát gan sáng mắt."
+      }
+    ],
+    "related_plant_ids": [
+      "fruit-01",
+      "fruit-10",
+      "herb-01"
+    ],
+    "reference_sources": [
+      {
+        "title": "Dược Điển Việt Nam V - Chuyên luận Vị thuốc Tang Thầm & Tang Diệp (Mori Fructus & Folium)",
+        "organization": "Bộ Y Tế Việt Nam"
+      },
+      {
+        "title": "Những cây thuốc và vị thuốc Việt Nam - Cây Dâu Tằm",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học"
+      },
+      {
+        "title": "Kew Plants of the World Online - Morus alba L.",
+        "organization": "Royal Botanic Gardens Kew"
+      }
+    ],
+    "cultivation_guide": {},
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0a/Morus-alba.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "image_sha256": "9a14667909c3c2ea4cbfa8c287d3a36266cb66d3de523e82dbbd34e0f442c36d"
   }
 ]
