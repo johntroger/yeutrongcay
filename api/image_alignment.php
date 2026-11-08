@@ -158,3 +158,56 @@ function verifyImageContentAlignment(string $category, string $commonName, strin
         'suggestions' => $suggestions
     ];
 }
+
+/**
+ * Kiểm tra tính sống (Liveness), Content-Type và dung lượng của URL hình ảnh
+ */
+function verifyImageUrlLiveness(string $url): array {
+    $url = trim($url);
+    if (empty($url) || (!str_starts_with($url, 'http://') && !str_starts_with($url, 'https://'))) {
+        return [
+            'is_live' => false,
+            'http_code' => 0,
+            'error' => 'URL không hợp lệ hoặc để trống'
+        ];
+    }
+
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_NOBODY, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HEADER, true);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 6);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_MAXREDIRS, 3);
+    curl_setopt($ch, CURLOPT_USERAGENT, 'YeuTrongCayBot/1.0 (https://yeutrongcay.com; contact@yeutrongcay.com)');
+    
+    curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
+    $contentLength = curl_getinfo($ch, CURLINFO_CONTENT_LENGTH_DOWNLOAD);
+    $error = curl_error($ch);
+    curl_close($ch);
+
+    if ($httpCode !== 200) {
+        return [
+            'is_live' => false,
+            'http_code' => $httpCode,
+            'error' => "Máy chủ ảnh phản hồi mã HTTP {$httpCode}" . ($error ? " ($error)" : "")
+        ];
+    }
+
+    if (!empty($contentType) && !str_starts_with(strtolower($contentType), 'image/')) {
+        return [
+            'is_live' => false,
+            'http_code' => $httpCode,
+            'error' => "URL không phải tệp hình ảnh hợp lệ (Content-Type: {$contentType})"
+        ];
+    }
+
+    return [
+        'is_live' => true,
+        'http_code' => 200,
+        'content_type' => $contentType,
+        'size_bytes' => $contentLength
+    ];
+}

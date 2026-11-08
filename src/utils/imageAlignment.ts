@@ -339,3 +339,28 @@ export function generateWikiSearchQuery(article: Partial<ArticleInput>): string 
   }
   return sci || common;
 }
+
+/**
+ * Sinh URL tìm kiếm Google Images chuẩn xác kèm bộ lọc bản quyền và từ khóa ngữ cảnh
+ */
+export function generateGoogleImageSearchUrl(article: Partial<ArticleInput>): string {
+  const cat = (article.category || '').toLowerCase();
+  const common = (article.common_name || '').trim();
+  const sci = (article.scientific_name || '').trim();
+
+  let query = common;
+  if (cat === 'culinary') {
+    query = `"${common}" món ăn thành phẩm -chợ -mua`;
+  } else if (cat === 'recycle') {
+    query = `"${common}" tự chế làm vườn thực tế -shopee -lazada`;
+  } else if (cat === 'space') {
+    query = `"${common}" thiết kế sân vườn thực tế -bán -giá`;
+  } else if (cat === 'forest') {
+    query = `"${common}" phong cảnh thiên nhiên Việt Nam`;
+  } else {
+    query = sci ? `"${sci}" "${common}" cây trồng` : `"${common}" cây trồng`;
+  }
+
+  // &tbs=sur:cl : Lọc ảnh có giấy phép Creative Commons cho phép sử dụng lại
+  return `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(query)}&tbs=sur:cl`;
+}

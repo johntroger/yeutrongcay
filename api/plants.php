@@ -97,6 +97,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
+    // 2.1. Kiểm tra Liveness (URL có trả về HTTP 200 và ảnh thật không)
+    $liveness = verifyImageUrlLiveness($imageUrl);
+    if (!$liveness['is_live']) {
+        http_response_code(422);
+        echo json_encode([
+            'success' => false,
+            'error_code' => 'CIRVA_IMAGE_DEAD_LINK',
+            'message' => 'URL hình ảnh không thể truy cập hoặc không hợp lệ: ' . ($liveness['error'] ?? 'Không phản hồi'),
+            'liveness' => $liveness
+        ], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
     $sunlight = in_array($data['sunlight'] ?? '', ['full_sun', 'partial_shade', 'indoor']) ? $data['sunlight'] : 'full_sun';
     $watering = in_array($data['watering'] ?? '', ['daily', 'moderate', 'drought_tolerant']) ? $data['watering'] : 'moderate';
     $difficulty = intval($data['propagation_difficulty'] ?? 1);
