@@ -288,20 +288,26 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
           },
         ]);
 
-  // 5. GEO Academic Citations
-  const citationsList =
-    plant?.academic_citations ||
-    (isEn
-      ? [
-          'Pharmacopoeia of Vietnam V - Traditional Indigenous Herbal Monographs.',
-          'Prof. Do Tat Loi - "Medicinal Plants and Traditional Remedies of Vietnam", Medical Publishing House.',
-          'National Institute of Medicinal Materials (NIMM) & Vietnam Academy of Agricultural Sciences (VAAS).',
-        ]
-      : [
-          'Dược Điển Việt Nam V - Chuyên luận Thảo Dược Bản Địa Truyền Thống.',
-          'GS. Đỗ Tất Lợi - "Những Cây Thuốc Và Vị Thuốc Việt Nam", NXB Y Học.',
-          'Viện Dược Liệu & Viện Khoa Học Nông Nghiệp Việt Nam (VAAS).',
-        ]);
+  // 5. GEO Academic Citations & Reference Sources
+  const citationsList: string[] =
+    (plant?.reference_sources && plant.reference_sources.length > 0)
+      ? plant.reference_sources.map((s: any) =>
+          typeof s === 'string'
+            ? s
+            : `${s.title}${s.author ? ` — ${s.author}` : ''}${s.organization ? ` (${s.organization})` : ''}`
+        )
+      : plant?.academic_citations ||
+        (isEn
+          ? [
+              'Pharmacopoeia of Vietnam V - Traditional Indigenous Herbal Monographs.',
+              'Prof. Do Tat Loi - "Medicinal Plants and Traditional Remedies of Vietnam", Medical Publishing House.',
+              'National Institute of Medicinal Materials (NIMM) & Vietnam Academy of Agricultural Sciences (VAAS).',
+            ]
+          : [
+              'Dược Điển Việt Nam V - Chuyên luận Thảo Dược Bản Địa Truyền Thống.',
+              'GS. Đỗ Tất Lợi - "Những Cây Thuốc Và Vị Thuốc Việt Nam", NXB Y Học.',
+              'Viện Dược Liệu & Viện Khoa Học Nông Nghiệp Việt Nam (VAAS).',
+            ]);
 
   // 6. Tích hợp Dynamic SEO
   const pageUrl = `https://yeutrongcay.com/cay/${plant?.slug || ''}`;

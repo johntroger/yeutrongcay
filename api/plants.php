@@ -36,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 require_once __DIR__ . '/db.php';
 require_once __DIR__ . '/translate_service.php';
 require_once __DIR__ . '/image_alignment.php';
+require_once __DIR__ . '/content_validator.php';
 
 $pdo = getDbConnection();
 
@@ -106,6 +107,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'error_code' => 'CIRVA_IMAGE_DEAD_LINK',
             'message' => 'URL hình ảnh không thể truy cập hoặc không hợp lệ: ' . ($liveness['error'] ?? 'Không phản hồi'),
             'liveness' => $liveness
+        ], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
+    // 2.2. Kiểm định Chất lượng Nội dung (8-Layer Quality Gate: AEO, GEO, HowTo, FAQs, Zero-Hallucination)
+    $contentQuality = verifyArticleContentQuality($data);
+    if (!$contentQuality['is_valid']) {
+        http_response_code(422);
+        echo json_encode([
+            'success' => false,
+            'error_code' => 'CONTENT_QUALITY_VIOLATION',
+            'message' => 'Nội dung bài viết chưa đạt chuẩn chất lượng SEO, AEO, GEO hoặc thiếu nguồn tham khảo uy tín',
+            'quality_report' => $contentQuality
         ], JSON_UNESCAPED_UNICODE);
         exit;
     }
