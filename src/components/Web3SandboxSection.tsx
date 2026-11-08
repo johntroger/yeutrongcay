@@ -31,13 +31,15 @@ import {
   Vote,
   Landmark,
   ShieldAlert,
-  Leaf
+  Leaf,
+  Flame
 } from 'lucide-react';
 import { Web3TestnetPassport, NftAssetClass, ForestGeoSpec } from '../types/index.ts';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { web3WalletService, WalletState } from '../services/web3WalletService.ts';
 import { awardKarmaPoints, getKarmaState, KarmaState } from '../services/karmaService.ts';
-import { plantPassportRegistryService } from '../services/plantPassportRegistryService.ts';
+import { plantPassportRegistryService, RegisteredPlantPassport } from '../services/plantPassportRegistryService.ts';
+import { BurnPassportModal } from './BurnPassportModal.tsx';
 import { SEED_PLANTS } from '../data/plants.ts';
 import { getPlantBySlug } from '../services/apiService.ts';
 import {
@@ -297,6 +299,56 @@ export const Web3SandboxSection: React.FC = () => {
       return null;
     }
   });
+
+  // Trạng thái Modal Đốt Bỏ & Tái Sinh Hộ Chiếu Thực Vật Số (Burn-to-Reincarnate)
+  // QUY TẮC BẢO MẬT: Chỉ người sở hữu NFT mới được quyền đốt!
+  const [isBurnModalOpen, setIsBurnModalOpen] = useState(false);
+  const [passportToBurn, setPassportToBurn] = useState<RegisteredPlantPassport | null>(null);
+  const [reincarnationNotice, setReincarnationNotice] = useState<string | null>(null);
+
+  const handleOpenBurnModal = (passport: Web3TestnetPassport | RegisteredPlantPassport) => {
+    const allRegs = plantPassportRegistryService.getAllRegistrations();
+    const cleanId = passport.token_id.replace('#', '').trim();
+    const found = allRegs.find(p => p.token_id === cleanId || p.plant_name === passport.plant_name);
+
+    const target: RegisteredPlantPassport = found || {
+      id: `passport-${cleanId}`,
+      token_id: cleanId,
+      plant_name: passport.plant_name,
+      scientific_name: passport.scientific_name,
+      plant_key: '',
+      image_url: passport.image_url,
+      image_sha256: passport.image_sha256,
+      owner_address: passport.owner_address,
+      creator_wallet: passport.owner_address,
+      network: passport.network,
+      evolution_stage: passport.evolution_stage as any,
+      transaction_hash: passport.transaction_hash,
+      contract_address: passport.contract_address || '',
+      minted_at: passport.minted_at,
+      is_onchain: !!passport.is_onchain,
+      status: 'ACTIVE_ORIGINAL' as const
+    };
+
+    setPassportToBurn(target);
+    setIsBurnModalOpen(true);
+  };
+
+  const handleBurnSuccess = (burnedPassport: RegisteredPlantPassport, txHash: string) => {
+    setIsBurnModalOpen(false);
+    setMintedPassport(null);
+    setActiveTab('mint');
+    setPlantSource('custom');
+    setCustomPlantName(burnedPassport.plant_name);
+    setCustomScientific(burnedPassport.scientific_name);
+    setCustomImage(null);
+    setCustomImageSha(null);
+    setReincarnationNotice(
+      isEn
+        ? `Passport #${burnedPassport.token_id} was successfully burned on-chain (Tx: ${txHash.slice(0, 10)}...)! The exclusivity lock is released with a 24h exclusive priority for your wallet. Upload a new photo and re-mint now!`
+        : `Hộ Chiếu #${burnedPassport.token_id} đã được hóa vàng on-chain thành công (Tx: ${txHash.slice(0, 10)}...)! Khóa độc bản được giải phóng và ưu tiên riêng cho ví của bạn trong 24 giờ tới. Hãy tải ảnh mới và đúc lại ngay bây giờ!`
+    );
+  };
 
   // Tự động nạp thông tin loài cây khi bấm "Tạo NFT" từ bài viết (?mint=<slug>)
   useEffect(() => {
@@ -1861,6 +1913,22 @@ export const Web3SandboxSection: React.FC = () => {
               </div>
             </div>
 
+            {/* Thông báo Tái Sinh Hộ Chiếu Thành Công (24h Priority Remint Window) */}
+            {reincarnationNotice && (
+              <div className="p-4 rounded-2xl bg-gradient-to-r from-rose-50 to-amber-50 dark:from-rose-950/70 dark:to-amber-950/70 border border-rose-300 dark:border-rose-800 text-xs text-rose-950 dark:text-rose-100 flex items-center justify-between gap-3 shadow-md">
+                <div className="flex items-center gap-2.5">
+                  <Flame className="w-5 h-5 text-rose-600 dark:text-rose-400 shrink-0 animate-bounce" />
+                  <div>
+                    <span className="font-bold block text-rose-800 dark:text-rose-300">
+                      {isEn ? 'Botanical Reincarnation Window Active' : 'Thời Hạn Tái Sinh Độc Quyền (24h)'}
+                    </span>
+                    <span>{reincarnationNotice}</span>
+                  </div>
+                </div>
+                <button onClick={() => setReincarnationNotice(null)} className="font-bold text-rose-700 dark:text-rose-300 hover:text-rose-950">✕</button>
+              </div>
+            )}
+
             {/* Banner thông báo khi người dùng bấm "Tạo NFT" từ một bài viết cụ thể (?mint=<slug>) */}
             {selectedArticleSlug && (
               <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-950 via-forest-900 to-amber-950/60 border border-amber-400/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -2483,6 +2551,24 @@ export const Web3SandboxSection: React.FC = () => {
                         </div>
                       )}
                     </div>
+
+                    {/* Nút Đốt Bỏ & Tái Sinh: QUY TẮC BẢO MẬT: CHỈ NGƯỜI SỞ HỮU MỚI ĐƯỢC QUYỀN ĐỐT */}
+                    {wallet?.isConnected && wallet.address.toLowerCase() === mintedPassport.owner_address.toLowerCase() && (
+                      <div className="pt-3 mt-3 border-t border-forest-100 dark:border-forest-800 flex items-center justify-between flex-wrap gap-2">
+                        <div className="text-[11px] text-forest-500">
+                          {isEn
+                            ? 'Don\'t like the current photo? As the verified owner, you can burn this NFT to release the exclusivity lock and re-mint with a better photo.'
+                            : 'Không ưng ý ảnh hiện tại? Là chủ sở hữu độc quyền, bạn có quyền đốt bỏ NFT này để giải phóng khóa độc bản và đúc lại ảnh mới.'}
+                        </div>
+                        <button
+                          onClick={() => handleOpenBurnModal(mintedPassport)}
+                          className="px-3.5 py-1.5 rounded-xl bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 hover:bg-rose-100 dark:hover:bg-rose-900/80 border border-rose-300 dark:border-rose-800 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-sm"
+                        >
+                          <Flame className="w-3.5 h-3.5 text-rose-600" />
+                          <span>{isEn ? 'Burn & Re-mint with New Photo' : '🔥 Đốt Bỏ & Tái Sinh Ảnh Mới'}</span>
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -2945,6 +3031,16 @@ export const Web3SandboxSection: React.FC = () => {
         )}
 
       </div>
+
+      {/* Modal Đốt Bỏ & Tái Sinh Hộ Chiếu Thực Vật Số (Burn-to-Reincarnate) */}
+      <BurnPassportModal
+        isOpen={isBurnModalOpen}
+        onClose={() => setIsBurnModalOpen(false)}
+        passport={passportToBurn}
+        connectedWalletAddress={wallet?.address}
+        chainId={wallet?.chainId}
+        onBurnSuccess={handleBurnSuccess}
+      />
     </section>
   );
 };

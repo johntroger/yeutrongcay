@@ -35,8 +35,15 @@ export interface RegisteredPlantPassport {
   contract_address: string;
   minted_at: string;
   is_onchain: boolean;
-  status: 'ACTIVE_ORIGINAL' | 'DUPLICATE_REJECTED';
+  status: 'ACTIVE_ORIGINAL' | 'DUPLICATE_REJECTED' | 'BURNED_RELEASED';
   rejection_reason?: string;
+  burned_at?: string;                     // Thời điểm đốt token
+  burn_tx_hash?: string;                  // Hash giao dịch đốt on-chain
+  burn_reason?: string;                   // Lý do đốt (vd: Đổi ảnh mới)
+  reincarnated_from_token_id?: string;    // Token ID gốc trước khi tái sinh
+  generation?: number;                    // Thế hệ cây (1: Gốc, 2: Tái sinh lần 1...)
+  reincarnation_locked_until?: number;    // Thời hạn ân hạn 24h độc quyền cho chủ cũ
+  reincarnation_owner?: string;           // Địa chỉ ví chủ cũ được ưu tiên tái sinh
   nft_class?: NftAssetClass;             // 5 lớp NFT: botanical, space_method, eco_invention, culinary_recipe, geo_forest_10000m2
   category?: PlantCategory;              // 7 danh mục
   forest_slug?: string;                  // Slug định danh khu rừng (nếu là geo_forest_10000m2)
@@ -593,6 +600,25 @@ export const plantPassportRegistryService = {
     const key = this.normalizeAssetKey(params.plantName, params.scientificName, resolvedClass);
     const userWallet = params.walletAddress?.toLowerCase().trim();
 
+    // TẦNG 0: Kiểm tra thời hạn ân hạn độc quyền 24h sau khi đốt (Grace Period)
+    // Chống cướp quyền đúc: Trong 24h, chỉ duy nhất người sở hữu vừa đốt mới được phép đúc lại!
+    const recentlyBurned = all.find(
+      p => p.status === 'BURNED_RELEASED' &&
+           p.plant_key === key &&
+           p.reincarnation_locked_until &&
+           p.reincarnation_locked_until > Date.now()
+    );
+    if (recentlyBurned) {
+      const isOwner = userWallet && recentlyBurned.reincarnation_owner?.toLowerCase() === userWallet;
+      if (!isOwner) {
+        return {
+          isAllowed: false,
+          existingPassport: recentlyBurned,
+          reason: `Loài cây "${recentlyBurned.plant_name}" vừa được hóa vàng bởi chủ nhân để tái sinh. Hiện đang trong thời hạn ân hạn 24 giờ ưu tiên độc quyền cho ví chủ cũ (${recentlyBurned.reincarnation_owner?.slice(0, 6)}...${recentlyBurned.reincarnation_owner?.slice(-4)})!`
+        };
+      }
+    }
+
     // TẦNG 1: Kiểm tra trùng khớp mã băm SHA-256 (Dấu vân tay hình ảnh số)
     if (params.sha256) {
       const matchSha = all.find(
@@ -1042,6 +1068,87 @@ export const plantPassportRegistryService = {
       registered: newRecord,
       message: 'Hộ Chiếu Cây Độc Bản đã được ghi nhận thành công và hiển thị trong Hồ Sơ Cá Nhân!'
     };
+  },
+
+  /**
+   * ĐỐT BỎ HỘ CHIẾU THỰC VẬT SỐ ĐỂ TÁI SINH
+   * QUY TẮC BẢO MẬT: BẮT BUỘC CHỈ CHỦ SỞ HỮU (owner_address) MỚI CÓ QUYỀN ĐỐT!
+   */
+  burnPassport(params: {
+    tokenId: string;
+    callerWalletAddress: string;
+    txHash: string;
+    reason?: string;
+  }): {
+    success: boolean;
+    burnedPassport?: RegisteredPlantPassport;
+    message: string;
+  } {
+    const all = this.getAllRegistrations();
+    const cleanTokenId = params.tokenId.replace('#', '').trim();
+    const caller = params.callerWalletAddress.toLowerCase().trim();
+
+    const targetIndex = all.findIndex(
+      p => (p.token_id === cleanTokenId || p.token_id === `#${cleanTokenId}` || p.id === cleanTokenId) && p.status === 'ACTIVE_ORIGINAL'
+    );
+
+    if (targetIndex === -1) {
+      return {
+        success: false,
+        message: `Không tìm thấy Hộ Chiếu Độc Bản còn hiệu lực với Token ID #${cleanTokenId}`
+      };
+    }
+
+    const passport = all[targetIndex];
+
+    // KIỂM TRA BẢO MẬT BẮT BUỘC: CHỈ NGƯỜI SỞ HỮU NFT MỚI ĐƯỢC QUYỀN ĐỐT
+    const owner = (passport.owner_address || passport.creator_wallet).toLowerCase().trim();
+    if (owner !== caller) {
+      return {
+        success: false,
+        message: `Bảo mật vi phạm: Bạn không phải là chủ sở hữu của Hộ Chiếu này! Chỉ địa chỉ ví chủ sở hữu (${owner.slice(0, 6)}...${owner.slice(-4)}) mới có quyền đốt bỏ.`
+      };
+    }
+
+    // Cập nhật trạng thái sang BURNED_RELEASED
+    const burnedRecord: RegisteredPlantPassport = {
+      ...passport,
+      status: 'BURNED_RELEASED',
+      burned_at: new Date().toLocaleString('vi-VN'),
+      burn_tx_hash: params.txHash,
+      burn_reason: params.reason || 'Người dùng đốt bỏ để tái sinh với hình ảnh mới đẹp hơn',
+      reincarnation_locked_until: Date.now() + 24 * 60 * 60 * 1000, // 24 giờ ân hạn độc quyền cho chủ cũ
+      reincarnation_owner: caller
+    };
+
+    all[targetIndex] = burnedRecord;
+    localStorage.setItem(REGISTRY_STORAGE_KEY, JSON.stringify(all));
+
+    // Đẩy cập nhật lên Firestore
+    this.uploadToCloud(burnedRecord).catch(() => {});
+
+    // Phát sự kiện toàn hệ thống
+    window.dispatchEvent(new CustomEvent('ytc_passport_burned', { detail: burnedRecord }));
+
+    return {
+      success: true,
+      burnedPassport: burnedRecord,
+      message: `Đã đốt bỏ thành công Hộ Chiếu #${cleanTokenId}! Khóa độc bản của loài "${passport.plant_name}" được giải phóng và ưu tiên cho bạn đúc lại trong 24 giờ tới.`
+    };
+  },
+
+  /**
+   * Lấy danh sách các Hộ Chiếu Cây đã từng được đốt của người dùng
+   */
+  getUserBurnedPassports(walletAddress: string): RegisteredPlantPassport[] {
+    const clean = walletAddress.toLowerCase().trim();
+    return this.getAllRegistrations().filter(
+      p => p.status === 'BURNED_RELEASED' && (
+        p.owner_address.toLowerCase() === clean ||
+        p.creator_wallet.toLowerCase() === clean ||
+        p.reincarnation_owner?.toLowerCase() === clean
+      )
+    );
   },
 
   /**

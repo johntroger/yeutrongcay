@@ -113,7 +113,7 @@ export const ECOSYSTEM_CATEGORIES: Record<PlantCategory, EcosystemCategoryConfig
   space: {
     id: 'space',
     placement: 'home_only',
-    dedicatedPath: '/?cat=space',
+    dedicatedPath: '/khong-gian-xanh',
     defaultNftClass: 'space_method',
     icon: '🏡',
     badgeColorClass: 'bg-cyan-900/85 text-cyan-100 border border-cyan-400/30',
@@ -129,7 +129,7 @@ export const ECOSYSTEM_CATEGORIES: Record<PlantCategory, EcosystemCategoryConfig
   recycle: {
     id: 'recycle',
     placement: 'home_only',
-    dedicatedPath: '/?cat=recycle',
+    dedicatedPath: '/sang-che-tai-che',
     defaultNftClass: 'eco_invention',
     icon: '♻️',
     badgeColorClass: 'bg-lime-900/85 text-lime-100 border border-lime-400/30',
@@ -145,7 +145,7 @@ export const ECOSYSTEM_CATEGORIES: Record<PlantCategory, EcosystemCategoryConfig
   culinary: {
     id: 'culinary',
     placement: 'home_only',
-    dedicatedPath: '/?cat=culinary',
+    dedicatedPath: '/am-thuc-duoc-thien',
     defaultNftClass: 'culinary_recipe',
     icon: '🍵',
     badgeColorClass: 'bg-rose-900/85 text-rose-100 border border-rose-400/30',
@@ -161,7 +161,7 @@ export const ECOSYSTEM_CATEGORIES: Record<PlantCategory, EcosystemCategoryConfig
   forest: {
     id: 'forest',
     placement: 'home_only',
-    dedicatedPath: '/?cat=forest',
+    dedicatedPath: '/vuon-quoc-gia',
     defaultNftClass: 'geo_forest_10000m2',
     icon: '🌲',
     badgeColorClass: 'bg-teal-900/85 text-teal-100 border border-teal-400/30',

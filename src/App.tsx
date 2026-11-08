@@ -59,6 +59,10 @@ function DynamicCategoryWrapper({
   let mode: PlantCategory = 'herb';
   if (cat === 'cay-an-trai' || cat === 'fruit') mode = 'fruit';
   else if (cat === 'cay-canh' || cat === 'ornamental') mode = 'ornamental';
+  else if (cat === 'khong-gian-xanh' || cat === 'thiet-ke-khong-gian' || cat === 'space') mode = 'space';
+  else if (cat === 'sang-che-tai-che' || cat === 'tai-che' || cat === 'recycle') mode = 'recycle';
+  else if (cat === 'am-thuc-duoc-thien' || cat === 'duoc-thien' || cat === 'culinary') mode = 'culinary';
+  else if (cat === 'vuon-quoc-gia' || cat === 'rung-viet-nam' || cat === 'forest') mode = 'forest';
 
   useEffect(() => {
     setCategory(mode);
@@ -75,8 +79,12 @@ export default function App() {
   // Xác định activeMode ban đầu dựa trên URL hiện tại
   const [activeMode, setActiveMode] = useState<PlantCategory>(() => {
     const path = window.location.pathname;
-    if (path.includes('cay-an-trai')) return 'fruit';
-    if (path.includes('cay-canh')) return 'ornamental';
+    if (path.includes('cay-an-trai') || path.includes('fruit')) return 'fruit';
+    if (path.includes('cay-canh') || path.includes('ornamental')) return 'ornamental';
+    if (path.includes('khong-gian-xanh') || path.includes('space')) return 'space';
+    if (path.includes('sang-che-tai-che') || path.includes('recycle')) return 'recycle';
+    if (path.includes('am-thuc-duoc-thien') || path.includes('culinary')) return 'culinary';
+    if (path.includes('vuon-quoc-gia') || path.includes('forest')) return 'forest';
     return 'herb';
   });
 
@@ -231,7 +239,7 @@ export default function App() {
               }
             />
 
-            {/* 3 URL Danh mục riêng biệt (Mở tab độc lập giải phóng trang chủ) */}
+            {/* 7 URL Chuyên mục riêng biệt (Mỗi category 1 URL độc lập, chuẩn SEO) */}
             <Route
               path="/thao-duoc"
               element={
@@ -257,6 +265,86 @@ export default function App() {
               element={
                 <CategoryPage
                   category="ornamental"
+                  searchQuery={searchQuery}
+                  onClearSearch={() => setSearchQuery('')}
+                />
+              }
+            />
+            <Route
+              path="/khong-gian-xanh"
+              element={
+                <CategoryPage
+                  category="space"
+                  searchQuery={searchQuery}
+                  onClearSearch={() => setSearchQuery('')}
+                />
+              }
+            />
+            <Route
+              path="/thiet-ke-khong-gian"
+              element={
+                <CategoryPage
+                  category="space"
+                  searchQuery={searchQuery}
+                  onClearSearch={() => setSearchQuery('')}
+                />
+              }
+            />
+            <Route
+              path="/sang-che-tai-che"
+              element={
+                <CategoryPage
+                  category="recycle"
+                  searchQuery={searchQuery}
+                  onClearSearch={() => setSearchQuery('')}
+                />
+              }
+            />
+            <Route
+              path="/tai-che"
+              element={
+                <CategoryPage
+                  category="recycle"
+                  searchQuery={searchQuery}
+                  onClearSearch={() => setSearchQuery('')}
+                />
+              }
+            />
+            <Route
+              path="/am-thuc-duoc-thien"
+              element={
+                <CategoryPage
+                  category="culinary"
+                  searchQuery={searchQuery}
+                  onClearSearch={() => setSearchQuery('')}
+                />
+              }
+            />
+            <Route
+              path="/duoc-thien"
+              element={
+                <CategoryPage
+                  category="culinary"
+                  searchQuery={searchQuery}
+                  onClearSearch={() => setSearchQuery('')}
+                />
+              }
+            />
+            <Route
+              path="/vuon-quoc-gia"
+              element={
+                <CategoryPage
+                  category="forest"
+                  searchQuery={searchQuery}
+                  onClearSearch={() => setSearchQuery('')}
+                />
+              }
+            />
+            <Route
+              path="/rung-viet-nam"
+              element={
+                <CategoryPage
+                  category="forest"
                   searchQuery={searchQuery}
                   onClearSearch={() => setSearchQuery('')}
                 />

@@ -263,19 +263,19 @@ export const HomePage: React.FC<HomePageProps> = ({
       name: isEn ? 'Bonsai & Calming Living Spaces' : 'Cây Cảnh & Không Gian Thư Thái',
     },
     space: {
-      path: '/?cat=space',
+      path: '/khong-gian-xanh',
       name: isEn ? 'Urban Growing Spaces' : 'Không Gian Trồng Phố',
     },
     recycle: {
-      path: '/?cat=recycle',
+      path: '/sang-che-tai-che',
       name: isEn ? 'Upcycled Garden DIY' : 'Tái Chế Làm Vườn',
     },
     culinary: {
-      path: '/?cat=culinary',
+      path: '/am-thuc-duoc-thien',
       name: isEn ? 'Herbal Kitchen & Drinks' : 'Ẩm Thực & Đồ Uống Xanh',
     },
     forest: {
-      path: '/?cat=forest',
+      path: '/vuon-quoc-gia',
       name: isEn ? 'Natural Forests & Eco-Zones' : 'Rừng & Khu Sinh Thái',
     },
   };

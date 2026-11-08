@@ -97,6 +97,13 @@ Qua quá trình rà soát trực tiếp qua HTTP/HTTPS lên máy chủ sống `h
    - **Quản trị Phi tập trung (Gardener DAO Governance):** Biểu quyết on-chain thật cho các đề xuất bảo tồn nguồn gen (Đề xuất #04: Bảo tồn Sâm Đại Hành Tây Nguyên). Phiếu bầu được ghi nhận vào block thật trên Testnet kèm phần thưởng Trái Tim Yêu Vườn ❤️.
 4. **Trừu tượng hóa Tài khoản Web3 (Account Abstraction & Embedded Wallet):**
    - Nghiên cứu tích hợp Social Login sinh ví ngầm tự động (Keyless) kết hợp Gasless Paymaster (EIP-2771) trên Base Sepolia để người làm vườn không cần cài MetaMask vẫn đúc được Hộ Chiếu Cây.
+5. **Cơ chế Đốt Bỏ & Tái Sinh Hộ Chiếu NFT Độc Bản (Burn-to-Reincarnate Mechanism / Botanical Rebirth):**
+   - **Bản chất vấn đề:** Hệ sinh thái `yeutrongcay.com` áp dụng quy tắc Độc Bản Tuyệt Đối (1 Master NFT duy nhất cho mỗi loài cây / mã gen SHA-256). Nếu người dùng lỡ tải ảnh chất lượng thấp, ảnh bị ngược sáng, hoặc sau một thời gian chậu cây lớn lên trổ hoa đẹp hơn và muốn thay ảnh mới, họ bị hệ thống chặn hoàn toàn vì quy tắc độc bản đang khóa loài cây đó.
+   - **Giải pháp Đốt & Tái Sinh (Burn-to-Remint):**
+     - **On-chain Contract:** Bổ sung hàm `burn(uint256 tokenId)` chuẩn ERC-721 Burnable vào `PlantPassportNFT.sol`. Khi người dùng xác nhận, token cũ bị tiêu hủy vĩnh viễn (gửi về `address(0)`), phát sự kiện `PassportBurned(tokenId, owner, plantName, timestamp)`.
+     - **Registry Engine:** Cập nhật trạng thái NFT cũ thành `BURNED_RELEASED`. Thuật toán `checkPlantExclusivity` chỉ xét các NFT đang `ACTIVE_ORIGINAL`, nên ngay khi NFT cũ bị đốt, khóa độc bản của loài cây đó được GIẢI PHÓNG LẬP TỨC.
+     - **Trải nghiệm Tái Sinh Liền Mạch (Seamless Reincarnation UX):** Ngay sau khi transaction đốt được xác nhận on-chain, hệ thống tự động điều hướng người dùng về Tab Đúc Hộ Chiếu, điền sẵn thông tin loài cây và mở sẵn trường tải ảnh mới để họ đúc lại tức thì.
+     - **Minh bạch Lịch sử Hóa Vàng (Burn Ledger):** Lưu vết toàn bộ lịch sử đốt kèm mã TxHash kiểm chứng trên Block Explorer, không phạt điểm Trái Tim ❤️ vì đây là hành vi nâng cao chất lượng dữ liệu của cộng đồng.
 
 ---
 
@@ -219,6 +226,8 @@ LỘ TRÌNH NÂNG CẤP 4 BƯỚC TIẾP THEO (NEXT FRONTIER ROADMAP)
 - [x] **PWA Offline-First:** Đã xây dựng Native Service Worker (`public/sw.js`) và Web App Manifest (`public/manifest.json`) độc lập, 0 phụ thuộc thư viện bên ngoài, hỗ trợ cache giao diện và cài đặt ứng dụng lên màn hình chính điện thoại.
 - [x] **AGRI-01 (Dược lý học thực chứng & An toàn dược liệu):** Đã mở rộng trường `contraindications` (Chống chỉ định) và `drug_interactions` (Tương tác thuốc) trong `src/types/index.ts`, dữ liệu cây `src/data/plants.ts`, tự động đồng bộ sang `api/plants_data.json` và hiển thị trực quan trong Khối Cảnh báo Y tế chuẩn WCAG AAA trên `PlantDetailPage.tsx`.
 - [x] **Đóng gói Plesk Production:** Đã biên dịch gói nén POSIX `yeutrongcay-production.zip` sẵn sàng triển khai.
+- [x] **WEB3-01 (Agri-DeFi On-chain 100% Testnet):** Hoàn thành tích hợp giao dịch on-chain thật qua ví Web3 (MetaMask/Rabby) trên các mạng Testnet (Base Sepolia, Ethereum Sepolia, BNB Testnet, Polygon Amoy) cho Seed Staking Vault, ReFi Carbon Offset và DAO Governance.
+- [ ] **WEB3-02 (Cơ chế Đốt & Tái Sinh NFT Độc Bản - Burn-to-Reincarnate):** Bổ sung hàm `burn(tokenId)` on-chain vào Smart Contract, cập nhật `plantPassportRegistryService` với trạng thái `BURNED_RELEASED` giúp giải phóng khóa độc bản tức thì khi người dùng muốn đổi ảnh chụp mới cho cây của mình, kèm giao diện Burn Modal và tự động chuyển hướng đúc lại.
 - [ ] **SEC-04 (Mở khóa Admin Plesk Live):** Cập nhật `security.admin_token`, `security.admin_username`, và `security.admin_password` trên `httpdocs/api/config.php` tại máy chủ Plesk để mở khóa trang quản trị trực tiếp.
 - [ ] **PERF-02 (Tối ưu Firebase Bundle):** Chuyển nạp module Firestore sang dạng lazy-load để thu nhỏ chunk `vendor-firebase` 706KB.
 

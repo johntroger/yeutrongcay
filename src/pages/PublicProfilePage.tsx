@@ -17,7 +17,8 @@ import {
   AlertTriangle,
   MapPin,
   X,
-  Upload
+  Upload,
+  Flame
 } from 'lucide-react';
 import {
   plantPassportRegistryService,
@@ -28,11 +29,21 @@ import { UserProfile } from '../types';
 import { useLanguage } from '../context/LanguageContext';
 import { useSEO } from '../utils/useSEO';
 import { getNftClassConfig, inferNftClassFromPassport } from '../config/ecosystemRegistry';
+import { web3WalletService } from '../services/web3WalletService';
+import { BurnPassportModal } from '../components/BurnPassportModal';
 
 const RESERVED_ROUTES = [
   'thao-duoc',
   'cay-an-trai',
   'cay-canh',
+  'khong-gian-xanh',
+  'thiet-ke-khong-gian',
+  'sang-che-tai-che',
+  'tai-che',
+  'am-thuc-duoc-thien',
+  'duoc-thien',
+  'vuon-quoc-gia',
+  'rung-viet-nam',
   'danh-muc',
   'cay',
   'vuon-cua-toi',
@@ -64,6 +75,9 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
   const [copiedSha, setCopiedSha] = useState<string | null>(null);
   const [selectedPassport, setSelectedPassport] = useState<RegisteredPlantPassport | null>(null);
   const [passports, setPassports] = useState<RegisteredPlantPassport[]>([]);
+  const [isBurnModalOpen, setIsBurnModalOpen] = useState(false);
+  const [passportToBurn, setPassportToBurn] = useState<RegisteredPlantPassport | null>(null);
+  const currentWallet = web3WalletService.getSavedWallet();
   const [profileConfig, setProfileConfig] = useState<UserPublicProfileConfig>(() =>
     plantPassportRegistryService.getPublicProfile(cleanHandle)
   );
@@ -752,7 +766,7 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
                   <div className="truncate">SHA-256: {selectedPassport.image_sha256}</div>
                 </div>
 
-                <div className="flex gap-2">
+                <div className="flex gap-2 flex-wrap">
                   <button
                     onClick={() => window.print()}
                     className="flex-1 py-2 rounded-xl bg-forest-900 hover:bg-forest-950 text-white text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer"
@@ -760,6 +774,21 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
                     <Printer className="w-3.5 h-3.5" />
                     <span>In Chứng Nhận Số</span>
                   </button>
+
+                  {/* CHỈ HIỂN THỊ NÚT ĐỐT KHI VÍ KẾT NỐI LÀ CHỦ SỞ HỮU */}
+                  {currentWallet?.address && selectedPassport.owner_address && currentWallet.address.toLowerCase() === selectedPassport.owner_address.toLowerCase() && (
+                    <button
+                      onClick={() => {
+                        setPassportToBurn(selectedPassport);
+                        setIsBurnModalOpen(true);
+                      }}
+                      className="py-2 px-3 rounded-xl bg-rose-50 dark:bg-rose-950/70 text-rose-700 dark:text-rose-300 border border-rose-300 dark:border-rose-800 text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer hover:bg-rose-100"
+                    >
+                      <Flame className="w-3.5 h-3.5 text-rose-600" />
+                      <span>Đốt & Tái Sinh</span>
+                    </button>
+                  )}
+
                   <button
                     onClick={() => setSelectedPassport(null)}
                     className="py-2 px-4 rounded-xl bg-gray-200 dark:bg-charcoal-700 text-gray-800 dark:text-gray-200 text-xs font-bold transition cursor-pointer"
@@ -977,6 +1006,20 @@ export const PublicProfilePage: React.FC<PublicProfilePageProps> = ({ currentUse
             </form>
           </div>
         )}
+
+        {/* Modal Đốt Bỏ & Tái Sinh Hộ Chiếu Thực Vật Số */}
+        <BurnPassportModal
+          isOpen={isBurnModalOpen}
+          onClose={() => setIsBurnModalOpen(false)}
+          passport={passportToBurn}
+          connectedWalletAddress={currentWallet?.address}
+          chainId={currentWallet?.chainId}
+          onBurnSuccess={(burned) => {
+            setIsBurnModalOpen(false);
+            setSelectedPassport(null);
+            navigate(`/web3-sandbox?mint=${encodeURIComponent(burned.plant_name)}`);
+          }}
+        />
 
       </div>
     </div>

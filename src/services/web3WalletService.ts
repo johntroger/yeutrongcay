@@ -495,6 +495,52 @@ export const web3WalletService = {
   },
 
   /**
+   * Đốt bỏ Hộ Chiếu Thực Vật Số ON-CHAIN THẬT
+   * QUY TẮC BẢO MẬT: Bắt buộc chỉ người sở hữu NFT (tokenOwner) mới được quyền đốt
+   */
+  async burnPassportOnChain(params: {
+    tokenId: number;
+    userAddress: `0x${string}`;
+    contractAddress?: `0x${string}`;
+    chainId?: string;
+  }): Promise<string> {
+    if (!window.ethereum) {
+      throw new Error('Không phát hiện tiện ích ví Web3 để thực hiện giao dịch đốt NFT on-chain.');
+    }
+
+    const targetContract = params.contractAddress || this.getContractAddressForChain(params.chainId || null);
+
+    try {
+      // 1. Mã hóa gọi hàm burn(uint256) chuẩn ERC-721 Burnable
+      const callData = encodeFunctionData({
+        abi: PLANT_PASSPORT_ABI,
+        functionName: 'burn',
+        args: [BigInt(params.tokenId)]
+      });
+
+      // 2. Gửi transaction lên ví Web3 của chính chủ sở hữu
+      const txHash = (await window.ethereum.request({
+        method: 'eth_sendTransaction',
+        params: [
+          {
+            from: params.userAddress,
+            to: targetContract,
+            data: callData
+          }
+        ]
+      })) as string;
+
+      return txHash;
+    } catch (err: unknown) {
+      const e = err as { code?: number; message?: string };
+      if (e.code === 4001) {
+        throw new Error('Bạn đã hủy phê duyệt giao dịch đốt NFT trên ví.');
+      }
+      throw new Error(e.message || 'Lỗi khi gửi giao dịch đốt NFT lên blockchain.');
+    }
+  },
+
+  /**
    * Yêu cầu MetaMask thêm NFT vừa đúc vào tab NFTs của ví (EIP-747)
    */
   async addNftToMetaMask(contractAddress: string, tokenId: string): Promise<boolean> {

@@ -90,6 +90,30 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy, onOpenContact }) 
                 </Link>
               </li>
               <li>
+                <Link to="/khong-gian-xanh" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition flex items-center gap-1">
+                  <span>{t('footer.linkSpace')}</span>
+                  <ArrowUpRight className="w-3 h-3 text-cyan-400 opacity-70" />
+                </Link>
+              </li>
+              <li>
+                <Link to="/sang-che-tai-che" target="_blank" rel="noopener noreferrer" className="hover:text-lime-400 transition flex items-center gap-1">
+                  <span>{t('footer.linkRecycle')}</span>
+                  <ArrowUpRight className="w-3 h-3 text-lime-400 opacity-70" />
+                </Link>
+              </li>
+              <li>
+                <Link to="/am-thuc-duoc-thien" target="_blank" rel="noopener noreferrer" className="hover:text-rose-400 transition flex items-center gap-1">
+                  <span>{t('footer.linkCulinary')}</span>
+                  <ArrowUpRight className="w-3 h-3 text-rose-400 opacity-70" />
+                </Link>
+              </li>
+              <li>
+                <Link to="/vuon-quoc-gia" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400 transition flex items-center gap-1">
+                  <span>{t('footer.linkForest')}</span>
+                  <ArrowUpRight className="w-3 h-3 text-teal-400 opacity-70" />
+                </Link>
+              </li>
+              <li className="pt-1 border-t border-forest-800/60">
                 <Link to="/vuon-cua-toi" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition flex items-center gap-1 font-semibold text-herbal-400">
                   <span>{t('footer.linkMyGarden')}</span>
                   <ArrowUpRight className="w-3 h-3 text-emerald-400 opacity-70" />

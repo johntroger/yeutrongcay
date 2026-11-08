@@ -44,6 +44,30 @@ $staticPages = [
         'lastmod'    => $today,
     ],
     [
+        'loc'        => $baseUrl . '/khong-gian-xanh',
+        'changefreq' => 'daily',
+        'priority'   => '0.9',
+        'lastmod'    => $today,
+    ],
+    [
+        'loc'        => $baseUrl . '/sang-che-tai-che',
+        'changefreq' => 'daily',
+        'priority'   => '0.9',
+        'lastmod'    => $today,
+    ],
+    [
+        'loc'        => $baseUrl . '/am-thuc-duoc-thien',
+        'changefreq' => 'daily',
+        'priority'   => '0.9',
+        'lastmod'    => $today,
+    ],
+    [
+        'loc'        => $baseUrl . '/vuon-quoc-gia',
+        'changefreq' => 'daily',
+        'priority'   => '0.9',
+        'lastmod'    => $today,
+    ],
+    [
         'loc'        => $baseUrl . '/bac-si-cay-trong',
         'changefreq' => 'weekly',
         'priority'   => '0.8',

@@ -86,6 +86,13 @@ contract PlantPassportNFT is IERC721Metadata {
         uint256 timestamp
     );
 
+    event PassportBurned(
+        uint256 indexed tokenId,
+        address indexed owner,
+        string plantName,
+        uint256 timestamp
+    );
+
     modifier onlyOwner() {
         require(msg.sender == owner, "Only contract owner");
         _;
@@ -166,6 +173,27 @@ contract PlantPassportNFT is IERC721Metadata {
         emit PassportMinted(tokenId, msg.sender, plantName, sha256Proof, uri);
 
         return tokenId;
+    }
+
+    /**
+     * @notice Đốt bỏ Hộ Chiếu Thực Vật Số cũ (Chỉ duy nhất chủ sở hữu ví mới có quyền đốt)
+     * @dev Bảo vệ nghiêm ngặt: msg.sender bắt buộc phải là ownerOf(tokenId)
+     * @param tokenId Mã token ID Hộ Chiếu muốn tiêu hủy
+     */
+    function burn(uint256 tokenId) public {
+        address tokenOwner = ownerOf(tokenId);
+        require(msg.sender == tokenOwner, "PlantPassport: Only the token owner can burn this NFT");
+
+        string memory plantName = passports[tokenId].plantName;
+
+        _balances[tokenOwner] -= 1;
+        delete _owners[tokenId];
+        delete _tokenURIs[tokenId];
+        delete _tokenApprovals[tokenId];
+        delete passports[tokenId];
+
+        emit Transfer(tokenOwner, address(0), tokenId);
+        emit PassportBurned(tokenId, tokenOwner, plantName, block.timestamp);
     }
 
     function approve(address to, uint256 tokenId) public override {
