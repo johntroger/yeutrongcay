@@ -26,6 +26,8 @@ const PlantDetailPage = lazy(() => import('./pages/PlantDetailPage.tsx').then((m
 const AdminPage = lazy(() => import('./pages/AdminPage.tsx').then((m) => ({ default: m.AdminPage })));
 const SeasonalCalendarPage = lazy(() => import('./pages/SeasonalCalendarPage.tsx').then((m) => ({ default: m.SeasonalCalendarPage })));
 const PublicProfilePage = lazy(() => import('./pages/PublicProfilePage.tsx').then((m) => ({ default: m.PublicProfilePage })));
+const MonetizationCategoryPage = lazy(() => import('./pages/monetization/MonetizationCategoryPage.tsx').then((m) => ({ default: m.MonetizationCategoryPage })));
+const MonetizationArticlePage = lazy(() => import('./pages/monetization/MonetizationArticlePage.tsx').then((m) => ({ default: m.MonetizationArticlePage })));
 
 // Loading fallback chuẩn botanical cho Suspense
 function PageLoadingFallback({ isEn }: { isEn: boolean }) {
@@ -391,6 +393,17 @@ export default function App() {
             <Route path="/lien-he" element={<ContactPage />} />
             <Route path="/lich-nong-vu" element={<SeasonalCalendarPage />} />
             <Route path="/admin" element={<AdminPage />} />
+
+            {/* 6 Chuyên Mục Kinh Tế Xanh & Nông Nghiệp Đô Thị Độc Lập Cấp 1 */}
+            <Route path="/vuon-uom-nhan-giong" element={<MonetizationCategoryPage categorySlug="vuon-uom-nhan-giong" />} />
+            <Route path="/che-bien-sau-duoc-lieu" element={<MonetizationCategoryPage categorySlug="che-bien-sau-duoc-lieu" />} />
+            <Route path="/dich-vu-setup-ban-cong" element={<MonetizationCategoryPage categorySlug="dich-vu-setup-ban-cong" />} />
+            <Route path="/kinh-te-tuan-hoan" element={<MonetizationCategoryPage categorySlug="kinh-te-tuan-hoan" />} />
+            <Route path="/canh-tac-sieu-toc" element={<MonetizationCategoryPage categorySlug="canh-tac-sieu-toc" />} />
+            <Route path="/nong-nghiep-thong-minh" element={<MonetizationCategoryPage categorySlug="nong-nghiep-thong-minh" />} />
+
+            {/* Toàn bộ 24 Bài Viết Chuyên Sâu (Pillar & Sub-articles) chạy qua Route 2 phân đoạn Silo */}
+            <Route path="/:categorySlug/:slug" element={<MonetizationArticlePage />} />
 
             {/* Hồ Sơ Cá Nhân & Bộ Sưu Tập NFT Công Khai Định Danh Theo Email (VD: /tranthanhtung37) */}
             <Route path="/:username" element={<PublicProfilePage currentUser={currentUser} />} />

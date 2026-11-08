@@ -21,6 +21,11 @@
   RewriteCond %{HTTP_USER_AGENT} (facebookexternalhit|Facebot|meta-externalagent|Twitterbot|Zalo|TelegramBot|WhatsApp|LinkedInBot) [NC]
   RewriteRule ^cay/([a-zA-Z0-9\-]+)/?$ api/og_render.php?slug=$1 [L,QSA]
 
+  # Search Engine & AI Crawler SSR Prerendering cho 6 Chuyên Mục Kinh Tế Xanh & 24 Bài Viết Silo
+  RewriteCond %{HTTP_USER_AGENT} (googlebot|bingbot|perplexitybot|gptbot|claudebot|baiduspider|facebookexternalhit|Facebot|meta-externalagent|Twitterbot|Zalo|TelegramBot|WhatsApp|LinkedInBot) [NC]
+  RewriteCond %{REQUEST_URI} ^/(vuon-uom-nhan-giong|che-bien-sau-duoc-lieu|dich-vu-setup-ban-cong|kinh-te-tuan-hoan|canh-tac-sieu-toc|nong-nghiep-thong-minh)/?.*$ [NC]
+  RewriteRule ^(.*)$ api/og_render.php?route=$1 [L,QSA]
+
   # SPA Routing: Route non-existing files/directories to index.html
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d

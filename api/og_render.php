@@ -17,6 +17,20 @@ header('Cache-Control: public, max-age=3600');
 
 $baseUrl = 'https://yeutrongcay.com';
 $slug = isset($_GET['slug']) ? preg_replace('/[^a-z0-9\-]/', '', strtolower($_GET['slug'])) : '';
+$route = isset($_GET['route']) ? trim(preg_replace('/[^a-z0-9\-\/]/', '', strtolower($_GET['route'])), '/') : '';
+
+$monetizationItem = null;
+if (!empty($route)) {
+    $metaFile = __DIR__ . '/monetization_metadata.json';
+    if (file_exists($metaFile)) {
+        $metaData = json_decode(file_get_contents($metaFile), true);
+        if (!empty($metaData['articles'][$route])) {
+            $monetizationItem = $metaData['articles'][$route];
+        } elseif (!empty($metaData['categories'][$route])) {
+            $monetizationItem = $metaData['categories'][$route];
+        }
+    }
+}
 
 $plant = null;
 
@@ -53,7 +67,12 @@ if (!$plant && !empty($slug)) {
 }
 
 // 3. Chuẩn bị tiêu đề, mô tả và ảnh cho thẻ OpenGraph
-if ($plant) {
+if ($monetizationItem) {
+    $pageTitle = htmlspecialchars($monetizationItem['title'] ?? 'Yêu Trồng Cây', ENT_QUOTES, 'UTF-8');
+    $cleanDesc = htmlspecialchars($monetizationItem['description'] ?? '', ENT_QUOTES, 'UTF-8');
+    $pageUrl = "{$baseUrl}/{$route}";
+    $ogImageUrl = htmlspecialchars($monetizationItem['image'] ?? "{$baseUrl}/public/banner-bg-hero.jpg", ENT_QUOTES, 'UTF-8');
+} elseif ($plant) {
     $commonName = htmlspecialchars($plant['common_name'] ?? 'Loài Cây', ENT_QUOTES, 'UTF-8');
     $sciName = htmlspecialchars($plant['scientific_name'] ?? '', ENT_QUOTES, 'UTF-8');
     $descRaw = $plant['description'] ?? 'Cẩm nang cây trồng và chăm sóc ban công đô thị.';

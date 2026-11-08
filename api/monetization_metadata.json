@@ -1,0 +1,156 @@
+{
+  "categories": {
+    "vuon-uom-nhan-giong": {
+      "title": "Vườn Ươm & Nhân Giống Vô Tính | Yêu Trồng Cây",
+      "description": "Làm chủ kỹ thuật nhân giống vô tính thực vật: giâm cành, chiết cành, ghép cành và phối trộn giá thể vô trùng 4D. Tạo 60 bầu cây F1 mỗi tháng.",
+      "image": "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=1200&q=80"
+    },
+    "che-bien-sau-duoc-lieu": {
+      "title": "Chế Biến Sâu & Dược Liệu Thủ Công | Yêu Trồng Cây",
+      "description": "Quy trình chuẩn hóa sản xuất siro ho thảo mộc Brix 63°, trà túi lọc sấy mộc và muối ngâm chân dược liệu tự nhiên không chất bảo quản.",
+      "image": "https://images.unsplash.com/photo-1514733670139-4d87a1941d55?auto=format&fit=crop&w=1200&q=80"
+    },
+    "dich-vu-setup-ban-cong": {
+      "title": "Dịch Vụ Thiết Kế & Thi Công Vườn Ban Công | Yêu Trồng Cây",
+      "description": "Cẩm nang và CAD calculator thiết kế vườn ban công 3 tầng: Tải trọng an toàn <150kg/m², tối ưu DLI và tưới tự chảy không rò rỉ sàn.",
+      "image": "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=1200&q=80"
+    },
+    "kinh-te-tuan-hoan": {
+      "title": "Kinh Tế Tuần Hoàn & Tái Chế Sinh Thái | Yêu Trồng Cây",
+      "description": "Kỹ thuật nuôi trùn quế căn hộ không mùi, ủ men vi sinh Bokashi khử mùi amoniac tuyệt đối và chế tạo than sinh học Biochar cố định carbon.",
+      "image": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1200&q=80"
+    },
+    "canh-tac-sieu-toc": {
+      "title": "Canh Tác Vi Mô & Siêu Thực Phẩm 7 Ngày | Yêu Trồng Cây",
+      "description": "Mô hình nông nghiệp vi mô năng suất cao thu hoạch sau 7 đến 10 ngày. Trồng mầm súp lơ xanh siêu Sulforaphane và nấm sò treo kệ tầng.",
+      "image": "https://images.unsplash.com/photo-1557844352-761f2565b576?auto=format&fit=crop&w=1200&q=80"
+    },
+    "nong-nghiep-thong-minh": {
+      "title": "Nông Nghiệp Thông Minh & Tự Động Hóa IoT | Yêu Trồng Cây",
+      "description": "Ban công số: Tự ráp trạm cảm biến độ ẩm đất dung kháng ESP32, pin mặt trời 20W tự hành và kết nối Bác Sĩ Cây AI chi phí dưới 500k.",
+      "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80"
+    }
+  },
+  "articles": {
+    "vuon-uom-nhan-giong/nhan-giong-ban-cong-micro-nursery": {
+      "title": "Kỹ Thuật Nhân Giống Vô Tính Tại Gia (Micro-Nursery) | Yêu Trồng Cây",
+      "description": "Nhân giống vi mô tại ban công 2m² đòi hỏi kiểm soát giá thể vô trùng độ thoáng khí trên 25%, EC dưới 0.8 mS/cm và độ ẩm 85-90% trong 5 ngày đầu.",
+      "image": "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=1200&q=80"
+    },
+    "vuon-uom-nhan-giong/ky-thuat-giam-canh-dinh-lang-nep": {
+      "title": "Cách Giâm Cành Đinh Lăng Nếp Chuẩn Dược Liệu 100% Bén Rễ | Yêu Trồng Cây",
+      "description": "Chọn cành bánh tẻ màu nâu xám 15-18cm, cắt vát 45 độ sát đốt mắt lá, nhúng tro bếp khử trùng và giâm vào cát xơ dừa sạch tỷ lệ 1:1.",
+      "image": "https://images.unsplash.com/photo-1599685315640-9ceab2f58944?auto=format&fit=crop&w=1200&q=80"
+    },
+    "vuon-uom-nhan-giong/chiet-canh-oi-le-bonsai-ban-cong": {
+      "title": "Kỹ Thuật Chiết Cành Ổi Lê Đài Loan Trong Bầu Xơ Dừa | Yêu Trồng Cây",
+      "description": "Khoanh bóc dải vỏ 1.5cm, cạo sạch màng tượng tầng cambium chống liền sẹo giả, bó bầu mụn dừa ẩm bọc kín và cắt hạ sau 25-30 ngày.",
+      "image": "https://images.unsplash.com/photo-1544077960-604201fe74bc?auto=format&fit=crop&w=1200&q=80"
+    },
+    "vuon-uom-nhan-giong/giam-canh-huong-thao-rosemary-khong-thoi-goc": {
+      "title": "Bí Quyết Giâm Cành Hương Thảo (Rosemary) Chống Thối Đen Cổ Rễ | Yêu Trồng Cây",
+      "description": "Cắt cành bánh tẻ 8-10cm, tuốt sạch lá 3cm gốc, ngâm nước pha 1 giọt oxy già tạo mụn sẹo sáp trắng 5 ngày trước khi cắm vào đá Perlite ẩm.",
+      "image": "https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?auto=format&fit=crop&w=1200&q=80"
+    },
+    "che-bien-sau-duoc-lieu/che-bien-sau-siro-tra-thao-moc": {
+      "title": "Artisanal Herbalism: Chuẩn Hóa Sản Xuất Siro Ho & Trà Thảo Mộc | Yêu Trồng Cây",
+      "description": "Kiểm soát nồng độ chất khô hòa tan ở ngưỡng 62-65° Brix để tự bảo quản tự nhiên không hóa chất, chưng nhiệt độ dưới 80°C bảo tồn Carvacrol.",
+      "image": "https://images.unsplash.com/photo-1514733670139-4d87a1941d55?auto=format&fit=crop&w=1200&q=80"
+    },
+    "che-bien-sau-duoc-lieu/cach-nau-siro-hung-chanh-quat-duong-phen": {
+      "title": "Công Thức Nấu Siro Húng Chanh Quất Đường Phèn Chuẩn Dược | Yêu Trồng Cây",
+      "description": "200g húng chanh, 150g quất bỏ hạt, 250g đường phèn và 1 nhánh gừng nướng. Hấp cách thủy lửa liu riu 45 phút trị ho long đờm cho bé.",
+      "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=1200&q=80"
+    },
+    "che-bien-sau-duoc-lieu/tu-lam-tra-tia-to-sa-chanh-say-lanh": {
+      "title": "Quy Trình Tự Làm Trà Tía Tô Sả Chanh Túi Lọc Sấy Mộc | Yêu Trồng Cây",
+      "description": "Lá tía tô thái sợi 1cm, sả thái lát 1mm, sấy đối lưu dưới 42°C trong 8 tiếng giữ nguyên sắc tố Anthocyanin và đóng túi lọc sợi bắp ngô PLA.",
+      "image": "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=1200&q=80"
+    },
+    "che-bien-sau-duoc-lieu/muoi-ngam-chan-thao-duoc-dinh-lang-la-lot": {
+      "title": "Tự Làm Muối Khoáng Ngâm Chân Dược Liệu Đinh Lăng Lá Lốt | Yêu Trồng Cây",
+      "description": "Muối biển thô, muối Epsom magie sulfat, bột lá lốt đinh lăng sao vàng hạ thổ và tinh dầu tràm gió giúp ngủ sâu, kích thích huyệt Dũng Tuyền.",
+      "image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80"
+    },
+    "dich-vu-setup-ban-cong/dich-vu-setup-tu-thuoc-ban-cong": {
+      "title": "Dịch Vụ Thiết Kế & Thi Công Tủ Thuốc Ban Công Tự Dưỡng | Yêu Trồng Cây",
+      "description": "Mô hình kinh doanh dịch vụ ban công chung cư: Tải trọng ướt an toàn <150kg/m², tối ưu phân tầng tán theo DLI và khay chân đệm EPDM chống thấm.",
+      "image": "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=1200&q=80"
+    },
+    "dich-vu-setup-ban-cong/trong-cay-ban-cong-huong-tay-chiu-nang-gat": {
+      "title": "Giải Pháp Thiết Kế Vườn Thảo Dược Ban Công Hướng Tây Nắng Gắt | Yêu Trồng Cây",
+      "description": "Dùng chậu cách nhiệt có lớp xốp bạc, phủ bổi mùn vỏ thông 3cm giảm bốc hơi 70% và bố trí hàng rào cây lá cứng cản nhiệt.",
+      "image": "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=1200&q=80"
+    },
+    "dich-vu-setup-ban-cong/cong-thuc-tron-dat-trong-rau-ban-cong-3-nam": {
+      "title": "Công Thức Trộn Đất Sống (Living Soil) Ban Công 3 Năm Không Thay Đất | Yêu Trồng Cây",
+      "description": "35% mùn hữu cơ đã xả chát, 35% đá Pumice và Perlite, 20% trấu hun nung chậm và 10% bột đá basalt bổ sung nấm rễ Mycorrhizae.",
+      "image": "https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&w=1200&q=80"
+    },
+    "dich-vu-setup-ban-cong/he-thong-tuoi-nho-giot-ban-cong-khong-can-bom": {
+      "title": "Tự Lắp Hệ Thống Tưới Nhỏ Giọt Ban Công Tự Chảy Trọng Lực | Yêu Trồng Cây",
+      "description": "Đặt bình 20L cao 1m tạo áp suất tĩnh 0.1 bar, ống PE 8mm và béc nhỏ giọt xoáy ren điều chỉnh 1-2L/h, an toàn tuyệt đối không lo chập điện.",
+      "image": "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=1200&q=80"
+    },
+    "kinh-te-tuan-hoan/kinh-te-tuan-hoan-nuoi-trun-que-ban-cong": {
+      "title": "Khép Kín Vòng Dinh Dưỡng: Biến Rác Nhà Bếp Thành Phân Trùn Quế | Yêu Trồng Cây",
+      "description": "Cân bằng tỷ lệ C:N 25:1 đến 30:1, phủ bìa carton vụn khử mùi amoniac, thu hoạch 12-15kg phân trùn đen mịn và 5L dịch trà trùn mỗi tháng.",
+      "image": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1200&q=80"
+    },
+    "kinh-te-tuan-hoan/cach-nuoi-trun-que-thung-xop-trong-can-ho": {
+      "title": "Hướng Dẫn Nuôi Trùn Quế Thùng Xốp Trong Căn Hộ Tuyệt Đối Không Hôi | Yêu Trồng Cây",
+      "description": "Khoét lỗ thông hơi dán lưới chống ruồi giấm, đệm 5cm giấy báo ẩm, chôn rác theo góc luân phiên và luôn đậy kín khăn ẩm.",
+      "image": "https://images.unsplash.com/photo-1592417817098-8f3d69109853?auto=format&fit=crop&w=1200&q=80"
+    },
+    "kinh-te-tuan-hoan/u-rac-nha-bep-bang-men-bokashi-khong-hoi": {
+      "title": "Cách Làm Thùng Ủ Rác Nhà Bếp Bokashi Bằng Men Vi Sinh Bản Địa | Yêu Trồng Cây",
+      "description": "Lên men kỵ khí nhờ vi khuẩn Lactic hạ pH dưới 4.0, xử lý được cả cơm thịt cá thừa, xả dịch tưới vàng trong thơm mùi dấm 3 ngày/lần.",
+      "image": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=80"
+    },
+    "kinh-te-tuan-hoan/tu-lam-than-sinh-hoc-biochar-tai-gia": {
+      "title": "Cách Làm & Hoạt Hóa Than Sinh Học (Biochar) Từ Vỏ Trấu và Cành Khô | Yêu Trồng Cây",
+      "description": "Nung yếm khí TLUD không khói, dập nước khi than đỏ hồng và sạc vi sinh trong dịch trùn quế 7 ngày trước khi trộn vào đất trồng.",
+      "image": "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1200&q=80"
+    },
+    "canh-tac-sieu-toc/rau-mam-microgreens-nam-an-do-thi": {
+      "title": "Nông Nghiệp Vi Mô Siêu Cao Sản: Khởi Nghiệp Rau Mầm & Nấm Sò 7 Ngày | Yêu Trồng Cây",
+      "description": "Mô hình xoay vòng vốn 7 ngày: 3 ngày ủ tối ép tạ 2kg và 4 ngày đón sáng quang hợp, đạt năng suất 1.2kg mầm súp lơ xanh/khay 1020.",
+      "image": "https://images.unsplash.com/photo-1557844352-761f2565b576?auto=format&fit=crop&w=1200&q=80"
+    },
+    "canh-tac-sieu-toc/cach-trong-rau-mam-sup-lo-xanh-sulforaphane": {
+      "title": "Quy Trình Trồng Mầm Súp Lơ Xanh Siêu Sulforaphane Thu Hoạch 7 Ngày | Yêu Trồng Cây",
+      "description": "Ngâm hạt 4 tiếng nước ấm 45°C, gieo 30g/khay trên xơ dừa ẩm 2cm, đè tạ 2kg trong bóng tối 72 giờ và cắt mầm vào sáng sớm ngày thứ 7.",
+      "image": "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1200&q=80"
+    },
+    "canh-tac-sieu-toc/trong-nam-so-nam-bao-ngu-ke-ban-cong": {
+      "title": "Kinh Nghiệm Treo 20 Bịch Phôi Nấm Sò Ban Công Thu 2kg/Tuần | Yêu Trồng Cây",
+      "description": "Treo dây dù góc râm mát kín gió, rạch 4 vết chéo 3cm so le, xịt sương ẩm 85% ngày 3 lần và nhổ trọn gốc cụm khi mép nấm phẳng.",
+      "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80"
+    },
+    "canh-tac-sieu-toc/kinh-doanh-rau-mam-cho-be-an-dam-ban-kinh-2km": {
+      "title": "Kế Hoạch Khởi Nghiệp Rau Mầm Ăn Dặm Bán Kính 2km Chung Cư | Yêu Trồng Cây",
+      "description": "Gói thuê bao Subscription giao 2 hộp/tuần giá 60k/tuần, cắt trước khi giao 30 phút, tỷ suất lợi nhuận ròng trên 65%.",
+      "image": "https://images.unsplash.com/photo-1526367790999-0150786686a2?auto=format&fit=crop&w=1200&q=80"
+    },
+    "nong-nghiep-thong-minh/cam-bien-iot-tu-dong-hoa-ban-cong": {
+      "title": "Nông Nghiệp Số Ban Công: Tự Ráp Trạm Cảm Biến IoT & Năng Lượng Mặt Trời | Yêu Trồng Cây",
+      "description": "ESP32 kết nối Wi-Fi, cảm biến dung kháng v1.2 chống ăn mòn, pin mặt trời 20W và bơm màng 12V, tự động gửi cảnh báo về Telegram.",
+      "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80"
+    },
+    "nong-nghiep-thong-minh/tu-che-cam-bien-do-am-dat-esp32": {
+      "title": "Hướng Dẫn Tự Làm Cảm Biến Độ Ẩm Đất ESP32 Dưới 100k Báo Smartphone | Yêu Trồng Cây",
+      "description": "Nối cảm biến dung kháng vào GPIO 34 (ADC1), nạp firmware đọc ADC và kết nối Telegram Bot báo tin nhắn khi đất khô dưới 30%.",
+      "image": "https://images.unsplash.com/photo-1555664424-778a1e5e1b48?auto=format&fit=crop&w=1200&q=80"
+    },
+    "nong-nghiep-thong-minh/den-led-quang-hop-full-spectrum-cho-can-ho": {
+      "title": "Cách Chọn Đèn LED Quang Hợp Căn Hộ Thiếu Sáng: Đo PPFD & DLI | Yêu Trồng Cây",
+      "description": "Chip LED toàn phổ 4000K kết hợp đỏ sâu 660nm, treo cách ngọn 35cm đạt PPFD 150-250 µmol/m²/s, hẹn giờ 12-14 giờ/ngày.",
+      "image": "https://images.unsplash.com/photo-1508873696983-2df57046475a?auto=format&fit=crop&w=1200&q=80"
+    },
+    "nong-nghiep-thong-minh/nhan-dien-sau-benh-bang-ai-bac-si-cay": {
+      "title": "Ứng Dụng AI Thị Giác Máy Tính Nhận Diện Sớm Bệnh Lá & Kê Đơn Sinh Học | Yêu Trồng Cây",
+      "description": "Mô hình MobileNetV3 nhận diện chính xác 94% bệnh vàng lá, rệp sáp, nhện đỏ chích hút và đề xuất phác đồ dầu neem nhũ hóa bồ hòn an toàn.",
+      "image": "https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?auto=format&fit=crop&w=1200&q=80"
+    }
+  }
+}
