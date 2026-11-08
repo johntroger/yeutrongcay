@@ -766,7 +766,7 @@ export async function addGardenPlant(plant: Partial<GardenPlant> & { user_id?: s
       planted_date: plant.planted_date || new Date().toISOString().split('T')[0],
       pot_type: plant.pot_type || 'Chậu nhựa 35cm',
       current_status: plant.current_status || 'healthy',
-      cover_image_url: plant.cover_image_url || `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><rect width="100%" height="100%" fill="%23064e3b"/><g fill="none" stroke="%2334d399" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" transform="translate(250, 120)"><path d="M50 160 C50 100, 10 70, 0 50 C40 50, 80 80, 80 160"/><path d="M50 160 C50 90, 90 60, 100 40 C70 40, 40 70, 30 140"/><line x1="50" y1="160" x2="50" y2="20"/></g><text x="50%" y="82%" text-anchor="middle" fill="%23a7f3d0" font-family="system-ui,sans-serif" font-size="16" font-weight="600" letter-spacing="1">YEU TRONG CAY</text></svg>`,
+      cover_image_url: plant.cover_image_url || '/logo.jpg',
       notes: plant.notes,
       created_at: new Date().toISOString()
     };
@@ -794,7 +794,7 @@ export async function addPlantDiaryEntry(diary: Partial<PlantDiaryEntry>): Promi
       entry_date: diary.entry_date || new Date().toISOString().split('T')[0],
       stage: diary.stage || 'Đang sinh trưởng',
       note: diary.note || 'Cây phát triển tốt',
-      image_url: diary.image_url || 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Leaf_-pani_koorkka.JPG/330px-Leaf_-pani_koorkka.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+      image_url: diary.image_url || '/logo.jpg',
       image_sha256: diary.image_sha256,
       status: 'visible',
       created_at: new Date().toISOString()

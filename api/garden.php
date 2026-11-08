@@ -239,6 +239,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $potType = trim($input['pot_type'] ?? 'Chậu nhựa 35cm');
         $status = in_array($input['current_status'] ?? '', ['healthy', 'flowering', 'fruiting', 'recovering', 'dormant']) ? $input['current_status'] : 'healthy';
         $coverImageUrl = trim($input['cover_image_url'] ?? '');
+        if (empty($coverImageUrl)) {
+            $coverImageUrl = '/logo.jpg';
+        }
         $notes = trim($input['notes'] ?? '');
 
         // Tự động tìm hoặc tạo vườn cho người dùng nếu có user_id

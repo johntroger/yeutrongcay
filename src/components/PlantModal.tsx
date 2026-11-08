@@ -31,7 +31,10 @@ export const PlantModal: React.FC<PlantModalProps> = ({ plant, onClose }) => {
             onError={(e) => {
               const target = e.target as HTMLImageElement;
               target.onerror = null;
-              target.src = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="960" height="480" viewBox="0 0 960 480"><rect width="100%" height="100%" fill="%23064e3b"/><g fill="none" stroke="%2334d399" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" transform="translate(430, 160)"><path d="M50 160 C50 100, 10 70, 0 50 C40 50, 80 80, 80 160"/><path d="M50 160 C50 90, 90 60, 100 40 C70 40, 40 70, 30 140"/><line x1="50" y1="160" x2="50" y2="20"/></g><text x="50%" y="82%" text-anchor="middle" fill="%23a7f3d0" font-family="system-ui,sans-serif" font-size="20" font-weight="600" letter-spacing="1">YEU TRONG CAY</text></svg>`;
+              target.src = '/logo.jpg';
+              target.style.objectFit = 'contain';
+              target.style.backgroundColor = '#ffffff';
+              target.style.padding = '16px';
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/80 via-transparent to-transparent flex items-end p-6">
