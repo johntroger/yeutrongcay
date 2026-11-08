@@ -174,8 +174,8 @@ if (file_exists($jsonFile)) {
             if (!isset($allPlants[$slug])) {
                 $allPlants[$slug] = $jp;
             } else {
-                // Hợp nhất dữ liệu bài thuốc, mùa vụ và cập nhật ảnh mới nhất
-                if (!empty($jp['image_url'])) {
+                // Hợp nhất dữ liệu bài thuốc, mùa vụ; ưu tiên giữ nguyên ảnh tùy chỉnh từ MySQL nếu đã có
+                if (!empty($jp['image_url']) && empty($allPlants[$slug]['image_url'])) {
                     $allPlants[$slug]['image_url'] = $jp['image_url'];
                     if ($pdo && !empty($allPlants[$slug]['id'])) {
                         try {
@@ -346,6 +346,27 @@ $postCount = (int)($chosenItem['post_count'] ?? 0);
 $angle = ($postCount % 3) + 1; // 1, 2 hoặc 3
 
 $plantData = $allPlants[$slug] ?? null;
+
+// Luôn truy vấn lại thông tin & ảnh thực tế mới nhất từ Database ngay tại thời điểm đăng
+if ($pdo) {
+    try {
+        $freshStmt = $pdo->prepare("SELECT common_name, scientific_name, category, description, image_url, sunlight, watering, growth_time FROM plants WHERE slug = :slug LIMIT 1");
+        $freshStmt->execute([':slug' => $slug]);
+        $freshRow = $freshStmt->fetch();
+        if ($freshRow) {
+            if ($plantData === null) $plantData = $freshRow;
+            if (!empty($freshRow['image_url'])) {
+                $plantData['image_url'] = trim($freshRow['image_url']);
+            }
+            if (!empty($freshRow['common_name'])) {
+                $plantData['common_name'] = trim($freshRow['common_name']);
+            }
+            if (!empty($freshRow['description'])) {
+                $plantData['description'] = trim($freshRow['description']);
+            }
+        }
+    } catch (\Throwable $e) {}
+}
 $caption = '';
 $targetUrl = $chosenItem['target_url'];
 $utmUrl = "{$targetUrl}?utm_source=facebook&utm_medium=fanpage&utm_campaign=daily_8am&utm_content=angle_{$angle}";
@@ -504,52 +525,136 @@ if (!$enabled || empty($pageId) || empty($pageToken) || strpos($pageToken, 'YOUR
         'note' => 'Hệ thống đã hoạt động chính xác 100%. Vui lòng điền page_id và page_access_token thật vào api/config.php để đẩy lên Fanpage thực tế.'
     ];
 } else {
-    // Chuẩn bị URL ảnh độ phân giải cao 1200x630 trực tiếp từ máy chủ yeutrongcay.com
-    // (Bảo đảm 100% không bị lỗi Wikimedia 403 chặn bot Facebook khi cào ảnh từ bên thứ ba)
-    $photoUrl = "{$baseUrl}/api/og_image.php?slug=" . urlencode($slug);
-    if (!empty($plantData['image_url']) && strpos($plantData['image_url'], 'wikimedia.org') === false) {
-        $photoUrl = $plantData['image_url'];
+    // 8. TỰ ĐỘNG KIỂM TRA & XÁC THỰC ẢNH MỚI NHẤT TRƯỚC KHI ĐĂNG
+    $plantImgUrl = trim($plantData['image_url'] ?? '');
+    $plantCacheDir = __DIR__ . '/../uploads/og_cache';
+    if (!is_dir($plantCacheDir)) {
+        @mkdir($plantCacheDir, 0755, true);
+    }
+    $plantCacheFile = $plantCacheDir . "/{$slug}.jpg";
+    $plantMetaFile  = $plantCacheDir . "/{$slug}.meta.json";
+
+    // Đối chiếu xem ảnh của bài viết có thay đổi so với file đã lưu đệm hay không
+    $cachedMeta = file_exists($plantMetaFile) ? json_decode(@file_get_contents($plantMetaFile), true) : null;
+    $needRefresh = false;
+
+    // Kiểm tra xem ảnh nguồn là file cục bộ trên máy chủ hay URL bên ngoài
+    $isLocalSource = false;
+    $localSourcePath = '';
+    if (!empty($plantImgUrl)) {
+        if (strpos($plantImgUrl, 'http') !== 0) {
+            $localSourcePath = __DIR__ . '/../' . ltrim($plantImgUrl, '/');
+            if (file_exists($localSourcePath)) $isLocalSource = true;
+        } else {
+            $parsedUrlPath = parse_url($plantImgUrl, PHP_URL_PATH);
+            if (!empty($parsedUrlPath)) {
+                $checkLocal = __DIR__ . '/..' . $parsedUrlPath;
+                if (file_exists($checkLocal) && filesize($checkLocal) > 1024) {
+                    $isLocalSource = true;
+                    $localSourcePath = $checkLocal;
+                }
+            }
+        }
+    }
+
+    if (!file_exists($plantCacheFile) || filesize($plantCacheFile) < 1024) {
+        $needRefresh = true; // Chưa có cache hoặc file bị rỗng
+    } elseif (!empty($plantImgUrl)) {
+        if (empty($cachedMeta) || ($cachedMeta['source_url'] ?? '') !== $plantImgUrl) {
+            $needRefresh = true; // URL ảnh nguồn đã được cập nhật sang ảnh mới
+        } elseif ($isLocalSource && file_exists($localSourcePath)) {
+            if (filemtime($localSourcePath) > filemtime($plantCacheFile)) {
+                $needRefresh = true; // File ảnh gốc nội bộ vừa được sửa đổi mới hơn cache
+            }
+        }
+    }
+
+    // Nếu ảnh có cập nhật mới hoặc chưa có cache, tiến hành tải/sao chép và xác thực ngay
+    if ($needRefresh && !empty($plantImgUrl)) {
+        $downloadSuccess = false;
+        if ($isLocalSource && file_exists($localSourcePath)) {
+            if (@copy($localSourcePath, $plantCacheFile)) {
+                $downloadSuccess = true;
+            }
+        } else {
+            $downloadUrl = $plantImgUrl;
+            // Nâng độ phân giải nếu là thumbnail Wikimedia 330px
+            if (strpos($downloadUrl, '/330px-') !== false) {
+                $downloadUrl = preg_replace('/\/330px-/', '/960px-', $downloadUrl);
+            }
+            
+            $ch = curl_init($downloadUrl);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+            curl_setopt($ch, CURLOPT_USERAGENT, 'YeuTrongCayBot/1.0 (https://yeutrongcay.com; dev@yeutrongcay.com)');
+            $imgRaw = curl_exec($ch);
+            $imgHttp = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+
+            // Nếu ảnh 960px bị 404, thử lại URL gốc ban đầu
+            if (($imgHttp !== 200 || empty($imgRaw) || strlen($imgRaw) < 1024) && $downloadUrl !== $plantImgUrl) {
+                $ch = curl_init($plantImgUrl);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+                curl_setopt($ch, CURLOPT_TIMEOUT, 12);
+                curl_setopt($ch, CURLOPT_USERAGENT, 'YeuTrongCayBot/1.0 (https://yeutrongcay.com; dev@yeutrongcay.com)');
+                $imgRaw = curl_exec($ch);
+                $imgHttp = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                curl_close($ch);
+            }
+
+            if ($imgHttp === 200 && !empty($imgRaw) && strlen($imgRaw) > 1024) {
+                @file_put_contents($plantCacheFile, $imgRaw);
+                $downloadSuccess = true;
+            }
+        }
+
+        // Xác thực ảnh tải về hợp lệ (đảm bảo không phải trang lỗi HTML)
+        if ($downloadSuccess && file_exists($plantCacheFile)) {
+            $imgInfo = @getimagesize($plantCacheFile);
+            if ($imgInfo !== false && $imgInfo[0] > 100 && $imgInfo[1] > 100) {
+                @file_put_contents($plantMetaFile, json_encode([
+                    'source_url'   => $plantImgUrl,
+                    'url_sha256'   => hash('sha256', $plantImgUrl),
+                    'width'        => $imgInfo[0],
+                    'height'       => $imgInfo[1],
+                    'file_size'    => filesize($plantCacheFile),
+                    'verified_at'  => date('Y-m-d H:i:s'),
+                    'slug'         => $slug
+                ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+            } else {
+                @unlink($plantCacheFile); // File không hợp lệ thì xóa bỏ
+            }
+        }
+    }
+
+    // Chuẩn bị URL ảnh độ phân giải cao 1200x630 kèm query bust cache v=...
+    $photoUrl = "{$baseUrl}/api/og_image.php?slug=" . urlencode($slug) . "&v=" . substr(md5($plantImgUrl), 0, 8);
+    if (!empty($plantImgUrl) && strpos($plantImgUrl, 'wikimedia.org') === false) {
+        $photoUrl = $plantImgUrl;
     }
 
     $publishUrl = "https://graph.facebook.com/{$graphVer}/{$pageId}/photos";
-    
-    // Tự động tải ảnh thật của cây về máy chủ để lưu đệm và upload thẳng lên Facebook
-    $plantImgUrl = $plantData['image_url'] ?? '';
-    $plantCacheDir = __DIR__ . '/../uploads/og_cache';
-    $plantCacheFile = $plantCacheDir . "/{$slug}.jpg";
 
-    if ((!file_exists($plantCacheFile) || filesize($plantCacheFile) < 1024) && !empty($plantImgUrl)) {
-        if (!is_dir($plantCacheDir)) {
-            @mkdir($plantCacheDir, 0755, true);
-        }
-        $ch = curl_init($plantImgUrl);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 12);
-        curl_setopt($ch, CURLOPT_USERAGENT, 'YeuTrongCayBot/1.0 (https://yeutrongcay.com; dev@yeutrongcay.com)');
-        $imgRaw = curl_exec($ch);
-        $imgHttp = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-        if ($imgHttp === 200 && !empty($imgRaw) && strlen($imgRaw) > 1024) {
-            @file_put_contents($plantCacheFile, $imgRaw);
-        }
-    }
-
-    // Tìm ảnh local trên máy chủ để ưu tiên upload trực tiếp qua multipart (bền vững 100%, không lo bot bị chặn)
-    $localCandidates = [
-        $plantCacheFile,
-        __DIR__ . '/../banner-bg-hero.jpg',
-        __DIR__ . '/../public/banner-bg-hero.jpg',
-        __DIR__ . '/../yeutrongcay-banner.png',
-        __DIR__ . '/../public/yeutrongcay-banner.png',
-        __DIR__ . '/../logo.jpg',
-        __DIR__ . '/../public/logo.jpg'
-    ];
+    // Ưu tiên tải thẳng file ảnh thật đã kiểm tra hợp lệ lên Facebook qua Multipart
     $localFileToUpload = '';
-    foreach ($localCandidates as $cand) {
-        if (file_exists($cand) && filesize($cand) > 1024) {
-            $localFileToUpload = $cand;
-            break;
+    if (file_exists($plantCacheFile) && filesize($plantCacheFile) > 1024) {
+        $localFileToUpload = $plantCacheFile;
+    } else {
+        $fallbackCandidates = [
+            __DIR__ . '/../banner-bg-hero.jpg',
+            __DIR__ . '/../public/banner-bg-hero.jpg',
+            __DIR__ . '/../yeutrongcay-banner.png',
+            __DIR__ . '/../public/yeutrongcay-banner.png',
+            __DIR__ . '/../logo.jpg',
+            __DIR__ . '/../public/logo.jpg'
+        ];
+        foreach ($fallbackCandidates as $cand) {
+            if (file_exists($cand) && filesize($cand) > 1024) {
+                $localFileToUpload = $cand;
+                break;
+            }
         }
     }
 

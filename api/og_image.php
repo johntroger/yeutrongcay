@@ -28,19 +28,7 @@ foreach ($candidatePaths as $p) {
     }
 }
 
-// 1. Phục vụ ngay từ Cache nếu đã tạo
-if (!empty($slug)) {
-    $cachedFile = $cacheDir . '/' . $slug . '.jpg';
-    if (file_exists($cachedFile) && filesize($cachedFile) > 1024) {
-        header('Content-Type: image/jpeg');
-        header('Cache-Control: public, max-age=2592000'); // Cache 30 ngày
-        header('X-OG-Cache: HIT');
-        readfile($cachedFile);
-        exit;
-    }
-}
-
-// 2. Tra cứu URL ảnh gốc của cây
+// 1. Tra cứu URL ảnh gốc của cây từ MySQL hoặc JSON trước tiên để đối chiếu độ mới
 $imageUrl = '';
 $plantName = 'Yêu Trồng Cây';
 
@@ -57,7 +45,7 @@ if (!empty($slug)) {
                     $stmt->execute([':slug' => $slug]);
                     $row = $stmt->fetch();
                     if ($row && !empty($row['image_url'])) {
-                        $imageUrl = $row['image_url'];
+                        $imageUrl = trim($row['image_url']);
                         $plantName = $row['common_name'];
                     }
                 } catch (\Throwable $e) {}
@@ -73,12 +61,29 @@ if (!empty($slug)) {
             if (is_array($plants)) {
                 foreach ($plants as $p) {
                     if (!empty($p['slug']) && $p['slug'] === $slug) {
-                        $imageUrl = $p['image_url'] ?? '';
+                        $imageUrl = trim($p['image_url'] ?? '');
                         $plantName = $p['common_name'] ?? 'Yêu Trồng Cây';
                         break;
                     }
                 }
             }
+        }
+    }
+}
+
+// 2. Phục vụ ngay từ Cache nếu ảnh nguồn KHÔNG THAY ĐỔI
+if (!empty($slug)) {
+    $cachedFile = $cacheDir . '/' . $slug . '.jpg';
+    $metaFile   = $cacheDir . '/' . $slug . '.meta.json';
+    if (file_exists($cachedFile) && filesize($cachedFile) > 1024) {
+        $meta = file_exists($metaFile) ? json_decode(@file_get_contents($metaFile), true) : null;
+        // Chỉ dùng cache nếu source_url trong metadata khớp chính xác với ảnh bài viết hiện tại
+        if (!empty($meta) && !empty($imageUrl) && ($meta['source_url'] ?? '') === $imageUrl) {
+            header('Content-Type: image/jpeg');
+            header('Cache-Control: public, max-age=2592000'); // Cache 30 ngày
+            header('X-OG-Cache: HIT');
+            readfile($cachedFile);
+            exit;
         }
     }
 }
@@ -194,10 +199,17 @@ if ($srcRatio > $targetRatio) {
 
 imagecopyresampled($destImg, $srcImg, $dstX, $dstY, 0, 0, $renderW, $renderH, $srcW, $srcH);
 
-// Lưu vào thư mục cache nếu có slug
+// Lưu vào thư mục cache nếu có slug kèm metadata xác thực nguồn ảnh
 if (!empty($slug)) {
     $cachedFile = $cacheDir . '/' . $slug . '.jpg';
+    $metaFile   = $cacheDir . '/' . $slug . '.meta.json';
     @imagejpeg($destImg, $cachedFile, 88);
+    @file_put_contents($metaFile, json_encode([
+        'source_url'  => $imageUrl,
+        'url_sha256'  => hash('sha256', $imageUrl),
+        'created_at'  => date('Y-m-d H:i:s'),
+        'slug'        => $slug
+    ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
 }
 
 header('Content-Type: image/jpeg');
