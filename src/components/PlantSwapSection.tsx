@@ -23,6 +23,16 @@ import { ReportModal } from './ReportModal.tsx';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { InteractiveSwapMap } from './InteractiveSwapMap.tsx';
 
+// Logo chính thức của website dùng làm ảnh mặc định khi người dùng không tải ảnh lên
+const DEFAULT_SWAP_IMAGE = '/logo.jpg';
+
+const normalizeSwapImage = (url?: string | null): string => {
+  if (!url || url.trim() === '' || url.includes('photo-1544005313-94ddf0286df2')) {
+    return DEFAULT_SWAP_IMAGE;
+  }
+  return url;
+};
+
 export const PlantSwapSection: React.FC = () => {
   const { t, isEn } = useLanguage();
   const [offers, setOffers] = useState<SwapOffer[]>(() => {
@@ -31,7 +41,12 @@ export const PlantSwapSection: React.FC = () => {
       localStorage.removeItem('ytc_swap_offers_v2');
       const saved = localStorage.getItem('ytc_user_swap_offers_v3');
       if (saved) {
-        const userCreatedOffers = JSON.parse(saved).filter((item: SwapOffer) => item.id.startsWith('usr-swap-'));
+        const userCreatedOffers = JSON.parse(saved)
+          .filter((item: SwapOffer) => item.id.startsWith('usr-swap-'))
+          .map((item: SwapOffer) => ({
+            ...item,
+            image_url: normalizeSwapImage(item.image_url),
+          }));
         return [...userCreatedOffers, ...SEED_SWAP_OFFERS];
       }
     } catch {
@@ -45,7 +60,11 @@ export const PlantSwapSection: React.FC = () => {
     let isMounted = true;
     getSwapOffers().then(({ offers: liveOffers }) => {
       if (isMounted && liveOffers && liveOffers.length > 0) {
-        setOffers(liveOffers);
+        const normalized = liveOffers.map((item) => ({
+          ...item,
+          image_url: normalizeSwapImage(item.image_url),
+        }));
+        setOffers(normalized);
       }
     });
     return () => {
@@ -147,6 +166,8 @@ export const PlantSwapSection: React.FC = () => {
       return;
     }
 
+    const finalImageUrl = uploadedImageUrl || DEFAULT_SWAP_IMAGE;
+
     const payload = {
       plant_name: newPlantName.trim(),
       scientific_name: isEn ? 'Homegrown Variety' : 'Giống nhà vườn bản địa',
@@ -157,7 +178,7 @@ export const PlantSwapSection: React.FC = () => {
       description: newDescription.trim(),
       contact_note: newContact.trim(),
       quarantine_pledge: pledgedQuarantine,
-      image_url: uploadedImageUrl || 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&q=80',
+      image_url: finalImageUrl,
       user_name: isEn ? 'You (Gardener)' : 'Bạn (Chủ Vườn)',
       user_avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80',
     };
@@ -165,7 +186,10 @@ export const PlantSwapSection: React.FC = () => {
     try {
       const res = await submitSwapOffer(payload);
       if (res.success && res.data) {
-        setOffers((prev) => [res.data!, ...prev]);
+        setOffers((prev) => [{
+          ...res.data!,
+          image_url: normalizeSwapImage(res.data!.image_url)
+        }, ...prev]);
       } else {
         const localNewOffer: SwapOffer = {
           id: `usr-swap-${Date.now()}`,
@@ -180,7 +204,7 @@ export const PlantSwapSection: React.FC = () => {
           item_type: newItemType,
           description: newDescription.trim(),
           quarantine_pledge: pledgedQuarantine,
-          image_url: uploadedImageUrl || 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&q=80',
+          image_url: finalImageUrl,
           status: 'visible',
           created_at: isEn ? 'Just now' : 'Vừa xong',
           contact_note: newContact.trim(),
@@ -341,22 +365,37 @@ export const PlantSwapSection: React.FC = () => {
 
         {/* Offers Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredOffers.map((offer) => (
-            <div
-              key={offer.id}
-              id={`swap-offer-${offer.id}`}
-              className="bg-white dark:bg-charcoal-900 rounded-3xl overflow-hidden border border-forest-100 dark:border-forest-800 shadow-sm hover:shadow-md transition flex flex-col group scroll-mt-24"
-            >
-              {/* Image & Badges */}
-              <div className="relative aspect-[16/10] bg-forest-900 overflow-hidden">
-                <img
-                  src={offer.image_url}
-                  alt={offer.plant_name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Leaf_-pani_koorkka.JPG/330px-Leaf_-pani_koorkka.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail';
-                  }}
-                />
+          {filteredOffers.map((offer) => {
+            const isLogo = !offer.image_url || offer.image_url.includes('logo.jpg') || offer.image_url.includes('logo-sharpened.png');
+            return (
+              <div
+                key={offer.id}
+                id={`swap-offer-${offer.id}`}
+                className="bg-white dark:bg-charcoal-900 rounded-3xl overflow-hidden border border-forest-100 dark:border-forest-800 shadow-sm hover:shadow-md transition flex flex-col group scroll-mt-24"
+              >
+                {/* Image & Badges */}
+                <div className={`relative aspect-[16/10] overflow-hidden ${
+                  isLogo
+                    ? 'bg-white flex items-center justify-center p-6 border-b border-forest-100 dark:border-forest-800'
+                    : 'bg-forest-900'
+                }`}>
+                  <img
+                    src={offer.image_url || DEFAULT_SWAP_IMAGE}
+                    alt={offer.plant_name}
+                    className={`w-full h-full transition duration-500 ${
+                      isLogo
+                        ? 'object-contain max-h-full max-w-full group-hover:scale-105'
+                        : 'object-cover group-hover:scale-105'
+                    }`}
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.src = DEFAULT_SWAP_IMAGE;
+                      target.className = 'w-full h-full object-contain p-6 group-hover:scale-105 transition duration-500';
+                      if (target.parentElement) {
+                        target.parentElement.className = 'relative aspect-[16/10] bg-white overflow-hidden flex items-center justify-center border-b border-forest-100 dark:border-forest-800';
+                      }
+                    }}
+                  />
                 <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
                   <span
                     className={`px-2.5 py-1 rounded-full text-[11px] font-bold shadow-xs ${
@@ -457,8 +496,9 @@ export const PlantSwapSection: React.FC = () => {
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+          );
+        })}
+      </div>
 
         {filteredOffers.length === 0 && (
           <div className="text-center py-16 bg-white rounded-3xl border border-forest-100 p-8 max-w-md mx-auto">
@@ -673,6 +713,12 @@ export const PlantSwapSection: React.FC = () => {
                     {uploadError && (
                       <p className="text-[10px] text-rose-600 mt-1 font-medium">{uploadError}</p>
                     )}
+                    <p className="text-[11px] text-forest-600 dark:text-forest-400 mt-1.5 flex items-center gap-1.5">
+                      <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"></span>
+                      {isEn
+                        ? 'If no photo is uploaded, website logo will be used as default.'
+                        : 'Nếu không tải ảnh lên, hệ thống sẽ tự động dùng logo website Yêu Trồng Cây làm ảnh đại diện.'}
+                    </p>
                   </div>
                 )}
               </div>

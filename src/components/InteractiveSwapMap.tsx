@@ -165,10 +165,13 @@ export const InteractiveSwapMap: React.FC<InteractiveSwapMapProps> = ({
           ? (isEn ? '🔄 Plant Swap' : '🔄 Trao Đổi Cây')
           : (isEn ? '🔍 Seeking Variety' : '🔍 Cần Tìm Giống');
 
+      const isLogoImg = !offer.image_url || offer.image_url.includes('logo.jpg') || offer.image_url.includes('logo-sharpened.png') || offer.image_url.includes('photo-1544005313-94ddf0286df2');
+      const safeImgUrl = (!offer.image_url || offer.image_url.includes('photo-1544005313-94ddf0286df2')) ? '/logo.jpg' : offer.image_url;
+
       const popupHtml = `
         <div style="font-family: inherit; min-width: 200px; max-width: 240px; padding: 2px;">
-          <div style="position: relative; width: 100%; height: 110px; border-radius: 12px; overflow: hidden; margin-bottom: 8px;">
-            <img src="${offer.image_url}" alt="${offer.plant_name}" style="width: 100%; height: 100%; object-fit: cover;" />
+          <div style="position: relative; width: 100%; height: 110px; border-radius: 12px; overflow: hidden; margin-bottom: 8px; ${isLogoImg ? 'background: #ffffff; display: flex; align-items: center; justify-content: center; padding: 6px; border: 1px solid #e5e7eb;' : 'background: #143521;'}">
+            <img src="${safeImgUrl}" alt="${offer.plant_name}" style="width: 100%; height: 100%; object-fit: ${isLogoImg ? 'contain' : 'cover'};" onerror="this.src='/logo.jpg'; this.style.objectFit='contain'; if(this.parentElement) { this.parentElement.style.background='#ffffff'; this.parentElement.style.padding='6px'; }" />
             <span style="position: absolute; top: 6px; left: 6px; background: rgba(0,0,0,0.7); color: #fff; font-size: 10px; font-weight: bold; padding: 2px 8px; border-radius: 99px;">
               ${offerTypeLabel}
             </span>

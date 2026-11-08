@@ -55,6 +55,9 @@ if ($pdo) {
             INDEX idx_type (offer_type),
             INDEX idx_status (status)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+
+        // Tự động chuẩn hóa ảnh đại diện các tin cũ (nếu không có ảnh hoặc dính ảnh mẫu Unsplash) sang logo website
+        $pdo->exec("UPDATE swap_offers SET image_url = '/logo.jpg' WHERE image_url LIKE '%photo-1544005313-94ddf0286df2%' OR image_url = '' OR image_url IS NULL");
     } catch (PDOException $e) {
         error_log("Failed to auto-create swap_offers table: " . $e->getMessage());
     }
@@ -112,6 +115,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             // Chuẩn hóa tên loại tin
             if ($item['offer_type'] === 'seeking') {
                 $item['offer_type'] = 'seek';
+            }
+            // Chuẩn hóa ảnh mặc định sang logo website nếu người dùng không up ảnh hoặc dính ảnh mẫu Unsplash
+            if (empty($item['image_url']) || strpos($item['image_url'], 'photo-1544005313-94ddf0286df2') !== false) {
+                $item['image_url'] = '/logo.jpg';
             }
         }
 
@@ -189,9 +196,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Link ảnh mặc định nếu không có
-    if (empty($image_url)) {
-        $image_url = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Leaf_-pani_koorkka.JPG/330px-Leaf_-pani_koorkka.JPG?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail';
+    // Link ảnh mặc định nếu người dùng không up ảnh: sử dụng logo chính thức của website
+    if (empty($image_url) || strpos($image_url, 'photo-1544005313-94ddf0286df2') !== false) {
+        $image_url = '/logo.jpg';
     }
 
     $id = 'swap-' . time() . '-' . rand(100, 999);
