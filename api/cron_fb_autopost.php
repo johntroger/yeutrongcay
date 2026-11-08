@@ -62,20 +62,89 @@ $pdo = function_exists('getDbConnection') ? getDbConnection() : null;
 $todayStr = date('Y-m-d');
 $isForce  = !empty($_GET['force']) || !empty($_POST['force']);
 
-// 3. Khóa bảo vệ chống đăng trùng trong ngày (Idempotency Guard)
-if (!$isForce && $pdo) {
+// 3. KHÓA BẢO VỆ 2 LỚP CHỐNG ĐĂNG TRÙNG TRONG NGÀY (DUAL-LAYER IDEMPOTENCY GUARD)
+$lockDir = __DIR__ . '/../uploads';
+if (!is_dir($lockDir)) {
+    @mkdir($lockDir, 0755, true);
+}
+$lockFile = $lockDir . '/daily_fb_autopost_lock.json';
+
+// LỚP 1: Khóa tệp cục bộ (Bảo đảm 100% không bao giờ đăng 2 lần/ngày kể cả khi MySQL mất kết nối)
+if (!$isForce && file_exists($lockFile)) {
+    $lockData = json_decode(@file_get_contents($lockFile), true);
+    if (!empty($lockData['posted_date']) && $lockData['posted_date'] === $todayStr) {
+        echo json_encode([
+            'success'       => true,
+            'status'        => 'skipped',
+            'message'       => "Hôm nay ({$todayStr}) đã đăng thành công bài '{$lockData['slug']}' (FB ID: " . ($lockData['fb_post_id'] ?? 'N/A') . ") lúc {$lockData['created_at']}. Bỏ qua để chống trùng lặp (Khóa tệp bảo vệ).",
+            'daily_guard'   => 'ACTIVE_FILE_LOCK',
+            'existing_post' => $lockData
+        ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        exit;
+    }
+}
+
+// LỚP 2: Khóa cơ sở dữ liệu & Tự động tạo bảng MySQL nếu chưa có (Self-Healing Auto Migration)
+if ($pdo) {
     try {
-        $checkStmt = $pdo->prepare("SELECT id, ref_slug, fb_post_id, created_at FROM social_post_logs WHERE posted_date = :today AND status = 'success' LIMIT 1");
-        $checkStmt->execute([':today' => $todayStr]);
-        $existing = $checkStmt->fetch();
-        if ($existing) {
-            echo json_encode([
-                'success' => true,
-                'status'  => 'skipped',
-                'message' => "Hôm nay ({$todayStr}) đã đăng thành công bài '{$existing['ref_slug']}' (FB ID: {$existing['fb_post_id']}) lúc {$existing['created_at']}. Bỏ qua để chống trùng lặp.",
-                'daily_guard' => 'ACTIVE'
-            ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-            exit;
+        $pdo->exec("
+            CREATE TABLE IF NOT EXISTS social_post_queue (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                category_slug VARCHAR(64) NOT NULL,
+                category_label VARCHAR(150) DEFAULT NULL,
+                ref_slug VARCHAR(191) NOT NULL UNIQUE,
+                target_url VARCHAR(500) NOT NULL,
+                post_count INT DEFAULT 0,
+                last_angle TINYINT DEFAULT 0,
+                last_posted_at DATETIME DEFAULT NULL,
+                last_fb_post_id VARCHAR(100) DEFAULT NULL,
+                is_active BOOLEAN DEFAULT TRUE,
+                discovered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                INDEX idx_cat (category_slug),
+                INDEX idx_active (is_active),
+                INDEX idx_lru (last_posted_at)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+            CREATE TABLE IF NOT EXISTS social_post_logs (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                posted_date DATE NOT NULL,
+                category_slug VARCHAR(64) NOT NULL,
+                ref_slug VARCHAR(191) NOT NULL,
+                target_url VARCHAR(500) NOT NULL,
+                post_angle TINYINT NOT NULL DEFAULT 1,
+                fb_post_id VARCHAR(100) DEFAULT NULL,
+                fb_response_json TEXT DEFAULT NULL,
+                status ENUM('success', 'failed', 'skipped') NOT NULL DEFAULT 'success',
+                error_message TEXT DEFAULT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                UNIQUE KEY idx_daily_guard (posted_date),
+                INDEX idx_slug (ref_slug),
+                INDEX idx_date (posted_date)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+        ");
+
+        if (!$isForce) {
+            $checkStmt = $pdo->prepare("SELECT id, ref_slug, fb_post_id, created_at FROM social_post_logs WHERE posted_date = :today AND status = 'success' LIMIT 1");
+            $checkStmt->execute([':today' => $todayStr]);
+            $existing = $checkStmt->fetch();
+            if ($existing) {
+                // Đồng bộ ngược lại file lock để bảo vệ tuyệt đối
+                @file_put_contents($lockFile, json_encode([
+                    'posted_date' => $todayStr,
+                    'slug'        => $existing['ref_slug'],
+                    'fb_post_id'  => $existing['fb_post_id'],
+                    'created_at'  => $existing['created_at']
+                ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+
+                echo json_encode([
+                    'success'       => true,
+                    'status'        => 'skipped',
+                    'message'       => "Hôm nay ({$todayStr}) đã đăng thành công bài '{$existing['ref_slug']}' (FB ID: {$existing['fb_post_id']}) lúc {$existing['created_at']}. Bỏ qua để chống trùng lặp (Khóa MySQL).",
+                    'daily_guard'   => 'ACTIVE_DB_LOCK',
+                    'existing_post' => $existing
+                ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+                exit;
+            }
         }
     } catch (\Throwable $e) {}
 }
@@ -320,10 +389,21 @@ if (strpos($cat, 'feature_') === 0) {
     $growthTime = $plantData['growth_time'] ?? 'Thu hoạch quanh năm';
 
     if ($angle === 1) {
-        // VÒNG 1: GÓC CÔNG DỤNG & BÀI THUỐC DÂN GIAN GIA ĐÌNH
-        $caption = "🌿 [TỦ THUỐC XANH BAN CÔNG] " . mb_strtoupper($commonName, 'UTF-8') . " – CẨM NANG BẢN ĐỊA CHO MỌI NHÀ\n\n";
+        // VÒNG 1: GÓC CÔNG DỤNG & GIÁ TRỊ THỰC TIỄN (Điều chỉnh linh hoạt theo từng danh mục)
+        $badgeHeader = '🌿 [TỦ THUỐC XANH BAN CÔNG]';
+        $tagCat = '#TuThuocXanh #ThaoDuocBanDia';
+
+        if (in_array($cat, ['culinary', 'vegetable', 'fruit'])) {
+            $badgeHeader = '🌶️ [GIA VỊ & NÔNG SẢN BẢN ĐỊA]';
+            $tagCat = '#NongSanBanDia #MonNgonTuVuon';
+        } elseif (in_array($cat, ['ornamental', 'foliage', 'succulent', 'flower'])) {
+            $badgeHeader = '🌸 [KHÔNG GIAN XANH & PHONG THỦY]';
+            $tagCat = '#CayCanhBanCong #PhongThuyXanh';
+        }
+
+        $caption = "{$badgeHeader} " . mb_strtoupper($commonName, 'UTF-8') . " – CẨM NANG BẢN ĐỊA CHO MỌI NHÀ\n\n";
         $caption .= "Chào buổi sáng cộng đồng Yêu Trồng Cây! ☀️\n";
-        $caption .= "Trong không gian xanh gia đình, {$commonName}{$aliases} - tên khoa học là {$sciName} luôn là loài cây quý giá. {$desc}\n\n";
+        $caption .= "Trong không gian xanh gia đình, {$commonName}{$aliases}" . (!empty($sciName) ? " - tên khoa học là {$sciName}" : "") . " luôn mang lại nhiều giá trị thiết thực. {$desc}\n\n";
         
         if (!empty($uses)) {
             $caption .= "✨ CÔNG DỤNG NỔI BẬT:\n";
@@ -334,7 +414,7 @@ if (strpos($cat, 'feature_') === 0) {
         }
 
         if (!empty($remedies)) {
-            $caption .= "🍵 BÀI THUỐC DÂN GIAN ÁP DỤNG NGAY:\n";
+            $caption .= "🍵 GỢI Ý DÂN GIAN ÁP DỤNG NGAY:\n";
             foreach (array_slice($remedies, 0, 2) as $r) {
                 $caption .= "• {$r}\n";
             }
@@ -347,7 +427,7 @@ if (strpos($cat, 'feature_') === 0) {
 
         $caption .= "👉 Xem trọn bộ hồ sơ thực vật học và cẩm nang chăm sóc chi tiết tại:\n";
         $caption .= "🔗 {$utmUrl}\n\n";
-        $caption .= "---\n🌱 Yêu Trồng Cây – Design your life\n#YeuTrongCay #" . preg_replace('/\s+/', '', $commonName) . " #TuThuocXanh #ThaoDuocBanDia #TrongCayBanCong";
+        $caption .= "---\n🌱 Yêu Trồng Cây – Design your life\n#YeuTrongCay #" . preg_replace('/\s+/', '', $commonName) . " {$tagCat} #TrongCayBanCong";
 
     } elseif ($angle === 2) {
         // VÒNG 2: GÓC KỸ THUẬT TRỒNG CHẬU & LỊCH MÙA VỤ 3 MIỀN
@@ -561,6 +641,16 @@ if ($pdo) {
             ':now'   => $now
         ]);
     } catch (\Throwable $e) {}
+}
+
+// Ghi khóa tệp cục bộ bảo vệ 2 lớp (Bảo đảm 100% không bao giờ đăng 2 lần/ngày kể cả khi MySQL mất kết nối)
+if ($status === 'success') {
+    @file_put_contents($lockFile, json_encode([
+        'posted_date' => $todayStr,
+        'slug'        => $slug,
+        'fb_post_id'  => $fbPostId,
+        'created_at'  => $now
+    ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
 }
 
 // 10. Trả về kết quả
