@@ -90,14 +90,9 @@ export const CompactPlantCard: React.FC<CompactPlantCardProps> = ({
       {/* 2. Thông tin chính của cây */}
       <div className="p-3 space-y-2 flex-1 flex flex-col justify-between">
         <div className="min-h-[34px]">
-          <div className="flex items-baseline justify-between gap-1">
-            <h4 className="font-serif font-bold text-xs sm:text-sm text-forest-950 dark:text-cream-50 truncate group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition">
-              {plant.custom_name}
-            </h4>
-            <span className="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 shrink-0">
-              {expPercent}%
-            </span>
-          </div>
+          <h4 className="font-serif font-bold text-xs sm:text-sm text-forest-950 dark:text-cream-50 truncate group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition">
+            {plant.custom_name}
+          </h4>
           {plant.species_name ? (
             <p className="text-[10px] text-gray-500 dark:text-gray-400 italic truncate mt-0.5">
               {plant.species_name}
@@ -107,30 +102,40 @@ export const CompactPlantCard: React.FC<CompactPlantCardProps> = ({
           )}
         </div>
 
-        {/* 3. Thanh EXP Mini */}
+        {/* 3. Điểm Kinh Nghiệm EXP Cụ Thể & Thanh Tiến Độ */}
         <div className="space-y-1">
+          <div className="flex items-center justify-between text-[10px] font-semibold">
+            <span className="flex items-center gap-1 text-forest-800 dark:text-cream-200">
+              <span className="text-emerald-600 dark:text-emerald-400 font-bold">⭐ {currentExp}</span>
+              <span className="text-gray-400">/{targetExp} EXP</span>
+            </span>
+            <span className="font-bold text-emerald-700 dark:text-emerald-400">
+              {expPercent}%
+            </span>
+          </div>
+
           <div className="w-full bg-gray-100 dark:bg-charcoal-800 rounded-full h-1.5 overflow-hidden">
             <div
               className="bg-emerald-500 h-1.5 rounded-full transition-all duration-300"
               style={{ width: `${expPercent}%` }}
             />
           </div>
+        </div>
 
-          {/* 4. Chỉ số Nước & Dinh Dưỡng mini */}
-          <div className="grid grid-cols-2 gap-1.5 pt-1 text-[10px]">
-            <div className="flex items-center gap-1 bg-blue-50/70 dark:bg-blue-950/30 px-1.5 py-0.5 rounded-md border border-blue-100/60 dark:border-blue-900/40">
-              <Droplets className={`w-2.5 h-2.5 shrink-0 ${isThirsty ? 'text-rose-500 animate-bounce' : 'text-blue-500'}`} />
-              <span className={`font-semibold truncate ${isThirsty ? 'text-rose-700 dark:text-rose-300 font-bold' : 'text-blue-900 dark:text-blue-200'}`}>
-                {moisture}%
-              </span>
-            </div>
+        {/* 4. Chỉ số Nước & Dinh Dưỡng mini */}
+        <div className="grid grid-cols-2 gap-1.5 pt-1 text-[10px]">
+          <div className="flex items-center gap-1 bg-blue-50/70 dark:bg-blue-950/30 px-1.5 py-0.5 rounded-md border border-blue-100/60 dark:border-blue-900/40">
+            <Droplets className={`w-2.5 h-2.5 shrink-0 ${isThirsty ? 'text-rose-500 animate-bounce' : 'text-blue-500'}`} />
+            <span className={`font-semibold truncate ${isThirsty ? 'text-rose-700 dark:text-rose-300 font-bold' : 'text-blue-900 dark:text-blue-200'}`}>
+              {moisture}%
+            </span>
+          </div>
 
-            <div className="flex items-center gap-1 bg-amber-50/70 dark:bg-amber-950/30 px-1.5 py-0.5 rounded-md border border-amber-100/60 dark:border-amber-900/40">
-              <span className="text-[10px] leading-none shrink-0">👝</span>
-              <span className={`font-semibold truncate ${isHungry ? 'text-amber-800 dark:text-amber-200 font-bold' : 'text-amber-900 dark:text-amber-200'}`}>
-                {nutrients}%
-              </span>
-            </div>
+          <div className="flex items-center gap-1 bg-amber-50/70 dark:bg-amber-950/30 px-1.5 py-0.5 rounded-md border border-amber-100/60 dark:border-amber-900/40">
+            <span className="text-[10px] leading-none shrink-0">👝</span>
+            <span className={`font-semibold truncate ${isHungry ? 'text-amber-800 dark:text-amber-200 font-bold' : 'text-amber-900 dark:text-amber-200'}`}>
+              {nutrients}%
+            </span>
           </div>
         </div>
 

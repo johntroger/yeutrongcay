@@ -1327,15 +1327,33 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 bg-white/10 px-4 py-2.5 rounded-xl border border-white/10 shrink-0">
-                <div className="text-right">
-                  <span className="text-[10px] uppercase font-bold text-rose-300 tracking-wider block">
-                    {isEn ? 'Garden Hearts' : 'Trái Tim Yêu Vườn'}
-                  </span>
-                  <span className="text-xl font-bold font-serif text-rose-300">+{karmaData.total_karma} ❤️</span>
+              <div className="flex items-center gap-3 shrink-0 flex-wrap sm:flex-nowrap">
+                {/* Ô Điểm Kinh Nghiệm Toàn Vườn (Garden EXP) */}
+                <div className="flex items-center gap-3 bg-white/10 px-4 py-2.5 rounded-xl border border-white/10">
+                  <div className="text-right">
+                    <span className="text-[10px] uppercase font-bold text-amber-300 tracking-wider block">
+                      {isEn ? 'Garden EXP' : 'Điểm Kinh Nghiệm'}
+                    </span>
+                    <span className="text-xl font-bold font-serif text-amber-300">
+                      +{plants.reduce((sum, p) => sum + (p.growth_exp ?? 0), 0).toLocaleString()}
+                    </span>
+                  </div>
+                  <div className="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-base">
+                    ⭐
+                  </div>
                 </div>
-                <div className="w-8 h-8 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold text-base">
-                  ❤️
+
+                {/* Ô Trái Tim Yêu Vườn */}
+                <div className="flex items-center gap-3 bg-white/10 px-4 py-2.5 rounded-xl border border-white/10">
+                  <div className="text-right">
+                    <span className="text-[10px] uppercase font-bold text-rose-300 tracking-wider block">
+                      {isEn ? 'Garden Hearts' : 'Trái Tim Yêu Vườn'}
+                    </span>
+                    <span className="text-xl font-bold font-serif text-rose-300">+{karmaData.total_karma}</span>
+                  </div>
+                  <div className="w-8 h-8 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold text-base">
+                    ❤️
+                  </div>
                 </div>
               </div>
             </div>
