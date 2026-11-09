@@ -1077,6 +1077,27 @@ export async function buyGardenEcoItem(
 }
 
 /**
+ * Bán hạt giống thu hoạch lấy Tim hoặc EXP (Eco-Supply Shop)
+ */
+export async function sellGardenSeedsAction(
+  userId: string,
+  quantity: number,
+  rewardType: 'hearts' | 'exp'
+): Promise<{ success: boolean; message?: string; reward_amount?: number; remaining_seeds?: number; error?: string }> {
+  try {
+    const res = await fetch(`${API_BASE}/garden.php?action=sell_seeds`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_id: userId, quantity, reward_type: rewardType })
+    });
+    const json = await res.json();
+    return json;
+  } catch {
+    return { success: false, error: 'Không thể kết nối máy chủ' };
+  }
+}
+
+/**
  * Chăm sóc chậu cây tương tác (Tưới, Bón phân, Tắm nắng, Xới đất, Xịt thảo mộc)
  */
 export async function careGamifiedPlantAction(

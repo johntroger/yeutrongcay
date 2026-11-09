@@ -56,6 +56,7 @@ import {
   GARDEN_ECO_ITEMS,
   detectRequiredItemForTask,
   calculateHarvestSeedYield,
+  sellInventorySeeds,
   playGardenSound
 } from '../services/gardenGameService.ts';
 import { plantPassportRegistryService, getUsernameFromEmail } from '../services/plantPassportRegistryService.ts';
@@ -77,6 +78,7 @@ import {
   deleteGardenPlant,
   deletePlantDiary,
   buyGardenEcoItem,
+  sellGardenSeedsAction,
   syncGuestGardenDataAction,
   careGamifiedPlantAction,
   batchCarePlantsAction,
@@ -153,6 +155,13 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
     badge: { title: string; tier: number; icon: string; color: string };
     events: any[];
   } | null>(null);
+
+  // Điểm Kinh Nghiệm (EXP) Thưởng Từ Bán Hạt Giống & Hoạt Động
+  const [bonusGardenExp, setBonusGardenExp] = useState<number>(() => {
+    const saved = localStorage.getItem('ytc_bonus_garden_exp');
+    return saved ? Number(saved) : 0;
+  });
+  const totalGardenExp = plants.reduce((sum, p) => sum + (p.growth_exp ?? 0), 0) + bonusGardenExp;
 
   // Game Hóa: Túi đồ nghề & Cửa hàng sinh thái (MS7)
   const [inventory, setInventory] = useState<Record<GardenCareItemType, number>>(() => getUserInventory());
@@ -608,6 +617,39 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
 
     triggerNotice(isEn ? localRes.message_en : localRes.message_vi);
     return { success: true, message: isEn ? localRes.message_en : localRes.message_vi };
+  };
+
+  // Thao tác Bán Hạt Giống Nông Sản đổi lấy Tim hoặc Điểm EXP (Eco-Supply Shop)
+  const handleSellSeeds = async (quantity: number, rewardType: 'hearts' | 'exp') => {
+    const currentHearts = karmaData?.total_karma ?? 50;
+
+    const res = sellInventorySeeds(quantity, rewardType, currentHearts, totalGardenExp);
+    if (!res.success) {
+      return { success: false, message: isEn ? res.message_en : res.message_vi };
+    }
+
+    setInventory(getUserInventory());
+
+    if (rewardType === 'hearts') {
+      if (karmaData) {
+        setKarmaData({
+          ...karmaData,
+          total_karma: res.newHearts
+        });
+        localStorage.setItem('ytc_user_karma', res.newHearts.toString());
+      }
+    } else {
+      // Đổi lấy EXP: Tăng bonus EXP toàn vườn
+      const nextBonus = bonusGardenExp + res.rewardAmount;
+      setBonusGardenExp(nextBonus);
+      localStorage.setItem('ytc_bonus_garden_exp', nextBonus.toString());
+    }
+
+    // Gửi API backend đồng bộ lên máy chủ
+    sellGardenSeedsAction(currentUserId, quantity, rewardType).catch(() => {});
+
+    triggerNotice(isEn ? res.message_en : res.message_vi);
+    return { success: true, message: isEn ? res.message_en : res.message_vi };
   };
 
   // Thao tác nhận giọt sương sớm (+15 Tim) - Chống trục lợi: Chỉ nhận 1 lần / ngày
@@ -1344,7 +1386,7 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
                       {isEn ? 'Garden EXP' : 'Điểm Kinh Nghiệm'}
                     </span>
                     <span className="text-xl font-bold font-serif text-amber-300">
-                      +{plants.reduce((sum, p) => sum + (p.growth_exp ?? 0), 0).toLocaleString()}
+                      +{totalGardenExp.toLocaleString()}
                     </span>
                   </div>
                   <div className="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-base">
@@ -2457,8 +2499,10 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
         onClose={() => setIsShopOpen(false)}
         isEn={isEn}
         totalHearts={karmaData?.total_karma ?? 50}
+        totalExp={totalGardenExp}
         inventory={inventory}
         onBuyItem={handleBuyShopItem}
+        onSellSeeds={handleSellSeeds}
       />
 
       {/* 11. Modal: Đúc Hộ Chiếu Thực Vật NFT On-Chain Thật 100% Trên Ethereum Sepolia Testnet */}

@@ -748,6 +748,83 @@ export function buyInventoryItem(
   };
 }
 
+/**
+ * Thu mua Hạt Giống Nông Sản đổi lấy Trái Tim hoặc Điểm Kinh Nghiệm (EXP)
+ */
+export function sellInventorySeeds(
+  quantity: number,
+  rewardType: 'hearts' | 'exp',
+  currentHearts: number,
+  currentExp: number = 0
+): {
+  success: boolean;
+  newSeeds: number;
+  newHearts: number;
+  newExp: number;
+  rewardAmount: number;
+  message_vi: string;
+  message_en: string;
+} {
+  const inv = getUserInventory();
+  const currentSeeds = inv.seeds || 0;
+
+  if (quantity <= 0) {
+    return {
+      success: false,
+      newSeeds: currentSeeds,
+      newHearts: currentHearts,
+      newExp: currentExp,
+      rewardAmount: 0,
+      message_vi: 'Số lượng hạt giống bán phải lớn hơn 0.',
+      message_en: 'Quantity of seeds to sell must be greater than 0.'
+    };
+  }
+
+  if (currentSeeds < quantity) {
+    return {
+      success: false,
+      newSeeds: currentSeeds,
+      newHearts: currentHearts,
+      newExp: currentExp,
+      rewardAmount: 0,
+      message_vi: `Không đủ hạt giống! Bạn muốn bán ${quantity} hạt nhưng trong túi chỉ còn ${currentSeeds} hạt giống.`,
+      message_en: `Not enough seeds! You tried to sell ${quantity} seeds, but only have ${currentSeeds} in your bag.`
+    };
+  }
+
+  // Khấu trừ số hạt giống đã bán
+  inv.seeds = currentSeeds - quantity;
+  saveUserInventory(inv);
+
+  if (rewardType === 'hearts') {
+    // Tỷ lệ: 1 hạt giống = 2 Tim Yêu Vườn ❤️
+    const rewardHearts = quantity * 2;
+    const nextHearts = currentHearts + rewardHearts;
+    return {
+      success: true,
+      newSeeds: inv.seeds,
+      newHearts: nextHearts,
+      newExp: currentExp,
+      rewardAmount: rewardHearts,
+      message_vi: `Đã bán thành công ${quantity} hạt giống và nhận về +${rewardHearts} Tim Yêu Vườn (❤️)! Số dư mới: ${nextHearts} Tim.`,
+      message_en: `Successfully sold ${quantity} seeds and earned +${rewardHearts} Hearts (❤️)! New balance: ${nextHearts} Hearts.`
+    };
+  } else {
+    // Tỷ lệ: 1 hạt giống = 5 Điểm Kinh Nghiệm ⭐
+    const rewardExp = quantity * 5;
+    const nextExp = currentExp + rewardExp;
+    return {
+      success: true,
+      newSeeds: inv.seeds,
+      newHearts: currentHearts,
+      newExp: nextExp,
+      rewardAmount: rewardExp,
+      message_vi: `Đã bán thành công ${quantity} hạt giống và nhận về +${rewardExp} Điểm Kinh Nghiệm (⭐)! Tổng EXP mới: ${nextExp}.`,
+      message_en: `Successfully sold ${quantity} seeds and earned +${rewardExp} EXP (⭐)! New EXP: ${nextExp}.`
+    };
+  }
+}
+
 export function consumeInventoryItem(type: GardenCareItemType, quantity: number = 1): boolean {
   const inv = getUserInventory();
   if ((inv[type] || 0) < quantity) {

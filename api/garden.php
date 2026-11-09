@@ -768,6 +768,66 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    // Hành động: Thu mua hạt giống đổi Tim hoặc EXP (Eco-Supply Shop)
+    if ($action === 'sell_seeds') {
+        $userId = trim($input['user_id'] ?? 'usr-local-me');
+        $quantity = max(1, (int)($input['quantity'] ?? 1));
+        $rewardType = trim($input['reward_type'] ?? 'hearts'); // 'hearts' | 'exp'
+
+        try {
+            // Kiểm tra số dư hạt giống
+            $seedStmt = $pdo->prepare("SELECT quantity FROM user_inventory WHERE user_id = :uid AND item_type = 'seeds' LIMIT 1");
+            $seedStmt->execute([':uid' => $userId]);
+            $seedRow = $seedStmt->fetch(PDO::FETCH_ASSOC);
+            $currentSeeds = $seedRow ? (int)$seedRow['quantity'] : 0;
+
+            if ($currentSeeds < $quantity) {
+                http_response_code(400);
+                echo json_encode([
+                    'success' => false,
+                    'error' => "Không đủ hạt giống! Bạn có {$currentSeeds} hạt nhưng yêu cầu bán {$quantity} hạt."
+                ], JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+
+            // Trừ hạt giống
+            $updSeed = $pdo->prepare("UPDATE user_inventory SET quantity = quantity - :qty WHERE user_id = :uid AND item_type = 'seeds'");
+            $updSeed->execute([':qty' => $quantity, ':uid' => $userId]);
+
+            if ($rewardType === 'hearts') {
+                $rewardPoints = $quantity * 2;
+                $evStmt = $pdo->prepare("INSERT INTO user_events (user_id, event_type, points, reference_id, metadata_json) 
+                    VALUES (:uid, 'sell_seeds_hearts', :pts, 'seeds', :meta)");
+                $evStmt->execute([
+                    ':uid' => $userId,
+                    ':pts' => $rewardPoints,
+                    ':meta' => json_encode(['quantity' => $quantity], JSON_UNESCAPED_UNICODE)
+                ]);
+            } else {
+                $rewardPoints = $quantity * 5;
+                $evStmt = $pdo->prepare("INSERT INTO user_events (user_id, event_type, points, reference_id, metadata_json) 
+                    VALUES (:uid, 'sell_seeds_exp', :pts, 'seeds', :meta)");
+                $evStmt->execute([
+                    ':uid' => $userId,
+                    ':pts' => $rewardPoints,
+                    ':meta' => json_encode(['quantity' => $quantity], JSON_UNESCAPED_UNICODE)
+                ]);
+            }
+
+            echo json_encode([
+                'success' => true,
+                'reward_type' => $rewardType,
+                'reward_amount' => $rewardPoints,
+                'remaining_seeds' => $currentSeeds - $quantity
+            ], JSON_UNESCAPED_UNICODE);
+            exit;
+        } catch (PDOException $e) {
+            http_response_code(500);
+            echo json_encode(['success' => false, 'error' => $e->getMessage()], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+    }
+
     // Hành động 8: Chăm sóc cây tương tác (Tưới nước, Bón phân, Tắm nắng, Xới đất, Xịt thảo mộc)
     if ($action === 'care_gamified') {
         $userId = trim($input['user_id'] ?? 'usr-local-me');

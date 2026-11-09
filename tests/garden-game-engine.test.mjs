@@ -7,7 +7,8 @@ import {
   evaluateLazyPlantDecay,
   applyCareAction,
   checkNftMintEligibility,
-  calculateHarvestSeedYield
+  calculateHarvestSeedYield,
+  sellInventorySeeds
 } from '../src/services/gardenGameService.ts';
 
 // 1. Kiểm tra danh mục vật phẩm sinh thái và giá đổi Tim
@@ -404,4 +405,24 @@ test('Harvest Seed Yield & Plant Life Cycle Reset to Stage 1', () => {
   assert.equal(harvestedPlant.growth_exp, 0, 'Plant EXP must reset to 0 for the new cycle');
   assert.equal(harvestedPlant.total_harvests, 1, 'Total harvests count must increment');
   assert.ok(yieldResult.count >= 20, 'Seeds yield must be added to inventory');
+});
+
+// 13. Kiểm tra tính năng Bán Hạt Giống đổi Trái Tim hoặc Điểm EXP (Eco-Exchange)
+test('Sell Harvest Seeds: Exchange for Hearts or Garden EXP', () => {
+  // Test case 1: Không đủ số lượng hạt giống
+  const failRes = sellInventorySeeds(99999, 'hearts', 100, 500);
+  assert.equal(failRes.success, false, 'Must fail when user has insufficient seeds');
+
+  // Test case 2: Bán hạt giống đổi lấy Trái Tim (1 hạt = 2 Tim)
+  // Giả lập túi đồ có sẵn 10 hạt giống (từ INITIAL_USER_INVENTORY)
+  const sellForHearts = sellInventorySeeds(5, 'hearts', 100, 500);
+  assert.equal(sellForHearts.success, true, 'Must succeed when selling valid amount');
+  assert.equal(sellForHearts.rewardAmount, 10, '5 seeds * 2 hearts = 10 hearts');
+  assert.equal(sellForHearts.newHearts, 110, 'New hearts balance is 100 + 10 = 110');
+
+  // Test case 3: Bán hạt giống đổi lấy Điểm EXP (1 hạt = 5 EXP)
+  const sellForExp = sellInventorySeeds(3, 'exp', 110, 500);
+  assert.equal(sellForExp.success, true, 'Must succeed for EXP exchange');
+  assert.equal(sellForExp.rewardAmount, 15, '3 seeds * 5 exp = 15 EXP');
+  assert.equal(sellForExp.newExp, 515, 'New EXP balance is 500 + 15 = 515');
 });
