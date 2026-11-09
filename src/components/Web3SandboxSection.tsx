@@ -22,6 +22,7 @@ import { useWallet } from '../context/WalletContext.tsx';
 import { useKarma } from '../context/KarmaContext.tsx';
 import { web3WalletService } from '../services/web3WalletService.ts';
 import { awardKarmaPoints } from '../services/karmaService.ts';
+import { getUserInventory, saveUserInventory } from '../services/gardenGameService.ts';
 import { plantPassportRegistryService, RegisteredPlantPassport } from '../services/plantPassportRegistryService.ts';
 import { BurnPassportModal } from './BurnPassportModal.tsx';
 import {
@@ -131,7 +132,19 @@ export const Web3SandboxSection: React.FC = () => {
   const [isMobileTabDrawerOpen, setIsMobileTabDrawerOpen] = useState(false);
 
   // Trạng thái DeFi Nông Nghiệp & Staking Hạt Giống On-chain Thật (100% Testnet Sandbox)
-  const [stakeAmount, setStakeAmount] = useState<number>(100);
+  const [availableSeeds, setAvailableSeeds] = useState<number>(() => {
+    return getUserInventory().seeds || 0;
+  });
+  const [stakeAmount, setStakeAmount] = useState<number>(() => {
+    const seeds = getUserInventory().seeds || 0;
+    return seeds > 0 ? Math.min(10, seeds) : 10;
+  });
+
+  useEffect(() => {
+    if (activeTab === 'defi') {
+      setAvailableSeeds(getUserInventory().seeds || 0);
+    }
+  }, [activeTab]);
   const [stakedBalance, setStakedBalance] = useState<number>(() => {
     const saved = localStorage.getItem('ytc_testnet_staked_seeds');
     return saved ? Number(saved) : 100;
@@ -285,6 +298,27 @@ export const Web3SandboxSection: React.FC = () => {
     if (stakeAmount <= 0) return;
     setWalletError(null);
 
+    const currentInventory = getUserInventory();
+    const currentSeeds = currentInventory.seeds || 0;
+
+    if (currentSeeds <= 0) {
+      setWalletError(
+        isEn
+          ? 'You have 0 seeds in your garden backpack! Harvest mature plants in "My Garden" first.'
+          : 'Bạn chưa có hạt giống nào trong Túi đồ! Hãy chăm sóc cây trong "Vườn Của Tôi" đến ngày thu hoạch để lấy hạt giống nhé.'
+      );
+      return;
+    }
+
+    if (stakeAmount > currentSeeds) {
+      setWalletError(
+        isEn
+          ? `Insufficient seeds! You only have ${currentSeeds} seeds in backpack, cannot stake ${stakeAmount}.`
+          : `Không đủ hạt giống! Túi đồ của bạn hiện chỉ có ${currentSeeds} hạt, không thể gửi ${stakeAmount} hạt vào Staking.`
+      );
+      return;
+    }
+
     if (!wallet || !wallet.isConnected) {
       setWalletError(
         isEn
@@ -313,6 +347,11 @@ export const Web3SandboxSection: React.FC = () => {
         wallet.chainId
       );
 
+      // Khấu trừ hạt giống thật khỏi túi đồ làm vườn
+      currentInventory.seeds = Math.max(0, currentSeeds - stakeAmount);
+      saveUserInventory(currentInventory);
+      setAvailableSeeds(currentInventory.seeds);
+
       const nextStaked = stakedBalance + stakeAmount;
       setStakedBalance(nextStaked);
       localStorage.setItem('ytc_testnet_staked_seeds', String(nextStaked));
@@ -329,8 +368,8 @@ export const Web3SandboxSection: React.FC = () => {
 
       setStakingNotice(
         isEn
-          ? `Successfully staked ${stakeAmount} Seeds on-chain! Tx: ${realTxHash.slice(0, 10)}...`
-          : `Đã gửi thành công ${stakeAmount} hạt giống vào Staking Vault on-chain! Tx: ${realTxHash.slice(0, 10)}...`
+          ? `Successfully staked ${stakeAmount} Seeds on-chain! Tx: ${realTxHash.slice(0, 10)}... (Remaining seeds in bag: ${currentInventory.seeds})`
+          : `Đã gửi thành công ${stakeAmount} hạt giống từ vườn vào Staking Vault on-chain! Tx: ${realTxHash.slice(0, 10)}... (Còn lại trong túi: ${currentInventory.seeds} hạt)`
       );
 
       awardKarmaPoints(
@@ -379,6 +418,12 @@ export const Web3SandboxSection: React.FC = () => {
       const claimed = accumulatedYield;
       setAccumulatedYield(0);
       localStorage.setItem('ytc_testnet_yield', '0');
+
+      // Tặng túi phân bón vi sinh vào túi đồ làm vườn từ lợi suất Staking!
+      const currentInventory = getUserInventory();
+      const bonusFertilizer = Math.max(1, Math.round(claimed));
+      currentInventory.fertilizer = (currentInventory.fertilizer || 0) + bonusFertilizer;
+      saveUserInventory(currentInventory);
 
       const txRecord = {
         hash: realTxHash,
@@ -920,6 +965,7 @@ export const Web3SandboxSection: React.FC = () => {
             latestDeFiTx={latestDeFiTx}
             stakingNotice={stakingNotice}
             setStakingNotice={setStakingNotice}
+            availableSeeds={availableSeeds}
             stakedBalance={stakedBalance}
             accumulatedYield={accumulatedYield}
             stakeAmount={stakeAmount}

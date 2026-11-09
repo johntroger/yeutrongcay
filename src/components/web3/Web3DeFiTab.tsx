@@ -10,7 +10,8 @@ import {
   Landmark,
   Vote,
   X,
-  ExternalLink
+  ExternalLink,
+  Sprout
 } from 'lucide-react';
 import { WalletState, web3WalletService } from '../../services/web3WalletService';
 
@@ -26,6 +27,7 @@ interface Web3DeFiTabProps {
   } | null;
   stakingNotice: string | null;
   setStakingNotice: (n: string | null) => void;
+  availableSeeds: number;
   stakedBalance: number;
   accumulatedYield: number;
   stakeAmount: number;
@@ -50,6 +52,7 @@ export const Web3DeFiTab: React.FC<Web3DeFiTabProps> = ({
   latestDeFiTx,
   stakingNotice,
   setStakingNotice,
+  availableSeeds,
   stakedBalance,
   accumulatedYield,
   stakeAmount,
@@ -232,7 +235,80 @@ export const Web3DeFiTab: React.FC<Web3DeFiTabProps> = ({
         </div>
 
         {/* Form Tương Tác Staking Thật On-Chain */}
-        <div className="p-4 rounded-2xl bg-cream-50/80 dark:bg-forest-950/40 border border-forest-100 dark:border-forest-800 space-y-3">
+        <div className="p-4 sm:p-5 rounded-2xl bg-cream-50/80 dark:bg-forest-950/40 border border-forest-100 dark:border-forest-800 space-y-4">
+          {/* Nguồn Gốc Hạt Giống Từ Vườn */}
+          <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-forest-100 dark:border-forest-800/80">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-xl bg-lime-500/20 border border-lime-500/30 flex items-center justify-center shrink-0">
+                <Sprout className="w-4 h-4 text-lime-500" />
+              </div>
+              <div>
+                <span className="text-[11px] text-forest-500 dark:text-forest-400 block font-medium">
+                  {isEn ? 'Harvested Seeds in Backpack:' : 'Hạt Giống Thu Hoạch Trong Balo Vườn:'}
+                </span>
+                <span className="text-sm font-bold font-mono text-forest-900 dark:text-white flex items-center gap-1.5">
+                  <span className="text-lime-600 dark:text-lime-400 font-extrabold">{availableSeeds}</span>
+                  <span className="text-xs font-sans font-normal text-forest-600 dark:text-forest-400">
+                    {isEn ? 'seeds ready to stake' : 'hạt giống sẵn sàng gửi'}
+                  </span>
+                </span>
+              </div>
+            </div>
+
+            {/* Các nút chọn nhanh số lượng */}
+            {availableSeeds > 0 && (
+              <div className="flex items-center gap-1.5">
+                {[10, 25, 50].map((qty) => (
+                  <button
+                    key={qty}
+                    type="button"
+                    onClick={() => setStakeAmount(Math.min(availableSeeds, qty))}
+                    disabled={availableSeeds < qty}
+                    className={`px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition cursor-pointer ${
+                      stakeAmount === qty
+                        ? 'bg-emerald-600 text-white'
+                        : availableSeeds >= qty
+                        ? 'bg-white dark:bg-forest-900/80 text-forest-700 dark:text-forest-300 border border-forest-200 dark:border-forest-700 hover:bg-forest-100'
+                        : 'opacity-40 cursor-not-allowed bg-stone-200 dark:bg-stone-800 text-stone-500'
+                    }`}
+                  >
+                    {qty}
+                  </button>
+                ))}
+                <button
+                  type="button"
+                  onClick={() => setStakeAmount(availableSeeds)}
+                  className="px-2.5 py-1 rounded-lg bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700 text-xs font-bold transition hover:bg-emerald-200 cursor-pointer"
+                >
+                  {isEn ? 'Max' : 'Tối đa'} ({availableSeeds})
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Cảnh báo khi Balo không có hạt giống (giải quyết câu hỏi Hạt giống ở đâu ra) */}
+          {availableSeeds <= 0 && (
+            <div className="p-3.5 rounded-xl bg-amber-50 dark:bg-amber-950/60 border border-amber-300 dark:border-amber-700/60 text-xs text-amber-900 dark:text-amber-200 flex items-start gap-2.5 shadow-xs">
+              <Sprout className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+              <div className="space-y-1">
+                <p className="font-bold">
+                  {isEn ? 'No seeds available in your garden backpack!' : 'Bạn chưa có hạt giống nào trong Túi đồ!'}
+                </p>
+                <p className="text-[11px] text-amber-800 dark:text-amber-300 leading-relaxed">
+                  {isEn
+                    ? 'In Yeu Trong Cay, DeFi seeds come from your real garden! Care for your plants in "My Garden" until they reach Stage 5 maturity, then harvest to collect native seeds and stake them here.'
+                    : 'Trong Yêu Trồng Cây, hạt giống DeFi bắt nguồn từ chính khu vườn của bạn! Hãy chăm sóc cây trong "Vườn Của Tôi" đến khi cây đạt Giai đoạn 5 (Chín muồi), bấm thu hoạch để nhận hạt giống bản địa rồi mang sang đây gửi Staking sinh lời nhé.'}
+                </p>
+                <a
+                  href="/vuon-cua-toi"
+                  className="inline-flex items-center gap-1 font-bold text-amber-700 dark:text-amber-300 hover:underline pt-0.5 text-xs cursor-pointer"
+                >
+                  <span>{isEn ? '👉 Go to My Garden to Harvest Seeds' : '👉 Đến Vườn Của Tôi để Chăm Cây & Thu Hoạch'}</span>
+                </a>
+              </div>
+            </div>
+          )}
+
           <label className="text-xs font-bold text-forest-900 dark:text-white flex items-center justify-between">
             <span>{isEn ? 'Enter Seeds to Stake (On-chain):' : 'Nhập Số Lượng Hạt Giống Gửi Staking On-Chain:'}</span>
             <span className="text-[11px] text-forest-500 font-normal">
@@ -242,15 +318,16 @@ export const Web3DeFiTab: React.FC<Web3DeFiTabProps> = ({
           <div className="flex items-center gap-3 flex-wrap sm:flex-nowrap">
             <input
               type="number"
-              min="10"
-              step="10"
+              min="1"
+              max={Math.max(1, availableSeeds)}
               value={stakeAmount}
-              onChange={(e) => setStakeAmount(Math.max(1, Number(e.target.value)))}
-              className="w-full sm:flex-1 px-4 py-2.5 rounded-xl bg-white dark:bg-charcoal-950 border border-forest-200 dark:border-forest-800 text-sm font-mono font-bold text-forest-950 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              onChange={(e) => setStakeAmount(Math.max(1, Math.min(availableSeeds || 1, Number(e.target.value))))}
+              disabled={availableSeeds <= 0}
+              className="w-full sm:flex-1 px-4 py-2.5 rounded-xl bg-white dark:bg-charcoal-950 border border-forest-200 dark:border-forest-800 text-sm font-mono font-bold text-forest-950 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-50"
             />
             <button
               onClick={handleStakeSeeds}
-              disabled={isStakingRunning}
+              disabled={isStakingRunning || availableSeeds <= 0 || stakeAmount > availableSeeds || stakeAmount <= 0}
               className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md transition shrink-0 cursor-pointer"
             >
               {isStakingRunning ? (
