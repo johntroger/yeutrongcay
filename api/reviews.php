@@ -228,8 +228,7 @@ if ($method === 'POST') {
         $reviewId = preg_replace('/[^a-zA-Z0-9_\-]/', '', $body['review_id'] ?? '');
         $adminToken = $body['admin_token'] ?? ($_SERVER['HTTP_X_ADMIN_TOKEN'] ?? '');
         
-        $configFile = __DIR__ . '/config.php';
-        $config = file_exists($configFile) ? require $configFile : [];
+        $config = function_exists('getYtcConfig') ? getYtcConfig() : [];
         $expectedToken = $config['security']['admin_token'] ?? 'YtcAdmin2026Secure';
 
         if ($adminToken !== $expectedToken) {

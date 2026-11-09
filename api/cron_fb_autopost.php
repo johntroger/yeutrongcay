@@ -19,12 +19,12 @@ header('X-Content-Type-Options: nosniff');
 
 defined('YTC_APP') or define('YTC_APP', true);
 
+require_once __DIR__ . '/db.php';
+
 $isCli = (php_sapi_name() === 'cli' || defined('STDIN'));
 
-// 1. Nạp file cấu hình bảo mật
-$configFile = __DIR__ . '/config.php';
-$config = file_exists($configFile) ? require $configFile : [];
-
+// 1. Nạp file cấu hình bảo mật đa tầng (tự động nhận diện ở api/, httpdocs/, hoặc thư mục cha ngoài httpdocs)
+$config     = function_exists('getYtcConfig') ? getYtcConfig() : [];
 $fbConfig   = $config['facebook'] ?? [];
 $cronSecret = trim($fbConfig['cron_secret'] ?? '');
 $enabled    = !empty($fbConfig['enabled']);
@@ -39,7 +39,7 @@ if (!$isCli) {
         http_response_code(503);
         echo json_encode([
             'success' => false,
-            'message' => 'Hệ thống chưa cấu hình facebook.cron_secret trong config.php'
+            'message' => 'Hệ thống chưa tìm thấy cấu hình facebook.cron_secret trong config.php. Vui lòng tạo config.php tại httpdocs/api/config.php hoặc thư mục ngoài httpdocs/../config.php trên Plesk.'
         ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         exit;
     }
@@ -56,7 +56,6 @@ if (!$isCli) {
 }
 
 // 2. Kết nối Database (hoặc fallback file JSON)
-require_once __DIR__ . '/db.php';
 $pdo = function_exists('getDbConnection') ? getDbConnection() : null;
 
 $todayStr = date('Y-m-d');

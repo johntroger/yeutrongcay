@@ -35,9 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 require_once __DIR__ . '/db.php';
 
-// Đọc cấu hình bảo mật
-$configFile = __DIR__ . '/config.php';
-$config = file_exists($configFile) ? require $configFile : [];
+// Đọc cấu hình bảo mật đa tầng
+$config = function_exists('getYtcConfig') ? getYtcConfig() : [];
 $masterToken = trim($config['security']['admin_token'] ?? '');
 $adminUser = trim($config['security']['admin_username'] ?? '');
 $adminPass = trim($config['security']['admin_password'] ?? '');

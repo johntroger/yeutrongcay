@@ -12,8 +12,9 @@ header('X-Frame-Options: SAMEORIGIN');
 
 require_once __DIR__ . '/db.php';
 
-$configFile = __DIR__ . '/config.php';
-$config = file_exists($configFile) ? require $configFile : [];
+require_once __DIR__ . '/db.php';
+
+$config = function_exists('getYtcConfig') ? getYtcConfig() : [];
 $expectedKey = trim($config['security']['seed_key'] ?? '');
 
 if (empty($expectedKey)) {

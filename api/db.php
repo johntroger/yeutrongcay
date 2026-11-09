@@ -11,6 +11,50 @@
 
 define('YTC_APP', true);
 
+/**
+ * Trình nạp cấu hình đa tầng thông minh (Multi-Level Config Loader)
+ * Tự động tìm kiếm file config.php ở:
+ * 1. api/config.php (Nội bộ thư mục API)
+ * 2. httpdocs/config.php (Thư mục web gốc)
+ * 3. /var/www/vhosts/.../config.php (Thư mục cha ngoài httpdocs - Không bao giờ bị Git xóa!)
+ */
+if (!function_exists('getYtcConfig')) {
+    function getYtcConfig() {
+        static $cfg = null;
+        if ($cfg !== null) {
+            return $cfg;
+        }
+
+        $candidates = [
+            __DIR__ . '/config.php',
+            __DIR__ . '/../config.php',
+            __DIR__ . '/../../config.php',
+            __DIR__ . '/../../../config.php',
+            __DIR__ . '/config.sample.php'
+        ];
+
+        foreach ($candidates as $file) {
+            if (file_exists($file)) {
+                $loaded = @require $file;
+                if (is_array($loaded)) {
+                    $hasDb = !empty($loaded['db']['database']) && $loaded['db']['database'] !== 'yeutrongcay_db';
+                    $hasFb = !empty($loaded['facebook']['page_access_token']) && strpos($loaded['facebook']['page_access_token'], 'YOUR_') === false;
+                    if ($hasDb || $hasFb) {
+                        $cfg = $loaded;
+                        return $cfg;
+                    }
+                    if ($cfg === null) {
+                        $cfg = $loaded;
+                    }
+                }
+            }
+        }
+
+        $cfg = $cfg ?? [];
+        return $cfg;
+    }
+}
+
 function getDbConnection() {
     static $pdo = null;
 
@@ -18,9 +62,8 @@ function getDbConnection() {
         return $pdo;
     }
 
-    // Đọc cấu hình từ file config.php nếu có
-    $configFile = __DIR__ . '/config.php';
-    $config = file_exists($configFile) ? require $configFile : [];
+    // Đọc cấu hình đa tầng (tự động fallback thư mục ngoài httpdocs)
+    $config = getYtcConfig();
 
     $host     = getenv('DB_HOST') ?: ($config['db']['host'] ?? 'localhost');
     $port     = getenv('DB_PORT') ?: ($config['db']['port'] ?? 3306);

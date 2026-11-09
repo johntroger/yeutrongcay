@@ -43,8 +43,7 @@ $pdo = getDbConnection();
 // Xử lý POST: Thêm cây mới (Bắt buộc xác thực Admin Token)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // 1. Kiểm tra xác thực Admin
-    $configFile = __DIR__ . '/config.php';
-    $config = file_exists($configFile) ? require $configFile : [];
+    $config = function_exists('getYtcConfig') ? getYtcConfig() : [];
     $adminToken = $config['security']['admin_token'] ?? '';
 
     $authHeader = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
