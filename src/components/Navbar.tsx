@@ -27,7 +27,6 @@ import { PlantCategory, UserProfile, Plant } from '../types/index.ts';
 import { useLanguage } from '../context/LanguageContext.tsx';
 import { useTheme } from '../context/ThemeContext.tsx';
 import { getUsernameFromEmail } from '../services/plantPassportRegistryService.ts';
-import { SEED_PLANTS } from '../data/plants.ts';
 import { searchPlantsList } from '../utils/searchUtils.ts';
 
 interface NavbarProps {
@@ -74,10 +73,21 @@ export const Navbar: React.FC<NavbarProps> = ({
     ? getUsernameFromEmail(currentUser.email)
     : (currentUser?.id ? currentUser.id.replace(/^usr-/, '') : 'tranthanhtung37');
 
+  const [searchIndexPlants, setSearchIndexPlants] = useState<Plant[]>([]);
+
+  // Tải lười (lazy load) danh mục cây chỉ khi người dùng click vào ô tìm kiếm hoặc bắt đầu gõ
+  useEffect(() => {
+    if ((isSearchFocused || searchQuery.trim().length > 0) && searchIndexPlants.length === 0) {
+      import('../data/plants.ts').then((mod) => {
+        setSearchIndexPlants(mod.SEED_PLANTS);
+      });
+    }
+  }, [isSearchFocused, searchQuery, searchIndexPlants.length]);
+
   const quickMatches = useMemo(() => {
-    if (!searchQuery.trim()) return [];
-    return searchPlantsList(SEED_PLANTS, searchQuery, 6);
-  }, [searchQuery]);
+    if (!searchQuery.trim() || searchIndexPlants.length === 0) return [];
+    return searchPlantsList(searchIndexPlants, searchQuery, 6);
+  }, [searchQuery, searchIndexPlants]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

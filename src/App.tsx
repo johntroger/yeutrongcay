@@ -6,7 +6,6 @@ import { Navbar } from './components/Navbar.tsx';
 import { Footer } from './components/Footer.tsx';
 import { HomePage } from './pages/HomePage.tsx';
 import { AuthModal } from './components/AuthModal.tsx';
-import { MyGardenModal } from './components/MyGardenModal.tsx';
 import { PrivacyModal } from './components/PrivacyModal.tsx';
 import { OfflineBanner } from './components/OfflineBanner.tsx';
 import { MobileBottomNav } from './components/MobileBottomNav.tsx';
@@ -14,7 +13,6 @@ import { trackPageView } from './utils/analytics.ts';
 import { useLanguage } from './context/LanguageContext';
 import { subscribeToAuthState, logoutFirebase } from './services/firebaseClient.ts';
 import { savePlantToMyGarden } from './services/apiService.ts';
-import { SEED_PLANTS } from './data/plants.ts';
 
 // Code-splitting các trang thứ cấp để giảm bundle khởi tạo và tăng tốc độ tải
 const CategoryPage = lazy(() => import('./pages/CategoryPage.tsx').then((m) => ({ default: m.CategoryPage })));
@@ -29,6 +27,7 @@ const AdminPage = lazy(() => import('./pages/AdminPage.tsx').then((m) => ({ defa
 const SeasonalCalendarPage = lazy(() => import('./pages/SeasonalCalendarPage.tsx').then((m) => ({ default: m.SeasonalCalendarPage })));
 const PublicProfilePage = lazy(() => import('./pages/PublicProfilePage.tsx').then((m) => ({ default: m.PublicProfilePage })));
 const MonetizationCategoryPage = lazy(() => import('./pages/monetization/MonetizationCategoryPage.tsx').then((m) => ({ default: m.MonetizationCategoryPage })));
+const MyGardenModal = lazy(() => import('./components/MyGardenModal.tsx').then((m) => ({ default: m.MyGardenModal })));
 const MonetizationArticlePage = lazy(() => import('./pages/monetization/MonetizationArticlePage.tsx').then((m) => ({ default: m.MonetizationArticlePage })));
 
 // Loading fallback chuẩn botanical cho Suspense
@@ -379,11 +378,8 @@ export default function App() {
               element={
                 <PlantDetailPage
                   onOpenMyGarden={() => setIsMyGardenOpen(true)}
-                  onAddPlantToGarden={(plantId) => {
-                    const target = SEED_PLANTS.find((p) => p.id === plantId || p.slug === plantId);
-                    if (target) {
-                      savePlantToMyGarden(target);
-                    }
+                  onAddPlantToGarden={(plant) => {
+                    savePlantToMyGarden(plant);
                   }}
                 />
               }
@@ -438,17 +434,19 @@ export default function App() {
       />
 
       {/* 5. My Digital Garden Modal */}
-      {currentUser && (
-        <MyGardenModal
-          isOpen={isMyGardenOpen}
-          onClose={() => setIsMyGardenOpen(false)}
-          user={currentUser}
-          onOpenWeb3ForPlant={(plantName) => {
-            setIsMyGardenOpen(false);
-            navigate('/web3-sandbox');
-            console.log('Open Web3 for plant:', plantName);
-          }}
-        />
+      {currentUser && isMyGardenOpen && (
+        <Suspense fallback={null}>
+          <MyGardenModal
+            isOpen={isMyGardenOpen}
+            onClose={() => setIsMyGardenOpen(false)}
+            user={currentUser}
+            onOpenWeb3ForPlant={(plantName) => {
+              setIsMyGardenOpen(false);
+              navigate('/web3-sandbox');
+              console.log('Open Web3 for plant:', plantName);
+            }}
+          />
+        </Suspense>
       )}
 
       {/* 6. Privacy & Medical Disclaimer Modal (H13) */}

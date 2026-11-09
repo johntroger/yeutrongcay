@@ -12,7 +12,7 @@ import {
   Eye
 } from 'lucide-react';
 import { plantPassportRegistryService, RegisteredPlantPassport } from '../services/plantPassportRegistryService';
-import { web3WalletService, WalletState } from '../services/web3WalletService';
+import { useWallet } from '../context/WalletContext.tsx';
 import { getNftClassConfig, inferNftClassFromPassport } from '../config/ecosystemRegistry';
 
 interface BotanicalNftGalleryProps {
@@ -28,11 +28,10 @@ export const BotanicalNftGallery: React.FC<BotanicalNftGalleryProps> = ({
   isEn = false,
   onNavigateToMint
 }) => {
-  const [wallet, setWallet] = useState<WalletState | null>(() => web3WalletService.getSavedWallet());
+  const { wallet, connectWallet, isConnecting: isSyncingWallet } = useWallet();
   const [passports, setPassports] = useState<RegisteredPlantPassport[]>([]);
   const [copiedSha, setCopiedSha] = useState<string | null>(null);
   const [selectedPassport, setSelectedPassport] = useState<RegisteredPlantPassport | null>(null);
-  const [isSyncingWallet, setIsSyncingWallet] = useState<boolean>(false);
   const [selectedClassTab, setSelectedClassTab] = useState<string>('all');
 
   const classCounts = useMemo(() => {
@@ -84,16 +83,10 @@ export const BotanicalNftGallery: React.FC<BotanicalNftGalleryProps> = ({
 
   // Đồng bộ lại ví MetaMask thật
   const handleConnectOrSyncWallet = async () => {
-    setIsSyncingWallet(true);
-    try {
-      const state = await web3WalletService.connectRealWallet();
-      setWallet(state);
+    const state = await connectWallet();
+    if (state) {
       const updatedList = plantPassportRegistryService.getUserVerifiedGallery(state.address, currentUserId, userEmail);
       setPassports(updatedList);
-    } catch {
-      // Handle silently
-    } finally {
-      setIsSyncingWallet(false);
     }
   };
 

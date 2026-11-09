@@ -18,8 +18,10 @@ import {
   X
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext.tsx';
-import { web3WalletService, WalletState } from '../services/web3WalletService.ts';
-import { awardKarmaPoints, getKarmaState, KarmaState } from '../services/karmaService.ts';
+import { useWallet } from '../context/WalletContext.tsx';
+import { useKarma } from '../context/KarmaContext.tsx';
+import { web3WalletService } from '../services/web3WalletService.ts';
+import { awardKarmaPoints } from '../services/karmaService.ts';
 import { plantPassportRegistryService, RegisteredPlantPassport } from '../services/plantPassportRegistryService.ts';
 import { BurnPassportModal } from './BurnPassportModal.tsx';
 import {
@@ -105,10 +107,23 @@ export const Web3SandboxSection: React.FC = () => {
   const [searchParams] = useSearchParams();
   const mintSlugParam = searchParams.get('mint');
 
-  // Trạng thái ví thật
-  const [wallet, setWallet] = useState<WalletState | null>(() => web3WalletService.getSavedWallet());
-  const [isConnecting, setIsConnecting] = useState(false);
-  const [walletError, setWalletError] = useState<string | null>(null);
+  // Lấy trạng thái ví & karma từ Context Store dùng chung
+  const {
+    wallet,
+    setWallet,
+    isConnecting,
+    walletError,
+    setWalletError,
+    connectWallet: handleConnectWallet,
+    disconnectWallet: handleDisconnect,
+    switchNetwork: handleSwitchNetwork,
+    toggleNetwork: handleToggleNetwork,
+    switchToSpecificNetwork: handleSwitchToSpecificNetwork,
+    refreshBalance: handleRefreshBalance,
+    hasInstalledWallet
+  } = useWallet();
+
+  const { karmaState, rewardNotice, setRewardNotice } = useKarma();
   const [copied, setCopied] = useState(false);
   const [activeTab, setActiveTab] = useState<'learn' | 'mint' | 'faucet' | 'escrow' | 'defi'>(() =>
     mintSlugParam ? 'mint' : 'learn'
@@ -235,142 +250,7 @@ export const Web3SandboxSection: React.FC = () => {
   const [escrowStep, setEscrowStep] = useState<1 | 2 | 3>(1);
   const [isEscrowSimulating, setIsEscrowSimulating] = useState(false);
 
-  // Trạng thái Điểm Uy Tín Karma & Thông Báo Thưởng (Testnet Learn-to-Earn)
-  const [karmaState, setKarmaState] = useState<KarmaState>(() => getKarmaState(isEn));
-  const [rewardNotice, setRewardNotice] = useState<{ points: number; title: string; desc: string } | null>(null);
   const [hasClaimedFaucetReward, setHasClaimedFaucetReward] = useState(false);
-
-  // Lắng nghe cập nhật điểm thưởng Karma toàn hệ thống
-  useEffect(() => {
-    const handleKarmaUpdate = () => {
-      setKarmaState(getKarmaState(isEn));
-    };
-    window.addEventListener('ytc_karma_awarded', handleKarmaUpdate);
-    return () => {
-      window.removeEventListener('ytc_karma_awarded', handleKarmaUpdate);
-    };
-  }, [isEn]);
-
-  // Tự động đồng bộ số dư và mạng thực tế từ ví khi tải trang
-  useEffect(() => {
-    web3WalletService.syncCurrentWalletState().then((liveState) => {
-      if (liveState) {
-        setWallet(liveState);
-      }
-    });
-  }, []);
-
-  // Lắng nghe sự kiện chuyển tài khoản hoặc đổi mạng trên ví thật
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.ethereum && window.ethereum.on) {
-      const handleAccountsChanged = (accounts: unknown) => {
-        const accs = accounts as string[];
-        if (accs.length === 0) {
-          handleDisconnect();
-        } else {
-          web3WalletService.syncCurrentWalletState().then((liveState) => {
-            if (liveState) setWallet(liveState);
-          });
-        }
-      };
-
-      const handleChainChanged = () => {
-        web3WalletService.syncCurrentWalletState().then((liveState) => {
-          if (liveState) setWallet(liveState);
-        });
-      };
-
-      window.ethereum.on('accountsChanged', handleAccountsChanged);
-      window.ethereum.on('chainChanged', handleChainChanged);
-
-      return () => {
-        if (window.ethereum?.removeListener) {
-          window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
-          window.ethereum.removeListener('chainChanged', handleChainChanged);
-        }
-      };
-    }
-  }, []);
-
-  // Kết nối ví thật (MetaMask, Coinbase...)
-  const handleConnectWallet = async () => {
-    setWalletError(null);
-    setIsConnecting(true);
-    try {
-      const state = await web3WalletService.connectRealWallet();
-      setWallet(state);
-    } catch (err: unknown) {
-      const e = err as { message?: string };
-      setWalletError(e.message || (isEn ? 'Could not connect real Web3 wallet' : 'Không thể kết nối ví Web3 thật'));
-    } finally {
-      setIsConnecting(false);
-    }
-  };
-
-  // Ngắt kết nối
-  const handleDisconnect = () => {
-    web3WalletService.disconnect();
-    setWallet(null);
-  };
-
-  // Chuyển mạng sang Testnet (Ưu tiên Sepolia hoặc Base Sepolia)
-  const handleSwitchNetwork = async () => {
-    setWalletError(null);
-    try {
-      await web3WalletService.switchToSepolia();
-      const fresh = await web3WalletService.syncCurrentWalletState();
-      if (fresh) {
-        setWallet(fresh);
-      }
-    } catch (err: unknown) {
-      try {
-        await web3WalletService.switchToBaseSepolia();
-        const fresh = await web3WalletService.syncCurrentWalletState();
-        if (fresh) {
-          setWallet(fresh);
-        }
-      } catch (err2: unknown) {
-        const e = (err2 || err) as { message?: string };
-        setWalletError(e.message || (isEn ? 'Failed to switch network' : 'Lỗi khi chuyển mạng sang Testnet'));
-      }
-    }
-  };
-
-  // Đổi qua lại giữa Ethereum Sepolia và Base Sepolia
-  const handleToggleNetwork = async () => {
-    setWalletError(null);
-    try {
-      const currentChain = wallet?.chainId?.toLowerCase();
-      if (currentChain === '0x14a34' || currentChain === '84532') {
-        await web3WalletService.switchToSepolia();
-      } else {
-        await web3WalletService.switchToBaseSepolia();
-      }
-      const fresh = await web3WalletService.syncCurrentWalletState();
-      if (fresh) {
-        setWallet(fresh);
-      }
-    } catch (err: unknown) {
-      const e = err as { message?: string };
-      setWalletError(e.message || (isEn ? 'Failed to switch network' : 'Lỗi khi chuyển mạng'));
-    }
-  };
-
-  // Làm mới số dư ETH Testnet thật từ RPC
-  const handleRefreshBalance = async () => {
-    if (!wallet?.address) return;
-    try {
-      const fresh = await web3WalletService.syncCurrentWalletState();
-      if (fresh) {
-        setWallet(fresh);
-      } else {
-        const bal = await web3WalletService.getBalance(wallet.address);
-        setWallet({ ...wallet, balanceEth: bal });
-      }
-    } catch (e) {
-      console.warn('Refresh balance error:', e);
-    }
-  };
 
   // Sao chép địa chỉ ví thật
   const handleCopyAddress = () => {
@@ -395,19 +275,6 @@ export const Web3SandboxSection: React.FC = () => {
             : 'Bạn vừa học cách sao chép địa chỉ ví để nhận ETH Testnet 0đ từ các vòi Faucet quốc tế!'
         });
       }
-    }
-  };
-
-  // Chuyển mạng trực tiếp sang bất kỳ Testnet nào
-  const handleSwitchToSpecificNetwork = async (chainIdHex: string) => {
-    setWalletError(null);
-    try {
-      await web3WalletService.switchToNetwork(chainIdHex);
-      const fresh = await web3WalletService.syncCurrentWalletState();
-      if (fresh) setWallet(fresh);
-    } catch (err: unknown) {
-      const e = err as { message?: string };
-      setWalletError(e.message || (isEn ? 'Failed to switch network' : 'Lỗi khi chuyển mạng testnet'));
     }
   };
 
@@ -685,8 +552,6 @@ export const Web3SandboxSection: React.FC = () => {
       setEscrowStep(1);
     }
   };
-
-  const hasInstalledWallet = web3WalletService.hasInjectedProvider();
 
   return (
     <section id="web3" className="py-4 sm:py-6 bg-cream-100 dark:bg-forest-950 text-charcoal-900 dark:text-white relative overflow-hidden flex-1 flex flex-col justify-start transition-colors duration-200">

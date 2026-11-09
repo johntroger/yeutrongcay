@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "test": "node --test tests/*.test.mjs",
-    "export:plesk": "powershell -ExecutionPolicy Bypass -File scripts/prepare-plesk-package.ps1"
+    "export:plesk": "powershell -ExecutionPolicy Bypass -File scripts/prepare-plesk-package.ps1",
+    "sync:plesk": "powershell -ExecutionPolicy Bypass -File scripts/sync-plesk-git.ps1"
   },
   "dependencies": {
     "@types/leaflet": "^1.9.22",

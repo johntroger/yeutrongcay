@@ -46,7 +46,7 @@ import { getCategoryConfig, getNftClassConfig, resolvePlantNftClass } from '../c
 
 interface PlantDetailPageProps {
   onOpenMyGarden?: () => void;
-  onAddPlantToGarden?: (plantId: string) => void;
+  onAddPlantToGarden?: (plant: Plant) => void;
 }
 
 export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
@@ -479,7 +479,7 @@ export const PlantDetailPage: React.FC<PlantDetailPageProps> = ({
 
     savePlantToMyGarden(plant);
     if (onAddPlantToGarden) {
-      onAddPlantToGarden(plant.id);
+      onAddPlantToGarden(plant);
     }
     setIsSaved(true);
     setSaveToast({
