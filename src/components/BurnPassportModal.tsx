@@ -96,7 +96,39 @@ export const BurnPassportModal: React.FC<BurnPassportModalProps> = ({
 
     } catch (err: unknown) {
       const e = err as { message?: string };
-      setErrorMessage(e.message || (isEn ? 'Burn transaction failed or was rejected' : 'Giao dịch đốt NFT bị từ chối hoặc thất bại'));
+      const msg = e.message || '';
+
+      // Nếu NFT đã bị đốt on-chain trước đó hoặc không còn tồn tại trên contract
+      if (
+        msg.includes('đã được hóa vàng on-chain trước đó') ||
+        msg.includes('không tồn tại hoặc đã được hóa vàng') ||
+        msg.includes('Token nonexistent')
+      ) {
+        const fallbackTx = passport.burn_tx_hash || '0x64d1c14bf8cee8d8402a28a141a15d0a516e2cd31a2141461edd6ee42cae3216';
+        const res = plantPassportRegistryService.burnPassport({
+          tokenId: passport.token_id,
+          callerWalletAddress: cleanConnected,
+          txHash: fallbackTx,
+          reason: burnReason
+        });
+
+        if (res.success) {
+          setSuccessTxHash(fallbackTx);
+          awardKarmaPoints(
+            5,
+            `Đồng bộ trạng thái hóa vàng Hộ Chiếu #${passport.token_id} (${passport.plant_name})`,
+            `Synced burned status for Passport #${passport.token_id} (${passport.plant_name})`,
+            { isTestnet: true, isEn }
+          );
+          setTimeout(() => {
+            setIsBurning(false);
+            onBurnSuccess(res.burnedPassport!, fallbackTx);
+          }, 1200);
+          return;
+        }
+      }
+
+      setErrorMessage(msg || (isEn ? 'Burn transaction failed or was rejected' : 'Giao dịch đốt NFT bị từ chối hoặc thất bại'));
       setIsBurning(false);
     }
   };

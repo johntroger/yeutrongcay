@@ -495,6 +495,76 @@ export const web3WalletService = {
   },
 
   /**
+   * Kiểm tra trực tiếp trạng thái Token trên Smart Contract (on-chain view call)
+   */
+  async checkPassportOnChain(params: {
+    tokenId: number;
+    contractAddress?: `0x${string}`;
+    chainId?: string;
+  }): Promise<{
+    exists: boolean;
+    owner: string | null;
+    error?: string;
+  }> {
+    const targetContract = params.contractAddress || this.getContractAddressForChain(params.chainId || null);
+    const callData = encodeFunctionData({
+      abi: PLANT_PASSPORT_ABI,
+      functionName: 'ownerOf',
+      args: [BigInt(params.tokenId)]
+    });
+
+    if (window.ethereum) {
+      try {
+        const res = (await window.ethereum.request({
+          method: 'eth_call',
+          params: [{ to: targetContract, data: callData }, 'latest']
+        })) as string;
+
+        if (res && res !== '0x' && !/^0x0{64}$/.test(res)) {
+          const owner = ('0x' + res.slice(-40)).toLowerCase();
+          if (owner !== '0x0000000000000000000000000000000000000000') {
+            return { exists: true, owner };
+          }
+        }
+        return { exists: false, owner: null, error: 'Token nonexistent' };
+      } catch (err: unknown) {
+        const e = err as { message?: string };
+        return { exists: false, owner: null, error: e.message || 'Token nonexistent' };
+      }
+    }
+
+    try {
+      const netConfig = ALL_SUPPORTED_TESTNETS[(params.chainId || ETHEREUM_SEPOLIA_CHAIN_ID_HEX).toLowerCase()];
+      const rpcUrl = netConfig?.config?.rpcUrls?.[0] || 'https://ethereum-sepolia-rpc.publicnode.com';
+      const response = await fetch(rpcUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          jsonrpc: '2.0',
+          id: 1,
+          method: 'eth_call',
+          params: [{ to: targetContract, data: callData }, 'latest']
+        })
+      });
+      const data = await response.json();
+      if (data.error) {
+        return { exists: false, owner: null, error: data.error.message || 'Token nonexistent' };
+      }
+      const res = data.result;
+      if (res && res !== '0x' && !/^0x0{64}$/.test(res)) {
+        const owner = ('0x' + res.slice(-40)).toLowerCase();
+        if (owner !== '0x0000000000000000000000000000000000000000') {
+          return { exists: true, owner };
+        }
+      }
+      return { exists: false, owner: null, error: 'Token nonexistent' };
+    } catch (err: unknown) {
+      const e = err as { message?: string };
+      return { exists: false, owner: null, error: e.message || 'Network error' };
+    }
+  },
+
+  /**
    * Đốt bỏ Hộ Chiếu Thực Vật Số ON-CHAIN THẬT
    * QUY TẮC BẢO MẬT: Bắt buộc chỉ người sở hữu NFT (tokenOwner) mới được quyền đốt
    */
@@ -509,6 +579,33 @@ export const web3WalletService = {
     }
 
     const targetContract = params.contractAddress || this.getContractAddressForChain(params.chainId || null);
+
+    // 0. Pre-flight check: Kiểm tra trước xem token có tồn tại on-chain và ví gọi có phải chủ sở hữu không
+    try {
+      const check = await this.checkPassportOnChain({
+        tokenId: params.tokenId,
+        contractAddress: targetContract,
+        chainId: params.chainId
+      });
+
+      if (!check.exists) {
+        throw new Error(
+          `Token #${params.tokenId} không tồn tại hoặc đã được hóa vàng on-chain trước đó trên smart contract (${targetContract.slice(0, 6)}...${targetContract.slice(-4)}).`
+        );
+      }
+
+      if (check.owner && check.owner.toLowerCase() !== params.userAddress.toLowerCase()) {
+        throw new Error(
+          `Địa chỉ ví của bạn (${params.userAddress.slice(0, 6)}...${params.userAddress.slice(-4)}) không phải là chủ sở hữu on-chain của Token #${params.tokenId} (Chủ sở hữu trên chain: ${check.owner.slice(0, 6)}...${check.owner.slice(-4)}).`
+        );
+      }
+    } catch (preErr: unknown) {
+      const p = preErr as { message?: string };
+      if (p.message && (p.message.includes('Token #') || p.message.includes('Địa chỉ ví của bạn'))) {
+        throw preErr;
+      }
+      console.warn('Bỏ qua cảnh báo pre-flight check:', preErr);
+    }
 
     try {
       // 1. Mã hóa gọi hàm burn(uint256) chuẩn ERC-721 Burnable

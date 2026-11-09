@@ -190,9 +190,11 @@ export const Web3SandboxSection: React.FC = () => {
     const handleUpdate = () => loadOwnedPassports();
     window.addEventListener('ytc_passport_registry_updated', handleUpdate);
     window.addEventListener('ytc_passport_transferred', handleUpdate);
+    window.addEventListener('ytc_passport_burned', handleUpdate);
     return () => {
       window.removeEventListener('ytc_passport_registry_updated', handleUpdate);
       window.removeEventListener('ytc_passport_transferred', handleUpdate);
+      window.removeEventListener('ytc_passport_burned', handleUpdate);
     };
   }, [loadOwnedPassports]);
 

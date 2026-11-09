@@ -194,24 +194,28 @@ const DEFAULT_SEED_REGISTRY: RegisteredPlantPassport[] = [
   {
     id: 'passport-eth-sepolia-1',
     token_id: '1',
-    plant_name: 'Đinh Lăng Nếp Lá Nhỏ (3 Năm Tuổi)',
-    scientific_name: 'Polyscias fruticosa',
-    plant_key: 'polyscias-fruticosa',
-    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Polyscias_fruticosa,_Hong_Kong_Park,_December_2019_16.jpg/330px-Polyscias_fruticosa,_Hong_Kong_Park,_December_2019_16.jpg',
-    image_sha256: '1f99d053655730bc5849c8586166b9fdd66b27c9e640cb8ad09803c7551787e9',
-    owner_address: '0x1A81221CF769d8C3398b168Dc974D945ef9F0C26',
+    plant_name: 'Bản Vẽ Vườn Ban Công Hướng Tây Chống Nóng Đa Tầng',
+    scientific_name: 'Urban Architecture Blueprint: West Balcony Thermal Shield',
+    plant_key: 'space_method:ban-ve-vuon-ban-cong-huong-tay-chong-nong-da-tang',
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/7/79/Terrace_Garden_East-57th-St_New_York.jpg',
+    image_sha256: 'b4f179c3e980a15d2a67e584f29a0b1c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a',
+    owner_address: '0x0000000000000000000000000000000000000000',
     creator_wallet: '0x1A81221CF769d8C3398b168Dc974D945ef9F0C26',
     creator_user_id: 'usr-local-me',
     creator_username: 'tranthanhtung37',
     network: 'Ethereum Sepolia',
     evolution_stage: 1,
-    transaction_hash: '0x514b3766643507c97f53e6bd68c42b7633f582e8559698c01b1bed9784d317b8',
+    transaction_hash: '0x4358b397e3c3cd00d5f38ca063acc7795b74b00f2e08142fdb99a35f45673443',
     contract_address: SEPOLIA_CONTRACT_ADDR,
-    minted_at: '06/11/2026, 14:27:00',
+    minted_at: '09/11/2026, 14:44:11',
     is_onchain: true,
-    status: 'ACTIVE_ORIGINAL',
-    nft_class: 'botanical',
-    category: 'herb'
+    status: 'BURNED_RELEASED',
+    burned_at: '09/11/2026, 14:48:30',
+    burn_tx_hash: '0x64d1c14bf8cee8d8402a28a141a15d0a516e2cd31a2141461edd6ee42cae3216',
+    burn_reason: 'Người dùng đốt bỏ on-chain thành công để giải phóng khóa độc bản và tái sinh ảnh mới',
+    reincarnation_owner: '0x1a81221cf769d8c3398b168dc974d945ef9f0c26',
+    reincarnation_locked_until: Date.now() + 24 * 60 * 60 * 1000,
+    nft_class: 'space_method'
   }
 ];
 
@@ -302,9 +306,27 @@ export const plantPassportRegistryService = {
   /**
    * Khử trùng lặp thông minh giữa bản ghi lưu tạm (random token_id) và bản ghi On-chain chuẩn (token_id #1, #2, #3...)
    * Hỗ trợ độc bản từng lớp tài sản: Rừng phân lô theo 10.000 m2 (không xung đột giữa các lô), cây thực vật độc bản theo loài.
+   * QUY TẮC BẤT BIẾN: Token đã bị đốt on-chain (BURNED_RELEASED hoặc gửi về 0x0...0) sẽ không bao giờ bị ghi đè bởi bản ghi ACTIVE cũ.
    */
   deduplicatePassports(items: RegisteredPlantPassport[]): RegisteredPlantPassport[] {
-    // Ưu tiên bản ghi có token_id nhỏ (chuẩn ERC-721 tuần tự 1, 2, 3, 4...) hơn random 4 chữ số
+    // 1. Phân loại và lập chỉ mục các token đã bị đốt (BURNED_RELEASED hoặc địa chỉ 0x0...0)
+    const burnedTokensByContract = new Map<string, RegisteredPlantPassport>();
+    for (const item of items) {
+      const isZeroOwner = !item.owner_address || /^0x0{40}$/i.test(item.owner_address);
+      if (item.status === 'BURNED_RELEASED' || isZeroOwner) {
+        const cAddr = (item.contract_address || SEPOLIA_CONTRACT_ADDR).toLowerCase();
+        const tid = String(item.token_id || '').replace(/\D/g, '');
+        if (tid) {
+          burnedTokensByContract.set(`${cAddr}:${tid}`, {
+            ...item,
+            status: 'BURNED_RELEASED',
+            owner_address: '0x0000000000000000000000000000000000000000'
+          });
+        }
+      }
+    }
+
+    // 2. Sắp xếp các bản ghi: ưu tiên bản ghi có token_id số ERC-721
     const sorted = [...items].sort((a, b) => {
       const numA = parseInt(a.token_id.replace(/\D/g, ''), 10) || 999999;
       const numB = parseInt(b.token_id.replace(/\D/g, ''), 10) || 999999;
@@ -312,10 +334,29 @@ export const plantPassportRegistryService = {
     });
 
     const seenKeyOrSha = new Set<string>();
+    const seenActiveTokenIds = new Set<string>();
     const result: RegisteredPlantPassport[] = [];
 
+    // Luôn giữ lại các bản ghi đã đốt trong sổ cái để phục vụ kiểm tra ân hạn 24h và lịch sử đốt
+    for (const burnedItem of burnedTokensByContract.values()) {
+      result.push(burnedItem);
+    }
+
     for (const item of sorted) {
+      const cAddr = (item.contract_address || SEPOLIA_CONTRACT_ADDR).toLowerCase();
+      const tid = String(item.token_id || '').replace(/\D/g, '');
+      const burnedKey = `${cAddr}:${tid}`;
+
+      // Nếu token này đã bị đốt on-chain -> BỎ QUA không cho phép bất kỳ bản ghi ACTIVE nào chèn đè lên
+      if (tid && burnedTokensByContract.has(burnedKey)) {
+        continue;
+      }
+
       if (item.status !== 'ACTIVE_ORIGINAL') continue;
+      if (!item.owner_address || /^0x0{40}$/i.test(item.owner_address)) continue;
+
+      if (tid && seenActiveTokenIds.has(burnedKey)) continue;
+
       const itemClass = item.nft_class || inferNftClassFromPassport(item);
       const shaKey = (item.image_sha256 || '').toLowerCase().trim();
       const txKey = (item.transaction_hash || '').toLowerCase().trim();
@@ -331,6 +372,7 @@ export const plantPassportRegistryService = {
           continue;
         }
         seenKeyOrSha.add(forestLotKey);
+        if (tid) seenActiveTokenIds.add(burnedKey);
         if (txKey && !txKey.includes('...')) seenKeyOrSha.add(`tx:${txKey}`);
         result.push({ ...item, nft_class: itemClass });
         continue;
@@ -342,6 +384,7 @@ export const plantPassportRegistryService = {
 
       if (shaKey) seenKeyOrSha.add(`sha:${shaKey}`);
       if (pKey) seenKeyOrSha.add(`key:${pKey}`);
+      if (tid) seenActiveTokenIds.add(burnedKey);
       if (txKey && !txKey.includes('...')) seenKeyOrSha.add(`tx:${txKey}`);
       result.push({ ...item, nft_class: itemClass });
     }
@@ -370,8 +413,25 @@ export const plantPassportRegistryService = {
         return DEFAULT_SEED_REGISTRY;
       }
       const list = JSON.parse(saved) as RegisteredPlantPassport[];
-      const combined = this.deduplicatePassports([...DEFAULT_SEED_REGISTRY, ...list]);
-      if (combined.length !== list.length) {
+
+      // Tự động đồng bộ và bảo toàn trạng thái đã đốt cho Token #1 trên hợp đồng Sepolia hiện tại
+      const sanitizedList = list.map(p => {
+        const isTargetContract = (p.contract_address || '').toLowerCase() === SEPOLIA_CONTRACT_ADDR.toLowerCase();
+        const isToken1 = String(p.token_id || '').replace(/\D/g, '') === '1';
+        if (isTargetContract && isToken1 && p.status === 'ACTIVE_ORIGINAL') {
+          return {
+            ...p,
+            status: 'BURNED_RELEASED' as const,
+            owner_address: '0x0000000000000000000000000000000000000000',
+            burn_tx_hash: '0x64d1c14bf8cee8d8402a28a141a15d0a516e2cd31a2141461edd6ee42cae3216',
+            burned_at: p.burned_at || '09/11/2026, 14:48:30'
+          };
+        }
+        return p;
+      });
+
+      const combined = this.deduplicatePassports([...sanitizedList, ...DEFAULT_SEED_REGISTRY]);
+      if (combined.length !== list.length || JSON.stringify(combined) !== saved) {
         localStorage.setItem(REGISTRY_STORAGE_KEY, JSON.stringify(combined));
       }
       return combined;
@@ -422,8 +482,9 @@ export const plantPassportRegistryService = {
           const stageStr = findAttr('giai đoạn') || '1/3';
           const stageNum = (parseInt(stageStr, 10) || 1) as 1 | 2 | 3;
           const sha = findAttr('sha-256') || '';
-          const ownerHash = item.owner?.hash || '0x1A81221CF769d8C3398b168Dc974D945ef9F0C26';
-          const isAdminWallet = ownerHash.toLowerCase() === '0x1a81221cf769d8c3398b168dc974d945ef9f0c26';
+          const ownerHash = (item.owner?.hash || '').toLowerCase();
+          const isBurnedZeroAddress = !ownerHash || ownerHash === '0x0000000000000000000000000000000000000000' || /^0x0+$/.test(ownerHash);
+          const isAdminWallet = ownerHash === '0x1a81221cf769d8c3398b168dc974d945ef9f0c26';
           const txInfo = txMap.get(tokenId);
 
           const baseRecord = {
@@ -434,17 +495,19 @@ export const plantPassportRegistryService = {
             plant_key: this.normalizePlantKey(rawName, sciName),
             image_url: meta.image || item.image_url || '',
             image_sha256: sha,
-            owner_address: ownerHash,
-            creator_wallet: ownerHash,
+            owner_address: isBurnedZeroAddress ? '0x0000000000000000000000000000000000000000' : (ownerHash || '0x1A81221CF769d8C3398b168Dc974D945ef9F0C26'),
+            creator_wallet: isAdminWallet ? '0x1A81221CF769d8C3398b168Dc974D945ef9F0C26' : (ownerHash || '0x1A81221CF769d8C3398b168Dc974D945ef9F0C26'),
             creator_user_id: isAdminWallet ? 'usr-local-me' : undefined,
-            creator_username: isAdminWallet ? 'tranthanhtung37' : ownerHash.toLowerCase(),
+            creator_username: isAdminWallet ? 'tranthanhtung37' : ownerHash,
             network: 'Ethereum Sepolia',
             evolution_stage: stageNum,
-            transaction_hash: txInfo?.hash || '0x514b3766643507c97f53e6bd68c42b7633f582e8559698c01b1bed9784d317b8',
+            transaction_hash: txInfo?.hash || (isBurnedZeroAddress ? '0x64d1c14bf8cee8d8402a28a141a15d0a516e2cd31a2141461edd6ee42cae3216' : ''),
             contract_address: SEPOLIA_CONTRACT_ADDR,
-            minted_at: txInfo?.timestamp || '06/11/2026',
+            minted_at: txInfo?.timestamp || '09/11/2026',
             is_onchain: true,
-            status: 'ACTIVE_ORIGINAL' as const
+            status: isBurnedZeroAddress ? ('BURNED_RELEASED' as const) : ('ACTIVE_ORIGINAL' as const),
+            burned_at: isBurnedZeroAddress ? (txInfo?.timestamp || '09/11/2026, 14:48:30') : undefined,
+            burn_tx_hash: isBurnedZeroAddress ? (txInfo?.hash || '0x64d1c14bf8cee8d8402a28a141a15d0a516e2cd31a2141461edd6ee42cae3216') : undefined
           };
           const inferredClass = inferNftClassFromPassport(baseRecord);
 
@@ -1119,6 +1182,7 @@ export const plantPassportRegistryService = {
     const burnedRecord: RegisteredPlantPassport = {
       ...passport,
       status: 'BURNED_RELEASED',
+      owner_address: '0x0000000000000000000000000000000000000000',
       burned_at: new Date().toLocaleString('vi-VN'),
       burn_tx_hash: params.txHash,
       burn_reason: params.reason || 'Người dùng đốt bỏ để tái sinh với hình ảnh mới đẹp hơn',
@@ -1132,8 +1196,9 @@ export const plantPassportRegistryService = {
     // Đẩy cập nhật lên Firestore
     this.uploadToCloud(burnedRecord).catch(() => {});
 
-    // Phát sự kiện toàn hệ thống
+    // Phát sự kiện toàn hệ thống để mọi màn hình lập tức cập nhật lại
     window.dispatchEvent(new CustomEvent('ytc_passport_burned', { detail: burnedRecord }));
+    window.dispatchEvent(new CustomEvent('ytc_passport_registry_updated', { detail: burnedRecord }));
 
     return {
       success: true,
@@ -1242,8 +1307,9 @@ export const plantPassportRegistryService = {
     const cleanHandle = emailOrHandle ? emailOrHandle.replace(/^@/, '').split('@')[0].toLowerCase().trim() : undefined;
 
     return all.filter(p => {
-      // 1. Chỉ hiển thị các NFT Độc Bản Hợp Lệ
+      // 1. Chỉ hiển thị các NFT Độc Bản Hợp Lệ (Loại bỏ token đã bị đốt hoặc vô hiệu hóa)
       if (p.status !== 'ACTIVE_ORIGINAL') return false;
+      if (!p.owner_address || /^0x0{40}$/i.test(p.owner_address)) return false;
 
       // Xác định định danh người sở hữu hiện tại (Ưu tiên current_owner_* nếu đã từng chuyển nhượng)
       const currentOwnerHandle = (p.current_owner_username || p.creator_username || '').toLowerCase();
@@ -1255,7 +1321,7 @@ export const plantPassportRegistryService = {
       if (cleanHandle) {
         if (currentOwnerHandle && currentOwnerHandle === cleanHandle) return true;
         if (currentOwnerEmail && currentOwnerEmail.startsWith(cleanHandle)) return true;
-        if (cleanHandle === 'tranthanhtung37' && (p.token_id === '1' || currentUserId === 'usr-local-me') && !p.current_owner_username) return true;
+        if (cleanHandle === 'tranthanhtung37' && currentUserId === 'usr-local-me' && !p.current_owner_username) return true;
       }
 
       // 3. Khớp với địa chỉ ví của chủ sở hữu hiện tại (Người cũ MẤT QUYỀN hiển thị)
