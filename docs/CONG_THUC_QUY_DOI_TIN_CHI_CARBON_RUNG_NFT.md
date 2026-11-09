@@ -77,20 +77,28 @@ $$\Delta C_{annual} = \left[ \Delta AGB \times (1 + R) \times CF \times \frac{44
 
 ---
 
-### 3.2. Công thức 2: Dòng Lãi Tín Chỉ Từng Giây (Real-time Yield Streaming)
+### 3.2. Công thức 2: Lãi Tín Chỉ Sinh Khối Tính Theo Ngày (Daily Ecological Yield Rate)
 
-Để người dùng nhìn thấy số dư tín chỉ carbon tăng trưởng từng giây trên giao diện Web3, tốc độ sinh lãi trên giây ($Y_{sec}$) của 1 NFT được xác định như sau:
+> [!NOTE]
+> **Quy chuẩn đơn vị Ngày:**  
+> Trong tự nhiên, chu kỳ quang hợp của cây rừng vận hành theo nhịp ngày - đêm (24 giờ). Tính toán lượng hấp thụ theo **Ngày ($\Delta C_{daily}$)** vừa giữ vững tính khoa học lâm nghiệp nghiêm túc, vừa không làm biến tướng thành ticker "nhảy số từng giây" kiểu đầu cơ tiền số, đồng thời giúp người học dễ dàng theo dõi và ghi nhớ.
 
-$$Y_{sec} = \frac{\Delta C_{annual}}{365 \times 86.400} = \frac{\Delta C_{annual}}{31.536.000} \quad (tCO_2e/\text{giây})$$
+Tốc độ sinh lãi tín chỉ carbon hàng ngày ($\Delta C_{daily}$) của 1 NFT Lô Rừng ($1\text{ ha} = 10.000\text{ m}^2$) được xác định như sau:
 
-Tổng số tín chỉ người dùng có thể claim tại thời điểm $t$:
-$$C_{unclaimed}(t) = C_{accumulated} + \sum_{i=1}^{N_{NFT}} \left[ Y_{sec}^{(i)} \times (t - t_{last\_claim}) \right]$$
+$$\Delta C_{daily} = \frac{\Delta C_{annual}}{365} \quad (tCO_2e/\text{ngày/NFT})$$
+
+Quy đổi sang đơn vị Kilogram để hiển thị trực quan, dễ hiểu với người dùng phổ thông:
+$$\Delta C_{daily}^{(kg)} = \Delta C_{daily} \times 1.000 = \frac{\Delta C_{annual} \times 1.000}{365} \quad (kg\text{ } CO_2e/\text{ngày/NFT})$$
+
+Tổng số tín chỉ người dùng tích lũy sau $D$ ngày thế chấp:
+$$C_{accrued}(D) = C_{base} + \sum_{i=1}^{N_{NFT}} \left[ D \times \Delta C_{daily}^{(i)} \right]$$
+*(Trong đó $D = \lfloor \frac{t_{now} - t_{staked}}{86.400} \rfloor$ là số ngày 24h trọn vẹn đã trôi qua).*
 
 ---
 
 ### 3.3. Công thức 3: Quy Đổi Trọn Gói Khi Đổi / Đốt NFT (Redemption & Retirement)
 
-Khi người dùng không muốn nhận lãi hàng năm mà muốn **Đổi đứt hoặc Đốt NFT** để lấy trọn gói Tín chỉ Carbon phục vụ bù trừ phát thải (Carbon Offsetting) cho cá nhân hoặc doanh nghiệp:
+Khi người dùng không muốn nhận lãi hàng ngày mà muốn **Đổi đứt hoặc Đốt NFT** để lấy trọn gói Tín chỉ Carbon phục vụ bù trừ phát thải (Carbon Offsetting) cho cá nhân hoặc doanh nghiệp:
 
 $$C_{redeem} = \left[ C_{absorbed\_past} + C_{future\_guarantee}(T) \right] \times (1 - D_{liquidity})$$
 
@@ -103,33 +111,31 @@ Trong đó:
 
 ---
 
-### 3.4. Mô Hình Giáo Dục Nén Thời Gian Trong Sandbox (Educational Time-Compression & Instant Feedback)
+### 3.4. Mô Hình Giáo Dục Tính Theo Ngày Trong Sandbox (Daily Epoch Educational Model)
 
 > [!IMPORTANT]
 > **Triết lý Thiết kế Giáo dục (Education-First UX):**  
-> Trong thực tế lâm nghiệp, chu kỳ sinh trưởng của cây rừng tính bằng hàng năm. Tuy nhiên, nếu trên website bắt người dùng phải chờ 1 tháng hay 1 năm mới thấy được kết quả thì **không thể giáo dục được người dùng phổ thông**.  
-> Vì vậy, trong phân hệ Sandbox Giáo Dục, hệ thống áp dụng **"Cơ chế Nén Thời Gian Thực Nghiệm" (Educational Accelerated Simulation)**:
+> * **Không tính theo năm:** Vì quá dài, người dùng không thể chờ hàng tháng hàng năm để hiểu cơ chế.  
+> * **Không tính theo giây:** Vì rừng không lớn từng giây, việc nhảy số theo giây tạo cảm giác ảo và thiếu nghiêm túc về mặt sinh thái.  
+> * **TÍNH THEO NGÀY LÀ TỐT NHẤT:** Một ngày là một nhịp thở tự nhiên của rừng. Người dùng mỗi ngày vào thăm vườn/rừng là thấy sản lượng carbon được kết toán rõ ràng, tạo thói quen văn minh và dễ hiểu.
 
-1. **Tỷ Lệ Nén Thời Gian (Time-Compression Factor $\Phi$)**:
-   $$\Phi = 31.536.000 / 60 \approx 525.600\times$$
-   * **1 phút mô phỏng trên màn hình = 1 năm hấp thụ carbon ngoài thực tế**.
-   * Cứ mỗi **5 giây trôi qua** = Rừng hoàn thành 1 tháng quang hợp tích lũy carbon.
-   * Số dư $tCO_2e$ nhảy mượt mà trực tiếp trước mắt (Live Ticker) với 4 chữ số thập phân (`+0.0012 tCO2e...`).
-2. **Nút Thao Tác Nhanh (Fast-Forward Educational Controls)**:
-   * Cho phép người dùng bấm thử nghiệm ngay các kịch bản thời gian mà không cần chờ:
-     * `[Mô phỏng 1 Tháng]` $\rightarrow$ Lập tức sinh ra $\approx 1.0 - 1.2\text{ } tCO_2e$.
-     * `[Mô phỏng 1 Năm]` $\rightarrow$ Lập tức sinh ra $\approx 11 - 15\text{ } tCO_2e$.
-     * `[Mô phỏng 5 Năm]` $\rightarrow$ Lập tức sinh ra $\approx 55 - 75\text{ } tCO_2e$.
-3. **Quy Đổi Sang Chỉ Số Đời Thường Dễ Hiểu (Tangible Everyday Metrics)**:
-   Để người dùng hiểu giá trị của 1 Tín chỉ Carbon ($1\text{ } tCO_2e$), giao diện hiển thị bảng so sánh trực quan gần gũi:
-   * **$0.25\text{ } tCO_2e$** $\approx$ Bù trừ phát thải của **1 chuyến bay khứ hồi Hà Nội ↔ TP.HCM** ✈️
-   * **$0.45\text{ } tCO_2e$** $\approx$ Bù trừ lượng khí thải phát ra khi **chạy xe máy xăng suốt 1 năm** 🛵
-   * **$1.50\text{ } tCO_2e$** $\approx$ Bù trừ lượng điện sinh hoạt của **1 hộ gia đình trong cả năm** ⚡
-   * **$15.00\text{ } tCO_2e$ (1 Lô Rừng Cúc Phương/năm)** $\approx$ Bằng sức hấp thụ của **750 cây xanh đô thị** trồng mới 🌳
-4. **Vòng Lặp Trải Nghiệm Học Tập Khép Kín Trong 2 Phút (2-Minute Micro-Learning Loop)**:
+1. **Số Liệu Hàng Ngày Rất Trực Quan & Đẹp Mắt**:
+   * **Cúc Phương**: $\approx \mathbf{31.1\text{ kg } CO_2e/\text{ngày}}$ ($0.0311\text{ } tCO_2e/\text{ngày}$).
+   * **U Minh Hạ**: $\approx \mathbf{51.8\text{ kg } CO_2e/\text{ngày}}$ ($0.0518\text{ } tCO_2e/\text{ngày}$).
+   * **Cần Giờ**: $\approx \mathbf{67.6\text{ kg } CO_2e/\text{ngày}}$ ($0.0676\text{ } tCO_2e/\text{ngày}$).
+2. **Bộ Nút Tương Tác Học Tập Nhanh Theo Ngày (Daily Simulation Controls)**:
+   Để người dùng trải nghiệm ngay trong buổi học mà không cần chờ sang ngày hôm sau, hệ thống trang bị bộ nút mô phỏng chu kỳ ngày:
+   * `[+1 Ngày Quang Hợp]` $\rightarrow$ Lập tức cộng thêm **$\approx 31\text{ kg } CO_2e$**.
+   * `[+7 Ngày (1 Tuần Bảo Tồn)]` $\rightarrow$ Lập tức cộng thêm **$\approx 217\text{ kg } CO_2e$** ($~0.22\text{ tấn}$).
+   * `[+30 Ngày (1 Tháng Sinh Khối)]` $\rightarrow$ Lập tức cộng thêm **$\approx 933\text{ kg } CO_2e$** ($~0.93\text{ tấn}$).
+3. **Quy Đổi Trực Quan Sang Hành Động Đời Thường**:
+   Gắn kết số ngày bảo tồn với hành vi phát thải thực tế để giáo dục ý thức bảo vệ môi trường:
+   * **8 Ngày bảo tồn Lô Rừng Cúc Phương** ($\approx 250\text{ kg } CO_2$) $\rightarrow$ Bù trừ đủ **1 chuyến bay khứ hồi Hà Nội ↔ TP.HCM** ✈️.
+   * **15 Ngày bảo tồn Lô Rừng Cúc Phương** ($\approx 465\text{ kg } CO_2$) $\rightarrow$ Bù trừ đủ **1 năm chạy xe máy xăng** 🛵.
+   * **48 Ngày bảo tồn Lô Rừng Cúc Phương** ($\approx 1.500\text{ kg } CO_2$) $\rightarrow$ Bù trừ đủ **1 năm tiền điện sinh hoạt gia đình** ⚡.
+4. **Vòng Lặp Giáo Dục Khép Kín**:
    ```
-   [1. Chọn Lô Rừng] ──► [2. Thế Chấp (Stake)] ──► [3. Bấm Tăng Tốc 1 Năm] ──► [4. Rút Lãi Tín Chỉ] ──► [5. Bù Trừ 1 Chuyến Bay] ──► [6. Nhận Chứng Thư Xanh]
-       (10 giây)             (15 giây)                  (5 giây)                  (15 giây)                 (15 giây)                  (Xuất file PDF/NFT)
+   [Thế Chấp NFT Lô Rừng] ──► [Chọn Mô Phỏng 8 Ngày] ──► [Đạt 250 kg CO₂] ──► [Bấm Rút Tín Chỉ] ──► [Bù Trừ 1 Vé Máy Bay] ──► [Nhận Chứng Thư Xanh]
    ```
 
 ---
