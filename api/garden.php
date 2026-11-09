@@ -1250,14 +1250,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 VALUES (:uid, 'fertilizer', 1) ON DUPLICATE KEY UPDATE quantity = quantity + 1");
             $bonusInv->execute([':uid' => $userId]);
 
-            // Cập nhật chậu cây: Tăng total_harvests, reset EXP về 660 (Giai đoạn 3) để bắt đầu lứa hoa trái tiếp theo
+            // Cập nhật chậu cây: Tăng total_harvests, reset EXP về Giai đoạn 3 tương thích theo loài
+            $cName = mb_strtolower($plant['custom_name'] ?? '');
+            $targetExp = 1100;
+            if (strpos($cName, 'cải') !== false || strpos($cName, 'xà lách') !== false || strpos($cName, 'húng') !== false) {
+                $targetExp = 350;
+            } else if (strpos($cName, 'ớt') !== false) {
+                $targetExp = 900;
+            } else if (strpos($cName, 'dâu') !== false) {
+                $targetExp = 1400;
+            }
+            $resetExp = (int)round($targetExp * 0.45);
+
             $updPlant = $pdo->prepare("UPDATE garden_plants SET 
                 total_harvests = total_harvests + 1,
                 growth_stage = 3,
-                growth_exp = 660,
+                growth_exp = :rexp,
                 current_status = 'healthy'
                 WHERE id = :id");
-            $updPlant->execute([':id' => $plantId]);
+            $updPlant->execute([
+                ':rexp' => $resetExp,
+                ':id' => $plantId
+            ]);
 
             echo json_encode([
                 'success' => true,

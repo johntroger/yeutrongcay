@@ -474,6 +474,27 @@ export const PlantOnChainMintModal: React.FC<PlantOnChainMintModalProps> = ({
                       </span>
                     </div>
 
+                    {isSepolia && (
+                      <div className="flex justify-between items-center text-stone-600 dark:text-stone-300 pt-1 border-t border-stone-200 dark:border-forest-700">
+                        <span>{isEn ? 'Sepolia Gas Balance' : 'Số dư Gas Testnet'}:</span>
+                        <div className="flex items-center gap-2">
+                          <span className="font-mono font-bold text-emerald-600">
+                            {walletState.balanceEth} SepoliaETH
+                          </span>
+                          <a
+                            href="https://cloud.google.com/application/web3/faucet/ethereum/sepolia"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[10px] text-blue-600 hover:underline flex items-center gap-0.5"
+                            title={isEn ? 'Get free SepoliaETH from Google Cloud Faucet' : 'Nhận SepoliaETH miễn phí từ Google Cloud Faucet'}
+                          >
+                            <span>{isEn ? 'Faucet' : 'Vòi Faucet'}</span>
+                            <ExternalLink className="w-2.5 h-2.5" />
+                          </a>
+                        </div>
+                      </div>
+                    )}
+
                     {!isSepolia && (
                       <div className="pt-2">
                         <button

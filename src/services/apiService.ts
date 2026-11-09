@@ -17,6 +17,7 @@ import {
   PlantDiaryEntry,
   GardenCareItemType
 } from '../types/index.ts';
+import { evaluateLazyPlantDecay } from './gardenGameService.ts';
 import { SEED_PLANTS } from '../data/plants.ts';
 import { INITIAL_CLINIC_QUESTIONS } from '../data/clinicCases.ts';
 import { SEED_SWAP_OFFERS } from '../data/swapOffers.ts';
@@ -721,6 +722,9 @@ export async function getGardenData(userId: string = 'usr-local-me'): Promise<{
   if (mergedPlants.length === 0 && !isLive) {
     mergedPlants = [...SEED_GARDEN_PLANTS];
   }
+
+  // Tự động phân rã chỉ số sinh học theo thời gian thực tế (Client-side Lazy Decay)
+  mergedPlants = mergedPlants.map((p) => evaluateLazyPlantDecay(p));
 
   // Đồng bộ lại vào localStorage
   localStorage.setItem('ytc_garden_plants', JSON.stringify(mergedPlants));

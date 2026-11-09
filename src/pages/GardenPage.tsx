@@ -43,7 +43,14 @@ import {
   DailyGardenQuestsHud,
   DailyQuestsState
 } from '../components/garden';
-import { getUserInventory, saveUserInventory, buyInventoryItem, applyCareAction, consumeInventoryItem } from '../services/gardenGameService.ts';
+import {
+  getUserInventory,
+  saveUserInventory,
+  buyInventoryItem,
+  applyCareAction,
+  consumeInventoryItem,
+  getPlantGrowthProfile
+} from '../services/gardenGameService.ts';
 import { plantPassportRegistryService, getUsernameFromEmail } from '../services/plantPassportRegistryService.ts';
 import {
   isNotificationSupported,
@@ -717,14 +724,17 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
     saveUserInventory(inv);
     setInventory(inv);
 
-    // Cập nhật chậu cây: tăng total_harvests, reset EXP về 660 (Stage 3) để chuẩn bị đợt hoa trái mới
+    // Cập nhật chậu cây: tăng total_harvests, reset EXP về Giai đoạn 3 (thích ứng theo loài cây đó) để chuẩn bị lứa hoa trái mới
+    const profile = getPlantGrowthProfile(plant.custom_name, plant.plant_id);
+    const stage3Exp = profile.stage_thresholds[2]?.exp_required ?? Math.round(profile.target_exp * 0.45);
+
     const updated = plants.map((p) => {
       if (p.id === plant.id) {
         return {
           ...p,
           total_harvests: (p.total_harvests || 0) + 1,
           growth_stage: 3,
-          growth_exp: 660,
+          growth_exp: stage3Exp,
           current_status: 'healthy' as PlantGrowthStatus
         };
       }
