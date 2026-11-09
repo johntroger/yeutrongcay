@@ -38,8 +38,7 @@ git config user.email "deploy@yeutrongcay.com"
 git add -A
 git commit -m "deploy: sync production build to Plesk ($buildDate)"
 git remote add origin https://github.com/johntroger/yeutrongcay.git
-git fetch origin production --quiet
-git push --force origin production:production
+git push --force origin HEAD:refs/heads/production
 Pop-Location
 
 # Dọn dẹp dist/ theo quy tắc Storage Cleanup
