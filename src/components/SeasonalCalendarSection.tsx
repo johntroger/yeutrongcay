@@ -39,6 +39,10 @@ import {
   downloadIcsFile
 } from '../utils/agriculturalCalendarUtils.ts';
 import { CropTimelineCalculator } from './CropTimelineCalculator.tsx';
+import {
+  matchGardenPlantToSeedPlant,
+  evaluatePlantSeasonality
+} from '../utils/gardenSeasonalIntegration.ts';
 
 interface SeasonalCalendarSectionProps {
   initialMonth?: number;
@@ -47,7 +51,7 @@ interface SeasonalCalendarSectionProps {
   showRecommendedPlants?: boolean;
 }
 
-type PlantCategoryFilter = 'all' | 'herb' | 'fruit' | 'ornamental' | 'beginner';
+type PlantCategoryFilter = 'all' | 'herb' | 'fruit' | 'ornamental' | 'beginner' | 'my_garden';
 
 interface ToastNotice {
   title: string;
@@ -92,6 +96,7 @@ export const SeasonalCalendarSection: React.FC<SeasonalCalendarSectionProps> = (
 
   // Trạng thái cây đã có trong vườn của tôi
   const [gardenPlantIds, setGardenPlantIds] = useState<Set<string>>(new Set());
+  const [userGardenPlants, setUserGardenPlants] = useState<GardenPlant[]>([]);
 
   // Thông báo toast phản hồi
   const [toastNotice, setToastNotice] = useState<ToastNotice | null>(null);
@@ -103,6 +108,7 @@ export const SeasonalCalendarSection: React.FC<SeasonalCalendarSectionProps> = (
       if (raw) {
         const list = JSON.parse(raw);
         if (Array.isArray(list)) {
+          setUserGardenPlants(list);
           const ids = new Set<string>();
           list.forEach((p: any) => {
             if (p.plant_id) ids.add(p.plant_id);
@@ -167,18 +173,20 @@ export const SeasonalCalendarSection: React.FC<SeasonalCalendarSectionProps> = (
       herb: recommendedPlants.filter((p) => p.category === 'herb').length,
       fruit: recommendedPlants.filter((p) => p.category === 'fruit').length,
       ornamental: recommendedPlants.filter((p) => p.category === 'ornamental').length,
-      beginner: recommendedPlants.filter((p) => (p.propagation_difficulty ?? 1) <= 2).length
+      beginner: recommendedPlants.filter((p) => (p.propagation_difficulty ?? 1) <= 2).length,
+      my_garden: recommendedPlants.filter((p) => gardenPlantIds.has(p.id)).length
     };
-  }, [recommendedPlants]);
+  }, [recommendedPlants, gardenPlantIds]);
 
   // Danh sách cây hiển thị sau khi lọc
   const displayedPlants = useMemo(() => {
     return recommendedPlants.filter((plant: Plant) => {
       if (categoryFilter === 'all') return true;
       if (categoryFilter === 'beginner') return (plant.propagation_difficulty ?? 1) <= 2;
+      if (categoryFilter === 'my_garden') return gardenPlantIds.has(plant.id);
       return plant.category === categoryFilter;
     });
-  }, [recommendedPlants, categoryFilter]);
+  }, [recommendedPlants, categoryFilter, gardenPlantIds]);
 
   // Toggle trạng thái một nhiệm vụ trong checklist
   const handleToggleTask = (taskIndex: number) => {
@@ -256,7 +264,7 @@ export const SeasonalCalendarSection: React.FC<SeasonalCalendarSectionProps> = (
         desc: isEn
           ? `"${plant.common_name}" has been added to your care schedule.`
           : `"${plant.common_name}" đã được đưa vào sổ tay chăm sóc ban công.`,
-        actionUrl: '/khu-vuon-cua-toi',
+        actionUrl: '/vuon-cua-toi',
         actionLabel: isEn ? 'View Garden' : 'Xem vườn ngay'
       });
     } catch (err) {
@@ -460,6 +468,129 @@ export const SeasonalCalendarSection: React.FC<SeasonalCalendarSectionProps> = (
             );
           })}
         </div>
+
+        {/* 3. Personalized My Garden Seasonal Care Section */}
+        {userGardenPlants.length > 0 ? (
+          <div className="bg-gradient-to-r from-emerald-50/90 via-forest-50/70 to-emerald-50/90 dark:from-charcoal-800 dark:via-charcoal-900 dark:to-charcoal-800 rounded-3xl p-5 sm:p-7 border border-emerald-200/90 dark:border-forest-700 shadow-sm space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-600 text-white flex items-center gap-1 shadow-2xs">
+                    <Sprout className="w-3 h-3" />
+                    <span>{isEn ? 'Your Garden Seasonal Schedule' : 'Lịch Vụ Riêng Cho Vườn Của Bạn'}</span>
+                  </span>
+                  <span className="text-xs font-bold text-emerald-800 dark:text-emerald-300">
+                    • {isEn ? `${userGardenPlants.length} plants in your garden` : `Đang quản lý ${userGardenPlants.length} chậu cây`}
+                  </span>
+                </div>
+                <h3 className="text-base sm:text-lg font-serif font-bold text-forest-950 dark:text-cream-50">
+                  {isEn
+                    ? `How Should Your Garden Plants Be Cared For in Month ${selectedMonth} (${selectedRegion.toUpperCase()})?`
+                    : `Các Chậu Cây Trong Vườn Của Bạn Cần Chăm Sóc Gì Trong Tháng ${selectedMonth}?`}
+                </h3>
+                <p className="text-xs text-charcoal-600 dark:text-charcoal-300">
+                  {isEn
+                    ? 'Tailored micro-climate advice and seasonal suitability for each plant in your digital urban garden.'
+                    : 'Hệ thống tự động đối chiếu từng chậu cây bạn đang trồng với tiết khí và lời khuyên mùa vụ tháng này.'}
+                </p>
+              </div>
+
+              <Link
+                to="/vuon-cua-toi"
+                className="px-4 py-2 rounded-xl bg-forest-900 hover:bg-forest-950 text-white text-xs font-bold transition flex items-center justify-center gap-1.5 shrink-0 shadow-xs self-start sm:self-auto"
+              >
+                <Sprout className="w-3.5 h-3.5 text-emerald-400" />
+                <span>{isEn ? 'Open My Garden' : 'Mở Vườn Của Tôi'}</span>
+                <ChevronRight className="w-3.5 h-3.5 text-emerald-400" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 pt-2">
+              {userGardenPlants.map((plant) => {
+                const seed = matchGardenPlantToSeedPlant(plant, SEED_PLANTS);
+                const evalInfo = seed ? evaluatePlantSeasonality(seed, selectedMonth, selectedRegion) : null;
+
+                return (
+                  <div
+                    key={plant.id}
+                    className="p-4 rounded-2xl bg-white dark:bg-charcoal-800 border border-emerald-100 dark:border-forest-800 flex flex-col justify-between space-y-2.5 shadow-2xs hover:shadow-xs transition"
+                  >
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-3">
+                        <img
+                          src={plant.cover_image_url || '/logo.jpg'}
+                          alt={plant.custom_name}
+                          className="w-12 h-12 rounded-xl object-cover border border-emerald-100 dark:border-forest-700 shrink-0"
+                        />
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-serif font-bold text-xs sm:text-sm text-forest-950 dark:text-cream-50 truncate">
+                            {plant.custom_name}
+                          </h4>
+                          <p className="text-[11px] text-charcoal-500 dark:text-charcoal-400 truncate">
+                            {plant.pot_type}
+                          </p>
+                          {evalInfo && (
+                            <span className={`inline-block px-2 py-0.2 rounded-md font-bold text-[9px] border mt-0.5 ${evalInfo.statusColor}`}>
+                              {isEn ? evalInfo.statusLabelEn : evalInfo.statusLabelVi}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      {evalInfo && (
+                        <p className="text-[11px] text-charcoal-700 dark:text-charcoal-300 leading-snug">
+                          💡 <span className="font-semibold">{isEn ? 'Care tip: ' : 'Mẹo tháng này: '}</span>
+                          {isEn ? evalInfo.regionalAdviceEn : evalInfo.regionalAdviceVi}
+                        </p>
+                      )}
+
+                      {evalInfo?.warningVi && (
+                        <p className="text-[10px] text-amber-800 dark:text-amber-300 font-medium leading-snug">
+                          ⚠️ {isEn ? evalInfo.warningEn : evalInfo.warningVi}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="pt-2 border-t border-forest-50 dark:border-forest-800 flex items-center justify-between text-xs">
+                      <Link
+                        to="/vuon-cua-toi"
+                        className="text-emerald-700 dark:text-emerald-400 font-bold hover:underline flex items-center gap-1 text-[11px]"
+                      >
+                        <span>{isEn ? 'Log diary / Care' : 'Ghi nhật ký & Chăm sóc'}</span>
+                        <ChevronRight className="w-3 h-3" />
+                      </Link>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ) : (
+          <div className="bg-forest-50/80 dark:bg-charcoal-800 rounded-3xl p-5 sm:p-6 border border-dashed border-emerald-300 dark:border-forest-700 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <Sprout className="w-4 h-4 text-emerald-600" />
+                <h4 className="font-bold text-xs sm:text-sm text-forest-950 dark:text-cream-50">
+                  {isEn ? 'Connect with My Garden (Urban Care Planner)' : 'Kết Nối Với Khu Vườn Của Tôi (Sổ Tay Cây Trồng)'}
+                </h4>
+              </div>
+              <p className="text-xs text-charcoal-600 dark:text-charcoal-300 max-w-2xl leading-relaxed">
+                {isEn
+                  ? 'You have not added any plants to My Garden yet. Tap "+ Garden" on any recommended species below to automatically receive custom watering, fertilizing, and seasonal alerts!'
+                  : 'Bạn chưa có chậu cây nào trong Vườn Số. Hãy bấm nút "+ Thêm" ở danh sách cây khuyên trồng bên dưới để hệ thống tự động lập lịch tưới, bón phân và cảnh báo mùa vụ dành riêng cho ban công của bạn!'}
+              </p>
+            </div>
+
+            <Link
+              to="/vuon-cua-toi"
+              className="px-4 py-2 rounded-xl bg-forest-900 hover:bg-forest-950 text-white text-xs font-bold transition flex items-center justify-center gap-1.5 shrink-0 shadow-xs self-start sm:self-auto"
+            >
+              <Sprout className="w-3.5 h-3.5 text-emerald-400" />
+              <span>{isEn ? 'Open My Garden' : 'Mở Vườn Của Tôi'}</span>
+              <ChevronRight className="w-3.5 h-3.5 text-emerald-400" />
+            </Link>
+          </div>
+        )}
 
         {/* 3. Climate Overview & Tasks Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
@@ -773,6 +904,7 @@ export const SeasonalCalendarSection: React.FC<SeasonalCalendarSectionProps> = (
             <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
               {[
                 { key: 'all' as PlantCategoryFilter, labelVi: 'Tất cả', labelEn: 'All', count: filterCounts.all },
+                { key: 'my_garden' as PlantCategoryFilter, labelVi: '🪴 Cây Trong Vườn Tôi', labelEn: '🪴 In My Garden', count: filterCounts.my_garden },
                 { key: 'herb' as PlantCategoryFilter, labelVi: '🌿 Rau & Thảo dược', labelEn: '🌿 Herbs & Veggies', count: filterCounts.herb },
                 { key: 'fruit' as PlantCategoryFilter, labelVi: '🍅 Quả ban công', labelEn: '🍅 Balcony Fruits', count: filterCounts.fruit },
                 { key: 'ornamental' as PlantCategoryFilter, labelVi: '🌸 Hoa & Cảnh', labelEn: '🌸 Ornamentals', count: filterCounts.ornamental },
@@ -888,7 +1020,7 @@ export const SeasonalCalendarSection: React.FC<SeasonalCalendarSectionProps> = (
 
                           {isInGarden ? (
                             <Link
-                              to="/khu-vuon-cua-toi"
+                              to="/vuon-cua-toi"
                               className="py-2 px-2 rounded-xl bg-emerald-100/70 hover:bg-emerald-200 dark:bg-emerald-950/60 dark:hover:bg-emerald-900/80 text-emerald-800 dark:text-emerald-300 text-xs font-bold transition flex items-center justify-center gap-1 border border-emerald-300/60 dark:border-emerald-700"
                             >
                               <Check className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />

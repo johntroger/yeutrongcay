@@ -174,7 +174,7 @@ export default function App() {
       document.title = isEn
         ? 'Digital Plant Passport Web3 Sandbox | Yeu Trong Cay'
         : 'Hộ Chiếu Cây Số Web3 Sandbox | Yêu Trồng Cây';
-    } else if (path === '/vuon-cua-toi') {
+    } else if (path === '/vuon-cua-toi' || path === '/khu-vuon-cua-toi') {
       document.title = isEn
         ? 'My Digital Garden & Urban Diary | Yeu Trong Cay'
         : 'Vườn Số Của Tôi & Nhật Ký Cây Trồng Đô Thị | Yêu Trồng Cây';
@@ -387,6 +387,7 @@ export default function App() {
 
             {/* Các Tính Năng Chuyên Sâu Độc Lập - Giải Phóng Cho Trang Chủ */}
             <Route path="/vuon-cua-toi" element={<GardenPage currentUser={currentUser} />} />
+            <Route path="/khu-vuon-cua-toi" element={<GardenPage currentUser={currentUser} />} />
             <Route path="/trao-doi-cay" element={<SwapPage />} />
             <Route path="/bac-si-cay-trong" element={<ClinicPage />} />
             <Route path="/kiem-tien-tu-vuon" element={<MonetizationPage />} />

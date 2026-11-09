@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Sparkles,
   Compass,
@@ -13,7 +14,8 @@ import {
   Plus,
   Droplets,
   Camera,
-  SplitSquareVertical
+  SplitSquareVertical,
+  ChevronRight
 } from 'lucide-react';
 import { GardenPlant } from '../../types/index.ts';
 import { RegionKey } from '../../data/seasonalCalendar.ts';
@@ -119,31 +121,43 @@ export const GardenTasksTab: React.FC<GardenTasksTabProps> = ({
             </p>
           </div>
 
-          {/* Region Selector Pills */}
-          <div className="flex items-center gap-1.5 p-1.5 rounded-2xl bg-cream-50 dark:bg-charcoal-800 border border-forest-100 dark:border-forest-700 self-start lg:self-center">
-            <span className="text-[11px] font-bold text-forest-700 dark:text-forest-400 px-2 flex items-center gap-1">
-              <Compass className="w-3.5 h-3.5 text-herbal-600" />
-              <span>{isEn ? 'Region:' : 'Khu Vực:'}</span>
-            </span>
-            {(
-              [
-                { key: 'north', vi: 'Miền Bắc', en: 'North' },
-                { key: 'central', vi: 'Miền Trung', en: 'Central' },
-                { key: 'south', vi: 'Miền Nam', en: 'South' },
-              ] as const
-            ).map((r) => (
-              <button
-                key={r.key}
-                onClick={() => handleSelectRegion(r.key)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1 cursor-pointer ${
-                  selectedRegion === r.key
-                    ? 'bg-forest-900 text-white shadow-xs'
-                    : 'text-forest-800 dark:text-forest-200 hover:bg-forest-100 dark:hover:bg-charcoal-700'
-                }`}
-              >
-                <span>{isEn ? r.en : r.vi}</span>
-              </button>
-            ))}
+          {/* Region Selector Pills & Full Calendar Link */}
+          <div className="flex flex-wrap items-center gap-2 self-start lg:self-center">
+            <div className="flex items-center gap-1.5 p-1.5 rounded-2xl bg-cream-50 dark:bg-charcoal-800 border border-forest-100 dark:border-forest-700">
+              <span className="text-[11px] font-bold text-forest-700 dark:text-forest-400 px-2 flex items-center gap-1">
+                <Compass className="w-3.5 h-3.5 text-herbal-600" />
+                <span>{isEn ? 'Region:' : 'Khu Vực:'}</span>
+              </span>
+              {(
+                [
+                  { key: 'north', vi: 'Miền Bắc', en: 'North' },
+                  { key: 'central', vi: 'Miền Trung', en: 'Central' },
+                  { key: 'south', vi: 'Miền Nam', en: 'South' },
+                ] as const
+              ).map((r) => (
+                <button
+                  key={r.key}
+                  onClick={() => handleSelectRegion(r.key)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1 cursor-pointer ${
+                    selectedRegion === r.key
+                      ? 'bg-forest-900 text-white shadow-xs'
+                      : 'text-forest-800 dark:text-forest-200 hover:bg-forest-100 dark:hover:bg-charcoal-700'
+                  }`}
+                >
+                  <span>{isEn ? r.en : r.vi}</span>
+                </button>
+              ))}
+            </div>
+
+            <Link
+              to={`/lich-nong-vu?month=${selectedMonth}&region=${selectedRegion}`}
+              className="px-3.5 py-2 rounded-2xl bg-forest-900 hover:bg-forest-950 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-xs"
+              title={isEn ? 'Open Full Seasonal Calendar' : 'Mở Trang Lịch Nông Vụ Toàn Diện'}
+            >
+              <Calendar className="w-3.5 h-3.5 text-emerald-400" />
+              <span>{isEn ? 'Full Calendar' : 'Lịch Nông Vụ Chi Tiết'}</span>
+              <ChevronRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
         </div>
 

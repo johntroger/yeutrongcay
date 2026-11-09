@@ -133,7 +133,7 @@ export const CropTimelineCalculator: React.FC<CropTimelineCalculatorProps> = ({ 
           isEn
             ? `Track "${timeline.preset.name_en}" towards harvest on ${timeline.formattedHarvestDate}.`
             : `Đã đưa "${timeline.preset.name_vi}" vào theo dõi với ngày hái dự kiến ${timeline.formattedHarvestDate}.`,
-          '/khu-vuon-cua-toi',
+          '/vuon-cua-toi',
           isEn ? 'View Garden' : 'Xem vườn ngay'
         );
       }

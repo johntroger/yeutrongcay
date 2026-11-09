@@ -59,6 +59,7 @@ import { applyWatermarkAndStripExif } from '../utils/watermark.ts';
 import { useSEO } from '../utils/useSEO.ts';
 import { useLanguage } from '../context/LanguageContext';
 import { localizePlant } from '../i18n/plantTranslations';
+import { matchGardenPlantToSeedPlant, evaluatePlantSeasonality } from '../utils/gardenSeasonalIntegration.ts';
 
 export interface GardenPageProps {
   currentUser?: UserProfile | null;
@@ -1142,84 +1143,138 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
               </div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {plants.map((plant) => {
-              const days = calculateDaysPlanted(plant.planted_date);
-              const plantDiaries = diaries.filter((d) => d.garden_plant_id === plant.id);
-              const statusInfo = statusLabelMap[plant.current_status];
+            <div className="space-y-6">
+              {/* Seasonal Alert Banner for User's Garden */}
+              <div className="bg-gradient-to-r from-emerald-50 via-forest-50 to-emerald-50 dark:from-charcoal-800 dark:via-charcoal-900 dark:to-charcoal-800 rounded-3xl p-5 border border-emerald-200/80 dark:border-forest-700 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-600 text-white flex items-center gap-1">
+                      <Calendar className="w-3 h-3" />
+                      <span>{isEn ? `Seasonal Guide: Month ${currentRealMonth}` : `Lịch Nông Vụ Tháng ${currentRealMonth}`}</span>
+                    </span>
+                    <span className="text-xs font-semibold text-emerald-800 dark:text-emerald-300">
+                      • {isEn ? currentMonthData.title_en : currentMonthData.title_vi}
+                    </span>
+                  </div>
+                  <p className="text-xs text-forest-800 dark:text-forest-200 leading-snug">
+                    💡 <span className="font-semibold">{currentRegionalGuide.climate_tag}:</span> {currentRegionalGuide.pro_tip}
+                  </p>
+                  <p className="text-[11px] text-red-800 dark:text-red-300 font-medium">
+                    ⚠️ {isEn ? 'Pest Alert: ' : 'Cảnh báo sâu bệnh: '}{currentRegionalGuide.pest_alert}
+                  </p>
+                </div>
 
-              return (
-                <div
-                  key={plant.id}
-                  className="bg-white dark:bg-charcoal-900 rounded-3xl overflow-hidden border border-forest-100 dark:border-forest-800 shadow-sm hover:shadow-md transition flex flex-col justify-between group"
+                <Link
+                  to={`/lich-nong-vu?month=${currentRealMonth}&region=${selectedRegion}`}
+                  className="px-4 py-2 rounded-xl bg-forest-900 hover:bg-forest-950 dark:bg-emerald-600 dark:hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center justify-center gap-1.5 shrink-0 shadow-xs"
                 >
-                  <div>
-                    {/* Plant Image & Status */}
-                    <div className="relative aspect-[16/10] bg-forest-900 overflow-hidden">
-                      <img
-                        src={plant.cover_image_url}
-                        alt={plant.custom_name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.onerror = null;
-                          target.src = '/logo.jpg';
-                          target.style.objectFit = 'contain';
-                          target.style.backgroundColor = '#ffffff';
-                          target.style.padding = '12px';
-                        }}
-                      />
-                      <div className="absolute top-3 left-3">
-                        <span
-                          className={`px-2.5 py-1 rounded-full text-[10px] font-bold shadow-xs border ${
-                            statusInfo?.color || 'bg-white text-forest-900'
-                          }`}
+                  <Calendar className="w-3.5 h-3.5 text-emerald-400 dark:text-white" />
+                  <span>{isEn ? 'View Full Seasonal Calendar' : 'Mở Lịch Nông Vụ Chi Tiết'}</span>
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {plants.map((plant) => {
+                const days = calculateDaysPlanted(plant.planted_date);
+                const plantDiaries = diaries.filter((d) => d.garden_plant_id === plant.id);
+                const statusInfo = statusLabelMap[plant.current_status];
+                const matchedSeed = matchGardenPlantToSeedPlant(plant, SEED_PLANTS);
+                const seasonalEval = matchedSeed ? evaluatePlantSeasonality(matchedSeed, currentRealMonth, selectedRegion) : null;
+
+                return (
+                  <div
+                    key={plant.id}
+                    className="bg-white dark:bg-charcoal-900 rounded-3xl overflow-hidden border border-forest-100 dark:border-forest-800 shadow-sm hover:shadow-md transition flex flex-col justify-between group"
+                  >
+                    <div>
+                      {/* Plant Image & Status */}
+                      <div className="relative aspect-[16/10] bg-forest-900 overflow-hidden">
+                        <img
+                          src={plant.cover_image_url}
+                          alt={plant.custom_name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.onerror = null;
+                            target.src = '/logo.jpg';
+                            target.style.objectFit = 'contain';
+                            target.style.backgroundColor = '#ffffff';
+                            target.style.padding = '12px';
+                          }}
+                        />
+                        <div className="absolute top-3 left-3">
+                          <span
+                            className={`px-2.5 py-1 rounded-full text-[10px] font-bold shadow-xs border ${
+                              statusInfo?.color || 'bg-white text-forest-900'
+                            }`}
+                          >
+                            {isEn ? statusInfo?.labelEn : statusInfo?.labelVi}
+                          </span>
+                        </div>
+
+                        {/* Nút Xóa Chậu Cây */}
+                        <button
+                          onClick={() => handleDeletePlant(plant.id, plant.custom_name)}
+                          title={isEn ? 'Remove plant' : 'Xóa chậu cây'}
+                          className="absolute top-3 right-3 p-1.5 rounded-full bg-forest-950/70 hover:bg-red-600 text-white transition backdrop-blur-xs"
                         >
-                          {isEn ? statusInfo?.labelEn : statusInfo?.labelVi}
-                        </span>
-                      </div>
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
 
-                      {/* Nút Xóa Chậu Cây */}
-                      <button
-                        onClick={() => handleDeletePlant(plant.id, plant.custom_name)}
-                        title={isEn ? 'Remove plant' : 'Xóa chậu cây'}
-                        className="absolute top-3 right-3 p-1.5 rounded-full bg-forest-950/70 hover:bg-red-600 text-white transition backdrop-blur-xs"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
-
-                      <div className="absolute bottom-3 right-3 px-2 py-0.5 rounded-full bg-forest-950/80 backdrop-blur-xs text-white text-[10px] font-semibold">
-                        {isEn ? `Planted ${days} days ago` : `Đã trồng ${days} ngày`}
-                      </div>
-                    </div>
-
-                    {/* Plant Info */}
-                    <div className="p-5 space-y-2.5">
-                      <div className="flex items-start justify-between gap-2">
-                        <div>
-                          <h3 className="font-serif font-bold text-lg text-forest-950 dark:text-cream-50 leading-snug">
-                            {plant.custom_name}
-                          </h3>
-                          {plant.species_name && (
-                            <p className="text-xs italic text-herbal-700 dark:text-herbal-400 font-serif">
-                              {plant.species_name}
-                            </p>
-                          )}
+                        <div className="absolute bottom-3 right-3 px-2 py-0.5 rounded-full bg-forest-950/80 backdrop-blur-xs text-white text-[10px] font-semibold">
+                          {isEn ? `Planted ${days} days ago` : `Đã trồng ${days} ngày`}
                         </div>
                       </div>
 
-                      <p className="text-xs text-forest-700/80 dark:text-forest-300 line-clamp-2 leading-relaxed">
-                        {plant.notes || (isEn ? 'Naturally tended in an urban balcony container.' : 'Cây được chăm sóc tự nhiên trong chậu ban công.')}
-                      </p>
+                      {/* Plant Info */}
+                      <div className="p-5 space-y-2.5">
+                        <div className="flex items-start justify-between gap-2">
+                          <div>
+                            <h3 className="font-serif font-bold text-lg text-forest-950 dark:text-cream-50 leading-snug">
+                              {plant.custom_name}
+                            </h3>
+                            {plant.species_name && (
+                              <p className="text-xs italic text-herbal-700 dark:text-herbal-400 font-serif">
+                                {plant.species_name}
+                              </p>
+                            )}
+                          </div>
+                        </div>
 
-                      <div className="pt-2 text-[11px] text-forest-600 dark:text-forest-400 flex items-center justify-between border-t border-forest-50 dark:border-forest-800">
-                        <span>{isEn ? `Pot: ${plant.pot_type}` : `Chậu: ${plant.pot_type}`}</span>
-                        <span className="font-medium text-herbal-700 dark:text-herbal-400">
-                          {isEn ? `${plantDiaries.length} photo logs` : `${plantDiaries.length} mốc ảnh`}
-                        </span>
+                        <p className="text-xs text-forest-700/80 dark:text-forest-300 line-clamp-2 leading-relaxed">
+                          {plant.notes || (isEn ? 'Naturally tended in an urban balcony container.' : 'Cây được chăm sóc tự nhiên trong chậu ban công.')}
+                        </p>
+
+                        <div className="pt-2 text-[11px] text-forest-600 dark:text-forest-400 flex items-center justify-between border-t border-forest-50 dark:border-forest-800">
+                          <span>{isEn ? `Pot: ${plant.pot_type}` : `Chậu: ${plant.pot_type}`}</span>
+                          <span className="font-medium text-herbal-700 dark:text-herbal-400">
+                            {isEn ? `${plantDiaries.length} photo logs` : `${plantDiaries.length} mốc ảnh`}
+                          </span>
+                        </div>
+
+                        {/* Khối Mùa Vụ Cho Chậu Cây Này */}
+                        {seasonalEval && (
+                          <div className="pt-2 border-t border-forest-50 dark:border-forest-800/80 space-y-1">
+                            <div className="flex items-center justify-between text-[11px]">
+                              <span className={`px-2 py-0.5 rounded-md font-bold text-[10px] border ${seasonalEval.statusColor}`}>
+                                {isEn ? seasonalEval.statusLabelEn : seasonalEval.statusLabelVi}
+                              </span>
+                              <Link
+                                to={`/lich-nong-vu?month=${currentRealMonth}&region=${selectedRegion}`}
+                                className="text-emerald-700 dark:text-emerald-400 hover:underline flex items-center gap-0.5 text-[10px] font-semibold"
+                              >
+                                <span>{isEn ? 'Seasonal guide' : 'Xem lịch vụ'}</span>
+                                <ChevronRight className="w-3 h-3" />
+                              </Link>
+                            </div>
+                            <p className="text-[11px] text-forest-700 dark:text-forest-300 line-clamp-1 italic">
+                              💡 {isEn ? seasonalEval.regionalAdviceEn : seasonalEval.regionalAdviceVi}
+                            </p>
+                          </div>
+                        )}
                       </div>
                     </div>
-                  </div>
 
                   {/* Card Actions */}
                   <div className="p-4 bg-cream-50/50 dark:bg-charcoal-800/60 border-t border-forest-100 dark:border-forest-800 flex flex-wrap items-center justify-between gap-2">
@@ -1275,6 +1330,7 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
                 </div>
               );
             })}
+            </div>
             </div>
           )
         )}
