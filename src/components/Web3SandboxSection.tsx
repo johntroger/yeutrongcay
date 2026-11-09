@@ -403,7 +403,9 @@ export const Web3SandboxSection: React.FC = () => {
 
   // 1.5. RÚT HẠT GIỐNG KHỎI KHO STAKING ON-CHAIN THẬT (UNSTAKE SEEDS)
   const handleUnstakeSeeds = async (unstakeCount?: number) => {
-    const toUnstake = unstakeCount || Math.min(10, stakedBalance);
+    const toUnstake = (typeof unstakeCount === 'number' && unstakeCount > 0)
+      ? Math.min(unstakeCount, stakedBalance)
+      : stakedBalance;
     if (toUnstake <= 0 || toUnstake > stakedBalance) {
       setWalletError(isEn ? 'Invalid unstake amount or exceeds staked balance!' : 'Số lượng rút không hợp lệ hoặc vượt quá số dư đang stake!');
       return;

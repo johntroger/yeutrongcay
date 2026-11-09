@@ -350,15 +350,28 @@ export const Web3DeFiTab: React.FC<Web3DeFiTabProps> = ({
             </button>
 
             {stakedBalance > 0 && handleUnstakeSeeds && (
-              <button
-                onClick={() => handleUnstakeSeeds()}
-                disabled={isStakingRunning}
-                className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-teal-700 hover:bg-teal-600 disabled:opacity-40 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-md transition shrink-0 cursor-pointer"
-                title={isEn ? `Unstake seeds back to your backpack` : `Rút hạt giống đang gửi staking về lại túi đồ`}
-              >
-                <Sprout className="w-3.5 h-3.5 text-lime-300" />
-                <span>{isEn ? `Unstake Seeds (${stakedBalance})` : `Rút Hạt Giống (${stakedBalance} hạt)`}</span>
-              </button>
+              <div className="flex items-center gap-2 w-full sm:w-auto">
+                {stakedBalance > 10 && (
+                  <button
+                    onClick={() => handleUnstakeSeeds(10)}
+                    disabled={isStakingRunning}
+                    className="flex-1 sm:flex-initial px-3.5 py-2.5 rounded-xl bg-teal-800/90 hover:bg-teal-700 disabled:opacity-40 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-md transition shrink-0 cursor-pointer"
+                    title={isEn ? 'Unstake 10 seeds back to your backpack' : 'Rút 10 hạt giống về túi đồ'}
+                  >
+                    <Sprout className="w-3.5 h-3.5 text-lime-300" />
+                    <span>{isEn ? 'Unstake 10' : 'Rút 10 Hạt'}</span>
+                  </button>
+                )}
+                <button
+                  onClick={() => handleUnstakeSeeds(stakedBalance)}
+                  disabled={isStakingRunning}
+                  className="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl bg-teal-700 hover:bg-teal-600 disabled:opacity-40 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-md transition shrink-0 cursor-pointer"
+                  title={isEn ? `Unstake all ${stakedBalance} seeds back to your backpack` : `Rút toàn bộ ${stakedBalance} hạt giống đang gửi staking về lại túi đồ`}
+                >
+                  <Sprout className="w-3.5 h-3.5 text-lime-300" />
+                  <span>{isEn ? `Unstake All (${stakedBalance})` : `Rút Toàn Bộ (${stakedBalance} hạt)`}</span>
+                </button>
+              </div>
             )}
           </div>
 
