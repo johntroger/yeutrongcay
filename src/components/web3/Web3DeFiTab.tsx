@@ -30,6 +30,8 @@ interface Web3DeFiTabProps {
   availableSeeds: number;
   stakedBalance: number;
   accumulatedYield: number;
+  liveYieldSeeds?: number;
+  liveYieldFertilizer?: number;
   stakeAmount: number;
   setStakeAmount: (n: number) => void;
   handleStakeSeeds: () => void;
@@ -56,6 +58,8 @@ export const Web3DeFiTab: React.FC<Web3DeFiTabProps> = ({
   availableSeeds,
   stakedBalance,
   accumulatedYield,
+  liveYieldSeeds = 0,
+  liveYieldFertilizer = 0,
   stakeAmount,
   setStakeAmount,
   handleStakeSeeds,
@@ -215,13 +219,24 @@ export const Web3DeFiTab: React.FC<Web3DeFiTabProps> = ({
             </div>
           </div>
 
-          <div className="p-4 rounded-2xl bg-forest-50/60 dark:bg-forest-950/60 border border-forest-100 dark:border-forest-800">
-            <span className="text-[11px] text-forest-600 dark:text-forest-400 font-medium block">
-              {isEn ? 'Bio-Fertilizer Yield' : 'Lợi Suất Phân Bón Tích Lũy'}
-            </span>
-            <div className="text-xl font-bold font-mono text-amber-600 dark:text-amber-400 mt-1 flex items-baseline gap-1">
-              <span>{accumulatedYield.toFixed(2)}</span>
-              <span className="text-xs font-sans font-normal text-forest-500">Bao vi sinh</span>
+          <div className="p-4 rounded-2xl bg-forest-50/60 dark:bg-forest-950/60 border border-forest-100 dark:border-forest-800 relative overflow-hidden">
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] text-forest-600 dark:text-forest-400 font-medium block">
+                {isEn ? 'Accruing DeFi Yield (Live)' : 'Lãi DeFi Đang Sinh Lời (Trực Tiếp)'}
+              </span>
+              {stakedBalance > 0 && (
+                <span className="flex items-center gap-1 text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-100 dark:bg-emerald-950 px-1.5 py-0.5 rounded-md border border-emerald-300 dark:border-emerald-800">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  Live Ticker
+                </span>
+              )}
+            </div>
+            <div className="text-xl font-bold font-mono text-amber-600 dark:text-amber-400 mt-1 flex items-baseline gap-1.5 flex-wrap">
+              <span className="text-emerald-600 dark:text-emerald-400 font-extrabold">+{liveYieldSeeds.toFixed(3)}</span>
+              <span className="text-xs font-sans font-normal text-forest-500">Hạt 🌱</span>
+              <span className="text-xs text-forest-400">•</span>
+              <span>+{liveYieldFertilizer.toFixed(2)}</span>
+              <span className="text-xs font-sans font-normal text-forest-500">Phân 👝</span>
             </div>
           </div>
 
@@ -311,6 +326,52 @@ export const Web3DeFiTab: React.FC<Web3DeFiTabProps> = ({
             </div>
           )}
 
+          {/* BẢNG THỐNG KÊ LÃI DEFI THỜI GIAN THỰC (LIVE YIELD FARMING) */}
+          <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-500/10 via-emerald-500/10 to-teal-500/10 border border-amber-300/80 dark:border-amber-700/80 space-y-3">
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-xs font-bold text-amber-950 dark:text-amber-200 uppercase tracking-wider flex items-center gap-1.5">
+                  <Sparkles className="w-4 h-4 text-amber-500" />
+                  <span>{isEn ? 'DeFi Real-Time Yield Streaming' : 'Lãi DeFi Đang Sinh Lời Theo Thời Gian Thực'}</span>
+                </span>
+              </div>
+              <span className="px-2.5 py-0.5 rounded-md text-[10px] font-mono font-bold bg-amber-100 dark:bg-amber-950 text-amber-900 dark:text-amber-300 border border-amber-300 dark:border-amber-800">
+                {stakedBalance > 0
+                  ? (isEn ? '● Streaming Yield Active (APY 12.5%)' : '● Đang sinh lãi liên tục (APY 12.5%)')
+                  : (isEn ? 'Staking Inactive • Stake to Earn' : 'Chưa gửi hạt • Gửi hạt để nhận lãi')}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="p-3.5 rounded-xl bg-white/90 dark:bg-forest-900/80 border border-amber-200 dark:border-amber-900/60 shadow-xs">
+                <span className="text-[11px] text-forest-600 dark:text-forest-400 block font-medium">
+                  {isEn ? 'Accrued Seed Interest (Bonus Seeds):' : 'Lãi Hạt Giống Tích Lũy (Cộng vào Túi khi rút lãi):'}
+                </span>
+                <div className="text-lg font-bold font-mono text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5 mt-1">
+                  <Sprout className="w-4 h-4 text-lime-500" />
+                  <span className="text-xl font-extrabold">+{liveYieldSeeds.toFixed(4)}</span>
+                  <span className="text-xs font-normal text-forest-500">Hạt giống 🌱</span>
+                </div>
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-white/90 dark:bg-forest-900/80 border border-amber-200 dark:border-amber-900/60 shadow-xs">
+                <span className="text-[11px] text-forest-600 dark:text-forest-400 block font-medium">
+                  {isEn ? 'Accrued Bio-Fertilizer (Care Item):' : 'Phân Bón Vi Sinh Kèm Theo (Nuôi cây mau lớn):'}
+                </span>
+                <div className="text-lg font-bold font-mono text-amber-600 dark:text-amber-400 flex items-center gap-1.5 mt-1">
+                  <Sparkles className="w-4 h-4 text-amber-500" />
+                  <span className="text-xl font-extrabold">+{liveYieldFertilizer.toFixed(2)}</span>
+                  <span className="text-xs font-normal text-forest-500">Bao vi sinh 👝</span>
+                </div>
+              </div>
+            </div>
+
+            <p className="text-[11px] text-forest-700 dark:text-forest-300 leading-relaxed">
+              💡 <strong>Cơ chế rút lãi chuẩn DeFi:</strong> Khi bấm nút <strong>"Rút Lãi DeFi"</strong>, số <strong>Hạt giống lãi</strong> và <strong>Phân bón vi sinh</strong> sẽ được chuyển thẳng vào Balo làm vườn của bạn để gieo trồng hoặc đổi thưởng, trong khi <strong>toàn bộ số hạt gốc ({stakedBalance} hạt)</strong> vẫn tiếp tục ở trong Kho để sinh lãi tiếp!
+            </p>
+          </div>
+
           <label className="text-xs font-bold text-forest-900 dark:text-white flex items-center justify-between">
             <span>{isEn ? 'Enter Seeds to Stake (On-chain):' : 'Nhập Số Lượng Hạt Giống Gửi Staking On-Chain:'}</span>
             <span className="text-[11px] text-forest-500 font-normal">
@@ -341,12 +402,16 @@ export const Web3DeFiTab: React.FC<Web3DeFiTabProps> = ({
             </button>
             <button
               onClick={handleClaimYield}
-              disabled={accumulatedYield <= 0 || isStakingRunning}
-              className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 disabled:opacity-40 text-forest-950 font-bold text-xs flex items-center justify-center gap-1.5 shadow-md transition shrink-0 cursor-pointer"
-              title={isEn ? 'Claim accumulated Bio-Fertilizer units into your backpack' : 'Thu hoạch phân bón vi sinh tích lũy cộng thẳng vào Túi đồ'}
+              disabled={(liveYieldSeeds <= 0 && liveYieldFertilizer <= 0 && accumulatedYield <= 0) || isStakingRunning}
+              className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 disabled:opacity-40 text-forest-950 font-bold text-xs flex items-center justify-center gap-1.5 shadow-md transition shrink-0 cursor-pointer"
+              title={isEn ? 'Claim accumulated interest seeds & bio-fertilizers into backpack' : 'Rút toàn bộ hạt giống lãi và phân bón vi sinh tích lũy cộng thẳng vào Túi đồ'}
             >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>{isEn ? 'Claim Bio-Fertilizer (+15 Hearts ❤️)' : 'Thu Hoạch Phân Bón Vi Sinh (+15 Tim ❤️)'}</span>
+              <Sparkles className="w-3.5 h-3.5 text-forest-950" />
+              <span>
+                {isEn
+                  ? `Claim Yield (+${Math.max(1, Math.round(liveYieldSeeds))} Seeds 🌱 & Fert 👝)`
+                  : `🌾 Rút Lãi DeFi (+${Math.max(1, Math.round(liveYieldSeeds))} Hạt 🌱 & ${Math.max(1, Math.round(liveYieldFertilizer))} Phân Bón 👝)`}
+              </span>
             </button>
 
             {stakedBalance > 0 && handleUnstakeSeeds && (
@@ -356,38 +421,38 @@ export const Web3DeFiTab: React.FC<Web3DeFiTabProps> = ({
                     onClick={() => handleUnstakeSeeds(10)}
                     disabled={isStakingRunning}
                     className="flex-1 sm:flex-initial px-3.5 py-2.5 rounded-xl bg-teal-800/90 hover:bg-teal-700 disabled:opacity-40 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-md transition shrink-0 cursor-pointer"
-                    title={isEn ? 'Unstake 10 seeds back to your backpack' : 'Rút 10 hạt giống về túi đồ'}
+                    title={isEn ? 'Unstake 10 principal seeds back to your backpack' : 'Rút 10 hạt giống gốc về túi đồ'}
                   >
                     <Sprout className="w-3.5 h-3.5 text-lime-300" />
-                    <span>{isEn ? 'Unstake 10' : 'Rút 10 Hạt'}</span>
+                    <span>{isEn ? 'Unstake 10' : 'Rút Gốc 10 Hạt'}</span>
                   </button>
                 )}
                 <button
                   onClick={() => handleUnstakeSeeds(stakedBalance)}
                   disabled={isStakingRunning}
                   className="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl bg-teal-700 hover:bg-teal-600 disabled:opacity-40 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-md transition shrink-0 cursor-pointer"
-                  title={isEn ? `Unstake all ${stakedBalance} seeds back to your backpack` : `Rút toàn bộ ${stakedBalance} hạt giống đang gửi staking về lại túi đồ`}
+                  title={isEn ? `Unstake all ${stakedBalance} principal seeds back to your backpack` : `Rút toàn bộ ${stakedBalance} hạt giống gốc đang gửi staking về lại túi đồ`}
                 >
                   <Sprout className="w-3.5 h-3.5 text-lime-300" />
-                  <span>{isEn ? `Unstake All (${stakedBalance})` : `Rút Toàn Bộ (${stakedBalance} hạt)`}</span>
+                  <span>{isEn ? `Unstake All (${stakedBalance})` : `Rút Toàn Bộ Gốc (${stakedBalance} hạt)`}</span>
                 </button>
               </div>
             )}
           </div>
 
-          {/* Hướng dẫn phân biệt Hạt giống & Phân bón vi sinh */}
+          {/* Hướng dẫn phân biệt Rút Lãi & Rút Gốc */}
           <div className="p-3 rounded-xl bg-forest-50/70 dark:bg-forest-950/60 border border-forest-100 dark:border-forest-800 text-[11px] text-forest-700 dark:text-forest-300 space-y-1">
             <p>
-              🌾 <strong>Lưu ý về nguồn Hạt Giống (Seeds):</strong>
+              🌾 <strong>Phân biệt Rút Lãi & Rút Gốc trong DeFi:</strong>
             </p>
             <p>
-              • <strong>Thu hoạch tại Vườn Của Tôi:</strong> Khi chăm cây đạt Cấp 5 (chín muồi) và bấm thu hoạch, bạn nhận được <strong>Hạt Giống Bản Địa (🌱)</strong> vào Túi đồ.<br />
-              • <strong>Thu hoạch tại Kho DeFi Staking:</strong> Gửi hạt giống vào bể sinh ra lãi suất là <strong>Phân Bón Vi Sinh (👝)</strong> giúp nuôi cây mau lớn. Nếu muốn lấy lại hạt giống đã gửi, hãy bấm nút <strong>"Rút Hạt Giống"</strong> ở trên!
+              • <strong>🌾 Rút Lãi DeFi (Claim Yield):</strong> Rút phần hạt giống lãi sinh ra (+{Math.max(1, Math.round(liveYieldSeeds))} 🌱) và phân bón vi sinh (+{Math.max(1, Math.round(liveYieldFertilizer))} 👝) vào Túi đồ. Số hạt gốc gửi ban đầu ({stakedBalance} hạt) vẫn tiếp tục sinh lãi tiếp!<br />
+              • <strong>🌱 Rút Gốc (Unstake Principal):</strong> Rút lại số hạt giống ban đầu bạn đã gửi vào Vault về Balo làm vườn bất kỳ lúc nào.
             </p>
           </div>
 
           <p className="text-[11px] text-forest-600 dark:text-forest-400 leading-relaxed italic">
-            💡 <strong>Bản chất DeFi On-chain:</strong> Khi bấm nút, ví Web3 (MetaMask/Rabby) sẽ mở cửa sổ yêu cầu ký duyệt giao dịch <code>eth_sendTransaction</code> gọi hàm <code>stakeSeeds(uint256)</code> vào Smart Contract <code>AgriDeFiVault</code>. Giao dịch được khai thác và ghi nhận vĩnh viễn trên sổ cái Testnet với mã TxHash thật.
+            💡 <strong>Bản chất DeFi On-chain:</strong> Khi bấm nút, ví Web3 (MetaMask/Rabby) sẽ mở cửa sổ yêu cầu ký duyệt giao dịch <code>eth_sendTransaction</code> gọi Smart Contract <code>AgriDeFiVault</code> trên Sepolia. Lãi và gốc được thanh toán minh bạch với mã TxHash thật.
           </p>
         </div>
       </div>

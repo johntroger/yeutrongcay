@@ -161,6 +161,44 @@ export const Web3SandboxSection: React.FC = () => {
     const saved = localStorage.getItem('ytc_testnet_yield');
     return saved ? Number(saved) : 2.5;
   });
+
+  // DeFi Real-Time Streaming Yield Engine (Sinh lời trực tiếp theo thời gian thực)
+  const [lastYieldTime, setLastYieldTime] = useState<number>(() => {
+    const saved = localStorage.getItem('ytc_defi_last_yield_time');
+    return saved ? Number(saved) : Date.now() - 35 * 60 * 1000;
+  });
+  const [accruedSeeds, setAccruedSeeds] = useState<number>(() => {
+    const saved = localStorage.getItem('ytc_defi_accrued_seeds');
+    return saved ? Number(saved) : 1.5;
+  });
+  const [accruedFert, setAccruedFert] = useState<number>(() => {
+    const saved = localStorage.getItem('ytc_defi_accrued_fert');
+    return saved ? Number(saved) : 2.5;
+  });
+  const [liveYieldSeeds, setLiveYieldSeeds] = useState<number>(1.5);
+  const [liveYieldFertilizer, setLiveYieldFertilizer] = useState<number>(2.5);
+
+  // Bộ đếm nhảy số lãi trực tiếp từng giây (Live Ticker) theo số hạt đang stake
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = Date.now();
+      const elapsedSec = Math.max(0, (now - lastYieldTime) / 1000);
+      if (stakedBalance > 0) {
+        const seedRate = (stakedBalance / 100) * 0.0005;
+        const fertRate = (stakedBalance / 100) * 0.0003;
+        const pendingS = accruedSeeds + elapsedSec * seedRate;
+        const pendingF = accruedFert + elapsedSec * fertRate;
+        setLiveYieldSeeds(pendingS);
+        setLiveYieldFertilizer(pendingF);
+        setAccumulatedYield(pendingF);
+      } else {
+        setLiveYieldSeeds(accruedSeeds);
+        setLiveYieldFertilizer(accruedFert);
+        setAccumulatedYield(accruedFert);
+      }
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [stakedBalance, lastYieldTime, accruedSeeds, accruedFert]);
   const [isStakingRunning, setIsStakingRunning] = useState(false);
   const [stakingNotice, setStakingNotice] = useState<string | null>(null);
   const [daoVoteChoice, setDaoVoteChoice] = useState<'yes' | 'no' | null>(() => {
@@ -360,6 +398,18 @@ export const Web3SandboxSection: React.FC = () => {
       saveUserInventory(currentInventory);
       setAvailableSeeds(currentInventory.seeds);
 
+      // Chốt lãi cũ trước khi tăng gốc stake
+      const now = Date.now();
+      const elapsedSec = Math.max(0, (now - lastYieldTime) / 1000);
+      const newAccruedS = accruedSeeds + (stakedBalance > 0 ? (stakedBalance / 100) * 0.0005 * elapsedSec : 0);
+      const newAccruedF = accruedFert + (stakedBalance > 0 ? (stakedBalance / 100) * 0.0003 * elapsedSec : 0);
+      setAccruedSeeds(newAccruedS);
+      setAccruedFert(newAccruedF);
+      setLastYieldTime(now);
+      localStorage.setItem('ytc_defi_accrued_seeds', newAccruedS.toString());
+      localStorage.setItem('ytc_defi_accrued_fert', newAccruedF.toString());
+      localStorage.setItem('ytc_defi_last_yield_time', now.toString());
+
       const nextStaked = stakedBalance + stakeAmount;
       setStakedBalance(nextStaked);
       localStorage.setItem('ytc_testnet_staked_seeds', String(nextStaked));
@@ -430,6 +480,18 @@ export const Web3SandboxSection: React.FC = () => {
         wallet.chainId
       );
 
+      // Chốt lãi cũ trước khi giảm gốc stake
+      const now = Date.now();
+      const elapsedSec = Math.max(0, (now - lastYieldTime) / 1000);
+      const newAccruedS = accruedSeeds + (stakedBalance > 0 ? (stakedBalance / 100) * 0.0005 * elapsedSec : 0);
+      const newAccruedF = accruedFert + (stakedBalance > 0 ? (stakedBalance / 100) * 0.0003 * elapsedSec : 0);
+      setAccruedSeeds(newAccruedS);
+      setAccruedFert(newAccruedF);
+      setLastYieldTime(now);
+      localStorage.setItem('ytc_defi_accrued_seeds', newAccruedS.toString());
+      localStorage.setItem('ytc_defi_accrued_fert', newAccruedF.toString());
+      localStorage.setItem('ytc_defi_last_yield_time', now.toString());
+
       const newStaked = Math.max(0, stakedBalance - toUnstake);
       setStakedBalance(newStaked);
       localStorage.setItem('ytc_testnet_staked_seeds', newStaked.toString());
@@ -463,18 +525,18 @@ export const Web3SandboxSection: React.FC = () => {
     }
   };
 
-  // 2. THU HOẠCH PHÂN BÓN SINH HỌC (HARVEST YIELD) ON-CHAIN THẬT
+  // 2. THU HOẠCH LÃI DEFI (HARVEST YIELD) ON-CHAIN THẬT (HẠT GIỐNG + PHÂN BÓN)
   const handleClaimYield = async () => {
-    if (accumulatedYield <= 0) return;
+    if (liveYieldSeeds <= 0 && liveYieldFertilizer <= 0 && accumulatedYield <= 0) return;
     setWalletError(null);
 
     if (!wallet || !wallet.isConnected) {
-      setWalletError(isEn ? 'Please connect your Web3 wallet first!' : 'Vui lòng kết nối ví Web3 để thu hoạch!');
+      setWalletError(isEn ? 'Please connect your Web3 wallet first!' : 'Vui lòng kết nối ví Web3 để rút lãi!');
       return;
     }
 
     if (wallet.isMainnetDanger || !wallet.isCorrectNetwork) {
-      setWalletError(isEn ? 'Please switch to a supported Testnet!' : 'Vui lòng chuyển sang mạng Testnet để thu hoạch 0đ!');
+      setWalletError(isEn ? 'Please switch to a supported Testnet!' : 'Vui lòng chuyển sang mạng Testnet để rút lãi 0đ!');
       return;
     }
 
@@ -485,20 +547,36 @@ export const Web3SandboxSection: React.FC = () => {
         wallet.chainId
       );
 
-      const claimed = accumulatedYield;
+      // Tính toán lượng lãi thực nhận (làm tròn số hạt và bao phân bón, tối thiểu 1 nếu có lãi)
+      const bonusSeeds = Math.max(1, Math.round(liveYieldSeeds));
+      const bonusFertilizer = Math.max(1, Math.round(liveYieldFertilizer));
+
+      // Reset lãi tích lũy về 0 và ghi nhận mốc thời gian mới
+      const now = Date.now();
+      setAccruedSeeds(0);
+      setAccruedFert(0);
+      setLiveYieldSeeds(0);
+      setLiveYieldFertilizer(0);
       setAccumulatedYield(0);
+      setLastYieldTime(now);
+      localStorage.setItem('ytc_defi_accrued_seeds', '0');
+      localStorage.setItem('ytc_defi_accrued_fert', '0');
+      localStorage.setItem('ytc_defi_last_yield_time', now.toString());
       localStorage.setItem('ytc_testnet_yield', '0');
 
-      // Tặng túi phân bón vi sinh vào túi đồ làm vườn từ lợi suất Staking!
+      // Cộng CẢ HẠT GIỐNG VÀ PHÂN BÓN vào túi đồ làm vườn!
       const currentInventory = getUserInventory();
-      const bonusFertilizer = Math.max(1, Math.round(claimed));
+      currentInventory.seeds = (currentInventory.seeds || 0) + bonusSeeds;
       currentInventory.fertilizer = (currentInventory.fertilizer || 0) + bonusFertilizer;
       saveUserInventory(currentInventory);
+      setAvailableSeeds(currentInventory.seeds);
 
       const txRecord = {
         hash: realTxHash,
         type: 'claim' as const,
-        title: isEn ? `Harvested ${claimed.toFixed(2)} Bio-fertilizer units` : `Thu hoạch ${claimed.toFixed(2)} đơn vị Phân Bón Vi Sinh`,
+        title: isEn
+          ? `Claimed DeFi Yield: +${bonusSeeds} Seeds 🌱 & +${bonusFertilizer} Bio-fertilizers 👝`
+          : `Rút Lãi DeFi Thành Công: +${bonusSeeds} Hạt Giống 🌱 & +${bonusFertilizer} Phân Bón 👝`,
         chainId: wallet.chainId,
         timestamp: new Date().toLocaleTimeString('vi-VN')
       };
@@ -507,8 +585,8 @@ export const Web3SandboxSection: React.FC = () => {
 
       setStakingNotice(
         isEn
-          ? `Harvested ${claimed.toFixed(2)} Bio-Fertilizer units on-chain! Tx: ${realTxHash.slice(0, 10)}...`
-          : `Đã thu hoạch on-chain ${claimed.toFixed(2)} đơn vị Phân Bón Vi Sinh! Tx: ${realTxHash.slice(0, 10)}...`
+          ? `Harvested on-chain yield: +${bonusSeeds} Seeds 🌱 and +${bonusFertilizer} Fertilizers 👝 credited to backpack! Tx: ${realTxHash.slice(0, 10)}...`
+          : `Đã rút lãi on-chain thành công: +${bonusSeeds} Hạt Giống 🌱 và +${bonusFertilizer} Phân Bón Vi Sinh 👝 vào Balo! (Số dư hiện tại: ${currentInventory.seeds} hạt) Tx: ${realTxHash.slice(0, 10)}...`
       );
 
       awardKarmaPoints(
@@ -519,7 +597,7 @@ export const Web3SandboxSection: React.FC = () => {
       );
     } catch (err: unknown) {
       const e = err as { message?: string };
-      setWalletError(e.message || (isEn ? 'Harvest transaction rejected or failed' : 'Giao dịch thu hoạch on-chain bị từ chối'));
+      setWalletError(e.message || (isEn ? 'Harvest transaction rejected or failed' : 'Giao dịch rút lãi on-chain bị từ chối'));
     } finally {
       setIsStakingRunning(false);
     }
@@ -1038,6 +1116,8 @@ export const Web3SandboxSection: React.FC = () => {
             availableSeeds={availableSeeds}
             stakedBalance={stakedBalance}
             accumulatedYield={accumulatedYield}
+            liveYieldSeeds={liveYieldSeeds}
+            liveYieldFertilizer={liveYieldFertilizer}
             stakeAmount={stakeAmount}
             setStakeAmount={setStakeAmount}
             handleStakeSeeds={handleStakeSeeds}
