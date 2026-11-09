@@ -196,9 +196,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Xử lý GET: Lấy danh sách cây hoặc chi tiết 1 cây
 $category = isset($_GET['category']) ? trim($_GET['category']) : '';
-$search   = isset($_GET['q']) ? trim($_GET['q']) : '';
+$search   = isset($_GET['q']) ? trim($_GET['q']) : (isset($_GET['search']) ? trim($_GET['search']) : '');
 $slug     = isset($_GET['slug']) ? trim($_GET['slug']) : '';
 $lang     = isset($_GET['lang']) ? trim($_GET['lang']) : 'vi';
+
+// Tham số phân trang & lọc nâng cao chuẩn RESTful
+$page       = max(1, (int)($_GET['page'] ?? 1));
+$limit      = min(100, max(1, (int)($_GET['limit'] ?? 24)));
+$offset     = ($page - 1) * $limit;
+$sunlight   = isset($_GET['sunlight']) ? trim($_GET['sunlight']) : '';
+$watering   = isset($_GET['watering']) ? trim($_GET['watering']) : '';
+$difficulty = isset($_GET['difficulty']) ? trim($_GET['difficulty']) : '';
+$container  = isset($_GET['container']) ? trim($_GET['container']) : '';
 
 if (!$pdo) {
     echo json_encode([
@@ -213,7 +222,7 @@ if (!$pdo) {
         'total' => 0,
         'data' => [],
         'server_time' => date('Y-m-d H:i:s'),
-        'api_version' => 'v2.0'
+        'api_version' => 'v2.1'
     ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
     exit;
 }
@@ -232,6 +241,8 @@ try {
             if (!empty($plant['translations_en']) && is_string($plant['translations_en'])) {
                 $plant['translations_en'] = json_decode($plant['translations_en'], true);
             }
+            // Header HTTP Cache 5 phút
+            header('Cache-Control: public, max-age=300, stale-while-revalidate=600');
             echo json_encode([
                 'success' => true,
                 'database' => 'connected',
@@ -249,46 +260,102 @@ try {
         }
     }
 
-    // 2. Trường hợp lấy danh sách có lọc & tìm kiếm
-    $sql = "SELECT id, slug, common_name, common_name_en, scientific_name, category, description, description_en, translations_en, image_url, sunlight, watering, propagation_difficulty, growth_time, container_suitable FROM plants WHERE 1=1";
+    // 2. Trường hợp lấy danh sách có lọc, tìm kiếm & phân trang chuẩn RESTful
+    $whereConditions = ["1=1"];
     $params = [];
 
-    if (!empty($category)) {
-        $sql .= " AND category = :category";
+    if (!empty($category) && $category !== 'all') {
+        $whereConditions[] = "category = :category";
         $params[':category'] = $category;
     }
 
     if (!empty($search)) {
-        $sql .= " AND (common_name LIKE :search_name OR scientific_name LIKE :search_sci OR common_name_en LIKE :search_en)";
+        $whereConditions[] = "(common_name LIKE :search_name OR scientific_name LIKE :search_sci OR common_name_en LIKE :search_en)";
         $params[':search_name'] = '%' . $search . '%';
         $params[':search_sci']  = '%' . $search . '%';
         $params[':search_en']   = '%' . $search . '%';
     }
 
-    $sql .= " ORDER BY created_at DESC LIMIT 500";
+    if (!empty($sunlight) && $sunlight !== 'all') {
+        $whereConditions[] = "sunlight = :sunlight";
+        $params[':sunlight'] = $sunlight;
+    }
+
+    if (!empty($watering) && $watering !== 'all') {
+        $whereConditions[] = "watering = :watering";
+        $params[':watering'] = $watering;
+    }
+
+    if (!empty($difficulty) && $difficulty !== 'all') {
+        $whereConditions[] = "propagation_difficulty = :difficulty";
+        $params[':difficulty'] = $difficulty;
+    }
+
+    if ($container === '1' || $container === 'true') {
+        $whereConditions[] = "container_suitable = 1";
+    }
+
+    $whereSql = implode(' AND ', $whereConditions);
+
+    // Đếm tổng số bản ghi phù hợp bộ lọc
+    $countStmt = $pdo->prepare("SELECT COUNT(*) FROM plants WHERE {$whereSql}");
+    $countStmt->execute($params);
+    $totalRecords = (int)$countStmt->fetchColumn();
+
+    // Truy vấn dữ liệu phân trang
+    $sql = "SELECT id, slug, common_name, common_name_en, scientific_name, category, description, description_en, translations_en, image_url, sunlight, watering, propagation_difficulty, growth_time, container_suitable FROM plants WHERE {$whereSql} ORDER BY id ASC LIMIT :limit OFFSET :offset";
 
     $stmt = $pdo->prepare($sql);
-    $stmt->execute($params);
+    foreach ($params as $k => $v) {
+        $stmt->bindValue($k, $v);
+    }
+    $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
+    $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+    $stmt->execute();
     $plants = $stmt->fetchAll();
 
     foreach ($plants as &$p) {
         if (!empty($p['translations_en']) && is_string($p['translations_en'])) {
             $p['translations_en'] = json_decode($p['translations_en'], true);
         }
+        $p['container_suitable'] = (bool)$p['container_suitable'];
     }
 
-    echo json_encode([
+    $responsePayload = [
         'success' => true,
         'database' => 'connected',
-        'total' => count($plants),
+        'pagination' => [
+            'page' => $page,
+            'limit' => $limit,
+            'total' => $totalRecords,
+            'total_pages' => $limit > 0 ? (int)ceil($totalRecords / $limit) : 1,
+            'has_more' => ($page * $limit) < $totalRecords
+        ],
+        'total' => $totalRecords,
         'filters' => [
             'category' => htmlspecialchars($category, ENT_QUOTES, 'UTF-8'),
-            'search'   => htmlspecialchars($search, ENT_QUOTES, 'UTF-8')
+            'search'   => htmlspecialchars($search, ENT_QUOTES, 'UTF-8'),
+            'sunlight' => htmlspecialchars($sunlight, ENT_QUOTES, 'UTF-8'),
+            'watering' => htmlspecialchars($watering, ENT_QUOTES, 'UTF-8')
         ],
         'data' => $plants,
         'server_time' => date('Y-m-d H:i:s'),
-        'api_version' => 'v2.0'
-    ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        'api_version' => 'v2.1'
+    ];
+
+    $jsonOutput = json_encode($responsePayload, JSON_UNESCAPED_UNICODE);
+    $etag = '"' . md5($jsonOutput) . '"';
+
+    // HTTP Cache Headers & ETag validation
+    header('Cache-Control: public, max-age=180, stale-while-revalidate=300');
+    header('ETag: ' . $etag);
+
+    if (isset($_SERVER['HTTP_IF_NONE_MATCH']) && trim($_SERVER['HTTP_IF_NONE_MATCH']) === $etag) {
+        http_response_code(304);
+        exit;
+    }
+
+    echo $jsonOutput;
 
 } catch (PDOException $e) {
     http_response_code(500);

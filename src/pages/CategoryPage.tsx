@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Plant, PlantCategory } from '../types/index.ts';
 import { SEED_PLANTS } from '../data/plants.ts';
@@ -36,6 +36,8 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({
   const [searchParams, setSearchParams] = useSearchParams();
   const [allPlants, setAllPlants] = useState<Plant[]>(SEED_PLANTS);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(12);
+  const observerTarget = useRef<HTMLDivElement>(null);
 
   // Bộ lọc thông minh cho trang danh mục
   const [filters, setFilters] = useState<FilterState>(() => {
@@ -49,6 +51,11 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({
       difficulty: (searchParams.get('difficulty') as any) || 'all',
     };
   });
+
+  // Reset số lượng cây hiển thị khi người dùng đổi danh mục hoặc điều kiện lọc
+  useEffect(() => {
+    setVisibleCount(12);
+  }, [category, filters, searchQuery]);
 
   // Khi category prop đổi, update category filter
   useEffect(() => {
@@ -155,6 +162,26 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({
       );
     });
   }, [allPlants, category, filters, searchQuery]);
+
+  // Tự động kích hoạt nạp tăng dần khi cuộn tới cuối danh sách (Infinite Windowing)
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setVisibleCount((prev) => Math.min(prev + 12, categoryPlants.length));
+        }
+      },
+      { threshold: 0.1, rootMargin: '300px' }
+    );
+    if (observerTarget.current) {
+      observer.observe(observerTarget.current);
+    }
+    return () => observer.disconnect();
+  }, [categoryPlants.length]);
+
+  const displayedPlants = useMemo(() => {
+    return categoryPlants.slice(0, visibleCount);
+  }, [categoryPlants, visibleCount]);
 
   const availableTags = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -292,17 +319,32 @@ export const CategoryPage: React.FC<CategoryPageProps> = ({
               hideCategoryBadge={true}
             />
 
-            {/* Danh Sách Bài Viết Cây Trồng */}
+            {/* Danh Sách Bài Viết Cây Trồng (Render tăng dần theo khung nhìn) */}
             {categoryPlants.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                {categoryPlants.map((plant) => (
-                  <PlantCard
-                    key={plant.id}
-                    plant={plant}
-                    onTagClick={(tag) => handleFilterChange({ ...filters, tag })}
-                  />
-                ))}
-              </div>
+              <>
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 min-h-[50vh] content-start">
+                  {displayedPlants.map((plant) => (
+                    <PlantCard
+                      key={plant.id}
+                      plant={plant}
+                      onTagClick={(tag) => handleFilterChange({ ...filters, tag })}
+                    />
+                  ))}
+                </div>
+
+                {visibleCount < categoryPlants.length && (
+                  <div ref={observerTarget} className="mt-8 text-center py-4">
+                    <button
+                      onClick={() => setVisibleCount((prev) => Math.min(prev + 12, categoryPlants.length))}
+                      className="px-6 py-2.5 rounded-2xl bg-white dark:bg-charcoal-900 border border-forest-200 dark:border-forest-800 text-xs font-bold text-forest-800 dark:text-cream-100 hover:bg-forest-50 dark:hover:bg-charcoal-800 shadow-xs transition"
+                    >
+                      {isEn
+                        ? `Load more plants (${categoryPlants.length - visibleCount} remaining)`
+                        : `Tải thêm cây trồng (còn ${categoryPlants.length - visibleCount} cây)`}
+                    </button>
+                  </div>
+                )}
+              </>
             ) : (
               <div className="text-center py-16 bg-white dark:bg-charcoal-900 rounded-3xl border border-forest-100 dark:border-forest-800 p-8 max-w-md mx-auto shadow-sm">
                 <Sparkles className="w-10 h-10 text-herbal-600 dark:text-herbal-400 mx-auto mb-3" />

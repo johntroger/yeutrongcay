@@ -63,6 +63,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   const [allPlants, setAllPlants] = useState<Plant[]>(SEED_PLANTS);
   const [visibleCount, setVisibleCount] = useState(9);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+  const observerTarget = useRef<HTMLDivElement>(null);
 
   // Bộ lọc đa tiêu chí đồng bộ URL (Mặc định 'all' cho sàn thương mại điện tử 7 ngành hàng)
   const [filters, setFilters] = useState<FilterState>(() => {
@@ -117,6 +118,11 @@ export const HomePage: React.FC<HomePageProps> = ({
   // Sidebar phản hồi tức thì; lưới sản phẩm lọc ở mức ưu tiên thấp để không bị giật
   const deferredFilters = useDeferredValue(filters);
   const isGridStale = deferredFilters !== filters;
+
+  // Reset phân trang hiển thị khi thay đổi bộ lọc hoặc từ khóa tìm kiếm
+  useEffect(() => {
+    setVisibleCount(9);
+  }, [filters, searchQuery]);
 
   // Đồng bộ URL khi filters thay đổi
   const handleFilterChange = (newFilters: FilterState) => {
@@ -363,6 +369,22 @@ export const HomePage: React.FC<HomePageProps> = ({
     }
     return filteredPlants.slice(0, visibleCount);
   }, [filteredPlants, searchQuery, visibleCount]);
+
+  // Tự động kích hoạt nạp thêm cây mượt mà khi người dùng cuộn tới cuối danh sách (Infinite Windowing)
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setVisibleCount((prev) => Math.min(prev + 6, filteredPlants.length));
+        }
+      },
+      { threshold: 0.1, rootMargin: '300px' }
+    );
+    if (observerTarget.current) {
+      observer.observe(observerTarget.current);
+    }
+    return () => observer.disconnect();
+  }, [filteredPlants.length]);
 
   const categoryInfoMap: Record<PlantCategory, { path: string; name: string }> = {
     herb: {
@@ -838,7 +860,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                       </p>
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto justify-end">
+                    <div ref={observerTarget} className="flex flex-wrap items-center gap-3 w-full sm:w-auto justify-end">
                       {visibleCount < filteredPlants.length && (
                         <button
                           onClick={() => setVisibleCount((prev) => Math.min(prev + 6, filteredPlants.length))}
