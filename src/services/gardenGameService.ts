@@ -710,6 +710,7 @@ export function saveUserInventory(inv: Record<GardenCareItemType, number>): void
   if (typeof window === 'undefined') return;
   try {
     localStorage.setItem(STORAGE_KEY_INVENTORY, JSON.stringify(inv));
+    window.dispatchEvent(new CustomEvent('ytc_inventory_updated', { detail: inv }));
   } catch (e) {
     console.warn('Failed to save inventory to localStorage', e);
   }

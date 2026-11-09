@@ -852,6 +852,58 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
     );
   };
 
+  // Thu hoạch hàng loạt toàn bộ cây đã đạt Giai đoạn 5 (1-Click Batch Harvest)
+  const handleBatchHarvestMaturePlants = () => {
+    const maturePlants = plants.filter((p) => (p.growth_stage ?? 1) >= 5);
+    if (maturePlants.length === 0) {
+      triggerNotice(isEn ? 'No mature plants ready for harvest!' : 'Chưa có cây nào đạt độ chín muồi (Cấp 5) để thu hoạch!');
+      return;
+    }
+
+    let totalSeeds = 0;
+    const updated = plants.map((p) => {
+      if ((p.growth_stage ?? 1) >= 5) {
+        const y = calculateHarvestSeedYield(p.custom_name, p.plant_id);
+        totalSeeds += y.count;
+        harvestPlantCropAction(currentUserId, p.id).catch(() => {});
+        return {
+          ...p,
+          total_harvests: (p.total_harvests || 0) + 1,
+          growth_stage: 1,
+          growth_exp: 0,
+          current_status: 'healthy' as PlantGrowthStatus
+        };
+      }
+      return p;
+    });
+
+    setPlants(updated);
+    localStorage.setItem('ytc_garden_plants', JSON.stringify(updated));
+
+    // Cộng hạt giống và phân bón vào túi đồ
+    const inv = getUserInventory();
+    inv.seeds = (inv.seeds || 0) + totalSeeds;
+    inv.fertilizer = (inv.fertilizer || 0) + maturePlants.length;
+    saveUserInventory(inv);
+    setInventory(inv);
+
+    // Tăng tim
+    const bonusHearts = maturePlants.length * 120;
+    const currentHearts = karmaData?.total_karma ?? 50;
+    const newHearts = currentHearts + bonusHearts;
+    if (karmaData) {
+      setKarmaData({ ...karmaData, total_karma: newHearts });
+      localStorage.setItem('ytc_user_karma', newHearts.toString());
+    }
+
+    playGardenSound('harvest');
+    triggerNotice(
+      isEn
+        ? `🎉 Batch harvest successful! Harvested ${maturePlants.length} mature crops. Gained +${totalSeeds} Seeds (🌱), +${maturePlants.length} Organic Compost (👝) and +${bonusHearts} Hearts (❤️)!`
+        : `🎉 Thu hoạch hàng loạt thành công! Đã hái quả ${maturePlants.length} chậu cây chín. Bạn nhận được +${totalSeeds} Hạt giống (🌱), +${maturePlants.length} Túi phân (👝) và +${bonusHearts} Tim (❤️)!`
+    );
+  };
+
   // Tính số ngày đã trôi qua kể từ một ngày
   const calculateDaysSince = (dateStr?: string) => {
     if (!dateStr) return 999;
@@ -1779,17 +1831,28 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
                       </button>
 
                       {matureCount > 0 && (
-                        <button
-                          onClick={() => setPlantStatusFilter('mature')}
-                          className={`px-3 py-1.5 rounded-xl font-bold transition shrink-0 flex items-center gap-1 cursor-pointer animate-pulse ${
-                            plantStatusFilter === 'mature'
-                              ? 'bg-amber-500 text-charcoal-950'
-                              : 'bg-amber-100 dark:bg-amber-900/40 text-amber-900 dark:text-amber-200 hover:bg-amber-200'
-                          }`}
-                        >
-                          <Sparkles className="w-3 h-3" />
-                          <span>{isEn ? `Harvest (${matureCount})` : `Thu hoạch (${matureCount})`}</span>
-                        </button>
+                        <>
+                          <button
+                            onClick={() => setPlantStatusFilter('mature')}
+                            className={`px-3 py-1.5 rounded-xl font-bold transition shrink-0 flex items-center gap-1 cursor-pointer ${
+                              plantStatusFilter === 'mature'
+                                ? 'bg-amber-500 text-charcoal-950'
+                                : 'bg-amber-100 dark:bg-amber-900/40 text-amber-900 dark:text-amber-200 hover:bg-amber-200'
+                            }`}
+                          >
+                            <Sparkles className="w-3 h-3" />
+                            <span>{isEn ? `Ready (${matureCount})` : `Chờ hái (${matureCount})`}</span>
+                          </button>
+
+                          <button
+                            onClick={handleBatchHarvestMaturePlants}
+                            className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 text-charcoal-950 text-xs font-black uppercase tracking-wide shrink-0 flex items-center gap-1.5 shadow-md active:scale-95 transition cursor-pointer animate-pulse"
+                            title={isEn ? 'Harvest all mature plants at once (+Seeds & Hearts)' : 'Thu hoạch toàn bộ cây đã chín (+Hạt giống & Tim)'}
+                          >
+                            <span>🧺</span>
+                            <span>{isEn ? `Harvest All (${matureCount})` : `Thu hoạch tất cả (${matureCount})`}</span>
+                          </button>
+                        </>
                       )}
                     </div>
 

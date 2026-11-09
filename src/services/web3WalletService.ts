@@ -793,6 +793,41 @@ export const web3WalletService = {
   },
 
   /**
+   * Rút hạt giống khỏi Staking Vault ON-CHAIN THẬT về lại túi đồ
+   */
+  async unstakeSeedsOnChain(amount: number, userAddress: `0x${string}`, chainId: string): Promise<string> {
+    if (!window.ethereum) {
+      throw new Error('Không phát hiện tiện ích ví Web3 để thực hiện giao dịch rút hạt giống on-chain.');
+    }
+    const contract = this.getAgriDeFiContractAddress(chainId);
+    const callData = encodeFunctionData({
+      abi: AGRI_DEFI_ABI,
+      functionName: 'unstakeSeeds',
+      args: [BigInt(amount)]
+    });
+
+    try {
+      const txHash = (await window.ethereum.request({
+        method: 'eth_sendTransaction',
+        params: [
+          {
+            from: userAddress,
+            to: contract,
+            data: callData
+          }
+        ]
+      })) as string;
+      return txHash;
+    } catch (err: unknown) {
+      const e = err as { code?: number; message?: string };
+      if (e.code === 4001) {
+        throw new Error('Bạn đã hủy phê duyệt giao dịch rút hạt giống trên ví.');
+      }
+      throw new Error(e.message || 'Lỗi khi gửi giao dịch rút hạt giống lên blockchain testnet.');
+    }
+  },
+
+  /**
    * Thu hoạch lợi suất phân bón vi sinh ON-CHAIN THẬT (Gửi transaction qua ví)
    */
   async claimFertilizerOnChain(userAddress: `0x${string}`, chainId: string): Promise<string> {

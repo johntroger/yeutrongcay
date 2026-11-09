@@ -33,6 +33,7 @@ interface Web3DeFiTabProps {
   stakeAmount: number;
   setStakeAmount: (n: number) => void;
   handleStakeSeeds: () => void;
+  handleUnstakeSeeds?: (amount?: number) => void;
   handleClaimYield: () => void;
   isStakingRunning: boolean;
   carbonOffsetCount: number;
@@ -58,6 +59,7 @@ export const Web3DeFiTab: React.FC<Web3DeFiTabProps> = ({
   stakeAmount,
   setStakeAmount,
   handleStakeSeeds,
+  handleUnstakeSeeds,
   handleClaimYield,
   isStakingRunning,
   carbonOffsetCount,
@@ -341,10 +343,34 @@ export const Web3DeFiTab: React.FC<Web3DeFiTabProps> = ({
               onClick={handleClaimYield}
               disabled={accumulatedYield <= 0 || isStakingRunning}
               className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 disabled:opacity-40 text-forest-950 font-bold text-xs flex items-center justify-center gap-1.5 shadow-md transition shrink-0 cursor-pointer"
+              title={isEn ? 'Claim accumulated Bio-Fertilizer units into your backpack' : 'Thu hoạch phân bón vi sinh tích lũy cộng thẳng vào Túi đồ'}
             >
               <Sparkles className="w-3.5 h-3.5" />
-              <span>{isEn ? 'Claim Fertilizer On-chain (+15 Hearts ❤️)' : 'Thu Hoạch Lợi Suất On-chain (+15 Trái Tim ❤️)'}</span>
+              <span>{isEn ? 'Claim Bio-Fertilizer (+15 Hearts ❤️)' : 'Thu Hoạch Phân Bón Vi Sinh (+15 Tim ❤️)'}</span>
             </button>
+
+            {stakedBalance > 0 && handleUnstakeSeeds && (
+              <button
+                onClick={() => handleUnstakeSeeds()}
+                disabled={isStakingRunning}
+                className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-teal-700 hover:bg-teal-600 disabled:opacity-40 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-md transition shrink-0 cursor-pointer"
+                title={isEn ? `Unstake seeds back to your backpack` : `Rút hạt giống đang gửi staking về lại túi đồ`}
+              >
+                <Sprout className="w-3.5 h-3.5 text-lime-300" />
+                <span>{isEn ? `Unstake Seeds (${stakedBalance})` : `Rút Hạt Giống (${stakedBalance} hạt)`}</span>
+              </button>
+            )}
+          </div>
+
+          {/* Hướng dẫn phân biệt Hạt giống & Phân bón vi sinh */}
+          <div className="p-3 rounded-xl bg-forest-50/70 dark:bg-forest-950/60 border border-forest-100 dark:border-forest-800 text-[11px] text-forest-700 dark:text-forest-300 space-y-1">
+            <p>
+              🌾 <strong>Lưu ý về nguồn Hạt Giống (Seeds):</strong>
+            </p>
+            <p>
+              • <strong>Thu hoạch tại Vườn Của Tôi:</strong> Khi chăm cây đạt Cấp 5 (chín muồi) và bấm thu hoạch, bạn nhận được <strong>Hạt Giống Bản Địa (🌱)</strong> vào Túi đồ.<br />
+              • <strong>Thu hoạch tại Kho DeFi Staking:</strong> Gửi hạt giống vào bể sinh ra lãi suất là <strong>Phân Bón Vi Sinh (👝)</strong> giúp nuôi cây mau lớn. Nếu muốn lấy lại hạt giống đã gửi, hãy bấm nút <strong>"Rút Hạt Giống"</strong> ở trên!
+            </p>
           </div>
 
           <p className="text-[11px] text-forest-600 dark:text-forest-400 leading-relaxed italic">

@@ -145,6 +145,14 @@ export const Web3SandboxSection: React.FC = () => {
       setAvailableSeeds(getUserInventory().seeds || 0);
     }
   }, [activeTab]);
+
+  useEffect(() => {
+    const handleInv = () => {
+      setAvailableSeeds(getUserInventory().seeds || 0);
+    };
+    window.addEventListener('ytc_inventory_updated', handleInv);
+    return () => window.removeEventListener('ytc_inventory_updated', handleInv);
+  }, []);
   const [stakedBalance, setStakedBalance] = useState<number>(() => {
     const saved = localStorage.getItem('ytc_testnet_staked_seeds');
     return saved ? Number(saved) : 100;
@@ -388,6 +396,66 @@ export const Web3SandboxSection: React.FC = () => {
     } catch (err: unknown) {
       const e = err as { message?: string };
       setWalletError(e.message || (isEn ? 'On-chain Staking transaction rejected or failed' : 'Giao dịch Staking on-chain bị từ chối hoặc thất bại'));
+    } finally {
+      setIsStakingRunning(false);
+    }
+  };
+
+  // 1.5. RÚT HẠT GIỐNG KHỎI KHO STAKING ON-CHAIN THẬT (UNSTAKE SEEDS)
+  const handleUnstakeSeeds = async (unstakeCount?: number) => {
+    const toUnstake = unstakeCount || Math.min(10, stakedBalance);
+    if (toUnstake <= 0 || toUnstake > stakedBalance) {
+      setWalletError(isEn ? 'Invalid unstake amount or exceeds staked balance!' : 'Số lượng rút không hợp lệ hoặc vượt quá số dư đang stake!');
+      return;
+    }
+    setWalletError(null);
+
+    if (!wallet || !wallet.isConnected) {
+      setWalletError(isEn ? 'Please connect your Web3 wallet first!' : 'Vui lòng kết nối ví Web3 để rút hạt giống!');
+      return;
+    }
+
+    if (wallet.isMainnetDanger || !wallet.isCorrectNetwork) {
+      setWalletError(isEn ? 'Please switch to a supported Testnet!' : 'Vui lòng chuyển sang mạng Testnet để rút hạt giống 0đ!');
+      return;
+    }
+
+    setIsStakingRunning(true);
+    try {
+      const realTxHash = await web3WalletService.unstakeSeedsOnChain(
+        toUnstake,
+        wallet.address as `0x${string}`,
+        wallet.chainId
+      );
+
+      const newStaked = Math.max(0, stakedBalance - toUnstake);
+      setStakedBalance(newStaked);
+      localStorage.setItem('ytc_testnet_staked_seeds', newStaked.toString());
+
+      // Cộng lại hạt giống vào túi đồ làm vườn
+      const currentInventory = getUserInventory();
+      currentInventory.seeds = (currentInventory.seeds || 0) + toUnstake;
+      saveUserInventory(currentInventory);
+      setAvailableSeeds(currentInventory.seeds);
+
+      const txRecord = {
+        hash: realTxHash,
+        type: 'stake' as const,
+        title: isEn ? `Unstaked ${toUnstake} Seeds from Vault` : `Rút ${toUnstake} Hạt Giống từ Kho Staking về Túi Đồ`,
+        chainId: wallet.chainId,
+        timestamp: new Date().toLocaleTimeString('vi-VN')
+      };
+      setLatestDeFiTx(txRecord);
+      localStorage.setItem('ytc_latest_defi_tx', JSON.stringify(txRecord));
+
+      setStakingNotice(
+        isEn
+          ? `Unstaked ${toUnstake} Seeds on-chain successfully! Tx: ${realTxHash.slice(0, 10)}...`
+          : `Đã rút on-chain thành công ${toUnstake} Hạt Giống về Túi Đồ! Tx: ${realTxHash.slice(0, 10)}...`
+      );
+    } catch (err: unknown) {
+      const e = err as { message?: string };
+      setWalletError(e.message || (isEn ? 'Unstake transaction rejected or failed' : 'Giao dịch rút hạt giống bị từ chối hoặc thất bại'));
     } finally {
       setIsStakingRunning(false);
     }
@@ -971,6 +1039,7 @@ export const Web3SandboxSection: React.FC = () => {
             stakeAmount={stakeAmount}
             setStakeAmount={setStakeAmount}
             handleStakeSeeds={handleStakeSeeds}
+            handleUnstakeSeeds={handleUnstakeSeeds}
             handleClaimYield={handleClaimYield}
             isStakingRunning={isStakingRunning}
             carbonOffsetCount={carbonOffsetCount}
