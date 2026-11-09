@@ -38,14 +38,14 @@ export const CompactPlantCard: React.FC<CompactPlantCardProps> = ({
   return (
     <div
       onClick={() => onOpenDetail(plant)}
-      className="group relative bg-white dark:bg-charcoal-900 rounded-2xl border border-forest-100 dark:border-forest-800/80 shadow-xs hover:shadow-md hover:border-emerald-500/50 transition duration-200 flex flex-col justify-between overflow-hidden cursor-pointer active:scale-[0.99]"
+      className="group relative h-full bg-white dark:bg-charcoal-900 rounded-2xl border border-forest-100 dark:border-forest-800/80 shadow-xs hover:shadow-md hover:border-emerald-500/50 transition duration-200 flex flex-col justify-between overflow-hidden cursor-pointer active:scale-[0.99]"
     >
-      {/* 1. Ảnh đại diện cây */}
-      <div className="relative aspect-4/3 w-full bg-forest-950 overflow-hidden">
+      {/* 1. Ảnh đại diện cây - CỐ ĐỊNH KÍCH THƯỚC CHUẨN ĐỒNG NHẤT */}
+      <div className="relative w-full h-36 sm:h-40 shrink-0 bg-forest-950 overflow-hidden">
         <img
           src={plant.cover_image_url || 'https://images.unsplash.com/photo-1545241047-6083a3684587?w=600&auto=format&fit=crop&q=80'}
           alt={plant.custom_name}
-          className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+          className="w-full h-full object-cover object-center group-hover:scale-105 transition duration-300"
           loading="lazy"
         />
 
@@ -89,7 +89,7 @@ export const CompactPlantCard: React.FC<CompactPlantCardProps> = ({
 
       {/* 2. Thông tin chính của cây */}
       <div className="p-3 space-y-2 flex-1 flex flex-col justify-between">
-        <div>
+        <div className="min-h-[34px]">
           <div className="flex items-baseline justify-between gap-1">
             <h4 className="font-serif font-bold text-xs sm:text-sm text-forest-950 dark:text-cream-50 truncate group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition">
               {plant.custom_name}
@@ -98,10 +98,12 @@ export const CompactPlantCard: React.FC<CompactPlantCardProps> = ({
               {expPercent}%
             </span>
           </div>
-          {plant.species_name && (
+          {plant.species_name ? (
             <p className="text-[10px] text-gray-500 dark:text-gray-400 italic truncate mt-0.5">
               {plant.species_name}
             </p>
+          ) : (
+            <p className="text-[10px] text-transparent select-none mt-0.5">-</p>
           )}
         </div>
 
