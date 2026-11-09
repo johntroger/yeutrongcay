@@ -44,6 +44,101 @@ const SORT_OPTIONS: { id: SortOption; labelVi: string; labelEn: string; icon: st
   { id: 'newest', labelVi: 'Mới cập nhật gần đây', labelEn: 'Recently Added', icon: '⏱️' },
 ];
 
+interface UtilityFeatureItem {
+  id: string;
+  titleVi: string;
+  titleEn: string;
+  descVi: string;
+  descEn: string;
+  icon?: React.ComponentType<{ className?: string }>;
+  emoji?: string;
+  badge?: string;
+  path: string;
+  bgIcon: string;
+  hoverBorder: string;
+}
+
+const UTILITY_FEATURES: UtilityFeatureItem[] = [
+  {
+    id: 'calendar',
+    titleVi: 'Lịch Nông Vụ',
+    titleEn: 'Seasonal Calendar',
+    descVi: 'Lịch gieo trồng 12 tháng 3 miền',
+    descEn: '12-month farming timetable',
+    icon: Calendar,
+    path: '/lich-nong-vu',
+    bgIcon: 'bg-teal-50 dark:bg-teal-950/60 text-teal-600 dark:text-teal-400 border-teal-200/60 dark:border-teal-800/60',
+    hoverBorder: 'hover:border-teal-400 dark:hover:border-teal-500',
+  },
+  {
+    id: 'garden',
+    titleVi: 'Vườn Của Tôi',
+    titleEn: 'My Garden',
+    descVi: 'Quản lý chậu cây & ảnh lớn lên',
+    descEn: 'Manage balcony pots & milestones',
+    emoji: '🏡',
+    path: '/vuon-cua-toi',
+    bgIcon: 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border-emerald-200/60 dark:border-emerald-800/60',
+    hoverBorder: 'hover:border-emerald-400 dark:hover:border-emerald-500',
+  },
+  {
+    id: 'clinic',
+    titleVi: 'Bác Sĩ Cây (3s)',
+    titleEn: 'AI Plant Clinic',
+    descVi: 'Chẩn đoán sâu bệnh qua ảnh lá',
+    descEn: 'Instant 3s leaf diagnosis',
+    icon: Stethoscope,
+    path: '/bac-si-cay-trong',
+    bgIcon: 'bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 border-rose-200/60 dark:border-rose-800/60',
+    hoverBorder: 'hover:border-rose-400 dark:hover:border-rose-500',
+  },
+  {
+    id: 'swap',
+    titleVi: 'Trạm Đổi Cây',
+    titleEn: 'Plant Swap',
+    descVi: 'Tặng hạt giống, đổi cành giâm',
+    descEn: 'Share seeds & cuttings safely',
+    icon: MapPin,
+    path: '/trao-doi-cay',
+    bgIcon: 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border-emerald-200/60 dark:border-emerald-800/60',
+    hoverBorder: 'hover:border-emerald-400 dark:hover:border-emerald-500',
+  },
+  {
+    id: 'web3',
+    titleVi: 'Hộ Chiếu Cây',
+    titleEn: 'Plant Passport',
+    badge: 'MS8',
+    descVi: 'Đúc hộ chiếu số, bảo vệ nguồn gen',
+    descEn: 'Digital passport on Testnet',
+    icon: ShieldCheck,
+    path: '/web3-sandbox',
+    bgIcon: 'bg-orange-50 dark:bg-orange-950/60 text-orange-600 dark:text-orange-400 border-orange-200/60 dark:border-orange-800/60',
+    hoverBorder: 'hover:border-orange-400 dark:hover:border-orange-500',
+  },
+  {
+    id: 'monetization',
+    titleVi: 'Kinh Tế Xanh',
+    titleEn: 'Green Economy',
+    descVi: 'Thu nhập từ vườn ban công',
+    descEn: 'Monetize urban gardening',
+    icon: Coins,
+    path: '/kiem-tien-tu-vuon',
+    bgIcon: 'bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border-amber-200/60 dark:border-amber-800/60',
+    hoverBorder: 'hover:border-amber-400 dark:hover:border-amber-500',
+  },
+  {
+    id: 'contact',
+    titleVi: 'Liên Hệ & Hợp Tác',
+    titleEn: 'Contact Hub',
+    descVi: 'Gửi góp ý, đăng ký đối tác',
+    descEn: 'Feedback & nursery partnership',
+    icon: MessageCircle,
+    path: '/lien-he',
+    bgIcon: 'bg-forest-50 dark:bg-charcoal-800 text-forest-600 dark:text-forest-300 border-forest-200/60 dark:border-forest-700/60',
+    hoverBorder: 'hover:border-forest-400 dark:hover:border-forest-400',
+  },
+];
+
 interface HomePageProps {
   activeMode: PlantCategory;
   onModeChange?: (mode: PlantCategory) => void;
@@ -465,7 +560,69 @@ export const HomePage: React.FC<HomePageProps> = ({
   return (
     <div className="min-h-screen bg-cream-100 dark:bg-charcoal-950 text-charcoal-900 dark:text-cream-100 flex flex-col transition-colors duration-200">
       {/* Plants Catalog Grid with Smart Filter */}
-      <main className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8 flex-1 w-full space-y-8">
+      <main className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8 pt-5 sm:pt-6 pb-8 sm:pb-10 flex-1 w-full space-y-6">
+        {/* Hệ Sinh Thái Tiện Ích Chuyên Sâu (Compact Quick Ribbon) */}
+        <section aria-label="Tiện ích chuyên sâu" className="w-full">
+          <div className="flex items-center justify-between mb-2.5 px-0.5">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <h3 className="text-xs sm:text-[13px] font-bold uppercase tracking-wider text-forest-900 dark:text-cream-100 flex items-center gap-1.5 font-serif">
+                <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                <span>{isEn ? 'Dedicated Garden Utilities' : 'Tiện Ích Chuyên Sâu'}</span>
+              </h3>
+              <span className="hidden sm:inline text-xs text-forest-600 dark:text-forest-400 font-normal">
+                • {isEn ? '7 independent tools opening in new tabs' : '7 không gian độc lập mở tab mới'}
+              </span>
+            </div>
+            <span className="text-[11px] text-forest-500 dark:text-forest-400 flex items-center gap-1 font-medium">
+              <span className="hidden xs:inline">{isEn ? 'Open in new tab' : 'Mở tab mới'}</span>
+              <ArrowUpRight className="w-3 h-3 text-forest-400" />
+            </span>
+          </div>
+
+          <div className="flex sm:grid gap-2 sm:gap-2.5 overflow-x-auto pb-2 sm:pb-0 scrollbar-none snap-x sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7">
+            {UTILITY_FEATURES.map((feat) => {
+              const IconComponent = feat.icon;
+              return (
+                <Link
+                  key={feat.id}
+                  to={feat.path}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`group relative p-2.5 sm:p-3 rounded-2xl bg-white dark:bg-charcoal-900 border border-forest-100/90 dark:border-forest-800/80 shadow-2xs hover:shadow-md ${feat.hoverBorder} hover:scale-[1.01] transition-all duration-200 flex flex-col justify-between w-[150px] sm:w-auto shrink-0 snap-start`}
+                >
+                  <div className="flex items-center justify-between gap-1 mb-1.5">
+                    <div className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs border ${feat.bgIcon}`}>
+                      {feat.emoji ? (
+                        <span>{feat.emoji}</span>
+                      ) : IconComponent ? (
+                        <IconComponent className="w-3.5 h-3.5" />
+                      ) : null}
+                    </div>
+                    <div className="flex items-center gap-1">
+                      {feat.badge && (
+                        <span className="px-1.5 py-0.2 rounded-full text-[9px] font-bold bg-orange-600 text-white">
+                          {feat.badge}
+                        </span>
+                      )}
+                      <ArrowUpRight className="w-3.5 h-3.5 text-forest-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
+                    </div>
+                  </div>
+
+                  <div>
+                    <h4 className="font-serif font-bold text-xs sm:text-[13px] text-forest-950 dark:text-cream-50 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors line-clamp-1">
+                      {isEn ? feat.titleEn : feat.titleVi}
+                    </h4>
+                    <p className="text-[10px] sm:text-[11px] text-forest-600/80 dark:text-forest-400/80 line-clamp-1 mt-0.5 leading-tight">
+                      {isEn ? feat.descEn : feat.descVi}
+                    </p>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+
         {/* Nút Mở Bộ Lọc Cho Màn Hình Di Động (< lg) */}
         <div className="lg:hidden flex items-center justify-between gap-3 p-3 bg-white dark:bg-charcoal-900 rounded-2xl border border-forest-100 dark:border-forest-800 shadow-2xs">
           <button
@@ -911,213 +1068,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </main>
 
-      {/* 3. Hệ Sinh Thái Tính Năng Riêng Biệt (Mở Tab Mới Giải Phóng Trang Chủ) */}
-      <section className="bg-forest-900 text-white py-14 border-t border-forest-800">
-        <div className="max-w-[1560px] mx-auto px-3 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-10">
-            <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-herbal-500/20 text-herbal-300 border border-herbal-400/30 mb-2">
-              {isEn ? 'Feature Ecosystem' : 'Hệ Sinh Thái Tính Năng'}
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
-              {isEn ? 'Explore Dedicated Garden Spaces' : 'Khám Phá Các Tiện Ích Chuyên Sâu'}
-            </h2>
-            <p className="text-xs sm:text-sm text-forest-200/80 mt-2">
-              {isEn
-                ? 'Each tool is crafted as an independent workspace opening in a new tab for seamless multi-tasking.'
-                : 'Mỗi tính năng được tối ưu thành một không gian độc lập, mở sang tab mới giúp bạn vừa tra cứu vừa thao tác mượt mà.'}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {/* Box 1: Lịch Nông Vụ Đô Thị 3 Miền */}
-            <Link
-              to="/lich-nong-vu"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-5 rounded-3xl bg-forest-950/80 border border-teal-500/50 hover:border-teal-400 hover:bg-forest-950 transition group flex flex-col justify-between shadow-lg"
-            >
-              <div>
-                <div className="w-10 h-10 rounded-2xl bg-teal-500/20 text-teal-400 flex items-center justify-center mb-3.5">
-                  <Calendar className="w-5 h-5" />
-                </div>
-                <h3 className="font-serif font-bold text-base text-white group-hover:text-teal-300 transition">
-                  {isEn ? 'Seasonal Calendar' : 'Lịch Nông Vụ 3 Miền'}
-                </h3>
-                <p className="text-xs text-forest-300/80 mt-1 leading-relaxed">
-                  {isEn
-                    ? '12-month urban farming timetable for North, Central, and South Vietnam with weather and pest alerts.'
-                    : 'Thời khóa biểu gieo trồng 12 tháng chuẩn tiết khí 3 miền Bắc - Trung - Nam, lịch tưới & phòng trừ sâu bệnh.'}
-                </p>
-              </div>
-              <div className="pt-3.5 mt-3.5 border-t border-forest-800/80 flex items-center justify-between text-xs font-semibold text-teal-400">
-                <span>{isEn ? 'Open Calendar' : 'Xem Lịch Nông Vụ'}</span>
-                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
-              </div>
-            </Link>
-
-            {/* Box 2: Vườn Số Của Tôi (MS4) */}
-            <Link
-              to="/vuon-cua-toi"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-5 rounded-3xl bg-forest-950/80 border border-forest-700 hover:border-herbal-400 hover:bg-forest-950 transition group flex flex-col justify-between shadow-lg"
-            >
-              <div>
-                <div className="w-10 h-10 rounded-2xl bg-herbal-500/20 text-herbal-400 flex items-center justify-center mb-3.5">
-                  <span className="text-xl">🏡</span>
-                </div>
-                <h3 className="font-serif font-bold text-base text-white group-hover:text-herbal-300 transition">
-                  {t('nav.myGarden')}
-                </h3>
-                <p className="text-xs text-forest-300/80 mt-1 leading-relaxed">
-                  {isEn
-                    ? 'Manage balcony plants and preserve before-and-after photo milestones.'
-                    : 'Quản lý từng chậu cây ban công, lưu ảnh dòng thời gian trước & sau lớn lên.'}
-                </p>
-              </div>
-              <div className="pt-3.5 mt-3.5 border-t border-forest-800/80 flex items-center justify-between text-xs font-semibold text-herbal-400">
-                <span>{isEn ? 'Open Garden' : 'Mở Vườn Số'}</span>
-                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
-              </div>
-            </Link>
-
-            {/* Box 3: Bác sĩ cây trồng AI */}
-            <Link
-              to="/bac-si-cay-trong"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-5 rounded-3xl bg-forest-950/60 border border-forest-800 hover:border-herbal-400 hover:bg-forest-950 transition group flex flex-col justify-between"
-            >
-              <div>
-                <div className="w-10 h-10 rounded-2xl bg-herbal-500/10 text-herbal-400 flex items-center justify-center mb-3.5">
-                  <Stethoscope className="w-5 h-5" />
-                </div>
-                <h3 className="font-serif font-bold text-base text-white group-hover:text-herbal-300 transition">
-                  {t('nav.clinicShort')}
-                </h3>
-                <p className="text-xs text-forest-300/80 mt-1 leading-relaxed">
-                  {isEn
-                    ? 'Instant 3-second diagnosis for yellow leaves, mealybugs, and root rot with organic remedies.'
-                    : 'Chẩn đoán tức thì 3 giây bệnh vàng lá, rệp sáp, thối rễ kèm bài thuốc sinh học.'}
-                </p>
-              </div>
-              <div className="pt-3.5 mt-3.5 border-t border-forest-800/60 flex items-center justify-between text-xs font-semibold text-herbal-400">
-                <span>{isEn ? 'Open Clinic' : 'Mở Phòng Khám'}</span>
-                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
-              </div>
-            </Link>
-
-            {/* Box 4: Trạm Đổi Cây */}
-            <Link
-              to="/trao-doi-cay"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-5 rounded-3xl bg-forest-950/60 border border-forest-800 hover:border-emerald-400 hover:bg-forest-950 transition group flex flex-col justify-between"
-            >
-              <div>
-                <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-3.5">
-                  <MapPin className="w-5 h-5" />
-                </div>
-                <h3 className="font-serif font-bold text-base text-white group-hover:text-emerald-300 transition">
-                  {t('nav.swap')}
-                </h3>
-                <p className="text-xs text-forest-300/80 mt-1 leading-relaxed">
-                  {isEn
-                    ? 'Share seeds and exchange rooted cuttings safely with 7-day quarantine.'
-                    : 'Kết nối tặng hạt giống, đổi cành giâm an toàn ba miền với cam kết cách ly 7 ngày.'}
-                </p>
-              </div>
-              <div className="pt-3.5 mt-3.5 border-t border-forest-800/60 flex items-center justify-between text-xs font-semibold text-emerald-400">
-                <span>{isEn ? 'Open Swap Station' : 'Mở Trạm Đổi Cây'}</span>
-                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
-              </div>
-            </Link>
-
-            {/* Box 5: Web3 Sandbox & Hộ Chiếu Cây Trồng (MS8) */}
-            <Link
-              to="/web3-sandbox"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-5 rounded-3xl bg-forest-950/80 border border-orange-500/50 hover:border-orange-400 hover:bg-forest-950 transition group flex flex-col justify-between shadow-lg"
-            >
-              <div>
-                <div className="w-10 h-10 rounded-2xl bg-orange-500/20 text-orange-400 flex items-center justify-center mb-3.5">
-                  <ShieldCheck className="w-5 h-5" />
-                </div>
-                <div className="flex items-center gap-1.5 mb-1">
-                  <h3 className="font-serif font-bold text-base text-white group-hover:text-orange-300 transition">
-                    {isEn ? 'Web3 & Plant Passport' : 'Hộ Chiếu Cây & Web3'}
-                  </h3>
-                  <span className="px-1.5 py-0.2 rounded-full text-[9px] font-bold bg-orange-600 text-white">MS8</span>
-                </div>
-                <p className="text-xs text-forest-300/80 mt-1 leading-relaxed">
-                  {isEn
-                    ? 'Digital plant passport studio with SHA-256 photo hash and smart contract escrow on Testnet.'
-                    : 'Đúc hộ chiếu thực vật số, mã băm SHA-256 bảo vệ nguồn gen và mô phỏng Smart Contract trên Testnet.'}
-                </p>
-              </div>
-              <div className="pt-3.5 mt-3.5 border-t border-forest-800/80 flex items-center justify-between text-xs font-semibold text-orange-400">
-                <span>{isEn ? 'Open Web3 Studio' : 'Vào Web3 Sandbox'}</span>
-                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
-              </div>
-            </Link>
-
-            {/* Box 6: Kiếm Tiền Từ Vườn */}
-            <Link
-              to="/kiem-tien-tu-vuon"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-5 rounded-3xl bg-forest-950/60 border border-forest-800 hover:border-amber-400 hover:bg-forest-950 transition group flex flex-col justify-between"
-            >
-              <div>
-                <div className="w-10 h-10 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-3.5">
-                  <Coins className="w-5 h-5" />
-                </div>
-                <h3 className="font-serif font-bold text-base text-white group-hover:text-amber-300 transition">
-                  {t('nav.monetization')}
-                </h3>
-                <p className="text-xs text-forest-300/80 mt-1 leading-relaxed">
-                  {isEn
-                    ? 'Strategies for sustainable revenue from propagation, starter pots, and herbal crafting.'
-                    : 'Chiến lược tạo thu nhập bền vững từ chiết cành, ươm giống và chế biến thảo mộc.'}
-                </p>
-              </div>
-              <div className="pt-3.5 mt-3.5 border-t border-forest-800/60 flex items-center justify-between text-xs font-semibold text-amber-400">
-                <span>{isEn ? 'View Guide' : 'Xem Cẩm Nang'}</span>
-                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
-              </div>
-            </Link>
-
-            {/* Box 7: Kênh Liên Hệ & Hợp Tác */}
-            <Link
-              to="/lien-he"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-5 rounded-3xl bg-forest-950/60 border border-forest-800 hover:border-forest-400 hover:bg-forest-950 transition group flex flex-col justify-between"
-            >
-              <div>
-                <div className="w-10 h-10 rounded-2xl bg-forest-500/10 text-forest-300 flex items-center justify-center mb-3.5">
-                  <MessageCircle className="w-5 h-5" />
-                </div>
-                <h3 className="font-serif font-bold text-base text-white group-hover:text-forest-200 transition">
-                  {t('nav.contact')}
-                </h3>
-                <p className="text-xs text-forest-300/80 mt-1 leading-relaxed">
-                  {isEn
-                    ? 'Send feedback, contribute folk remedies, or register nursery partnerships.'
-                    : 'Gửi yêu cầu hỗ trợ, đóng góp bài thuốc dân gian hoặc đăng ký đối tác nhà vườn.'}
-                </p>
-              </div>
-              <div className="pt-3.5 mt-3.5 border-t border-forest-800/60 flex items-center justify-between text-xs font-semibold text-forest-300">
-                <span>{isEn ? 'Send Message' : 'Gửi Tin Nhắn'}</span>
-                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
-              </div>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Tuyên Bố Miễn Trừ Y Tế & An Toàn Thảo Dược Bản Địa (Dưới Cùng Trang Chủ) */}
+      {/* 2. Tuyên Bố Miễn Trừ Y Tế & An Toàn Thảo Dược Bản Địa (Dưới Cùng Trang Chủ) */}
       <div className="py-2">
         <MedicalDisclaimer />
       </div>
