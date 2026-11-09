@@ -34,6 +34,7 @@ export interface GamifiedPlantCardProps {
   onMintNft?: (plant: GardenPlant) => void;
   onHarvestCrop?: (plant: GardenPlant) => void;
   seasonalEval?: PlantSeasonalEvaluation | null;
+  onOpenShop?: () => void;
 }
 
 export const GamifiedPlantCard: React.FC<GamifiedPlantCardProps> = ({
@@ -48,7 +49,8 @@ export const GamifiedPlantCard: React.FC<GamifiedPlantCardProps> = ({
   onDeletePlant,
   onMintNft,
   onHarvestCrop,
-  seasonalEval
+  seasonalEval,
+  onOpenShop
 }) => {
   const [floatingNotice, setFloatingNotice] = useState<{ text: string; icon: string } | null>(null);
 
@@ -79,9 +81,12 @@ export const GamifiedPlantCard: React.FC<GamifiedPlantCardProps> = ({
   const handleCareClick = (action: GardenCareItemType) => {
     const stock = inventory[action] || 0;
     if (stock <= 0) {
+      if (onOpenShop) {
+        onOpenShop();
+      }
       alert(isEn 
-        ? `Out of stock for this item! Please exchange more in the Eco-Supply Shop.`
-        : `Túi đồ đã hết vật phẩm này! Hãy đổi thêm tại Cửa Hàng Sinh Thái.`);
+        ? `Out of stock for this item! Opening the Eco-Supply Shop to exchange.`
+        : `Túi đồ đã hết vật phẩm này! Đang mở Cửa Hàng Sinh Thái để bạn đổi thêm.`);
       return;
     }
 

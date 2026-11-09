@@ -281,3 +281,74 @@ test('Anti-Exploit: Daily Dew can only be claimed ONCE per calendar day', () => 
   assert.equal(c3.success, true, 'Valid new day can claim');
   assert.equal(c3.newHearts, 80, 'Now reaches 80 hearts');
 });
+
+// 9. Kiểm tra cơ chế Bắt Buộc Có Đồ Trong Túi Mới Làm Được Nhiệm Vụ (Inventory Item Prerequisite)
+test('Inventory Prerequisite: Seasonal task execution requires sufficient items in backpack', () => {
+  // Hàm mô phỏng nhận diện vật phẩm từ nội dung nhiệm vụ
+  const detectRequiredItem = (taskText) => {
+    const lower = taskText.toLowerCase();
+    if (lower.includes('tưới') || lower.includes('nước') || lower.includes('water') || lower.includes('ẩm')) return 'water';
+    if (lower.includes('phân') || lower.includes('bón') || lower.includes('dinh dưỡng') || lower.includes('fertiliz')) return 'fertilizer';
+    if (lower.includes('đất') || lower.includes('cành giâm') || lower.includes('nhân giống')) return 'soil';
+    if (lower.includes('nắng') || lower.includes('quang hợp')) return 'sunlight';
+    if (lower.includes('sâu') || lower.includes('bệnh') || lower.includes('xịt')) return 'spray';
+    return null;
+  };
+
+  // 1. Kiểm tra độ nhạy phát hiện vật phẩm
+  assert.equal(detectRequiredItem('Tưới nước 2 lần/ngày sáng sớm và chiều mát'), 'water');
+  assert.equal(detectRequiredItem('Bổ sung phân hữu cơ vi sinh định kỳ 10 ngày/lần'), 'fertilizer');
+  assert.equal(detectRequiredItem('Nhân giống các loại thảo dược bằng cành giâm'), 'soil');
+  assert.equal(detectRequiredItem('Đưa chậu ra vị trí nhiều nắng để quang hợp tốt'), 'sunlight');
+  assert.equal(detectRequiredItem('Phun xịt tinh dầu tỏi ớt phòng ngừa sâu bệnh'), 'spray');
+  assert.equal(detectRequiredItem('Chăm sóc bưởi da xanh mini đón Tết'), null);
+
+  // 2. Mô phỏng kiểm tra túi đồ trước khi làm nhiệm vụ
+  const backpack = { water: 0, fertilizer: 2, soil: 0 };
+  let currentHearts = 50;
+  const claimedStore = {};
+
+  const executeTask = (taskText, taskKey) => {
+    const reqItem = detectRequiredItem(taskText);
+    if (reqItem) {
+      const stock = backpack[reqItem] || 0;
+      if (stock <= 0) {
+        return {
+          success: false,
+          requiresShop: true,
+          error: `Thiếu vật phẩm: ${reqItem}. Vui lòng vào Cửa Hàng Sinh Thái để mua!`
+        };
+      }
+      // Đủ đồ -> tiêu hao 1 vật phẩm
+      backpack[reqItem] -= 1;
+    }
+
+    if (!claimedStore[taskKey]) {
+      claimedStore[taskKey] = true;
+      currentHearts += 5;
+    }
+
+    return { success: true, currentHearts, remainingBackpack: backpack };
+  };
+
+  // Thử làm nhiệm vụ tưới khi HẾT NƯỚC (stock = 0)
+  const taskWater = 'Tưới nước 2 lần/ngày sáng sớm và chiều mát';
+  const tryWater = executeTask(taskWater, '11_north_1');
+  assert.equal(tryWater.success, false, 'Must reject execution when inventory has 0 water');
+  assert.equal(tryWater.requiresShop, true, 'Must prompt user to open shop');
+  assert.equal(currentHearts, 50, 'Hearts must NOT increase when supplies are insufficient');
+
+  // Thử làm nhiệm vụ bón phân khi CÓ PHÂN (stock = 2)
+  const taskFert = 'Bổ sung phân hữu cơ vi sinh định kỳ 10 ngày/lần';
+  const tryFert = executeTask(taskFert, '11_north_2');
+  assert.equal(tryFert.success, true, 'Must succeed when having sufficient fertilizer');
+  assert.equal(backpack.fertilizer, 1, 'Must consume exactly 1 fertilizer pouch');
+  assert.equal(currentHearts, 55, 'Hearts increase to 55');
+
+  // Cấp thêm 1 nước vào balo và thử lại nhiệm vụ tưới
+  backpack.water += 1;
+  const retryWater = executeTask(taskWater, '11_north_1');
+  assert.equal(retryWater.success, true, 'Now succeeds after replenishing water');
+  assert.equal(backpack.water, 0, 'Consumes the replenished water');
+  assert.equal(currentHearts, 60, 'Now reaches 60 hearts');
+});

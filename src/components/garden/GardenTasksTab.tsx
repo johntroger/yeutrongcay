@@ -17,9 +17,10 @@ import {
   SplitSquareVertical,
   ChevronRight
 } from 'lucide-react';
-import { GardenPlant } from '../../types/index.ts';
+import { GardenPlant, GardenCareItemType } from '../../types/index.ts';
 import { RegionKey } from '../../data/seasonalCalendar.ts';
 import { SEED_PLANTS } from '../../data/plants.ts';
+import { detectRequiredItemForTask, GARDEN_ECO_ITEMS } from '../../services/gardenGameService.ts';
 
 export interface RegionalGuide {
   climate_tag: string;
@@ -71,6 +72,8 @@ export interface GardenTasksTabProps {
   handleCareAction: (plant: GardenPlant, action: 'water' | 'fertilize') => void;
   onOpenAddDiary: (plantId: string) => void;
   onComparePlant: (plant: GardenPlant) => void;
+  inventory?: Record<GardenCareItemType, number>;
+  onOpenShop?: () => void;
 }
 
 export const GardenTasksTab: React.FC<GardenTasksTabProps> = ({
@@ -96,7 +99,9 @@ export const GardenTasksTab: React.FC<GardenTasksTabProps> = ({
   careTasks,
   handleCareAction,
   onOpenAddDiary,
-  onComparePlant
+  onComparePlant,
+  inventory = { water: 0, fertilizer: 0, soil: 0, sunlight: 0, spray: 0 },
+  onOpenShop
 }) => {
   const [taskPlantFilter, setTaskPlantFilter] = useState<'all' | 'water' | 'fertilize' | 'attention'>('all');
 
@@ -273,9 +278,20 @@ export const GardenTasksTab: React.FC<GardenTasksTabProps> = ({
                       : `Nhiệm Vụ Nông Vụ Tháng ${selectedMonth} (${completedSeasonalCount}/${seasonalTasksCount} Đã xong)`}
                   </h4>
                 </div>
-                <span className="text-xs font-bold text-rose-600 dark:text-rose-400">
-                  +{claimedCountInThisMonth * 5} {isEn ? 'Hearts Claimed ❤️' : 'Trái Tim Đã Nhận ❤️'}
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-bold text-rose-600 dark:text-rose-400">
+                    +{claimedCountInThisMonth * 5} {isEn ? 'Hearts Claimed ❤️' : 'Trái Tim Đã Nhận ❤️'}
+                  </span>
+                  {onOpenShop && (
+                    <button
+                      onClick={onOpenShop}
+                      className="text-xs font-bold px-2.5 py-1 rounded-xl bg-forest-100 dark:bg-forest-800/80 hover:bg-forest-200 dark:hover:bg-forest-700 text-forest-800 dark:text-forest-200 border border-forest-200 dark:border-forest-700 transition flex items-center gap-1 cursor-pointer"
+                    >
+                      <span>🛒</span>
+                      <span>{isEn ? 'Eco Shop' : 'Cửa Hàng'}</span>
+                    </button>
+                  )}
+                </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -283,6 +299,10 @@ export const GardenTasksTab: React.FC<GardenTasksTabProps> = ({
                   const taskKey = `${selectedMonth}_${selectedRegion}_${idx}`;
                   const isDone = !!completedSeasonalTasks[taskKey];
                   const isClaimed = !!claimedSeasonalRewards[taskKey];
+                  const reqItem = detectRequiredItemForTask(taskText);
+                  const itemDef = reqItem ? GARDEN_ECO_ITEMS[reqItem] : null;
+                  const stock = reqItem ? (inventory[reqItem] || 0) : null;
+                  const isOutOfStock = reqItem !== null && (stock ?? 0) <= 0;
 
                   return (
                     <button
@@ -291,6 +311,8 @@ export const GardenTasksTab: React.FC<GardenTasksTabProps> = ({
                       className={`p-3.5 rounded-2xl text-left transition border flex items-start gap-3 group cursor-pointer ${
                         isDone
                           ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800'
+                          : isOutOfStock
+                          ? 'bg-amber-50/40 dark:bg-amber-950/20 hover:bg-amber-50 dark:hover:bg-amber-950/40 border-amber-200 dark:border-amber-800/60'
                           : 'bg-white dark:bg-charcoal-800 hover:bg-forest-50 dark:hover:bg-charcoal-700 border-forest-100 dark:border-forest-700'
                       }`}
                     >
@@ -298,10 +320,16 @@ export const GardenTasksTab: React.FC<GardenTasksTabProps> = ({
                         className={`w-5 h-5 rounded-lg flex items-center justify-center shrink-0 mt-0.5 transition ${
                           isDone
                             ? 'bg-emerald-600 text-white'
+                            : isOutOfStock
+                            ? 'border-2 border-amber-400 dark:border-amber-600 text-amber-600'
                             : 'border-2 border-gray-300 dark:border-gray-600 group-hover:border-herbal-500'
                         }`}
                       >
-                        {isDone && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                        {isDone ? (
+                          <Check className="w-3.5 h-3.5 stroke-[3]" />
+                        ) : isOutOfStock ? (
+                          <span className="text-[10px] font-bold">!</span>
+                        ) : null}
                       </div>
                       <div className="flex-1">
                         <p
@@ -313,6 +341,32 @@ export const GardenTasksTab: React.FC<GardenTasksTabProps> = ({
                         >
                           {taskText}
                         </p>
+
+                        {/* Huy hiệu yêu cầu vật phẩm sinh thái */}
+                        {itemDef && !isDone && (
+                          <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+                            {isOutOfStock ? (
+                              <span
+                                onClick={(e) => {
+                                  if (onOpenShop) {
+                                    e.stopPropagation();
+                                    onOpenShop();
+                                  }
+                                }}
+                                className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-700 dark:text-amber-300 bg-amber-100 dark:bg-amber-900/60 px-2 py-0.5 rounded-md border border-amber-300 dark:border-amber-700 hover:bg-amber-200 transition"
+                              >
+                                <span>⚠️ Cần: {itemDef.icon} {isEn ? itemDef.name_en : itemDef.name_vi}</span>
+                                <span className="underline decoration-dotted font-black">(Hết đồ - Vào Shop đổi)</span>
+                              </span>
+                            ) : (
+                              <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-800 dark:text-emerald-300 bg-emerald-100/70 dark:bg-emerald-950/60 px-2 py-0.5 rounded-md border border-emerald-200 dark:border-emerald-800">
+                                <span>{itemDef.icon} Cần 1 {isEn ? itemDef.name_en : itemDef.name_vi}</span>
+                                <span className="opacity-75 font-normal">(Còn {stock})</span>
+                              </span>
+                            )}
+                          </div>
+                        )}
+
                         <span className="text-[10px] text-gray-400 mt-1 block">
                           {isClaimed
                             ? (isDone
@@ -320,6 +374,8 @@ export const GardenTasksTab: React.FC<GardenTasksTabProps> = ({
                                 : (isEn ? 'Mark done (Reward already claimed)' : 'Đánh dấu lại (Đã nhận 5 Tim trước đó)'))
                             : (isDone
                                 ? (isEn ? 'Completed (+5 Hearts ❤️)' : 'Đã hoàn thành (+5 Trái Tim ❤️)')
+                                : isOutOfStock
+                                ? (isEn ? '⚠️ Click to open shop & exchange supplies' : '⚠️ Bấm để mở Cửa Hàng Sinh Thái đổi vật phẩm')
                                 : (isEn ? 'Click to mark done (+5 Hearts ❤️)' : 'Bấm để đánh dấu (+5 Trái Tim ❤️)'))}
                         </span>
                       </div>
@@ -414,20 +470,36 @@ export const GardenTasksTab: React.FC<GardenTasksTabProps> = ({
             {pendingWaterTasks.length > 0 && (
               <button
                 onClick={handleBatchWaterAll}
-                className="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-xs transition cursor-pointer"
+                className={`px-3.5 py-1.5 rounded-xl text-white text-xs font-bold flex items-center gap-1.5 shadow-xs transition cursor-pointer ${
+                  (inventory.water || 0) <= 0
+                    ? 'bg-amber-600 hover:bg-amber-700'
+                    : 'bg-blue-600 hover:bg-blue-700'
+                }`}
               >
                 <Droplets className="w-3.5 h-3.5" />
-                <span>{isEn ? `Water All (${pendingWaterTasks.length})` : `Tưới Tất Cả (${pendingWaterTasks.length} cây)`}</span>
+                <span>
+                  {(inventory.water || 0) <= 0
+                    ? (isEn ? `Water All (${pendingWaterTasks.length}) - Out of Water` : `Tưới Tất Cả (${pendingWaterTasks.length} cây) - Hết Nước`)
+                    : (isEn ? `Water All (${pendingWaterTasks.length})` : `Tưới Tất Cả (${pendingWaterTasks.length} cây)`)}
+                </span>
               </button>
             )}
 
             {pendingFertilizeTasks.length > 0 && (
               <button
                 onClick={handleBatchFertilizeAll}
-                className="px-3.5 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-xs transition cursor-pointer"
+                className={`px-3.5 py-1.5 rounded-xl text-white text-xs font-bold flex items-center gap-1.5 shadow-xs transition cursor-pointer ${
+                  (inventory.fertilizer || 0) <= 0
+                    ? 'bg-amber-700 hover:bg-amber-800'
+                    : 'bg-amber-600 hover:bg-amber-700'
+                }`}
               >
                 <Sprout className="w-3.5 h-3.5" />
-                <span>{isEn ? `Feed All (${pendingFertilizeTasks.length})` : `Bón Tất Cả (${pendingFertilizeTasks.length} cây)`}</span>
+                <span>
+                  {(inventory.fertilizer || 0) <= 0
+                    ? (isEn ? `Feed All (${pendingFertilizeTasks.length}) - Out of Fertilizer` : `Bón Tất Cả (${pendingFertilizeTasks.length} cây) - Hết Phân`)
+                    : (isEn ? `Feed All (${pendingFertilizeTasks.length})` : `Bón Tất Cả (${pendingFertilizeTasks.length} cây)`)}
+                </span>
               </button>
             )}
           </div>
@@ -523,13 +595,21 @@ export const GardenTasksTab: React.FC<GardenTasksTabProps> = ({
                         <button
                           onClick={() => handleCareAction(plant, 'water')}
                           className={`px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1 cursor-pointer ${
-                            isWaterDue
+                            (inventory.water || 0) <= 0
+                              ? 'bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-200 border border-amber-300 dark:border-amber-700'
+                              : isWaterDue
                               ? 'bg-blue-600 hover:bg-blue-700 text-white animate-pulse'
                               : 'bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200 hover:bg-blue-200'
                           }`}
                         >
                           <Check className="w-3 h-3" />
-                          <span>{isWaterDue ? (isEn ? 'Water Now 💧' : 'Tưới Ngay 💧') : (isEn ? 'Watered' : 'Đã tưới')}</span>
+                          <span>
+                            {(inventory.water || 0) <= 0
+                              ? (isEn ? 'Buy Water 💧' : 'Hết Nước 💧')
+                              : isWaterDue
+                              ? (isEn ? 'Water Now 💧' : 'Tưới Ngay 💧')
+                              : (isEn ? 'Watered' : 'Đã tưới')}
+                          </span>
                         </button>
                       </div>
 
@@ -552,13 +632,21 @@ export const GardenTasksTab: React.FC<GardenTasksTabProps> = ({
                         <button
                           onClick={() => handleCareAction(plant, 'fertilize')}
                           className={`px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1 cursor-pointer ${
-                            isFertDue
+                            (inventory.fertilizer || 0) <= 0
+                              ? 'bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-200 border border-amber-300 dark:border-amber-700'
+                              : isFertDue
                               ? 'bg-amber-600 hover:bg-amber-700 text-white animate-pulse'
                               : 'bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-200 hover:bg-amber-200'
                           }`}
                         >
                           <Check className="w-3 h-3" />
-                          <span>{isFertDue ? (isEn ? 'Feed Now 🌿' : 'Bón Ngay 🌿') : (isEn ? 'Fed' : 'Đã bón')}</span>
+                          <span>
+                            {(inventory.fertilizer || 0) <= 0
+                              ? (isEn ? 'Buy Feed 👝' : 'Hết Phân 👝')
+                              : isFertDue
+                              ? (isEn ? 'Feed Now 🌿' : 'Bón Ngay 🌿')
+                              : (isEn ? 'Fed' : 'Đã bón')}
+                          </span>
                         </button>
                       </div>
                     </div>

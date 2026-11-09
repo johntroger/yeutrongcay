@@ -640,3 +640,26 @@ export function consumeInventoryItem(type: GardenCareItemType, quantity: number 
   saveUserInventory(inv);
   return true;
 }
+
+/**
+ * Nhận diện vật phẩm sinh thái cần thiết từ nội dung nhiệm vụ nông vụ
+ */
+export function detectRequiredItemForTask(taskText: string): GardenCareItemType | null {
+  const lower = taskText.toLowerCase();
+  if (lower.includes('tưới') || lower.includes('nước') || lower.includes('water') || lower.includes('ẩm')) {
+    return 'water';
+  }
+  if (lower.includes('phân') || lower.includes('bón') || lower.includes('dinh dưỡng') || lower.includes('fertiliz') || lower.includes('feed') || lower.includes('trùn')) {
+    return 'fertilizer';
+  }
+  if (lower.includes('đất') || lower.includes('xới') || lower.includes('nhân giống') || lower.includes('cành giâm') || lower.includes('chậu') || lower.includes('soil')) {
+    return 'soil';
+  }
+  if (lower.includes('nắng') || lower.includes('quang hợp') || lower.includes('phơi') || lower.includes('sun')) {
+    return 'sunlight';
+  }
+  if (lower.includes('sâu') || lower.includes('bệnh') || lower.includes('xịt') || lower.includes('rệp') || lower.includes('pest') || lower.includes('spray')) {
+    return 'spray';
+  }
+  return null;
+}

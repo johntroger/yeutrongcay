@@ -49,7 +49,9 @@ import {
   buyInventoryItem,
   applyCareAction,
   consumeInventoryItem,
-  getPlantGrowthProfile
+  getPlantGrowthProfile,
+  GARDEN_ECO_ITEMS,
+  detectRequiredItemForTask
 } from '../services/gardenGameService.ts';
 import { plantPassportRegistryService, getUsernameFromEmail } from '../services/plantPassportRegistryService.ts';
 import {
@@ -508,8 +510,34 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
     triggerNotice(isEn ? 'Deleted photo diary entry.' : 'Đã xóa mốc nhật ký.');
   };
 
-  // Xử lý Chăm sóc nhanh 1-Click (Tưới nước / Bón phân)
+  // Xử lý Chăm sóc nhanh 1-Click (Tưới nước / Bón phân) có kiểm tra túi đồ
   const handleCareAction = async (plant: GardenPlant, type: 'water' | 'fertilize') => {
+    const requiredItem: GardenCareItemType = type === 'fertilize' ? 'fertilizer' : 'water';
+    const currentStock = inventory[requiredItem] || 0;
+    const itemDef = GARDEN_ECO_ITEMS[requiredItem];
+
+    // Chặn nếu trong túi đồ đã hết vật phẩm chăm sóc
+    if (currentStock <= 0) {
+      setIsShopOpen(true);
+      triggerNotice(
+        isEn
+          ? `⚠️ Out of ${itemDef.name_en} (${itemDef.icon})! Please exchange in the Eco Shop to care for your plant.`
+          : `⚠️ Trong túi đồ đã hết ${itemDef.name_vi} (${itemDef.icon})! Vui lòng vào Cửa Hàng Sinh Thái để đổi trước khi chăm cây.`
+      );
+      return;
+    }
+
+    // Tiêu hao 1 vật phẩm
+    consumeInventoryItem(requiredItem, 1);
+    setInventory(getUserInventory());
+
+    // Cập nhật tiến độ nhiệm vụ ngày
+    if (requiredItem === 'water') {
+      updateDailyQuests((q) => ({ ...q, waterCount: (q.waterCount || 0) + 1 }));
+    } else {
+      updateDailyQuests((q) => ({ ...q, sunOrFertCount: (q.sunOrFertCount || 0) + 1 }));
+    }
+
     const today = new Date().toISOString().split('T')[0];
     await logCareAction(plant.id, type, today);
 
@@ -519,6 +547,8 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
           ...p,
           last_watered_at: type === 'water' ? today : p.last_watered_at,
           last_fertilized_at: type === 'fertilize' ? today : p.last_fertilized_at,
+          moisture_level: type === 'water' ? Math.min(95, (p.moisture_level ?? 80) + 30) : p.moisture_level,
+          growth_exp: (p.growth_exp ?? 0) + 25
         };
       }
       return p;
@@ -527,9 +557,11 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
     setPlants(updatedPlants);
     localStorage.setItem('ytc_garden_plants', JSON.stringify(updatedPlants));
 
+    careGamifiedPlantAction(currentUserId, plant.id, requiredItem).catch(() => {});
+
     const msg = type === 'water'
-      ? (isEn ? `Watered "${plant.custom_name}" 💧` : `Đã tưới nước cho "${plant.custom_name}" 💧`)
-      : (isEn ? `Fertilized "${plant.custom_name}" with organic worm castings 🌿` : `Đã bón phân trùn quế cho "${plant.custom_name}" 🌿`);
+      ? (isEn ? `Watered "${plant.custom_name}" 💧 (-1 Water)` : `Đã tưới nước cho "${plant.custom_name}" 💧 (-1 Bình nước)`)
+      : (isEn ? `Fertilized "${plant.custom_name}" with organic worm castings 👝 (-1 Fertilizer)` : `Đã bón phân vi sinh cho "${plant.custom_name}" 👝 (-1 Túi phân)`);
     triggerNotice(msg);
   };
 
@@ -808,13 +840,41 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
     const isCurrentlyDone = !!completedSeasonalTasks[taskKey];
     const newDoneState = !isCurrentlyDone;
 
-    // 1. Luôn cập nhật trạng thái checklist cho người dùng theo dõi
-    const newMap = { ...completedSeasonalTasks, [taskKey]: newDoneState };
-    setCompletedSeasonalTasks(newMap);
-    localStorage.setItem('ytc_completed_seasonal_tasks', JSON.stringify(newMap));
-
-    // 2. Chống trục lợi: Chỉ cộng 5 Tim khi LẦN ĐẦU TIÊN hoàn thành nhiệm vụ này
+    // Khi người dùng bấm hoàn thành (tick check)
     if (newDoneState) {
+      // 1. Kiểm tra vật phẩm cần thiết trong túi đồ
+      const requiredItem = detectRequiredItemForTask(taskText);
+      if (requiredItem) {
+        const stock = inventory[requiredItem] || 0;
+        if (stock <= 0) {
+          const itemDef = GARDEN_ECO_ITEMS[requiredItem];
+          setIsShopOpen(true);
+          triggerNotice(
+            isEn
+              ? `⚠️ You need 1 ${itemDef.name_en} (${itemDef.icon}) in your inventory to perform this task! Opening Eco Shop...`
+              : `⚠️ Bạn cần có ít nhất 1 ${itemDef.name_vi} (${itemDef.icon}) trong túi đồ để làm nhiệm vụ này! Đang mở Cửa Hàng Sinh Thái...`
+          );
+          return; // Chặn không cho tick và không cộng tim khi thiếu đồ
+        }
+
+        // Đủ đồ -> Tiêu hao 1 vật phẩm làm bằng chứng thực hiện chăm sóc
+        consumeInventoryItem(requiredItem, 1);
+        setInventory(getUserInventory());
+
+        // Cập nhật tiến độ nhiệm vụ ngày tương ứng
+        if (requiredItem === 'water') {
+          updateDailyQuests((q) => ({ ...q, waterCount: (q.waterCount || 0) + 1 }));
+        } else if (requiredItem === 'fertilizer' || requiredItem === 'sunlight') {
+          updateDailyQuests((q) => ({ ...q, sunOrFertCount: (q.sunOrFertCount || 0) + 1 }));
+        }
+      }
+
+      // 2. Cập nhật trạng thái checklist cho người dùng theo dõi
+      const newMap = { ...completedSeasonalTasks, [taskKey]: true };
+      setCompletedSeasonalTasks(newMap);
+      localStorage.setItem('ytc_completed_seasonal_tasks', JSON.stringify(newMap));
+
+      // 3. Chống trục lợi: Chỉ cộng 5 Tim khi LẦN ĐẦU TIÊN hoàn thành nhiệm vụ này
       if (!claimedSeasonalRewards[taskKey]) {
         // Ghi nhận khóa vĩnh viễn đã nhận thưởng cho nhiệm vụ này
         const newClaimed = { ...claimedSeasonalRewards, [taskKey]: true };
@@ -835,10 +895,13 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
         // Đồng bộ chống gian lận lên server
         claimSeasonalTaskAction(currentUserId, taskKey).catch(() => {});
 
+        const itemDef = requiredItem ? GARDEN_ECO_ITEMS[requiredItem] : null;
+        const usedNotice = itemDef ? ` (-1 ${itemDef.icon})` : '';
+
         triggerNotice(
           isEn
-            ? `Completed seasonal task: "${taskText.slice(0, 32)}..." (+5 Hearts ❤️ earned!)`
-            : `Đã hoàn thành nông vụ: "${taskText.slice(0, 32)}..." (+5 Trái Tim ❤️ đã cộng!)`
+            ? `Completed seasonal task: "${taskText.slice(0, 32)}..." (+5 Hearts ❤️ earned!${usedNotice})`
+            : `Đã hoàn thành nông vụ: "${taskText.slice(0, 32)}..." (+5 Trái Tim ❤️ đã cộng!${usedNotice})`
         );
       } else {
         // Đã nhận thưởng trước đó -> chỉ cập nhật dấu check, KHÔNG cộng thêm tim
@@ -850,6 +913,10 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
       }
     } else {
       // Bỏ đánh dấu: KHÔNG trừ tim và KHÔNG xóa khóa claimed để chống hành vi "bỏ rồi tick lại để nhận thêm tim"
+      const newMap = { ...completedSeasonalTasks, [taskKey]: false };
+      setCompletedSeasonalTasks(newMap);
+      localStorage.setItem('ytc_completed_seasonal_tasks', JSON.stringify(newMap));
+
       triggerNotice(
         isEn
           ? `Unchecked: "${taskText.slice(0, 32)}..."`
@@ -860,12 +927,34 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
 
   const handleBatchWaterAll = () => {
     if (pendingWaterTasks.length === 0) return;
+    const stock = inventory.water || 0;
+    if (stock <= 0) {
+      setIsShopOpen(true);
+      triggerNotice(
+        isEn
+          ? '⚠️ Out of Water (💧)! Opening Eco Shop to exchange supplies...'
+          : '⚠️ Túi đồ đã hết Bình Nước Tưới (💧)! Đang mở Cửa Hàng Sinh Thái để đổi thêm...'
+      );
+      return;
+    }
+
+    const toWaterCount = Math.min(stock, pendingWaterTasks.length);
     const today = new Date().toISOString().split('T')[0];
-    const pendingIds = new Set(pendingWaterTasks.map((t) => t.plant.id));
+    const targetTasks = pendingWaterTasks.slice(0, toWaterCount);
+    const targetIds = new Set(targetTasks.map((t) => t.plant.id));
+
+    consumeInventoryItem('water', toWaterCount);
+    setInventory(getUserInventory());
+    updateDailyQuests((q) => ({ ...q, waterCount: (q.waterCount || 0) + toWaterCount }));
 
     const updatedPlants = plants.map((p) => {
-      if (pendingIds.has(p.id)) {
-        return { ...p, last_watered_at: today };
+      if (targetIds.has(p.id)) {
+        return {
+          ...p,
+          last_watered_at: today,
+          moisture_level: Math.min(95, (p.moisture_level ?? 80) + 30),
+          growth_exp: (p.growth_exp ?? 0) + 25
+        };
       }
       return p;
     });
@@ -873,25 +962,47 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
     setPlants(updatedPlants);
     localStorage.setItem('ytc_garden_plants', JSON.stringify(updatedPlants));
 
-    for (const item of pendingWaterTasks) {
+    for (const item of targetTasks) {
       logCareAction(item.plant.id, 'water', today);
+      careGamifiedPlantAction(currentUserId, item.plant.id, 'water').catch(() => {});
     }
 
     triggerNotice(
       isEn
-        ? `Hydrated all ${pendingWaterTasks.length} pending plants! 💧`
-        : `Đã tưới nước cho toàn bộ ${pendingWaterTasks.length} chậu cây! 💧`
+        ? `Hydrated ${toWaterCount}/${pendingWaterTasks.length} pending plants! 💧 (-${toWaterCount} Water)`
+        : `Đã tưới nước cho ${toWaterCount}/${pendingWaterTasks.length} chậu cây! 💧 (-${toWaterCount} Bình Nước)`
     );
   };
 
   const handleBatchFertilizeAll = () => {
     if (pendingFertilizeTasks.length === 0) return;
+    const stock = inventory.fertilizer || 0;
+    if (stock <= 0) {
+      setIsShopOpen(true);
+      triggerNotice(
+        isEn
+          ? '⚠️ Out of Organic Fertilizer (👝)! Opening Eco Shop to exchange supplies...'
+          : '⚠️ Túi đồ đã hết Túi Phân Hữu Cơ (👝)! Đang mở Cửa Hàng Sinh Thái để đổi thêm...'
+      );
+      return;
+    }
+
+    const toFertilizeCount = Math.min(stock, pendingFertilizeTasks.length);
     const today = new Date().toISOString().split('T')[0];
-    const pendingIds = new Set(pendingFertilizeTasks.map((t) => t.plant.id));
+    const targetTasks = pendingFertilizeTasks.slice(0, toFertilizeCount);
+    const targetIds = new Set(targetTasks.map((t) => t.plant.id));
+
+    consumeInventoryItem('fertilizer', toFertilizeCount);
+    setInventory(getUserInventory());
+    updateDailyQuests((q) => ({ ...q, sunOrFertCount: (q.sunOrFertCount || 0) + toFertilizeCount }));
 
     const updatedPlants = plants.map((p) => {
-      if (pendingIds.has(p.id)) {
-        return { ...p, last_fertilized_at: today };
+      if (targetIds.has(p.id)) {
+        return {
+          ...p,
+          last_fertilized_at: today,
+          growth_exp: (p.growth_exp ?? 0) + 35
+        };
       }
       return p;
     });
@@ -899,14 +1010,15 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
     setPlants(updatedPlants);
     localStorage.setItem('ytc_garden_plants', JSON.stringify(updatedPlants));
 
-    for (const item of pendingFertilizeTasks) {
+    for (const item of targetTasks) {
       logCareAction(item.plant.id, 'fertilize', today);
+      careGamifiedPlantAction(currentUserId, item.plant.id, 'fertilizer').catch(() => {});
     }
 
     triggerNotice(
       isEn
-        ? `Fed all ${pendingFertilizeTasks.length} plants with organic castings! 🌿`
-        : `Đã bón phân hữu cơ cho ${pendingFertilizeTasks.length} chậu cây! 🌿`
+        ? `Fed ${toFertilizeCount}/${pendingFertilizeTasks.length} plants with organic castings! 👝 (-${toFertilizeCount} Fertilizer)`
+        : `Đã bón phân cho ${toFertilizeCount}/${pendingFertilizeTasks.length} chậu cây! 👝 (-${toFertilizeCount} Túi Phân)`
     );
   };
 
@@ -1562,6 +1674,7 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
                         setMintPlantTarget(targetPlant);
                       }}
                       seasonalEval={seasonalEval}
+                      onOpenShop={() => setIsShopOpen(true)}
                     />
                   );
                 })}
@@ -1599,6 +1712,8 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
               setIsAddDiaryOpen(true);
             }}
             onComparePlant={(plant) => setComparisonPlant(plant)}
+            inventory={inventory}
+            onOpenShop={() => setIsShopOpen(true)}
           />
         )}
 
