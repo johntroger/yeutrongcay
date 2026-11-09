@@ -14,12 +14,10 @@ import {
   Upload,
   Loader2,
   X,
-  ArrowRight,
   MapPin,
   Droplets,
   Sprout,
   CheckCircle2,
-  Trash2,
   SplitSquareVertical,
   Sliders,
   Printer,
@@ -27,14 +25,25 @@ import {
   BellRing,
   Copy,
   ExternalLink,
-  Search
+  Search,
+  Sun
 } from 'lucide-react';
-import { UserGarden, GardenPlant, PlantDiaryEntry, PlantGrowthStatus, UserProfile } from '../types/index.ts';
+import { UserGarden, GardenPlant, PlantDiaryEntry, PlantGrowthStatus, UserProfile, GardenCareItemType } from '../types/index.ts';
 import { SEED_PLANTS } from '../data/plants.ts';
 import { SEASONAL_CALENDAR_DATA, RegionKey } from '../data/seasonalCalendar.ts';
 import { GardenBookPrintModal } from '../components/GardenBookPrintModal.tsx';
 import { BotanicalNftGallery } from '../components/BotanicalNftGallery.tsx';
-import { GardenTasksTab, GardenTimelineTab } from '../components/garden';
+import {
+  GardenTasksTab,
+  GardenTimelineTab,
+  GardenInventoryBar,
+  GardenSupplyShopModal,
+  GamifiedPlantCard,
+  PlantOnChainMintModal,
+  DailyGardenQuestsHud,
+  DailyQuestsState
+} from '../components/garden';
+import { getUserInventory, saveUserInventory, buyInventoryItem, applyCareAction, consumeInventoryItem } from '../services/gardenGameService.ts';
 import { plantPassportRegistryService, getUsernameFromEmail } from '../services/plantPassportRegistryService.ts';
 import {
   isNotificationSupported,
@@ -52,7 +61,12 @@ import {
   getUserKarma,
   logCareAction,
   deleteGardenPlant,
-  deletePlantDiary
+  deletePlantDiary,
+  buyGardenEcoItem,
+  syncGuestGardenDataAction,
+  careGamifiedPlantAction,
+  batchCarePlantsAction,
+  harvestPlantCropAction
 } from '../services/apiService.ts';
 import { getKarmaState } from '../services/karmaService.ts';
 import { applyWatermarkAndStripExif } from '../utils/watermark.ts';
@@ -124,6 +138,10 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
     events: any[];
   } | null>(null);
 
+  // Game Hóa: Túi đồ nghề & Cửa hàng sinh thái (MS7)
+  const [inventory, setInventory] = useState<Record<GardenCareItemType, number>>(() => getUserInventory());
+  const [isShopOpen, setIsShopOpen] = useState(false);
+
   // Modal: Thêm Cây Mới
   const [isAddPlantOpen, setIsAddPlantOpen] = useState(false);
   const [newCustomName, setNewCustomName] = useState('');
@@ -172,17 +190,53 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
   const [isGardenBookOpen, setIsGardenBookOpen] = useState(false);
   const [printTargetPlantId, setPrintTargetPlantId] = useState<string | null>(null);
 
+  // Modal: Đúc Hộ Chiếu NFT On-Chain Sepolia Thật 100%
+  const [mintPlantTarget, setMintPlantTarget] = useState<GardenPlant | null>(null);
+
   // Chuông thông báo nhắc lịch chăm sóc cây (Web Notification API)
   const [reminderActive, setReminderActive] = useState<boolean>(() => isCareReminderEnabled());
+
+  // Mini-HUD Nhiệm Vụ Sớm Mai (Daily Garden Quests)
+  const getTodayKey = () => new Date().toISOString().split('T')[0];
+  const [dailyQuests, setDailyQuests] = useState<DailyQuestsState>(() => {
+    const todayKey = new Date().toISOString().split('T')[0];
+    const savedDate = localStorage.getItem('ytc_daily_quest_date');
+    if (savedDate === todayKey) {
+      try {
+        const saved = localStorage.getItem('ytc_daily_quest_data');
+        if (saved) return JSON.parse(saved);
+      } catch {}
+    }
+    return { dewClaimed: false, waterCount: 0, sunOrFertCount: 0, bonusClaimed: false };
+  });
+
+  const updateDailyQuests = (updater: (prev: DailyQuestsState) => DailyQuestsState) => {
+    setDailyQuests((prev) => {
+      const updated = updater(prev);
+      localStorage.setItem('ytc_daily_quest_date', getTodayKey());
+      localStorage.setItem('ytc_daily_quest_data', JSON.stringify(updated));
+      return updated;
+    });
+  };
 
   // Tải dữ liệu vườn
   useEffect(() => {
     let isMounted = true;
-    getGardenData(currentUserId).then(({ garden: g, plants: p, diaries: d }) => {
+    getGardenData(currentUserId).then(({ garden: g, plants: p, diaries: d, inventory: inv, total_hearts: th }) => {
       if (isMounted) {
         setGarden(g);
         setPlants(p);
         setDiaries(d);
+        if (inv) {
+          setInventory(inv);
+          saveUserInventory(inv);
+        }
+        if (typeof th === 'number') {
+          setKarmaData((prev) => (prev ? { ...prev, total_karma: Math.max(prev.total_karma, th) } : prev));
+        }
+        if (currentUser && currentUserId !== 'usr-local-me') {
+          syncGuestGardenDataAction(currentUserId, inv || getUserInventory(), p).catch(() => {});
+        }
         if (p.length > 0 && !diaryPlantId) {
           setDiaryPlantId(p[0].id);
         }
@@ -460,6 +514,197 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
     triggerNotice(msg);
   };
 
+  // Thao tác đổi đồ tại Cửa hàng sinh thái
+  const handleBuyShopItem = async (type: GardenCareItemType, quantity: number) => {
+    const currentHearts = karmaData?.total_karma ?? 50;
+    const localRes = buyInventoryItem(type, quantity, currentHearts);
+    if (!localRes.success) {
+      return { success: false, message: isEn ? localRes.message_en : localRes.message_vi };
+    }
+
+    setInventory(getUserInventory());
+    if (karmaData) {
+      setKarmaData({
+        ...karmaData,
+        total_karma: localRes.newHearts
+      });
+      localStorage.setItem('ytc_user_karma', localRes.newHearts.toString());
+    }
+
+    // Gọi API lưu lên máy chủ
+    buyGardenEcoItem(currentUserId, type, quantity).catch(() => {});
+
+    triggerNotice(isEn ? localRes.message_en : localRes.message_vi);
+    return { success: true, message: isEn ? localRes.message_en : localRes.message_vi };
+  };
+
+  // Thao tác nhận giọt sương sớm (+15 Tim)
+  const handleClaimDailyDew = () => {
+    const currentHearts = karmaData?.total_karma ?? 50;
+    const newHearts = currentHearts + 15;
+    if (karmaData) {
+      setKarmaData({
+        ...karmaData,
+        total_karma: newHearts
+      });
+      localStorage.setItem('ytc_user_karma', newHearts.toString());
+    }
+    updateDailyQuests((q) => ({ ...q, dewClaimed: true }));
+    triggerNotice(isEn ? 'Claimed morning dew: +15 Hearts! 💧' : 'Đã nhận giọt sương mai: +15 Tim! 💧');
+  };
+
+  // Thao tác nhận thưởng thêm nhiệm vụ ngày (1 Túi phân trùn quế vi sinh 👝)
+  const handleClaimBonusReward = () => {
+    setInventory((prev) => {
+      const next = { ...prev, fertilizer: (prev.fertilizer || 0) + 1 };
+      saveUserInventory(next);
+      return next;
+    });
+    updateDailyQuests((q) => ({ ...q, bonusClaimed: true }));
+    triggerNotice(
+      isEn
+        ? '🎁 Daily Bonus Claimed! +1 Organic Fertilizer Pouch (👝) added to your backpack!'
+        : '🎁 Đã nhận quà nhiệm vụ ngày: +1 Túi Phân Trùn Quế vi sinh (👝) vào túi đồ!'
+    );
+  };
+
+  // Thao tác Chăm sóc cây Game Hóa (Tưới, Bón phân, Tắm nắng, Xới đất, Xịt thảo mộc)
+  const handleGamifiedCare = (plant: GardenPlant, action: GardenCareItemType) => {
+    const currentStock = inventory[action] || 0;
+    if (currentStock <= 0) {
+      setIsShopOpen(true);
+      triggerNotice(isEn ? 'Out of supply! Opened Eco Shop to exchange.' : 'Đã hết vật phẩm! Đã mở Cửa hàng Sinh thái để bạn đổi.');
+      return;
+    }
+
+    const careResult = applyCareAction(plant, action);
+    if (!careResult.success) {
+      triggerNotice(isEn ? careResult.message_en : careResult.message_vi);
+      return;
+    }
+
+    // Tiêu hao 1 vật phẩm
+    consumeInventoryItem(action, 1);
+    setInventory(getUserInventory());
+
+    // Cập nhật tiến độ nhiệm vụ ngày
+    if (action === 'water') {
+      updateDailyQuests((q) => ({ ...q, waterCount: (q.waterCount || 0) + 1 }));
+    } else if (action === 'fertilizer' || action === 'sunlight') {
+      updateDailyQuests((q) => ({ ...q, sunOrFertCount: (q.sunOrFertCount || 0) + 1 }));
+    }
+
+    // Cập nhật chậu cây trong state
+    const updated = plants.map((p) => (p.id === plant.id ? careResult.plant : p));
+    setPlants(updated);
+    localStorage.setItem('ytc_garden_plants', JSON.stringify(updated));
+
+    // Gọi API lưu lên máy chủ
+    careGamifiedPlantAction(currentUserId, plant.id, action).catch(() => {});
+
+    triggerNotice(isEn ? careResult.message_en : careResult.message_vi);
+  };
+
+  // Thao tác Chăm sóc toàn vườn 1-Click
+  const handleGamifiedBatchCare = async (actionType: 'water' | 'sunlight') => {
+    const stock = inventory[actionType] || 0;
+    if (stock <= 0) {
+      setIsShopOpen(true);
+      triggerNotice(isEn ? 'No supplies left! Please exchange in the Eco Shop.' : 'Đã hết vật phẩm! Vui lòng đổi thêm tại Cửa hàng.');
+      return;
+    }
+
+    const needyPlants = plants.filter((p) => (actionType === 'water' ? (p.moisture_level ?? 80) < 75 : (p.sunlight_level ?? 80) < 75));
+    if (needyPlants.length === 0) {
+      triggerNotice(isEn ? 'All plants in the garden are already in great shape!' : 'Toàn bộ cây trong vườn đều đang đủ điều kiện!');
+      return;
+    }
+
+    const toCareCount = Math.min(stock, needyPlants.length);
+    const needyIds = new Set(needyPlants.slice(0, toCareCount).map((p) => p.id));
+
+    consumeInventoryItem(actionType, toCareCount);
+    setInventory(getUserInventory());
+
+    const updated = plants.map((p) => {
+      if (needyIds.has(p.id)) {
+        if (actionType === 'water') {
+          return {
+            ...p,
+            moisture_level: Math.min(90, (p.moisture_level ?? 80) + 35),
+            growth_exp: (p.growth_exp ?? 0) + 30,
+            last_watered_at: new Date().toISOString().split('T')[0]
+          };
+        } else {
+          return {
+            ...p,
+            sunlight_level: Math.min(95, (p.sunlight_level ?? 80) + 45),
+            growth_exp: (p.growth_exp ?? 0) + 25
+          };
+        }
+      }
+      return p;
+    });
+
+    setPlants(updated);
+    localStorage.setItem('ytc_garden_plants', JSON.stringify(updated));
+
+    batchCarePlantsAction(currentUserId, actionType).catch(() => {});
+
+    triggerNotice(
+      isEn 
+        ? `Batch cared for ${toCareCount} plants with ${actionType === 'water' ? 'Water' : 'Sunlight'}! 🌟`
+        : `Đã chăm sóc nhanh thành công ${toCareCount} chậu cây bằng ${actionType === 'water' ? 'Nước' : 'Nắng ban mai'}! 🌟`
+    );
+  };
+
+  // Thao tác Thu hoạch vụ mùa
+  const handleHarvestPlant = async (plant: GardenPlant) => {
+    const stage = plant.growth_stage ?? 1;
+    if (stage < 5) {
+      triggerNotice(isEn ? 'Plant has not reached maturity yet (Stage 5)!' : 'Cây chưa đạt độ chín muồi (Giai đoạn 5) để thu hoạch!');
+      return;
+    }
+
+    // Tăng tim thưởng +120
+    const currentHearts = karmaData?.total_karma ?? 50;
+    const newHearts = currentHearts + 120;
+    if (karmaData) {
+      setKarmaData({
+        ...karmaData,
+        total_karma: newHearts
+      });
+      localStorage.setItem('ytc_user_karma', newHearts.toString());
+    }
+
+    // Tặng 1 túi phân hữu cơ vào túi đồ
+    const inv = getUserInventory();
+    inv.fertilizer = (inv.fertilizer || 0) + 1;
+    saveUserInventory(inv);
+    setInventory(inv);
+
+    // Cập nhật chậu cây: tăng total_harvests, reset EXP về 660 (Stage 3) để chuẩn bị đợt hoa trái mới
+    const updated = plants.map((p) => {
+      if (p.id === plant.id) {
+        return {
+          ...p,
+          total_harvests: (p.total_harvests || 0) + 1,
+          growth_stage: 3,
+          growth_exp: 660,
+          current_status: 'healthy' as PlantGrowthStatus
+        };
+      }
+      return p;
+    });
+
+    setPlants(updated);
+    localStorage.setItem('ytc_garden_plants', JSON.stringify(updated));
+
+    harvestPlantCropAction(currentUserId, plant.id).catch(() => {});
+
+    triggerNotice(isEn ? '🎉 Harvested crop! +120 Hearts and +1 Organic Fertilizer awarded!' : '🎉 Thu hoạch vụ mùa thành công! Nhận +120 Tim và +1 Túi Phân Hữu Cơ thưởng!');
+  };
+
   // Tính số ngày đã trôi qua kể từ một ngày
   const calculateDaysSince = (dateStr?: string) => {
     if (!dateStr) return 999;
@@ -628,32 +873,14 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
     }
   };
 
-  const statusLabelMap: Record<PlantGrowthStatus, { labelVi: string; labelEn: string; color: string }> = {
-    healthy: {
-      labelVi: 'Đang phát triển xanh tốt',
-      labelEn: 'Thriving & Healthy',
-      color: 'bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800'
-    },
-    flowering: {
-      labelVi: 'Đang trổ hoa bói',
-      labelEn: 'Flowering Stage',
-      color: 'bg-pink-100 dark:bg-pink-950/60 text-pink-800 dark:text-pink-300 border-pink-200 dark:border-pink-800'
-    },
-    fruiting: {
-      labelVi: 'Đang đậu quả mọng',
-      labelEn: 'Fruiting Stage',
-      color: 'bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border-amber-200 dark:border-amber-800'
-    },
-    recovering: {
-      labelVi: 'Hồi phục sau bệnh',
-      labelEn: 'Recovering Post-Pest',
-      color: 'bg-blue-100 dark:bg-blue-950/60 text-blue-800 dark:text-blue-300 border-blue-200 dark:border-blue-800'
-    },
-    dormant: {
-      labelVi: 'Nghỉ đông / Chờ đâm chồi',
-      labelEn: 'Dormant / Awaiting Shoots',
-      color: 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-300 border-gray-200 dark:border-gray-700'
-    },
+  const handleMintSuccess = (updatedPlant: GardenPlant, _txHash: string, tokenId: string) => {
+    setPlants((prev) => prev.map((p) => (p.id === updatedPlant.id ? updatedPlant : p)));
+    setMintPlantTarget(null);
+    triggerNotice(
+      isEn
+        ? `🎉 On-Chain Minting Verified! Passport Token #${tokenId} stamped on Ethereum Sepolia.`
+        : `🎉 Đúc On-Chain thành công! Hộ Chiếu Token #${tokenId} đã ghi danh trên Ethereum Sepolia.`
+    );
   };
 
   const stageOptions = [
@@ -899,6 +1126,23 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
             </div>
           )}
         </div>
+
+        {/* 2.4. Mini-HUD Nhiệm Vụ Sớm Mai (MS7 Daily Garden Quests) */}
+        <DailyGardenQuestsHud
+          isEn={isEn}
+          questsState={dailyQuests}
+          onClaimDailyDew={handleClaimDailyDew}
+          onClaimBonusReward={handleClaimBonusReward}
+        />
+
+        {/* 2.5. Thanh Túi Đồ Nghề Sinh Thái & Cửa Hàng Đổi Tim (MS7 Eco-Gaming) */}
+        <GardenInventoryBar
+          isEn={isEn}
+          totalHearts={karmaData?.total_karma ?? 50}
+          inventory={inventory}
+          onOpenShop={() => setIsShopOpen(true)}
+          onClaimDailyDew={handleClaimDailyDew}
+        />
 
         {/* 3. Lịch Nhắc Chăm Sóc Cây Hàng Ngày (Today's Care Tasks Widget) */}
         <div className="p-6 rounded-3xl bg-white dark:bg-charcoal-900 border border-forest-100 dark:border-forest-800 shadow-sm transition-colors">
@@ -1174,163 +1418,70 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
                 </Link>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {plants.map((plant) => {
-                const days = calculateDaysPlanted(plant.planted_date);
-                const plantDiaries = diaries.filter((d) => d.garden_plant_id === plant.id);
-                const statusInfo = statusLabelMap[plant.current_status];
-                const matchedSeed = matchGardenPlantToSeedPlant(plant, SEED_PLANTS);
-                const seasonalEval = matchedSeed ? evaluatePlantSeasonality(matchedSeed, currentRealMonth, selectedRegion) : null;
+              {/* Batch Care Toolbar: Chăm sóc toàn vườn 1-Click (MS7) */}
+              {plants.length > 0 && (
+                <div className="bg-gradient-to-r from-emerald-950 via-teal-950 to-stone-900 border border-emerald-500/30 rounded-2xl p-4 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+                    <span className="text-xs font-bold uppercase tracking-wider text-emerald-300">
+                      {isEn ? 'Garden-Wide Batch Care:' : 'Chăm Sóc Nhanh Toàn Vườn:'}
+                    </span>
+                  </div>
 
-                return (
-                  <div
-                    key={plant.id}
-                    className="bg-white dark:bg-charcoal-900 rounded-3xl overflow-hidden border border-forest-100 dark:border-forest-800 shadow-sm hover:shadow-md transition flex flex-col justify-between group"
-                  >
-                    <div>
-                      {/* Plant Image & Status */}
-                      <div className="relative aspect-[16/10] bg-forest-900 overflow-hidden">
-                        <img
-                          src={plant.cover_image_url}
-                          alt={plant.custom_name}
-                          className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                          onError={(e) => {
-                            const target = e.target as HTMLImageElement;
-                            target.onerror = null;
-                            target.src = '/logo.jpg';
-                            target.style.objectFit = 'contain';
-                            target.style.backgroundColor = '#ffffff';
-                            target.style.padding = '12px';
-                          }}
-                        />
-                        <div className="absolute top-3 left-3">
-                          <span
-                            className={`px-2.5 py-1 rounded-full text-[10px] font-bold shadow-xs border ${
-                              statusInfo?.color || 'bg-white text-forest-900'
-                            }`}
-                          >
-                            {isEn ? statusInfo?.labelEn : statusInfo?.labelVi}
-                          </span>
-                        </div>
-
-                        {/* Nút Xóa Chậu Cây */}
-                        <button
-                          onClick={() => handleDeletePlant(plant.id, plant.custom_name)}
-                          title={isEn ? 'Remove plant' : 'Xóa chậu cây'}
-                          className="absolute top-3 right-3 p-1.5 rounded-full bg-forest-950/70 hover:bg-red-600 text-white transition backdrop-blur-xs"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-
-                        <div className="absolute bottom-3 right-3 px-2 py-0.5 rounded-full bg-forest-950/80 backdrop-blur-xs text-white text-[10px] font-semibold">
-                          {isEn ? `Planted ${days} days ago` : `Đã trồng ${days} ngày`}
-                        </div>
-                      </div>
-
-                      {/* Plant Info */}
-                      <div className="p-5 space-y-2.5">
-                        <div className="flex items-start justify-between gap-2">
-                          <div>
-                            <h3 className="font-serif font-bold text-lg text-forest-950 dark:text-cream-50 leading-snug">
-                              {plant.custom_name}
-                            </h3>
-                            {plant.species_name && (
-                              <p className="text-xs italic text-herbal-700 dark:text-herbal-400 font-serif">
-                                {plant.species_name}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-
-                        <p className="text-xs text-forest-700/80 dark:text-forest-300 line-clamp-2 leading-relaxed">
-                          {plant.notes || (isEn ? 'Naturally tended in an urban balcony container.' : 'Cây được chăm sóc tự nhiên trong chậu ban công.')}
-                        </p>
-
-                        <div className="pt-2 text-[11px] text-forest-600 dark:text-forest-400 flex items-center justify-between border-t border-forest-50 dark:border-forest-800">
-                          <span>{isEn ? `Pot: ${plant.pot_type}` : `Chậu: ${plant.pot_type}`}</span>
-                          <span className="font-medium text-herbal-700 dark:text-herbal-400">
-                            {isEn ? `${plantDiaries.length} photo logs` : `${plantDiaries.length} mốc ảnh`}
-                          </span>
-                        </div>
-
-                        {/* Khối Mùa Vụ Cho Chậu Cây Này */}
-                        {seasonalEval && (
-                          <div className="pt-2 border-t border-forest-50 dark:border-forest-800/80 space-y-1">
-                            <div className="flex items-center justify-between text-[11px]">
-                              <span className={`px-2 py-0.5 rounded-md font-bold text-[10px] border ${seasonalEval.statusColor}`}>
-                                {isEn ? seasonalEval.statusLabelEn : seasonalEval.statusLabelVi}
-                              </span>
-                              <Link
-                                to={`/lich-nong-vu?month=${currentRealMonth}&region=${selectedRegion}`}
-                                className="text-emerald-700 dark:text-emerald-400 hover:underline flex items-center gap-0.5 text-[10px] font-semibold"
-                              >
-                                <span>{isEn ? 'Seasonal guide' : 'Xem lịch vụ'}</span>
-                                <ChevronRight className="w-3 h-3" />
-                              </Link>
-                            </div>
-                            <p className="text-[11px] text-forest-700 dark:text-forest-300 line-clamp-1 italic">
-                              💡 {isEn ? seasonalEval.regionalAdviceEn : seasonalEval.regionalAdviceVi}
-                            </p>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                  {/* Card Actions */}
-                  <div className="p-4 bg-cream-50/50 dark:bg-charcoal-800/60 border-t border-forest-100 dark:border-forest-800 flex flex-wrap items-center justify-between gap-2">
-                    <div className="flex items-center gap-1.5">
-                      <button
-                        onClick={() => {
-                          setDiaryPlantId(plant.id);
-                          setIsAddDiaryOpen(true);
-                        }}
-                        className="px-3 py-1.5 rounded-xl bg-forest-900 text-white text-xs font-semibold hover:bg-forest-950 transition flex items-center gap-1 shadow-xs"
-                      >
-                        <Camera className="w-3.5 h-3.5 text-herbal-400" />
-                        <span>{isEn ? 'Log Photo' : 'Chụp ảnh'}</span>
-                      </button>
-
-                      {/* Nút so sánh Before / After */}
-                      <button
-                        onClick={() => {
-                          setComparisonPlant(plant);
-                        }}
-                        className="px-3 py-1.5 rounded-xl bg-herbal-50 dark:bg-charcoal-700 border border-herbal-200 dark:border-forest-700 text-herbal-900 dark:text-herbal-300 text-xs font-semibold hover:bg-herbal-100 transition flex items-center gap-1"
-                        title={isEn ? 'Compare growth Before/After' : 'So sánh ảnh lớn lên Trước/Sau'}
-                      >
-                        <SplitSquareVertical className="w-3.5 h-3.5 text-herbal-700 dark:text-herbal-400" />
-                        <span>{isEn ? 'Before/After' : 'So sánh lớn'}</span>
-                      </button>
-
-                      {/* Nút xuất hồ sơ cây PDF */}
-                      <button
-                        onClick={() => {
-                          setPrintTargetPlantId(plant.id);
-                          setIsGardenBookOpen(true);
-                        }}
-                        className="px-2.5 py-1.5 rounded-xl bg-white dark:bg-charcoal-700 border border-forest-200 dark:border-forest-700 text-forest-800 dark:text-forest-200 text-xs font-semibold hover:bg-forest-50 transition flex items-center gap-1"
-                        title={isEn ? 'Print Plant Dossier (PDF)' : 'In Hồ Sơ Cây (PDF)'}
-                      >
-                        <Printer className="w-3.5 h-3.5 text-emerald-600" />
-                        <span>{isEn ? 'PDF' : 'Hồ sơ'}</span>
-                      </button>
-                    </div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <button
+                      onClick={() => handleGamifiedBatchCare('water')}
+                      className="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition active:scale-95"
+                    >
+                      <Droplets className="w-3.5 h-3.5" />
+                      <span>{isEn ? 'Water All Thirsty Plants' : 'Tưới Cây Đang Khát (1-Click)'}</span>
+                    </button>
 
                     <button
-                      onClick={() => {
-                        setSelectedPlantId(plant.id);
-                        setActiveTab('timeline');
-                      }}
-                      className="px-3 py-1.5 rounded-xl bg-white dark:bg-charcoal-800 border border-forest-200 dark:border-forest-700 text-forest-900 dark:text-cream-100 text-xs font-semibold hover:bg-forest-50 dark:hover:bg-charcoal-700 transition flex items-center gap-1"
+                      onClick={() => handleGamifiedBatchCare('sunlight')}
+                      className="px-3.5 py-1.5 rounded-xl bg-yellow-600 hover:bg-yellow-500 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition active:scale-95"
                     >
-                      <span>{isEn ? 'Timeline' : 'Nhật ký'}</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-forest-500" />
+                      <Sun className="w-3.5 h-3.5" />
+                      <span>{isEn ? 'Sunlight Boost Garden' : 'Tắm Nắng Toàn Vườn (1-Click)'}</span>
                     </button>
                   </div>
                 </div>
-              );
-            })}
-            </div>
+              )}
+
+              {/* Grid chậu cây Game Hóa */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {plants.map((plant) => {
+                  const plantDiaries = diaries.filter((d) => d.garden_plant_id === plant.id);
+                  const matchedSeed = matchGardenPlantToSeedPlant(plant, SEED_PLANTS);
+                  const seasonalEval = matchedSeed ? evaluatePlantSeasonality(matchedSeed, currentRealMonth, selectedRegion) : null;
+
+                  return (
+                    <GamifiedPlantCard
+                      key={plant.id}
+                      plant={plant}
+                      diariesCount={plantDiaries.length}
+                      isEn={isEn}
+                      inventory={inventory}
+                      onCareAction={handleGamifiedCare}
+                      onOpenAddDiary={(pid) => {
+                        setDiaryPlantId(pid);
+                        setIsAddDiaryOpen(true);
+                      }}
+                      onComparePlant={(p) => setComparisonPlant(p)}
+                      onOpenPrintBook={(pid) => {
+                        setPrintTargetPlantId(pid);
+                        setIsGardenBookOpen(true);
+                      }}
+                      onDeletePlant={handleDeletePlant}
+                      onHarvestCrop={handleHarvestPlant}
+                      onMintNft={(targetPlant) => {
+                        setMintPlantTarget(targetPlant);
+                      }}
+                      seasonalEval={seasonalEval}
+                    />
+                  );
+                })}
+              </div>
             </div>
           )
         )}
@@ -1914,6 +2065,26 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
         diaries={diaries}
         initialPlantId={printTargetPlantId}
         region={selectedRegion}
+      />
+
+      {/* 10. Modal: Cửa Hàng Vật Phẩm Sinh Thái Đổi Tim (Eco-Supply Shop) */}
+      <GardenSupplyShopModal
+        isOpen={isShopOpen}
+        onClose={() => setIsShopOpen(false)}
+        isEn={isEn}
+        totalHearts={karmaData?.total_karma ?? 50}
+        inventory={inventory}
+        onBuyItem={handleBuyShopItem}
+      />
+
+      {/* 11. Modal: Đúc Hộ Chiếu Thực Vật NFT On-Chain Thật 100% Trên Ethereum Sepolia Testnet */}
+      <PlantOnChainMintModal
+        plant={mintPlantTarget}
+        isOpen={Boolean(mintPlantTarget)}
+        onClose={() => setMintPlantTarget(null)}
+        onMintSuccess={handleMintSuccess}
+        isEn={isEn}
+        currentUserId={currentUser?.id}
       />
     </div>
   );

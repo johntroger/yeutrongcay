@@ -14,7 +14,8 @@ import {
   SwapOffer,
   UserGarden,
   GardenPlant,
-  PlantDiaryEntry
+  PlantDiaryEntry,
+  GardenCareItemType
 } from '../types/index.ts';
 import { SEED_PLANTS } from '../data/plants.ts';
 import { INITIAL_CLINIC_QUESTIONS } from '../data/clinicCases.ts';
@@ -646,11 +647,15 @@ export async function getGardenData(userId: string = 'usr-local-me'): Promise<{
   garden: UserGarden;
   plants: GardenPlant[];
   diaries: PlantDiaryEntry[];
+  inventory?: Record<GardenCareItemType, number>;
+  total_hearts?: number;
   isLive: boolean;
 }> {
   let liveGarden: UserGarden | null = null;
   let livePlants: GardenPlant[] = [];
   let liveDiaries: PlantDiaryEntry[] = [];
+  let liveInventory: Record<GardenCareItemType, number> | undefined = undefined;
+  let liveTotalHearts: number | undefined = undefined;
   let isLive = false;
 
   try {
@@ -663,6 +668,8 @@ export async function getGardenData(userId: string = 'usr-local-me'): Promise<{
         liveGarden = json.garden;
         livePlants = json.plants || [];
         liveDiaries = json.diaries || [];
+        if (json.inventory) liveInventory = json.inventory;
+        if (typeof json.total_hearts === 'number') liveTotalHearts = json.total_hearts;
         isLive = true;
       }
     }
@@ -723,6 +730,8 @@ export async function getGardenData(userId: string = 'usr-local-me'): Promise<{
     garden: finalGarden,
     plants: mergedPlants,
     diaries: liveDiaries.length > 0 ? liveDiaries : localDiaries,
+    inventory: liveInventory,
+    total_hearts: liveTotalHearts,
     isLive,
   };
 }
@@ -1035,6 +1044,156 @@ export function removePlantFromMyGarden(plantIdOrSlug: string): { success: boole
     return { success: true };
   } catch {
     return { success: false };
+  }
+}
+
+// =========================================================================
+// CÁC HÀM API GAME HÓA LÀM VƯỜN & WEB3 TESTNET THẬT (MS7)
+// =========================================================================
+
+/**
+ * Đổi Tim lấy vật phẩm sinh thái từ Cửa hàng
+ */
+export async function buyGardenEcoItem(
+  userId: string,
+  itemType: GardenCareItemType,
+  quantity: number = 1
+): Promise<{ success: boolean; message?: string; new_quantity?: number; new_hearts?: number; error?: string }> {
+  try {
+    const res = await fetch(`${API_BASE}/garden.php?action=buy_item`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_id: userId, item_type: itemType, quantity })
+    });
+    const json = await res.json();
+    return json;
+  } catch {
+    return { success: false, error: 'Không thể kết nối máy chủ' };
+  }
+}
+
+/**
+ * Chăm sóc chậu cây tương tác (Tưới, Bón phân, Tắm nắng, Xới đất, Xịt thảo mộc)
+ */
+export async function careGamifiedPlantAction(
+  userId: string,
+  plantId: string,
+  careAction: GardenCareItemType
+): Promise<{ success: boolean; message?: string; exp_gained?: number; level_up?: boolean; plant?: Partial<GardenPlant>; error?: string }> {
+  try {
+    const res = await fetch(`${API_BASE}/garden.php?action=care_gamified`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_id: userId, plant_id: plantId, care_action: careAction })
+    });
+    const json = await res.json();
+    return json;
+  } catch {
+    return { success: false, error: 'Không thể kết nối máy chủ' };
+  }
+}
+
+/**
+ * Chăm sóc toàn vườn 1-Click (Tưới hàng loạt hoặc Tắm nắng hàng loạt)
+ */
+export async function batchCarePlantsAction(
+  userId: string,
+  actionType: 'water' | 'sunlight'
+): Promise<{ success: boolean; message?: string; cared_count?: number; remaining_stock?: number; error?: string }> {
+  try {
+    const res = await fetch(`${API_BASE}/garden.php?action=batch_care`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_id: userId, action_type: actionType })
+    });
+    const json = await res.json();
+    return json;
+  } catch {
+    return { success: false, error: 'Không thể kết nối máy chủ' };
+  }
+}
+
+/**
+ * Yêu cầu Voucher đúc NFT On-Chain Thật (EIP-712 Pre-Check)
+ */
+export async function requestMintVoucherAction(
+  userId: string,
+  plantId: string,
+  recipientAddress: string
+): Promise<{ success: boolean; message?: string; voucher?: any; error?: string }> {
+  try {
+    const res = await fetch(`${API_BASE}/garden.php?action=request_mint_voucher`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_id: userId, plant_id: plantId, recipient_address: recipientAddress })
+    });
+    const json = await res.json();
+    return json;
+  } catch {
+    return { success: false, error: 'Không thể kết nối máy chủ' };
+  }
+}
+
+/**
+ * Xác nhận giao dịch đúc NFT On-Chain Sepolia thành công
+ */
+export async function confirmNftMintAction(
+  userId: string,
+  plantId: string,
+  txHash: string,
+  tokenId: string
+): Promise<{ success: boolean; message?: string; explorer_url?: string; error?: string }> {
+  try {
+    const res = await fetch(`${API_BASE}/garden.php?action=confirm_nft_mint`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_id: userId, plant_id: plantId, tx_hash: txHash, token_id: tokenId })
+    });
+    const json = await res.json();
+    return json;
+  } catch {
+    return { success: false, error: 'Không thể kết nối máy chủ' };
+  }
+}
+
+/**
+ * Thu hoạch vụ mùa (Harvest Crop)
+ */
+export async function harvestPlantCropAction(
+  userId: string,
+  plantId: string
+): Promise<{ success: boolean; message?: string; reward_hearts?: number; total_harvests?: number; error?: string }> {
+  try {
+    const res = await fetch(`${API_BASE}/garden.php?action=harvest_crop`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_id: userId, plant_id: plantId })
+    });
+    const json = await res.json();
+    return json;
+  } catch {
+    return { success: false, error: 'Không thể kết nối máy chủ' };
+  }
+}
+
+/**
+ * Đồng bộ dữ liệu Khách khi Đăng Nhập (Three-Way Merge)
+ */
+export async function syncGuestGardenDataAction(
+  userId: string,
+  localInventory: Record<string, number>,
+  localPlants: GardenPlant[]
+): Promise<{ success: boolean; message?: string; error?: string }> {
+  try {
+    const res = await fetch(`${API_BASE}/garden.php?action=sync_guest_data`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_id: userId, local_inventory: localInventory, local_plants: localPlants })
+    });
+    const json = await res.json();
+    return json;
+  } catch {
+    return { success: false, error: 'Không thể kết nối máy chủ' };
   }
 }
 

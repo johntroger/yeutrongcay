@@ -311,6 +311,91 @@ export interface GardenPlant {
   last_fertilized_at?: string; // YYYY-MM-DD
   watering_interval_days?: number;
   fertilizing_interval_days?: number;
+
+  // Trường Game Hóa Nông Nghiệp & Chỉ Số Sinh Tồn (MS7 - Eco-Gaming)
+  growth_stage?: number; // 1: Sprout, 2: Seedling, 3: Vegetative, 4: Flowering, 5: Fruiting
+  growth_exp?: number; // Điểm kinh nghiệm sinh trưởng
+  health_score?: number; // 0 - 100%
+  moisture_level?: number; // 0 - 100% (Độ ẩm đất)
+  nutrient_level?: number; // 0 - 100% (Dinh dưỡng đất)
+  sunlight_level?: number; // 0 - 100% (Năng lượng ánh sáng)
+  soil_level?: number; // 0 - 100% (Độ xốp, màu mỡ của đất)
+  last_evaluated_at?: string; // ISO datetime của lần tính toán phân rã gần nhất
+  total_harvests?: number; // Tổng số đợt thu hoạch thành công
+
+  // Trường Web3 On-Chain NFT Passport (Ethereum Sepolia)
+  passport_token_id?: string; // Token ID trên smart contract Sepolia
+  passport_tx_hash?: string; // Hash giao dịch đúc on-chain thật
+  passport_network?: string; // e.g. 'Ethereum Sepolia'
+  passport_contract_addr?: string; // 0x5994cd371311fb1ddc1a3354b6979acd3cd342a7
+  passport_minted_at?: string; // ISO datetime
+}
+
+export type GardenCareItemType = 'water' | 'fertilizer' | 'soil' | 'sunlight' | 'spray';
+
+export interface UserInventoryItem {
+  item_type: GardenCareItemType;
+  quantity: number;
+  name_vi: string;
+  name_en: string;
+  icon: string;
+  heart_price: number;
+  description_vi: string;
+  description_en: string;
+  exp_boost: number;
+  vital_target: 'moisture' | 'nutrient' | 'soil' | 'sunlight' | 'health';
+  vital_increase: number;
+}
+
+export interface PlantGrowthProfile {
+  plant_id?: string;
+  plant_name: string;
+  scientific_name?: string;
+  category: 'herb' | 'fruit' | 'veggie' | 'flower' | 'root';
+  base_maturity_days: number;
+  target_exp: number;
+  stage_thresholds: {
+    stage: number;
+    name_vi: string;
+    name_en: string;
+    icon: string;
+    exp_required: number;
+    day_offset: number;
+  }[];
+}
+
+export interface PlantCareActionResult {
+  success: boolean;
+  message_vi: string;
+  message_en: string;
+  action: GardenCareItemType;
+  exp_gained: number;
+  level_up: boolean;
+  old_stage: number;
+  new_stage: number;
+  plant: GardenPlant;
+}
+
+export interface PlantHarvestRecord {
+  id: string;
+  garden_plant_id: string;
+  user_id: string;
+  harvest_date: string;
+  reward_hearts: number;
+  notes?: string;
+  created_at?: string;
+}
+
+export interface PlantMintVoucher {
+  recipient: string;
+  plantRecordId: number | string;
+  plantName: string;
+  scientificName: string;
+  stage: number;
+  sha256Proof: string;
+  tokenURI: string;
+  nonce: string;
+  deadline: number;
 }
 
 export interface PlantDiaryEntry {
