@@ -53,9 +53,10 @@ import {
   buyInventoryItem,
   applyCareAction,
   consumeInventoryItem,
-  getPlantGrowthProfile,
   GARDEN_ECO_ITEMS,
-  detectRequiredItemForTask
+  detectRequiredItemForTask,
+  calculateHarvestSeedYield,
+  playGardenSound
 } from '../services/gardenGameService.ts';
 import { plantPassportRegistryService, getUsernameFromEmail } from '../services/plantPassportRegistryService.ts';
 import {
@@ -759,7 +760,10 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
       return;
     }
 
-    // Tăng tim thưởng +120
+    // 1. Tính toán sản lượng hạt giống theo loài cây
+    const seedYield = calculateHarvestSeedYield(plant.custom_name, plant.plant_id);
+
+    // 2. Tăng tim thưởng +120
     const currentHearts = karmaData?.total_karma ?? 50;
     const newHearts = currentHearts + 120;
     if (karmaData) {
@@ -770,23 +774,21 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
       localStorage.setItem('ytc_user_karma', newHearts.toString());
     }
 
-    // Tặng 1 túi phân hữu cơ vào túi đồ
+    // 3. Tặng hạt giống theo loài cây + 1 túi phân hữu cơ vào túi đồ
     const inv = getUserInventory();
+    inv.seeds = (inv.seeds || 0) + seedYield.count;
     inv.fertilizer = (inv.fertilizer || 0) + 1;
     saveUserInventory(inv);
     setInventory(inv);
 
-    // Cập nhật chậu cây: tăng total_harvests, reset EXP về Giai đoạn 3 (thích ứng theo loài cây đó) để chuẩn bị lứa hoa trái mới
-    const profile = getPlantGrowthProfile(plant.custom_name, plant.plant_id);
-    const stage3Exp = profile.stage_thresholds[2]?.exp_required ?? Math.round(profile.target_exp * 0.45);
-
+    // 4. Cây trở về trạng thái ban đầu (Cấp 1: Hạt mầm / Cây non, EXP = 0) để tiếp tục chăm sóc chu kỳ mới
     const updated = plants.map((p) => {
       if (p.id === plant.id) {
         return {
           ...p,
           total_harvests: (p.total_harvests || 0) + 1,
-          growth_stage: 3,
-          growth_exp: stage3Exp,
+          growth_stage: 1,
+          growth_exp: 0,
           current_status: 'healthy' as PlantGrowthStatus
         };
       }
@@ -796,9 +798,16 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
     setPlants(updated);
     localStorage.setItem('ytc_garden_plants', JSON.stringify(updated));
 
+    // 5. Hiệu ứng âm thanh chúc mừng thu hoạch
+    playGardenSound('harvest');
+
     harvestPlantCropAction(currentUserId, plant.id).catch(() => {});
 
-    triggerNotice(isEn ? '🎉 Harvested crop! +120 Hearts and +1 Organic Fertilizer awarded!' : '🎉 Thu hoạch vụ mùa thành công! Nhận +120 Tim và +1 Túi Phân Hữu Cơ thưởng!');
+    triggerNotice(
+      isEn
+        ? `🎉 Harvest successful! Plant reset to initial seedling stage (Stage 1) for the next cycle. You gained +${seedYield.count} ${seedYield.seed_name_en} (🌱), +120 Hearts (❤️) and +1 Organic Compost (👝)!`
+        : `🎉 Thu hoạch vụ mùa thành công! Cây trở về trạng thái ban đầu (Cấp 1) để tiếp tục chăm sóc lứa mới. Bạn nhận được +${seedYield.count} ${seedYield.seed_name_vi} (🌱), +120 Tim (❤️) và +1 Túi Phân Hữu Cơ (👝)!`
+    );
   };
 
   // Tính số ngày đã trôi qua kể từ một ngày

@@ -1245,38 +1245,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ':pts' => $rewardHearts
             ]);
 
+            // Tính sản lượng Hạt giống theo loài cây
+            $cName = mb_strtolower($plant['custom_name'] ?? '');
+            $seedCount = 4; // Mặc định hoa kiểng/phong thủy: 3-6 hạt
+            if (strpos($cName, 'cải') !== false || strpos($cName, 'xà lách') !== false || strpos($cName, 'húng') !== false || strpos($cName, 'tía tô') !== false || strpos($cName, 'xuyên tâm liên') !== false || strpos($cName, 'bạc hà') !== false) {
+                $seedCount = rand(20, 32); // Rau & Thảo mộc ngắn ngày
+            } else if (strpos($cName, 'ổi') !== false || strpos($cName, 'chanh') !== false || strpos($cName, 'ớt') !== false || strpos($cName, 'dâu') !== false || strpos($cName, 'cà chua') !== false || strpos($cName, 'quất') !== false) {
+                $seedCount = rand(8, 16); // Cây ăn quả & cây bụi
+            } else if (strpos($cName, 'nghệ') !== false || strpos($cName, 'gừng') !== false || strpos($cName, 'sâm') !== false) {
+                $seedCount = rand(6, 12); // Cây có củ
+            }
+
+            // Tặng Hạt giống vào túi đồ (item_type = 'seeds')
+            $bonusSeeds = $pdo->prepare("INSERT INTO user_inventory (user_id, item_type, quantity)
+                VALUES (:uid, 'seeds', :sqty) ON DUPLICATE KEY UPDATE quantity = quantity + :sqty2");
+            $bonusSeeds->execute([':uid' => $userId, ':sqty' => $seedCount, ':sqty2' => $seedCount]);
+
             // Tặng 1 Túi Phân Hữu Cơ vào túi đồ
             $bonusInv = $pdo->prepare("INSERT INTO user_inventory (user_id, item_type, quantity)
                 VALUES (:uid, 'fertilizer', 1) ON DUPLICATE KEY UPDATE quantity = quantity + 1");
             $bonusInv->execute([':uid' => $userId]);
 
-            // Cập nhật chậu cây: Tăng total_harvests, reset EXP về Giai đoạn 3 tương thích theo loài
-            $cName = mb_strtolower($plant['custom_name'] ?? '');
-            $targetExp = 1100;
-            if (strpos($cName, 'cải') !== false || strpos($cName, 'xà lách') !== false || strpos($cName, 'húng') !== false) {
-                $targetExp = 350;
-            } else if (strpos($cName, 'ớt') !== false) {
-                $targetExp = 900;
-            } else if (strpos($cName, 'dâu') !== false) {
-                $targetExp = 1400;
-            }
-            $resetExp = (int)round($targetExp * 0.45);
-
+            // Cập nhật chậu cây: Tăng total_harvests, trở về trạng thái ban đầu (Cấp 1: Hạt mầm / Cây non, EXP = 0) để chăm sóc chu kỳ mới
             $updPlant = $pdo->prepare("UPDATE garden_plants SET 
                 total_harvests = total_harvests + 1,
-                growth_stage = 3,
-                growth_exp = :rexp,
+                growth_stage = 1,
+                growth_exp = 0,
                 current_status = 'healthy'
                 WHERE id = :id");
             $updPlant->execute([
-                ':rexp' => $resetExp,
                 ':id' => $plantId
             ]);
 
             echo json_encode([
                 'success' => true,
-                'message' => "🧺 Thu hoạch thành công! Bạn nhận được +{$rewardHearts} Tim và 1 Túi Phân Hữu Cơ thưởng!",
+                'message' => "🧺 Thu hoạch thành công! Bạn nhận được +{$seedCount} Hạt Giống, +{$rewardHearts} Tim và 1 Túi Phân Hữu Cơ thưởng!",
                 'reward_hearts' => $rewardHearts,
+                'reward_seeds' => $seedCount,
                 'total_harvests' => ((int)$plant['total_harvests']) + 1
             ], JSON_UNESCAPED_UNICODE);
             exit;

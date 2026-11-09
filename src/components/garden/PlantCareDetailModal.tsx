@@ -422,7 +422,7 @@ export const PlantCareDetailModal: React.FC<PlantCareDetailModalProps> = ({
                   className="w-full py-2.5 px-4 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-600 text-white font-bold text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <span>🧺</span>
-                  <span>{isEn ? 'Harvest Crop (+120 Hearts & +1 Fertilizer)' : 'Thu Hoạch Vụ Mùa (+120 Tim & +1 Túi Phân)'}</span>
+                  <span>{isEn ? 'Harvest Crop (+Seeds, +120 Hearts & +1 Fertilizer)' : 'Thu Hoạch Vụ Mùa (+Hạt 🌱, +120 Tim & +1 Túi Phân)'}</span>
                 </button>
               )}
             </div>

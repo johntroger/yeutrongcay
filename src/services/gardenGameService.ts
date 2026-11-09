@@ -75,6 +75,18 @@ export const GARDEN_ECO_ITEMS: Record<GardenCareItemType, Omit<UserInventoryItem
     exp_boost: 35,
     vital_target: 'health',
     vital_increase: 50
+  },
+  seeds: {
+    item_type: 'seeds',
+    name_vi: 'Gói Hạt Giống Nông Sản Bản Địa',
+    name_en: 'Native Heirloom Harvest Seeds',
+    icon: '🌱',
+    heart_price: 15,
+    description_vi: 'Hạt giống thuần chủng thu hoạch từ cây trưởng thành, dùng để gửi Staking DeFi hoặc bán đổi Tim/EXP.',
+    description_en: 'Native heirloom seeds harvested from mature plants, used for DeFi Staking or trading for Hearts/EXP.',
+    exp_boost: 0,
+    vital_target: 'moisture',
+    vital_increase: 0
   }
 };
 
@@ -83,7 +95,8 @@ export const INITIAL_USER_INVENTORY: Record<GardenCareItemType, number> = {
   fertilizer: 2,
   soil: 1,
   sunlight: 2,
-  spray: 1
+  spray: 1,
+  seeds: 10
 };
 
 export const STORAGE_KEY_INVENTORY = 'ytc_garden_inventory';
@@ -500,6 +513,109 @@ export function checkNftMintEligibility(
   };
 }
 
+// 6.5. TÍNH TOÁN SẢN LƯỢNG HẠT GIỐNG KHI THU HOẠCH THEO LOÀI
+export interface HarvestSeedYield {
+  count: number;
+  category: 'herb' | 'fruit' | 'flower' | 'root';
+  category_name_vi: string;
+  category_name_en: string;
+  seed_name_vi: string;
+  seed_name_en: string;
+  note_vi: string;
+  note_en: string;
+}
+
+export function calculateHarvestSeedYield(plantName: string, _plantId?: string): HarvestSeedYield {
+  const nameLower = (plantName || '').toLowerCase();
+
+  // 1. Nhóm Rau ăn lá & Thảo dược gia vị ngắn ngày
+  if (
+    nameLower.includes('húng') ||
+    nameLower.includes('xuyên tâm liên') ||
+    nameLower.includes('cải') ||
+    nameLower.includes('xà lách') ||
+    nameLower.includes('tía tô') ||
+    nameLower.includes('bạc hà') ||
+    nameLower.includes('kinh giới') ||
+    nameLower.includes('rau má') ||
+    nameLower.includes('ngải cứu') ||
+    nameLower.includes('mùi tàu') ||
+    nameLower.includes('ngò') ||
+    nameLower.includes('diếp cá')
+  ) {
+    const count = Math.floor(Math.random() * 13) + 20; // 20 đến 32 hạt
+    return {
+      count,
+      category: 'herb',
+      category_name_vi: 'Thảo mộc & Rau gia vị',
+      category_name_en: 'Herbs & Leafy Veggies',
+      seed_name_vi: `Hạt giống ${plantName} bản địa`,
+      seed_name_en: `${plantName} Heirloom Seeds`,
+      note_vi: 'Cho sản lượng hạt giống thảo mộc dồi dào, khả năng nảy mầm cao và sinh sôi mạnh mẽ.',
+      note_en: 'High seed yield with vigorous germination and rapid vegetative regrowth.'
+    };
+  }
+
+  // 2. Nhóm Cây ăn quả, quả mọng & Cây bụi
+  if (
+    nameLower.includes('ổi') ||
+    nameLower.includes('chanh') ||
+    nameLower.includes('ớt') ||
+    nameLower.includes('cà chua') ||
+    nameLower.includes('dâu') ||
+    nameLower.includes('quất') ||
+    nameLower.includes('tắc') ||
+    nameLower.includes('cam') ||
+    nameLower.includes('khế') ||
+    nameLower.includes('lựu')
+  ) {
+    const count = Math.floor(Math.random() * 9) + 8; // 8 đến 16 hạt
+    return {
+      count,
+      category: 'fruit',
+      category_name_vi: 'Cây ăn trái & Cây bụi',
+      category_name_en: 'Fruit & Fruiting Shrubs',
+      seed_name_vi: `Hạt giống tuyển ${plantName}`,
+      seed_name_en: `Selected ${plantName} Seeds`,
+      note_vi: 'Hạt giống thu hoạch từ quả chín sinh học, giàu tinh hoa và giá trị dinh dưỡng cao.',
+      note_en: 'Seeds harvested from biologically ripened fruits with high genetic vigor.'
+    };
+  }
+
+  // 3. Nhóm Củ & Dược liệu rễ
+  if (
+    nameLower.includes('nghệ') ||
+    nameLower.includes('gừng') ||
+    nameLower.includes('sâm') ||
+    nameLower.includes('củ')
+  ) {
+    const count = Math.floor(Math.random() * 7) + 6; // 6 đến 12 mầm củ giống
+    return {
+      count,
+      category: 'root',
+      category_name_vi: 'Cây có củ & Dược liệu',
+      category_name_en: 'Roots & Medicinal Plants',
+      seed_name_vi: `Mầm củ giống ${plantName}`,
+      seed_name_en: `${plantName} Seed Sprouts`,
+      note_vi: 'Mầm nhánh củ giống đạt chuẩn dược tính, tích lũy hàm lượng hoạt chất cao.',
+      note_en: 'Medicinal sprout nodes rich in active bio-compounds.'
+    };
+  }
+
+  // 4. Nhóm Hoa kiểng, Bonsai & Phong thủy
+  const count = Math.floor(Math.random() * 4) + 3; // 3 đến 6 hạt/mầm quý
+  return {
+    count,
+    category: 'flower',
+    category_name_vi: 'Kiểng lá & Phong thủy',
+    category_name_en: 'Foliage & Indoor Plants',
+    seed_name_vi: `Chồi mầm ${plantName} tinh hoa`,
+    seed_name_en: `Elite ${plantName} Germplasm`,
+    note_vi: 'Hạt giống và mầm nhánh kiểng quý hiếm, giá trị phong thủy và thanh lọc không khí cao.',
+    note_en: 'Rare ornamental seed nodes with high aesthetic and air-purification value.'
+  };
+}
+
 // 7. BỘ TỔNG HỢP ÂM THANH WEB AUDIO SYNTH (0KB ASSETS)
 export function playGardenSound(type: 'water' | 'fertilizer' | 'levelup' | 'harvest'): void {
   if (typeof window === 'undefined') return;
@@ -577,7 +693,8 @@ export function getUserInventory(): Record<GardenCareItemType, number> {
         fertilizer: parsed.fertilizer ?? INITIAL_USER_INVENTORY.fertilizer,
         soil: parsed.soil ?? INITIAL_USER_INVENTORY.soil,
         sunlight: parsed.sunlight ?? INITIAL_USER_INVENTORY.sunlight,
-        spray: parsed.spray ?? INITIAL_USER_INVENTORY.spray
+        spray: parsed.spray ?? INITIAL_USER_INVENTORY.spray,
+        seeds: parsed.seeds ?? INITIAL_USER_INVENTORY.seeds
       };
     }
   } catch (e) {

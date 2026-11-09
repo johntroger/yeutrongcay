@@ -339,7 +339,7 @@ export const GamifiedPlantCard: React.FC<GamifiedPlantCardProps> = ({
             className="w-full py-2 px-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-600 text-white font-bold text-xs shadow-md transition flex items-center justify-center gap-1.5"
           >
             <span>🧺</span>
-            <span>{isEn ? 'Harvest Crop (+120 Hearts)' : 'Thu Hoạch Vụ Mùa (+120 Tim)'}</span>
+            <span>{isEn ? 'Harvest Crop (+Seeds & Hearts)' : 'Thu Hoạch Vụ Mùa (+Hạt 🌱 & Tim ❤️)'}</span>
           </button>
         )}
 

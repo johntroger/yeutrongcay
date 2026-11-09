@@ -147,10 +147,10 @@ export const CompactPlantCard: React.FC<CompactPlantCardProps> = ({
                 e.stopPropagation();
                 if (onHarvestCrop) onHarvestCrop(plant, e);
               }}
-              className="w-full py-1 rounded-lg bg-amber-500 hover:bg-amber-600 text-charcoal-950 text-[11px] font-black uppercase tracking-wider flex items-center justify-center gap-1 transition shadow-xs active:scale-95 cursor-pointer"
+              className="w-full py-1 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-charcoal-950 text-[11px] font-black uppercase tracking-wider flex items-center justify-center gap-1.5 transition shadow-xs active:scale-95 cursor-pointer"
             >
-              <Sparkles className="w-3 h-3" />
-              <span>{isEn ? 'Harvest (+120 ❤️)' : 'Thu hoạch (+120 ❤️)'}</span>
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>{isEn ? 'Harvest (+Seeds & Hearts)' : 'Thu hoạch (+Hạt 🌱 & Tim ❤️)'}</span>
             </button>
           ) : (
             <>

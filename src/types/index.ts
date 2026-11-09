@@ -331,7 +331,7 @@ export interface GardenPlant {
   passport_minted_at?: string; // ISO datetime
 }
 
-export type GardenCareItemType = 'water' | 'fertilizer' | 'soil' | 'sunlight' | 'spray';
+export type GardenCareItemType = 'water' | 'fertilizer' | 'soil' | 'sunlight' | 'spray' | 'seeds';
 
 export interface UserInventoryItem {
   item_type: GardenCareItemType;

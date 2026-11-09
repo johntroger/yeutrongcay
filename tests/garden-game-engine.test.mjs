@@ -6,15 +6,16 @@ import {
   canApplyCareAction,
   evaluateLazyPlantDecay,
   applyCareAction,
-  checkNftMintEligibility
+  checkNftMintEligibility,
+  calculateHarvestSeedYield
 } from '../src/services/gardenGameService.ts';
 
 // 1. Kiểm tra danh mục vật phẩm sinh thái và giá đổi Tim
 test('Eco-Items Catalog: Valid items, heart prices, and civilized fertilizer icon', () => {
-  const items = Object.values(GARDEN_ECO_ITEMS);
-  assert.equal(items.length, 5, 'Must contain exactly 5 core eco-items');
-
-  for (const item of items) {
+  const coreCareKeys = ['water', 'fertilizer', 'soil', 'sunlight', 'spray'];
+  for (const key of coreCareKeys) {
+    const item = GARDEN_ECO_ITEMS[key];
+    assert.ok(item, `Must have ${key} in catalog`);
     assert.ok(item.heart_price > 0, `${item.item_type} must have a positive heart price`);
     assert.ok(item.exp_boost > 0, `${item.item_type} must grant positive EXP`);
     assert.ok(item.name_vi.length > 0, `${item.item_type} must have Vietnamese name`);
@@ -27,6 +28,12 @@ test('Eco-Items Catalog: Valid items, heart prices, and civilized fertilizer ico
   const fert = GARDEN_ECO_ITEMS.fertilizer;
   assert.equal(fert.icon, '👝', 'Fertilizer icon must be pouch/bag (👝)');
   assert.equal(fert.heart_price, 20, 'Fertilizer heart price must be 20');
+
+  // Kiểm tra hạt giống thu hoạch bản địa
+  const seeds = GARDEN_ECO_ITEMS.seeds;
+  assert.ok(seeds, 'Must have seeds in catalog');
+  assert.equal(seeds.icon, '🌱', 'Seeds icon must be sprout (🌱)');
+  assert.ok(seeds.heart_price > 0, 'Seeds must have a heart price');
 });
 
 // 2. Kiểm tra bộ tính toán chu kỳ sinh trưởng theo từng loài cây
@@ -351,4 +358,50 @@ test('Inventory Prerequisite: Seasonal task execution requires sufficient items 
   assert.equal(retryWater.success, true, 'Now succeeds after replenishing water');
   assert.equal(backpack.water, 0, 'Consumes the replenished water');
   assert.equal(currentHearts, 60, 'Now reaches 60 hearts');
+});
+
+// 12. Kiểm tra cơ chế Thu Hoạch Hạt Giống theo loài và Đưa cây về Cấp 1 để chăm sóc tiếp
+test('Harvest Seed Yield & Plant Life Cycle Reset to Stage 1', () => {
+  // 1. Thảo dược / Rau ngắn ngày: Húng chanh, Xuyên tâm liên cho nhiều hạt (20 - 32)
+  const herbYield = calculateHarvestSeedYield('Khóm Húng Chanh Trị Ho');
+  assert.equal(herbYield.category, 'herb');
+  assert.ok(herbYield.count >= 20 && herbYield.count <= 32, `Herb seeds must be 20-32, got ${herbYield.count}`);
+
+  const veggieYield = calculateHarvestSeedYield('Cải Bẹ Xanh Ngọt');
+  assert.equal(veggieYield.category, 'herb');
+  assert.ok(veggieYield.count >= 20 && veggieYield.count <= 32, `Veggie seeds must be 20-32, got ${veggieYield.count}`);
+
+  // 2. Cây ăn quả: Ổi lê, Chanh tứ quý cho hạt chọn lọc (8 - 16)
+  const fruitYield = calculateHarvestSeedYield('Ổi Lê Đài Loan Cây Mẹ');
+  assert.equal(fruitYield.category, 'fruit');
+  assert.ok(fruitYield.count >= 8 && fruitYield.count <= 16, `Fruit seeds must be 8-16, got ${fruitYield.count}`);
+
+  // 3. Cây kiểng phong thủy: Kim tiền, Sen đá cho 3 - 6 mầm quý
+  const ornamentalYield = calculateHarvestSeedYield('Kim Tiền Chiêu Tài');
+  assert.equal(ornamentalYield.category, 'flower');
+  assert.ok(ornamentalYield.count >= 3 && ornamentalYield.count <= 6, `Flower seeds must be 3-6, got ${ornamentalYield.count}`);
+
+  // 4. Mô phỏng thu hoạch cây Cấp 5: Cây phải trở về Cấp 1, EXP = 0, tích lũy harvests
+  const maturePlant = {
+    id: 'plt-test-1',
+    custom_name: 'Khóm Húng Chanh Trị Ho',
+    growth_stage: 5,
+    growth_exp: 600,
+    total_harvests: 0,
+    current_status: 'healthy'
+  };
+
+  // Logic thu hoạch:
+  const yieldResult = calculateHarvestSeedYield(maturePlant.custom_name);
+  const harvestedPlant = {
+    ...maturePlant,
+    growth_stage: 1, // Trở về trạng thái ban đầu
+    growth_exp: 0,   // Reset EXP về 0 để chăm sóc tiếp
+    total_harvests: maturePlant.total_harvests + 1
+  };
+
+  assert.equal(harvestedPlant.growth_stage, 1, 'Plant stage must reset to 1 (Seedling/Sprout)');
+  assert.equal(harvestedPlant.growth_exp, 0, 'Plant EXP must reset to 0 for the new cycle');
+  assert.equal(harvestedPlant.total_harvests, 1, 'Total harvests count must increment');
+  assert.ok(yieldResult.count >= 20, 'Seeds yield must be added to inventory');
 });

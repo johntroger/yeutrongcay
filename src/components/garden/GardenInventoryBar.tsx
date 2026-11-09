@@ -8,7 +8,8 @@ import {
   Sun,
   Sparkles,
   Gift,
-  CheckCircle2
+  CheckCircle2,
+  Sprout
 } from 'lucide-react';
 import { GardenCareItemType } from '../../types/index.ts';
 
@@ -154,6 +155,18 @@ export const GardenInventoryBar: React.FC<GardenInventoryBarProps> = ({
             <span className="text-xs text-emerald-200 hidden md:inline">{isEn ? 'Spray' : 'Xịt Thảo Mộc'}</span>
             <span className="font-bold text-xs md:text-sm text-emerald-100 bg-emerald-500/20 px-1.5 py-0.5 rounded-md">
               {inventory.spray || 0}
+            </span>
+          </div>
+
+          {/* 6. Hạt Giống Thu Hoạch (Seeds) */}
+          <div
+            className="flex items-center gap-1.5 bg-lime-950/70 border border-lime-500/40 px-3 py-1.5 rounded-xl shrink-0 transition-transform hover:border-lime-300 shadow-inner"
+            title={isEn ? 'Harvested Seeds: Trade for Hearts/EXP or Stake in Web3 DeFi' : 'Hạt giống thu hoạch: Bán đổi Tim/EXP hoặc gửi Staking Web3 DeFi'}
+          >
+            <Sprout className="w-4 h-4 text-lime-400" />
+            <span className="text-xs text-lime-200 hidden md:inline">{isEn ? 'Seeds' : 'Hạt Giống'}</span>
+            <span className="font-bold text-xs md:text-sm text-lime-100 bg-lime-500/30 px-1.5 py-0.5 rounded-md border border-lime-400/40">
+              {inventory.seeds || 0}
             </span>
           </div>
         </div>
