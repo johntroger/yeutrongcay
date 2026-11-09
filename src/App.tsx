@@ -395,6 +395,12 @@ export default function App() {
             <Route path="/lich-nong-vu" element={<SeasonalCalendarPage />} />
             <Route path="/admin" element={<AdminPage />} />
 
+            {/* Các Đường Dẫn Rút Gọn & Alias Điều Hướng Thân Thiện (Tránh bị rơi vào Profile) */}
+            <Route path="/benh-cay" element={<Navigate to="/bac-si-cay-trong" replace />} />
+            <Route path="/bac-si-cay" element={<Navigate to="/bac-si-cay-trong" replace />} />
+            <Route path="/doi-cay" element={<Navigate to="/trao-doi-cay" replace />} />
+            <Route path="/web3" element={<Navigate to="/web3-sandbox" replace />} />
+
             {/* 6 Chuyên Mục Kinh Tế Xanh & Nông Nghiệp Đô Thị Độc Lập Cấp 1 */}
             <Route path="/vuon-uom-nhan-giong" element={<MonetizationCategoryPage categorySlug="vuon-uom-nhan-giong" />} />
             <Route path="/che-bien-sau-duoc-lieu" element={<MonetizationCategoryPage categorySlug="che-bien-sau-duoc-lieu" />} />

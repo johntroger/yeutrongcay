@@ -18,17 +18,17 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = () => {
       exact: true
     },
     {
-      to: '/benh-cay',
+      to: '/bac-si-cay-trong',
       label: isEn ? 'Clinic' : 'Bệnh Cây',
       icon: Stethoscope
     },
     {
-      to: '/doi-cay',
+      to: '/trao-doi-cay',
       label: isEn ? 'Swap' : 'Đổi Cây',
       icon: RefreshCw
     },
     {
-      to: '/web3',
+      to: '/web3-sandbox',
       label: isEn ? 'Passport' : 'Hộ Chiếu',
       icon: ShieldCheck
     },
