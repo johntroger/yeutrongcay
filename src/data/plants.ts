@@ -1,4 +1,4 @@
-import { Plant } from '../types/index.ts';
+import type { Plant } from '../types/index.ts';
 
 export const SEED_PLANTS: Plant[] = [
   {
