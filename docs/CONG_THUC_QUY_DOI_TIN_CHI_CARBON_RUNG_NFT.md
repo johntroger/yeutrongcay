@@ -103,6 +103,37 @@ Trong đó:
 
 ---
 
+### 3.4. Mô Hình Giáo Dục Nén Thời Gian Trong Sandbox (Educational Time-Compression & Instant Feedback)
+
+> [!IMPORTANT]
+> **Triết lý Thiết kế Giáo dục (Education-First UX):**  
+> Trong thực tế lâm nghiệp, chu kỳ sinh trưởng của cây rừng tính bằng hàng năm. Tuy nhiên, nếu trên website bắt người dùng phải chờ 1 tháng hay 1 năm mới thấy được kết quả thì **không thể giáo dục được người dùng phổ thông**.  
+> Vì vậy, trong phân hệ Sandbox Giáo Dục, hệ thống áp dụng **"Cơ chế Nén Thời Gian Thực Nghiệm" (Educational Accelerated Simulation)**:
+
+1. **Tỷ Lệ Nén Thời Gian (Time-Compression Factor $\Phi$)**:
+   $$\Phi = 31.536.000 / 60 \approx 525.600\times$$
+   * **1 phút mô phỏng trên màn hình = 1 năm hấp thụ carbon ngoài thực tế**.
+   * Cứ mỗi **5 giây trôi qua** = Rừng hoàn thành 1 tháng quang hợp tích lũy carbon.
+   * Số dư $tCO_2e$ nhảy mượt mà trực tiếp trước mắt (Live Ticker) với 4 chữ số thập phân (`+0.0012 tCO2e...`).
+2. **Nút Thao Tác Nhanh (Fast-Forward Educational Controls)**:
+   * Cho phép người dùng bấm thử nghiệm ngay các kịch bản thời gian mà không cần chờ:
+     * `[Mô phỏng 1 Tháng]` $\rightarrow$ Lập tức sinh ra $\approx 1.0 - 1.2\text{ } tCO_2e$.
+     * `[Mô phỏng 1 Năm]` $\rightarrow$ Lập tức sinh ra $\approx 11 - 15\text{ } tCO_2e$.
+     * `[Mô phỏng 5 Năm]` $\rightarrow$ Lập tức sinh ra $\approx 55 - 75\text{ } tCO_2e$.
+3. **Quy Đổi Sang Chỉ Số Đời Thường Dễ Hiểu (Tangible Everyday Metrics)**:
+   Để người dùng hiểu giá trị của 1 Tín chỉ Carbon ($1\text{ } tCO_2e$), giao diện hiển thị bảng so sánh trực quan gần gũi:
+   * **$0.25\text{ } tCO_2e$** $\approx$ Bù trừ phát thải của **1 chuyến bay khứ hồi Hà Nội ↔ TP.HCM** ✈️
+   * **$0.45\text{ } tCO_2e$** $\approx$ Bù trừ lượng khí thải phát ra khi **chạy xe máy xăng suốt 1 năm** 🛵
+   * **$1.50\text{ } tCO_2e$** $\approx$ Bù trừ lượng điện sinh hoạt của **1 hộ gia đình trong cả năm** ⚡
+   * **$15.00\text{ } tCO_2e$ (1 Lô Rừng Cúc Phương/năm)** $\approx$ Bằng sức hấp thụ của **750 cây xanh đô thị** trồng mới 🌳
+4. **Vòng Lặp Trải Nghiệm Học Tập Khép Kín Trong 2 Phút (2-Minute Micro-Learning Loop)**:
+   ```
+   [1. Chọn Lô Rừng] ──► [2. Thế Chấp (Stake)] ──► [3. Bấm Tăng Tốc 1 Năm] ──► [4. Rút Lãi Tín Chỉ] ──► [5. Bù Trừ 1 Chuyến Bay] ──► [6. Nhận Chứng Thư Xanh]
+       (10 giây)             (15 giây)                  (5 giây)                  (15 giây)                 (15 giây)                  (Xuất file PDF/NFT)
+   ```
+
+---
+
 ## 4. BẢNG THÔNG SỐ QUY ĐỔI THỰC TẾ CHO CÁC KHU RỪNG VIỆT NAM
 
 Dựa trên số liệu nghiên cứu của Viện Điều tra Quy hoạch Rừng (FIPI), Cục Lâm nghiệp và các dự án đo đạc sinh khối tại Việt Nam:
