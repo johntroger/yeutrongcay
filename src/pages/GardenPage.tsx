@@ -66,7 +66,9 @@ import {
   syncGuestGardenDataAction,
   careGamifiedPlantAction,
   batchCarePlantsAction,
-  harvestPlantCropAction
+  harvestPlantCropAction,
+  claimDailyDewAction,
+  claimSeasonalTaskAction
 } from '../services/apiService.ts';
 import { getKarmaState } from '../services/karmaService.ts';
 import { applyWatermarkAndStripExif } from '../utils/watermark.ts';
@@ -180,6 +182,16 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
   const [completedSeasonalTasks, setCompletedSeasonalTasks] = useState<Record<string, boolean>>(() => {
     try {
       const raw = localStorage.getItem('ytc_completed_seasonal_tasks');
+      return raw ? JSON.parse(raw) : {};
+    } catch {
+      return {};
+    }
+  });
+
+  // Chống trục lợi: Khóa vĩnh viễn các nhiệm vụ đã nhận thưởng 5 Tim
+  const [claimedSeasonalRewards, setClaimedSeasonalRewards] = useState<Record<string, boolean>>(() => {
+    try {
+      const raw = localStorage.getItem('ytc_claimed_seasonal_rewards');
       return raw ? JSON.parse(raw) : {};
     } catch {
       return {};
@@ -538,8 +550,24 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
     return { success: true, message: isEn ? localRes.message_en : localRes.message_vi };
   };
 
-  // Thao tác nhận giọt sương sớm (+15 Tim)
+  // Thao tác nhận giọt sương sớm (+15 Tim) - Chống trục lợi: Chỉ nhận 1 lần / ngày
   const handleClaimDailyDew = () => {
+    const todayKey = getTodayKey();
+    const lastClaimed = localStorage.getItem('ytc_daily_dew_claimed_date');
+
+    if (dailyQuests.dewClaimed || lastClaimed === todayKey) {
+      triggerNotice(
+        isEn
+          ? 'You have already claimed your morning dew today! Please come back tomorrow.'
+          : 'Hôm nay bạn đã nhận giọt sương mai rồi! Hãy quay lại vào sáng mai nhé.'
+      );
+      return;
+    }
+
+    // Khóa ngay lập tức trên máy khách để chống bấm liên tục
+    localStorage.setItem('ytc_daily_dew_claimed_date', todayKey);
+    updateDailyQuests((q) => ({ ...q, dewClaimed: true }));
+
     const currentHearts = karmaData?.total_karma ?? 50;
     const newHearts = currentHearts + 15;
     if (karmaData) {
@@ -549,18 +577,24 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
       });
       localStorage.setItem('ytc_user_karma', newHearts.toString());
     }
-    updateDailyQuests((q) => ({ ...q, dewClaimed: true }));
+
+    claimDailyDewAction(currentUserId).catch(() => {});
     triggerNotice(isEn ? 'Claimed morning dew: +15 Hearts! 💧' : 'Đã nhận giọt sương mai: +15 Tim! 💧');
   };
 
-  // Thao tác nhận thưởng thêm nhiệm vụ ngày (1 Túi phân trùn quế vi sinh 👝)
+  // Thao tác nhận thưởng thêm nhiệm vụ ngày (1 Túi phân trùn quế vi sinh 👝) - Chống trục lợi: Chỉ nhận 1 lần / ngày
   const handleClaimBonusReward = () => {
+    if (dailyQuests.bonusClaimed) {
+      triggerNotice(isEn ? 'Daily bonus reward already claimed today!' : 'Bạn đã nhận quà thưởng ngày hôm nay rồi!');
+      return;
+    }
+
+    updateDailyQuests((q) => ({ ...q, bonusClaimed: true }));
     setInventory((prev) => {
       const next = { ...prev, fertilizer: (prev.fertilizer || 0) + 1 };
       saveUserInventory(next);
       return next;
     });
-    updateDailyQuests((q) => ({ ...q, bonusClaimed: true }));
     triggerNotice(
       isEn
         ? '🎁 Daily Bonus Claimed! +1 Organic Fertilizer Pouch (👝) added to your backpack!'
@@ -761,16 +795,55 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
 
   const handleToggleSeasonalTask = (taskIndex: number, taskText: string) => {
     const taskKey = `${selectedMonth}_${selectedRegion}_${taskIndex}`;
-    const isDone = !completedSeasonalTasks[taskKey];
-    const newMap = { ...completedSeasonalTasks, [taskKey]: isDone };
+    const isCurrentlyDone = !!completedSeasonalTasks[taskKey];
+    const newDoneState = !isCurrentlyDone;
+
+    // 1. Luôn cập nhật trạng thái checklist cho người dùng theo dõi
+    const newMap = { ...completedSeasonalTasks, [taskKey]: newDoneState };
     setCompletedSeasonalTasks(newMap);
     localStorage.setItem('ytc_completed_seasonal_tasks', JSON.stringify(newMap));
 
-    if (isDone) {
+    // 2. Chống trục lợi: Chỉ cộng 5 Tim khi LẦN ĐẦU TIÊN hoàn thành nhiệm vụ này
+    if (newDoneState) {
+      if (!claimedSeasonalRewards[taskKey]) {
+        // Ghi nhận khóa vĩnh viễn đã nhận thưởng cho nhiệm vụ này
+        const newClaimed = { ...claimedSeasonalRewards, [taskKey]: true };
+        setClaimedSeasonalRewards(newClaimed);
+        localStorage.setItem('ytc_claimed_seasonal_rewards', JSON.stringify(newClaimed));
+
+        // Cộng 5 Tim
+        const currentHearts = karmaData?.total_karma ?? 50;
+        const newHearts = currentHearts + 5;
+        if (karmaData) {
+          setKarmaData({
+            ...karmaData,
+            total_karma: newHearts
+          });
+          localStorage.setItem('ytc_user_karma', newHearts.toString());
+        }
+
+        // Đồng bộ chống gian lận lên server
+        claimSeasonalTaskAction(currentUserId, taskKey).catch(() => {});
+
+        triggerNotice(
+          isEn
+            ? `Completed seasonal task: "${taskText.slice(0, 32)}..." (+5 Hearts ❤️ earned!)`
+            : `Đã hoàn thành nông vụ: "${taskText.slice(0, 32)}..." (+5 Trái Tim ❤️ đã cộng!)`
+        );
+      } else {
+        // Đã nhận thưởng trước đó -> chỉ cập nhật dấu check, KHÔNG cộng thêm tim
+        triggerNotice(
+          isEn
+            ? `Marked as done: "${taskText.slice(0, 32)}..." (Reward already claimed previously)`
+            : `Đánh dấu đã làm: "${taskText.slice(0, 32)}..." (Nhiệm vụ này đã nhận 5 Tim trước đó rồi)`
+        );
+      }
+    } else {
+      // Bỏ đánh dấu: KHÔNG trừ tim và KHÔNG xóa khóa claimed để chống hành vi "bỏ rồi tick lại để nhận thêm tim"
       triggerNotice(
         isEn
-          ? `Completed seasonal task: "${taskText.slice(0, 32)}..." (+5 Hearts ❤️)`
-          : `Đã hoàn thành nông vụ: "${taskText.slice(0, 32)}..." (+5 Trái Tim ❤️)`
+          ? `Unchecked: "${taskText.slice(0, 32)}..."`
+          : `Đã bỏ đánh dấu: "${taskText.slice(0, 32)}..."`
       );
     }
   };
@@ -1142,6 +1215,7 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
           inventory={inventory}
           onOpenShop={() => setIsShopOpen(true)}
           onClaimDailyDew={handleClaimDailyDew}
+          hasClaimedDailyDew={dailyQuests.dewClaimed}
         />
 
         {/* 3. Lịch Nhắc Chăm Sóc Cây Hàng Ngày (Today's Care Tasks Widget) */}
@@ -1499,6 +1573,7 @@ export const GardenPage: React.FC<GardenPageProps> = ({ currentUser: propUser })
             currentMonthData={currentMonthData as any}
             currentRegionalGuide={currentRegionalGuide}
             completedSeasonalTasks={completedSeasonalTasks}
+            claimedSeasonalRewards={claimedSeasonalRewards}
             handleToggleSeasonalTask={handleToggleSeasonalTask}
             completedSeasonalCount={completedSeasonalCount}
             seasonalTasksCount={seasonalTasksCount}

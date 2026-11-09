@@ -58,6 +58,7 @@ export interface GardenTasksTabProps {
   currentMonthData: MonthData;
   currentRegionalGuide: RegionalGuide;
   completedSeasonalTasks: Record<string, boolean>;
+  claimedSeasonalRewards?: Record<string, boolean>;
   handleToggleSeasonalTask: (idx: number, taskText: string) => void;
   completedSeasonalCount: number;
   seasonalTasksCount: number;
@@ -83,6 +84,7 @@ export const GardenTasksTab: React.FC<GardenTasksTabProps> = ({
   currentMonthData,
   currentRegionalGuide,
   completedSeasonalTasks,
+  claimedSeasonalRewards = {},
   handleToggleSeasonalTask,
   completedSeasonalCount,
   seasonalTasksCount,
@@ -254,63 +256,80 @@ export const GardenTasksTab: React.FC<GardenTasksTabProps> = ({
         </div>
 
         {/* Monthly Seasonal Checklist */}
-        <div className="pt-2 border-t border-forest-100 dark:border-forest-800 space-y-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <CheckSquare className="w-4 h-4 text-herbal-600" />
-              <h4 className="font-bold text-sm text-forest-950 dark:text-cream-50">
-                {isEn
-                  ? `Seasonal Urban Tasks for Month ${selectedMonth} (${completedSeasonalCount}/${seasonalTasksCount} Done)`
-                  : `Nhiệm Vụ Nông Vụ Tháng ${selectedMonth} (${completedSeasonalCount}/${seasonalTasksCount} Đã xong)`}
-              </h4>
-            </div>
-            <span className="text-xs font-bold text-rose-600 dark:text-rose-400">
-              +{completedSeasonalCount * 5} Trái Tim ❤️
-            </span>
-          </div>
+        {(() => {
+          const claimedCountInThisMonth = currentRegionalGuide.tasks.reduce((acc, _, idx) => {
+            const k = `${selectedMonth}_${selectedRegion}_${idx}`;
+            return acc + (claimedSeasonalRewards[k] ? 1 : 0);
+          }, 0);
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            {currentRegionalGuide.tasks.map((taskText, idx) => {
-              const taskKey = `${selectedMonth}_${selectedRegion}_${idx}`;
-              const isDone = !!completedSeasonalTasks[taskKey];
-              return (
-                <button
-                  key={idx}
-                  onClick={() => handleToggleSeasonalTask(idx, taskText)}
-                  className={`p-3.5 rounded-2xl text-left transition border flex items-start gap-3 group cursor-pointer ${
-                    isDone
-                      ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800'
-                      : 'bg-white dark:bg-charcoal-800 hover:bg-forest-50 dark:hover:bg-charcoal-700 border-forest-100 dark:border-forest-700'
-                  }`}
-                >
-                  <div
-                    className={`w-5 h-5 rounded-lg flex items-center justify-center shrink-0 mt-0.5 transition ${
-                      isDone
-                        ? 'bg-emerald-600 text-white'
-                        : 'border-2 border-gray-300 dark:border-gray-600 group-hover:border-herbal-500'
-                    }`}
-                  >
-                    {isDone && <Check className="w-3.5 h-3.5 stroke-[3]" />}
-                  </div>
-                  <div className="flex-1">
-                    <p
-                      className={`text-xs font-semibold leading-relaxed ${
+          return (
+            <div className="pt-2 border-t border-forest-100 dark:border-forest-800 space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <CheckSquare className="w-4 h-4 text-herbal-600" />
+                  <h4 className="font-bold text-sm text-forest-950 dark:text-cream-50">
+                    {isEn
+                      ? `Seasonal Urban Tasks for Month ${selectedMonth} (${completedSeasonalCount}/${seasonalTasksCount} Done)`
+                      : `Nhiệm Vụ Nông Vụ Tháng ${selectedMonth} (${completedSeasonalCount}/${seasonalTasksCount} Đã xong)`}
+                  </h4>
+                </div>
+                <span className="text-xs font-bold text-rose-600 dark:text-rose-400">
+                  +{claimedCountInThisMonth * 5} {isEn ? 'Hearts Claimed ❤️' : 'Trái Tim Đã Nhận ❤️'}
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                {currentRegionalGuide.tasks.map((taskText, idx) => {
+                  const taskKey = `${selectedMonth}_${selectedRegion}_${idx}`;
+                  const isDone = !!completedSeasonalTasks[taskKey];
+                  const isClaimed = !!claimedSeasonalRewards[taskKey];
+
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => handleToggleSeasonalTask(idx, taskText)}
+                      className={`p-3.5 rounded-2xl text-left transition border flex items-start gap-3 group cursor-pointer ${
                         isDone
-                          ? 'text-emerald-900 dark:text-emerald-200 line-through opacity-80'
-                          : 'text-forest-900 dark:text-cream-100'
+                          ? 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800'
+                          : 'bg-white dark:bg-charcoal-800 hover:bg-forest-50 dark:hover:bg-charcoal-700 border-forest-100 dark:border-forest-700'
                       }`}
                     >
-                      {taskText}
-                    </p>
-                    <span className="text-[10px] text-gray-400 mt-1 block">
-                      {isDone ? (isEn ? 'Completed ❤️' : 'Đã thực hiện ❤️') : (isEn ? 'Click to mark done (+5 Hearts ❤️)' : 'Bấm để đánh dấu (+5 Trái Tim ❤️)')}
-                    </span>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-        </div>
+                      <div
+                        className={`w-5 h-5 rounded-lg flex items-center justify-center shrink-0 mt-0.5 transition ${
+                          isDone
+                            ? 'bg-emerald-600 text-white'
+                            : 'border-2 border-gray-300 dark:border-gray-600 group-hover:border-herbal-500'
+                        }`}
+                      >
+                        {isDone && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                      </div>
+                      <div className="flex-1">
+                        <p
+                          className={`text-xs font-semibold leading-relaxed ${
+                            isDone
+                              ? 'text-emerald-900 dark:text-emerald-200 line-through opacity-80'
+                              : 'text-forest-900 dark:text-cream-100'
+                          }`}
+                        >
+                          {taskText}
+                        </p>
+                        <span className="text-[10px] text-gray-400 mt-1 block">
+                          {isClaimed
+                            ? (isDone
+                                ? (isEn ? 'Completed (5 Hearts Claimed ❤️)' : 'Đã thực hiện (Đã nhận 5 Tim ❤️)')
+                                : (isEn ? 'Mark done (Reward already claimed)' : 'Đánh dấu lại (Đã nhận 5 Tim trước đó)'))
+                            : (isDone
+                                ? (isEn ? 'Completed (+5 Hearts ❤️)' : 'Đã hoàn thành (+5 Trái Tim ❤️)')
+                                : (isEn ? 'Click to mark done (+5 Hearts ❤️)' : 'Bấm để đánh dấu (+5 Trái Tim ❤️)'))}
+                        </span>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })()}
       </div>
 
       {/* Recommended Species for this Season & Region */}

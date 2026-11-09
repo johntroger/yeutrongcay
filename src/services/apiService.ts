@@ -1197,4 +1197,44 @@ export async function syncGuestGardenDataAction(
   }
 }
 
+/**
+ * Nhận Giọt Sương Sớm Mai (+15 Tim) - Chống trục lợi: Chỉ nhận 1 lần / ngày
+ */
+export async function claimDailyDewAction(
+  userId: string
+): Promise<{ success: boolean; message?: string; points_added?: number; total_hearts?: number; already_claimed?: boolean; error?: string }> {
+  try {
+    const res = await fetch(`${API_BASE}/garden.php?action=claim_daily_dew`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_id: userId })
+    });
+    const json = await res.json();
+    return json;
+  } catch {
+    return { success: false, error: 'Không thể kết nối máy chủ' };
+  }
+}
+
+/**
+ * Nhận Thưởng Nhiệm Vụ Nông Vụ (+5 Tim) - Chống trục lợi: Khóa vĩnh viễn theo task_key
+ */
+export async function claimSeasonalTaskAction(
+  userId: string,
+  taskKey: string
+): Promise<{ success: boolean; message?: string; points_added?: number; total_hearts?: number; already_claimed?: boolean; error?: string }> {
+  try {
+    const res = await fetch(`${API_BASE}/garden.php?action=claim_seasonal_task`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_id: userId, task_key: taskKey })
+    });
+    const json = await res.json();
+    return json;
+  } catch {
+    return { success: false, error: 'Không thể kết nối máy chủ' };
+  }
+}
+
+
 

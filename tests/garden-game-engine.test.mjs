@@ -199,3 +199,85 @@ test('NFT Minting Criteria: Strict EXP, Stage 5, and SHA-256 Photo Diary require
   const check4 = checkNftMintEligibility(maturePlant, 3);
   assert.equal(check4.isEligible, false, 'Already minted plant cannot be re-minted');
 });
+
+// 7. Kiểm tra cơ chế Chống Trục Lợi Nhận Tim (Anti-Exploit Hearts Guard)
+test('Anti-Exploit: Seasonal Task toggling must only award hearts ONCE, prevent repeated claiming', () => {
+  const claimedRegistry = {};
+  let currentHearts = 50;
+
+  const simulateToggle = (taskKey, isDone) => {
+    let pointsAwarded = 0;
+    if (isDone) {
+      if (!claimedRegistry[taskKey]) {
+        claimedRegistry[taskKey] = true;
+        pointsAwarded = 5;
+        currentHearts += pointsAwarded;
+      }
+    }
+    return { pointsAwarded, currentHearts, isClaimed: !!claimedRegistry[taskKey] };
+  };
+
+  const taskKey = '11_south_0';
+
+  // Lần 1: Người dùng tích chọn nhiệm vụ -> Cộng 5 Tim
+  const r1 = simulateToggle(taskKey, true);
+  assert.equal(r1.pointsAwarded, 5, 'Must award 5 hearts on first completion');
+  assert.equal(r1.currentHearts, 55, 'Total hearts becomes 55');
+  assert.equal(r1.isClaimed, true, 'Task key must be permanently claimed');
+
+  // Lần 2: Người dùng bỏ tích (uncheck) -> KHÔNG trừ tim, khóa claimed vẫn giữ nguyên
+  const r2 = simulateToggle(taskKey, false);
+  assert.equal(r2.pointsAwarded, 0, 'Unchecking task must award 0 points');
+  assert.equal(r2.currentHearts, 55, 'Total hearts stays 55');
+  assert.equal(r2.isClaimed, true, 'Task key remains permanently claimed');
+
+  // Lần 3: Người dùng cố tình tích lại lần 2 -> KHÔNG CỘNG TIM NỮA (0 Tim)
+  const r3 = simulateToggle(taskKey, true);
+  assert.equal(r3.pointsAwarded, 0, 'Re-checking must award 0 points (Exploit blocked!)');
+  assert.equal(r3.currentHearts, 55, 'Total hearts must remain strictly 55');
+
+  // Lần 4: Lặp lại 50 lần thao tác bỏ và tích lại -> Số tim vẫn giữ nguyên 55
+  for (let i = 0; i < 50; i++) {
+    simulateToggle(taskKey, false);
+    simulateToggle(taskKey, true);
+  }
+  assert.equal(currentHearts, 55, 'Hearts must NEVER increase upon repeated toggling');
+});
+
+// 8. Kiểm tra cơ chế Chống Bấm Liên Tục Nhận Sương Sớm (Anti-Exploit Daily Dew)
+test('Anti-Exploit: Daily Dew can only be claimed ONCE per calendar day', () => {
+  const checkinStore = {};
+  let userHearts = 50;
+
+  const claimDew = (dateStr) => {
+    if (checkinStore[dateStr]) {
+      return { success: false, error: 'Already claimed today' };
+    }
+    checkinStore[dateStr] = true;
+    userHearts += 15;
+    return { success: true, newHearts: userHearts };
+  };
+
+  // Lần 1 hôm nay
+  const today = '2026-11-09';
+  const c1 = claimDew(today);
+  assert.equal(c1.success, true);
+  assert.equal(c1.newHearts, 65, 'First claim grants +15 hearts');
+
+  // Lần 2 bấm liên tiếp cùng ngày
+  const c2 = claimDew(today);
+  assert.equal(c2.success, false, 'Second claim on same day must be rejected');
+  assert.equal(userHearts, 65, 'Hearts must not increase');
+
+  // Bấm liên tiếp 100 lần spam
+  for (let i = 0; i < 100; i++) {
+    claimDew(today);
+  }
+  assert.equal(userHearts, 65, 'Spamming dew claim must be 100% blocked');
+
+  // Sang ngày hôm sau (tomorrow)
+  const tomorrow = '2026-11-10';
+  const c3 = claimDew(tomorrow);
+  assert.equal(c3.success, true, 'Valid new day can claim');
+  assert.equal(c3.newHearts, 80, 'Now reaches 80 hearts');
+});

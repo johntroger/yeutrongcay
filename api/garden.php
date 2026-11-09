@@ -1143,6 +1143,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         try {
+            // Chống trục lợi: Kiểm tra xem cây đã đúc NFT trước đó chưa
+            $chkPlant = $pdo->prepare("SELECT passport_token_id FROM garden_plants WHERE id = :pid LIMIT 1");
+            $chkPlant->execute([':pid' => $plantId]);
+            $existPlant = $chkPlant->fetch(PDO::FETCH_ASSOC);
+            if (!empty($existPlant['passport_token_id'])) {
+                echo json_encode([
+                    'success' => true,
+                    'message' => "Hộ chiếu NFT #{$existPlant['passport_token_id']} đã được xác nhận trước đó.",
+                    'token_id' => $existPlant['passport_token_id'],
+                    'tx_hash' => $txHash,
+                    'already_confirmed' => true
+                ], JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+
             $stmt = $pdo->prepare("UPDATE garden_plants SET 
                 passport_token_id = :tid,
                 passport_tx_hash = :tx,
@@ -1249,6 +1264,107 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'message' => "🧺 Thu hoạch thành công! Bạn nhận được +{$rewardHearts} Tim và 1 Túi Phân Hữu Cơ thưởng!",
                 'reward_hearts' => $rewardHearts,
                 'total_harvests' => ((int)$plant['total_harvests']) + 1
+            ], JSON_UNESCAPED_UNICODE);
+            exit;
+        } catch (PDOException $e) {
+            http_response_code(500);
+            echo json_encode(['success' => false, 'error' => $e->getMessage()], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+    }
+
+    // Hành động 12.1: Nhận Giọt Sương Sớm Mai (+15 Tim) - Chống trục lợi: Chỉ nhận 1 lần / ngày
+    if ($action === 'claim_daily_dew') {
+        $userId = trim($input['user_id'] ?? 'usr-local-me');
+        try {
+            $checkStmt = $pdo->prepare("SELECT id FROM user_events 
+                WHERE user_id = :uid AND event_type = 'daily_dew' AND DATE(created_at) = CURRENT_DATE() LIMIT 1");
+            $checkStmt->execute([':uid' => $userId]);
+            if ($checkStmt->fetch()) {
+                http_response_code(400);
+                echo json_encode([
+                    'success' => false, 
+                    'error' => 'Hôm nay bạn đã nhận sương mai rồi! Hãy quay lại vào sáng mai nhé.',
+                    'already_claimed' => true
+                ], JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+
+            // Ghi nhận sự kiện nhận sương +15 Tim
+            $evStmt = $pdo->prepare("INSERT INTO user_events (user_id, event_type, points, reference_id, metadata_json)
+                VALUES (:uid, 'daily_dew', 15, :today, :meta)");
+            $evStmt->execute([
+                ':uid' => $userId,
+                ':today' => date('Y-m-d'),
+                ':meta' => json_encode(['action' => 'morning_dew_checkin'], JSON_UNESCAPED_UNICODE)
+            ]);
+
+            // Tính lại tổng số dư Tim
+            $sumStmt = $pdo->prepare("SELECT COALESCE(SUM(points), 0) + 50 as total FROM user_events WHERE user_id = :uid");
+            $sumStmt->execute([':uid' => $userId]);
+            $newHearts = (int)($sumStmt->fetch(PDO::FETCH_ASSOC)['total'] ?? 65);
+
+            echo json_encode([
+                'success' => true,
+                'message' => 'Đã nhận giọt sương mai: +15 Tim! 💧',
+                'points_added' => 15,
+                'total_hearts' => $newHearts
+            ], JSON_UNESCAPED_UNICODE);
+            exit;
+        } catch (PDOException $e) {
+            http_response_code(500);
+            echo json_encode(['success' => false, 'error' => $e->getMessage()], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+    }
+
+    // Hành động 12.2: Nhận Thưởng Nhiệm Vụ Nông Vụ (+5 Tim) - Chống trục lợi: Khóa vĩnh viễn theo task_key
+    if ($action === 'claim_seasonal_task') {
+        $userId = trim($input['user_id'] ?? 'usr-local-me');
+        $taskKey = trim($input['task_key'] ?? '');
+
+        if (empty($taskKey)) {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'Thiếu mã khóa nhiệm vụ nông vụ'], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
+        try {
+            // Kiểm tra xem task_key này đã từng được nhận thưởng trước đó chưa
+            $checkStmt = $pdo->prepare("SELECT id FROM user_events 
+                WHERE user_id = :uid AND event_type = 'seasonal_task' AND reference_id = :key LIMIT 1");
+            $checkStmt->execute([':uid' => $userId, ':key' => $taskKey]);
+            if ($checkStmt->fetch()) {
+                // Đã nhận rồi -> trả về thông báo đã claim, KHÔNG cộng thêm tim
+                echo json_encode([
+                    'success' => true,
+                    'already_claimed' => true,
+                    'points_added' => 0,
+                    'message' => 'Nhiệm vụ này đã nhận thưởng trước đó rồi!'
+                ], JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+
+            // Ghi nhận thưởng +5 Tim duy nhất 1 lần
+            $evStmt = $pdo->prepare("INSERT INTO user_events (user_id, event_type, points, reference_id, metadata_json)
+                VALUES (:uid, 'seasonal_task', 5, :key, :meta)");
+            $evStmt->execute([
+                ':uid' => $userId,
+                ':key' => $taskKey,
+                ':meta' => json_encode(['task_key' => $taskKey, 'claimed_at' => date('Y-m-d H:i:s')], JSON_UNESCAPED_UNICODE)
+            ]);
+
+            // Tính lại tổng số dư Tim
+            $sumStmt = $pdo->prepare("SELECT COALESCE(SUM(points), 0) + 50 as total FROM user_events WHERE user_id = :uid");
+            $sumStmt->execute([':uid' => $userId]);
+            $newHearts = (int)($sumStmt->fetch(PDO::FETCH_ASSOC)['total'] ?? 55);
+
+            echo json_encode([
+                'success' => true,
+                'already_claimed' => false,
+                'points_added' => 5,
+                'total_hearts' => $newHearts,
+                'message' => 'Đã hoàn thành nông vụ: +5 Trái Tim ❤️'
             ], JSON_UNESCAPED_UNICODE);
             exit;
         } catch (PDOException $e) {
