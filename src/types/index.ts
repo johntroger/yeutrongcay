@@ -132,7 +132,7 @@ export interface Plant {
   how_to_grow_steps?: PlantHowToStep[]; // GEO & HowTo Schema
   faqs?: PlantFAQ[];            // AEO FAQPage Schema
   academic_citations?: string[]; // GEO Authoritative Citations (Dược điển, Sách GS Đỗ Tất Lợi)
-  reference_sources?: Array<{ title: string; author?: string; organization?: string; verification_type?: string }> | string[]; // Nguồn tham khảo uy tín thẩm định
+  reference_sources?: Array<{ title: string; author?: string; organization?: string; verification_type?: string; url?: string }> | string[]; // Nguồn tham khảo uy tín thẩm định
   monetization_tips?: string[]; // Gợi ý kiếm tiền từ cây này
   subcategory?: string;         // Phân nhóm phụ (ví dụ: Trị ho & Hô hấp, Lọc khí NASA, Cam chanh...)
   collection_slugs?: string[];  // Danh sách slug bộ sưu tập/chuyên đề chứa cây này

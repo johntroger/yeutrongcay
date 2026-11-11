@@ -20486,23 +20486,24 @@
     "common_name": "Xoài Tứ Quý Ghép Lùn",
     "scientific_name": "Mangifera indica",
     "aliases": [
-      "Xoài Tứ Quý",
-      "Xoài Ghép Chậu"
+      "Xoài Tứ Quý Ghép",
+      "Xoài Tứ Quý Sân Thượng",
+      "Xoài Trồng Chậu Lùn"
     ],
     "category": "fruit",
-    "description": "Xoài ghép trồng chậu giữ tán thấp khoảng 1-1,5m nhờ cắt tỉa, cho trái nhiều đợt trong năm ở điều kiện nóng ẩm.",
-    "quick_answer": "Xoài tứ quý ghép lùn (Mangifera indica) là cây ăn quả nhiệt đới trồng chậu lớn, ưa nắng 6-8 giờ/ngày, đất thoát nước tốt pH 5.5-7.5, cần cắt tỉa tạo tán thấp để dễ chăm sóc và thu hoạch trên sân thượng.",
+    "description": "Xoài Tứ Quý ghép cành là lựa chọn hàng đầu cho các vườn phố ban công và sân thượng có nắng tốt. Cây phát triển tán tròn lùn từ 1,2m đến 1,8m nhờ kỹ thuật bấm đọt định kỳ, cho năng suất quả rải vụ nhiều đợt trong năm khi được chăm sóc đủ nước và dinh dưỡng hữu cơ cân đối.",
+    "quick_answer": "Xoài Tứ Quý ghép lùn (Mangifera indica) phát triển rất tốt trong chậu thể tích từ 60L trở lên, đòi hỏi tối thiểu 6-8 giờ nắng trực tiếp mỗi ngày, giá thể tơi xốp giàu hữu cơ thoát nước tốt (pH 5.5 - 7.0), cắt tỉa hãm ngọn sau mỗi đợt quả để giữ tán thấp sai trái.",
     "botanical_details": {
       "family": "Anacardiaceae (Họ Đào lộn hột)",
-      "native_range": "Nam Á và Đông Nam Á",
+      "native_range": "Nam Á & Đông Nam Á nhiệt đới",
       "active_compounds": [
-        "Vitamin C tự nhiên",
-        "Polyphenol và Flavonoid chống oxy hóa",
-        "Khoáng vi lượng Kali và Magie"
+        "Mangiferin (polyphenol tự nhiên trong thịt và vỏ quả, chất chống oxy hóa mạnh)",
+        "Vitamin C (Acid ascorbic 36mg/100g tép quả, tăng sức đề kháng)",
+        "Beta-carotene (tiền chất Vitamin A hỗ trợ thị lực và niêm mạc)"
       ],
-      "soil_ph": "5.5 - 7.5",
+      "soil_ph": "5.5 - 7.0",
       "ideal_temp": "24°C - 35°C",
-      "pot_size": "Chậu ≥ 60cm, sâu ≥ 50cm"
+      "pot_size": "Đường kính ≥ 60cm, sâu ≥ 50cm (chậu 60L - 100L)"
     },
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e3/Mangoes_%28Magnifera_indica%29_from_India.jpg",
     "image_sha256": "d272523f1f1ccae6af586becd5fed5838c0b84f50da0df6b8311933840a36619",
@@ -20540,28 +20541,37 @@
     "how_to_grow_steps": [
       {
         "step": 1,
-        "title": "Chuẩn bị chậu và giá thể",
-        "instruction": "Chọn chậu lớn có lỗ thoát nước, trộn đất thịt, xơ dừa và phân hữu cơ hoai mục để rễ không bị úng."
+        "title": "Chuẩn bị chậu lớn thoát đáy và giá thể tơi xốp",
+        "instruction": "Chọn chậu xi măng nhẹ, chậu composite hoặc thùng nhựa đường kính từ 60cm trở lên có đục nhiều lỗ thoát nước. Trộn 40% đất thịt phù sa, 30% xơ dừa trấu hun, 20% phân trùn quế hoai mục và 10% đá perlite/đá bọt để chống nghẹt rễ."
       },
       {
         "step": 2,
-        "title": "Đặt cây và tưới",
-        "instruction": "Đặt cây nơi nắng đầy đủ, tưới khi lớp đất mặt khô; hạn chế tưới quá nhiều vào mùa mưa."
+        "title": "Trồng cây ghép và cố định trụ đỡ gió",
+        "instruction": "Đặt bầu cây xoài ghép vào giữa chậu sao cho mặt bầu ngang miệng đất, lấp chặt gốc và cắm cọc tre/thép buộc cố định thân để tránh gió giật lung lay đứt rễ non trên tầng cao."
       },
       {
         "step": 3,
-        "title": "Tỉa và bón phân",
-        "instruction": "Sau thu hoạch cắt tỉa cành vượt và cành chen để giữ tán thấp, bón phân hữu cơ cân đối đạm - lân - kali."
+        "title": "Bấm đọt phân cành và xiết nước nhẹ kích hoa",
+        "instruction": "Khi cây cao 80cm - 1m, bấm ngọn để kích thích đẻ 3-4 cành nhánh cấp 1 tạo bộ khung tròn. Khi cành bánh tẻ già lá xanh đậm, xiết nước nhẹ 5-7 ngày cho lá se lại rồi tưới đẫm trở lại kết hợp phân lân cao để bật chồi hoa."
+      },
+      {
+        "step": 4,
+        "title": "Nuôi trái bằng kali hữu cơ và tỉa chùm",
+        "instruction": "Khi xoài đậu trái bằng đầu ngón tay, tỉa bỏ trái dị tật chỉ giữ 2-3 trái đẹp nhất mỗi chùm. Bón dặm phân trùn quế và dịch chuối ủ men (giàu kali hữu cơ) mỗi 2 tuần để trái lớn nhanh, ngọt thanh và chắc ruột."
       }
     ],
     "faqs": [
       {
-        "question": "Xoài trồng chậu có ra trái được không?",
-        "answer": "Có, nếu dùng cây ghép, đủ nắng và chậu đủ lớn. Cần kiểm soát tán bằng cắt tỉa để cây dồn dinh dưỡng cho hoa và trái."
+        "question": "Xoài trồng chậu trên sân thượng bao lâu thì cho lứa trái đầu tiên?",
+        "answer": "Với cây giống ghép cành khỏe mạnh cao 60-80cm, cây thường ra hoa và đậu lứa trái đầu tiên sau 18 - 24 tháng trồng chậu nếu nhận đủ 6-8 tiếng nắng mỗi ngày."
       },
       {
-        "question": "Vì sao xoài trong chậu ra hoa nhưng rụng trái?",
-        "answer": "Nguyên nhân thường gặp là thiếu nắng, tưới thất thường hoặc thiếu dinh dưỡng; cần giữ ẩm đều và bón cân đối khi trái non."
+        "question": "Vì sao xoài trồng chậu ra hoa rất nhiều nhưng bị rụng sạch trái non?",
+        "answer": "Nguyên nhân chủ yếu do tưới nước thất thường (lúc quá khô lúc tưới sũng), thiếu vi lượng Bo và Canxi khiến cuống hoa giòn, hoặc cây bị bọ trĩ chích hút cuống hoa non."
+      },
+      {
+        "question": "Có cần bao trái xoài trên sân thượng không?",
+        "answer": "Rất nên bao trái bằng túi chuyên dụng khi trái bằng quả trứng gà để ngăn ruồi vàng đục quả, tránh rám nắng gắt buổi trưa và hạn chế tối đa sâu bệnh mà không cần dùng thuốc hóa học."
       }
     ],
     "related_plant_ids": [
@@ -20573,12 +20583,19 @@
       {
         "title": "Plants of the World Online - Mangifera indica L.",
         "organization": "Royal Botanic Gardens, Kew",
+        "verification_type": "Authoritative Institute",
+        "url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:69945-1"
+      },
+      {
+        "title": "Kỹ thuật trồng và điều tiết ra hoa xoài rải vụ",
+        "organization": "Viện Cây Ăn Quả Miền Nam (SOFRI)",
         "verification_type": "Authoritative Institute"
       },
       {
-        "title": "Kỹ thuật canh tác cây ăn quả",
-        "organization": "Viện Cây ăn quả miền Nam (SOFRI)",
-        "verification_type": "Authoritative Institute"
+        "title": "Mango Growing in the Florida Home Landscape (HS2)",
+        "author": "Crane, J. H. et al.",
+        "organization": "University of Florida IFAS Extension",
+        "verification_type": "University Extension"
       }
     ],
     "cultivation_guide": {}
@@ -20589,23 +20606,24 @@
     "common_name": "Me Thái Siêu Ngọt Trồng Chậu",
     "scientific_name": "Tamarindus indica",
     "aliases": [
-      "Me Ngọt",
-      "Me Thái Lan"
+      "Me Thái Trồng Chậu",
+      "Me Bonsai Ngọt",
+      "Me Siêu Trái Phố"
     ],
     "category": "fruit",
-    "description": "Me là cây thân gỗ chịu hạn, lá kép nhỏ; giống me ngọt trồng chậu có thể tạo dáng như bonsai và cho quả ăn tươi.",
-    "quick_answer": "Me ngọt trồng chậu (Tamarindus indica) ưa nắng, chịu hạn tốt, đất thoát nước pH 5.5-7; quả chín có vị chua ngọt, dùng ăn tươi hoặc chế biến.",
+    "description": "Me Thái siêu ngọt là giống cây thân gỗ nhiệt đới có khả năng thích nghi cao, tán lá kép nhỏ xanh mướt quanh năm rất đẹp mắt tựa bonsai cổ thụ. Trái khi chín có vỏ nâu giòn rụm, phần cơm dẻo quánh, vị ngọt lịm đậm đà xen lẫn chút chua thanh dịu nhẹ, chứa hàm lượng khoáng chất và năng lượng tự nhiên cao.",
+    "quick_answer": "Me Thái trồng chậu (Tamarindus indica) cực kỳ ưa nắng toàn phần, chịu hạn tốt nhờ bộ rễ khỏe, đất thoát nước tơi xốp (pH 5.5 - 7.5), ít tốn công tưới nước, thích hợp uốn tỉa tạo dáng kiểng kiêm thu hái trái ngọt ăn tươi trực tiếp.",
     "botanical_details": {
-      "family": "Fabaceae (Họ Đậu)",
-      "native_range": "Châu Phi nhiệt đới, được trồng rộng rãi ở châu Á",
+      "family": "Fabaceae (Họ Đậu / Phân họ Vang Caesalpinioideae)",
+      "native_range": "Châu Phi nhiệt đới, thuần hóa lâu đời tại Nam Á & Đông Nam Á",
       "active_compounds": [
-        "Vitamin C tự nhiên",
-        "Polyphenol và Flavonoid chống oxy hóa",
-        "Khoáng vi lượng Kali và Magie"
+        "Axit tartaric tự nhiên (tạo vị chua thanh dịu, kích thích tiết dịch vị tiêu hóa)",
+        "Kali (628mg/100g cơm me, hỗ trợ cân bằng huyết áp và điện giải)",
+        "Polyphenol & Flavonoid (chất chống oxy hóa tự nhiên trong vỏ hạt và cơm quả)"
       ],
-      "soil_ph": "5.5 - 7.0",
+      "soil_ph": "6.0 - 7.5",
       "ideal_temp": "22°C - 38°C",
-      "pot_size": "Chậu ≥ 50cm, sâu ≥ 45cm"
+      "pot_size": "Đường kính 50cm - 60cm, sâu 45cm"
     },
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Tamarindus_indica_pods.JPG",
     "image_sha256": "b5f7de65c3a836224df708aedf4b14446790fdf802c6dd1eac67c92be15a2f45",
@@ -20643,28 +20661,33 @@
     "how_to_grow_steps": [
       {
         "step": 1,
-        "title": "Chuẩn bị chậu và giá thể",
-        "instruction": "Trồng vào chậu sâu, đất tơi xốp thoát nước nhanh, tránh để nước đọng đáy chậu."
+        "title": "Chuẩn bị giá thể tơi xốp thoát nước nhanh",
+        "instruction": "Me sợ nhất úng ngập rễ non. Trộn giá thể gồm 50% đất thịt pha cát, 25% trấu hun xơ dừa và 25% phân chuồng hoai mục/trùn quế, đáy chậu rải lớp sỏi nhẹ để nước rút nhanh sau mưa."
       },
       {
         "step": 2,
-        "title": "Đặt cây và tưới",
-        "instruction": "Cho cây nắng trực tiếp, tưới thưa nhưng đẫm khi đất khô sâu."
+        "title": "Bố trí nơi đón nắng gắt và tưới nước vừa phải",
+        "instruction": "Đặt chậu me nơi có ánh nắng trực tiếp từ sáng đến chiều. Chỉ tưới nước khi lớp đất bề mặt đã khô ráo hoàn toàn (khoảng 2-3 ngày/lần tùy thời tiết nắng nóng)."
       },
       {
         "step": 3,
-        "title": "Tỉa và bón phân",
-        "instruction": "Tỉa cành tạo tán và bón phân hữu cơ định kỳ vào đầu mùa mưa."
+        "title": "Uốn tỉa tạo cành tán bonsai thoáng gió",
+        "instruction": "Cắt tỉa các cành tăm, cành mọc hướng tâm vào mùa xuân để tán cây thông thoáng, giúp ánh nắng rọi đều vào các tầng lá kích thích bật mầm nụ hoa."
+      },
+      {
+        "step": 4,
+        "title": "Bón phân hữu cơ và thu hoạch trái chín",
+        "instruction": "Định kỳ 2 tháng bổ sung một đợt phân trùn quế quanh gốc. Trái me sau khi đậu khoảng 7-8 tháng sẽ chuyển từ xanh sang nâu vỏ giòn, khi gõ nhẹ nghe tiếng bộng rỗng là có thể thu hái thưởng thức."
       }
     ],
     "faqs": [
       {
-        "question": "Me trồng chậu có cần tưới nhiều không?",
-        "answer": "Không. Me chịu hạn, tưới quá nhiều dễ thối rễ; chỉ tưới khi đất đã khô."
+        "question": "Me Thái trồng chậu có khó ra trái không?",
+        "answer": "Nếu sử dụng cây giống ghép cành hoặc chiết cành, cây sẽ ra hoa kết trái đều đặn sau 2 - 3 năm. Tránh trồng từ hạt vì me gieo hạt mất từ 7-10 năm mới bắt đầu có trái."
       },
       {
-        "question": "Bao lâu me trồng chậu cho quả?",
-        "answer": "Cây ghép thường cho quả sau vài năm; cây gieo hạt lâu hơn và khó đoán chất lượng."
+        "question": "Mùa mưa me trồng chậu có bị vàng lá không?",
+        "answer": "Có thể bị úng rễ nếu chậu thoát nước kém. Cần kê chậu lên chân đế cao và hạn chế tối đa việc để đĩa hứng đọng nước dưới đáy chậu trong mùa mưa kéo dài."
       }
     ],
     "related_plant_ids": [
@@ -20676,12 +20699,19 @@
       {
         "title": "Plants of the World Online - Tamarindus indica L.",
         "organization": "Royal Botanic Gardens, Kew",
-        "verification_type": "Authoritative Institute"
+        "verification_type": "Authoritative Institute",
+        "url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:520025-1"
       },
       {
-        "title": "Kỹ thuật canh tác cây ăn quả",
-        "organization": "Viện Cây ăn quả miền Nam (SOFRI)",
-        "verification_type": "Authoritative Institute"
+        "title": "Tamarind Growing in the Florida Home Landscape",
+        "author": "Crane, J. H. & Balerdi, C. F.",
+        "organization": "University of Florida IFAS Extension",
+        "verification_type": "University Extension"
+      },
+      {
+        "title": "Những cây thuốc và vị thuốc Việt Nam - Cây Me",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học"
       }
     ],
     "cultivation_guide": {}
@@ -20692,23 +20722,24 @@
     "common_name": "Chanh Cẩm Thạch (Chanh Lá Viền Trắng)",
     "scientific_name": "Citrus limon",
     "aliases": [
-      "Chanh Variegata",
-      "Chanh Tứ Quý Cẩm Thạch"
+      "Chanh Cẩm Thạch Tứ Quý",
+      "Variegated Lemon",
+      "Chanh Lá Sọc Cẩm Thạch"
     ],
     "category": "fruit",
-    "description": "Chanh cẩm thạch là dạng chanh có lá viền kem trắng, vừa làm cảnh vừa cho quả; trồng chậu thuận lợi trên ban công đủ nắng.",
-    "quick_answer": "Chanh cẩm thạch (Citrus limon, dạng lá loang) ưa nắng 6 giờ/ngày, đất tơi xốp pH 5.5-6.5, tưới đều tay; cần tránh úng nước và bón phân đều để ra hoa đậu quả.",
+    "description": "Chanh Cẩm Thạch là giống chanh đột biến tự nhiên nổi bật với phiến lá viền trắng kem sang trọng và trái non sọc dưa xanh trắng cực kỳ độc đáo. Khi chín, vỏ chuyển sang màu vàng tươi, tép mọng nước thơm nồng tinh dầu, vừa là cây cảnh đẳng cấp ban công vừa cung cấp quả pha nước giải nhiệt quanh năm.",
+    "quick_answer": "Chanh Cẩm Thạch (Citrus limon 'Variegata') rất thích hợp trồng chậu từ 40cm, ưa nắng sáng 5-6 giờ/ngày, đất tơi xốp giàu dinh dưỡng (pH 5.5 - 6.5), cần duy trì độ ẩm vừa phải và bón bổ sung vi lượng sắt, kẽm để lá giữ vân cẩm thạch sáng rõ.",
     "botanical_details": {
       "family": "Rutaceae (Họ Cửu lý hương / Cam chanh)",
-      "native_range": "Vùng á nhiệt đới châu Á",
+      "native_range": "Đột biến tuyển chọn từ Eureka Lemon (Nam Á du nhập Bắc Mỹ)",
       "active_compounds": [
-        "Vitamin C tự nhiên",
-        "Polyphenol và Flavonoid chống oxy hóa",
-        "Khoáng vi lượng Kali và Magie"
+        "Axit citric (axit hữu cơ tự nhiên giải nhiệt, hỗ trợ tiêu hóa)",
+        "Limonene (tinh dầu thơm nồng trong vỏ quả, kháng khuẩn tự nhiên)",
+        "Vitamin C (53mg/100g nước cốt, chống oxy hóa)"
       ],
       "soil_ph": "5.5 - 6.5",
       "ideal_temp": "20°C - 34°C",
-      "pot_size": "Chậu 40-50cm"
+      "pot_size": "Đường kính 40cm - 50cm, sâu 35cm - 40cm"
     },
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e4/P1030323.JPG",
     "image_sha256": "f8114f74470ab2c213e74e1fbcc4b61451fdfe9bed2d02be52e608757f435a65",
@@ -20746,28 +20777,33 @@
     "how_to_grow_steps": [
       {
         "step": 1,
-        "title": "Chuẩn bị chậu và giá thể",
-        "instruction": "Chọn chậu 40-50cm, trộn đất thịt, xơ dừa, phân trùn quế và đá perlite để thoát nước tốt."
+        "title": "Phối trộn giá thể mùn thoáng xốp",
+        "instruction": "Dùng chậu gốm hoặc nhựa có lỗ thoát đáy lớn. Phối trộn đất sạch phù sa với 30% xơ dừa xử lý tanin, 20% trấu hun và 20% phân trùn quế hoai mục."
       },
       {
         "step": 2,
-        "title": "Đặt cây và tưới",
-        "instruction": "Đặt nơi nắng sáng, tưới khi mặt đất khô, tránh tưới lên hoa."
+        "title": "Đón nắng tán xạ hoặc nắng sáng chan hòa",
+        "instruction": "Lá cẩm thạch có phần viền trắng ít diệp lục nên nhạy cảm với nắng gắt gắt trưa hè. Đặt cây nơi đón nắng sáng 5-6 tiếng hoặc dưới lưới che nắng 20% để lá không bị cháy viền."
       },
       {
         "step": 3,
-        "title": "Tỉa và bón phân",
-        "instruction": "Bón phân hữu cơ mỗi 3-4 tuần, tỉa cành ốm và cành vượt sau mỗi đợt quả."
+        "title": "Tưới nước đều đặn và xịt khoáng vi lượng",
+        "instruction": "Tưới khi lớp đất mặt sâu 2cm se khô. Định kỳ hàng tháng phun bổ sung vi lượng Canxi-Bo-Kẽm giúp cuống hoa chắc khỏe và giữ màu lá sọc trắng tương phản rực rỡ."
+      },
+      {
+        "step": 4,
+        "title": "Thu hoạch trái chín và tỉa cành tăm",
+        "instruction": "Khi vỏ quả chuyển từ sọc xanh sang vàng sáng mọng nước là thời điểm thu hái. Sau mỗi đợt hái, tỉa bỏ các cành tăm khuất sáng để cây tập trung ra đợt lộc non mới."
       }
     ],
     "faqs": [
       {
-        "question": "Chanh lá loang có cho quả ăn được không?",
-        "answer": "Có. Quả dùng như chanh thường; màu lá loang chủ yếu là giá trị trang trí."
+        "question": "Trái chanh cẩm thạch có dùng vắt nước uống như chanh thường được không?",
+        "answer": "Hoàn toàn dùng bình thường. Nước chanh cẩm thạch có vị chua thanh dịu, vỏ mỏng thơm ngát mùi tinh dầu tự nhiên, rất thích hợp pha nước giải nhiệt hoặc làm gia vị món ăn."
       },
       {
-        "question": "Vì sao lá chanh bị vàng?",
-        "answer": "Thường do úng nước, thiếu đạm hoặc thiếu vi lượng; cần kiểm tra thoát nước và bổ sung phân hữu cơ."
+        "question": "Tại sao cây chanh cẩm thạch có một số nhánh lại mọc ra toàn lá xanh?",
+        "answer": "Đó là hiện tượng thoái hóa ngược (reversion). Cần dùng kéo cắt tỉa sạch các nhánh toàn lá xanh này sát từ gốc cành để cây duy trì 100% lộc cẩm thạch đặc trưng."
       }
     ],
     "related_plant_ids": [
@@ -20779,11 +20815,18 @@
       {
         "title": "Plants of the World Online - Citrus limon (L.) Osbeck",
         "organization": "Royal Botanic Gardens, Kew",
-        "verification_type": "Authoritative Institute"
+        "verification_type": "Authoritative Institute",
+        "url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:77180479-1"
       },
       {
-        "title": "Kỹ thuật canh tác cây ăn quả",
-        "organization": "Viện Cây ăn quả miền Nam (SOFRI)",
+        "title": "Citrus Culture in the Home Landscape",
+        "author": "Ferguson, J. J. et al.",
+        "organization": "University of Florida IFAS Extension",
+        "verification_type": "University Extension"
+      },
+      {
+        "title": "Kỹ thuật chăm sóc và phòng trừ sâu bệnh trên cây có múi",
+        "organization": "Viện Cây Ăn Quả Miền Nam (SOFRI)",
         "verification_type": "Authoritative Institute"
       }
     ],
@@ -20795,23 +20838,24 @@
     "common_name": "Bưởi Da Xanh Chiết Cành Lùn",
     "scientific_name": "Citrus maxima",
     "aliases": [
-      "Bưởi Da Xanh",
-      "Bưởi Chậu"
+      "Bưởi Da Xanh Bến Tre Chiết",
+      "Bưởi Da Xanh Sân Thượng",
+      "Bưởi Trồng Thùng Phố"
     ],
     "category": "fruit",
-    "description": "Bưởi da xanh là giống bưởi nổi tiếng của đồng bằng sông Cửu Long; cây chiết cành có thể trồng chậu lớn nếu cắt tỉa kiểm soát chiều cao.",
-    "quick_answer": "Bưởi da xanh (Citrus maxima) trồng chậu cần chậu lớn từ 60cm, nắng 6-8 giờ/ngày, đất giàu hữu cơ thoát nước tốt pH 5.5-6.5 và tỉa cành thường xuyên để giữ tán thấp.",
+    "description": "Bưởi Da Xanh là giống bưởi đặc sản trứ danh Nam Bộ với tép bưởi màu hồng tươi mọng nước, vị ngọt thanh không chua đắng và rất ít hạt. Nhờ kỹ thuật chiết cành nhân giống vô tính, cây giữ trọn vẹn đặc tính sai trái và có thể thuần dưỡng phát triển khỏe mạnh trong chậu lớn hoặc thùng phuy cắt nửa trên sân thượng nhà phố.",
+    "quick_answer": "Bưởi Da Xanh chiết cành (Citrus maxima) trồng chậu cần thể tích tối thiểu 80L - 100L, nhận 6-8 giờ nắng trực tiếp mỗi ngày, đất thịt pha sét nhẹ giàu mùn hữu cơ (pH 5.5 - 6.8), bón cân đối NPK hữu cơ và giữ độ ẩm đất ổn định trong thời kỳ nuôi trái.",
     "botanical_details": {
       "family": "Rutaceae (Họ Cửu lý hương / Cam chanh)",
-      "native_range": "Đông Nam Á",
+      "native_range": "Bản địa Đông Nam Á, giống đặc sản Mỏ Cày (Bến Tre, Việt Nam)",
       "active_compounds": [
-        "Vitamin C tự nhiên",
-        "Polyphenol và Flavonoid chống oxy hóa",
-        "Khoáng vi lượng Kali và Magie"
+        "Vitamin C (61mg/100g tép bưởi hồng, hỗ trợ miễn dịch)",
+        "Hesperidin & Naringin (bioflavonoid tự nhiên trong múi và cùi bưởi)",
+        "Tinh dầu bưởi limonene (trong túi tinh dầu vỏ quả xanh)"
       ],
-      "soil_ph": "5.5 - 6.5",
-      "ideal_temp": "22°C - 35°C",
-      "pot_size": "Chậu ≥ 60cm, sâu ≥ 50cm"
+      "soil_ph": "5.8 - 6.8",
+      "ideal_temp": "23°C - 35°C",
+      "pot_size": "Đường kính ≥ 65cm, sâu ≥ 50cm (thể tích 80L - 120L)"
     },
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Pomelo_fruit.jpg",
     "image_sha256": "62b3397f81be3a6a9b14e92bd93a65404953afd1881da3b35f17737e3cb6f4fa",
@@ -20849,28 +20893,33 @@
     "how_to_grow_steps": [
       {
         "step": 1,
-        "title": "Chuẩn bị chậu và giá thể",
-        "instruction": "Chọn chậu lớn đường kính ≥ 60cm, đáy lót sỏi, trộn đất với phân hữu cơ hoai và xơ dừa."
+        "title": "Chọn thùng chậu kích thước lớn và lót đáy",
+        "instruction": "Dùng thùng nhựa tròn 100L hoặc chậu xi măng nhẹ đường kính 65cm. Đục 6-8 lỗ thoát nước xung quanh thành đáy, lót 5cm xỉ than hoặc sỏi nhẹ để bảo vệ bộ rễ khỏi đọng nước."
       },
       {
         "step": 2,
-        "title": "Đặt cây và tưới",
-        "instruction": "Đặt nơi nắng đầy đủ, tưới đều khi đất se mặt, duy trì độ ẩm ổn định lúc nuôi trái."
+        "title": "Phối trộn đất giàu hữu cơ tơi xốp",
+        "instruction": "Trộn 50% đất thịt phù sa màu mỡ + 25% phân chuồng hoai mục (trâu/bò hoặc trùn quế) + 15% trấu hun xơ dừa + 10% nấm đối kháng Trichoderma để phòng trừ tuyến trùng hại rễ."
       },
       {
         "step": 3,
-        "title": "Tỉa và bón phân",
-        "instruction": "Tỉa bớt quả khi quá dày, bón kali hữu cơ giai đoạn nuôi trái và cắt tỉa cành sau thu hoạch."
+        "title": "Xử lý xiết nước kích hoa theo mùa vụ",
+        "instruction": "Khi cành lộc đã thuần thục già lá, ngưng tưới nước 7-10 ngày cho lá hơi rũ xuống rồi tưới đẫm lại kết hợp bón phân lân cao (Super lân hoặc bột xương) để đánh thức mắt nụ hoa bung đều."
+      },
+      {
+        "step": 4,
+        "title": "Tỉa định quả và bón thúc kali hữu cơ",
+        "instruction": "Cây bưởi chậu năm đầu chỉ nên giữ từ 3 đến 5 quả đẹp nhất. Bón thúc dịch chuối ủ trứng sữa và phân trùn quế mỗi tháng để múi bưởi hồng đậm, mọng nước và ngọt giòn."
       }
     ],
     "faqs": [
       {
-        "question": "Bưởi trồng chậu nên giữ mấy trái?",
-        "answer": "Với cây nhỏ trong chậu nên giữ ít trái để cây không kiệt sức; tỉa bớt quả non là cách phổ biến."
+        "question": "Bưởi Da Xanh trồng chậu sân thượng trái có bị sượng khô đầu múi không?",
+        "answer": "Trái chỉ bị sượng nếu giai đoạn trái lớn thiếu nước nghiêm trọng hoặc bón thừa đạm hóa học. Giữ đất luôn ẩm ẩm xốp và bón phân hữu cơ giàu kali sẽ giúp múi bưởi mọng nước ngọt thanh."
       },
       {
-        "question": "Chậu bao nhiêu là đủ cho bưởi?",
-        "answer": "Nên từ 60cm trở lên; chậu nhỏ làm cây còi và khó đậu trái."
+        "question": "Cây bưởi chiết sau bao lâu thì cho thu hoạch trái?",
+        "answer": "Cây chiết cành phát triển nhanh hơn cây ghép, thường bắt đầu đậu quả từ năm thứ 2 trở đi. Nên vặt bỏ bớt hoa năm đầu để cây nuôi dưỡng bộ rễ và tán lá thật khỏe mạnh."
       }
     ],
     "related_plant_ids": [
@@ -20882,12 +20931,18 @@
       {
         "title": "Plants of the World Online - Citrus maxima (Burm.) Merr.",
         "organization": "Royal Botanic Gardens, Kew",
+        "verification_type": "Authoritative Institute",
+        "url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:77180483-1"
+      },
+      {
+        "title": "Quy trình kỹ thuật canh tác bưởi Da Xanh đạt chuẩn VietGAP",
+        "organization": "Viện Cây Ăn Quả Miền Nam (SOFRI)",
         "verification_type": "Authoritative Institute"
       },
       {
-        "title": "Kỹ thuật canh tác cây ăn quả",
-        "organization": "Viện Cây ăn quả miền Nam (SOFRI)",
-        "verification_type": "Authoritative Institute"
+        "title": "Những cây thuốc và vị thuốc Việt Nam - Cây Bưởi",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học"
       }
     ],
     "cultivation_guide": {}
@@ -20898,24 +20953,24 @@
     "common_name": "Hồng Bì (Quất Hồng Bì)",
     "scientific_name": "Clausena lansium",
     "aliases": [
-      "Hoàng Bì",
+      "Hoàng Bì Bắc Bộ",
       "Quất Hồng Bì",
       "Wampee"
     ],
     "category": "fruit",
-    "description": "Hồng bì cho chùm quả nhỏ vàng, vị chua ngọt; quả thường dùng ăn tươi hoặc ngâm theo kinh nghiệm dân gian.",
-    "quick_answer": "Hồng bì (Clausena lansium) là cây ăn quả nhỏ ưa nắng nhẹ đến bán râm, đất thoát nước pH 5.5-7, ra quả theo chùm vào đầu hè; có thể trồng chậu lớn.",
+    "description": "Hồng bì (Hoàng bì) là cây ăn quả mộc mạc đặc trưng của vùng trung du và đồng bằng Bắc Bộ. Cây có hoa trắng li ti đầu xuân và trĩu từng chùm quả màu vàng óng ả vào đầu hè. Quả có vị chua ngọt thanh mát, lớp vỏ mỏng thơm nồng tinh dầu, là thức quà dân dã bổ dưỡng kiêm bài thuốc ngâm mật ong giảm ho đờm quen thuộc trong mỗi gia đình.",
+    "quick_answer": "Hồng bì (Clausena lansium) thích nghi tốt trong chậu từ 50cm, ưa nắng sáng chan hòa đến bán râm nhẹ, đất thịt pha xơ dừa thoát nước tốt (pH 5.5 - 7.0), chịu rét mùa đông miền Bắc và cho quả theo chùm rực rỡ vào khoảng tháng 6 - 7.",
     "botanical_details": {
       "family": "Rutaceae (Họ Cửu lý hương / Cam chanh)",
-      "native_range": "Nam Trung Quốc và Bắc Việt Nam",
+      "native_range": "Nam Trung Hoa và miền Bắc Việt Nam",
       "active_compounds": [
-        "Vitamin C tự nhiên",
-        "Polyphenol và Flavonoid chống oxy hóa",
-        "Khoáng vi lượng Kali và Magie"
+        "Tinh dầu clausenamid tự nhiên trong vỏ quả và lá",
+        "Vitamin C và các axit hữu cơ tự nhiên giải nhiệt",
+        "Alkaloid carbazole và hợp chất phenolic chống viêm"
       ],
       "soil_ph": "5.5 - 7.0",
-      "ideal_temp": "20°C - 33°C",
-      "pot_size": "Chậu ≥ 50cm"
+      "ideal_temp": "18°C - 34°C",
+      "pot_size": "Đường kính 50cm - 60cm, sâu 45cm"
     },
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Clausena_lansium.jpg",
     "image_sha256": "8f48ab4b2ed13b43c67bb9790943558c5b2c2b2df66f1c835c4f682a1f8398b1",
@@ -20953,28 +21008,33 @@
     "how_to_grow_steps": [
       {
         "step": 1,
-        "title": "Chuẩn bị chậu và giá thể",
-        "instruction": "Trồng vào chậu lớn thoát nước tốt, đất giàu mùn."
+        "title": "Chuẩn bị chậu và đất trồng giàu dinh dưỡng",
+        "instruction": "Chọn chậu có đường kính 50-60cm. Trộn đất vườn với 30% xơ dừa trấu mục và 20% phân hữu cơ hoai mục để đảm bảo đất tơi xốp, không bị nén chặt sau thời gian tưới."
       },
       {
         "step": 2,
-        "title": "Đặt cây và tưới",
-        "instruction": "Đặt nơi nắng sáng nhẹ, tưới đều khi đất se mặt."
+        "title": "Bố trí vị trí nắng sáng và tưới nước điều độ",
+        "instruction": "Cây hồng bì ưa nắng sáng dịu đến nắng toàn phần. Tưới nước 1-2 ngày/lần tùy độ ẩm đất, tránh để đất bị khô hạn kéo dài khi cây đang nuôi chùm quả non."
       },
       {
         "step": 3,
-        "title": "Tỉa và bón phân",
-        "instruction": "Tỉa cành sau thu hoạch, bón phân hữu cơ để cây ra hoa đợt sau."
+        "title": "Cắt tỉa cành tăm sau khi thu hái chùm quả",
+        "instruction": "Sau đợt thu hoạch hè (tháng 7), dùng kéo bấm tỉa bỏ các cuống chùm hoa cũ và cành tăm sâu bệnh để cây phục hồi sức sống chuẩn bị bật mầm hoa cho mùa sau."
+      },
+      {
+        "step": 4,
+        "title": "Bón phân hữu cơ vi sinh định kỳ",
+        "instruction": "Bón phân hữu cơ trùn quế quanh mép chậu 2 tháng một lần. Trước mùa ra hoa tháng 2-3, bón bổ sung lân kali hữu cơ để hoa nở đồng loạt và tỷ lệ đậu trái cao."
       }
     ],
     "faqs": [
       {
-        "question": "Hồng bì có phải là cây thuốc không?",
-        "answer": "Trong dân gian quả và lá được dùng theo kinh nghiệm; chưa nên xem như phương thuốc chữa bệnh, cần tham khảo thầy thuốc."
+        "question": "Quả hồng bì ngâm mật ong hay đường phèn trị ho như thế nào?",
+        "answer": "Theo kinh nghiệm dân gian, quả hồng bì rửa sạch bằng nước muối loãng, để ráo nước, khía nhẹ quanh quả rồi ngâm với mật ong nguyên chất hoặc đường phèn theo tỷ lệ 1:1. Sau khoảng 2-3 tuần là có thể dùng siro ngậm dịu cơn rát họng."
       },
       {
-        "question": "Hồng bì trồng chậu được không?",
-        "answer": "Được nếu chậu đủ lớn, đủ ẩm và có thể cắt tỉa tán."
+        "question": "Hồng bì trồng ở miền Nam có ra trái được không?",
+        "answer": "Cây phát triển tốt ở miền Nam nhưng năng suất hoa quả thường cao nhất ở miền Bắc và miền Trung nhờ có giai đoạn thời tiết se lạnh chuyển tiếp kích thích mầm nụ hoa phân hóa."
       }
     ],
     "related_plant_ids": [
@@ -20986,12 +21046,17 @@
       {
         "title": "Plants of the World Online - Clausena lansium (Lour.) Skeels",
         "organization": "Royal Botanic Gardens, Kew",
-        "verification_type": "Authoritative Institute"
+        "verification_type": "Authoritative Institute",
+        "url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:77221239-1"
       },
       {
-        "title": "Kỹ thuật canh tác cây ăn quả",
-        "organization": "Viện Cây ăn quả miền Nam (SOFRI)",
-        "verification_type": "Authoritative Institute"
+        "title": "Những cây thuốc và vị thuốc Việt Nam - Quất Hồng Bì",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học"
+      },
+      {
+        "title": "Flora of China - Clausena lansium",
+        "organization": "Missouri Botanical Garden & Harvard University Herbaria"
       }
     ],
     "cultivation_guide": {}
@@ -21002,23 +21067,24 @@
     "common_name": "Na Dai (Mãng Cầu Ta) Ghép Lùn",
     "scientific_name": "Annona squamosa",
     "aliases": [
-      "Mãng Cầu Ta",
-      "Na Ta"
+      "Na Dai Ghép Lùn",
+      "Mãng Cầu Ta Chậu",
+      "Na Chi Lăng Sân Thượng"
     ],
     "category": "fruit",
-    "description": "Na dai là cây ăn quả nhiệt đới ưa nắng, quả có nhiều mắt, thịt trắng ngọt thơm; trồng chậu cần cắt tỉa giữ tán thấp.",
-    "quick_answer": "Na dai (Annona squamosa) cần nắng đầy đủ, đất thoát nước pH 5.5-7, tưới vừa phải; thụ phấn bổ sung bằng tay có thể giúp tăng tỉ lệ đậu quả ở cây trồng chậu.",
+    "description": "Na Dai (Mãng Cầu Ta) là cây ăn quả nhiệt đới quen thuộc với những mắt quả to căng, thịt quả trắng ngà dai ngọt đậm đà và mùi thơm ngào ngạt khi chín. Cây ghép lùn phân nhánh thấp, dễ khống chế chiều cao dưới 1,5m, là giống cây ăn quả lý tưởng cho các gia đình có ban công hoặc sân thượng nhiều nắng.",
+    "quick_answer": "Na Dai ghép lùn (Annona squamosa) phát triển mạnh trong chậu 50-60cm, cần tối thiểu 6 giờ nắng mỗi ngày, đất tơi xốp thoát nước nhanh (pH 6.0 - 7.5), thụ phấn bổ sung bằng tay vào sáng sớm giúp trái tròn đều không bị méo lệch mắt.",
     "botanical_details": {
-      "family": "Annonaceae (Họ Na)",
-      "native_range": "Vùng nhiệt đới châu Mỹ, trồng phổ biến ở châu Á",
+      "family": "Anacardiaceae (Họ Na / Annonaceae)",
+      "native_range": "Nhiệt đới châu Mỹ, thuần hóa rộng khắp Việt Nam (nổi tiếng Chi Lăng, Tây Ninh)",
       "active_compounds": [
-        "Vitamin C tự nhiên",
-        "Polyphenol và Flavonoid chống oxy hóa",
-        "Khoáng vi lượng Kali và Magie"
+        "Vitamin C (tự nhiên tăng cường đề kháng)",
+        "Kali & Magie (hỗ trợ điều hòa tim mạch và cơ bắp)",
+        "Chất xơ pectin tự nhiên trong thịt quả"
       ],
-      "soil_ph": "5.5 - 7.0",
-      "ideal_temp": "24°C - 35°C",
-      "pot_size": "Chậu ≥ 50cm"
+      "soil_ph": "6.0 - 7.2",
+      "ideal_temp": "22°C - 35°C",
+      "pot_size": "Đường kính 50cm - 60cm, sâu 40cm - 45cm"
     },
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/42/Sugar_apple_on_tree.jpg",
     "image_sha256": "c8f031967774f526b3d8fac6af15fa07ad40001d244f827f7f1228d13e53b101",
@@ -21056,28 +21122,33 @@
     "how_to_grow_steps": [
       {
         "step": 1,
-        "title": "Chuẩn bị chậu và giá thể",
-        "instruction": "Trồng vào chậu lớn, đất tơi xốp có phân hữu cơ hoai."
+        "title": "Chuẩn bị chậu và phối trộn đất thoát nước",
+        "instruction": "Chọn chậu thoát nước tốt. Trộn 45% đất thịt pha cát + 30% xơ dừa trấu hun + 20% phân hữu cơ hoai mục + 5% vôi bột để ổn định pH đất chống nấm hại rễ."
       },
       {
         "step": 2,
-        "title": "Đặt cây và tưới",
-        "instruction": "Đặt nơi nắng đủ, tưới khi đất khô mặt, tránh úng."
+        "title": "Cắt tỉa cành tuốt lá ép hoa nghịch vụ",
+        "instruction": "Vào đầu mùa xuân (hoặc sau đợt thu hoạch quả), cắt ngắn các cành tăm chỉ giữ lại cành nhánh dài 25-30cm, tuốt sạch lá già để kích cây bật lộc hoa đồng loạt từ nách lá."
       },
       {
         "step": 3,
-        "title": "Tỉa và bón phân",
-        "instruction": "Tỉa cành tạo tán, thụ phấn bằng cọ mềm vào sáng sớm khi hoa nở để tăng đậu quả."
+        "title": "Kỹ thuật thụ phấn nhân tạo bằng cọ mềm",
+        "instruction": "Lấy phấn hoa từ những hoa nở xòe buổi chiều (hoa đực), bảo quản trong lọ kín; sáng hôm sau (6-8h) dùng chổi lông cọ mềm chấm hạt phấn đưa vào nhụy hoa hé mở để quả tròn đều mắt to."
+      },
+      {
+        "step": 4,
+        "title": "Bao trái và bón kali thúc ngọt",
+        "instruction": "Bao quả khi mắt na nở rõ để tránh rệp sáp bu kẽ mắt. Bón bổ sung phân trùn quế và kali hữu cơ mỗi 2 tuần giúp cơm na dai chắc ngọt đậm đà."
       }
     ],
     "faqs": [
       {
-        "question": "Vì sao na trồng chậu ít đậu quả?",
-        "answer": "Thường do thiếu nắng hoặc thụ phấn kém; có thể hỗ trợ thụ phấn bằng tay."
+        "question": "Tại sao quả na trồng chậu hay bị méo mó và hạt lép?",
+        "answer": "Hiện tượng na méo lệch mắt là do thụ phấn tự nhiên không đều. Do cấu trúc hoa na nở so le nhị và nhụy, việc thụ phấn nhân tạo bằng chổi cọ mềm vào sáng sớm sẽ giúp 100% mắt quả thụ đều tròn trịa."
       },
       {
-        "question": "Na có cần tưới nhiều không?",
-        "answer": "Không; tưới vừa phải và đủ thoát nước, úng nước làm thối rễ."
+        "question": "Làm thế nào để phòng trị rệp sáp trắng bám vào mắt quả na?",
+        "answer": "Khi quả còn nhỏ, xịt nước áp lực mạnh rửa sạch rệp hoặc phun dung dịch dầu neem hữu cơ / nước rửa chén pha loãng. Bao túi vải chuyên dụng ngay sau đó là giải pháp an toàn hiệu quả nhất."
       }
     ],
     "related_plant_ids": [
@@ -21089,12 +21160,18 @@
       {
         "title": "Plants of the World Online - Annona squamosa L.",
         "organization": "Royal Botanic Gardens, Kew",
-        "verification_type": "Authoritative Institute"
+        "verification_type": "Authoritative Institute",
+        "url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:72251-1"
       },
       {
-        "title": "Kỹ thuật canh tác cây ăn quả",
-        "organization": "Viện Cây ăn quả miền Nam (SOFRI)",
-        "verification_type": "Authoritative Institute"
+        "title": "Sugar Apple Growing in the Florida Home Landscape",
+        "author": "Crane, J. H. et al.",
+        "organization": "University of Florida IFAS Extension",
+        "verification_type": "University Extension"
+      },
+      {
+        "title": "Kỹ thuật thụ phấn nhân tạo tăng tỷ lệ đậu quả Na",
+        "organization": "Viện Nghiên Cứu Rau Quả (FAVRI)"
       }
     ],
     "cultivation_guide": {}
@@ -21105,23 +21182,24 @@
     "common_name": "Chanh Dây Vàng",
     "scientific_name": "Passiflora edulis",
     "aliases": [
-      "Chanh Dây Hoàng Kim",
-      "Mác Mác"
+      "Chanh Leo Vàng",
+      "Chanh Dây Hoàng Kim Đài Loan",
+      "Passion Fruit Vàng"
     ],
     "category": "fruit",
-    "description": "Chanh dây vàng là dây leo ăn quả, che mát giàn và cho quả thơm chua ngọt; cần giàn leo chắc.",
-    "quick_answer": "Chanh dây vàng (Passiflora edulis f. flavicarpa) là dây leo cần giàn, nắng 6 giờ/ngày, đất thoát nước pH 5.5-7, tưới đều và bón đủ kali khi ra hoa.",
+    "description": "Chanh Dây Vàng Hoàng Kim là giống dây leo ăn quả nhiệt đới được ưa chuộng bậc nhất cho giàn che mát sân thượng. Khác với giống chanh dây tím truyền thống, chanh dây vàng có vỏ dày bóng loáng màu vàng tươi, cơm quả ngọt lịm thơm ngát hương ổi xen xoài chín, có thể dùng thìa xúc ăn trực tiếp mà không cần thêm đường.",
+    "quick_answer": "Chanh Dây Vàng (Passiflora edulis f. flavicarpa) phát triển nhanh như vũ bão, cần chậu/thùng tối thiểu 50L kèm giàn leo chắc chắn, nắng đầy đủ 6-8 tiếng/ngày, đất tơi xốp giàu dinh dưỡng (pH 5.5 - 6.8), tưới nước hàng ngày để dây xanh tốt trĩu quả.",
     "botanical_details": {
       "family": "Passifloraceae (Họ Lạc tiên)",
-      "native_range": "Nam Mỹ (Brazil, Paraguay, bắc Argentina)",
+      "native_range": "Bản địa Nam Mỹ (Brazil), thuần hóa chọn lọc giống tại Đài Loan & Tây Nguyên",
       "active_compounds": [
-        "Vitamin C tự nhiên",
-        "Polyphenol và Flavonoid chống oxy hóa",
-        "Khoáng vi lượng Kali và Magie"
+        "Passiflorin (hợp chất tự nhiên trong họ lạc tiên giúp làm dịu thần kinh, hỗ trợ giấc ngủ ngon)",
+        "Vitamin A & C dồi dào trong dịch quả vàng",
+        "Khoáng chất Kali và sắt tự nhiên"
       ],
-      "soil_ph": "5.5 - 7.0",
-      "ideal_temp": "20°C - 32°C",
-      "pot_size": "Chậu/thùng ≥ 50L"
+      "soil_ph": "5.5 - 6.8",
+      "ideal_temp": "18°C - 32°C",
+      "pot_size": "Thùng chậu ≥ 50L - 80L (kèm giàn leo kích thước 2m x 3m)"
     },
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/91/Passiflora_edulis_forma_flavicarpa.jpg",
     "image_sha256": "381289caccec144a520921de72e2df30b1afba9d6c803618ed7a6fc1f8761dc0",
@@ -21159,28 +21237,33 @@
     "how_to_grow_steps": [
       {
         "step": 1,
-        "title": "Chuẩn bị chậu và giá thể",
-        "instruction": "Dựng giàn chắc trước khi trồng; chọn thùng/chậu ≥ 50 lít có lỗ thoát nước."
+        "title": "Chuẩn bị thùng chậu lớn và dựng giàn leo",
+        "instruction": "Dùng thùng nhựa 60-80L đục nhiều lỗ thoát đáy. Dựng giàn leo bằng thép bọc nhựa hoặc dây cáp căng chắc chắn trên sân thượng để chịu được sức nặng của tán dây khi trĩu quả."
       },
       {
         "step": 2,
-        "title": "Đặt cây và tưới",
-        "instruction": "Tưới đều, đặt nơi nắng đủ; hướng dây leo lên giàn."
+        "title": "Bấm ngọn kích thích phân nhánh cấp 1 và cấp 2",
+        "instruction": "Khi dây leo chính vươn lên tới giàn (khoảng 1,5m - 2m), tiến hành bấm ngọn thân chính để kích cây đẻ 4 cành nhánh cấp 1 tỏa đều 4 hướng. Tiếp tục bấm ngọn cành cấp 1 để đẻ cành cấp 2 – đây là cành mang quả chính."
       },
       {
         "step": 3,
-        "title": "Tỉa và bón phân",
-        "instruction": "Bón kali khi ra hoa, cắt tỉa dây già để kích thích đợt hoa mới."
+        "title": "Thụ phấn nhân tạo vào trưa nắng",
+        "instruction": "Hoa chanh dây vàng thường nở từ khoảng 10h sáng đến 14h chiều. Dùng tay hoặc cọ quẹt phấn hoa vàng trên bao phấn nhị đực chấm lên 3 đầu nhụy cái ở giữa hoa để tăng tỷ lệ đậu trái gần như tuyệt đối."
+      },
+      {
+        "step": 4,
+        "title": "Bón bổ sung kali và thu hoạch khi quả rụng tự nhiên",
+        "instruction": "Định kỳ 15 ngày tưới dịch chuối ủ phân trùn quế. Trái chanh dây khi chín vàng đậm hoàn toàn sẽ tự rụng xuống lưới giàn, lúc này trái có độ ngọt đậm và hương thơm nồng nàn nhất."
       }
     ],
     "faqs": [
       {
-        "question": "Chanh dây trồng chậu có được không?",
-        "answer": "Được nếu chậu đủ lớn và có giàn leo chắc chắn."
+        "question": "Chanh dây vàng trồng chậu sau bao lâu thì có trái?",
+        "answer": "Giống chanh dây vàng lớn rất nhanh. Từ khi trồng cây giống cao 40cm, chỉ sau 4 - 6 tháng dây đã phủ kín giàn và bắt đầu trổ hoa đậu quả liên tục trong mùa nắng ấm."
       },
       {
-        "question": "Chanh dây vàng cần bao lâu để có quả?",
-        "answer": "Thường vài tháng đến khoảng nửa năm tùy giống và chăm sóc."
+        "question": "Vì sao chanh dây ra hoa rất nhiều nhưng hoa bị vàng rụng không đậu trái?",
+        "answer": "Do chanh dây vàng có tính tự bất tương dung cao (khó tự thụ phấn nhờ gió) và ong bướm trên tầng cao sân thượng ít. Bạn chỉ cần thụ phấn bổ sung bằng tay lúc 11h trưa là hoa sẽ đậu trái trĩu giàn."
       }
     ],
     "related_plant_ids": [
@@ -21192,12 +21275,18 @@
       {
         "title": "Plants of the World Online - Passiflora edulis Sims",
         "organization": "Royal Botanic Gardens, Kew",
-        "verification_type": "Authoritative Institute"
+        "verification_type": "Authoritative Institute",
+        "url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:675150-1"
       },
       {
-        "title": "Kỹ thuật canh tác cây ăn quả",
-        "organization": "Viện Cây ăn quả miền Nam (SOFRI)",
-        "verification_type": "Authoritative Institute"
+        "title": "Passion Fruit Growing in the Florida Home Landscape",
+        "author": "Crane, J. H. et al.",
+        "organization": "University of Florida IFAS Extension",
+        "verification_type": "University Extension"
+      },
+      {
+        "title": "Kỹ thuật trồng và chăm sóc Chanh Dây chất lượng cao",
+        "organization": "Viện Khoa Học Kỹ Thuật Nông Lâm Nghiệp Tây Nguyên (WASI)"
       }
     ],
     "cultivation_guide": {}
@@ -21208,23 +21297,24 @@
     "common_name": "Vải Thiều Lùn Chiết Cành",
     "scientific_name": "Litchi chinensis",
     "aliases": [
-      "Vải Thiều",
-      "Vải Chậu"
+      "Vải Thiều Cành Chiết",
+      "Vải Lùn Trồng Chậu",
+      "Vải Thiều Thanh Hà Chậu"
     ],
     "category": "fruit",
-    "description": "Vải thiều là đặc sản nổi tiếng của miền Bắc; cây chiết cành trồng chậu cần chậu lớn và điều tiết nước để ra hoa.",
-    "quick_answer": "Vải thiều (Litchi chinensis) ưa nắng, cần mùa lạnh nhẹ và khô để phân hóa mầm hoa; trồng chậu cần chậu lớn, đất thoát nước pH 5.5-6.5 và tỉa cành sau thu hoạch.",
+    "description": "Vải Thiều Thanh Hà là niềm tự hào của nông sản đất Việt với lớp vỏ đỏ mỏng gai mịn, cùi dày trắng ngà mọng nước ngọt sắc và hạt nhỏ như hạt đỗ. Với cây chiết cành sinh trưởng gọn ghẽ, người làm vườn phố có thể thuần dưỡng cây trong chậu lớn trên sân thượng, tận hưởng vẻ đẹp hoa mùa xuân và tự tay thu hái những chùm quả vải đầu hè.",
+    "quick_answer": "Vải Thiều lùn (Litchi chinensis) cần chậu sâu từ 60cm, ưa nắng chan hòa 6-8 tiếng/ngày, đất thịt giàu mùn hữu cơ (pH 5.5 - 6.5), đòi hỏi thời tiết mùa đông có giai đoạn se lạnh nhẹ để phân hóa mầm hoa nở rộ vào đầu xuân.",
     "botanical_details": {
       "family": "Sapindaceae (Họ Bồ hòn)",
-      "native_range": "Nam Trung Quốc và Bắc Việt Nam",
+      "native_range": "Bản địa miền Nam Trung Hoa và miền Bắc Việt Nam (nổi tiếng Thanh Hà, Lục Ngạn)",
       "active_compounds": [
-        "Vitamin C tự nhiên",
-        "Polyphenol và Flavonoid chống oxy hóa",
-        "Khoáng vi lượng Kali và Magie"
+        "Oligonol (polyphenol chuỗi ngắn chống oxy hóa đặc sắc trong quả vải)",
+        "Vitamin C (71.5mg/100g cùi vải, cao hơn cam quýt)",
+        "Đồng, Kali và các axit amin tự nhiên"
       ],
       "soil_ph": "5.5 - 6.5",
-      "ideal_temp": "18°C - 33°C",
-      "pot_size": "Chậu ≥ 60cm"
+      "ideal_temp": "15°C - 33°C (cần giai đoạn ngủ đông lạnh nhẹ dưới 18°C để phân hóa hoa)",
+      "pot_size": "Đường kính ≥ 60cm, sâu ≥ 50cm (thể tích 80L - 100L)"
     },
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/46/Litchi_chinensis_fruits.JPG",
     "image_sha256": "eb4daa49be016bfc708f5c6c4f0c699eca0ed89ca081a0de85431065ad3d9d5f",
@@ -21262,28 +21352,33 @@
     "how_to_grow_steps": [
       {
         "step": 1,
-        "title": "Chuẩn bị chậu và giá thể",
-        "instruction": "Chọn chậu lớn ≥ 60cm, đất giàu mùn thoát nước tốt."
+        "title": "Chọn chậu lớn và giá thể đất thịt màu mỡ",
+        "instruction": "Dùng chậu đường kính từ 60cm trở lên. Phối trộn 50% đất phù sa sông hoặc đất đỏ bazan, 25% phân chuồng hoai mục (bò/trùn quế), 15% trấu hun xơ dừa và 10% sỏi nhẹ lót đáy."
       },
       {
         "step": 2,
-        "title": "Đặt cây và tưới",
-        "instruction": "Tưới đều mùa sinh trưởng, giảm tưới cuối đông để hỗ trợ ra hoa."
+        "title": "Tỉa cành tạo tán tròn hình mâm xôi",
+        "instruction": "Khống chế chiều cao cây ở mức 1,5m - 1,8m. Cắt tỉa cành mọc đứng, giữ các cành mọc ngang tỏa đều giúp ánh sáng chiếu trọn tán lá kích thích chồi quả."
       },
       {
         "step": 3,
-        "title": "Tỉa và bón phân",
-        "instruction": "Tỉa cành sau thu hoạch, bón phân hữu cơ và kali để nuôi quả."
+        "title": "Xiết nước ngủ đông đón rét cuối năm",
+        "instruction": "Vào tháng 11 - 12 âm lịch, hạn chế tối đa việc tưới nước để kìm hãm lộc đông. Thời tiết lạnh khô sẽ kích thích mầm hoa phân hóa mạnh mẽ, trổ hoa rực rỡ vào khoảng tháng 2."
+      },
+      {
+        "step": 4,
+        "title": "Nuôi trái bằng phân hữu cơ và bao chùm quả",
+        "instruction": "Khi quả đậu bằng hạt bắp, tưới ẩm trở lại và bón thúc phân hữu cơ kali. Bao chùm quả bằng túi lưới cước để bảo vệ quả khỏi sâu đục cuống và chim chuột phá hoại."
       }
     ],
     "faqs": [
       {
-        "question": "Vải trồng chậu khó ra hoa vì sao?",
-        "answer": "Vải cần giai đoạn lạnh nhẹ và hơi khô để ra hoa; môi trường nóng ẩm quanh năm làm khó phân hóa mầm hoa."
+        "question": "Cây vải thiều trồng chậu ở miền Nam có ra trái được không?",
+        "answer": "Vải thiều cần điều kiện mùa đông có nền nhiệt lạnh nhẹ (dưới 18-20°C kéo dài vài tuần) để kích thích phân hóa mầm hoa. Ở miền Nam quanh năm nắng ấm, cây vải phát triển lá rất tốt nhưng rất khó phân hóa mầm hoa đậu trái."
       },
       {
-        "question": "Có nên trồng vải ở miền Nam?",
-        "answer": "Có thể sống nhưng khó ra hoa ổn định hơn miền Bắc."
+        "question": "Vải trồng chậu bao lâu thì có hoa quả?",
+        "answer": "Với cây giống chiết cành từ cây bố mẹ đang cho trái khỏe mạnh, cây sẽ bắt đầu bói quả sau khoảng 2 - 3 năm chăm sóc đúng kỹ thuật trong chậu lớn."
       }
     ],
     "related_plant_ids": [
@@ -21295,12 +21390,18 @@
       {
         "title": "Plants of the World Online - Litchi chinensis Sonn.",
         "organization": "Royal Botanic Gardens, Kew",
-        "verification_type": "Authoritative Institute"
+        "verification_type": "Authoritative Institute",
+        "url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:783389-1"
       },
       {
-        "title": "Kỹ thuật canh tác cây ăn quả",
-        "organization": "Viện Cây ăn quả miền Nam (SOFRI)",
-        "verification_type": "Authoritative Institute"
+        "title": "Lychee Growing in the Florida Home Landscape",
+        "author": "Crane, J. H. et al.",
+        "organization": "University of Florida IFAS Extension",
+        "verification_type": "University Extension"
+      },
+      {
+        "title": "Quy trình kỹ thuật canh tác vải thiều theo tiêu chuẩn VietGAP",
+        "organization": "Viện Nghiên Cứu Rau Quả (FAVRI)"
       }
     ],
     "cultivation_guide": {}
@@ -21311,23 +21412,24 @@
     "common_name": "Táo Mèo (Sơn Tra) Tây Bắc",
     "scientific_name": "Docynia indica",
     "aliases": [
-      "Sơn Tra",
-      "Táo Mèo"
+      "Sơn Tra Bản Địa",
+      "Táo Mèo Tây Bắc",
+      "Táo Rừng Sapa"
     ],
     "category": "fruit",
-    "description": "Táo mèo là cây ăn quả vùng núi cao Tây Bắc, hoa trắng nở vào đầu xuân, quả chua chát thường dùng chế biến rượu hoặc trà.",
-    "quick_answer": "Táo mèo (Docynia indica) ưa khí hậu mát vùng núi, cần đất thoát nước pH 5.5-7, ít phù hợp khí hậu nóng ẩm thấp; trồng chậu ở đồng bằng cần che nắng gắt.",
+    "description": "Táo Mèo (Sơn Tra Tây Bắc) là loài cây gỗ nhỏ vùng núi cao mộc mạc kiên cường trước sương gió. Cây nở hoa trắng muốt ngần ngơ vào đầu xuân và cho những chùm quả màu vàng ửng má đào thơm phức vào mùa thu. Quả có vị chua chát giòn tan đặc trưng, là nguyên liệu trứ danh để ngâm rượu mật ong giải mỡ máu và trợ tiêu hóa trong kho tàng dược thảo dân tộc.",
+    "quick_answer": "Táo Mèo (Docynia indica / Docynia delavayi) ưa khí hậu vùng núi mát mẻ thoáng gió, trồng chậu lớn từ 50cm, đất thịt thoát nước tốt (pH 5.5 - 7.0), chịu hạn khá và cần tránh nắng gắt buổi trưa mùa hè khi thuần dưỡng ở vùng đồng bằng.",
     "botanical_details": {
       "family": "Rosaceae (Họ Hoa hồng)",
-      "native_range": "Vùng núi Himalaya, Nam Trung Quốc và Bắc Việt Nam",
+      "native_range": "Vùng núi cao Tây Bắc Việt Nam (Mù Cang Chải, Trạm Tấu, Sơn La, Sapa) và Tây Nam Trung Hoa",
       "active_compounds": [
-        "Vitamin C tự nhiên",
-        "Polyphenol và Flavonoid chống oxy hóa",
-        "Khoáng vi lượng Kali và Magie"
+        "Axit ursolic và Axit oleanolic (axit triterpenoid tự nhiên hỗ trợ bảo vệ mạch máu)",
+        "Flavonoid tự nhiên (chất chống oxy hóa, hỗ trợ hạ mỡ máu và tiêu mỡ tích tụ)",
+        "Axit citric, Axit tartaric và Vitamin C tự nhiên"
       ],
       "soil_ph": "5.5 - 7.0",
-      "ideal_temp": "10°C - 26°C",
-      "pot_size": "Chậu ≥ 50cm"
+      "ideal_temp": "12°C - 28°C (ưa mát mẻ vùng cao)",
+      "pot_size": "Đường kính 50cm - 60cm, sâu 45cm"
     },
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/05/Docynia_delavayi_-_Kunming_Botanical_Garden_-_DSC02819.JPG",
     "image_sha256": "14f968b177dca9c42410555797a7b25dc5862836c5a7e666c9c6213eb70ddba3",
@@ -21365,28 +21467,33 @@
     "how_to_grow_steps": [
       {
         "step": 1,
-        "title": "Chuẩn bị chậu và giá thể",
-        "instruction": "Chọn vị trí mát, chậu lớn thoát nước tốt."
+        "title": "Chuẩn bị giá thể tơi xốp giàu khoáng",
+        "instruction": "Táo mèo quen thuộc với đất đồi núi thoát nước tốt. Trộn 45% đất đồi hoặc đất đỏ bazan với 30% xỉ than/đá pumice, 20% phân hữu cơ hoai mục và 5% vỏ trấu hun."
       },
       {
         "step": 2,
-        "title": "Đặt cây và tưới",
-        "instruction": "Tránh nắng gắt buổi chiều khi trồng ở vùng nóng, tưới đều."
+        "title": "Bố trí nơi thoáng gió và hạ nhiệt mùa hè",
+        "instruction": "Đặt cây nơi có ánh nắng sáng sớm và gió lưu thông tốt. Vào những đợt nắng nóng đỉnh điểm mùa hè (trên 35°C), nên căng lưới đen che bớt 30% nắng gắt để cây không bị héo ngọn non."
       },
       {
         "step": 3,
-        "title": "Tỉa và bón phân",
-        "instruction": "Tỉa nhẹ sau thu hoạch, bón phân hữu cơ hoai."
+        "title": "Tưới nước điều độ giữ ẩm vừa phải",
+        "instruction": "Tưới nước khi đất se khô. Cây chịu hạn khá tốt nhưng rất sợ úng ngập, cần đảm bảo nước thoát hoàn toàn trong vòng vài phút sau khi tưới."
+      },
+      {
+        "step": 4,
+        "title": "Bón phân hữu cơ và thu hoạch quả mùa thu",
+        "instruction": "Bón bổ sung phân trùn quế vào đầu mùa xuân khi cây trổ nụ hoa trắng. Quả táo mèo chín rộ vào khoảng tháng 8 - 10, khi vỏ ngả màu vàng phớt hồng đào thơm ngào ngạt."
       }
     ],
     "faqs": [
       {
-        "question": "Táo mèo có trồng được ở đồng bằng không?",
-        "answer": "Khó hơn vùng núi vì cây ưa khí hậu mát; cần che nắng gắt và chăm kỹ."
+        "question": "Táo mèo trồng ở đồng bằng hay TP.HCM có ra quả được không?",
+        "answer": "Táo mèo là loài cây bản địa vùng núi cao ưa khí hậu mát lạnh. Khi trồng ở vùng đồng bằng nắng nóng quanh năm, cây vẫn sống và sinh trưởng lá nhưng tỷ lệ đậu quả thường thấp hơn nhiều so với vùng cao Tây Bắc."
       },
       {
-        "question": "Quả táo mèo dùng thế nào?",
-        "answer": "Thường dùng chế biến trà, rượu theo kinh nghiệm địa phương; nên dùng vừa phải và hỏi ý kiến thầy thuốc khi dùng như dược liệu."
+        "question": "Quả táo mèo thường dùng làm gì trong ẩm thực và sức khỏe?",
+        "answer": "Quả thường được rửa sạch, thái lát ngâm đường hoặc mật ong làm siro giải khát trợ tiêu hóa, ngâm rượu sơn tra uống khai vị nhẹ, hoặc phơi khô làm vị thuốc sơn tra hạ lipid máu theo y học cổ truyền."
       }
     ],
     "related_plant_ids": [
@@ -21398,12 +21505,17 @@
       {
         "title": "Plants of the World Online - Docynia indica (Wall.) Decne.",
         "organization": "Royal Botanic Gardens, Kew",
-        "verification_type": "Authoritative Institute"
+        "verification_type": "Authoritative Institute",
+        "url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:724578-1"
       },
       {
-        "title": "Kỹ thuật canh tác cây ăn quả",
-        "organization": "Viện Cây ăn quả miền Nam (SOFRI)",
-        "verification_type": "Authoritative Institute"
+        "title": "Những cây thuốc và vị thuốc Việt Nam - Sơn Tra (Táo Mèo)",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học"
+      },
+      {
+        "title": "Flora of China - Docynia",
+        "organization": "Missouri Botanical Garden & Harvard University Herbaria"
       }
     ],
     "cultivation_guide": {}
@@ -21414,23 +21526,24 @@
     "common_name": "Khế Chua Trồng Chậu",
     "scientific_name": "Averrhoa carambola",
     "aliases": [
-      "Khế",
-      "Khế Ngọt"
+      "Khế Chua Bonsai",
+      "Khế Trồng Chậu Cổ Thụ",
+      "Khế Nấu Canh Chua Phố"
     ],
     "category": "fruit",
-    "description": "Khế là cây ăn quả quen thuộc ở Việt Nam, hoa tím nhỏ nở nhiều đợt, quả có năm cạnh dùng nấu canh chua hoặc ăn tươi.",
-    "quick_answer": "Khế (Averrhoa carambola) ưa nắng, đất thoát nước pH 5.5-7, tưới đều; người có bệnh thận cần thận trọng vì quả chứa oxalat.",
+    "description": "Cây Khế Chua là hình ảnh thân thương gắn liền với tuổi thơ và văn hóa sân vườn Việt Nam. Cây có hoa nhỏ màu hồng tím nở chùm thơ mộng quanh năm, quả năm khía vàng ươm mọng nước với vị chua thanh dịu mát dùng nấu canh chua giải nhiệt ngày hè. Khế rất dễ tạo dáng bonsai, sai quả trĩu cành ngay cả trong chậu cảnh ban công.",
+    "quick_answer": "Khế Chua (Averrhoa carambola) rất dễ trồng chậu từ 45cm, ưa nắng chan hòa 5-7 tiếng/ngày, đất tơi xốp giữ ẩm tốt (pH 5.5 - 7.0), cho hoa và trái quanh năm; người có tiền sử bệnh thận cần hạn chế ăn vì quả có chứa hàm lượng oxalat tự nhiên.",
     "botanical_details": {
       "family": "Oxalidaceae (Họ Chua me đất)",
-      "native_range": "Đông Nam Á",
+      "native_range": "Bản địa Đông Nam Á nhiệt đới",
       "active_compounds": [
-        "Vitamin C tự nhiên",
-        "Polyphenol và Flavonoid chống oxy hóa",
-        "Khoáng vi lượng Kali và Magie"
+        "Axit oxalic tự nhiên (tạo vị chua đặc trưng, cần lưu ý người bệnh thận)",
+        "Vitamin C (34mg/100g múi quả khế, tăng sức đề kháng)",
+        "Khoáng chất Canxi, Kali, Phốt pho và chất xơ hòa tan"
       ],
       "soil_ph": "5.5 - 7.0",
       "ideal_temp": "22°C - 35°C",
-      "pot_size": "Chậu ≥ 50cm"
+      "pot_size": "Đường kính 45cm - 55cm, sâu 40cm"
     },
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/62/Averrhoa_carambola_ARS_k5735-7.jpg",
     "image_sha256": "0f47d1be639a04caa553516e7e6e56a4947645c2316f45c1d7c0831c8e159933",
@@ -21467,28 +21580,33 @@
     "how_to_grow_steps": [
       {
         "step": 1,
-        "title": "Chuẩn bị chậu và giá thể",
-        "instruction": "Trồng vào chậu lớn, đất tơi xốp giàu mùn."
+        "title": "Chuẩn bị chậu và đất thịt giàu mùn hữu cơ",
+        "instruction": "Khế ưa đất ẩm mát màu mỡ. Trộn 45% đất phù sa + 30% xơ dừa trấu mục + 25% phân chuồng hoai mục hoặc phân trùn quế, chậu cần có lỗ thoát nước thông suốt."
       },
       {
         "step": 2,
-        "title": "Đặt cây và tưới",
-        "instruction": "Đặt nơi nắng đủ, tưới đều khi đất khô mặt."
+        "title": "Bố trí nơi đủ nắng và tưới giữ ẩm thường xuyên",
+        "instruction": "Đặt chậu nơi có nắng chiếu ít nhất 5 tiếng/ngày. Khế thích ẩm nên cần tưới nước đều đặn mỗi ngày một lần vào sáng sớm, tránh để chậu đất khô nẻ làm rụng chồi hoa."
       },
       {
         "step": 3,
-        "title": "Tỉa và bón phân",
-        "instruction": "Bón phân hữu cơ, tỉa cành giữ tán gọn."
+        "title": "Bấm ngọn kích thích phân nhánh sai hoa",
+        "instruction": "Bấm ngọn các cành vươn dài để kích thích bật chồi hoa tím li ti từ các nách cành già. Khi cây đậu từng chùm quả non, tỉa bớt các quả lép để chùm quả lớn đều mọng nước."
+      },
+      {
+        "step": 4,
+        "title": "Bón phân hữu cơ và thu hái quả vàng mọng",
+        "instruction": "Định kỳ hàng tháng bón dặm một lớp phân trùn quế quanh gốc. Quả khế chuyển từ xanh sang vàng óng 5 khía mọng nước là có thể thu hái nấu canh chua hoặc ăn tươi."
       }
     ],
     "faqs": [
       {
-        "question": "Ai không nên ăn khế?",
-        "answer": "Người có bệnh thận cần thận trọng vì khế chứa oxalat và có thể gây hại cho người suy thận; nên hỏi ý kiến bác sĩ."
+        "question": "Tại sao người suy thận hoặc có sỏi thận cần cẩn trọng khi ăn khế?",
+        "answer": "Quả khế có chứa axit oxalic và hợp chất caramboxin tự nhiên. Ở người bình thường, thận lọc chất này dễ dàng; nhưng ở người suy thận nặng, độc chất tích tụ có thể gây nấc cụt, ngộ độc thần kinh. Người bệnh thận nên tham khảo ý kiến bác sĩ trước khi dùng."
       },
       {
-        "question": "Khế trồng chậu có ra quả không?",
-        "answer": "Có, đặc biệt với cây ghép và đủ nắng."
+        "question": "Khế chua trồng chậu có hay bị rụng hoa quả non không?",
+        "answer": "Khế rất dễ đậu trái nếu đất đủ ẩm. Hoa rụng chủ yếu do thiếu nước trong đợt nắng gắt hoặc tưới nước lạnh đột ngột giữa trưa hè. Chỉ cần giữ ẩm đều mát, khế sẽ đậu quả liên tục quanh năm."
       }
     ],
     "related_plant_ids": [
@@ -21500,7 +21618,19 @@
       {
         "title": "Plants of the World Online - Averrhoa carambola L.",
         "organization": "Royal Botanic Gardens, Kew",
-        "verification_type": "Authoritative Institute"
+        "verification_type": "Authoritative Institute",
+        "url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:642304-1"
+      },
+      {
+        "title": "Carambola Growing in the Florida Home Landscape",
+        "author": "Crane, J. H.",
+        "organization": "University of Florida IFAS Extension",
+        "verification_type": "University Extension"
+      },
+      {
+        "title": "Những cây thuốc và vị thuốc Việt Nam - Cây Khế",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học"
       }
     ],
     "cultivation_guide": {}
@@ -21511,23 +21641,24 @@
     "common_name": "Dừa Xiêm Lùn",
     "scientific_name": "Cocos nucifera",
     "aliases": [
-      "Dừa Dứa",
-      "Dừa Xiêm"
+      "Dừa Dứa Xiêm",
+      "Dừa Thơm Hương Dứa",
+      "Dừa Lùn Bến Tre"
     ],
     "category": "fruit",
-    "description": "Dừa xiêm lùn là giống dừa thấp cây, cho quả sớm và dễ thu hoạch; trồng chậu rất lớn hoặc thùng thích hợp sân thượng chắc chắn.",
-    "quick_answer": "Dừa xiêm lùn (Cocos nucifera) cần nắng đầy đủ, đất tơi xốp thoát nước pH 5.5-7.5, tưới đều và ưa khí hậu nóng ẩm; chậu trồng cần rất lớn.",
+    "description": "Dừa Dứa (Dừa Xiêm Thơm) là giống dừa quý độc đáo của miền Tây Nam Bộ với đặc điểm từ rễ, lá đến nước và cơm dừa đều thoang thoảng hương thơm lá dứa tự nhiên ngào ngạt. Cây thuộc nhóm dừa lùn, thân gốc thấp chỉ trên 1m đã bắt đầu cho buồng quả trĩu trịt, có thể thuần dưỡng trồng trong bồn lớn hoặc thùng phuy 120L trên sân thượng kiên cố.",
+    "quick_answer": "Dừa Dứa xiêm lùn (Cocos nucifera) cần thùng chậu rất lớn (≥ 100L - 150L), nắng chan hòa 7-8 tiếng/ngày, đất giàu cát pha mùn hữu cơ (pH 5.5 - 7.5), tưới đẫm nước hàng ngày và bón bổ sung muối hột định kỳ để nước dừa ngọt đậm đà.",
     "botanical_details": {
-      "family": "Arecaceae (Họ Cau)",
-      "native_range": "Vùng nhiệt đới Ấn Độ - Thái Bình Dương",
+      "family": "Arecaceae (Họ Cau / Dừa)",
+      "native_range": "Đột biến thơm tự nhiên từ dừa Xiêm bản địa Đông Nam Á (nổi tiếng Bến Tre, Thái Lan)",
       "active_compounds": [
-        "Vitamin C tự nhiên",
-        "Polyphenol và Flavonoid chống oxy hóa",
-        "Khoáng vi lượng Kali và Magie"
+        "Hợp chất 2-acetyl-1-pyrroline (tạo hương thơm lá dứa tự nhiên ngào ngạt)",
+        "Điện giải tự nhiên Kali, Natri, Magie trong nước dừa tươi",
+        "Axit lauric tự nhiên trong cơm dừa (axit béo chuỗi trung bình kháng khuẩn)"
       ],
       "soil_ph": "5.5 - 7.5",
-      "ideal_temp": "25°C - 35°C",
-      "pot_size": "Thùng/chậu ≥ 100L"
+      "ideal_temp": "25°C - 36°C (ưa nóng ẩm nhiệt đới)",
+      "pot_size": "Thùng chậu ≥ 100L - 150L (đường kính ≥ 70cm, sâu ≥ 60cm)"
     },
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/32/Cocos_nucifera_-_K%C3%B6hler%E2%80%93s_Medizinal-Pflanzen-187.jpg",
     "image_sha256": "bf7788c8d033ca0b7e92ad61a7fdca2da11145eacb9fa57f321c50e3bbea7aab",
@@ -21564,28 +21695,33 @@
     "how_to_grow_steps": [
       {
         "step": 1,
-        "title": "Chuẩn bị chậu và giá thể",
-        "instruction": "Dùng thùng/chậu rất lớn, đáy thoát nước tốt, trộn đất tơi với xơ dừa và phân hữu cơ."
+        "title": "Chuẩn bị thùng phuy cắt lớn và giá thể giữ ẩm",
+        "instruction": "Dùng thùng phuy nhựa 120L - 150L đục lỗ thoát nước ngang cách đáy 5cm để tạo khoang trữ ẩm. Trộn 45% đất thịt pha cát + 35% xơ dừa trấu mục + 20% phân trùn quế hoai mục."
       },
       {
         "step": 2,
-        "title": "Đặt cây và tưới",
-        "instruction": "Đặt nơi nắng đầy đủ, tưới đều, tránh để khô hạn kéo dài."
+        "title": "Đặt cây giống dừa lùn và cố định rễ gốc",
+        "instruction": "Đặt quả dừa giống đã nảy mầm cao 40-50cm vào giữa thùng, lấp đất ngập 2/3 quả dừa, cắm cọc giữ thân đứng thẳng tránh gió giật trên sân thượng."
       },
       {
         "step": 3,
-        "title": "Tỉa và bón phân",
-        "instruction": "Bón phân định kỳ, cắt bỏ lá già khi khô hoàn toàn."
+        "title": "Tưới nước đẫm hàng ngày và bón muối ăn định kỳ",
+        "instruction": "Dừa rất ưa ẩm. Tưới đẫm nước mỗi ngày một lần. Cứ 3 tháng một lần rắc một nắm nhỏ muối hột (khoảng 20-30g) xa gốc để bổ sung vi lượng khoáng giúp nước dừa ngọt thanh đậm vị."
+      },
+      {
+        "step": 4,
+        "title": "Tỉa bỏ bẹ lá già khô và bón phân hữu cơ",
+        "instruction": "Cắt bỏ các bẹ lá dưới cùng khi đã khô hoàn toàn để cây tập trung dồn sức nuôi buồng hoa. Bón thúc phân hữu cơ định kỳ 2 tháng một lần quanh gốc cây."
       }
     ],
     "faqs": [
       {
-        "question": "Dừa trồng chậu có ra quả không?",
-        "answer": "Có thể với giống lùn nhưng cần chậu rất lớn và nhiều nắng; thường chậm hơn trồng đất."
+        "question": "Dừa dứa trồng trong thùng trên sân thượng bao lâu có quả?",
+        "answer": "Giống dừa xiêm dứa lùn phát triển nhanh, trồng từ cây giống chuẩn sau 3 - 4 năm trong thùng lớn đủ nước và nắng sẽ bắt đầu trổ buồng quả bói đầu tiên."
       },
       {
-        "question": "Sân thượng có chịu được tải trọng không?",
-        "answer": "Thùng đất lớn rất nặng; cần kiểm tra khả năng chịu tải của sàn trước khi đặt."
+        "question": "Làm sao để nhận biết đúng giống Dừa Dứa xịn?",
+        "answer": "Bạn chỉ cần bẻ một mẩu rễ non hoặc bấm nhẹ lá non ngửi thử; giống dừa dứa xịn sẽ tỏa ra mùi thơm lá dứa nếp cực kỳ rõ rệt ngay từ khi cây còn nhỏ."
       }
     ],
     "related_plant_ids": [
@@ -21597,7 +21733,18 @@
       {
         "title": "Plants of the World Online - Cocos nucifera L.",
         "organization": "Royal Botanic Gardens, Kew",
-        "verification_type": "Authoritative Institute"
+        "verification_type": "Authoritative Institute",
+        "url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:666160-1"
+      },
+      {
+        "title": "Kỹ thuật trồng và chăm sóc dừa Xiêm Dứa chuyên canh",
+        "organization": "Viện Nghiên Cứu Dầu Và Cây Có Dầu (IOOP)"
+      },
+      {
+        "title": "Coconut Growing in the Florida Home Landscape",
+        "author": "Broschat, T. K.",
+        "organization": "University of Florida IFAS Extension",
+        "verification_type": "University Extension"
       }
     ],
     "cultivation_guide": {}
@@ -21608,23 +21755,24 @@
     "common_name": "Bơ Booth Trồng Thùng",
     "scientific_name": "Persea americana",
     "aliases": [
-      "Bơ Booth 7",
-      "Bơ Sáp"
+      "Bơ Booth 7 Trồng Chậu",
+      "Bơ Ghép Lùn Thùng Phuy",
+      "Bơ Sáp Ban Công"
     ],
     "category": "fruit",
-    "description": "Bơ Booth là giống bơ cho quả to, thịt dẻo; trồng thùng lớn cần đất thoát nước rất tốt vì rễ bơ nhạy cảm với úng.",
-    "quick_answer": "Bơ (Persea americana) cần đất thoát nước tốt pH 6-7, nắng đủ và tránh úng; trồng trong thùng 100 lít cho phép kiểm soát nước và tán.",
+    "description": "Bơ Booth 7 là một trong những giống bơ ghép năng suất cao và được ưa chuộng bậc nhất hiện nay nhờ lớp vỏ quả xanh bóng dày dễ vận chuyển, cơm bơ vàng ươm dẻo quánh béo ngậy và thời điểm thu hoạch rải muộn vào cuối năm. Cây bơ ghép phát triển tán tròn lùn khỏe khoắn, hoàn toàn có thể thuần dưỡng trong thùng phuy thoát nước cực tốt trên sân thượng.",
+    "quick_answer": "Bơ Booth ghép lùn (Persea americana) cần thùng chậu từ 100L thoát nước tuyệt hảo, nắng chan hòa 6-8 tiếng/ngày, đất cát pha thịt tơi xốp (pH 6.0 - 6.8); tối kỵ nhất là đọng úng nước ở đáy chậu làm thối rễ tơ của cây.",
     "botanical_details": {
       "family": "Lauraceae (Họ Long não)",
-      "native_range": "Trung Mỹ và Mexico",
+      "native_range": "Trung Mỹ và Mexico, giống Booth tuyển chọn thích nghi tuyệt vời tại Tây Nguyên",
       "active_compounds": [
-        "Vitamin C tự nhiên",
-        "Polyphenol và Flavonoid chống oxy hóa",
-        "Khoáng vi lượng Kali và Magie"
+        "Axit oleic (axit béo không no đơn Omega-9 lành mạnh cho tim mạch)",
+        "Lutein và Zeaxanthin (hợp chất carotenoid bảo vệ thị lực)",
+        "Kali tự nhiên (cao hơn 30% so với chuối), Vitamin E và Vitamin K dồi dào"
       ],
-      "soil_ph": "6.0 - 7.0",
-      "ideal_temp": "20°C - 30°C",
-      "pot_size": "Thùng ≥ 100L"
+      "soil_ph": "6.0 - 6.8",
+      "ideal_temp": "18°C - 32°C",
+      "pot_size": "Thùng chậu ≥ 100L (đường kính ≥ 60cm, sâu ≥ 50cm)"
     },
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/f2/Persea_americana_fruit_2.JPG",
     "image_sha256": "069cc1e63d85fd1e7e3c778edc0db3ddd022432e72ec6ad7f0f73e5e9e5becc3",
@@ -21662,28 +21810,33 @@
     "how_to_grow_steps": [
       {
         "step": 1,
-        "title": "Chuẩn bị chậu và giá thể",
-        "instruction": "Dùng thùng 100 lít đục nhiều lỗ thoát nước, trộn đất tơi với xơ dừa, trấu hun và phân hữu cơ."
+        "title": "Đục nhiều lỗ thoát nước và lót đáy đá sỏi dày",
+        "instruction": "Rễ bơ cực kỳ mẫn cảm với úng nước. Dùng thùng nhựa 100L đục 8-10 lỗ thoát nước cả dưới đáy và sát mép thành đáy; lót 7-10cm sỏi nhẹ hoặc đá dăm để nước thoát lập tức."
       },
       {
         "step": 2,
-        "title": "Đặt cây và tưới",
-        "instruction": "Đặt nơi nắng đủ; tưới khi lớp đất sâu 5cm đã khô để tránh úng."
+        "title": "Phối trộn giá thể nhẹ tơi xốp giàu hữu cơ",
+        "instruction": "Trộn 40% đất thịt tơi xốp + 30% đá pumice/perlite hoặc xỉ than + 20% phân trùn quế hoai mục + 10% trấu hun nấm Trichoderma để đất luôn thông thoáng khí."
       },
       {
         "step": 3,
-        "title": "Tỉa và bón phân",
-        "instruction": "Bón phân vi sinh, tỉa cành sau thu hoạch giữ tán gọn."
+        "title": "Kiểm tra độ ẩm đất trước mỗi lần tưới nước",
+        "instruction": "Chỉ tưới nước khi dùng que gỗ cắm sâu 5cm thấy đất se khô ráo. Không bao giờ tưới tràn trề sũng nước liên tục nhiều ngày."
+      },
+      {
+        "step": 4,
+        "title": "Bấm ngọn giữ tán tròn và bón bổ sung kali",
+        "instruction": "Hãm ngọn khi cây cao 1,2m để kích thích phân 4 nhánh chính tỏa tròn. Khi cây ra hoa đậu quả, bón bổ sung phân hữu cơ vi sinh và tro bếp/kali để trái bơ chắc ruột dẻo thơm."
       }
     ],
     "faqs": [
       {
-        "question": "Vì sao bơ trồng thùng dễ chết?",
-        "answer": "Nguyên nhân phổ biến nhất là úng nước và thối rễ; cần đất thoát nước thật tốt."
+        "question": "Tại sao cây bơ trồng trong thùng hay bị héo rũ đen lá từ ngọn?",
+        "answer": "Đây là triệu chứng kinh điển của bệnh thối rễ do nấm Phytophthora khi đất bị bí đọng úng nước. Cần ngưng tưới ngay, thông lại các lỗ thoát nước đáy và tưới nấm đối kháng Trichoderma."
       },
       {
-        "question": "Bơ ghép hay bơ hạt tốt hơn?",
-        "answer": "Bơ ghép cho quả đúng giống và sớm hơn, bơ gieo hạt lâu ra quả và chất lượng không đồng đều."
+        "question": "Bơ trồng thùng bao lâu thì bắt đầu cho trái?",
+        "answer": "Với cây bơ ghép giống chuẩn cao từ 60-80cm, cây trồng trong thùng 100L đủ nắng sẽ bắt đầu bói hoa và cho quả từ năm thứ 3 trở đi."
       }
     ],
     "related_plant_ids": [
@@ -21695,12 +21848,18 @@
       {
         "title": "Plants of the World Online - Persea americana Mill.",
         "organization": "Royal Botanic Gardens, Kew",
-        "verification_type": "Authoritative Institute"
+        "verification_type": "Authoritative Institute",
+        "url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:467812-1"
       },
       {
-        "title": "Kỹ thuật canh tác cây ăn quả",
-        "organization": "Viện Cây ăn quả miền Nam (SOFRI)",
-        "verification_type": "Authoritative Institute"
+        "title": "Avocado Growing in the Florida Home Landscape",
+        "author": "Crane, J. H. et al.",
+        "organization": "University of Florida IFAS Extension",
+        "verification_type": "University Extension"
+      },
+      {
+        "title": "Kỹ thuật trồng và chăm sóc Bơ Booth ghép chất lượng cao",
+        "organization": "Viện Khoa Học Kỹ Thuật Nông Lâm Nghiệp Tây Nguyên (WASI)"
       }
     ],
     "cultivation_guide": {}
@@ -21711,22 +21870,24 @@
     "common_name": "Bàng Đài Loan Cẩm Thạch",
     "scientific_name": "Terminalia mantaly",
     "aliases": [
-      "Bàng Madagascar",
-      "Bàng Tầng"
+      "Bàng Madagascar Cẩm Thạch",
+      "Bàng Lá Nhỏ Cẩm Thạch",
+      "Variegated Madagascar Almond"
     ],
     "category": "ornamental",
-    "description": "Bàng Đài Loan có tán tầng đặc trưng, dạng lá loang viền trắng làm cảnh sân vườn và cây bonsai.",
-    "quick_answer": "Bàng Đài Loan (Terminalia mantaly) ưa nắng, đất thoát nước, tưới vừa phải, phát triển tốt trong khí hậu nóng ẩm; dạng lá loang thường nhỏ và làm cây chậu.",
+    "description": "Bàng Đài Loan Cẩm Thạch (Bàng Madagascar) là một trong những kiểng lá kiến trúc sang trọng và thanh thoát bậc nhất hiện nay. Cây gây ấn tượng mạnh mẽ với các tầng tán mọc ngang đều tăm tắp đối xứng, lá nhỏ li ti viền trắng kem cẩm thạch bừng sáng không gian ban công, sân vườn và sảnh đón đô thị.",
+    "quick_answer": "Bàng Đài Loan Cẩm Thạch (Terminalia mantaly 'Variegata') ưa nắng chan hòa 5-7 tiếng/ngày, trồng chậu lớn từ 45cm, đất tơi xốp giàu dinh dưỡng (pH 5.5 - 7.0), tưới nước điều độ và cắt tỉa nhẹ để duy trì vẻ đẹp phân tầng ngang kiến trúc.",
     "botanical_details": {
       "family": "Combretaceae (Họ Bàng)",
-      "native_range": "Madagascar",
+      "native_range": "Bản địa đảo Madagascar (Đông Phi), giống đột biến cẩm thạch nhân giống phổ biến tại Đông Á",
       "active_compounds": [
-        "Khả năng hấp phụ khí độc trong nhà",
-        "Hợp chất sinh học thực vật tự nhiên"
+        "Tanin thực vật tự nhiên trong vỏ thân và lá",
+        "Flavonoid tự nhiên chống chịu bức xạ mặt trời",
+        "Khả năng cản bụi và giữ ẩm tiểu khí hậu đô thị"
       ],
       "soil_ph": "5.5 - 7.0",
-      "ideal_temp": "22°C - 35°C",
-      "pot_size": "Chậu ≥ 40cm"
+      "ideal_temp": "20°C - 35°C",
+      "pot_size": "Đường kính 45cm - 55cm, sâu 40cm - 45cm"
     },
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/a7/HK_%E6%9D%B1%E6%B6%8C_Tung_Chung_%E8%BF%8E%E7%A6%A7%E8%B7%AF_Ying_Hei_Road_tree_%E5%B0%8F%E8%91%89%E6%AC%96%E4%BB%81_Terminalia_mantaly_March_2022_Px3_03.jpg",
     "image_sha256": "21dbaf37ca98c5b9030fd2193bd43599b768700b25de925ee49fc9298ae6b2c8",
@@ -21764,28 +21925,33 @@
     "how_to_grow_steps": [
       {
         "step": 1,
-        "title": "Chuẩn bị chậu và giá thể",
-        "instruction": "Trồng vào chậu lớn, đất tơi xốp thoát nước."
+        "title": "Chọn chậu thanh nhã và đất trồng màu mỡ",
+        "instruction": "Chọn chậu xi măng mài hoặc gốm sứ trắng đường kính 45-55cm tôn vinh dáng tầng cây. Trộn 50% đất thịt + 25% trấu hun xơ dừa + 25% phân trùn quế hoai mục."
       },
       {
         "step": 2,
-        "title": "Đặt cây và tưới",
-        "instruction": "Cho nắng nhiều, tưới đều và tránh úng."
+        "title": "Đặt nơi đón nắng sáng dồi dào",
+        "instruction": "Cây cực kỳ ưa nắng. Đặt chậu nơi có ánh nắng chiếu trực tiếp từ sáng đến trưa để phiến lá giữ màu cẩm thạch trắng sáng tương phản rõ nét."
       },
       {
         "step": 3,
-        "title": "Tỉa và bón phân",
-        "instruction": "Tỉa cành định kỳ để giữ dáng tầng."
+        "title": "Tưới nước vừa phải tránh ứ đọng đáy",
+        "instruction": "Tưới nước khi đất bề mặt bắt đầu se khô (khoảng 1-2 ngày/lần tùy nhiệt độ). Tránh tưới quá sũng nước liên tục làm thối rễ non."
+      },
+      {
+        "step": 4,
+        "title": "Cắt tỉa duy trì cấu trúc tán tầng đối xứng",
+        "instruction": "Cắt bỏ các cành vượt mọc đâm xiên phá dáng để giữ nguyên vẹn các tầng tán ngang thanh lịch. Bón dặm phân trùn quế 2 tháng một lần quanh gốc cây."
       }
     ],
     "faqs": [
       {
-        "question": "Bàng Đài Loan trồng chậu được không?",
-        "answer": "Được, nên chọn chậu lớn và tỉa cành định kỳ."
+        "question": "Cây Bàng Cẩm Thạch có rụng lá nhiều như bàng ta không?",
+        "answer": "Không. Khác với cây bàng ta lá to rụng trơ trụi mùa đông, bàng lá nhỏ cẩm thạch là cây thường xanh quanh năm, lá rụng rải rác rất ít và lá nhỏ li ti nên dọn dẹp ban công rất sạch sẽ."
       },
       {
-        "question": "Bàng Đài Loan có rụng lá không?",
-        "answer": "Có thể rụng lá theo mùa hoặc khi thiếu nước; tưới đều giúp giảm hiện tượng này."
+        "question": "Cây trồng trong nhà ít nắng có giữ được màu cẩm thạch không?",
+        "answer": "Nếu đặt trong nhà thiếu sáng, lá mới sẽ có xu hướng ngả sang màu xanh nhạt và rụng dần. Cây bắt buộc cần ánh nắng trực tiếp hoặc ánh sáng tự nhiên rất mạnh ở ban công/cửa sổ kính lớn."
       }
     ],
     "related_plant_ids": [
@@ -21797,7 +21963,15 @@
       {
         "title": "Plants of the World Online - Terminalia mantaly H.Perrier",
         "organization": "Royal Botanic Gardens, Kew",
-        "verification_type": "Authoritative Institute"
+        "verification_type": "Authoritative Institute",
+        "url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:170881-1"
+      },
+      {
+        "title": "Tropical Trees for Urban Landscapes - Terminalia mantaly",
+        "organization": "National Parks Board Singapore (NParks)"
+      },
+      {
+        "title": "Hội Sinh Vật Cảnh Việt Nam - Cẩm nang cây cảnh kiến trúc đô thị"
       }
     ],
     "cultivation_guide": {}
@@ -21808,22 +21982,23 @@
     "common_name": "Thiết Mộc Lan (Phát Tài)",
     "scientific_name": "Dracaena fragrans",
     "aliases": [
-      "Phát Tài Gốc",
+      "Thiết Mộc Lan Gốc",
+      "Cây Phát Tài Văn Phòng",
       "Corn Plant"
     ],
     "category": "ornamental",
-    "description": "Thiết mộc lan là cây nội thất phổ biến, dễ sống trong ánh sáng yếu; được nghiên cứu NASA ghi nhận khả năng hấp thụ một số chất ô nhiễm trong phòng thí nghiệm.",
-    "quick_answer": "Thiết mộc lan (Dracaena fragrans) chịu bóng, tưới vừa phải khi đất khô, đất thoát nước; cây độc với chó mèo nếu nuốt phải.",
+    "description": "Thiết Mộc Lan (Phát Tài) là biểu tượng kinh điển của tài lộc, phú quý và sinh khí bình an trong văn hóa Á Đông. Cây có thân gỗ mộc vững chãi, chùm lá dài mọc tỏa tròn xanh bóng có sọc vàng kem ở giữa, đặc biệt nở những chùm hoa trắng thơm nức hương hoa ngâu khi được chăm sóc tốt và đủ tuổi trưởng thành.",
+    "quick_answer": "Thiết Mộc Lan (Dracaena fragrans) chịu bóng râm nội thất cực kỳ xuất sắc, ưa đất tơi xốp thoát nước (pH 6.0 - 6.5), chỉ cần tưới nước 1-2 lần/tuần khi đất khô ráo, được nghiên cứu NASA Clean Air Study ghi nhận khả năng hấp thụ các khí độc bay hơi trong phòng.",
     "botanical_details": {
       "family": "Asparagaceae (Họ Măng tây)",
-      "native_range": "Châu Phi nhiệt đới",
+      "native_range": "Bản địa nhiệt đới châu Phi",
       "active_compounds": [
-        "Khả năng hấp phụ khí độc trong nhà",
-        "Hợp chất sinh học thực vật tự nhiên"
+        "Saponin steroid thực vật tự nhiên",
+        "Khả năng hấp phụ formaldehyde, benzene, trichloroethylene trong buồng thí nghiệm (NASA)"
       ],
-      "soil_ph": "6.0 - 6.5",
-      "ideal_temp": "18°C - 30°C",
-      "pot_size": "Chậu 25-40cm"
+      "soil_ph": "6.0 - 6.8",
+      "ideal_temp": "18°C - 32°C",
+      "pot_size": "Đường kính 30cm - 45cm, sâu 35cm"
     },
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/db/Dracaena_fragrans_%282%29.jpg",
     "image_sha256": "c65df146cc860c08d2059d9f575b04a58ae3527fc438d7dd0f6bafa5ddca6322",
@@ -21862,28 +22037,33 @@
     "how_to_grow_steps": [
       {
         "step": 1,
-        "title": "Chuẩn bị chậu và giá thể",
-        "instruction": "Trồng vào chậu có lỗ thoát nước, dùng giá thể tơi xốp."
+        "title": "Trồng vào chậu thoát nước tốt",
+        "instruction": "Chọn chậu có lỗ thoát đáy lớn. Phối trộn đất thịt với 30% xơ dừa trấu mục và 20% phân trùn quế hoai mục để giá thể thoáng khí bảo vệ gốc cây."
       },
       {
         "step": 2,
-        "title": "Đặt cây và tưới",
-        "instruction": "Đặt nơi sáng gián tiếp, tưới khi đất khô một phần ba."
+        "title": "Bố trí ánh sáng gián tiếp trong nhà",
+        "instruction": "Đặt cây nơi có ánh sáng tự nhiên dịu nhẹ như cạnh cửa sổ, giếng trời hoặc phòng khách có ánh đèn sáng. Tránh phơi nắng gắt trực tiếp giữa trưa làm cháy xém phiến lá."
       },
       {
         "step": 3,
-        "title": "Tỉa và bón phân",
-        "instruction": "Lau lá định kỳ và tránh tưới úng."
+        "title": "Tưới nước thưa nhưng đẫm",
+        "instruction": "Chỉ tưới khi lớp đất mặt sâu 3-4cm đã khô ráo (khoảng 5-7 ngày/lần trong phòng máy lạnh). Tưới chậm cho nước ngấm đều và đổ bỏ nước thừa đọng ở đĩa lót."
+      },
+      {
+        "step": 4,
+        "title": "Lau bụi bề mặt lá và cắt tỉa lá già",
+        "instruction": "Định kỳ dùng khăn ẩm lau sạch bụi bám trên mặt lá để cây quang hợp tốt và giữ màu lá xanh bóng. Dùng kéo tỉa bớt các bẹ lá già khô ở phần gốc thân."
       }
     ],
     "faqs": [
       {
-        "question": "Thiết mộc lan có độc với thú cưng không?",
-        "answer": "Có, theo ASPCA cây có thể gây nôn và chảy dãi ở chó mèo; nên để xa tầm với."
+        "question": "Thiết Mộc Lan có độc với thú cưng (chó, mèo) không?",
+        "answer": "Theo cơ sở dữ liệu ASPCA Animal Poison Control, cây chứa saponin có thể gây nôn ói, chảy dãi hoặc tiêu chảy nhẹ nếu chó mèo cắn nhai nhiều lá. Nên đặt cây nơi thú cưng không dễ cắn phá."
       },
       {
-        "question": "Cây có thực sự lọc không khí trong nhà?",
-        "answer": "NASA Clean Air Study (1989) ghi nhận ở buồng thí nghiệm; hiệu quả ngoài đời thực với lượng cây thông thường còn hạn chế."
+        "question": "Làm sao để cây Thiết Mộc Lan nở hoa thơm ngát?",
+        "answer": "Để cây ra hoa, cây cần được đặt nơi có ánh sáng tự nhiên tốt (như ban công hoặc giếng trời), bón phân lân kali hữu cơ vào mùa thu và giảm tưới nhẹ vào đầu mùa đông để kích mầm hoa."
       }
     ],
     "related_plant_ids": [
@@ -21895,13 +22075,18 @@
       {
         "title": "Plants of the World Online - Dracaena fragrans (L.) Ker Gawl.",
         "organization": "Royal Botanic Gardens, Kew",
-        "verification_type": "Authoritative Institute"
+        "verification_type": "Authoritative Institute",
+        "url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:534241-1"
       },
       {
         "title": "Interior Landscape Plants for Indoor Air Pollution Abatement (NASA Clean Air Study)",
-        "author": "Wolverton, B.C. et al.",
-        "organization": "NASA, 1989",
+        "author": "Wolverton, B. C. et al.",
+        "organization": "NASA Stennis Space Center, 1989",
         "verification_type": "Government Research"
+      },
+      {
+        "title": "Toxic and Non-Toxic Plants List - Corn Plant (Dracaena)",
+        "organization": "ASPCA Animal Poison Control Center"
       }
     ],
     "cultivation_guide": {}
@@ -21912,22 +22097,23 @@
     "common_name": "Trầu Bà Lỗ (Monkey Mask)",
     "scientific_name": "Monstera adansonii",
     "aliases": [
-      "Monkey Mask",
-      "Trầu Bà Lá Thủng"
+      "Trầu Bà Lá Thủng",
+      "Monkey Mask Plant",
+      "Monstera Adansonii Chậu"
     ],
     "category": "ornamental",
-    "description": "Dây leo có lá thủng lỗ đặc trưng, ưa ẩm và sáng gián tiếp, thích hợp chậu treo.",
-    "quick_answer": "Trầu bà lỗ (Monstera adansonii) ưa sáng gián tiếp, độ ẩm khá, đất thoát nước; nhựa cây chứa tinh thể canxi oxalat gây kích ứng nếu nhai.",
+    "description": "Trầu Bà Lỗ (Monkey Mask) là loài kiểng lá Aroid nhiệt đới gây sốt toàn cầu nhờ những phiến lá hình trái tim có những lỗ thủng tự nhiên mềm mại độc đáo. Cây có dạng thân leo hoặc rủ chậu treo duyên dáng, sinh trưởng nhanh khỏe, mang đậm hơi thở rừng mưa nhiệt đới vào không gian bàn làm việc, kệ sách và quán cà phê.",
+    "quick_answer": "Trầu Bà Lỗ (Monstera adansonii) cực kỳ ưa bóng râm và ánh sáng tán xạ gián tiếp, đất tơi xốp thoáng khí giàu mùn (pH 5.5 - 7.0), độ ẩm không khí cao, tưới giữ ẩm nhẹ 2-3 ngày/lần, cho leo trụ dớn rêu sẽ giúp lá phát triển to gấp đôi và lỗ thủng nở rõ nét.",
     "botanical_details": {
       "family": "Araceae (Họ Ráy)",
-      "native_range": "Trung và Nam Mỹ",
+      "native_range": "Rừng mưa nhiệt đới Trung và Nam Mỹ",
       "active_compounds": [
-        "Khả năng hấp phụ khí độc trong nhà",
-        "Hợp chất sinh học thực vật tự nhiên"
+        "Tinh thể Canxi oxalat không tan (tự nhiên trong họ Ráy để chống động vật ăn cỏ)",
+        "Khả năng giải phóng hơi ẩm tự nhiên thanh lọc không gian nội thất"
       ],
       "soil_ph": "5.5 - 7.0",
       "ideal_temp": "18°C - 30°C",
-      "pot_size": "Chậu 15-25cm"
+      "pot_size": "Đường kính 18cm - 28cm (chậu treo hoặc chậu đứng có trụ dớn)"
     },
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Monstera_adansonii_79319231.jpg",
     "image_sha256": "ae12a2aef03b98be617c3bb906a1cc8c5343658fc54060efa819bce744fe46a3",
@@ -21965,28 +22151,33 @@
     "how_to_grow_steps": [
       {
         "step": 1,
-        "title": "Chuẩn bị chậu và giá thể",
-        "instruction": "Dùng chậu có lỗ thoát nước và giá thể tơi xốp."
+        "title": "Chuẩn bị giá thể chuyên dụng cho kiểng lá Aroid",
+        "instruction": "Rễ trầu bà rất cần không khí. Trộn 40% vỏ thông vụn/xơ dừa cục + 30% đá perlite/pumice + 20% phân trùn quế + 10% trấu hun để giá thể siêu thoáng xốp không bao giờ bị nén."
       },
       {
         "step": 2,
-        "title": "Đặt cây và tưới",
-        "instruction": "Đặt nơi sáng gián tiếp, giữ ẩm vừa phải."
+        "title": "Bố trí nơi sáng gián tiếp mát mẻ",
+        "instruction": "Đặt cây nơi có ánh sáng tán xạ 70-80% như cạnh cửa sổ rèm che hoặc giếng trời. Tuyệt đối không phơi trực tiếp dưới nắng gắt trưa hè vì sẽ làm cháy thủng phiến lá non."
       },
       {
         "step": 3,
-        "title": "Tỉa và bón phân",
-        "instruction": "Cho leo cột rêu để lá to và lỗ rõ hơn."
+        "title": "Lắp trụ dớn rêu giữ ẩm cho rễ khí sinh",
+        "instruction": "Cắm một trụ rêu dớn hoặc xơ dừa vào giữa chậu và cố định dây leo vào trụ. Phun sương ẩm vào trụ rêu hàng ngày để rễ khí sinh bám chặt hút ẩm nuôi lá to dày."
+      },
+      {
+        "step": 4,
+        "title": "Tưới nước kiểm soát và bón phân lá hữu cơ",
+        "instruction": "Tưới khi 1/3 đất trên khô se. Định kỳ mỗi 2 tuần xịt phân bón lá hữu cơ hoặc dịch rong biển pha loãng để lá bóng mượt và đẻ nhánh lộc non liên tục."
       }
     ],
     "faqs": [
       {
-        "question": "Trầu bà lỗ có độc không?",
-        "answer": "Có, cây chứa canxi oxalat có thể gây kích ứng miệng; tránh để trẻ em và thú cưng nhai."
+        "question": "Tại sao lá trầu bà lỗ mới mọc ra lại không có lỗ thủng?",
+        "answer": "Khi cây còn quá non hoặc cây bị đặt ở vị trí quá tối thiếu sáng, lá mới mọc sẽ tròn nhỏ và không có lỗ thủng. Di chuyển cây ra nơi sáng gián tiếp mạnh hơn và cho cây leo trụ rêu, lá mới sẽ xẻ lỗ to rõ tuyệt đẹp."
       },
       {
-        "question": "Vì sao lá không có lỗ?",
-        "answer": "Thiếu sáng hoặc cây còn non; cho thêm sáng gián tiếp và cho leo giá đỡ."
+        "question": "Cây trầu bà lỗ có an toàn với trẻ nhỏ và thú cưng không?",
+        "answer": "Giống như hầu hết cây họ Ráy, lá và thân chứa tinh thể canxi oxalat gây cay ngứa rát miệng nếu lỡ nhai phải. Nên treo chậu lên cao hoặc đặt trên kệ sách xa tầm với của trẻ nhỏ và thú nuôi."
       }
     ],
     "related_plant_ids": [
@@ -21998,7 +22189,16 @@
       {
         "title": "Plants of the World Online - Monstera adansonii Schott",
         "organization": "Royal Botanic Gardens, Kew",
-        "verification_type": "Authoritative Institute"
+        "verification_type": "Authoritative Institute",
+        "url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:87467-1"
+      },
+      {
+        "title": "International Aroid Society (IAS) - Monstera Cultivation Guide",
+        "organization": "International Aroid Society"
+      },
+      {
+        "title": "RHS Gardening - Monstera adansonii (Swiss Cheese Plant)",
+        "organization": "Royal Horticultural Society"
       }
     ],
     "cultivation_guide": {}
@@ -22009,23 +22209,24 @@
     "common_name": "Mộc Hương (Quế Hoa)",
     "scientific_name": "Osmanthus fragrans",
     "aliases": [
-      "Quế Hoa",
-      "Hoa Mộc",
+      "Mộc Hương Ta",
+      "Hoa Quế Hoa",
       "Sweet Osmanthus"
     ],
     "category": "ornamental",
-    "description": "Hoa nhỏ thơm nồng, nở cuối thu; được trồng làm cảnh và dùng làm hương liệu trà ở Đông Á.",
-    "quick_answer": "Mộc hương (Osmanthus fragrans) ưa nắng nhẹ đến bán râm, đất thoát nước hơi chua pH 5.5-6.5, thích hợp khí hậu mát và có thể trồng chậu lớn.",
+    "description": "Mộc Hương Ta (Quế Hoa) là loài hoa cây cảnh cổ truyền thanh cao bậc nhất với câu ca xưa \"Sắc trà hương mộc\". Cây có hoa nhỏ màu trắng ngà hoặc vàng nhạt mọc thành từng chùm li ti, tỏa ra làn hương thơm ngọt ngào quý phái lan tỏa khắp sân vườn. Cây trường thọ, lá xanh quanh năm, hoa nở rải rác nhiều đợt từ mùa thu sang xuân.",
+    "quick_answer": "Mộc Hương (Osmanthus fragrans) ưa nắng sáng dịu đến bán râm nhẹ, trồng chậu từ 40cm, đất tơi xốp giàu mùn hơi chua nhẹ (pH 5.5 - 6.5), thoát nước tốt, ưa khí hậu mát mẻ và tỏa hương thơm nồng nàn quyến rũ nhất vào những ngày trời se lạnh.",
     "botanical_details": {
-      "family": "Oleaceae (Họ Ô liu)",
-      "native_range": "Nam Trung Quốc và vùng Himalaya",
+      "family": "Oleaceae (Họ Ô liu / Nhài)",
+      "native_range": "Dãy Himalaya, miền Nam Trung Hoa và miền núi phía Bắc Việt Nam",
       "active_compounds": [
-        "Khả năng hấp phụ khí độc trong nhà",
-        "Hợp chất sinh học thực vật tự nhiên"
+        "Tinh dầu ionone, linalool và geraniol (hương thơm thanh khiết giúp thư giãn tinh thần)",
+        "Polyphenol và flavonoid tự nhiên chống oxy hóa",
+        "Axit oleanolic tự nhiên trong lá và hoa"
       ],
       "soil_ph": "5.5 - 6.5",
-      "ideal_temp": "10°C - 28°C",
-      "pot_size": "Chậu ≥ 40cm"
+      "ideal_temp": "15°C - 30°C (ưa mát mẻ)",
+      "pot_size": "Đường kính 40cm - 50cm, sâu 40cm"
     },
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Osmanthus_fragrans_%28orange_flowers%29.jpg",
     "image_sha256": "09e45f2f5aa29f2dc9f587ed32d95360c0f200e0cb253f172a3f36f1aa34d72f",
@@ -22063,28 +22264,33 @@
     "how_to_grow_steps": [
       {
         "step": 1,
-        "title": "Chuẩn bị chậu và giá thể",
-        "instruction": "Trồng vào chậu lớn, đất thoát nước hơi chua."
+        "title": "Chuẩn bị đất chua nhẹ giàu dinh dưỡng",
+        "instruction": "Mộc hương kỵ đất kiềm và đất đọng úng. Trộn 50% đất thịt màu mỡ pha cát + 30% xơ dừa trấu mục + 20% phân trùn quế hoai mục, đáy chậu lót sỏi nhẹ thoát nước."
       },
       {
         "step": 2,
-        "title": "Đặt cây và tưới",
-        "instruction": "Cho nắng nhẹ, tránh nắng gắt; tưới đều."
+        "title": "Đặt nơi đón nắng sáng sớm mát mẻ",
+        "instruction": "Cây ưa ánh nắng buổi sáng nhưng sợ nắng gắt gay gắt buổi trưa hè. Đặt chậu hướng Đông hoặc dưới tán cây lớn/ban công có mái che để lá không bị cháy đầu chóp."
       },
       {
         "step": 3,
-        "title": "Tỉa và bón phân",
-        "instruction": "Tỉa nhẹ sau mùa hoa để giữ tán."
+        "title": "Tưới nước vừa phải giữ ẩm bề mặt",
+        "instruction": "Tưới nước khi lớp đất mặt se khô ráo. Dùng nước mưa hoặc nước máy để lắng bay clo vì cây mộc hương khá nhạy cảm với phèn mặn."
+      },
+      {
+        "step": 4,
+        "title": "Tỉa cành sau mùa hoa và bón thúc hữu cơ",
+        "instruction": "Sau mỗi đợt hoa nở tàn, bấm tỉa nhẹ đầu cành để kích thích cây bật đợt lộc mới. Bón bổ sung phân trùn quế hoặc phân hữu cơ ủ đậu tương để cây tích lũy dinh dưỡng cho đợt hoa kế tiếp."
       }
     ],
     "faqs": [
       {
-        "question": "Mộc hương trồng ở miền Nam được không?",
-        "answer": "Cây ưa khí hậu mát nên khó ra hoa nhiều ở vùng nóng; cần che nắng gắt."
+        "question": "Làm sao để phân biệt Mộc Hương Ta và Mộc Hương Tàu?",
+        "answer": "Mộc Hương Ta có lá dày, viền lá có răng cưa nhỏ đều, gân lá nổi rõ và hoa thơm nồng nàn đậm đà lan xa. Mộc Hương Tàu lá mỏng to hơn, viền lá ít răng cưa và hương thơm nhạt thoáng qua."
       },
       {
-        "question": "Hoa mộc dùng làm trà được không?",
-        "answer": "Hoa được dùng làm trà ở Đông Á; chỉ dùng hoa trồng không phun thuốc."
+        "question": "Hoa mộc hương có dùng ướp trà được không?",
+        "answer": "Hoa mộc hương ta tự trồng hữu cơ sạch hoàn toàn dùng để ướp trà xanh hoặc nấu chè quế hoa thơm ngon tuyệt vời, giúp thư giãn tinh thần và làm ấm cổ họng rất tốt."
       }
     ],
     "related_plant_ids": [
@@ -22096,7 +22302,17 @@
       {
         "title": "Plants of the World Online - Osmanthus fragrans Lour.",
         "organization": "Royal Botanic Gardens, Kew",
-        "verification_type": "Authoritative Institute"
+        "verification_type": "Authoritative Institute",
+        "url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:610817-1"
+      },
+      {
+        "title": "Những cây thuốc và vị thuốc Việt Nam - Quế Hoa (Hoa Mộc)",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học"
+      },
+      {
+        "title": "Flora of China - Osmanthus fragrans",
+        "organization": "Missouri Botanical Garden & Harvard University Herbaria"
       }
     ],
     "cultivation_guide": {}
@@ -22107,22 +22323,24 @@
     "common_name": "Hoa Trà My",
     "scientific_name": "Camellia japonica",
     "aliases": [
-      "Trà Mi",
-      "Camellia"
+      "Trà My Cung Đình",
+      "Trà My Bát Diện",
+      "Japanese Camellia"
     ],
     "category": "ornamental",
-    "description": "Trà my nở hoa lớn rực rỡ vào mùa lạnh, được trồng làm cảnh từ lâu đời.",
-    "quick_answer": "Trà my (Camellia japonica) ưa bóng bán phần, đất chua pH 5.5-6.5 giàu mùn, khí hậu mát; nóng gắt làm rụng nụ.",
+    "description": "Hoa Trà My là đệ nhất hoa kiểng mùa đông xuân với danh ngôn bất hủ \"Vua chơi lan, quan chơi trà\". Cây có hoa to lộng lẫy nhiều tầng cánh xếp lớp đối xứng hoàn hảo như nhung lụa, lá xanh đậm dày bóng mỡ màng, nở rực rỡ đúng vào dịp Tết Nguyên Đán tượng trưng cho sự phú quý, thanh cao và trường tồn vĩnh cửu.",
+    "quick_answer": "Hoa Trà My (Camellia japonica) là loài kiểng ưa bóng râm mát và đất chua (pH 5.0 - 5.8), chậu trồng từ 40cm thoát nước tốt, ưa độ ẩm không khí cao, rất sợ nắng gắt trực tiếp và đòi hỏi nhiệt độ mát mẻ (15°C - 26°C) để hoa nở bền đẹp.",
     "botanical_details": {
       "family": "Theaceae (Họ Chè)",
-      "native_range": "Đông Á (Nhật Bản, Triều Tiên, Nam Trung Quốc)",
+      "native_range": "Đông Á (Nhật Bản, Hàn Quốc, Nam Trung Hoa, vùng núi cao Việt Nam)",
       "active_compounds": [
-        "Khả năng hấp phụ khí độc trong nhà",
-        "Hợp chất sinh học thực vật tự nhiên"
+        "Polyphenol catechin và theanine tự nhiên trong lá và nụ",
+        "Camellioside tự nhiên chống oxy hóa",
+        "Dầu hạt trà giàu axit oleic dưỡng ẩm cao"
       ],
-      "soil_ph": "5.5 - 6.5",
-      "ideal_temp": "8°C - 26°C",
-      "pot_size": "Chậu ≥ 40cm"
+      "soil_ph": "5.0 - 5.8 (đất chua nhẹ đặc trưng)",
+      "ideal_temp": "15°C - 26°C (ưa khí hậu mát mẻ)",
+      "pot_size": "Đường kính 40cm - 50cm, sâu 35cm - 40cm"
     },
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/03/Camellia_japonica_%27Pink_Perfection%27.jpg",
     "image_sha256": "a772c74d1c58ff3c6213547b24dcf5a7e3d285162e88114d269c462680caa926",
@@ -22160,28 +22378,33 @@
     "how_to_grow_steps": [
       {
         "step": 1,
-        "title": "Chuẩn bị chậu và giá thể",
-        "instruction": "Chọn chậu lớn, dùng đất chua giàu mùn thoát nước."
+        "title": "Chuẩn bị đất chua chuyên dụng giàu mùn",
+        "instruction": "Trà my bắt buộc cần đất chua nhẹ. Trộn 45% đất đồi chua hoặc đất phù sa không vôi + 30% xỉ than đập vụn/đá perlite + 20% phân trùn quế + 5% bã trà ủ hoai mục để duy trì pH 5.0 - 5.5."
       },
       {
         "step": 2,
-        "title": "Đặt cây và tưới",
-        "instruction": "Đặt nơi sáng nhẹ, tránh nắng gắt; giữ ẩm đều không úng."
+        "title": "Đặt nơi râm mát thoáng gió tránh nắng gắt",
+        "instruction": "Cây cực kỳ sợ nắng trưa trực tiếp. Đặt chậu ở ban công hướng Đông có rèm che hoặc dưới tán cây lớn nơi có ánh sáng tán xạ 60-70% mát mẻ."
       },
       {
         "step": 3,
-        "title": "Tỉa và bón phân",
-        "instruction": "Tỉa nhẹ sau khi hoa tàn, bón phân cho cây ưa chua."
+        "title": "Tưới nước mềm và duy trì độ ẩm không khí",
+        "instruction": "Tưới nước khi đất bề mặt khô se. Không dùng nước cứng chứa nhiều vôi; nên dùng nước mưa hoặc nước lọc để tưới và phun sương ẩm quanh tán cây trong mùa khô."
+      },
+      {
+        "step": 4,
+        "title": "Tỉa bớt nụ dồn sức nuôi hoa to dịp Tết",
+        "instruction": "Khi cây đóng nhiều nụ dày đặc vào mùa thu, tỉa bỏ bớt các nụ nhỏ chỉ giữ 1-2 nụ mập nhất mỗi đầu cành để hoa khi nở đạt kích thước cực đại và bền cánh trên 2 tuần."
       }
     ],
     "faqs": [
       {
-        "question": "Vì sao trà my rụng nụ?",
-        "answer": "Thường do nóng, khô hoặc tưới thất thường; cần giữ mát và ẩm đều."
+        "question": "Tại sao cây trà my hay bị rụng nụ hàng loạt trước khi nở?",
+        "answer": "Hiện tượng rụng nụ trà my thường do 3 nguyên nhân: đất bị đọng úng nước làm nghẹt rễ, đất thiếu độ chua (bị kiềm hóa do nước tưới), hoặc do thay đổi vị trí chậu đột ngột khi cây đang ấp nụ hoa."
       },
       {
-        "question": "Trà my trồng ở đồng bằng nóng được không?",
-        "answer": "Khó; cần vị trí mát hoặc vùng cao."
+        "question": "Trà my trồng ở miền Nam nóng có ra hoa đẹp được không?",
+        "answer": "Trà my ưa khí hậu mát mẻ vùng cao (Đà Lạt, miền Bắc). Ở miền Nam nắng nóng, cần đặt cây trong phòng mát có giếng trời, che râm kỹ và xịt phun sương hạ nhiệt thì cây mới có thể nở hoa trọn vẹn."
       }
     ],
     "related_plant_ids": [
@@ -22193,7 +22416,16 @@
       {
         "title": "Plants of the World Online - Camellia japonica L.",
         "organization": "Royal Botanic Gardens, Kew",
-        "verification_type": "Authoritative Institute"
+        "verification_type": "Authoritative Institute",
+        "url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:828543-1"
+      },
+      {
+        "title": "International Camellia Society (ICS) - Camellia Culture & Care",
+        "organization": "International Camellia Society"
+      },
+      {
+        "title": "RHS Plants - Camellia japonica Growing Guide",
+        "organization": "Royal Horticultural Society"
       }
     ],
     "cultivation_guide": {}
@@ -22204,22 +22436,23 @@
     "common_name": "Trúc Nhật Đốm Vàng",
     "scientific_name": "Dracaena surculosa",
     "aliases": [
-      "Phất Dụ Đốm",
+      "Trúc Nhật Vàng",
+      "Phất Dụ Đốm Sao",
       "Gold Dust Dracaena"
     ],
     "category": "ornamental",
-    "description": "Cây bụi nội thất lá đốm vàng kem, chịu bóng tốt, dễ chăm.",
-    "quick_answer": "Dracaena surculosa chịu bóng, tưới vừa khi đất khô, đất thoát nước pH 6-6.5; cây có thể gây hại cho thú cưng nếu ăn phải.",
+    "description": "Trúc Nhật Đốm Vàng là loài cây kiểng bụi thanh nhã với các lóng thân mảnh mai như cành trúc nhỏ, phiến lá bầu dục màu xanh thẫm điểm xuyết hàng trăm chấm sao màu vàng kem rực rỡ. Cây mang vẻ đẹp sinh khí tươi tắn, chịu bóng râm nội thất cực kỳ bền bỉ và hầu như rất ít bị sâu bệnh phá hoại.",
+    "quick_answer": "Trúc Nhật Đốm Vàng (Dracaena surculosa) chịu bóng râm và sống trong nhà rất bền, chậu trồng từ 25-35cm, đất tơi xốp thoát nước (pH 6.0 - 6.8), tưới nước vừa phải 1-2 lần/tuần, phù hợp để bàn phòng khách, giếng trời hoặc ban công chung cư.",
     "botanical_details": {
       "family": "Asparagaceae (Họ Măng tây)",
-      "native_range": "Tây Phi nhiệt đới",
+      "native_range": "Rừng mưa nhiệt đới Tây Phi",
       "active_compounds": [
-        "Khả năng hấp phụ khí độc trong nhà",
-        "Hợp chất sinh học thực vật tự nhiên"
+        "Saponin thực vật tự nhiên trong họ Huyết giác",
+        "Khả năng lọc bụi mịn và điều hòa độ ẩm không khí nội thất"
       ],
-      "soil_ph": "6.0 - 6.5",
-      "ideal_temp": "18°C - 30°C",
-      "pot_size": "Chậu 20-30cm"
+      "soil_ph": "6.0 - 6.8",
+      "ideal_temp": "18°C - 32°C",
+      "pot_size": "Đường kính 25cm - 35cm, sâu 25cm - 30cm"
     },
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/f1/Dracaena_surculosa_kz2.jpg",
     "image_sha256": "0719cb1b727f65e323b01ccebd3359af560ef657c69e0a3c7eb23521714bbc65",
@@ -22257,28 +22490,33 @@
     "how_to_grow_steps": [
       {
         "step": 1,
-        "title": "Chuẩn bị chậu và giá thể",
-        "instruction": "Trồng vào chậu thoát nước, giá thể tơi xốp."
+        "title": "Trồng vào chậu thoát nước với giá thể tơi xốp",
+        "instruction": "Trộn 45% đất thịt + 30% xơ dừa trấu hun + 25% phân trùn quế hoai mục, đáy chậu có lỗ thoát nước tốt để rễ củ không bị ứ nước."
       },
       {
         "step": 2,
-        "title": "Đặt cây và tưới",
-        "instruction": "Đặt nơi sáng gián tiếp; tưới khi đất khô nhẹ."
+        "title": "Bố trí ánh sáng gián tiếp hoặc bóng râm",
+        "instruction": "Đặt cây nơi có ánh sáng tán xạ dịu mát như phòng khách, hành lang hoặc giếng trời. Tránh phơi nắng gắt buổi trưa hè sẽ làm lá bị bạc màu và cháy mép."
       },
       {
         "step": 3,
-        "title": "Tỉa và bón phân",
-        "instruction": "Cắt bỏ lá úa, xoay chậu định kỳ cho tán đều."
+        "title": "Tưới nước khi đất bề mặt khô ráo",
+        "instruction": "Tưới nước điều độ khi sờ thấy mặt đất khô se. Cây chịu khô hạn nhẹ rất tốt, chỉ cần tưới 2-3 ngày/lần tùy môi trường đặt cây."
+      },
+      {
+        "step": 4,
+        "title": "Tỉa cành già và kích thích đẻ nhánh mới",
+        "instruction": "Dùng kéo cắt tỉa sát gốc các cành già vàng úa để bụi cây thông thoáng, kích thích mầm măng mới trồi lên từ gốc tạo bụi xum xuê đẹp mắt."
       }
     ],
     "faqs": [
       {
-        "question": "Cây có độc với chó mèo không?",
-        "answer": "Dracaena nói chung có thể gây nôn ở thú cưng; nên để xa tầm với."
+        "question": "Tại sao đầu lá trúc nhật đốm vàng hay bị khô cháy mép?",
+        "answer": "Nguyên nhân thường do tưới nước máy có hàm lượng clo hoặc fluor cao, hoặc do đặt cây quá gần luồng gió máy lạnh thổi trực tiếp. Để nước máy qua đêm cho bay bớt clo trước khi tưới sẽ khắc phục triệt để."
       },
       {
-        "question": "Lá cháy mép do đâu?",
-        "answer": "Thường do nước máy nhiều clo/fluor hoặc khô hạn; dùng nước để lắng và tưới đều."
+        "question": "Cây trúc nhật đốm vàng nhân giống như thế nào?",
+        "answer": "Cây nhân giống cực kỳ dễ dàng bằng cách tách bụi khi thay chậu, hoặc cắt đoạn cành bánh tẻ giâm vào cát ẩm/cốc nước; cành sẽ ra rễ trắng sau khoảng 3 tuần."
       }
     ],
     "related_plant_ids": [
@@ -22290,7 +22528,16 @@
       {
         "title": "Plants of the World Online - Dracaena surculosa Lindl.",
         "organization": "Royal Botanic Gardens, Kew",
-        "verification_type": "Authoritative Institute"
+        "verification_type": "Authoritative Institute",
+        "url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:534346-1"
+      },
+      {
+        "title": "Missouri Botanical Garden - Dracaena surculosa Plant Finder",
+        "organization": "Missouri Botanical Garden"
+      },
+      {
+        "title": "ASPCA Toxic and Non-Toxic Plants - Dracaena Species",
+        "organization": "ASPCA Animal Poison Control Center"
       }
     ],
     "cultivation_guide": {}
@@ -22301,22 +22548,23 @@
     "common_name": "Vạn Niên Thanh (Dieffenbachia)",
     "scientific_name": "Dieffenbachia seguine",
     "aliases": [
-      "Môn Vạn Niên Thanh",
+      "Vạn Niên Thanh Bụi",
+      "Môn Đốm Lọc Khí",
       "Dumb Cane"
     ],
     "category": "ornamental",
-    "description": "Cây kiểng lá phiến lớn đốm kem, ưa ẩm và bóng sáng; nhựa cây gây kích ứng mạnh.",
-    "quick_answer": "Dieffenbachia seguine ưa sáng gián tiếp, đất thoát nước pH 5.5-6.5; nhựa chứa canxi oxalat gây bỏng rát miệng, cần đeo găng khi cắt tỉa và để xa trẻ em, thú cưng.",
+    "description": "Vạn Niên Thanh (Dieffenbachia) là kiểng lá nội thất nhiệt đới sang trọng với những phiến lá to bản viền xanh thẫm đốm vàng kem nghệ thuật. Cây tượng trưng cho sự thịnh vượng bền vững và may mắn trường thọ, sinh trưởng khỏe khoắn trong điều kiện râm mát, được nghiên cứu khoa học ghi nhận khả năng lọc bỏ các chất ô nhiễm trong không khí nhà ở.",
+    "quick_answer": "Vạn Niên Thanh (Dieffenbachia seguine) ưa bóng râm và ánh sáng tán xạ gián tiếp, đất tơi xốp ẩm mát (pH 5.5 - 6.5), tưới giữ ẩm 2-3 ngày/lần; lưu ý nhựa cây chứa tinh thể canxi oxalat gây cay rát nếu nhai phải nên cần để xa tầm tay trẻ nhỏ.",
     "botanical_details": {
       "family": "Araceae (Họ Ráy)",
-      "native_range": "Trung và Nam Mỹ nhiệt đới",
+      "native_range": "Rừng mưa nhiệt đới Trung và Nam Mỹ",
       "active_compounds": [
-        "Khả năng hấp phụ khí độc trong nhà",
-        "Hợp chất sinh học thực vật tự nhiên"
+        "Tinh thể Canxi oxalat dạng kim (raphides gây cảm giác tê rát niêm mạc khi nhai)",
+        "Khả năng hấp phụ khí độc formaldehyde, xylene, toluene trong không gian kín (NASA)"
       ],
       "soil_ph": "5.5 - 6.5",
-      "ideal_temp": "18°C - 30°C",
-      "pot_size": "Chậu 25-40cm"
+      "ideal_temp": "18°C - 32°C",
+      "pot_size": "Đường kính 30cm - 40cm, sâu 35cm"
     },
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Starr_061212-2331_Dieffenbachia_seguine.jpg",
     "image_sha256": "5ac3748be26014f25b82205bb54f26593530afb2d187b2d7d8d91437de9e7e4a",
@@ -22355,28 +22603,33 @@
     "how_to_grow_steps": [
       {
         "step": 1,
-        "title": "Chuẩn bị chậu và giá thể",
-        "instruction": "Dùng chậu thoát nước và giá thể tơi xốp."
+        "title": "Chuẩn bị giá thể tơi xốp thoáng khí",
+        "instruction": "Trộn 45% đất sạch phù sa + 30% xơ dừa trấu mục + 20% phân trùn quế + 5% đá perlite, đảm bảo chậu có lỗ thoát nước lớn để tránh úng gốc rễ."
       },
       {
         "step": 2,
-        "title": "Đặt cây và tưới",
-        "instruction": "Đặt nơi sáng gián tiếp, giữ ẩm vừa phải."
+        "title": "Đặt nơi có ánh sáng gián tiếp dịu mát",
+        "instruction": "Đặt cây nơi có ánh sáng tự nhiên khuếch tán như phòng khách, chân cầu thang hoặc hành lang giếng trời. Tránh ánh nắng gắt trực tiếp làm cháy vàng phiến lá."
       },
       {
         "step": 3,
-        "title": "Tỉa và bón phân",
-        "instruction": "Đeo găng khi cắt tỉa vì nhựa gây kích ứng."
+        "title": "Tưới nước kiểm soát theo độ khô bề mặt",
+        "instruction": "Tưới nước khi lớp đất sâu 2cm se khô. Mùa nóng tưới 2-3 ngày/lần, mùa mưa lạnh giảm tưới để rễ cây luôn thở tốt trong bầu đất."
+      },
+      {
+        "step": 4,
+        "title": "Đeo găng tay bảo hộ khi cắt tỉa cành lá già",
+        "instruction": "Khi cắt tỉa các lá già vàng ở gốc, nên đeo găng tay nilon để tránh nhựa cây dính vào da gây ngứa rát. Lau sạch bề mặt lá bằng khăn ẩm định kỳ."
       }
     ],
     "faqs": [
       {
-        "question": "Vạn niên thanh có độc không?",
-        "answer": "Có, nhựa gây kích ứng và sưng miệng nếu nhai; cần để xa trẻ nhỏ và thú cưng."
+        "question": "Tại sao Vạn Niên Thanh lại có tên tiếng Anh là \"Dumb Cane\"?",
+        "answer": "Tên \"Dumb Cane\" xuất phát từ việc nếu vô tình nhai phải lá hoặc thân cây, các tinh thể canxi oxalat siêu nhỏ dạng kim sẽ giải phóng enzym gây sưng rát tạm thời ở lưỡi và vòm họng khiến khó phát âm thành lời. Chỉ cần rửa sạch tay sau khi chăm sóc và để xa trẻ em, vật nuôi là hoàn toàn an toàn."
       },
       {
-        "question": "Cây có lọc khí không?",
-        "answer": "Được đưa vào nghiên cứu NASA ở quy mô phòng thí nghiệm; hiệu quả thực tế trong nhà còn hạn chế."
+        "question": "Cây Vạn Niên Thanh có thể trồng thủy sinh trong nước được không?",
+        "answer": "Hoàn toàn được. Rửa sạch đất ở bộ rễ, cắm cây vào bình thủy tinh chứa nước sạch pha dung dịch dinh dưỡng thủy canh; cây sẽ phát triển bộ rễ trắng muốt rất đẹp mắt."
       }
     ],
     "related_plant_ids": [
@@ -22388,13 +22641,17 @@
       {
         "title": "Plants of the World Online - Dieffenbachia seguine (Jacq.) Schott",
         "organization": "Royal Botanic Gardens, Kew",
-        "verification_type": "Authoritative Institute"
+        "verification_type": "Authoritative Institute",
+        "url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:86861-1"
       },
       {
         "title": "Interior Landscape Plants for Indoor Air Pollution Abatement (NASA Clean Air Study)",
-        "author": "Wolverton, B.C. et al.",
         "organization": "NASA, 1989",
         "verification_type": "Government Research"
+      },
+      {
+        "title": "ASPCA Animal Poison Control - Dieffenbachia",
+        "organization": "ASPCA"
       }
     ],
     "cultivation_guide": {}
@@ -22405,22 +22662,23 @@
     "common_name": "Sen Đá Haworthia Cooper",
     "scientific_name": "Haworthia cooperi",
     "aliases": [
-      "Sen Đá Ngọc Bích",
-      "Haworthiopsis cooperi"
+      "Sen Đá Dạ Quang",
+      "Sen Đá Pha Lê",
+      "Cooper's Haworthia"
     ],
     "category": "ornamental",
-    "description": "Sen đá nhỏ có đầu lá mọng trong mờ, ưa sáng nhẹ, rất ít tưới, hợp bàn làm việc.",
-    "quick_answer": "Haworthia cooperi chịu bóng bán phần, ít nước, đất thoát nước nhanh pH 6-7; tưới đẫm khi đất khô hẳn và tránh nắng gắt trực tiếp.",
+    "description": "Sen Đá Kim Cương (Haworthia cooperi) là kiệt tác mọng nước thu nhỏ với những đầu lá căng mọng trong veo phản chiếu ánh sáng tựa như những viên pha lê xanh ngọc bích. Cây sinh trưởng nhỏ gọn dạng hoa thị đối xứng, ưa ánh sáng nhẹ, là cây kiểng để bàn làm việc, kệ sách và cửa sổ được săn đón bậc nhất.",
+    "quick_answer": "Sen Đá Kim Cương (Haworthia cooperi) ưa sáng tán xạ dịu nhẹ hoặc bóng râm sáng, kỵ nắng gắt trực tiếp, giá thể chuyên dụng đá hạt thoát nước siêu nhanh (pH 6.0 - 7.0), chỉ tưới nước 1-2 tuần/lần khi giá thể khô kiệt để giữ đầu lá trong suốt mọng nước.",
     "botanical_details": {
-      "family": "Asphodelaceae (Họ Lô hội)",
-      "native_range": "Nam Phi (Eastern Cape)",
+      "family": "Asphodelaceae (Họ Tỏi rừng / Lô hội)",
+      "native_range": "Tỉnh Eastern Cape (Nam Phi), nhân giống cấy mô phổ biến tại Đà Lạt",
       "active_compounds": [
-        "Khả năng hấp phụ khí độc trong nhà",
-        "Hợp chất sinh học thực vật tự nhiên"
+        "Mô tế bào trữ nước đặc biệt với cửa sổ biểu bì trong suốt (epidermal windows)",
+        "Quang hợp trao đổi chất axit Crassulacean (CAM) hấp thụ CO2 ban đêm"
       ],
       "soil_ph": "6.0 - 7.0",
       "ideal_temp": "15°C - 28°C",
-      "pot_size": "Chậu 8-15cm"
+      "pot_size": "Chậu mini đường kính 8cm - 15cm, sâu 8cm - 10cm"
     },
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/a8/1_Haworthia_cooperi_-_Kirstenbosch.jpg",
     "image_sha256": "8489db40c37f40cacab8ce3c85e46e5cb7b3779e7fb2f19cf44b09a6843d6d04",
@@ -22458,28 +22716,33 @@
     "how_to_grow_steps": [
       {
         "step": 1,
-        "title": "Chuẩn bị chậu và giá thể",
-        "instruction": "Dùng chậu nhỏ có lỗ thoát, giá thể sỏi/đá bọt trộn đất."
+        "title": "Trộn giá thể đá khoáng siêu thoát nước",
+        "instruction": "Dùng chậu đất nung hoặc gốm có lỗ thoát đáy. Trộn 70% đá hạt (pumice, perlite, xỉ than, akadama) + 30% đất trùn quế/peatmoss; tuyệt đối không dùng đất thịt đặc bí."
       },
       {
         "step": 2,
-        "title": "Đặt cây và tưới",
-        "instruction": "Đặt nơi sáng gián tiếp, tránh nắng gắt."
+        "title": "Đặt nơi sáng dịu nhẹ hoặc dưới đèn quang phổ",
+        "instruction": "Đặt cây cạnh cửa sổ kính hoặc bàn làm việc có ánh sáng gián tiếp. Ánh nắng trực tiếp gay gắt buổi trưa sẽ làm đầu lá bị thâm cháy nâu và mất độ trong suốt."
       },
       {
         "step": 3,
-        "title": "Tỉa và bón phân",
-        "instruction": "Chỉ tưới khi đất khô hẳn, giảm tưới mùa lạnh."
+        "title": "Tưới nước thẩm thấu ngược từ đáy chậu",
+        "instruction": "Chỉ tưới khi đáy chậu khô ráo hoàn toàn (khoảng 7-10 ngày/lần). Phương pháp tốt nhất là đặt chậu vào khay nước cao 2cm trong 5 phút để nước ngấm ngược từ đáy lên rễ."
+      },
+      {
+        "step": 4,
+        "title": "Tách cây con nhân giống khi bụi lớn",
+        "instruction": "Sau 1-2 năm cây sẽ đẻ nhiều cây con quanh gốc. Dùng dao lam bén tách cây con có sẵn rễ, để khô vết cắt 2 ngày rồi trồng vào chậu mới."
       }
     ],
     "faqs": [
       {
-        "question": "Bao lâu tưới sen đá một lần?",
-        "answer": "Khi giá thể khô hoàn toàn, thường 1-2 tuần tùy khí hậu."
+        "question": "Tại sao đầu lá sen đá kim cương bị xẹp nhăn nheo?",
+        "answer": "Lá bị nhăn xẹp thường do cây bị thiếu nước trong thời gian dài khiến tế bào mọng nước co lại, hoặc do rễ bị úng hỏng không hút được nước. Kiểm tra lại rễ và tưới bổ sung nếu đất quá khô."
       },
       {
-        "question": "Vì sao lá bị nhũn?",
-        "answer": "Tưới quá nhiều gây úng; cần cắt phần hỏng và để khô."
+        "question": "Cây sen đá kim cương có độc hại gì không?",
+        "answer": "Loài Haworthia cooperi hoàn toàn không có độc tính, rất an toàn và thân thiện khi đặt trên bàn làm việc cá nhân hoặc trong nhà có trẻ nhỏ và thú cưng."
       }
     ],
     "related_plant_ids": [
@@ -22491,7 +22754,15 @@
       {
         "title": "Plants of the World Online - Haworthia cooperi Baker",
         "organization": "Royal Botanic Gardens, Kew",
-        "verification_type": "Authoritative Institute"
+        "verification_type": "Authoritative Institute",
+        "url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:536034-1"
+      },
+      {
+        "title": "Haworthia cooperi Species Profile & Cultivation",
+        "organization": "Kirstenbosch National Botanical Garden, South Africa"
+      },
+      {
+        "title": "Cactus and Succulent Society of America (CSSA) - Haworthia Care Guide"
       }
     ],
     "cultivation_guide": {}
@@ -22502,22 +22773,23 @@
     "common_name": "Cây Ngọc Ngân (Aglaonema)",
     "scientific_name": "Aglaonema commutatum",
     "aliases": [
-      "Vạn Lộc",
-      "Aglaonema"
+      "Cây Valentine",
+      "Cây Vạn Lộc Bạc",
+      "Chinese Evergreen Silver Bay"
     ],
     "category": "ornamental",
-    "description": "Aglaonema chịu bóng tốt, lá đốm bạc dễ chăm; nhựa gây kích ứng nếu nhai.",
-    "quick_answer": "Aglaonema commutatum chịu bóng, tưới khi đất khô, đất thoát nước pH 5.5-6.5; một số loài được liệt kê trong nghiên cứu NASA Clean Air Study.",
+    "description": "Cây Ngọc Ngân (Aglaonema) được mệnh danh là cây tình yêu và may mắn với phiến lá hình giáo tuyệt mỹ phủ một lớp màu bạc ánh kim trang nhã viền xanh ngọc bích. Cây sinh trưởng bụi xum xuê, sức sống bền bỉ trong bóng râm, vừa mang ý nghĩa phong thủy gắn kết tài lộc vừa là cây lọc khí nội thất nổi tiếng được NASA khuyến nghị.",
+    "quick_answer": "Cây Ngọc Ngân (Aglaonema 'Silver Bay') chịu bóng râm nội thất cực tốt, trồng chậu 25-35cm, đất tơi xốp giàu dinh dưỡng (pH 5.8 - 6.5), tưới nước 2 lần/tuần khi bề mặt đất khô se, thích hợp trang trí bàn làm việc, phòng khách và hành lang văn phòng.",
     "botanical_details": {
       "family": "Araceae (Họ Ráy)",
-      "native_range": "Philippines và Sulawesi",
+      "native_range": "Rừng mưa nhiệt đới Đông Nam Á (Thái Lan, Malaysia, Indonesia)",
       "active_compounds": [
-        "Khả năng hấp phụ khí độc trong nhà",
-        "Hợp chất sinh học thực vật tự nhiên"
+        "Tinh thể Canxi oxalat tự nhiên trong mô tế bào",
+        "Khả năng lọc các hợp chất hữu cơ bay hơi formaldehyde và benzene (NASA Clean Air Study)"
       ],
-      "soil_ph": "5.5 - 6.5",
-      "ideal_temp": "18°C - 30°C",
-      "pot_size": "Chậu 20-30cm"
+      "soil_ph": "5.8 - 6.5",
+      "ideal_temp": "18°C - 32°C",
+      "pot_size": "Đường kính 25cm - 35cm, sâu 25cm - 30cm"
     },
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Aglaonema_commutatum_kz1.jpg",
     "image_sha256": "740d7c97e2b528d7be04581358b8650dfcec1937e3867acc3150ee2d4237a007",
@@ -22556,28 +22828,33 @@
     "how_to_grow_steps": [
       {
         "step": 1,
-        "title": "Chuẩn bị chậu và giá thể",
-        "instruction": "Dùng chậu thoát nước, giá thể tơi xốp."
+        "title": "Trộn giá thể tơi xốp giữ ẩm tốt",
+        "instruction": "Phối trộn 45% đất sạch phù sa + 30% xơ dừa trấu mục + 20% phân trùn quế + 5% đá perlite, đảm bảo đáy chậu có lỗ thoát nước thông thoáng."
       },
       {
         "step": 2,
-        "title": "Đặt cây và tưới",
-        "instruction": "Đặt nơi sáng gián tiếp; tưới khi đất khô nhẹ."
+        "title": "Đặt nơi ánh sáng tán xạ dịu nhẹ",
+        "instruction": "Đặt cây nơi có ánh sáng tự nhiên gián tiếp hoặc dưới ánh đèn huỳnh quang văn phòng. Bản lá phủ bạc giúp cây hấp thụ ánh sáng yếu cực kỳ hiệu quả."
       },
       {
         "step": 3,
-        "title": "Tỉa và bón phân",
-        "instruction": "Cắt hoa nếu không muốn cây tốn sức; lau lá định kỳ."
+        "title": "Tưới nước điều độ và lau bụi lá",
+        "instruction": "Tưới khi lớp đất trên khô se (khoảng 2 lần/tuần). Dùng khăn ẩm mềm lau sạch bụi trên mặt lá định kỳ để cây luôn tươi sáng và quang hợp khỏe mạnh."
+      },
+      {
+        "step": 4,
+        "title": "Bón phân hữu cơ vi sinh định kỳ",
+        "instruction": "Mỗi 2 tháng rải một nắm phân trùn quế quanh gốc cây. Cắt bỏ hoa non nếu xuất hiện để cây tập trung dinh dưỡng nuôi bộ lá bạc sum suê."
       }
     ],
     "faqs": [
       {
-        "question": "Aglaonema có độc không?",
-        "answer": "Có, nhựa gây kích ứng; để xa trẻ nhỏ và thú cưng."
+        "question": "Cây Ngọc Ngân có trồng thủy canh trong bình nước được không?",
+        "answer": "Rất thích hợp trồng thủy canh. Rửa sạch đất ở rễ, cắm cây vào bình thủy tinh chứa nước sạch pha vài giọt dung dịch thủy canh; cây sẽ phát triển rễ trắng muốt và lá bóng đẹp rất thanh lịch."
       },
       {
-        "question": "Cây cần ánh sáng thế nào?",
-        "answer": "Sáng gián tiếp hoặc bóng sáng; giống lá đậm chịu bóng tốt hơn."
+        "question": "Tại sao phiến lá cây Ngọc Ngân bị úa vàng từ gốc?",
+        "answer": "Lá vàng nhũn từ gốc thường do tưới quá nhiều nước khiến rễ bị nghẹt thiếu oxy. Cần giãn cách chu kỳ tưới, kiểm tra lỗ thoát nước đáy chậu và chỉ tưới khi đất mặt đã khô se."
       }
     ],
     "related_plant_ids": [
@@ -22589,13 +22866,18 @@
       {
         "title": "Plants of the World Online - Aglaonema commutatum Schott",
         "organization": "Royal Botanic Gardens, Kew",
-        "verification_type": "Authoritative Institute"
+        "verification_type": "Authoritative Institute",
+        "url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:84379-1"
       },
       {
         "title": "Interior Landscape Plants for Indoor Air Pollution Abatement (NASA Clean Air Study)",
-        "author": "Wolverton, B.C. et al.",
         "organization": "NASA, 1989",
         "verification_type": "Government Research"
+      },
+      {
+        "title": "University of Florida IFAS Extension - Aglaonema Production Guide",
+        "author": "Henny, R. J. & Chen, J.",
+        "verification_type": "University Extension"
       }
     ],
     "cultivation_guide": {}
@@ -22606,22 +22888,23 @@
     "common_name": "Mai Vàng Bonsai",
     "scientific_name": "Ochna integerrima",
     "aliases": [
-      "Hoàng Mai",
-      "Mai Vàng Nam Bộ"
+      "Hoàng Mai Nam Bộ",
+      "Mai Vàng Chậu Tết",
+      "Mai Bonsai Cổ Truyền"
     ],
     "category": "ornamental",
-    "description": "Mai vàng là biểu tượng Tết miền Nam; trồng chậu cần nắng đủ và kỹ thuật tuốt lá đúng thời điểm để nở hoa dịp Tết.",
-    "quick_answer": "Mai vàng (Ochna integerrima) ưa nắng toàn phần, đất thoát nước pH 5.5-7, tưới vừa phải; tuốt lá khoảng 70-80 ngày trước Tết Âm lịch (thời điểm phổ biến theo kinh nghiệm người trồng).",
+    "description": "Mai Vàng Nam Bộ là linh hồn và biểu tượng thiêng liêng của mùa xuân phương Nam. Cây có hoa năm cánh vàng tươi rực rỡ như ánh nắng mới, nở bừng đồng loạt báo hiệu sự may mắn, thịnh vượng và sung túc đủ đầy. Trồng mai vàng trong chậu cảnh bonsai là thú chơi tao nhã đòi hỏi bàn tay chăm sóc uốn tỉa công phu và nghệ thuật tuốt lá đón đúng ngày mùng Một Tết.",
+    "quick_answer": "Mai Vàng Bonsai (Ochna integerrima) cực kỳ ưa nắng toàn phần (trên 6 tiếng/ngày), trồng chậu từ 45-60cm, đất thịt pha cát tơi xốp giàu hữu cơ (pH 5.5 - 7.0), tuốt lá đồng loạt trước Tết khoảng 60 - 75 ngày tùy diễn biến thời tiết để hoa nở bung đúng Tết.",
     "botanical_details": {
       "family": "Ochnaceae (Họ Mai)",
-      "native_range": "Nam và Đông Nam Á",
+      "native_range": "Bản địa rừng Trường Sơn và miền Nam Việt Nam (Hoàng Mai, Mai Tứ Quý)",
       "active_compounds": [
-        "Khả năng hấp phụ khí độc trong nhà",
-        "Hợp chất sinh học thực vật tự nhiên"
+        "Hợp chất biflavonoid ochnaflavone tự nhiên trong vỏ thân và hoa",
+        "Flavonoid và tanin thực vật bảo vệ tế bào"
       ],
       "soil_ph": "5.5 - 7.0",
-      "ideal_temp": "22°C - 35°C",
-      "pot_size": "Chậu ≥ 40cm"
+      "ideal_temp": "22°C - 36°C (ưa khí hậu nhiệt đới nắng ấm)",
+      "pot_size": "Đường kính 45cm - 60cm, sâu 35cm - 40cm"
     },
     "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/48/Hoa_mai_v%C3%A0ng_2016.jpg",
     "image_sha256": "2c0d0097c91cd9e0e8c7825b4b10b1af8a3e03f5e2cbb6feb3435107d117095e",
@@ -22659,28 +22942,33 @@
     "how_to_grow_steps": [
       {
         "step": 1,
-        "title": "Chuẩn bị chậu và giá thể",
-        "instruction": "Chọn chậu lớn, đất thoát nước tốt giàu hữu cơ."
+        "title": "Chuẩn bị chậu kiểng và giá thể tơi xốp giàu hữu cơ",
+        "instruction": "Trộn 50% đất thịt phù sa hoặc đất đỏ bazan + 25% trấu hun xơ dừa + 25% phân chuồng hoai mục (bò/trùn quế). Chậu phải đục lỗ thoát nước lớn tránh ứ úng."
       },
       {
         "step": 2,
-        "title": "Đặt cây và tưới",
-        "instruction": "Cho nắng đầy đủ, tưới vừa phải, giảm tưới trước thời điểm tuốt lá."
+        "title": "Đặt cây nơi đón trọn ánh nắng chan hòa",
+        "instruction": "Mai vàng bắt buộc phải có nắng trực tiếp từ 6-8 tiếng mỗi ngày để cành lá cứng cáp và tạo nhiều nụ hoa mập mạp dọc theo nách lá."
       },
       {
         "step": 3,
-        "title": "Tỉa và bón phân",
-        "instruction": "Tuốt lá đúng thời điểm và bón phân cho cây ra hoa đồng loạt."
+        "title": "Bón phân theo từng chu kỳ mùa vụ",
+        "instruction": "Đầu năm (tháng 2-5) bón phân giàu đạm để cây đẻ nhánh tạo tán; giữa năm (tháng 6-9) bón phân lân cao để kích thích phân hóa nụ hoa; cuối năm (tháng 10-12) bón bổ sung kali để nụ hoa chắc khỏe."
+      },
+      {
+        "step": 4,
+        "title": "Nghệ thuật tuốt lá canh hoa nở đúng mùng Một Tết",
+        "instruction": "Theo kinh nghiệm nhà vườn Nam Bộ, quan sát nụ hoa vào khoảng rằm tháng Chạp (13 - 16/12 âm lịch). Nếu nụ còn nhỏ thì tuốt lá sớm hơn (13-14), nếu nụ đã mập bung vỏ trấu thì tuốt lá muộn hơn (16-17) kết hợp điều tiết nước tưới để hoa bung nở rực rỡ mùng Một Tết."
       }
     ],
     "faqs": [
       {
-        "question": "Khi nào tuốt lá mai?",
-        "answer": "Theo kinh nghiệm người trồng, khoảng 70-80 ngày trước Tết; thời điểm cụ thể cần điều chỉnh theo vùng và thời tiết."
+        "question": "Tại sao cây mai vàng hay bị nở hoa sớm trước Tết cả tháng?",
+        "answer": "Mai nở sớm thường do thời tiết có những cơn mưa rào bất chợt làm cây tưởng mùa xuân đến, hoặc do cây bị thiếu nước làm rụng lá già sớm kích hoa bung nụ. Cần giữ ẩm đất ổn định và che chắn tránh để cây sốc nhiệt cuối năm."
       },
       {
-        "question": "Mai vàng trồng ở miền Bắc được không?",
-        "answer": "Cây ưa nóng ẩm nên khó ra hoa đẹp ở vùng lạnh."
+        "question": "Cây mai sau Tết bị suy kiệt cần chăm sóc thế nào để phục hồi?",
+        "answer": "Sau Tết, cắt tỉa bỏ toàn bộ hoa tàn và quả non để cây không bị kiệt sức. Thay 1/3 lớp đất mặt trong chậu bằng phân trùn quế mới, đặt cây nơi nắng nhẹ và tưới kích rễ để cây hồi phục đợt lộc xuân mới."
       }
     ],
     "related_plant_ids": [
@@ -22692,7 +22980,16 @@
       {
         "title": "Plants of the World Online - Ochna integerrima (Lour.) Merr.",
         "organization": "Royal Botanic Gardens, Kew",
-        "verification_type": "Authoritative Institute"
+        "verification_type": "Authoritative Institute",
+        "url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:606775-1"
+      },
+      {
+        "title": "Những cây thuốc và vị thuốc Việt Nam - Cây Mai Vàng",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học"
+      },
+      {
+        "title": "Hội Sinh Vật Cảnh TP. Hồ Chí Minh - Cẩm nang kỹ thuật canh tác Mai Vàng Bonsai"
       }
     ],
     "cultivation_guide": {}
