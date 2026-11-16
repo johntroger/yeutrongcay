@@ -1,15 +1,15 @@
 <?php
 /**
- * HỆ THỐNG TỰ ĐỘNG ĐĂNG BÀI FANPAGE FACEBOOK HÀNG NGÀY (08:00 AM)
+ * HỆ THỐNG TỰ ĐỘNG ĐĂNG BÀI FANPAGE FACEBOOK HÀNG NGÀY (2 BÀI/NGÀY: 08:00 AM & 20:00 PM)
  * Hệ thống: Yêu Trồng Cây (yeutrongcay.com)
  * 
  * Tính năng cốt lõi:
- * 1. Tự động phát hiện mọi bài viết & danh mục mới (Auto-Discovery $N \times M$)
- * 2. Luân phiên danh mục động (Dynamic Category Round-Robin) không trùng ngày hôm trước
- * 3. Hàng đợi cân bằng LRU (Least Recently Used) & Ưu tiên bài mới
- * 4. Tạo bài viết đầy đủ chuyên sâu kèm Link trực tiếp chuẩn Large Link Card Preview
- * 5. Pre-Scrape Warmup làm nóng ảnh 1200x630 trước khi đăng
- * 6. Khóa bảo vệ chống đăng trùng lặp 2 lần trong cùng 1 ngày
+ * 1. Khung giờ đăng chuẩn vàng: 8h sáng (08:00) & 8h tối (20:00)
+ * 2. Phân chia slot sáng/tối (morning/evening) thông minh với lời chào phù hợp thời gian
+ * 3. Khóa bảo vệ 2 lớp theo slot (Dual-Layer Slot Guard) chống trùng lặp tuyệt đối
+ * 4. Luân phiên danh mục động không trùng bài trước đó trong ngày
+ * 5. Hàng đợi cân bằng LRU (Least Recently Used) & Ưu tiên bài mới
+ * 6. Tự động kiểm tra và làm mới ảnh thực tế (Fresh Image Verification Engine)
  */
 
 date_default_timezone_set('Asia/Ho_Chi_Minh');
@@ -58,32 +58,61 @@ if (!$isCli) {
 // 2. Kết nối Database (hoặc fallback file JSON)
 $pdo = function_exists('getDbConnection') ? getDbConnection() : null;
 
-$todayStr = date('Y-m-d');
-$isForce  = !empty($_GET['force']) || !empty($_POST['force']);
+$todayStr    = date('Y-m-d');
+$currentHour = (int)date('H'); // 0 -> 23
 
-// 3. KHÓA BẢO VỆ 2 LỚP CHỐNG ĐĂNG TRÙNG TRONG NGÀY (DUAL-LAYER IDEMPOTENCY GUARD)
+// Xác định slot đăng bài: Khung 8h sáng (morning: 00:00 - 13:59) hoặc 8h tối (evening: 14:00 - 23:59)
+$slot = ($currentHour < 14) ? 'morning' : 'evening';
+$requestedSlot = strtolower(trim($_GET['slot'] ?? $_POST['slot'] ?? ''));
+if (in_array($requestedSlot, ['morning', 'evening', 'am', 'pm'])) {
+    $slot = ($requestedSlot === 'pm' || $requestedSlot === 'evening') ? 'evening' : 'morning';
+}
+
+$slotKey   = "{$todayStr}_{$slot}";
+$slotLabel = ($slot === 'morning') ? '8h sáng (Morning Slot)' : '8h tối (Evening Slot)';
+$isForce   = !empty($_GET['force']) || !empty($_POST['force']);
+
+// 3. KHÓA BẢO VỆ 2 LỚP CHỐNG ĐĂNG TRÙNG THEO SLOT (DUAL-LAYER SLOT IDEMPOTENCY GUARD)
 $lockDir = __DIR__ . '/../uploads';
 if (!is_dir($lockDir)) {
     @mkdir($lockDir, 0755, true);
 }
 $lockFile = $lockDir . '/daily_fb_autopost_lock.json';
 
-// LỚP 1: Khóa tệp cục bộ (Bảo đảm 100% không bao giờ đăng 2 lần/ngày kể cả khi MySQL mất kết nối)
+// LỚP 1: Khóa tệp cục bộ theo slot (Bảo đảm 100% không đăng trùng slot kể cả khi MySQL mất kết nối)
 if (!$isForce && file_exists($lockFile)) {
     $lockData = json_decode(@file_get_contents($lockFile), true);
-    if (!empty($lockData['posted_date']) && $lockData['posted_date'] === $todayStr) {
+    $existingSlotPost = null;
+
+    if (is_array($lockData)) {
+        if (isset($lockData[$slotKey])) {
+            $existingSlotPost = $lockData[$slotKey];
+        } elseif (!empty($lockData['slot_key']) && $lockData['slot_key'] === $slotKey) {
+            $existingSlotPost = $lockData;
+        } elseif (!empty($lockData['posted_date']) && $lockData['posted_date'] === $todayStr && !isset($lockData['morning']) && !isset($lockData['evening'])) {
+            // Tương thích ngược với file lock cũ chỉ có 1 bài/ngày
+            if ($slot === 'morning') {
+                $existingSlotPost = $lockData;
+            }
+        }
+    }
+
+    if ($existingSlotPost) {
         echo json_encode([
             'success'       => true,
             'status'        => 'skipped',
-            'message'       => "Hôm nay ({$todayStr}) đã đăng thành công bài '{$lockData['slug']}' (FB ID: " . ($lockData['fb_post_id'] ?? 'N/A') . ") lúc {$lockData['created_at']}. Bỏ qua để chống trùng lặp (Khóa tệp bảo vệ).",
+            'posted_date'   => $todayStr,
+            'slot'          => $slot,
+            'slot_label'    => $slotLabel,
+            'message'       => "Khung giờ {$slotLabel} hôm nay ({$todayStr}) đã đăng thành công bài '{$existingSlotPost['slug']}' (FB ID: " . ($existingSlotPost['fb_post_id'] ?? 'N/A') . ") lúc " . ($existingSlotPost['created_at'] ?? 'N/A') . ". Bỏ qua để chống trùng lặp (Khóa tệp bảo vệ).",
             'daily_guard'   => 'ACTIVE_FILE_LOCK',
-            'existing_post' => $lockData
+            'existing_post' => $existingSlotPost
         ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         exit;
     }
 }
 
-// LỚP 2: Khóa cơ sở dữ liệu & Tự động tạo bảng MySQL nếu chưa có (Self-Healing Auto Migration)
+// LỚP 2: Khóa cơ sở dữ liệu & Tự động nâng cấp bảng MySQL nếu chưa có (Self-Healing Auto Migration)
 if ($pdo) {
     try {
         $pdo->exec("
@@ -107,6 +136,7 @@ if ($pdo) {
             CREATE TABLE IF NOT EXISTS social_post_logs (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 posted_date DATE NOT NULL,
+                post_slot VARCHAR(20) NOT NULL DEFAULT 'morning',
                 category_slug VARCHAR(64) NOT NULL,
                 ref_slug VARCHAR(191) NOT NULL,
                 target_url VARCHAR(500) NOT NULL,
@@ -116,29 +146,48 @@ if ($pdo) {
                 status ENUM('success', 'failed', 'skipped') NOT NULL DEFAULT 'success',
                 error_message TEXT DEFAULT NULL,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                UNIQUE KEY idx_daily_guard (posted_date),
+                UNIQUE KEY idx_slot_guard (posted_date, post_slot),
                 INDEX idx_slug (ref_slug),
                 INDEX idx_date (posted_date)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ");
 
+        // Tự động nâng cấp schema cho các bảng đã tồn tại từ trước (thêm post_slot, đổi UNIQUE KEY)
+        try {
+            $pdo->exec("ALTER TABLE social_post_logs ADD COLUMN post_slot VARCHAR(20) NOT NULL DEFAULT 'morning' AFTER posted_date");
+        } catch (\Throwable $e) {}
+        try {
+            $pdo->exec("ALTER TABLE social_post_logs DROP INDEX idx_daily_guard");
+        } catch (\Throwable $e) {}
+        try {
+            $pdo->exec("ALTER TABLE social_post_logs ADD UNIQUE KEY idx_slot_guard (posted_date, post_slot)");
+        } catch (\Throwable $e) {}
+
         if (!$isForce) {
-            $checkStmt = $pdo->prepare("SELECT id, ref_slug, fb_post_id, created_at FROM social_post_logs WHERE posted_date = :today AND status = 'success' LIMIT 1");
-            $checkStmt->execute([':today' => $todayStr]);
+            $checkStmt = $pdo->prepare("SELECT id, ref_slug, post_slot, fb_post_id, created_at FROM social_post_logs WHERE posted_date = :today AND post_slot = :slot AND status = 'success' LIMIT 1");
+            $checkStmt->execute([':today' => $todayStr, ':slot' => $slot]);
             $existing = $checkStmt->fetch();
             if ($existing) {
-                // Đồng bộ ngược lại file lock để bảo vệ tuyệt đối
-                @file_put_contents($lockFile, json_encode([
+                // Đồng bộ ngược lại file lock theo slot để bảo vệ tuyệt đối
+                $existingLocks = file_exists($lockFile) ? json_decode(@file_get_contents($lockFile), true) : [];
+                if (!is_array($existingLocks)) $existingLocks = [];
+                $existingLocks[$slotKey] = [
                     'posted_date' => $todayStr,
+                    'slot'        => $slot,
+                    'slot_key'    => $slotKey,
                     'slug'        => $existing['ref_slug'],
                     'fb_post_id'  => $existing['fb_post_id'],
                     'created_at'  => $existing['created_at']
-                ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+                ];
+                @file_put_contents($lockFile, json_encode($existingLocks, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
 
                 echo json_encode([
                     'success'       => true,
                     'status'        => 'skipped',
-                    'message'       => "Hôm nay ({$todayStr}) đã đăng thành công bài '{$existing['ref_slug']}' (FB ID: {$existing['fb_post_id']}) lúc {$existing['created_at']}. Bỏ qua để chống trùng lặp (Khóa MySQL).",
+                    'posted_date'   => $todayStr,
+                    'slot'          => $slot,
+                    'slot_label'    => $slotLabel,
+                    'message'       => "Khung giờ {$slotLabel} hôm nay ({$todayStr}) đã đăng thành công bài '{$existing['ref_slug']}' (FB ID: {$existing['fb_post_id']}) lúc {$existing['created_at']}. Bỏ qua để chống trùng lặp (Khóa MySQL).",
                     'daily_guard'   => 'ACTIVE_DB_LOCK',
                     'existing_post' => $existing
                 ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
@@ -260,14 +309,22 @@ if ($pdo) {
 }
 
 // 5. THUẬT TOÁN ĐIỀU PHỐI LUÂN PHIÊN (Dynamic Category Round-Robin + LRU)
-$yesterdayCategory = '';
+$lastPostCategory = '';
+$todaySlugs = [];
+
 if ($pdo) {
     try {
-        $yStmt = $pdo->query("SELECT category_slug FROM social_post_logs ORDER BY id DESC LIMIT 1");
-        $yRow = $yStmt->fetch();
-        if ($yRow && !empty($yRow['category_slug'])) {
-            $yesterdayCategory = $yRow['category_slug'];
+        // Lấy danh mục của bài đăng gần nhất (đảm bảo bài sáng và bài tối khác danh mục nhau)
+        $lastStmt = $pdo->query("SELECT category_slug FROM social_post_logs WHERE status = 'success' ORDER BY id DESC LIMIT 1");
+        $lastRow = $lastStmt->fetch();
+        if ($lastRow && !empty($lastRow['category_slug'])) {
+            $lastPostCategory = $lastRow['category_slug'];
         }
+
+        // Lấy danh sách các cây đã đăng hôm nay để bài tối không bao giờ trùng cây bài sáng
+        $todaySlugsStmt = $pdo->prepare("SELECT ref_slug FROM social_post_logs WHERE posted_date = :today AND status = 'success'");
+        $todaySlugsStmt->execute([':today' => $todayStr]);
+        $todaySlugs = $todaySlugsStmt->fetchAll(PDO::FETCH_COLUMN) ?: [];
     } catch (\Throwable $e) {}
 }
 
@@ -275,49 +332,55 @@ $chosenItem = null;
 
 if ($pdo) {
     try {
-        // Ưu tiên 1: Có bài mới chưa từng đăng (last_posted_at IS NULL), khác danh mục hôm qua
-        $sqlNew = "SELECT * FROM social_post_queue WHERE is_active = 1 AND last_posted_at IS NULL";
-        if (!empty($yesterdayCategory)) {
-            $sqlNew .= " AND category_slug != :yesterday";
+        $excludeSlugSql = '';
+        if (!empty($todaySlugs)) {
+            $quotedSlugs = array_map(function($s) use ($pdo) { return $pdo->quote($s); }, $todaySlugs);
+            $excludeSlugSql = " AND ref_slug NOT IN (" . implode(',', $quotedSlugs) . ")";
+        }
+
+        // Ưu tiên 1: Có bài mới chưa từng đăng (last_posted_at IS NULL), khác danh mục bài trước và chưa đăng hôm nay
+        $sqlNew = "SELECT * FROM social_post_queue WHERE is_active = 1 AND last_posted_at IS NULL {$excludeSlugSql}";
+        if (!empty($lastPostCategory)) {
+            $sqlNew .= " AND category_slug != :last_cat";
         }
         $sqlNew .= " ORDER BY id ASC LIMIT 1";
         $stmtNew = $pdo->prepare($sqlNew);
-        if (!empty($yesterdayCategory)) {
-            $stmtNew->execute([':yesterday' => $yesterdayCategory]);
+        if (!empty($lastPostCategory)) {
+            $stmtNew->execute([':last_cat' => $lastPostCategory]);
         } else {
             $stmtNew->execute();
         }
         $chosenItem = $stmtNew->fetch();
 
-        // Ưu tiên 2: Nếu không có bài mới khác danh mục, lấy bài cũ nhất (LRU), khác danh mục hôm qua
+        // Ưu tiên 2: Nếu không có bài mới khác danh mục, lấy bài cũ nhất (LRU), khác danh mục bài trước và chưa đăng hôm nay
         if (!$chosenItem) {
-            $sqlOld = "SELECT * FROM social_post_queue WHERE is_active = 1";
-            if (!empty($yesterdayCategory)) {
-                $sqlOld .= " AND category_slug != :yesterday";
+            $sqlOld = "SELECT * FROM social_post_queue WHERE is_active = 1 {$excludeSlugSql}";
+            if (!empty($lastPostCategory)) {
+                $sqlOld .= " AND category_slug != :last_cat";
             }
             $sqlOld .= " ORDER BY last_posted_at ASC, id ASC LIMIT 1";
             $stmtOld = $pdo->prepare($sqlOld);
-            if (!empty($yesterdayCategory)) {
-                $stmtOld->execute([':yesterday' => $yesterdayCategory]);
+            if (!empty($lastPostCategory)) {
+                $stmtOld->execute([':last_cat' => $lastPostCategory]);
             } else {
                 $stmtOld->execute();
             }
             $chosenItem = $stmtOld->fetch();
         }
 
-        // Ưu tiên 3: Nếu vẫn chưa có, lấy bài cũ nhất bất kỳ
+        // Ưu tiên 3: Nếu vẫn chưa có, lấy bài cũ nhất bất kỳ chưa đăng hôm nay
         if (!$chosenItem) {
-            $stmtFallback = $pdo->query("SELECT * FROM social_post_queue WHERE is_active = 1 ORDER BY last_posted_at ASC, id ASC LIMIT 1");
-            $chosenItem = $stmtFallback->fetch();
+            $sqlFallback = "SELECT * FROM social_post_queue WHERE is_active = 1 {$excludeSlugSql} ORDER BY last_posted_at ASC, id ASC LIMIT 1";
+            $chosenItem = $pdo->query($sqlFallback)->fetch();
         }
     } catch (\Throwable $e) {}
 }
 
-// Fallback nếu chưa kết nối MySQL: chọn bài ngẫu nhiên hoặc tuần tự theo ngày từ danh sách
+// Fallback nếu chưa kết nối MySQL: chọn bài luân phiên theo ngày và slot (sáng/tối không trùng nhau)
 if (!$chosenItem) {
     $slugKeys = array_keys($allPlants);
     if (!empty($slugKeys)) {
-        $idx = (int)date('z') % count($slugKeys);
+        $idx = ((int)date('z') * 2 + ($slot === 'morning' ? 0 : 1)) % count($slugKeys);
         $slug = $slugKeys[$idx];
         $p = $allPlants[$slug];
         $chosenItem = [
@@ -368,13 +431,18 @@ if ($pdo) {
 }
 $caption = '';
 $targetUrl = $chosenItem['target_url'];
-$utmUrl = "{$targetUrl}?utm_source=facebook&utm_medium=fanpage&utm_campaign=daily_8am&utm_content=angle_{$angle}";
+$utmCampaign = ($slot === 'morning') ? 'daily_morning_8am' : 'daily_evening_8pm';
+$utmUrl = "{$targetUrl}?utm_source=facebook&utm_medium=fanpage&utm_campaign={$utmCampaign}&utm_content=angle_{$angle}";
+
+$timeGreeting = ($slot === 'morning') 
+    ? "Chào buổi sáng cộng đồng Yêu Trồng Cây! ☀️\n" 
+    : "Chào buổi tối cộng đồng Yêu Trồng Cây! 🌙\n";
 
 // Khung nội dung cho chuyên trang tính năng
 if (strpos($cat, 'feature_') === 0) {
     $caption = "🌟 [TRẢI NGHIỆM ĐỘC QUYỀN TRÊN YÊU TRỒNG CÂY]\n";
     $caption .= "👉 " . mb_strtoupper($chosenItem['category_label'] ?? 'TÍNH NĂNG MỚI', 'UTF-8') . "\n\n";
-    $caption .= "Chào buổi sáng cộng đồng Yêu Trồng Cây! ☀️\n";
+    $caption .= $timeGreeting;
     if ($slug === 'bac-si-cay-trong') {
         $caption .= "Cây trồng ban công nhà bạn đang gặp tình trạng vàng lá, đốm than, rệp sáp hay thối gốc mà chưa rõ nguyên nhân? Đừng lo lắng!\n\n";
         $caption .= "✨ TÍNH NĂNG NỔI BẬT CỦA BÁC SĨ CÂY TRỒNG AI 3S:\n";
@@ -422,7 +490,7 @@ if (strpos($cat, 'feature_') === 0) {
         }
 
         $caption = "{$badgeHeader} " . mb_strtoupper($commonName, 'UTF-8') . " – CẨM NANG BẢN ĐỊA CHO MỌI NHÀ\n\n";
-        $caption .= "Chào buổi sáng cộng đồng Yêu Trồng Cây! ☀️\n";
+        $caption .= $timeGreeting;
         $caption .= "Trong không gian xanh gia đình, {$commonName}{$aliases}" . (!empty($sciName) ? " - tên khoa học là {$sciName}" : "") . " luôn mang lại nhiều giá trị thiết thực. {$desc}\n\n";
         
         if (!empty($uses)) {
@@ -452,6 +520,7 @@ if (strpos($cat, 'feature_') === 0) {
     } elseif ($angle === 2) {
         // VÒNG 2: GÓC KỸ THUẬT TRỒNG CHẬU & LỊCH MÙA VỤ 3 MIỀN
         $caption = "🪴 [BÍ QUYẾT NHÀ VƯỜN] TRỒNG " . mb_strtoupper($commonName, 'UTF-8') . " TRÊN BAN CÔNG: CÁCH CHĂM SÓC CHUẨN 3 MIỀN\n\n";
+        $caption .= $timeGreeting;
         $caption .= "Trồng {$commonName} trong chậu đô thị không hề khó nếu bạn nắm rõ đặc tính sinh học của cây! {$desc}\n\n";
 
         $caption .= "📌 THÔNG SỐ CHĂM SÓC BAN CÔNG:\n";
@@ -474,6 +543,7 @@ if (strpos($cat, 'feature_') === 0) {
     } else {
         // VÒNG 3: GÓC PHÂN BIỆT TRÁNH NHẦM LẪN & KINH TẾ VƯỜN PHỐ
         $caption = "🔍 [CẨM NANG THỰC VẬT] CÁCH NHẬN BIẾT CHUẨN " . mb_strtoupper($commonName, 'UTF-8') . " TRÁNH NHẦM LẪN\n\n";
+        $caption .= $timeGreeting;
         $caption .= "Nhiều người mới bắt đầu làm vườn thường dễ nhầm lẫn {$commonName} với các loài cây dại khác. Cùng Yêu Trồng Cây điểm qua những dấu hiệu nhận biết chuẩn xác nhất!\n\n";
 
         if ($confusion && !empty($confusion['distinguishing_features'])) {
@@ -728,12 +798,13 @@ if ($pdo) {
         }
 
         $logStmt = $pdo->prepare("
-            INSERT INTO social_post_logs (posted_date, category_slug, ref_slug, target_url, post_angle, fb_post_id, fb_response_json, status, error_message, created_at)
-            VALUES (:pdate, :cat, :slug, :url, :angle, :fbid, :resp, :st, :err, :now)
+            INSERT INTO social_post_logs (posted_date, post_slot, category_slug, ref_slug, target_url, post_angle, fb_post_id, fb_response_json, status, error_message, created_at)
+            VALUES (:pdate, :slot, :cat, :slug, :url, :angle, :fbid, :resp, :st, :err, :now)
             ON DUPLICATE KEY UPDATE status = VALUES(status), error_message = VALUES(error_message), fb_post_id = VALUES(fb_post_id)
         ");
         $logStmt->execute([
             ':pdate' => $todayStr,
+            ':slot'  => $slot,
             ':cat'   => $cat,
             ':slug'  => $slug,
             ':url'   => $targetUrl,
@@ -747,20 +818,27 @@ if ($pdo) {
     } catch (\Throwable $e) {}
 }
 
-// Ghi khóa tệp cục bộ bảo vệ 2 lớp (Bảo đảm 100% không bao giờ đăng 2 lần/ngày kể cả khi MySQL mất kết nối)
+// Ghi khóa tệp cục bộ bảo vệ 2 lớp theo slot (Bảo đảm 100% không đăng trùng slot kể cả khi MySQL mất kết nối)
 if ($status === 'success') {
-    @file_put_contents($lockFile, json_encode([
+    $existingLocks = file_exists($lockFile) ? json_decode(@file_get_contents($lockFile), true) : [];
+    if (!is_array($existingLocks)) $existingLocks = [];
+    $existingLocks[$slotKey] = [
         'posted_date' => $todayStr,
+        'slot'        => $slot,
+        'slot_key'    => $slotKey,
         'slug'        => $slug,
         'fb_post_id'  => $fbPostId,
         'created_at'  => $now
-    ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+    ];
+    @file_put_contents($lockFile, json_encode($existingLocks, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
 }
 
 // 10. Trả về kết quả
 echo json_encode([
     'success'       => ($status === 'success'),
     'posted_date'   => $todayStr,
+    'post_slot'     => $slot,
+    'slot_label'    => $slotLabel,
     'server_time'   => $now,
     'selected_item' => [
         'slug'           => $slug,
