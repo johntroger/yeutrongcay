@@ -14,7 +14,7 @@ export const PLANT_COLLECTIONS: PlantCollection[] = [
     badge: 'Tủ Thuốc Gia Đình',
     badge_en: 'Family First-Aid',
     themeColor: 'emerald',
-    plantIds: ['herb-01', 'herb-02', 'herb-03', 'herb-12', 'fruit-08', 'herb-40', 'herb-47'],
+    plantIds: ['herb-01', 'herb-02', 'herb-03', 'herb-12', 'fruit-08', 'herb-40', 'herb-47', 'herb-67', 'herb-81', 'herb-94'],
     benefits: [
       'Tinh dầu Carvacrol & Thymol sát khuẩn vòm họng cực mạnh',
       'Hạ sốt tức thì bằng cách giã đắp trán và lòng bàn chân',
@@ -41,7 +41,7 @@ export const PLANT_COLLECTIONS: PlantCollection[] = [
     badge: 'Chịu Nắng Cực Hạn',
     badge_en: 'Extreme Heat Proof',
     themeColor: 'amber',
-    plantIds: ['fruit-01', 'fruit-02', 'fruit-04', 'orn-01', 'herb-22', 'orn-15', 'fruit-20', 'fruit-23'],
+    plantIds: ['fruit-01', 'fruit-02', 'fruit-04', 'orn-01', 'herb-22', 'orn-15', 'fruit-20', 'fruit-23', 'fruit-66', 'orn-37', 'orn-42', 'orn-57'],
     benefits: [
       'Chịu nắng gắt trực diện trên 6-8 tiếng mỗi ngày',
       'Lá dày mọng nước giảm thoát hơi nước và cách nhiệt tường nhà',
@@ -176,7 +176,7 @@ export const PLANT_COLLECTIONS: PlantCollection[] = [
     badge: 'Cực Kỳ Dễ Sống',
     badge_en: 'Beginner Friendly',
     themeColor: 'blue',
-    plantIds: ['herb-01', 'herb-03', 'fruit-02', 'orn-04', 'orn-06', 'herb-38', 'orn-20', 'orn-42', 'orn-44', 'orn-45', 'orn-48'],
+    plantIds: ['herb-01', 'herb-03', 'fruit-02', 'orn-04', 'orn-06', 'herb-38', 'orn-20', 'orn-42', 'orn-44', 'orn-45', 'orn-48', 'herb-82', 'orn-53', 'orn-60'],
     benefits: [
       'Không yêu cầu kỹ thuật cắt tỉa hay bón phân phức tạp',
       'Sống tốt trong cả điều kiện thiếu sáng hoặc quên tưới 3-5 ngày',
@@ -203,7 +203,7 @@ export const PLANT_COLLECTIONS: PlantCollection[] = [
     badge: 'Đuổi Muỗi Tự Nhiên',
     badge_en: 'Eco Pest Shield',
     themeColor: 'emerald',
-    plantIds: ['herb-16', 'orn-11', 'orn-03', 'herb-19', 'herb-01', 'herb-46'],
+    plantIds: ['herb-16', 'orn-11', 'orn-03', 'herb-19', 'herb-01', 'herb-46', 'herb-91', 'herb-93'],
     benefits: [
       'Hàm lượng Citronella, Eucalyptol và Cineole gây ức chế cơ quan khứu giác của muỗi',
       'Hoàn toàn không độc hại cho trẻ sơ sinh và thú cưng như bình xịt hóa học',
@@ -571,7 +571,65 @@ const PLANT_SUBCATEGORY_MAP: Record<string, string> = {
   'culinary-19': 'tra-thao-duoc-duong-sinh',
 
   'forest-19': 'rung-nguyen-sinh',
-  'forest-20': 'rung-nguyen-sinh'
+  'forest-20': 'rung-nguyen-sinh',
+
+  // Đợt 3 Bổ sung (Sprint 9 - 11: 50 bài, 261 -> 310)
+  'herb-81': 'tri-ho-ho-hap',
+  'herb-82': 'tra-thao-moc-tieu-hoa',
+  'herb-83': 'xuong-khop-phong-han',
+  'herb-84': 'xuong-khop-phong-han',
+  'herb-85': 'xuong-khop-phong-han',
+  'herb-86': 'bo-huyet-duong-sinh',
+  'herb-87': 'bo-huyet-duong-sinh',
+  'herb-88': 'thanh-nhiet-giai-doc',
+  'herb-89': 'thanh-nhiet-giai-doc',
+  'herb-90': 'thanh-nhiet-giai-doc',
+  'herb-91': 'tri-ho-ho-hap',
+  'herb-92': 'tri-ho-ho-hap',
+  'herb-93': 'bo-huyet-duong-sinh',
+  'herb-94': 'tri-ho-ho-hap',
+  'herb-95': 'xuong-khop-phong-han',
+  'herb-96': 'tri-ho-ho-hap',
+
+  'fruit-58': 'day-leo-gian-qua',
+  'fruit-59': 'day-leo-gian-qua',
+  'fruit-60': 'day-leo-gian-qua',
+  'fruit-61': 'day-leo-gian-qua',
+  'fruit-62': 'day-leo-gian-qua',
+  'fruit-63': 'cam-chanh-gia-vi',
+  'fruit-64': 'cam-chanh-gia-vi',
+  'fruit-65': 'cay-bui-qua-mong',
+  'fruit-66': 'cay-bui-qua-mong',
+  'fruit-67': 'cay-bui-qua-mong',
+  'fruit-68': 'cay-bui-qua-mong',
+  'fruit-69': 'than-go-lun-ghep',
+  'fruit-70': 'than-go-lun-ghep',
+  'fruit-71': 'than-go-lun-ghep',
+
+  'orn-49': 'phong-thuy-tai-loc',
+  'orn-50': 'kieng-la-nhiet-doi',
+  'orn-51': 'kieng-la-nhiet-doi',
+  'orn-52': 'kieng-la-nhiet-doi',
+  'orn-53': 'kieng-la-nhiet-doi',
+  'orn-54': 'kieng-la-nhiet-doi',
+  'orn-55': 'kieng-la-nhiet-doi',
+  'orn-56': 'kieng-la-nhiet-doi',
+  'orn-57': 'bonsai-huong-thom',
+  'orn-58': 'bonsai-huong-thom',
+  'orn-59': 'bonsai-huong-thom',
+  'orn-60': 'phong-thuy-tai-loc',
+
+  'space-22': 'vuon-tuong-dung',
+  'space-23': 'san-thuong-nhiet-doi',
+
+  'recycle-21': 'thuy-canh-tu-che',
+  'recycle-22': 'u-rac-huu-co',
+
+  'culinary-20': 'siro-chua-lanh',
+  'culinary-21': 'gia-vi-len-men',
+
+  'forest-21': 'khu-bao-ton-sinh-thai',
+  'forest-22': 'khu-bao-ton-sinh-thai'
 };
 
 /**
