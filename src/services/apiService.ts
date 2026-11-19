@@ -55,11 +55,12 @@ export async function getPlants(category?: string, query?: string): Promise<{ pl
       });
 
       // Đồng bộ: bổ sung các cây có trong SEED_PLANTS nhưng database chưa được seed (tránh lệch số liệu)
+      // Chỉ loại trùng theo id hoặc slug (không loại theo scientific_name vì nhiều giống/công dụng khác nhau có cùng tên loài)
       if (!query) {
-        const known = new Set(mergedPlants.map((p) => p.id));
-        const knownSci = new Set(mergedPlants.map((p) => p.scientific_name.toLowerCase()));
+        const knownIds = new Set(mergedPlants.map((p) => p.id));
+        const knownSlugs = new Set(mergedPlants.map((p) => p.slug));
         SEED_PLANTS.forEach((s) => {
-          if (known.has(s.id) || knownSci.has(s.scientific_name.toLowerCase())) return;
+          if (knownIds.has(s.id) || knownSlugs.has(s.slug)) return;
           if (category && s.category !== category) return;
           mergedPlants.push(s);
         });
