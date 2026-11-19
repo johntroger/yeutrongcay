@@ -27096,6 +27096,1578 @@ export const SEED_PLANTS: Plant[] = [
         "url": "https://powo.science.kew.org/"
       }
     ]
+  },
+  {
+    "id": "fruit-44",
+    "slug": "nhan-tim-lun-trong-chau",
+    "common_name": "Nhãn Tím Lùn Ghép Chậu",
+    "scientific_name": "Dimocarpus longan",
+    "aliases": [
+      "Nhãn Tím Phong Thủy",
+      "Nhãn Lùn Ghép Chậu",
+      "Longan"
+    ],
+    "category": "fruit",
+    "description": "Giống nhãn đột biến vỏ quả, đọt non và cành mang sắc tím ruby độc đáo có nguồn gốc từ Sóc Trăng. Cây ghép lùn dễ thuần dưỡng trong chậu lớn trên sân thượng, vừa làm kiểng phong thủy sắc tím may mắn vừa cho chùm quả cùi dày ngọt thơm.",
+    "quick_answer": "Nhãn Tím Lùn (Dimocarpus longan) là giống cây ăn trái đặc sản vỏ tím nổi bật với khả năng đậu quả chùm trong chậu đường kính 60cm. Cây ưa nắng 6 - 8 giờ/ngày, đất thịt pha cát thoát nước pH 5.5 - 6.5, tưới 2 ngày/lần và cho quả sau 18 - 24 tháng trồng cành ghép. Bí quyết đậu quả sai trên sân thượng là cắt tỉa tạo tán thấp và xiết nước kích thích phân hóa mầm hoa.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Dimocarpus_longan_%282%29.jpg",
+    "image_sha256": "ef51b746a0abfbe13f73f85c8852795ff0bf4f4a7342b4719076521d62147683",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 3,
+    "growth_time": "18 - 24 tháng từ cây ghép lùn đến vụ quả đầu tiên",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Trồng đầu mùa xuân (tháng 2 - 4); tiết trời rét nhẹ mùa đông giúp nhãn tím phân hóa mầm hoa tự nhiên tốt hơn.",
+      "central": "Chịu nắng tốt, cần che chắn gió bão lớn làm gãy cành mang hoa.",
+      "south": "Phát triển nhanh quanh năm; chủ động xiết nước nhẹ 2 - 3 tuần vào cuối mùa mưa để kích ra hoa đồng loạt.",
+      "best_months": [
+        2,
+        3,
+        4,
+        8,
+        9
+      ],
+      "warning": "Không bón phân đạm cao vào giai đoạn trước khi cây chuẩn bị ra hoa vì sẽ kích cây đi đọt lá non (lộc đông/lộc thu) làm mất hoa."
+    },
+    "botanical_details": {
+      "family": "Sapindaceae (Họ Bồ hòn)",
+      "native_range": "Đông Nam Á, giống đột biến Sóc Trăng - Việt Nam",
+      "active_compounds": [
+        "Polyphenol & Acid Gallic (trong cùi và hạt)",
+        "Vitamin C & Kali",
+        "Anthocyanin (tạo sắc tố tím ở vỏ và lá non)"
+      ],
+      "soil_ph": "5.5 - 6.5",
+      "ideal_temp": "24°C - 34°C",
+      "pot_size": "Chậu lớn đường kính 55 - 65cm hoặc thùng 100 - 120L thoát nước tốt"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Chọn cây giống ghép cành & chuẩn bị chậu 100L",
+        "instruction": "Chọn cây nhãn tím ghép mắt hoặc ghép nêm có gốc khỏe, tán thấp dưới 60cm. Phối trộn 50% đất thịt phù sa + 20% trấu hun + 20% phân bò hoai/trùn quế + 10% xơ dừa vào chậu đường kính tối thiểu 55cm."
+      },
+      {
+        "step": 2,
+        "title": "Tỉa cành tạo tán thông thoáng hình mâm xôi",
+        "instruction": "Khi cây cao 1m, bấm ngọn giữ 3 - 4 cành cấp 1 tỏa đều các hướng. Loại bỏ các cành tăm, cành vượt mọc thẳng đứng để ánh nắng xuyên vào giữa tán."
+      },
+      {
+        "step": 3,
+        "title": "Xiết nước & bón lân-kali kích ra hoa",
+        "instruction": "Khi cơi đọt lá cuối đã chuyển màu xanh đậm bánh tẻ, ngưng tưới 10 - 14 ngày (chỉ tưới giữ ẩm rất nhẹ nếu lá héo gắt) kết hợp bón phân giàu Lân-Kali hữu cơ để kích phát chùm hoa."
+      },
+      {
+        "step": 4,
+        "title": "Tỉa thưa trái non & bọc chùm chống dơi, sâu đục cuống",
+        "instruction": "Khi trái non bằng hạt đậu, tỉa bỏ bớt các trái nhỏ dị dạng, giữ 25 - 30 trái/chùm cho quả to cùi dày. Bọc chùm bằng túi lưới cước trắng trước thu hoạch 1 tháng."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao nhãn tím trồng chậu ra lá rất tốt nhưng nhiều năm không chịu ra hoa?",
+        "answer": "Do cây nhận quá nhiều đạm hoặc bị tưới nước liên tục quanh năm khiến cây liên tục ra đọt non mà không chịu phân hóa mầm hoa. Cần có giai đoạn xiết nước nhẹ 2 tuần khi bộ lá vừa già và bổ sung Kali hữu cơ (tro bếp/dịch chuối)."
+      },
+      {
+        "question": "Quả nhãn tím khi ăn có vị giống nhãn xuồng hay nhãn tiêu da bò?",
+        "answer": "Nhãn tím có vị ngọt thanh dịu, cùi khá dày và mùi thơm thoảng nhẹ, vỏ màu tím nâu rất bắt mắt, đặc biệt được ưa chuộng làm cây kiểng ăn trái phong thủy."
+      }
+    ],
+    "monetization_tips": [
+      "Cây nhãn tím bonsai trồng chậu sẵn trái có giá trị thẩm mỹ cao, được giới chơi cây cảnh sân thượng ưa chuộng vào các dịp lễ Tết."
+    ],
+    "tags": [
+      "nhãn tím",
+      "cây ăn trái chậu",
+      "sân thượng",
+      "ghép lùn",
+      "đặc sản miền tây"
+    ],
+    "related_plant_ids": [
+      "fruit-39",
+      "fruit-32",
+      "fruit-35",
+      "space-18"
+    ],
+    "reference_sources": [
+      {
+        "title": "Quy trình kỹ thuật canh tác cây Nhãn vùng Đồng bằng sông Cửu Long",
+        "author": "Viện Cây Ăn Quả Miền Nam (SOFRI)",
+        "organization": "SOFRI",
+        "verification_type": "agronomy",
+        "url": "https://sofri.org.vn/"
+      },
+      {
+        "title": "Dimocarpus longan Lour. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "fruit-45",
+    "slug": "mit-thai-sieu-som-trong-chau",
+    "common_name": "Mít Thái Siêu Sớm Trồng Chậu",
+    "scientific_name": "Artocarpus heterophyllus",
+    "aliases": [
+      "Mít Siêu Sớm Changai",
+      "Mít Thái Lá Bầu",
+      "Jackfruit"
+    ],
+    "category": "fruit",
+    "description": "Giống mít ghép siêu sớm nổi tiếng với khả năng cho trái chỉ sau 14 - 18 tháng trồng và đặc tính ra quả ngay trên thân chính ở độ cao chưa tới 1m, cực kỳ ấn tượng khi trồng trong thùng phuy 100L trên sân thượng.",
+    "quick_answer": "Mít Thái Siêu Sớm (Artocarpus heterophyllus) là giống cây ăn trái ghép cành có thể ra trái trên thân ngay trong chậu 100L sau 14 - 18 tháng. Cây cần nắng toàn phần 6 - 8 giờ/ngày, đất tơi xốp thoát nước tuyệt đối pH 5.5 - 6.5, tưới 2 ngày/lần. Yếu tố sống còn khi trồng chậu là chỉ giữ tối đa 1 - 2 trái/cây mỗi vụ để tránh suy kiệt gốc.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Artocarpus_heterophyllus_3.jpg",
+    "image_sha256": "4f16e727590e5a3ef51fe1ff7c5cb39e88822c71fd8fe4420699670e4d420eed",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 3,
+    "growth_time": "14 - 18 tháng từ cây ghép đến khi thu hoạch lứa quả đầu tiên",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Trồng vào mùa xuân (tháng 2 - 4); chú ý chống úng rễ vào mùa mưa ngâu tháng 7 - 8.",
+      "central": "Chịu nắng nóng rất tốt, cần cột dây néo thân chống gió bão.",
+      "south": "Ra hoa kết trái quanh năm, phát triển rất nhanh.",
+      "best_months": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "warning": "Rễ mít cực kỳ mẫn cảm với ngập úng (chỉ cần đọng nước 2 - 3 ngày có thể gây xì mủ thối rễ chết cây)."
+    },
+    "botanical_details": {
+      "family": "Moraceae (Họ Dâu tằm)",
+      "native_range": "Ấn Độ và Đông Nam Á nhiệt đới",
+      "active_compounds": [
+        "Beta-carotene & Lutein (sắc tố vàng cam trong múi mít)",
+        "Jacalin (lectin tự nhiên trong hạt)",
+        "Vitamin C, Kali và chất xơ"
+      ],
+      "soil_ph": "5.5 - 6.5",
+      "ideal_temp": "24°C - 35°C",
+      "pot_size": "Thùng phuy cắt đôi hoặc chậu thông minh 100 - 150L kê gạch cao đáy"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Kê cao đáy chậu chống úng tuyệt đối cho rễ mít",
+        "instruction": "Dùng thùng/chậu tối thiểu 100L đục nhiều lỗ thoát nước bên hông cách đáy 3cm, kê lên 4 viên gạch để nước thoát tức thì. Trộn 50% đất thịt sạch + 25% trấu hun + 15% phân bò hoai/trùn quế + 10% đá Pumice."
+      },
+      {
+        "step": 2,
+        "title": "Trồng cây ghép nổi gốc & cắt tỉa cành thấp",
+        "instruction": "Đặt bầu cây sao cho mặt bầu cao hơn mặt đất chậu 2 - 3cm (tránh lấp sâu cổ rễ gây xì mủ). Bấm ngọn khi cây cao 1.5m để cây tập trung nuôi thân mập."
+      },
+      {
+        "step": 3,
+        "title": "Thụ phấn bổ sung & tuyển trái đẹp trên thân",
+        "instruction": "Cây mít có bông đực (nhỏ, rụng sớm) và bông cái (cuống to, gai mịn) riêng. Có thể dùng cọ quét phấn từ bông đực sang bông cái vào sáng sớm, sau đó tuyển chỉ giữ lại 1 - 2 trái tròn đều sát thân chính."
+      },
+      {
+        "step": 4,
+        "title": "Bọc trái phòng ruồi vàng & bổ sung Kali nuôi múi",
+        "instruction": "Khi trái to bằng nắm tay, dùng bao lưới hoặc bao giấy chuyên dụng bọc kín cuống quả tránh ruồi vàng đục thối. Bón tăng cường Kali hữu cơ (dịch chuối, tro bếp) giúp múi mít giòn ngọt và màu vàng cam đẹp."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Trồng mít Thái trong chậu trên sân thượng có sợ rễ làm nứt sàn hay cây quá nặng không?",
+        "answer": "Trồng trong thùng/chậu độc lập hoàn toàn không ăn rễ xuống sàn bê tông. Chỉ cần kê thùng ngay vị trí dầm chịu lực hoặc cột nhà sân thượng và giới hạn chiều cao cây dưới 2m."
+      },
+      {
+        "question": "Tại sao quả mít non mới bằng cổ tay lại bị xơ đen hoặc thối đen từng mảng?",
+        "answer": "Do thiếu Canxi - Bo và nhiễm nấm/vi khuẩn qua vết chích của ruồi vàng khi quả còn non. Hãy bọc quả từ sớm, bổ sung vỏ trứng nghiền/vôi bột nông nghiệp định kỳ và xịt phòng Trichoderma."
+      }
+    ],
+    "monetization_tips": [
+      "Cây mít Thái siêu sớm trồng chậu đang mang quả lúc lỉu sát gốc tạo điểm nhấn độc đáo cho vườn sân thượng gia đình."
+    ],
+    "tags": [
+      "mít thái siêu sớm",
+      "trồng thùng 100l",
+      "sân thượng",
+      "cây ăn trái",
+      "ghép lùn"
+    ],
+    "related_plant_ids": [
+      "fruit-32",
+      "fruit-46",
+      "fruit-44",
+      "space-18"
+    ],
+    "reference_sources": [
+      {
+        "title": "Kỹ thuật trồng và chăm sóc Mít Thái siêu sớm",
+        "author": "Viện Cây Ăn Quả Miền Nam (SOFRI)",
+        "organization": "SOFRI",
+        "verification_type": "agronomy",
+        "url": "https://sofri.org.vn/"
+      },
+      {
+        "title": "Artocarpus heterophyllus Lam. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "fruit-46",
+    "slug": "mang-cau-xiem-ghep-lun",
+    "common_name": "Mãng Cầu Xiêm Ghép Lùn",
+    "scientific_name": "Annona muricata",
+    "aliases": [
+      "Mãng Cầu Gai",
+      "Na Xiêm",
+      "Soursop"
+    ],
+    "category": "fruit",
+    "description": "Loài cây ăn trái nhiệt đới giàu Vitamin C, chất xơ và nhóm hoạt chất Acetogenin nổi tiếng. Khi ghép trên gốc bình bát lùn hoặc cắt tỉa thấp, cây rất dễ ra hoa đậu quả trong chậu 80 - 100L trên sân thượng.",
+    "quick_answer": "Mãng Cầu Xiêm Ghép Lùn (Annona muricata) cho trái thơm chua ngọt làm sinh tố giải nhiệt và giàu Vitamin C. Cây ưa nắng 6 - 8 giờ/ngày, đất tơi xốp giữ ẩm pH 5.5 - 6.5, tưới đều 1 - 2 ngày/lần và thu quả sau 18 - 24 tháng. Bí quyết quan trọng nhất khi trồng ban công ít côn trùng là thụ phấn nhân tạo bằng cọ vào sáng sớm (6h - 9h).",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4d/Annona_muricata_1893355.jpg",
+    "image_sha256": "692b16c36cd9309ff71e28ef01e7af30c8b2e6d1dcc59d4f7965d2f1158ea653",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 3,
+    "growth_time": "18 - 24 tháng từ cây ghép đến khi thu hoạch quả chín",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Trồng đầu xuân; mùa đông rét dưới 12°C cây dễ rụng lá, cần đặt góc kín gió.",
+      "central": "Phát triển tốt, tưới đủ ẩm khi cây đang mang hoa và nuôi quả.",
+      "south": "Khí hậu lý tưởng nhất cho mãng cầu xiêm ra trái quanh năm.",
+      "best_months": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "warning": "Không ăn hạt mãng cầu xiêm (có chứa lượng nhỏ độc tố thần kinh annonacin); chỉ ăn phần thịt quả và tránh lạm dụng trà lá quá đặc kéo dài."
+    },
+    "botanical_details": {
+      "family": "Annonaceae (Họ Na)",
+      "native_range": "Trung Mỹ & Caribe, trồng phổ biến tại Nam Bộ Việt Nam",
+      "active_compounds": [
+        "Vitamin C & Kali",
+        "Annonaceous acetogenins (trong lá và hạt)",
+        "Alkaloid isoquinoline & Flavonoid"
+      ],
+      "soil_ph": "5.5 - 6.5",
+      "ideal_temp": "24°C - 34°C",
+      "pot_size": "Chậu đường kính 55 - 60cm hoặc thùng 90 - 120L"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Chọn cây ghép gốc bình bát/na dai lùn & giá thể thoáng",
+        "instruction": "Chọn cây ghép mắt khỏe mạnh (ghép gốc bình bát giúp chịu úng tốt hơn). Trộn 45% đất thịt + 25% phân trùn quế/phân bò hoai + 20% xơ dừa + 10% trấu hun vào chậu 90L."
+      },
+      {
+        "step": 2,
+        "title": "Tạo tán lùn & loại bỏ cành mọc trong lòng tán",
+        "instruction": "Giữ thân chính cao khoảng 1m rồi bấm ngọn để phân 3 - 4 cành ngang khỏe mạnh (hoa mãng cầu xiêm thường mọc trực tiếp từ thân và cành già)."
+      },
+      {
+        "step": 3,
+        "title": "Thụ phấn nhân tạo bằng tay (Quyết định tỷ lệ đậu quả)",
+        "instruction": "Hoa mãng cầu xiêm có nhị cái và nhị đực chín lệch giờ nên tự thụ phấn rất kém trên sân thượng. Chiều hôm trước thu phấn từ hoa đang nở bung vào hộp khô; sáng sớm 6h - 8h hôm sau dùng cọ mềm quét phấn lên đầu nhụy hoa cái mới hé cánh."
+      },
+      {
+        "step": 4,
+        "title": "Tỉa trái méo & bọc quả phòng rệp sáp",
+        "instruction": "Chỉ giữ 2 - 3 trái tròn cân đối trên 1 cây chậu. Dùng dầu Neem xịt phòng rệp sáp trắng hay bám quanh cuống trái và bọc túi lưới thưa."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao hoa mãng cầu xiêm nở rất nhiều nhưng rụng sạch hoặc đậu quả bị méo vẹo?",
+        "answer": "Do thiếu thụ phấn chéo hoặc thụ phấn không đều trên bầu nhụy nhiều noãn. Việc quét phấn đều tay vào sáng sớm bằng cọ mềm sẽ giúp trái tròn đẹp, gai nở đều và đạt trọng lượng 1 - 2kg ngay trong chậu."
+      },
+      {
+        "question": "Lá mãng cầu xiêm có nấu nước uống được không?",
+        "answer": "Trong dân gian một số nước có dùng lá phơi khô hãm trà, tuy nhiên các cơ quan y tế (như NIH/ANSES) khuyến cáo không tự ý uống nước sắc lá mãng cầu xiêm đậm đặc hàng ngày kéo dài vì hoạt chất acetogenin ở nồng độ cao có thể gây hại thần kinh."
+      }
+    ],
+    "monetization_tips": [
+      "Sinh tố mãng cầu xiêm hữu cơ trồng sạch tại nhà có giá trị dinh dưỡng cao và rất dễ chia sẻ hoặc bán trái sạch tại khu dân cư."
+    ],
+    "tags": [
+      "mãng cầu xiêm",
+      "mãng cầu gai",
+      "thụ phấn tay",
+      "sân thượng",
+      "cây ăn trái"
+    ],
+    "related_plant_ids": [
+      "fruit-37",
+      "fruit-45",
+      "fruit-32",
+      "recycle-17"
+    ],
+    "reference_sources": [
+      {
+        "title": "Kỹ thuật trồng và thụ phấn Mãng cầu xiêm đạt năng suất cao",
+        "author": "Viện Cây Ăn Quả Miền Nam (SOFRI)",
+        "organization": "SOFRI",
+        "verification_type": "agronomy",
+        "url": "https://sofri.org.vn/"
+      },
+      {
+        "title": "Annona muricata L. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "fruit-47",
+    "slug": "chom-chom-thai-lun-chau",
+    "common_name": "Chôm Chôm Thái Ghép Lùn",
+    "scientific_name": "Nephelium lappaceum",
+    "aliases": [
+      "Chôm Chôm Rongrien",
+      "Chôm Chôm Thái Lan",
+      "Rambutan"
+    ],
+    "category": "fruit",
+    "description": "Giống chôm chôm Rongrien Thái Lan tróc hạt, cùi giòn ngọt được nhân giống bằng phương pháp ghép cành giúp khống chế chiều cao chỉ 1.8 - 2.2m, có thể trồng thử nghiệm thành công trên sân thượng rộng miền Nam.",
+    "quick_answer": "Chôm Chôm Thái Ghép Lùn (Nephelium lappaceum) cho quả tróc hạt cùi giòn ngọt khi trồng trong chậu lớn 120L ở vùng khí hậu ấm. Cây ưa nắng 6 - 8 giờ/ngày, đất tơi xốp hơi chua pH 5.0 - 6.0, tưới giữ ẩm thường xuyên và ra trái sau 2.5 - 3 năm. Yếu tố quan trọng nhất là phủ rơm rạ giữ ẩm mát vùng rễ và tránh gió khô nóng.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/00/Rambutan_fruit.jpg",
+    "image_sha256": "f6df6053bcb7ef180cf7957f1000b3ca942ac0e3d7a245a2e6d886ae3df47d53",
+    "sunlight": "full_sun",
+    "watering": "daily",
+    "propagation_difficulty": 4,
+    "growth_time": "2.5 - 3 năm từ cây ghép cành đến vụ thu hoạch đầu tiên",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Không khuyến khích trồng ngoài trời miền Bắc do cây rất sợ rét mùa đông dưới 15°C.",
+      "central": "Trồng được ở các tỉnh Nam Trung Bộ nắng ấm quanh năm, cần che chắn gió Lào.",
+      "south": "Phát triển rất tốt tại Đông Nam Bộ và Tây Nam Bộ.",
+      "best_months": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "warning": "Chôm chôm cực kỳ mẫn cảm với đất kiềm vôi (pH > 7.0) và không khí quá khô nóng; lá sẽ bị cháy khô mép nếu thiếu ẩm."
+    },
+    "botanical_details": {
+      "family": "Sapindaceae (Họ Bồ hòn)",
+      "native_range": "Đông Nam Á (Malaysia, Indonesia, Thái Lan, Việt Nam)",
+      "active_compounds": [
+        "Vitamin C & Mangan",
+        "Corilagin & Ellagic acid (polyphenol trong vỏ quả)",
+        "Geraniin"
+      ],
+      "soil_ph": "5.0 - 6.0 (ưa đất hơi chua)",
+      "ideal_temp": "24°C - 34°C",
+      "pot_size": "Bồn xây hoặc thùng phuy lớn 120 - 150L trên sân thượng rộng"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Chọn cây ghép giống Thái Rongrien (cây lưỡng tính)",
+        "instruction": "Rất quan trọng: Phải chọn đúng cây ghép mắt từ cây mẹ lưỡng tính (ra hoa tự đậu quả) thay vì cây trồng hạt dễ ra cây đực không có quả."
+      },
+      {
+        "step": 2,
+        "title": "Phối trộn giá thể hơi chua giàu mùn & phủ ẩm gốc",
+        "instruction": "Trộn 45% đất phù sa + 30% xơ dừa đã xả chát + 15% phân bò hoai/trùn quế + 10% vỏ trấu hun. Phủ một lớp rơm khô hoặc vỏ đậu dày 5cm trên mặt chậu giữ mát rễ."
+      },
+      {
+        "step": 3,
+        "title": "Khống chế chiều cao & giữ ẩm không khí giai đoạn ra hoa",
+        "instruction": "Cắt tỉa định hình tán cao không quá 2m để đón nắng đều và tránh gió quật. Tưới nước mỗi ngày 1 lần vào sáng sớm; giai đoạn chuẩn bị phân hóa hoa (cuối mùa khô) giảm nước nhẹ 2 tuần rồi tưới đẫm lại."
+      },
+      {
+        "step": 4,
+        "title": "Bổ sung Kali nuôi trái & bọc chùm chống dơi chim",
+        "instruction": "Khi đậu trái non bằng đầu đũa, bón dịch chuối hoặc phân hữu cơ giàu Kali mỗi 15 ngày giúp trái lên màu đỏ tươi, râu xanh và cùi giòn tróc hạt."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao lá chôm chôm trồng sân thượng hay bị cháy khô từ chóp lá vào?",
+        "answer": "Do gió khô nóng trên sân thượng làm mất nước quá nhanh hoặc đất chậu bị nhiễm mặn/kiềm. Hãy phủ rơm giữ ẩm mặt chậu, đặt chậu cạnh giàn cây khác tạo vi khí hậu ẩm và kiểm tra độ pH đất khoảng 5.5."
+      },
+      {
+        "question": "Trồng chôm chôm từ hạt ăn xong có ra quả sớm như cây ghép không?",
+        "answer": "Không. Cây trồng từ hạt mất 6 - 8 năm mới ra hoa, tán cực lớn và có tới 50% khả năng thành cây đực không đậu trái. Luôn mua cây ghép cành chuẩn giống."
+      }
+    ],
+    "monetization_tips": [
+      "Cây chôm chôm ghép lùn sai chùm đỏ rực trên sân thượng là điểm nhấn cảnh quan độc đáo cho nhà phố sân vườn miền Nam."
+    ],
+    "tags": [
+      "chôm chôm thái",
+      "rongrien",
+      "cây ghép lùn",
+      "sân thượng miền nam",
+      "họ bồ hòn"
+    ],
+    "related_plant_ids": [
+      "fruit-44",
+      "fruit-48",
+      "fruit-54",
+      "space-18"
+    ],
+    "reference_sources": [
+      {
+        "title": "Kỹ thuật trồng và chăm sóc Chôm chôm đạt chuẩn VietGAP",
+        "author": "Viện Cây Ăn Quả Miền Nam (SOFRI)",
+        "organization": "SOFRI",
+        "verification_type": "agronomy",
+        "url": "https://sofri.org.vn/"
+      },
+      {
+        "title": "Nephelium lappaceum L. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "fruit-48",
+    "slug": "mang-cut-lun-ghep-canh",
+    "common_name": "Măng Cụt Lùn Ghép Cành",
+    "scientific_name": "Garcinia mangostana",
+    "aliases": [
+      "Nữ Hoàng Trái Cây",
+      "Măng Cụt Ghép",
+      "Mangosteen"
+    ],
+    "category": "fruit",
+    "description": "Được mệnh danh là \"Nữ hoàng trái cây\" nhờ vị ngọt thanh tao và hàm lượng chất chống oxy hóa Xanthones cực cao. Phiên bản ghép cành giúp rút ngắn thời gian sinh trưởng xuống còn 3.5 - 4 năm và giữ tán gọn trong bồn sân vườn.",
+    "quick_answer": "Măng Cụt Lùn Ghép Cành (Garcinia mangostana) là cây ăn trái quý giàu Xanthones có thể thuần dưỡng trong bồn chậu lớn 120 - 150L. Cây ưa nắng bán phần khi còn nhỏ và nắng vừa khi trưởng thành, đất giàu mùn ẩm pH 5.5 - 6.5, tưới đều giữ ẩm. Yếu tố sống còn trong 2 năm đầu là bắt buộc phải che lưới giảm 50% nắng gắt để không cháy lá non.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/bd/Mangosteen1.jpg",
+    "image_sha256": "8c84108122a93c4a84593a064ed663bf5b9d87a04409d6d6f989aa5ce9da85db",
+    "sunlight": "partial_shade",
+    "watering": "daily",
+    "propagation_difficulty": 4,
+    "growth_time": "3.5 - 4 năm từ cây ghép cành đến lứa quả đầu tiên (nhanh hơn trồng hạt 4 - 5 năm)",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Không phù hợp trồng ngoài trời miền Bắc do nhiệt độ mùa đông quá lạnh dưới 15°C.",
+      "central": "Chỉ trồng được ở khu vực Nam Trung Bộ ấm áp và phải có mái lưới che nắng gió.",
+      "south": "Khí hậu nhiệt đới ẩm quanh năm tại Nam Bộ rất thích hợp.",
+      "best_months": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "warning": "Bộ rễ măng cụt không có lông hút phát triển mạnh như cây khác nên cực kỳ kỵ phân hóa học nồng độ cao và kỵ hạn hán kéo dài."
+    },
+    "botanical_details": {
+      "family": "Clusiaceae (Họ Bứa)",
+      "native_range": "Đông Nam Á hải đảo, trồng nhiều tại Lái Thiêu - Bến Tre - Đồng Nai",
+      "active_compounds": [
+        "Alpha-Mangostin & Gamma-Mangostin (nhóm Xanthones chống oxy hóa mạnh)",
+        "Catechin & Proanthocyanidin",
+        "Vitamin C"
+      ],
+      "soil_ph": "5.5 - 6.5",
+      "ideal_temp": "25°C - 32°C",
+      "pot_size": "Bồn xây hoặc chậu cực đại dung tích 120 - 150L đặt dưới giàn bán râm"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Chọn cây ghép khỏe & chuẩn bị giàn che nắng 50%",
+        "instruction": "Mua cây măng cụt ghép cành (chọn cây đã ra ít nhất 2 - 3 tầng lá khỏe). Trong 2 năm đầu trồng trên sân thượng/sân vườn, bắt buộc căng lưới lan đen che 50% ánh nắng trực tiếp."
+      },
+      {
+        "step": 2,
+        "title": "Phối trộn giá thể giàu mùn tơi xốp tuyệt đối",
+        "instruction": "Rễ măng cụt yếu nên giá thể phải cực kỳ tơi thoáng: 40% đất thịt phù sa + 30% phân trùn quế/phân chuồng ủ hoai mục + 20% xơ dừa đã xả chát + 10% vỏ trấu hun."
+      },
+      {
+        "step": 3,
+        "title": "Tưới giữ ẩm đều & bón phân hữu cơ loãng",
+        "instruction": "Giữ đất luôn ẩm mát nhưng không đọng nước đáy chậu. Tuyệt đối không rải phân NPK hóa học sát gốc; chỉ tưới dịch cá, dịch chuối pha loãng hoặc rải phân trùn quế định kỳ hàng tháng."
+      },
+      {
+        "step": 4,
+        "title": "Dỡ lưới che nắng dần từ năm thứ 3 & phòng bọ trĩ",
+        "instruction": "Khi cây đã phát triển tán dày ổn định từ năm thứ 3, tập cho cây quen nắng dần. Phun dầu Neem định kỳ bảo vệ đọt lá non và trái non khỏi bọ trĩ làm sượng sần vỏ quả."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao cây măng cụt trồng rất lâu lớn dù tưới phân đầy đủ?",
+        "answer": "Đây là đặc tính sinh học tự nhiên của họ Bứa (rễ ít lông hút, sinh trưởng chậm trong 2 năm đầu). Bón quá nhiều phân đạm hóa học không làm cây lớn nhanh hơn mà dễ gây cháy rễ; kiên trì dùng phân hữu cơ vi sinh và giữ ẩm mát cây sẽ bật đọt khỏe."
+      },
+      {
+        "question": "Vỏ quả măng cụt có dùng làm thuốc hay nấu nước uống được không?",
+        "answer": "Vỏ quả măng cụt chứa nhiều Tanin và Alpha-Mangostin; trong dân gian Việt Nam thường phơi khô sắc nước uống trị tiêu chảy nhẹ hoặc súc miệng, nhưng không nên lạm dụng uống liều cao hàng ngày."
+      }
+    ],
+    "monetization_tips": [
+      "Cây măng cụt thuần chậu có giá trị sưu tầm cao cho các chủ vườn sân thượng thích thử thách những loài cây ăn trái đặc sản quý."
+    ],
+    "tags": [
+      "măng cụt",
+      "cây ghép cành",
+      "xanthones",
+      "lái thiêu",
+      "cây ăn trái quý"
+    ],
+    "related_plant_ids": [
+      "fruit-47",
+      "fruit-54",
+      "space-18",
+      "recycle-17"
+    ],
+    "reference_sources": [
+      {
+        "title": "Quy trình kỹ thuật trồng và chăm sóc cây Măng cụt",
+        "author": "Viện Cây Ăn Quả Miền Nam (SOFRI)",
+        "organization": "SOFRI",
+        "verification_type": "agronomy",
+        "url": "https://sofri.org.vn/"
+      },
+      {
+        "title": "Garcinia mangostana L. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "fruit-49",
+    "slug": "chuoi-tieu-lun-trong-chau",
+    "common_name": "Chuối Tiêu Lùn (Dwarf Cavendish)",
+    "scientific_name": "Musa acuminata",
+    "aliases": [
+      "Chuối Lùn Thái",
+      "Chuối Già Lùn",
+      "Dwarf Cavendish Banana"
+    ],
+    "category": "fruit",
+    "description": "Giống chuối nhiệt đới thân lùn kỳ diệu chỉ cao 1.5 - 1.8m nhưng vẫn trổ buồng sai trĩu quả thơm ngọt ngay trong chậu hoặc thùng xốp lớn trên sân thượng, đồng thời mang lại vẻ đẹp nhiệt đới (Tropical) cực kỳ sang trọng cho không gian nhà phố.",
+    "quick_answer": "Chuối Tiêu Lùn (Musa acuminata) là giống chuối cao chỉ 1.5 - 1.8m phù hợp trồng chậu 80 - 100L trên sân thượng. Cây ưa nắng 6 - 8 giờ/ngày, đất giàu mùn kali pH 5.5 - 6.5, tưới đẫm hàng ngày và trổ buồng sau 9 - 11 tháng. Yếu tố quyết định để trái ngọt to là tỉa bỏ hết chồi con cạnh gốc để mẹ dồn sức nuôi buồng, chỉ giữ lại 1 chồi kế cận.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/53/Musa_acuminata_435642053.jpg",
+    "image_sha256": "d116d89606ee23a611458ecd3bd3f701d7b1955e991ee589269df05f8372d22a",
+    "sunlight": "full_sun",
+    "watering": "daily",
+    "propagation_difficulty": 2,
+    "growth_time": "9 - 11 tháng từ cây con cấy mô đến khi trổ buồng và thu hoạch",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Trồng đầu xuân (tháng 2 - 4) để kịp trổ buồng vào mùa thu ấm áp trước khi rét đậm mùa đông.",
+      "central": "Chịu nắng tốt, lưu ý cột dây chống đổ vào mùa mưa bão.",
+      "south": "Trồng và thu hoạch quanh năm cực kỳ thuận lợi.",
+      "best_months": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "warning": "Tàu lá chuối to dễ hứng gió trên sân thượng tầng cao; cần buộc neo thân vào lan can hoặc tường khi cây chuẩn bị trổ buồng nặng."
+    },
+    "botanical_details": {
+      "family": "Musaceae (Họ Chuối)",
+      "native_range": "Đông Nam Á, giống chọn lọc lùn Dwarf Cavendish",
+      "active_compounds": [
+        "Kali & Magie hàm lượng cao",
+        "Vitamin B6 & Tryptophan (hỗ trợ thư giãn)",
+        "Pectin & Tinh bột kháng (trong chuối xanh)"
+      ],
+      "soil_ph": "5.5 - 6.5",
+      "ideal_temp": "22°C - 35°C",
+      "pot_size": "Chậu hoặc thùng dung tích 80 - 100L, sâu tối thiểu 45cm"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Chọn giống Chuối Tiêu Lùn cấy mô sạch bệnh",
+        "instruction": "Mua cây con cấy mô đúng giống Dwarf Cavendish (thân giả mập lùn, bẹ lá xếp khít) để đảm bảo không bị nhiễm bệnh Panama héo rũ và giữ đúng chiều cao lùn dưới 1.8m."
+      },
+      {
+        "step": 2,
+        "title": "Trồng vào thùng 100L với đất cực giàu Kali & hữu cơ",
+        "instruction": "Trộn 45% đất thịt + 30% phân chuồng hoai mục/phân trùn quế + 15% xơ dừa + 10% trấu hun. Chuối ăn rất nhiều phân hữu cơ và nước."
+      },
+      {
+        "step": 3,
+        "title": "Tỉa chồi con giữ 1 cây mẹ - 1 cây con kế cận",
+        "instruction": "Khi cây cao khoảng 1m sẽ đẻ nhiều chồi con quanh gốc. Dùng dao sắc cắt bỏ bớt các chồi yếu, chỉ chừa lại đúng 1 chồi mập khỏe nhất làm thế hệ kế tiếp sau khi mẹ thu hoạch."
+      },
+      {
+        "step": 4,
+        "title": "Cắt bắp chuối & chống buồng khi đậu nải",
+        "instruction": "Khi buồng chuối đã trổ hết các nải cái (thường 5 - 7 nải cho cây chậu), cắt bỏ phần bắp hoa đực ở đuôi buồng để cây dồn chất nuôi trái to tròn. Cắm cọc chống đỡ cuống buồng tránh gãy gập."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Sau khi thu hoạch buồng chuối thì cây mẹ có chết không?",
+        "answer": "Đúng, theo sinh học cây chuối chỉ trổ buồng 1 lần duy nhất trong đời. Sau khi cắt buồng, bạn chặt ngang thân mẹ (dùng băm làm phân ủ cực tốt) để chồi con kế cận vươn lên cho lứa buồng thứ hai nhanh hơn."
+      },
+      {
+        "question": "Bón gì cho chuối trồng chậu để quả ngọt thơm không bị sượng?",
+        "answer": "Giai đoạn cây chuẩn bị trổ buồng và nuôi quả, hãy tưới dịch chuối chín lên men (recycle-17) hoặc bón bổ sung tro bếp, phân trùn quế định kỳ 10 ngày/lần để cung cấp Kali tối đa."
+      }
+    ],
+    "monetization_tips": [
+      "Không chỉ cho buồng chuối sạch an toàn cho trẻ nhỏ ăn dặm, lá chuối tươi hữu cơ còn dùng gói bánh chưng, bánh tét, chả giò rất tiện lợi."
+    ],
+    "tags": [
+      "chuối tiêu lùn",
+      "dwarf cavendish",
+      "trồng chậu sân thượng",
+      "tropical",
+      "cây ăn trái"
+    ],
+    "related_plant_ids": [
+      "fruit-45",
+      "fruit-50",
+      "recycle-17",
+      "space-18"
+    ],
+    "reference_sources": [
+      {
+        "title": "Container Banana Growing Guide (Dwarf Cavendish)",
+        "author": "University of Florida IFAS Extension",
+        "organization": "University of Florida",
+        "verification_type": "agronomy",
+        "url": "https://edis.ifas.ufl.edu/"
+      },
+      {
+        "title": "Musa acuminata Colla - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "fruit-50",
+    "slug": "dua-md2-trong-chau-choi-ngon",
+    "common_name": "Dứa MD2 Trồng Chậu Từ Chồi Ngọn",
+    "scientific_name": "Ananas comosus",
+    "aliases": [
+      "Thơm MD2",
+      "Khóm Trồng Chậu",
+      "Pineapple"
+    ],
+    "category": "fruit",
+    "description": "Dự án tái sinh thực phẩm kỳ diệu ngay tại ban công: biến phần chồi ngọn quả dứa MD2 siêu ngọt bỏ đi sau khi ăn thành cây dứa trĩu quả vàng ươm chỉ trong một chậu nhỏ đường kính 30 - 35cm, chịu hạn và nắng gắt cực đỉnh.",
+    "quick_answer": "Dứa MD2 (Ananas comosus) dễ dàng trồng tái sinh từ chồi ngọn quả dứa ăn hàng ngày trong chậu đường kính 30 - 35cm. Cây ưa nắng gắt 6 - 8 giờ/ngày, đất cát pha chua nhẹ pH 4.5 - 5.5, tưới 2 - 3 ngày/lần và thu quả sau 14 - 18 tháng. Mẹo xử lý ra hoa đồng loạt tự nhiên tại nhà là đặt 1 quả táo chín vào giữa nõn lá và trùm túi nilon trong suốt 5 - 7 ngày.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/75/AnanasComosusOnPlant.jpg",
+    "image_sha256": "05e844309c2905690173d25669c36b1b0816bc9247c0ac65380878f4eeaade08",
+    "sunlight": "full_sun",
+    "watering": "drought_tolerant",
+    "propagation_difficulty": 1,
+    "growth_time": "14 - 18 tháng từ chồi ngọn đến khi thu hoạch quả chín vàng",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Trồng từ tháng 3 đến tháng 9; mùa đông rét cần giữ đất khô ráo tránh thối nõn.",
+      "central": "Chịu nắng nóng gió Lào cực kỳ tốt.",
+      "south": "Phát triển khỏe mạnh quanh năm trên ban công nắng hướng Tây.",
+      "best_months": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "warning": "Không tưới nước máy có pH kiềm quá cao hoặc đất trộn nhiều vôi; dứa cần đất hơi chua và tuyệt đối không úng rễ."
+    },
+    "botanical_details": {
+      "family": "Bromeliaceae (Họ Dứa)",
+      "native_range": "Nam Mỹ nhiệt đới, trồng phổ biến tại Việt Nam",
+      "active_compounds": [
+        "Enzyme Bromelain (hỗ trợ tiêu hóa đạm, chống viêm)",
+        "Vitamin C & Mangan",
+        "Axit Citric & Malic"
+      ],
+      "soil_ph": "4.5 - 5.5 (ưa chua nhẹ)",
+      "ideal_temp": "22°C - 35°C",
+      "pot_size": "Chậu đường kính 30 - 35cm, sâu 25 - 30cm (dứa có bộ rễ nông)"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Xử lý chồi ngọn quả dứa ăn xong chống thối gốc",
+        "instruction": "Xoắn nhẹ tách phần chồi ngọn xanh tươi khỏi quả dứa MD2 vừa ăn (tránh chọn chồi bị úng nõn). Bóc bỏ 4 - 5 lớp lá nhỏ sát đáy chồi để lộ phần thân gỗ trắng có sẵn mầm rễ, rồi phơi khô chỗ râm 2 - 3 ngày cho se vết cắt."
+      },
+      {
+        "step": 2,
+        "title": "Kích rễ trong nước hoặc trồng thẳng vào giá thể chua nhẹ",
+        "instruction": "Có thể ngâm đáy chồi vào ly nước sạch 7 - 10 ngày cho ra rễ trắng, hoặc cắm thẳng xuống chậu giá thể gồm 40% đất cát pha + 30% xơ dừa + 20% vỏ trấu hun + 10% phân trùn quế."
+      },
+      {
+        "step": 3,
+        "title": "Tưới vào kẽ lá & chăm sóc tối giản",
+        "instruction": "Đặt chậu nơi nắng trực tiếp nhiều nhất. Dứa thuộc nhóm thực vật CAM chịu hạn rất giỏi, chỉ tưới 2 - 3 ngày/lần (rót nhẹ nước vào phễu lá và quanh gốc). Bón phân trùn quế hoặc dịch chuối loãng mỗi tháng 1 lần."
+      },
+      {
+        "step": 4,
+        "title": "Kích ra hoa tự nhiên bằng khí Ethylene từ quả táo chín",
+        "instruction": "Sau 12 tháng cây đạt 30 - 35 lá lớn khỏe mạnh, nếu cây chưa tự ra hoa, hãy cắt đôi 1 quả táo chín (sinh khí Ethylene) đặt sát vào nõn trung tâm rồi trùm kín cả chậu bằng túi nilon trong 5 ngày. Sau 4 - 6 tuần hoa đỏ tím sẽ nhú lên."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao dứa trồng từ chồi ngọn lên lá rất to nhưng đợi mãi không thấy ra quả?",
+        "answer": "Cây dứa cần đủ tuổi trưởng thành (khoảng 12 - 14 tháng, đạt trên 30 lá) và cần tín hiệu kích thích sinh trưởng. Áp dụng mẹo trùm túi cùng quả táo chín trong 5 ngày sẽ kích hoạt quá trình phân hóa mầm hoa cực kỳ hiệu quả."
+      },
+      {
+        "question": "Một cây dứa ra được mấy lần quả?",
+        "answer": "Thân chính ra 1 quả duy nhất, nhưng trong lúc nuôi quả cây mẹ sẽ đẻ ra 2 - 3 chồi nách ở gốc (chồi bên) phát triển rất nhanh và chỉ mất 10 tháng để cho lứa quả kế tiếp."
+      }
+    ],
+    "monetization_tips": [
+      "Chi phí cây giống bằng 0đ từ rác hữu cơ nhà bếp; giống dứa MD2 không gai lá nên rất an toàn và đẹp mắt khi trồng trang trí ban công chung cư."
+    ],
+    "tags": [
+      "dứa md2",
+      "trồng dứa từ ngọn",
+      "tái chế thực phẩm",
+      "chịu nắng hạn",
+      "bromelain"
+    ],
+    "related_plant_ids": [
+      "fruit-49",
+      "recycle-16",
+      "herb-77",
+      "space-01"
+    ],
+    "reference_sources": [
+      {
+        "title": "Pineapple Growing in the Florida Home Landscape",
+        "author": "University of Florida IFAS Extension",
+        "organization": "University of Florida",
+        "verification_type": "agronomy",
+        "url": "https://edis.ifas.ufl.edu/"
+      },
+      {
+        "title": "Ananas comosus (L.) Merr. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "fruit-51",
+    "slug": "ca-chua-bi-sai-trai-ban-cong",
+    "common_name": "Cà Chua Bi Sai Trái Ban Công",
+    "scientific_name": "Solanum lycopersicum",
+    "aliases": [
+      "Cà Chua Cherry",
+      "Cà Chua Bi Lùn",
+      "Cherry Tomato"
+    ],
+    "category": "fruit",
+    "description": "Loại rau quả ngắn ngày được yêu thích nhất cho ban công chung cư và sân thượng nhờ năng suất sai hàng trăm trái đỏ mọng, giàu Lycopene chống oxy hóa. Thu hoạch lứa quả đầu chỉ sau 65 - 75 ngày gieo trồng.",
+    "quick_answer": "Cà Chua Bi (Solanum lycopersicum) là cây rau quả ngắn ngày giàu Lycopene dễ trồng chậu cho trái sai chỉ sau 65 - 75 ngày. Cây cần nắng trực tiếp 5 - 7 giờ/ngày, đất tơi xốp giàu canxi-kali pH 6.0 - 6.8, tưới gốc đều 1 - 2 lần/ngày. Bí quyết chống rụng hoa và quả bị thối đít là bấm tỉa chồi nách kịp thời, rung nhẹ hoa buổi sáng và bổ sung vỏ trứng nghiền.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/88/Bright_red_tomato_and_cross_section02.jpg",
+    "image_sha256": "55ebd94e704bbd8f8b0b451ace941190705a8c7d591f143cd727e583579c717a",
+    "sunlight": "full_sun",
+    "watering": "daily",
+    "propagation_difficulty": 2,
+    "growth_time": "65 - 75 ngày từ gieo hạt đến thu hoạch quả chín đỏ",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Vụ đẹp nhất từ tháng 9 đến tháng 4 năm sau (tránh nắng mưa tháng 6 - 8 dễ gây bệnh xoăn lá virus).",
+      "central": "Trồng vụ Đông - Xuân (tháng 10 - 3) tỷ lệ đậu quả cực cao.",
+      "south": "Chọn giống cà chua bi chịu nhiệt trồng quanh năm nơi thoáng gió.",
+      "best_months": [
+        1,
+        2,
+        3,
+        9,
+        10,
+        11,
+        12
+      ],
+      "warning": "Tuyệt đối không ăn lá và thân xanh cà chua (chứa alkaloid solanine/tomatine); chỉ ăn phần quả chín."
+    },
+    "botanical_details": {
+      "family": "Solanaceae (Họ Cà)",
+      "native_range": "Nam Mỹ (Andes), trồng phổ biến toàn cầu",
+      "active_compounds": [
+        "Lycopene (carotenoid chống oxy hóa mạnh)",
+        "Vitamin C & Vitamin A",
+        "Kali & Axit Folate"
+      ],
+      "soil_ph": "6.0 - 6.8",
+      "ideal_temp": "18°C - 28°C",
+      "pot_size": "Chậu đường kính 30 - 35cm, sâu 30cm (kèm cọc chống hoặc giàn lưới)"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Ươm cây con & trồng sâu vùi bớt thân tạo rễ phụ",
+        "instruction": "Gieo hạt vào bầu ươm 20 ngày đến khi cây cao 15cm. Khi sang chậu lớn (tối thiểu 15L đất), ngắt 2 lá mầm dưới cùng và vùi sâu thêm 5cm thân vào đất để cây mọc rễ phụ cực khỏe."
+      },
+      {
+        "step": 2,
+        "title": "Phối trộn giá thể giàu Canxi chống thối đít quả",
+        "instruction": "Trộn 45% đất sạch + 25% phân trùn quế + 20% xơ dừa + 10% trấu hun kèm 2 nắm vỏ trứng gà rửa sạch rang giòn giã nhỏ để bổ sung Canxi tự nhiên."
+      },
+      {
+        "step": 3,
+        "title": "Tỉa nhánh nách & rung chùm hoa thụ phấn buổi sáng",
+        "instruction": "Với giống cà chua bi leo, tỉa bỏ các chồi nách mọc ở kẽ lá để dồn lực cho 1 - 2 thân chính. Khi hoa vàng nở rộ vào 8h - 10h sáng, dùng tay gõ nhẹ vào cọc đỡ giúp hạt phấn rơi đều tăng đậu quả."
+      },
+      {
+        "step": 4,
+        "title": "Tưới vào gốc tránh ướt lá & phòng bọ phấn trắng",
+        "instruction": "Chỉ tưới nước vào gốc vào buổi sáng (tránh tưới lên lá buổi tối gây bệnh mốc sương). Treo bẫy dính vàng và xịt tỏi ớt dầu Neem nếu có bọ phấn trắng."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao quả cà chua non bị thâm đen lõm xuống ở phần đáy quả?",
+        "answer": "Đó là hiện tượng \"Thối đít quả\" (Blossom End Rot) không phải do sâu bệnh mà do cây bị thiếu Canxi đột ngột khi tưới nước thất thường (lúc quá khô lúc quá đẫm). Hãy giữ độ ẩm đất đều và bổ sung nước ngâm vỏ trứng giấm hoặc vôi nông nghiệp."
+      },
+      {
+        "question": "Cà chua bi có cần trồng 2 cây mới đậu quả không?",
+        "answer": "Không cần. Hoa cà chua là hoa lưỡng tính tự thụ phấn, chỉ cần trồng 1 cây và có gió thoảng (hoặc rung nhẹ cọc mỗi sáng) là đậu quả sai trĩu."
+      }
+    ],
+    "monetization_tips": [
+      "Trồng xen canh húng quế hoặc cúc vạn thọ dưới gốc cà chua giúp xua đuổi tuyến trùng rễ và bọ phấn trắng cực kỳ hiệu quả."
+    ],
+    "tags": [
+      "cà chua bi",
+      "cherry tomato",
+      "trồng ban công",
+      "lycopene",
+      "ngắn ngày"
+    ],
+    "related_plant_ids": [
+      "herb-63",
+      "fruit-52",
+      "recycle-14",
+      "space-16"
+    ],
+    "reference_sources": [
+      {
+        "title": "Tomato Production in Home Gardens & Containers",
+        "author": "University of California IPM / UC ANR",
+        "organization": "UC ANR",
+        "verification_type": "agronomy",
+        "url": "https://ipm.ucanr.edu/"
+      },
+      {
+        "title": "Solanum lycopersicum L. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "fruit-52",
+    "slug": "ot-xiem-rung-bonsai-chau",
+    "common_name": "Ớt Xiêm Rừng Trồng Chậu Bonsai",
+    "scientific_name": "Capsicum frutescens",
+    "aliases": [
+      "Ớt Chỉ Thiên Rừng",
+      "Ớt Mọi",
+      "Bird's Eye Chili"
+    ],
+    "category": "fruit",
+    "description": "Giống ớt bản địa quả nhỏ chỉ thiên nhưng vị cay nồng thơm lừng đặc trưng mà không loại ớt lai nào sánh kịp. Cây sống lâu năm có thể uốn cắt tỉa thành dáng bonsai tán tròn sai hàng trăm trái đỏ rực trên ban công.",
+    "quick_answer": "Ớt Xiêm Rừng (Capsicum frutescens) là cây gia vị lâu năm giàu Capsaicin, rất dễ sống và cho quả sai liên tục trong chậu nhỏ 20 - 25cm. Cây ưa nắng 5 - 8 giờ/ngày, đất tơi xốp thoát nước pH 6.0 - 6.8, tưới vừa ẩm hàng ngày và thu quả sau 75 - 90 ngày. Bí quyết trồng ớt sống bền 3 - 5 năm là cắt tỉa trẻ hóa tán sau mỗi vụ rộ quả và phòng bọ trĩ gây xoăn đọt.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/54/Capsicum_frutescens%2C_Burdwan%2C_West_Bengal%2C_India_03_05_2013.jpg",
+    "image_sha256": "8042777a255a3ce882958f96037e68c9273329ea7bf474eca0ef7c7102a2dd3c",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 1,
+    "growth_time": "75 - 90 ngày từ hạt đến khi thu hoạch lứa quả chín đầu tiên",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Gieo hạt vào tháng 2 - 4; mùa đông lạnh giữ cây nơi nắng ấm ít gió bắc cây vẫn sống qua đông.",
+      "central": "Cây đặc sản bản địa của miền Trung - Tây Nguyên, chịu nắng hạn cực tốt.",
+      "south": "Ra hoa kết trái quanh năm cực kỳ sai.",
+      "best_months": [
+        2,
+        3,
+        4,
+        5,
+        8,
+        9
+      ],
+      "warning": "Nhựa cay Capsaicin bám tay khi hái hoặc cắt tỉa; nhớ rửa sạch tay bằng xà phòng trước khi chạm lên mắt."
+    },
+    "botanical_details": {
+      "family": "Solanaceae (Họ Cà)",
+      "native_range": "Trung & Nam Mỹ, thuần hóa bản địa lâu đời tại Việt Nam",
+      "active_compounds": [
+        "Capsaicin (hoạt chất tạo cay, kích thích tuần hoàn & giảm đau ngoại vi)",
+        "Vitamin C & Beta-carotene",
+        "Lutein"
+      ],
+      "soil_ph": "6.0 - 6.8",
+      "ideal_temp": "22°C - 35°C",
+      "pot_size": "Chậu đường kính 22 - 28cm, sâu 20 - 25cm"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Gieo hạt từ quả ớt xiêm chín già tự nhiên",
+        "instruction": "Lấy hạt từ quả ớt xiêm rừng chín đỏ ngâm nước ấm 4 tiếng rồi gieo vào khay đất mịn ẩm. Khi cây con có 4 - 5 lá thật, chuyển ra chậu riêng."
+      },
+      {
+        "step": 2,
+        "title": "Phối trộn đất thoát nước nhanh tránh rụng nụ",
+        "instruction": "Trộn 45% đất thịt + 25% trấu hun + 20% phân trùn quế + 10% xơ dừa. Ớt rất sợ úng nước gây vàng lá và rụng hoa hàng loạt."
+      },
+      {
+        "step": 3,
+        "title": "Bấm ngọn tạo tán bonsai thấp & phòng xoăn lá bọ trĩ",
+        "instruction": "Khi cây cao 20cm và phân chạc chữ Y, bấm nhẹ các ngọn cao để tạo tán tròn sum suê. Xịt dầu Neem + tỏi ớt gừng định kỳ 10 ngày/lần ở mặt dưới lá non để phòng bọ trĩ gây bệnh xoăn ngọn."
+      },
+      {
+        "step": 4,
+        "title": "Thu hái quả & cắt tỉa trẻ hóa cây mỗi năm",
+        "instruction": "Hái quả xanh hoặc chín đỏ làm gia vị/ngâm giấm tỏi. Sau 1 năm khi cành già cỗi ít trái, cắt ngắn bớt 1/3 tán cành và thay 30% lớp đất mặt bằng phân trùn quế, cây sẽ bật chồi ra quả rộ trở lại."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao cây ớt xiêm bỗng nhiên bị xoăn tít ngọn non, lá dày cứng và không ra hoa?",
+        "answer": "Đó là do bọ trĩ hoặc nhện đỏ chích hút nhựa ở đọt non. Hãy cắt bỏ ngay các đọt bị xoăn nặng đem tiêu hủy (không bỏ vào thùng ủ phân), sau đó xịt đều dầu Neem vào mặt dưới lá 3 lần cách nhau 4 ngày."
+      },
+      {
+        "question": "Ớt xiêm rừng trồng chậu có cay bằng ớt mọc trên núi không?",
+        "answer": "Độ cay (Capsaicin) tỷ lệ thuận với cường độ ánh nắng và chế độ tưới hơi xiết nước nhẹ. Nếu đặt chậu nơi nắng 6 - 8 giờ/ngày và không tưới thừa nước, quả sẽ cực kỳ cay thơm."
+      }
+    ],
+    "monetization_tips": [
+      "Ớt xiêm rừng hữu cơ ngâm giấm tỏi hoặc làm tương ớt lên men tự nhiên (culinary-12) là sản phẩm thủ công rất được ưa chuộng."
+    ],
+    "tags": [
+      "ớt xiêm rừng",
+      "capsaicin",
+      "bonsai ăn trái",
+      "chịu nắng",
+      "gia vị"
+    ],
+    "related_plant_ids": [
+      "culinary-12",
+      "fruit-51",
+      "herb-63",
+      "recycle-16"
+    ],
+    "reference_sources": [
+      {
+        "title": "Pepper Production and Pest Management (Capsicum frutescens)",
+        "author": "University of Florida IFAS Extension",
+        "organization": "University of Florida",
+        "verification_type": "agronomy",
+        "url": "https://edis.ifas.ufl.edu/"
+      },
+      {
+        "title": "Capsicum frutescens L. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "fruit-53",
+    "slug": "sung-nep-ta-bonsai-triu-qua",
+    "common_name": "Sung Nếp Ta Bonsai Trĩu Quả",
+    "scientific_name": "Ficus racemosa",
+    "aliases": [
+      "Sung Nếp Quả Chùm",
+      "Ưu Đàm Thụ",
+      "Cluster Fig"
+    ],
+    "category": "fruit",
+    "description": "Cây phong thủy nằm trong bộ Tứ Linh và mâm ngũ quả truyền thống của người Việt, biểu trưng cho sự sung túc viên mãn. Khác với sung tẻ ít quả, giống Sung Nếp Ta ra quả thành từng chùm dày đặc ôm kín thân gỗ cực kỳ ngoạn mục khi biết kỹ thuật xiết nước ép quả.",
+    "quick_answer": "Sung Nếp Ta Bonsai (Ficus racemosa) là cây ăn trái kiêm bonsai phong thủy nổi tiếng ra quả từng chùm bám kín thân. Cây ưa nắng 5 - 8 giờ/ngày, đất thịt pha giàu hữu cơ pH 6.0 - 7.0, tưới ẩm hàng ngày (chịu ẩm rất tốt). Bí quyết ép sung nếp ra quả sai trĩu chùm là hãm nước 7 - 10 ngày đến khi lá rũ vàng rồi tưới đẫm phân Kali trở lại.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Ficus_-_racemosa.JPG",
+    "image_sha256": "e0cc00f721ef287be182c95f362d596b162057b54a03971bddbf0dd36b15766f",
+    "sunlight": "full_sun",
+    "watering": "daily",
+    "propagation_difficulty": 2,
+    "growth_time": "12 - 18 tháng từ cây chiết/giâm sung nếp có thể ép ra quả lần đầu",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Phát triển mạnh xuân - hè - thu; mùa đông rụng bớt lá rồi bật lộc non rất đẹp vào mùa xuân.",
+      "central": "Chịu nắng gió rất khỏe.",
+      "south": "Ra chồi và quả quanh năm rất dễ thuần dáng bonsai.",
+      "best_months": [
+        2,
+        3,
+        4,
+        5,
+        8,
+        9
+      ],
+      "warning": "Không cắt bỏ các vòi/gai mang quả (râu sung) mọc trên thân già vì quả sung các vụ sau sẽ tiếp tục mọc ra từ chính những cành râu này."
+    },
+    "botanical_details": {
+      "family": "Moraceae (Họ Dâu tằm)",
+      "native_range": "Ấn Độ, Đông Nam Á, bản địa Việt Nam",
+      "active_compounds": [
+        "Tanin & Catechin (vị chát đặc trưng)",
+        "Beta-sitosterol & Lupeol",
+        "Chất xơ hòa tan & Canxi"
+      ],
+      "soil_ph": "6.0 - 7.0",
+      "ideal_temp": "20°C - 35°C",
+      "pot_size": "Chậu bonsai hoặc chậu tròn đường kính 35 - 50cm (có thể đặt thêm khay nước nông dưới đáy)"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Chọn đúng giống Sung Nếp cành chiết từ cây mẹ đang có quả",
+        "instruction": "Tuyệt đối mua cành chiết hoặc ghép từ cây Sung Nếp đã từng cho quả sai chùm (lá nhỏ gọn, mép hơi gợn sóng, thân có nhiều râu quả); tránh trồng cây mọc hạt ngẫu nhiên dễ gặp giống sung đực/sung tẻ khó ra trái."
+      },
+      {
+        "step": 2,
+        "title": "Phối trộn đất thịt giữ ẩm tốt cho cây họ Dâu tằm",
+        "instruction": "Sung vốn mọc ven bờ ao nên ưa ẩm mạnh. Trộn 55% đất thịt phù sa + 20% phân trùn quế + 15% trấu hun + 10% xơ dừa."
+      },
+      {
+        "step": 3,
+        "title": "Kỹ thuật xiết nước & vặt lá ép ra quả chùm",
+        "instruction": "Khi cây đã già cành (thân to bằng cổ tay hoặc lớn hơn), ngừng tưới nước 7 - 10 ngày cho đất khô trắng và lá bắt đầu vàng rụng bớt 50% (có thể khía nhẹ 1 - 2 đường nông ở gốc), sau đó tưới nước thật đẫm pha phân Kali hữu cơ. Cây sẽ bật râu quả hàng loạt dọc thân."
+      },
+      {
+        "step": 4,
+        "title": "Bảo vệ râu quả & tạo dáng bonsai",
+        "instruction": "Uốn cành bằng dây nhôm bọc nhựa khi cành còn dẻo. Luôn giữ lại các chùm gai râu quả trên thân gỗ cho những lứa trái liên tiếp quanh năm."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao cây sung nhà tôi xanh tốt um tùm mấy năm mà không thấy ra quả?",
+        "answer": "Có 2 nguyên nhân: trồng phải cây sung tẻ mọc từ hạt, hoặc chăm sóc quá sung sướng (thừa đạm, tưới nước đầy đủ quanh năm) nên cây chỉ tập trung phát triển lá mà không bước vào giai đoạn sinh sản. Hãy áp dụng biện pháp xiết nước 10 ngày kết hợp bón Kali."
+      },
+      {
+        "question": "Quả sung non và lá sung có ăn được không?",
+        "answer": "Quả sung non thái lát muối xổi hoặc ăn ghém cùng nem thính, gỏi cá cực kỳ ngon và giúp tiêu hóa tốt; lá sung non có nốt sần (sung có vú) còn dùng cuốn gỏi theo truyền thống."
+      }
+    ],
+    "monetization_tips": [
+      "Sung nếp bonsai dáng hoành hoặc dáng trực ôm đá đang trĩu chùm quả có giá trị thương mại từ vài trăm nghìn đến hàng chục triệu đồng dịp Tết."
+    ],
+    "tags": [
+      "sung nếp bonsai",
+      "ép quả sung",
+      "tứ linh",
+      "phong thủy",
+      "mâm ngũ quả"
+    ],
+    "related_plant_ids": [
+      "fruit-04",
+      "orn-36",
+      "orn-01",
+      "orn-22"
+    ],
+    "reference_sources": [
+      {
+        "title": "Những cây thuốc và vị thuốc Việt Nam (Mục Cây sung)",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học",
+        "verification_type": "pharmacognosy",
+        "url": "https://nhathuoclongchau.com.vn/"
+      },
+      {
+        "title": "Ficus racemosa L. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "fruit-54",
+    "slug": "thanh-tra-ngot-ghep-chau",
+    "common_name": "Thanh Trà Ngọt Vĩnh Long Ghép Chậu",
+    "scientific_name": "Bouea macrophylla",
+    "aliases": [
+      "Thanh Trà Ngọt",
+      "Marian Plum",
+      "Maprang"
+    ],
+    "category": "fruit",
+    "description": "Đặc sản trái cây vàng rực nổi tiếng của vùng Bình Minh (Vĩnh Long). Giống thanh trà ngọt ghép cành có tán lá gọn đẹp, chồi non tím hồng rực rỡ ăn kèm gỏi cực ngon và trái chín thơm dịu mùi xoài, ngọt thanh không chua gắt.",
+    "quick_answer": "Thanh Trà Ngọt Vĩnh Long (Bouea macrophylla) là cây ăn trái họ Xoài ghép cành cho trái vàng thơm ngọt thanh trong chậu lớn 80 - 100L. Cây ưa nắng 6 - 8 giờ/ngày, đất tơi xốp pH 5.5 - 6.5, tưới 2 ngày/lần và ra quả sau 2.5 - 3 năm. Chú ý cắt tỉa cành vượt giữ tán thấp và phòng rầy bông xoài khi cây nở hoa.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Bouea_macrophylla_young_fruit.JPG",
+    "image_sha256": "a8d4c4d170352c32e49db3be00f297042c23c4698632c1eaf1c61fd9400dfda4",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 3,
+    "growth_time": "2.5 - 3 năm từ cây ghép cành đến lứa quả đầu tiên",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Không khuyến khích trồng ngoài trời mùa đông rét đậm ở miền Bắc.",
+      "central": "Trồng tốt ở Nam Trung Bộ, giữ ẩm vào mùa nắng gió.",
+      "south": "Ra hoa mùa khô (tháng 12 - 2) và thu hoạch rộ vào tháng 3 - 5 hàng năm.",
+      "best_months": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "warning": "Nhựa vỏ quả xanh và cuống cây họ Xoài (Anacardiaceae) có thể gây kích ứng ngứa nhẹ ở người da nhạy cảm."
+    },
+    "botanical_details": {
+      "family": "Anacardiaceae (Họ Đào lộn hột / Xoài)",
+      "native_range": "Đông Nam Á, đặc sản Bình Minh - Vĩnh Long Việt Nam",
+      "active_compounds": [
+        "Beta-carotene & Vitamin C",
+        "Mangiferin & Polyphenol chống oxy hóa",
+        "Chất xơ hòa tan"
+      ],
+      "soil_ph": "5.5 - 6.5",
+      "ideal_temp": "24°C - 35°C",
+      "pot_size": "Chậu hoặc thùng 80 - 100L thoát nước tốt"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Chọn đúng giống Thanh Trà Ngọt ghép cành",
+        "instruction": "Phân biệt Thanh trà ngọt (trái thuôn dài, khi chín vỏ vàng cam láng, ngọt thanh) với thanh trà chua. Luôn chọn cây ghép từ vườn ươm uy tín để rút ngắn nửa thời gian chờ quả."
+      },
+      {
+        "step": 2,
+        "title": "Chuẩn bị chậu 100L với đất thịt pha cát thoáng đáy",
+        "instruction": "Trộn 50% đất thịt phù sa + 20% trấu hun + 20% phân bò hoai/trùn quế + 10% xơ dừa. Kê gạch cao đáy chậu để thoát nước mùa mưa."
+      },
+      {
+        "step": 3,
+        "title": "Tỉa cành tạo tán thông thoáng & phòng rầy hại bông",
+        "instruction": "Sau mỗi đợt thu hoạch hoặc khi cây ra cơi đọt, tỉa bỏ cành tăm trong tán. Khi cây chuẩn bị trổ bông mùa khô, xịt phòng dầu Neem tránh rầy bông và bọ trĩ."
+      },
+      {
+        "step": 4,
+        "title": "Tăng cường Kali hữu cơ giúp quả ngọt đậm màu đẹp",
+        "instruction": "Giai đoạn nuôi trái 2 tháng cuối, tưới dịch chuối chín lên men định kỳ 15 ngày/lần và bọc chùm quả tránh ruồi vàng đục trái."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Lá non thanh trà có ăn sống được không?",
+        "answer": "Có. Đọt lá non thanh trà có màu tím hồng rất đẹp, vị hơi chua chát dịu, thường được người miền Tây hái làm rau sống cuốn bánh xèo hoặc trộn gỏi rất ngon."
+      },
+      {
+        "question": "Khí hậu miền Nam trồng thanh trà trên sân thượng bao lâu có trái?",
+        "answer": "Với cây ghép cành chuẩn, chăm sóc đủ nắng và dinh dưỡng cân đối trong thùng 100L, cây sẽ bắt đầu cho hoa bói vào năm thứ 2 hoặc năm thứ 3."
+      }
+    ],
+    "monetization_tips": [
+      "Thanh trà ngọt là loại trái cây đặc sản mùa vụ có giá bán cao (60.000đ - 120.000đ/kg); cây ghép trồng chậu có bộ lá tím non cực kỳ bắt mắt."
+    ],
+    "tags": [
+      "thanh trà ngọt",
+      "vĩnh long",
+      "họ xoài",
+      "cây ghép chậu",
+      "đặc sản miền tây"
+    ],
+    "related_plant_ids": [
+      "fruit-32",
+      "fruit-44",
+      "fruit-48",
+      "space-18"
+    ],
+    "reference_sources": [
+      {
+        "title": "Kỹ thuật canh tác cây Thanh trà vùng Đồng bằng sông Cửu Long",
+        "author": "Viện Cây Ăn Quả Miền Nam (SOFRI)",
+        "organization": "SOFRI",
+        "verification_type": "agronomy",
+        "url": "https://sofri.org.vn/"
+      },
+      {
+        "title": "Bouea macrophylla Griff. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "fruit-55",
+    "slug": "phat-thu-bonsai-choi-tet",
+    "common_name": "Phật Thủ Bonsai Chơi Tết & Dược Liệu",
+    "scientific_name": "Citrus medica var. sarcodactylis",
+    "aliases": [
+      "Quả Phật Thủ",
+      "Cam Ngón Tay Phật",
+      "Buddha's Hand"
+    ],
+    "category": "fruit",
+    "description": "Loài cây họ Cam chanh mang dáng quả chia thành nhiều ngón tay xòe ra như bàn tay Đức Phật, tỏa hương thơm tinh dầu thanh khiết suốt nhiều tháng trưng Tết. Vỏ quả phật thủ còn là vị thuốc quý trị ho đờm, tức ngực và đầy bụng trong Đông y.",
+    "quick_answer": "Phật Thủ Bonsai (Citrus medica var. sarcodactylis) là cây ăn trái kiểng Tết và dược liệu quý giàu tinh dầu Limonene, Citral. Cây ưa nắng 5 - 7 giờ/ngày, đất tơi xốp thoát nước pH 5.5 - 6.5, tưới 2 ngày/lần và ra quả quanh năm (chủ động ép lứa Tết từ tháng 5 - 6 âm lịch). Yếu tố quyết định là phòng nhện đỏ, sâu vẽ bùa và giữ quả không rụng non.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Citrus_medica_var_sarcodactylis_-_Buddha%27s_hand.jpg",
+    "image_sha256": "e39db0f8488ebf855c97c65a0d9f994860998fe349475e4825ac108b1d39ea6d",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 3,
+    "growth_time": "12 - 18 tháng từ cây ghép/chiết đến khi cho lứa quả trưng Tết",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Phát triển cực đẹp tại vùng đồng bằng Bắc Bộ (Đắc Sở - Hoài Đức); thời tiết thu đông giúp quả lên màu vàng rực rỡ đúng Tết.",
+      "central": "Trồng tốt nơi thoáng gió, tránh nắng gắt cháy quả non.",
+      "south": "Ra hoa kết trái quanh năm nhưng quả chín nhanh hơn nên cần canh tháng ép hoa muộn hơn miền Bắc.",
+      "best_months": [
+        2,
+        3,
+        4,
+        8,
+        9
+      ],
+      "warning": "Cây họ Cam chanh rất dễ bị bệnh vàng lá gân xanh (Greening) do rầy chổng cánh truyền; luôn mua cây giống sạch bệnh và phòng trừ rầy định kỳ."
+    },
+    "botanical_details": {
+      "family": "Rutaceae (Họ Cam chanh)",
+      "native_range": "Đông Nam Á & Đông Á, nổi tiếng tại Đắc Sở (Hà Nội)",
+      "active_compounds": [
+        "D-Limonene & Citral (tinh dầu vỏ quả thơm ngát)",
+        "Hesperidin & Naringin (flavonoid)",
+        "Coumarin tự nhiên (Citropten)"
+      ],
+      "soil_ph": "5.5 - 6.5",
+      "ideal_temp": "20°C - 32°C",
+      "pot_size": "Chậu sứ hoặc chậu xi măng đường kính 45 - 55cm thoát nước tốt"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Chọn cây giống ghép sạch bệnh & chuẩn bị chậu thoát nước",
+        "instruction": "Chọn cây phật thủ chiết hoặc ghép khỏe không bị xoăn lá. Phối trộn 45% đất thịt phù sa + 25% phân trùn quế/phân chuồng hoai + 20% trấu hun + 10% xơ dừa."
+      },
+      {
+        "step": 2,
+        "title": "Canh thời điểm giữ hoa đậu quả chơi Tết",
+        "instruction": "Tại miền Bắc, hoa phật thủ nở vào tháng 5 - 6 âm lịch sẽ cho quả to vàng đẹp đúng dịp Tết Nguyên đán. Bấm tỉa bớt các đợt hoa lứa đầu năm để cây dồn sức nuôi lứa hoa giữa năm."
+      },
+      {
+        "step": 3,
+        "title": "Tỉa quả giữ 1 - 2 trái ngón dài đẹp & chống đỡ cành",
+        "instruction": "Khi trái non bằng quả trứng gà, tỉa bỏ trái dị dạng chỉ giữ 2 - 4 trái khỏe phân bố đều quanh tán. Buộc dây nâng đỡ cành mang quả để tránh gãy khi quả nặng 0.8 - 1.5kg."
+      },
+      {
+        "step": 4,
+        "title": "Phòng sâu vẽ bùa, nhện đỏ & thu hoạch làm thuốc",
+        "instruction": "Phun dầu Neem + tỏi ớt định kỳ mỗi khi cây ra lộc non để trị sâu vẽ bùa và nhện đỏ làm sần vỏ quả. Quả trưng Tết xong thái lát phơi khô hoặc ngâm đường phèn dùng trị ho rất tốt."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Quả phật thủ không có múi nước bên trong thì dùng làm gì sau khi chơi Tết?",
+        "answer": "Dù không có múi mọng nước để ăn tươi, toàn bộ phần cùi và vỏ phật thủ lại rất thơm ngon và lành tính: có thể thái lát mỏng ngâm đường phèn/mật ong hấp trị ho đờm, phơi khô làm trà thơm, hoặc làm mứt phật thủ dẻo."
+      },
+      {
+        "question": "Làm sao để giữ quả phật thủ trên cây chậu tươi lâu đến tận Ra Giêng?",
+        "answer": "Đặt chậu ở nơi thoáng mát có ánh nắng nhẹ, tưới nước giữ ẩm vừa phải ở gốc (không tưới ướt lên quả) và tránh đặt gần hương nhang nóng rát."
+      }
+    ],
+    "medical_info": {
+      "uses": [
+        "Sơ can lý khí, hòa vị chỉ thống, hóa đờm chỉ khái (theo Dược điển Việt Nam V)",
+        "Hỗ trợ giảm ho có đờm, tức ngực, đầy bụng buồn nôn và hương thơm giúp thư giãn tinh thần"
+      ],
+      "folk_remedies": [
+        "Trị ho đờm bằng phật thủ: Thái lát mỏng 15g phật thủ tươi hấp cách thủy cùng 15g đường phèn trong 20 phút, uống nước ấm và ăn cả lát quả."
+      ],
+      "preparation": [
+        "Thái lát phơi khô pha trà",
+        "Hấp cách thủy với đường phèn"
+      ],
+      "toxicity_warning": "Người âm hư hỏa vượng (hay bốc hỏa, khô miệng) không nên dùng quá nhiều phật thủ khô.",
+      "disclaimer": "Thông tin dược liệu tham khảo theo Dược điển Việt Nam V, không thay thế điều trị y khoa."
+    },
+    "monetization_tips": [
+      "Một chậu phật thủ bonsai có từ 3 - 5 quả tay dài vàng óng dịp Tết có giá trị từ 1.5 triệu đến hơn 5 triệu đồng."
+    ],
+    "tags": [
+      "phật thủ",
+      "bonsai tết",
+      "trị ho",
+      "họ cam chanh",
+      "đắc sở"
+    ],
+    "related_plant_ids": [
+      "fruit-35",
+      "fruit-34",
+      "fruit-36",
+      "orn-36"
+    ],
+    "reference_sources": [
+      {
+        "title": "Dược điển Việt Nam V (Chuyên luận Phật thủ - Fructus Citri sarcodactylis)",
+        "author": "Bộ Y tế Việt Nam",
+        "organization": "Hội đồng Dược điển Việt Nam",
+        "verification_type": "pharmacognosy",
+        "url": "https://duocdienvietnam.com/"
+      },
+      {
+        "title": "Citrus medica L. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "fruit-56",
+    "slug": "mo-huong-tich-trong-chau",
+    "common_name": "Mơ Hương Tích (Mơ Chùa Hương)",
+    "scientific_name": "Prunus mume",
+    "aliases": [
+      "Mai Mơ",
+      "Mơ Trắng Chùa Hương",
+      "Ô Mai",
+      "Japanese Apricot"
+    ],
+    "category": "fruit",
+    "description": "Loài cây ăn quả kiêm danh hoa mùa xuân nổi tiếng của vùng núi đá vôi Hương Sơn (Hà Nội). Mơ nở hoa trắng muốt thơm dịu vào cuối đông - đầu xuân trước khi ra lá, sau đó kết những quả mơ vàng má đào chuyên dùng ngâm đường phèn giải nhiệt mùa hè hoặc chế biến ô mai trị ho.",
+    "quick_answer": "Mơ Hương Tích (Prunus mume) là cây ăn trái kiêm bonsai hoa trắng nở rộ dịp Tết vùng núi phía Bắc. Cây ưa nắng 5 - 6 giờ/ngày, đất tơi xốp giàu vôi nhẹ thoát nước pH 6.0 - 7.0, tưới vừa phải và ra quả vào tháng 3 - 4. Lưu ý YMYL: hạt mơ (nhân hạt) có chứa Amygdalin nên tuyệt đối không đập nhân hạt ra ăn sống.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9f/Prunus_mume_in_the_market.jpg",
+    "image_sha256": "20b8dc7d3b740b9b64ad7cdb462ed7fe6bdf26cc39297f808c091b02fcf9e0b2",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 3,
+    "growth_time": "2 - 3 năm từ cây ghép/chiết có thể ra hoa kết quả trong chậu lớn",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Rất phù hợp khí hậu 4 mùa miền Bắc và Tây Bắc (cần rét mùa đông để rụng lá và phân hóa nụ hoa).",
+      "central": "Phù hợp vùng núi cao mát mẻ như Đà Lạt, Tây Nguyên hoặc Bắc Trung Bộ.",
+      "south": "Khó ra hoa đậu quả ở vùng đồng bằng Nam Bộ do thiếu mùa đông lạnh tích lũy giờ rét.",
+      "best_months": [
+        1,
+        2,
+        11,
+        12
+      ],
+      "warning": "Tuyệt đối không cắn vỡ hạt mơ ăn nhân sống (nhân hạt chứa Amygdalin có thể chuyển hóa thành cyanide gây ngộ độc); chỉ sử dụng phần thịt quả."
+    },
+    "botanical_details": {
+      "family": "Rosaceae (Họ Hoa hồng)",
+      "native_range": "Đông Á và vùng núi phía Bắc Việt Nam (Hương Sơn, Sơn La)",
+      "active_compounds": [
+        "Axit Citric & Axit Malic (tạo vị chua thanh giải nhiệt)",
+        "Polyphenol & Chlorogenic acid",
+        "Amygdalin (chỉ tập trung trong nhân hạt)"
+      ],
+      "soil_ph": "6.0 - 7.0",
+      "ideal_temp": "12°C - 26°C (cần mùa đông mát lạnh để nở hoa)",
+      "pot_size": "Chậu đường kính 40 - 50cm, sâu 35 - 40cm thoát nước nhanh"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Chọn cây giống ghép cành & giá thể thoát nước cực tốt",
+        "instruction": "Rễ mơ rất sợ úng. Trộn 40% đất thịt pha cát + 25% đá Pumice/xỉ than đập nhỏ + 20% phân trùn quế + 15% trấu hun."
+      },
+      {
+        "step": 2,
+        "title": "Cắt tỉa cành tạo dáng sau vụ thu hoạch quả (Tháng 5)",
+        "instruction": "Sau khi thu hoạch quả vào tháng 4 - 5, cắt tỉa cành dài chỉ giữ lại các cành ngắn mang nụ cho mùa sau. Mùa hè che bớt nắng gắt buổi chiều nếu nhiệt độ trên 37°C."
+      },
+      {
+        "step": 3,
+        "title": "Chăm sóc mùa thu đông kích thích rụng lá nở hoa xuân",
+        "instruction": "Từ tháng 10 - 11 khi trời se lạnh, giảm lượng nước tưới để cây tự rụng hết lá già và phồng nụ hoa trắng ngần kịp nở đón xuân."
+      },
+      {
+        "step": 4,
+        "title": "Thu hoạch quả mơ vàng má đào ngâm đường giải nhiệt",
+        "instruction": "Vào tháng 3 - 4 âm lịch, hái quả mơ chín vừa (vàng hơi ửng má hồng, còn cứng tay), rửa sạch ngâm nước muối loãng rồi xếp lọ thủy tinh xen kẽ đường phèn làm nước mơ giải nhiệt mùa hè."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Trồng cây Mơ Hương Tích ở TP.HCM có ra hoa đậu quả được không?",
+        "answer": "Rất khó. Giống *Prunus mume* cần một giai đoạn nhiệt độ lạnh (dưới 15°C vào mùa đông) để phá ngủ cho mầm hoa, vì vậy cây chỉ ra hoa kết trái sai ở miền Bắc, Tây Bắc và vùng cao nguyên mát lạnh như Đà Lạt."
+      },
+      {
+        "question": "Nước mơ ngâm bị nổi váng trắng hoặc lên men rượu chua thì phải làm sao?",
+        "answer": "Do lọ ngâm hoặc quả mơ còn dính nước lã chưa để thật ráo, hoặc lượng đường quá ít (chuẩn là tỷ lệ 1kg mơ : 1kg đường). Hãy lau khô từng quả và dùng lọ thủy tinh tráng nước sôi để ráo trước khi ngâm."
+      }
+    ],
+    "medical_info": {
+      "uses": [
+        "Nước mơ ngâm đường giải nhiệt, sinh tân chỉ khát, chống say nắng mùa hè",
+        "Ô mai (quả mơ chế biến) giúp liễm phế chỉ khái, giảm ho khan, khản tiếng và hỗ trợ tiêu hóa"
+      ],
+      "folk_remedies": [
+        "Nước mơ giải nhiệt: Pha 2 - 3 thìa nước cốt mơ ngâm đường phèn lâu năm cùng nước lọc và đá lạnh uống ngày hè."
+      ],
+      "preparation": [
+        "Ngâm đường phèn giải khát",
+        "Muối phơi khô làm ô mai gừng"
+      ],
+      "toxicity_warning": "Không ăn nhân hạt mơ sống; người bị loét dạ dày nặng đang trào ngược axit nhiều không nên uống nước mơ chua khi bụng đói.",
+      "disclaimer": "Thông tin mang tính tham khảo ẩm thực dược liệu, không thay thế tư vấn bác sĩ."
+    },
+    "monetization_tips": [
+      "Mơ ngâm đường phèn lâu năm và ô mai mơ Hương Tích làm thủ công sạch là đặc sản quà tặng rất được ưa chuộng."
+    ],
+    "tags": [
+      "mơ hương tích",
+      "mơ chùa hương",
+      "ô mai",
+      "nước mơ ngâm",
+      "bonsai miền bắc"
+    ],
+    "related_plant_ids": [
+      "fruit-40",
+      "orn-31",
+      "culinary-05",
+      "fruit-39"
+    ],
+    "reference_sources": [
+      {
+        "title": "Những cây thuốc và vị thuốc Việt Nam (Mục Cây mơ - Ô mai)",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học",
+        "verification_type": "pharmacognosy",
+        "url": "https://nhathuoclongchau.com.vn/"
+      },
+      {
+        "title": "Prunus mume (Siebold) Siebold & Zucc. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "fruit-57",
+    "slug": "gac-nep-do-leo-gian-san-thuong",
+    "common_name": "Gấc Nếp Đỏ Leo Giàn Sân Thượng",
+    "scientific_name": "Momordica cochinchinensis",
+    "aliases": [
+      "Gấc Nếp",
+      "Mộc Miết Tử",
+      "Gac Fruit"
+    ],
+    "category": "fruit",
+    "description": "Dây leo cho quả được mệnh danh là \"Loại quả đến từ thiên đường\" nhờ hàm lượng Lycopene và Beta-carotene cao gấp nhiều lần cà chua và cà rốt. Rất hợp leo giàn lam che nắng tầng tum sân thượng, vừa hạ nhiệt trần nhà vừa thu quả đỏ nấu xôi, ép dầu gấc.",
+    "quick_answer": "Gấc Nếp Đỏ (Momordica cochinchinensis) là dây leo lâu năm chịu nắng che giàn sân thượng tuyệt vời, giàu Lycopene và Beta-carotene. Cây ưa nắng 6 - 8 giờ/ngày, đất giàu mùn thoát nước pH 6.0 - 7.0, tưới hàng ngày. Điều kiện quyết định thành bại là Gấc phân biệt cây đực và cây cái riêng biệt, phải trồng cả hai hoặc ghép cành cái và thụ phấn tay vào sáng sớm.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Momordica_cochinchinensis_305361488.jpg",
+    "image_sha256": "36ab980f545528e76ae2d7b365f56cc80bc6a3dd8f5962e778b3e0fc45df96f7",
+    "sunlight": "full_sun",
+    "watering": "daily",
+    "propagation_difficulty": 3,
+    "growth_time": "6 - 8 tháng từ trồng củ giống cái đến khi thu hoạch quả đỏ chín",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Phát triển leo giàn rực rỡ từ tháng 3 - 10, thu hoạch rộ quả chín đỏ từ tháng 11 đến tháng 1 đúng dịp Tết; mùa đông cắt gốc giữ củ ngủ đông.",
+      "central": "Leo giàn chống nắng rất tốt, lưu ý buộc chắc dây leo vào khung thép phòng gió bão.",
+      "south": "Leo xanh tốt và ra hoa quanh năm trên giàn sân thượng.",
+      "best_months": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "warning": "Hạt gấc (Mộc miết tử) chứa độc tính tự nhiên: TUYỆT ĐỐI không ăn hạt gấc sống hoặc tự ý uống hạt gấc ngâm rượu; rượu hạt gấc chỉ dùng xoa bóp ngoài da trị sưng bầm."
+    },
+    "botanical_details": {
+      "family": "Cucurbitaceae (Họ Bầu bí)",
+      "native_range": "Đông Nam Á, bản địa Việt Nam",
+      "active_compounds": [
+        "Lycopene & Beta-carotene (hàm lượng siêu cao trong màng đỏ)",
+        "Alpha-Tocopherol (Vitamin E)",
+        "Mộc miết tử saponin (chỉ có trong nhân hạt - dùng ngoài)"
+      ],
+      "soil_ph": "6.0 - 7.0",
+      "ideal_temp": "22°C - 35°C",
+      "pot_size": "Thùng hoặc bồn trồng lớn dung tích 80 - 120L đặt sát chân giàn lam sân thượng"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Chọn đúng củ/hom giống cây Cái & 1 cây Đực (hoặc ghép)",
+        "instruction": "Gấc trồng từ hạt có tới 70% ra cây đực không có quả. Hãy mua hom giâm hoặc củ tách từ cây mẹ cái đang sai quả (có thể ghép chung 1 nhánh đực lên thân cái để tiết kiệm chậu)."
+      },
+      {
+        "step": 2,
+        "title": "Trồng vào thùng 100L & dựng giàn lam khung thép",
+        "instruction": "Trộn 45% đất thịt + 30% phân trùn quế/phân bò hoai + 15% trấu hun + 10% xơ dừa. Dẫn dây leo thẳng lên giàn lam cao 2.4m (space-18) rồi bấm ngọn ở độ cao mặt giàn cho tỏa nhánh ngang."
+      },
+      {
+        "step": 3,
+        "title": "Thụ phấn tay sáng sớm đạt tỷ lệ đậu > 90%",
+        "instruction": "Hoa cái có bầu quả xanh nhỏ dưới đài hoa; hoa đực cuống mảnh không có bầu quả. Khoảng 6h - 8h sáng, ngắt bông hoa đực mới nở, bóc cánh rồi chấm nhẹ nhị vàng vào đầu nhụy hoa cái."
+      },
+      {
+        "step": 4,
+        "title": "Thu hoạch quả chín đỏ thẫm & cắt cành trẻ hóa cuối năm",
+        "instruction": "Sau thụ phấn khoảng 60 - 75 ngày, quả chuyển màu đỏ cam rực rỡ thì cắt thu hoạch nấu xôi hoặc ép dầu gấc ăn dặm. Cuối mùa đông cắt bớt dây già cách mặt chậu 40cm để mùa xuân bật mầm mới."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao giàn gấc nhà tôi leo xanh mướt rợp bóng nhưng chỉ thấy toàn hoa rụng chứ không có quả nào?",
+        "answer": "Do bạn trồng phải cây gấc đực (hoặc có cây cái nhưng thiếu hoa đực và côn trùng thụ phấn). Hãy kiểm tra hoa có bầu quả nhỏ ở cuống không: nếu không có là cây đực — chỉ cần cắt ghép thêm 1 mắt nhánh cây gấc cái vào gốc là năm sau sẽ sai quả."
+      },
+      {
+        "question": "Dầu gấc tự làm từ màng đỏ hạt gấc dùng cho trẻ em có an toàn không?",
+        "answer": "Phần màng đỏ bao quanh hạt (thịt gấc) cực kỳ an toàn và giàu tiền vitamin A, chỉ cần bỏ hết nhân hạt đen bên trong, đồ chín hoặc đảo nhỏ lửa với dầu ăn thực vật để lấy dầu gấc nguyên chất."
+      }
+    ],
+    "monetization_tips": [
+      "Dầu gấc nếp nguyên chất tự ép thủ công cho bé ăn dặm và làm đẹp da có giá bán rất tốt trong cộng đồng mẹ và bé."
+    ],
+    "tags": [
+      "gấc nếp",
+      "dây leo sân thượng",
+      "lycopene",
+      "beta-carotene",
+      "thụ phấn tay"
+    ],
+    "related_plant_ids": [
+      "space-18",
+      "fruit-38",
+      "fruit-49",
+      "recycle-17"
+    ],
+    "reference_sources": [
+      {
+        "title": "Những cây thuốc và vị thuốc Việt Nam (Mục Cây gấc - Mộc miết tử)",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học",
+        "verification_type": "pharmacognosy",
+        "url": "https://nhathuoclongchau.com.vn/"
+      },
+      {
+        "title": "Momordica cochinchinensis (Lour.) Spreng. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
   }
 ];
 
