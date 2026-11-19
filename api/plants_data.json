@@ -28666,5 +28666,2123 @@
         "url": "https://powo.science.kew.org/"
       }
     ]
+  },
+  {
+    "id": "orn-37",
+    "slug": "hoa-giay-ngu-sac-bonsai",
+    "common_name": "Hoa Giấy Ngũ Sắc Bonsai",
+    "scientific_name": "Bougainvillea glabra",
+    "aliases": [
+      "Bông Giấy Thái",
+      "Hoa Giấy Ngũ Sắc",
+      "Paperflower"
+    ],
+    "category": "ornamental",
+    "nft_class": "botanical",
+    "description": "Cây hoa kiểng chịu nắng gắt và khô hạn số một cho ban công hướng Tây, sân thượng và cổng nhà Việt Nam. Nhờ kỹ thuật ghép 5 màu sắc rực rỡ (đỏ, cam, vàng, hồng, trắng) lên gốc hoa giấy Mỹ và phương pháp xiết nước ép hoa, cây nở rực rỡ suốt mùa nắng và đúng dịp Tết.",
+    "quick_answer": "Hoa Giấy Ngũ Sắc Bonsai (Bougainvillea glabra) là cây hoa chịu nắng hạn đỉnh cao, nở hoa rực rỡ quanh năm trên ban công hướng Tây. Cây cần nắng trực tiếp 6 - 8 giờ/ngày, đất thoát nước nhanh pH 5.5 - 6.5, tưới 2 - 3 ngày/lần. Bí quyết ép hoa nở đồng loạt đúng Tết là cắt tỉa ngọn trước Tết 55 - 60 ngày và xiết nước 7 - 10 ngày cho đến khi lá hơi héo rũ.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/23/Bougainvillea_001.jpg",
+    "image_sha256": "ab52ebd43384b7b5ab8a72fc97aee6c66db620a37155288543a018774f78c8bf",
+    "sunlight": "full_sun",
+    "watering": "drought_tolerant",
+    "propagation_difficulty": 2,
+    "growth_time": "6 - 12 tháng tạo tán bonsai đẹp; chu kỳ ép hoa 55 - 60 ngày",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Ép hoa Tết từ đầu tháng 11 âm lịch; mùa đông rét đậm cần đặt nơi nắng ấm nhất tránh rụng nụ.",
+      "central": "Nở hoa cực kỳ rực rỡ vào mùa nắng gió Lào.",
+      "south": "Nở hoa quanh năm; đẹp nhất mùa khô từ tháng 12 đến tháng 4.",
+      "best_months": [
+        1,
+        2,
+        3,
+        4,
+        10,
+        11,
+        12
+      ],
+      "warning": "Thân và cành hoa giấy có gai sắc nhọn; nhựa gai có thể gây kích ứng nhẹ khi cắt tỉa, nên đeo găng tay dày."
+    },
+    "botanical_details": {
+      "family": "Nyctaginaceae (Họ Hoa phấn)",
+      "native_range": "Nam Mỹ (Brazil), thuần hóa rộng rãi tại Việt Nam",
+      "active_compounds": [
+        "Betacyanin & Betaxanthin (sắc tố màu rực rỡ trên lá bắc)",
+        "Pinitol (hỗ trợ chống oxy hóa)",
+        "Flavonoid"
+      ],
+      "soil_ph": "5.5 - 6.5",
+      "ideal_temp": "22°C - 38°C",
+      "pot_size": "Chậu bonsai hoặc chậu sành đường kính 35 - 50cm thoát nước tốt"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Phối trộn giá thể siêu thoát nước cho gốc bonsai",
+        "instruction": "Trộn 40% đất thịt + 25% trấu hun + 20% đá Pumice/xỉ than + 15% phân trùn quế. Lót đáy chậu lớp sỏi nhẹ dày 3cm để không bao giờ bị úng rễ."
+      },
+      {
+        "step": 2,
+        "title": "Đặt nơi nắng gắt tối đa (Tối thiểu 6 giờ/ngày)",
+        "instruction": "Hoa giấy càng nhiều nắng màu hoa càng đậm và sai bông. Nếu trồng nơi râm mát cây chỉ vươn cành lá xanh tốt mà không chịu ra hoa."
+      },
+      {
+        "step": 3,
+        "title": "Kỹ thuật cắt tỉa & xiết nước ép hoa nở rộ (Quan trọng)",
+        "instruction": "Trước ngày muốn hoa nở rộ 55 - 60 ngày, cắt tỉa gọn tán cành, bón nhẹ phân giàu Kali-Lân rồi NGỪNG tưới nước 7 - 10 ngày đến khi thấy lá hơi héo rũ và rụng bớt lá già. Sau đó tưới nhấp nhẹ lại từng chút một, mầm hoa sẽ bật ra kín đầu cành."
+      },
+      {
+        "step": 4,
+        "title": "Chăm sóc giữ hoa bền màu không rụng sớm",
+        "instruction": "Khi nụ hoa đã nhú rõ, duy trì tưới ẩm vừa đủ vào gốc mỗi 2 ngày/lần (không tưới quá đẫm đột ngột làm hoa rụng nhanh chuyển sang đi đọt lá)."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao cây hoa giấy ngũ sắc nhà tôi chỉ thấy màu tím hồng lấn át các màu khác?",
+        "answer": "Các giống màu hồng/tím thường sinh trưởng mạnh hơn màu vàng, trắng và cam. Khi cắt tỉa tạo tán, hãy cắt ngắn bớt cành màu tím mạnh và ưu tiên nuôi dài hơn các nhánh ghép màu vàng, trắng, cam để 5 màu nở cân đối."
+      },
+      {
+        "question": "Hoa giấy có độc cho chó mèo nếu vô tình gặm phải lá không?",
+        "answer": "Theo ASPCA, hoa giấy không thuộc nhóm độc tính nặng gây tử vong, nhưng nhựa gai có thể gây kích ứng nhẹ miệng hoặc rối loạn tiêu hóa thoáng qua; nên đặt chậu cao hoặc tỉa gọn gai thấp."
+      }
+    ],
+    "monetization_tips": [
+      "Hoa giấy Mỹ ghép ngũ sắc dáng thác đổ hoặc dáng trực quân tử có giá bán rất cao vào dịp Tết Nguyên Đán."
+    ],
+    "tags": [
+      "hoa giấy ngũ sắc",
+      "bonsai chịu nắng",
+      "ép hoa tết",
+      "ban công hướng tây",
+      "bougainvillea"
+    ],
+    "related_plant_ids": [
+      "orn-36",
+      "orn-38",
+      "orn-42",
+      "space-01"
+    ],
+    "reference_sources": [
+      {
+        "title": "Bougainvillea Production and Flowering Control",
+        "author": "University of Florida IFAS Extension",
+        "organization": "University of Florida",
+        "verification_type": "agronomy",
+        "url": "https://edis.ifas.ufl.edu/"
+      },
+      {
+        "title": "Bougainvillea glabra Choisy - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "orn-38",
+    "slug": "su-thai-bonsai-sa-mac",
+    "common_name": "Sứ Thái Bonsai (Hoa Sứ Sa Mạc)",
+    "scientific_name": "Adenium obesum",
+    "aliases": [
+      "Sứ Sa Mạc",
+      "Hoa Sứ Thái Lan",
+      "Desert Rose"
+    ],
+    "category": "ornamental",
+    "nft_class": "botanical",
+    "description": "Tuyệt tác bonsai với bộ củ rễ phình to quái dị đầy nghệ thuật và những chùm hoa kép rực rỡ. Sứ Thái chịu hạn phi thường dưới nắng gắt, cực kỳ ít tốn công tưới nhưng đòi hỏi giá thể thoát nước tức thì để tránh thối củ mùa mưa.",
+    "quick_answer": "Sứ Thái Bonsai (Adenium obesum) là cây hoa mọng nước chịu hạn nổi bật với bộ củ nghệ thuật và hoa kép đa sắc. Cây cần nắng toàn phần 6 - 8 giờ/ngày, giá thể cát/đá bọt siêu thoát nước pH 6.0 - 7.0, tưới 3 - 5 ngày/lần. Lưu ý YMYL & ASPCA: nhựa trắng của Sứ Thái chứa glycoside tim độc hại nếu nuốt phải, cần đeo găng tay khi tỉa và đặt xa trẻ nhỏ, chó mèo.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Adenium_Obesum_Flower_Side_Macro_Mar22_D72_23052-58_ZS_P.jpg",
+    "image_sha256": "00a1f27c5ebc2f2decf4069b5ec891b1770166ed28544a9aab1c4d8e46a55292",
+    "sunlight": "full_sun",
+    "watering": "drought_tolerant",
+    "propagation_difficulty": 2,
+    "growth_time": "12 - 18 tháng nuôi củ tạo dáng; ra hoa liên tục suốt mùa nắng",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Rực rỡ từ tháng 4 - 10; mùa đông rét ẩm dưới 15°C cây rụng lá ngủ đông, cần ngưng tưới và đưa vào mái hiên.",
+      "central": "Rất thích hợp với nắng nóng miền Trung.",
+      "south": "Phát triển cực đẹp quanh năm; mùa mưa cần kê chậu thoát nước hoàn toàn hoặc che mưa dầm.",
+      "best_months": [
+        2,
+        3,
+        4,
+        5,
+        8,
+        9
+      ],
+      "warning": "CẢNH BÁO ĐỘC TÍNH (ASPCA): Nhựa mủ trắng của Sứ Thái chứa cardiac glycoside rất độc nếu nuốt phải đối với người, chó, mèo. Đeo găng tay khi cắt cành và rửa tay sạch."
+    },
+    "botanical_details": {
+      "family": "Apocynaceae (Họ Trúc đào)",
+      "native_range": "Đông Phi và Bán đảo Ả Rập, nhân giống phổ biến tại Thái Lan & Việt Nam",
+      "active_compounds": [
+        "Cardiac glycosides (trong nhựa cây - có độc tính nếu nuốt)",
+        "Flavonoid & Triterpenoid"
+      ],
+      "soil_ph": "6.0 - 7.0",
+      "ideal_temp": "24°C - 38°C",
+      "pot_size": "Chậu nông rộng miệng đường kính 30 - 45cm để khoe bộ củ rễ nổi"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Phối trộn giá thể sa mạc thoát nước tức thì",
+        "instruction": "Tuyệt đối không trồng sứ bằng 100% đất thịt. Trộn 40% đá Pumice/xỉ than sàng + 25% trấu hun + 20% cát thô xây dựng + 15% phân trùn quế. Nước tưới vào phải rút hết sau 3 giây."
+      },
+      {
+        "step": 2,
+        "title": "Treo củ nâng rễ khi sang chậu định kỳ hàng năm",
+        "instruction": "Mỗi năm vào đầu mùa nắng, nhổ cây khỏi chậu, rửa sạch đất cũ, tỉa bỏ rễ tơ xấu rồi treo cây nơi râm mát 3 - 5 ngày cho se rễ trước khi trồng nâng củ cao thêm 3 - 5cm để lộ bộ rễ bàn đẹp."
+      },
+      {
+        "step": 3,
+        "title": "Cắt tỉa cành xả tàn kích ra nhánh hoa dày đặc",
+        "instruction": "Cắt ngắn các cành vươn dài, bôi keo liền sẹo hoặc vôi vào vết cắt (đeo găng tay tránh dính nhựa). Chỉ sau 3 tuần cây sẽ bật 2 - 3 chồi non tại mỗi đầu cắt và ra nụ rộ."
+      },
+      {
+        "step": 4,
+        "title": "Phòng thối nhũn củ mùa mưa bằng vôi & Trichoderma",
+        "instruction": "Vào mùa mưa dầm kéo dài, giảm tối đa lượng tưới. Nếu phát hiện chỗ củ bị mềm nhũn, dùng dao sắc khoét sạch phần thối đến mô trắng khỏe, bôi thuốc tím/vôi bột và để khô hoàn toàn 1 tuần mới trồng lại."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao củ sứ Thái nhà tôi mềm nhũn hoặc nhăn nheo?",
+        "answer": "Nếu củ nhăn nheo nhưng vẫn cứng chắc là dấu hiệu cây thiếu nước lâu ngày (chỉ cần tưới đẫm là căng lại). Ngược lại, nếu củ mềm nhũn kèm mùi hôi là bị thối rễ do úng nước hoặc nhiễm nấm; phải nhổ lên cắt bỏ ngay phần thối."
+      },
+      {
+        "question": "Trồng sứ Thái trong phòng điều hòa được không?",
+        "answer": "Không nên trồng lâu dài trong phòng kín thiếu nắng vì cây sẽ vươn cành yếu ớt và thối củ. Hãy đặt ngoài ban công có nắng tối thiểu 5 - 6 giờ/ngày."
+      }
+    ],
+    "monetization_tips": [
+      "Sứ Thái ghép nhiều màu hoa kép hoặc sứ củ quái rễ nôm có giá trị sưu tầm cao và rất bền bỉ với khí hậu nóng ẩm."
+    ],
+    "tags": [
+      "sứ thái",
+      "adenium",
+      "bonsai sa mạc",
+      "chịu hạn",
+      "aspca warning"
+    ],
+    "related_plant_ids": [
+      "orn-37",
+      "orn-34",
+      "orn-39",
+      "space-01"
+    ],
+    "reference_sources": [
+      {
+        "title": "Adenium obesum (Desert Rose) - Toxic and Non-Toxic Plants",
+        "author": "ASPCA Animal Poison Control Center",
+        "organization": "ASPCA",
+        "verification_type": "toxicology",
+        "url": "https://www.aspca.org/pet-care/animal-poison-control/toxic-and-non-toxic-plants/desert-rose"
+      },
+      {
+        "title": "Adenium obesum (Forssk.) Roem. & Schult. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "orn-39",
+    "slug": "sanh-si-bonsai-nam-dien",
+    "common_name": "Sanh & Si Bonsai (Gừa Tàu)",
+    "scientific_name": "Ficus microcarpa",
+    "aliases": [
+      "Si Nhật",
+      "Sanh Nam Điền",
+      "Gừa Tàu",
+      "Chinese Banyan"
+    ],
+    "category": "ornamental",
+    "nft_class": "botanical",
+    "description": "Biểu tượng cốt lõi trong nghệ thuật cây cảnh cổ truyền Việt Nam (\"Nhất Sanh, Nhì Si...\"). Cây sở hữu bộ lá xanh bóng quanh năm, sức sống mãnh liệt và khả năng buông rễ khí sinh ôm đá tạo nên những tác phẩm bonsai cổ thụ thu nhỏ đầy uy nghi.",
+    "quick_answer": "Sanh & Si Bonsai (Ficus microcarpa) là dòng cây cảnh nghệ thuật bền bỉ bậc nhất, nổi bật với bộ rễ khí sinh buông rủ ôm đá. Cây ưa nắng 4 - 6 giờ/ngày (chịu được cả sáng tán xạ mạnh), đất thịt pha thoáng pH 6.0 - 7.0, tưới 1 lần/ngày. Bí quyết thu nhỏ lá và tạo bộ dăm dày là cắt tỉa định kỳ kết hợp kỹ thuật tuốt lá (lặt lá) vào mùa sinh trưởng.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d6/Bonsai_Adam_and_Eve_%28PPL2-Enhanced%29_julesvernex2.jpg",
+    "image_sha256": "98af345a9fb09105fd57edc0b0eaf77cd8376ed1b3e85ffbb99341de69ca2413",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 1,
+    "growth_time": "Sinh trưởng quanh năm; 6 - 12 tháng định hình bộ tán cơ bản từ phôi",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Phát triển mạnh từ tháng 3 - 10; mùa đông rét giữ ẩm vừa phải, tránh tuốt toàn bộ lá khi trời rét đậm.",
+      "central": "Chịu nắng gió rất tốt, thích hợp làm cây cảnh sân thượng.",
+      "south": "Xanh tốt quanh năm, rễ khí sinh mọc rất nhanh vào mùa mưa ẩm.",
+      "best_months": [
+        2,
+        3,
+        4,
+        5,
+        8,
+        9
+      ],
+      "warning": "Nhựa mủ trắng của chi Ficus có thể gây kích ứng nhẹ cho da nhạy cảm và dạ dày chó mèo nếu nhai lá; đeo găng tay khi cắt tỉa nặng."
+    },
+    "botanical_details": {
+      "family": "Moraceae (Họ Dâu tằm)",
+      "native_range": "Đông Nam Á & Đông Á, bản địa Việt Nam",
+      "active_compounds": [
+        "Triterpenoid & Sterol thực vật",
+        "Flavonoid",
+        "Latex tự nhiên (nhựa mủ)"
+      ],
+      "soil_ph": "6.0 - 7.0",
+      "ideal_temp": "18°C - 35°C",
+      "pot_size": "Chậu bonsai cạn chữ nhật hoặc oval đường kính 30 - 60cm"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Phối trộn giá thể bonsai bám rễ & thoáng nước",
+        "instruction": "Trộn 40% đất thịt hoặc đất Akadama/đất nung + 30% đá Pumice/xỉ than hạt nhỏ + 20% trấu hun + 10% phân trùn quế. Giúp rễ tơ phát triển dày đặc không bị thối."
+      },
+      {
+        "step": 2,
+        "title": "Nuôi rễ khí sinh buông xuống mặt chậu hoặc ôm đá",
+        "instruction": "Vào mùa ẩm, dùng ống hút nhựa hoặc rêu ẩm quấn dẫn các đầu rễ gió từ cành lớn xuống chạm mặt đất chậu; khi rễ chạm đất sẽ hóa gỗ to mập tạo dáng cổ thụ."
+      },
+      {
+        "step": 3,
+        "title": "Kỹ thuật cắt giật & tuốt lá thu nhỏ kích thước lá",
+        "instruction": "Khi cành vươn dài quá 6 - 8 lá, cắt giật lại chỉ chừa 2 mắt lá. Mỗi năm 1 - 2 lần vào mùa ấm có thể tuốt hết lá già, cây sẽ bật lá mới nhỏ và dày bóng hơn hẳn."
+      },
+      {
+        "step": 4,
+        "title": "Kiểm soát rệp vảy & bọ trĩ gây cuốn lá",
+        "instruction": "Dùng dầu Neem phun định kỳ vào mặt dưới lá non để phòng bọ trĩ làm lá non quăn queo (bệnh xoăn lá si rất hay gặp)."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Cây Si bonsai để trong phòng khách có sống được không?",
+        "answer": "Ficus microcarpa có thể chịu bóng bán phần trong nhà một thời gian, nhưng nếu để nơi quá tối cây sẽ rụng lá hàng loạt. Hãy đặt ngay cạnh cửa sổ sáng hoặc luân chuyển mang ra ban công nắng nhẹ mỗi 2 tuần."
+      },
+      {
+        "question": "Làm sao để xử lý khi lá si bonsai bị cuốn tròn như điếu thuốc?",
+        "answer": "Đó là do loài bọ trĩ *Gynaikothrips ficorum* đẻ trứng hút nhựa làm mép lá gập lại. Hãy ngắt bỏ toàn bộ lá bị cuốn đem tiêu hủy, sau đó phun kỹ dầu Neem 3 lần cách nhau 5 ngày."
+      }
+    ],
+    "monetization_tips": [
+      "Sanh Nam Điền và Si Đài Loan uốn dáng làng hoặc ký đá tiểu cảnh luôn là dòng bonsai giữ giá tốt nhất tại Việt Nam."
+    ],
+    "tags": [
+      "sanh si bonsai",
+      "gừa tàu",
+      "ficus microcarpa",
+      "rễ khí sinh",
+      "cây cổ thụ"
+    ],
+    "related_plant_ids": [
+      "orn-01",
+      "fruit-53",
+      "orn-22",
+      "orn-36"
+    ],
+    "reference_sources": [
+      {
+        "title": "Ficus microcarpa (Cuban Laurel / Bonsai Care) - Plant Profiles",
+        "author": "University of Florida IFAS Extension",
+        "organization": "University of Florida",
+        "verification_type": "agronomy",
+        "url": "https://edis.ifas.ufl.edu/"
+      },
+      {
+        "title": "Ficus microcarpa L.f. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "orn-40",
+    "slug": "lan-ho-diep-cham-sau-tet",
+    "common_name": "Lan Hồ Điệp Chăm Sóc & Kích Hoa Sau Tết",
+    "scientific_name": "Phalaenopsis amabilis",
+    "aliases": [
+      "Hồ Điệp",
+      "Nữ Hoàng Các Loài Lan",
+      "Moth Orchid"
+    ],
+    "category": "ornamental",
+    "nft_class": "botanical",
+    "description": "Loài lan cao cấp chưng Tết bền hoa nhất (2 - 3 tháng) nhưng thường bị héo rễ chết sau Tết nếu không biết cách thay giá thể dớn mềm sang vỏ thông thoáng khí và xử lý cắt ngồng kích hoa cho mùa sau.",
+    "quick_answer": "Lan Hồ Điệp (Phalaenopsis amabilis) ưa ánh sáng tán xạ 60% - 70%, giá thể vỏ thông + than củi thông thoáng pH 5.5 - 6.5 và chỉ tưới khi rễ chuyển màu xám bạc (5 - 7 ngày/lần). Bí quyết cứu cây sau Tết và kích ra ngồng hoa mới là cắt bỏ ngồng tàn, thay bỏ bớt dớn trắng giữ ẩm quá mức bằng vỏ thông và tạo chênh lệch nhiệt độ ngày - đêm khoảng 5°C - 7°C vào mùa thu.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/26/Phalaenopsis_white_cultivar_2.jpg",
+    "image_sha256": "40e94cceeed052e99e99fa894a7c8ee79821c309af6447e4babdb32cff24c117",
+    "sunlight": "indoor",
+    "watering": "drought_tolerant",
+    "propagation_difficulty": 3,
+    "growth_time": "Phục hồi rễ lá 4 - 6 tháng sau Tết; trổ ngồng hoa mới vào cuối năm",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Chênh lệch nhiệt độ ngày đêm tự nhiên vào tháng 9 - 10 giúp lan hồ điệp tự nhú ngồng hoa chuẩn Tết.",
+      "central": "Treo nơi thoáng gió, che nắng gắt buổi trưa tuyệt đối.",
+      "south": "Phát triển lá rễ quanh năm rất khỏe; muốn kích hoa cần đặt nơi mát mẻ ban đêm hoặc dùng phân giàu lân.",
+      "best_months": [
+        2,
+        3,
+        4,
+        9,
+        10
+      ],
+      "warning": "TUYỆT ĐỐI không tưới đọng nước vào giữa nõn ngọn lá vào buổi chiều tối vì sẽ gây bệnh thối nhũn nõn chết cây chỉ sau 2 ngày."
+    },
+    "botanical_details": {
+      "family": "Orchidaceae (Họ Lan)",
+      "native_range": "Đông Nam Á, phong lan phụ sinh sống bám thân gỗ",
+      "active_compounds": [
+        "Quang hợp CAM (hấp thụ CO2 vào ban đêm, an toàn phòng ngủ)",
+        "An toàn tuyệt đối không độc cho chó mèo (ASPCA)"
+      ],
+      "soil_ph": "5.5 - 6.5 (giá thể vỏ thông)",
+      "ideal_temp": "18°C - 28°C (cần đêm mát 16°C - 18°C trong 3 tuần để kích hoa)",
+      "pot_size": "Chậu nhựa trong suốt có nhiều lỗ thoáng bên hông đường kính 12 - 18cm"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Cắt ngồng hoa tàn & tháo bỏ bầu dớn giữ nước quá ẩm",
+        "instruction": "Khi hoa tàn 80%, dùng kéo khử trùng cắt ngồng hoa cách gốc 3cm (hoặc cắt trên mắt ngủ thứ 3 nếu cây còn rất khỏe). Nhấc cây ra khỏi cốc nhựa nhỏ, gỡ bỏ hoàn toàn lớp dớn trắng (rêu sphagnum) bó chặt rễ."
+      },
+      {
+        "step": 2,
+        "title": "Cắt tỉa rễ thối & trồng lại bằng vỏ thông thoáng khí",
+        "instruction": "Cắt bỏ các rễ bị mềm nhũn hoặc khô rỗng, giữ lại rễ xanh/bạc cứng cáp rồi bôi vôi hoặc quế bột vào vết cắt, để khô 1 ngày. Trồng vào chậu nhiều lỗ với 80% vỏ thông sạch đã ngâm xử lý + 20% than củi."
+      },
+      {
+        "step": 3,
+        "title": "Tưới nước theo màu rễ & kích rễ bằng B1/nha đam",
+        "instruction": "Chỉ tưới đẫm vào giá thể khi quan sát thấy rễ trong chậu nhựa chuyển từ màu xanh sang màu trắng bạc (thường 5 - 7 ngày/lần). Tuyệt đối không xịt nước đọng vào kẽ nõn lá."
+      },
+      {
+        "step": 4,
+        "title": "Tạo sốc nhiệt nhẹ kích ngồng hoa vụ mới",
+        "instruction": "Khi cây đã ra 2 - 3 lá mới to khỏe (thường vào tháng 9 - 10), giảm tưới nhẹ và đặt nơi có nhiệt độ ban đêm mát hơn ban ngày khoảng 6°C kết hợp bón phân lân hữu cơ để cây nhú ngồng hoa."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao lá lan hồ điệp nhà tôi bị nhăn nheo và rũ mềm như tai chó?",
+        "answer": "Có 2 khả năng trái ngược nhưng biểu hiện giống nhau: cây bị thiếu nước lâu ngày HOẶC rễ đã bị thối hết do tưới quá nhiều nên cây không hút được nước. Hãy nhìn qua thành chậu nhựa: nếu rễ nâu đen nhũn là bị thối rễ, cần nhổ ra cắt tỉa và thay vỏ thông ngay."
+      },
+      {
+        "question": "Lan hồ điệp đặt trong phòng ngủ có an toàn không?",
+        "answer": "Rất an toàn! Lan hồ điệp thực hiện quang hợp CAM giúp nhả oxy vào ban đêm và được ASPCA xác nhận hoàn toàn không có độc tính với trẻ em và thú cưng."
+      }
+    ],
+    "monetization_tips": [
+      "Dịch vụ nhận \"gửi dưỡng và kích hoa lại lan hồ điệp sau Tết\" đang là mô hình kinh doanh rất ăn khách tại các thành phố lớn."
+    ],
+    "tags": [
+      "lan hồ điệp",
+      "chăm lan sau tết",
+      "kích hoa lan",
+      "pet safe",
+      "phalaenopsis"
+    ],
+    "related_plant_ids": [
+      "orn-44",
+      "orn-46",
+      "orn-48",
+      "space-17"
+    ],
+    "reference_sources": [
+      {
+        "title": "Phalaenopsis Orchid Care and Reblooming Guide",
+        "author": "American Orchid Society (AOS)",
+        "organization": "American Orchid Society",
+        "verification_type": "agronomy",
+        "url": "https://www.aos.org/"
+      },
+      {
+        "title": "Phalaenopsis Orchids - Non-Toxic Plants for Pets",
+        "author": "ASPCA Animal Poison Control Center",
+        "organization": "ASPCA",
+        "verification_type": "toxicology",
+        "url": "https://www.aspca.org/pet-care/animal-poison-control/toxic-and-non-toxic-plants/phalaenopsis-orchid"
+      }
+    ]
+  },
+  {
+    "id": "orn-41",
+    "slug": "hoa-do-quyen-bonsai",
+    "common_name": "Hoa Đỗ Quyên Bonsai",
+    "scientific_name": "Rhododendron simsii",
+    "aliases": [
+      "Đỗ Quyên Đỏ",
+      "Ánh Sơn Hồng",
+      "Azalea Bonsai"
+    ],
+    "category": "ornamental",
+    "nft_class": "botanical",
+    "description": "Danh hoa mùa xuân nở kín tán những chùm hoa rực rỡ đến mức che khuất cả lá xanh, rất được ưa chuộng tạo dáng bonsai trưng Tết tại miền Bắc và Đà Lạt. Đỗ quyên đòi hỏi giá thể có độ chua cao (pH 4.5 - 5.5) và không khí mát mẻ.",
+    "quick_answer": "Hoa Đỗ Quyên Bonsai (Rhododendron simsii) nổi bật với khả năng nở hoa dày kín tán đầu xuân trên nền đất chua pH 4.5 - 5.5. Cây ưa sáng bán phần 3 - 4 giờ nắng dịu/ngày, tưới giữ ẩm đều bằng nước không chứa vôi. Lưu ý YMYL & ASPCA: toàn bộ các bộ phận của Đỗ quyên chứa độc tố Grayanotoxin gây ngộ độc nặng nếu ăn phải đối với cả người và chó mèo.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Rhododendron_simsii_01.JPG",
+    "image_sha256": "b8e634024892ed906407a5c1a73629255bdb27362ce79e592d4324595e5776c3",
+    "sunlight": "partial_shade",
+    "watering": "daily",
+    "propagation_difficulty": 4,
+    "growth_time": "Cây thuần dưỡng khỏe sau 3 tháng; nở hoa rộ nhất từ tháng 1 đến tháng 4",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Rất hợp khí hậu mát lạnh mùa đông xuân miền Bắc; mùa hè nắng nóng trên 35°C cần che lưới 50% và đặt nơi mát.",
+      "central": "Phát triển đẹp tại Đà Lạt, Tây Nguyên và vùng núi cao mát mẻ.",
+      "south": "Khó nuôi bền qua mùa nắng nóng tại TP.HCM do thiếu mùa đông lạnh và độ ẩm mát.",
+      "best_months": [
+        1,
+        2,
+        3,
+        10,
+        11,
+        12
+      ],
+      "warning": "CẢNH BÁO ĐỘC TÍNH (ASPCA): Cây Đỗ quyên chứa Grayanotoxin trong lá, hoa và mật hoa; tuyệt đối không ăn hoa hay để chó mèo gặm lá (có thể gây nôn mửa, rối loạn nhịp tim)."
+    },
+    "botanical_details": {
+      "family": "Ericaceae (Họ Đỗ quyên)",
+      "native_range": "Đông Á và vùng núi cao Việt Nam (Fansipan, Tam Đảo, Đà Lạt)",
+      "active_compounds": [
+        "Grayanotoxin (andromedotoxin - độc tố tự nhiên bảo vệ cây)",
+        "Anthocyanin & Quercetin"
+      ],
+      "soil_ph": "4.5 - 5.5 (bắt buộc đất chua thoáng khí)",
+      "ideal_temp": "15°C - 25°C",
+      "pot_size": "Chậu bonsai cạn thoáng đáy đường kính 25 - 35cm"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Phối trộn giá thể đất chua chuyên dụng cho họ Đỗ quyên",
+        "instruction": "Tuyệt đối không dùng đất trộn vôi hoặc đá vôi. Trộn 40% đất Kanuma (hoặc đất rừng lá thông mục) + 30% vỏ thông vụn/xơ dừa đã xả chát + 20% đá Pumice + 10% phân trùn quế để giữ pH 4.5 - 5.5."
+      },
+      {
+        "step": 2,
+        "title": "Tưới nước mềm giữ ẩm gốc liên tục không để khô bầu",
+        "instruction": "Rễ đỗ quyên rất mảnh như sợi tóc, chỉ cần bầu đất khô trắng 1 ngày là lá héo rụng khó cứu. Tưới nước mưa hoặc nước máy đã phơi bay clo mỗi ngày 1 lần vào gốc (không xịt ướt đẫm lên cánh hoa đang nở)."
+      },
+      {
+        "step": 3,
+        "title": "Ngắt hoa tàn kịp thời & tỉa tán vào đầu mùa hè",
+        "instruction": "Ngay khi hoa tàn, ngắt bỏ cuống hoa cũ tránh tạo hạt làm suy cây. Cắt tỉa tạo dáng tán gọn trước tháng 6 âm lịch để cây kịp đóng nụ mới cho Tết năm sau."
+      },
+      {
+        "step": 4,
+        "title": "Che nắng gắt mùa hè & giữ ẩm không khí",
+        "instruction": "Vào mùa hè nóng bức ở miền Bắc, đặt chậu dưới tán cây lớn hoặc lưới che nắng 60%, kê khay sỏi ướt dưới đáy chậu để tăng độ ẩm mát."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao cây đỗ quyên mới mua dịp Tết về nhà chỉ sau 2 tuần lại rụng sạch lá và khô cành?",
+        "answer": "Nguyên nhân phổ biến nhất là người mua quên tưới đủ ẩm cho bầu rễ tơ (rất mau khô trong phòng điều hòa/phòng khách) hoặc tưới nước trực tiếp lên hoa khiến nấm bệnh tấn công. Hãy kiểm tra độ ẩm bầu đất hàng ngày bằng ngón tay."
+      },
+      {
+        "question": "Làm sao để giữ độ chua pH 5.0 cho đất trồng đỗ quyên tại nhà?",
+        "answer": "Mỗi tháng một lần có thể pha loãng 1 thìa cà phê giấm táo (hoặc nước vo gạo lên men chua nhẹ) vào 2 lít nước sạch để tưới duy trì môi trường axit nhẹ cho rễ."
+      }
+    ],
+    "monetization_tips": [
+      "Đỗ quyên cổ thụ dáng huyền hoặc đỗ quyên ngũ sắc Đà Lạt luôn nằm trong nhóm hoa Tết cao cấp được săn đón."
+    ],
+    "tags": [
+      "hoa đỗ quyên",
+      "azalea",
+      "bonsai tết",
+      "đất chua",
+      "aspca warning"
+    ],
+    "related_plant_ids": [
+      "orn-31",
+      "fruit-56",
+      "orn-40",
+      "forest-04"
+    ],
+    "reference_sources": [
+      {
+        "title": "Azalea (Rhododendron spp.) - Toxic and Non-Toxic Plants",
+        "author": "ASPCA Animal Poison Control Center",
+        "organization": "ASPCA",
+        "verification_type": "toxicology",
+        "url": "https://www.aspca.org/pet-care/animal-poison-control/toxic-and-non-toxic-plants/azalea"
+      },
+      {
+        "title": "Rhododendron simsii Planch. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "orn-42",
+    "slug": "hoa-muoi-gio-ban-cong",
+    "common_name": "Hoa Mười Giờ Mỹ (Sam Hoa)",
+    "scientific_name": "Portulaca grandiflora",
+    "aliases": [
+      "Hoa Mười Giờ",
+      "Sam Hoa",
+      "Moss Rose"
+    ],
+    "category": "ornamental",
+    "nft_class": "botanical",
+    "description": "Loài hoa dễ trồng, dễ sống và chịu nắng nóng 40°C bậc nhất dành cho người mới bắt đầu làm vườn. Chỉ cần vài cành giâm nhỏ cắm xuống chậu đất cát thoát nước, sau 20 ngày ban công hướng Tây sẽ rực rỡ thảm hoa đa sắc mỗi sáng.",
+    "quick_answer": "Hoa Mười Giờ Mỹ (Portulaca grandiflora) là cây hoa thân mọng nước chịu hạn và nắng gắt hàng đầu cho ban công hướng Tây. Cây cần nắng trực tiếp 6 - 8 giờ/ngày, đất cát pha thoát nước nhanh pH 6.0 - 7.0, tưới 2 - 3 ngày/lần và nở hoa sau 20 - 30 ngày giâm cành. Bí quyết giữ khóm hoa sai lâu bền là bấm tỉa cành già sau 2 tháng và không tưới úng.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/a3/Portulaca_grandiflora_26032014.jpg",
+    "image_sha256": "357df3286e294e7f29e605f71efb5b6f2e39724fa787c1845e7730b6b5c2b582",
+    "sunlight": "full_sun",
+    "watering": "drought_tolerant",
+    "propagation_difficulty": 1,
+    "growth_time": "20 - 30 ngày sau giâm cành là nở hoa rực rỡ",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Nở rộ nhất từ tháng 3 đến tháng 10; mùa đông lạnh cây chậm hoa nhưng không chết nếu tránh úng.",
+      "central": "Chịu nắng gió Lào cực kỳ khỏe mạnh.",
+      "south": "Nở hoa tưng bừng quanh năm dưới nắng ban công.",
+      "best_months": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        9
+      ],
+      "warning": "Không tưới nước vào buổi tối khi trời mưa ẩm dễ gây thối nhũn thân mọng nước; tránh trồng nơi râm thiếu nắng vì hoa sẽ không chịu hé cánh."
+    },
+    "botanical_details": {
+      "family": "Portulacaceae (Họ Rau sam)",
+      "native_range": "Nam Mỹ (Argentina, Brazil), phổ biến khắp Việt Nam",
+      "active_compounds": [
+        "Betalain & Portulacaxanthin (sắc tố màu hoa rực rỡ)",
+        "Flavonoid & Axit hữu cơ"
+      ],
+      "soil_ph": "6.0 - 7.0",
+      "ideal_temp": "22°C - 38°C",
+      "pot_size": "Chậu treo ban công hoặc khay dài nông sâu 12 - 15cm"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Phối trộn đất cát nhẹ thoát nước cực nhanh",
+        "instruction": "Trộn 40% đất thịt pha cát + 30% xỉ than/đá Perlite/trấu hun + 20% xơ dừa + 10% phân trùn quế. Mười giờ rất ghét đất sét bí nước."
+      },
+      {
+        "step": 2,
+        "title": "Giâm cành trực tiếp đạt tỷ lệ sống 99%",
+        "instruction": "Cắt đoạn cành dài 7 - 10cm, cắm sâu 2 - 3cm vào chậu đất ẩm cách nhau 4 - 5cm. Không cần ươm râm lâu, đặt thẳng nơi nắng sáng nhẹ 2 ngày rồi đưa ra nắng gắt."
+      },
+      {
+        "step": 3,
+        "title": "Tưới nước tiết kiệm & đón nắng buổi sáng",
+        "instruction": "Chỉ tưới khi thấy mặt đất khô ráo (khoảng 2 ngày/lần). Đảm bảo cây nhận đủ nắng từ 8h - 12h trưa để hoa bung cánh to rực rỡ."
+      },
+      {
+        "step": 4,
+        "title": "Cắt tỉa trẻ hóa chậu hoa sau mỗi 2 tháng",
+        "instruction": "Khi cành dài thòng ra ngoài chậu và hoa nhỏ dần, dùng kéo cắt ngắn toàn bộ khóm cách mặt đất 5cm, rắc thêm phân trùn quế và tận dụng cành cắt giâm sang chậu mới."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao hoa mười giờ nhà tôi lá rất mập nhưng chẳng thấy bông nào nở?",
+        "answer": "Do cây bị thiếu nắng trực tiếp hoặc bón quá nhiều phân đạm (N). Hãy chuyển chậu ra sát lan can nhiều nắng nhất và giảm đạm, bổ sung chút kali dịch chuối."
+      },
+      {
+        "question": "Làm sao trị rệp sáp trắng hay bám vào nách thân hoa mười giờ?",
+        "answer": "Cắt bỏ ngay những nhánh bị rệp nặng, sau đó xịt nước rửa chén sinh học pha dầu Neem vào chiều mát 2 lần cách nhau 4 ngày."
+      }
+    ],
+    "monetization_tips": [
+      "Rất dễ phối hợp thành chậu treo đa sắc hoặc làm thảm hoa phủ gốc cho các chậu cây ăn trái ban công hướng Tây."
+    ],
+    "tags": [
+      "hoa mười giờ",
+      "sam hoa",
+      "ban công hướng tây",
+      "dễ trồng",
+      "chịu hạn"
+    ],
+    "related_plant_ids": [
+      "orn-37",
+      "orn-47",
+      "orn-43",
+      "space-01"
+    ],
+    "reference_sources": [
+      {
+        "title": "Moss Rose (Portulaca grandiflora) Gardening Guide",
+        "author": "University of Florida IFAS Extension",
+        "organization": "University of Florida",
+        "verification_type": "agronomy",
+        "url": "https://edis.ifas.ufl.edu/"
+      },
+      {
+        "title": "Portulaca grandiflora Hook. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "orn-43",
+    "slug": "hoa-su-quan-tu-leo-ban-cong",
+    "common_name": "Hoa Sử Quân Tử Leo Ban Công",
+    "scientific_name": "Combretum indicum",
+    "aliases": [
+      "Dây Giun",
+      "Quân Tử Hoa",
+      "Rangoon Creeper"
+    ],
+    "category": "ornamental",
+    "nft_class": "botanical",
+    "description": "Dây leo ban công và giàn cổng lộng lẫy với những chùm hoa biến đổi 3 màu kỳ diệu trong cùng một ngày (nở trắng tinh khôi buổi tối, chuyển hồng phớt buổi sáng và đỏ thắm buổi chiều) kèm hương thơm nồng nàn quyến rũ, che nắng cực khỏe.",
+    "quick_answer": "Hoa Sử Quân Tử (Combretum indicum) là dây leo khỏe nổi bật với chùm hoa đổi màu trắng-hồng-đỏ thơm ngát và che nắng hướng Tây. Cây ưa nắng 6 - 8 giờ/ngày, đất pH 6.0 - 7.0, tưới 1 - 2 ngày/lần và ra hoa sau 6 - 9 tháng. Lưu ý YMYL: không tự ý ăn quá liều hạt khô (chứa axit quisqualic).",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Combretum_indicum_01.JPG",
+    "image_sha256": "5c5a464d451a3f92a6301e0238eab579be18067b09f4e0b7e484f79f062da8ae",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 2,
+    "growth_time": "6 - 9 tháng từ cây giống bầu đến khi phủ giàn ra hoa rộ",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Nở hoa rộ từ tháng 4 đến tháng 10; mùa đông lạnh cây rụng lá tạm nghỉ rồi bật lộc cực khỏe vào mùa xuân.",
+      "central": "Chịu nắng gió Lào tuyệt vời, phủ xanh ban công nhanh.",
+      "south": "Ra hoa liên tục gần như quanh năm.",
+      "best_months": [
+        2,
+        3,
+        4,
+        5,
+        8,
+        9
+      ],
+      "warning": "Không tự ý nhai ăn hạt sử quân tử tươi hay rang quá 5 - 10 hạt vì chứa axit quisqualic có thể gây nấc cụt, buồn nôn, hoa mắt."
+    },
+    "botanical_details": {
+      "family": "Combretaceae (Họ Bàng)",
+      "native_range": "Châu Á nhiệt đới, bản địa Việt Nam",
+      "active_compounds": [
+        "Quisqualic acid (hoạt chất tẩy giun trong nhân hạt)",
+        "Anthocyanin & Flavonoid (tạo sự đổi màu hoa)",
+        "Tinh dầu thơm linalool"
+      ],
+      "soil_ph": "6.0 - 7.0",
+      "ideal_temp": "22°C - 36°C",
+      "pot_size": "Chậu lớn đường kính 45 - 55cm hoặc bồn xây kèm giàn leo chắc chắn"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Chọn cây giống giâm/chiết (Sử quân tử lùn hoặc leo)",
+        "instruction": "Với ban công chung cư nhỏ, ưu tiên chọn giống Sử quân tử Thái thân lùn ít vươn dài quá mức; còn với giàn sân thượng thì chọn giống leo truyền thống phủ bóng cực nhanh."
+      },
+      {
+        "step": 2,
+        "title": "Trồng vào chậu lớn & dẫn dây lên khung giàn",
+        "instruction": "Trộn 50% đất thịt + 20% phân trùn quế/phân bò hoai + 20% trấu hun + 10% xơ dừa. Dẫn dây leo quấn theo khung thép hoặc dây cáp ban công."
+      },
+      {
+        "step": 3,
+        "title": "Cắt tỉa cành tăm & bấm ngọn kích hoa đầu cành",
+        "instruction": "Hoa sử quân tử nở ở đầu các cành non bánh tẻ. Sau mỗi đợt tàn hoa, cắt ngắn các đầu cành đã ra hoa khoảng 15 - 20cm để kích thích đẻ nhiều nhánh mới nở hoa đồng loạt."
+      },
+      {
+        "step": 4,
+        "title": "Bón Kali hữu cơ giúp hoa sai chùm đậm màu",
+        "instruction": "Định kỳ 20 ngày/lần tưới dịch chuối hoặc bón phân hữu cơ giàu Kali, giữ ẩm đều vào mùa nắng gắt."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao dây sử quân tử leo rất dài nhưng lại chỉ ra lá chứ ít hoa?",
+        "answer": "Do cây bị thiếu nắng (dưới 4 tiếng nắng/ngày) hoặc người trồng không cắt tỉa bấm ngọn khiến cây chỉ vươn dây dài mãi. Hãy cắt tỉa bớt ngọn dây vươn, đưa ra nơi nắng nhiều và bón thêm phân giàu Lân-Kali."
+      },
+      {
+        "question": "Rễ sử quân tử trồng bồn sân thượng có ăn phá tường bê tông không?",
+        "answer": "Trong chậu hoặc bồn xây chống thấm chuẩn thì hoàn toàn an toàn, nhưng nếu trồng trực tiếp xuống đất sát chân tường nhà lâu năm thì bộ rễ gỗ phát triển khá mạnh."
+      }
+    ],
+    "monetization_tips": [
+      "Rất được ưa chuộng thiết kế làm giàn cổng vòm hoa thơm hoặc tường xanh chống nóng cho ban công chung cư, quán cà phê sân vườn."
+    ],
+    "tags": [
+      "sử quân tử",
+      "dây leo ban công",
+      "hoa thơm đổi màu",
+      "chịu nắng",
+      "combretum indicum"
+    ],
+    "related_plant_ids": [
+      "space-18",
+      "orn-37",
+      "orn-42",
+      "orn-21"
+    ],
+    "reference_sources": [
+      {
+        "title": "Những cây thuốc và vị thuốc Việt Nam (Mục Sử quân tử)",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học",
+        "verification_type": "pharmacognosy",
+        "url": "https://nhathuoclongchau.com.vn/"
+      },
+      {
+        "title": "Combretum indicum (L.) DeFilipps - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "orn-44",
+    "slug": "cay-day-nhen-lan-chi-nasa",
+    "common_name": "Cây Dây Nhện (Lan Chi) Lọc Khí NASA",
+    "scientific_name": "Chlorophytum comosum",
+    "aliases": [
+      "Lan Chi",
+      "Mẫu Tử",
+      "Spider Plant"
+    ],
+    "category": "ornamental",
+    "nft_class": "botanical",
+    "description": "Một trong những cây trồng trong nhà lọc không khí hiệu quả nhất theo nghiên cứu NASA Clean Air Study (loại bỏ tới 90% Formaldehyde và CO trong buồng thử nghiệm) và được ASPCA chứng nhận 100% an toàn cho chó mèo, trẻ nhỏ.",
+    "quick_answer": "Cây Dây Nhện (Chlorophytum comosum) là cây nội thất nổi bật với khả năng lọc Formaldehyde theo NASA Clean Air Study và hoàn toàn không độc cho thú cưng (ASPCA). Cây ưa sáng tán xạ trong nhà 2 - 3 giờ/ngày, đất tơi xốp pH 6.0 - 7.0, tưới 2 - 3 ngày/lần và dễ nhân giống từ cây con trên ngồng. Chú ý tránh tưới nước máy nhiều flo dễ gây cháy nâu đầu lá.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Malamadre_%28Chlorophytum_comosum%29.jpg",
+    "image_sha256": "2bc3904fc86af76b9b94c92769ae35f43278d5a6d5b2cde833450512c2e29fc2",
+    "sunlight": "indoor",
+    "watering": "moderate",
+    "propagation_difficulty": 1,
+    "growth_time": "Tạo bụi rủ đẹp sau 1 - 2 tháng; nhân giống cây con ra rễ trong 7 ngày",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Xanh tốt quanh năm trong nhà lẫn ban công có mái che.",
+      "central": "Rất thích hợp treo ở hành lang, logia hoặc bàn làm việc.",
+      "south": "Phát triển nhanh và đẻ rất nhiều ngồng cây con quanh năm.",
+      "best_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "warning": "Dù hoàn toàn không độc hại với chó mèo, mèo thường rất thích gặm lá dây nhện vì dáng lá rủ rung rinh; nên treo cao nếu muốn giữ bụi lá nguyên vẹn."
+    },
+    "botanical_details": {
+      "family": "Asparagaceae (Họ Măng tây)",
+      "native_range": "Nam Phi, phổ biến toàn cầu làm cây cảnh nội thất",
+      "active_compounds": [
+        "Lọc Formaldehyde, Carbon Monoxide & Xylene (NASA Clean Air Study)",
+        "Saponin tự nhiên không độc hại với vật nuôi (ASPCA Pet-Safe)"
+      ],
+      "soil_ph": "6.0 - 7.0",
+      "ideal_temp": "18°C - 30°C",
+      "pot_size": "Chậu treo hoặc chậu để bàn đường kính 15 - 22cm thoát nước tốt"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Phối trộn giá thể tơi nhẹ cho chậu treo hoặc để bàn",
+        "instruction": "Trộn 40% đất sạch + 30% xơ dừa + 20% đá Perlite/trấu hun + 10% phân trùn quế. Cây dây nhện có bộ rễ củ mập giữ nước rất khỏe."
+      },
+      {
+        "step": 2,
+        "title": "Đặt nơi sáng tán xạ tránh nắng gắt cháy lá",
+        "instruction": "Đặt chậu cạnh cửa sổ, bàn làm việc hoặc treo dưới giàn cây cao nơi có ánh sáng gián tiếp sáng sủa (nắng trực tiếp trưa hè sẽ làm bạc màu sọc trắng và cháy lá)."
+      },
+      {
+        "step": 3,
+        "title": "Tưới nước đã lắng hết Clo & Flo",
+        "instruction": "Tưới 2 - 3 ngày/lần khi lớp đất mặt se khô. Mẹo giữ chóp lá không bị khô nâu là hứng nước máy để qua đêm cho bay hết clo/flo hoặc dùng nước lọc tưới."
+      },
+      {
+        "step": 4,
+        "title": "Nhân giống cực dễ từ ngồng cây con (Mẫu tử)",
+        "instruction": "Khi ngồng dài vươn ra mang các cụm cây con đã nhú sẵn rễ khí, chỉ cần cắt xuống cắm vào chậu đất ẩm hoặc bình nước thủy sinh là có ngay chậu mới."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao đầu lá cây dây nhện hay bị khô đen khoảng 1 - 2cm ở chóp?",
+        "answer": "Do cây nhạy cảm với hàm lượng Clo/Flo trong nước máy, không khí phòng điều hòa quá khô hoặc bón phân hóa học quá mặn. Hãy cắt xéo bỏ phần đầu lá khô bằng kéo sạch và chuyển sang tưới nước đã để lắng qua đêm."
+      },
+      {
+        "question": "Nhà có mèo và em bé nhỏ trồng cây dây nhện có yên tâm không?",
+        "answer": "Hoàn toàn yên tâm! Theo cơ sở dữ liệu ASPCA, Chlorophytum comosum là một trong những loài cây nội thất lọc khí an toàn 100% (Non-toxic) cho cả trẻ nhỏ, chó và mèo."
+      }
+    ],
+    "monetization_tips": [
+      "Rất dễ nhân giống hàng loạt từ 1 bụi mẹ thành hàng chục chậu treo văn phòng hoặc chậu thủy sinh để bàn."
+    ],
+    "tags": [
+      "dây nhện",
+      "lan chi",
+      "lọc khí nasa",
+      "pet safe",
+      "cây văn phòng"
+    ],
+    "related_plant_ids": [
+      "orn-46",
+      "orn-48",
+      "orn-40",
+      "space-17"
+    ],
+    "reference_sources": [
+      {
+        "title": "Interior Landscape Plants for Indoor Air Pollution Abatement",
+        "author": "B. C. Wolverton et al.",
+        "organization": "NASA Stennis Space Center",
+        "verification_type": "ecology",
+        "url": "https://ntrs.nasa.gov/citations/19930073077"
+      },
+      {
+        "title": "Spider Plant (Chlorophytum comosum) - Non-Toxic Plants",
+        "author": "ASPCA Animal Poison Control Center",
+        "organization": "ASPCA",
+        "verification_type": "toxicology",
+        "url": "https://www.aspca.org/pet-care/animal-poison-control/toxic-and-non-toxic-plants/spider-plant"
+      }
+    ]
+  },
+  {
+    "id": "orn-45",
+    "slug": "trau-ba-vang-epipremnum",
+    "common_name": "Trầu Bà Vàng (Hoàng Tâm Diệp)",
+    "scientific_name": "Epipremnum aureum",
+    "aliases": [
+      "Trầu Bà Leo",
+      "Hoàng Tâm Diệp",
+      "Golden Pothos"
+    ],
+    "category": "ornamental",
+    "nft_class": "botanical",
+    "description": "Loài cây nội thất \"bất tử\" phổ biến nhất thế giới, nổi tiếng với sức sống bền bỉ trong văn phòng thiếu sáng và khả năng hấp thụ VOCs (Formaldehyde, Benzen, Xylene) theo nghiên cứu của NASA. Có thể trồng đất leo cột rêu hoặc trồng thủy sinh cực sạch.",
+    "quick_answer": "Trầu Bà Vàng (Epipremnum aureum) là cây kiểng lá nội thất dễ sống bậc nhất, hỗ trợ lọc khí VOCs theo NASA Clean Air Study. Cây phát triển tốt dưới ánh sáng đèn văn phòng hoặc sáng tán xạ, pH đất 6.0 - 6.8, tưới 3 - 5 ngày/lần. Lưu ý ASPCA: lá và thân chứa tinh thể canxi oxalat không tan gây kích ứng miệng nếu chó mèo nhai phải.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Epipremnum_aureum_31082012.jpg",
+    "image_sha256": "90efab876f0fed3681fd90ce64eb7a86a35b33b254921311ea9a71227d6a0cf4",
+    "sunlight": "indoor",
+    "watering": "moderate",
+    "propagation_difficulty": 1,
+    "growth_time": "7 - 10 ngày ra rễ khi cắm nước; phủ xanh giỏ treo sau 1 - 2 tháng",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Xanh tốt quanh năm trong nhà; mùa đông lạnh hạn chế tưới đẫm để tránh vàng lá gốc.",
+      "central": "Phát triển nhanh, dễ trồng ở mọi không gian nội thất và giếng trời.",
+      "south": "Leo khỏe và lá rất to nếu được bám trụ xơ dừa ngoài ban công râm.",
+      "best_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "warning": "CẢNH BÁO THÚ CƯNG (ASPCA): Thuộc họ Ráy (Araceae) chứa tinh thể canxi oxalat; treo chậu cao khỏi tầm với của chó mèo và trẻ nhỏ hay cho tay vào miệng."
+    },
+    "botanical_details": {
+      "family": "Araceae (Họ Ráy)",
+      "native_range": "Đảo Mo'orea (Polynesia thuộc Pháp), phổ biến toàn cầu",
+      "active_compounds": [
+        "Hấp thụ Formaldehyde, Benzene, Toluene (NASA Clean Air Study)",
+        "Tinh thể Canxi Oxalat raphides (gây kích ứng niêm mạc nếu nhai nuốt)"
+      ],
+      "soil_ph": "6.0 - 6.8",
+      "ideal_temp": "18°C - 32°C",
+      "pot_size": "Chậu treo, chậu để bàn 15 - 25cm hoặc bình thủy sinh"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Giâm cành cực nhanh trong nước hoặc đất ẩm",
+        "instruction": "Cắt đoạn dây trầu bà có 2 - 3 đốt lá (chọn đoạn có sẵn nốt sần rễ màu nâu ở đốt). Cắm ngập 1 đốt vào ly nước sạch hoặc vùi nhẹ vào giá thể ẩm, rễ trắng sẽ mọc ra sau 7 ngày."
+      },
+      {
+        "step": 2,
+        "title": "Phối trộn giá thể thoáng khí tránh thối rễ trong nhà",
+        "instruction": "Trộn 35% đất sạch + 30% xơ dừa cục + 25% đá Perlite/trấu hun + 10% phân trùn quế. Nếu trồng thủy sinh, chỉ ngâm ngập 2/3 bộ rễ và thay nước 1 tuần/lần."
+      },
+      {
+        "step": 3,
+        "title": "Điều chỉnh ánh sáng giữ vân vàng cẩm thạch đẹp mắt",
+        "instruction": "Cây sống được nơi tối nhưng nếu đặt gần cửa sổ sáng tán xạ (tránh nắng gắt), các đốm vàng trên phiến lá sẽ hiện lên rực rỡ hơn."
+      },
+      {
+        "step": 4,
+        "title": "Bấm ngọn định kỳ để chậu sum suê không bị trơ gốc",
+        "instruction": "Khi dây rủ quá dài và rụng bớt lá gần gốc, cắt bớt phần dây dài cắm ngược lại vào giữa chậu đất để tạo tán dày tròn đều."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao lá trầu bà vàng trồng trong nhà bỗng nhiên ngả vàng từng lá một?",
+        "answer": "Nếu lá vàng mềm nhũn ở phần gốc là dấu hiệu tưới quá nhiều nước gây úng rễ; nếu lá chuyển xanh tuyền mất đốm vàng là do cây quá thiếu sáng. Hãy giảm tần suất tưới và lau sạch bụi trên lá."
+      },
+      {
+        "question": "Trầu bà vàng leo cột lá có to ra như Monstera không?",
+        "answer": "Có! Trong tự nhiên hoặc khi cho leo bám vào cột rêu ẩm ngoài hiên có nắng tán xạ, lá Trầu bà vàng có thể phát triển to bằng bàn tay người lớn và thậm chí xẻ thùy rất đẹp."
+      }
+    ],
+    "monetization_tips": [
+      "Dễ nhân giống vô tận làm quà tặng xanh hoặc trang trí mảng tường xanh văn phòng, quán cà phê chi phí thấp."
+    ],
+    "tags": [
+      "trầu bà vàng",
+      "hoàng tâm diệp",
+      "pothos",
+      "lọc khí nasa",
+      "thủy sinh"
+    ],
+    "related_plant_ids": [
+      "orn-29",
+      "orn-33",
+      "orn-35",
+      "space-17"
+    ],
+    "reference_sources": [
+      {
+        "title": "Interior Landscape Plants for Indoor Air Pollution Abatement",
+        "author": "B. C. Wolverton et al.",
+        "organization": "NASA Stennis Space Center",
+        "verification_type": "ecology",
+        "url": "https://ntrs.nasa.gov/citations/19930073077"
+      },
+      {
+        "title": "Golden Pothos (Epipremnum aureum) - Toxic to Dogs and Cats",
+        "author": "ASPCA Animal Poison Control Center",
+        "organization": "ASPCA",
+        "verification_type": "toxicology",
+        "url": "https://www.aspca.org/pet-care/animal-poison-control/toxic-and-non-toxic-plants/golden-pothos"
+      }
+    ]
+  },
+  {
+    "id": "orn-46",
+    "slug": "cau-vang-loc-khi-nasa",
+    "common_name": "Cau Vàng (Cau Cảnh Lọc Khí NASA)",
+    "scientific_name": "Chrysalidocarpus lutescens",
+    "aliases": [
+      "Cau Kiểng Vàng",
+      "Cau Nhật",
+      "Areca Palm"
+    ],
+    "category": "ornamental",
+    "nft_class": "botanical",
+    "description": "Đứng đầu bảng xếp hạng của NASA về khả năng thanh lọc không khí (đặc biệt là Xylene và Toluene từ sơn tường/máy in) đồng thời hoạt động như một \"máy tạo ẩm sinh học tự nhiên\" cho phòng khách và văn phòng bật điều hòa, hoàn toàn an toàn với thú cưng.",
+    "quick_answer": "Cau Vàng (Chrysalidocarpus lutescens) là cây nội thất lọc khí top đầu theo NASA Clean Air Study, giúp tạo ẩm không khí phòng điều hòa và 100% an toàn cho chó mèo (ASPCA). Cây ưa sáng tán xạ mạnh 3 - 4 giờ/ngày, đất thoát nước tốt pH 6.0 - 6.8, tưới 2 - 3 ngày/lần. Bí quyết giữ đầu lá không bị khô cháy là tăng ẩm xung quanh và dùng nước sạch ít muối khoáng.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Chrysalidocarpus_lutescens_4zz.jpg",
+    "image_sha256": "9297bf2217d262b6f535951a0e70b723c370c2c391bc8af99bc0631eaaa3435c",
+    "sunlight": "partial_shade",
+    "watering": "moderate",
+    "propagation_difficulty": 2,
+    "growth_time": "Sinh trưởng ổn định quanh năm; 3 - 6 tháng ra tàu lá mới xanh mướt",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Rất đẹp quanh năm; mùa đông hanh khô trong phòng điều hòa cần phun sương giữ ẩm cho lá.",
+      "central": "Đặt ở sảnh, hiên nhà có mái che tránh nắng gắt cháy vàng tàu lá.",
+      "south": "Phát triển cực khỏe, dễ tách bụi nhân giống.",
+      "best_months": [
+        2,
+        3,
+        4,
+        5,
+        8,
+        9
+      ],
+      "warning": "Không đặt cau vàng dưới nắng trưa gắt trực tiếp (trừ khi đã thuần nắng từ nhỏ) vì lá dễ bị bạc vàng cháy nắng."
+    },
+    "botanical_details": {
+      "family": "Arecaceae (Họ Cau)",
+      "native_range": "Madagascar, trồng phổ biến khắp Việt Nam",
+      "active_compounds": [
+        "Loại bỏ Xylene, Toluene & Formaldehyde (NASA Clean Air Study)",
+        "Tốc độ thoát hơi ẩm sinh học cao giúp cân bằng độ ẩm phòng máy lạnh",
+        "Không chứa độc tố (ASPCA Pet-Safe)"
+      ],
+      "soil_ph": "6.0 - 6.8",
+      "ideal_temp": "20°C - 32°C",
+      "pot_size": "Chậu đứng sang trọng đường kính 30 - 45cm, sâu 35 - 45cm"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Phối trộn đất thoáng khí giàu hữu cơ cho rễ chùm",
+        "instruction": "Trộn 45% đất thịt + 25% xơ dừa + 20% trấu hun/đá Pumice + 10% phân trùn quế. Lót đáy chậu lớp sỏi nhẹ đảm bảo thoát nước tốt."
+      },
+      {
+        "step": 2,
+        "title": "Chọn vị trí sáng tán xạ cạnh cửa sổ hoặc sảnh nhà",
+        "instruction": "Cau vàng thích hợp góc phòng khách gần cửa kính rèm thưa hoặc hiên nhà có nắng sáng 3 giờ/ngày."
+      },
+      {
+        "step": 3,
+        "title": "Tưới nước lắng Clo & cắt tỉa tàu lá già sát gốc",
+        "instruction": "Tưới 2 - 3 ngày/lần khi 3cm đất mặt se khô (mùa hè phun sương lên lá giúp hạn chế nhện đỏ). Dùng kéo sắc cắt sát gốc những tàu lá già ngả vàng ở vòng ngoài."
+      },
+      {
+        "step": 4,
+        "title": "Phòng rệp sáp & nhện đỏ trong phòng kín",
+        "instruction": "Định kỳ 2 tuần/lần dùng khăn ẩm pha loãng dầu Neem lau sạch bụi bám trên các phiến lá giúp cây quang hợp và lọc bụi mịn tốt nhất."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao cau vàng đặt trong văn phòng điều hòa hay bị khô đen đầu ngọn lá?",
+        "answer": "Do không khí máy lạnh quá khô hoặc đất tích tụ muối khoáng từ nước máy/phân bón. Hãy đặt 1 khay sỏi ẩm dưới chậu, phun sương nhẹ mỗi tuần và định kỳ 2 tháng mang chậu ra xả rửa muối bằng nước sạch một lần."
+      },
+      {
+        "question": "Cau vàng có an toàn nếu nhà nuôi chó mèo không?",
+        "answer": "An toàn 100%. ASPCA xếp Cau vàng (Areca Palm) vào danh sách Non-Toxic cho cả chó và mèo."
+      }
+    ],
+    "monetization_tips": [
+      "Dòng cây văn phòng cao cấp chủ lực cho dịch vụ cho thuê cây cảnh công sở và trang trí sảnh khách sạn, phòng khách."
+    ],
+    "tags": [
+      "cau vàng",
+      "areca palm",
+      "lọc khí nasa",
+      "pet safe",
+      "tạo ẩm tự nhiên"
+    ],
+    "related_plant_ids": [
+      "orn-44",
+      "orn-28",
+      "orn-32",
+      "space-17"
+    ],
+    "reference_sources": [
+      {
+        "title": "Interior Landscape Plants for Indoor Air Pollution Abatement",
+        "author": "B. C. Wolverton et al.",
+        "organization": "NASA Stennis Space Center",
+        "verification_type": "ecology",
+        "url": "https://ntrs.nasa.gov/citations/19930073077"
+      },
+      {
+        "title": "Areca Palm (Chrysalidocarpus lutescens) - Non-Toxic Plants",
+        "author": "ASPCA Animal Poison Control Center",
+        "organization": "ASPCA",
+        "verification_type": "toxicology",
+        "url": "https://www.aspca.org/pet-care/animal-poison-control/toxic-and-non-toxic-plants/areca-palm"
+      }
+    ]
+  },
+  {
+    "id": "orn-47",
+    "slug": "hoa-da-yen-thao-treo-ban-cong",
+    "common_name": "Hoa Dạ Yến Thảo Treo Ban Công",
+    "scientific_name": "Petunia × atkinsiana",
+    "aliases": [
+      "Dạ Yến Thảo Rủ",
+      "Bầu Lục Bình Hoa",
+      "Petunia"
+    ],
+    "category": "ornamental",
+    "nft_class": "botanical",
+    "description": "Nữ hoàng chậu treo ban công với những thác hoa mềm mại đủ sắc màu rực rỡ (tím, hồng, đỏ, sọc sao), nở liên tục suốt mùa xuân - hè nếu được bấm ngọn đúng cách và tưới gốc khéo léo tránh làm dập nát cánh hoa mỏng.",
+    "quick_answer": "Hoa Dạ Yến Thảo (Petunia × atkinsiana) là loài hoa chậu treo rủ ban công nổi bật với hàng trăm bông hoa hình loa kèn rực rỡ. Cây ưa nắng 4 - 6 giờ/ngày, đất tơi xốp giàu dinh dưỡng pH 5.5 - 6.5, tưới thẳng vào gốc mỗi ngày. Bí quyết giữ giỏ hoa nở dày liên tục không bị trơ gốc là ngắt bỏ hoa tàn kèm đài hoa và bấm ngọn định kỳ.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/19/%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B3%D0%BE%D1%84._%D0%9F%D0%B5%D1%82%D1%83%D0%BD%D0%B8%D1%8F_%D0%BD%D0%B0_%D0%A1%D0%B0%D0%BD%D0%BA%D1%82-%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B1%D1%83%D1%80%D0%B3%D1%81%D0%BA%D0%BE%D0%BC_02.jpg",
+    "image_sha256": "28b790422eee71178eed87c5adb01838b14eb7d7fb7aa49a9c19720898d31429",
+    "sunlight": "full_sun",
+    "watering": "daily",
+    "propagation_difficulty": 2,
+    "growth_time": "60 - 75 ngày từ hạt hoặc 20 ngày từ cây giống sang chậu treo là nở rộ",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Nở rực rỡ nhất từ tháng 10 đến tháng 5 năm sau (ưa tiết trời mát mẻ mùa đông xuân).",
+      "central": "Trồng đẹp mùa Thu - Đông - Xuân; tránh mưa bão tạt gãy cành mềm.",
+      "south": "Chọn giống Dạ yến thảo kép hoặc giống chịu nhiệt, treo dưới hiên có nắng sáng tránh mưa dầm.",
+      "best_months": [
+        1,
+        2,
+        3,
+        10,
+        11,
+        12
+      ],
+      "warning": "Cánh hoa dạ yến thảo rất mỏng manh; tuyệt đối không dùng vòi nước mạnh xịt thẳng lên mặt hoa và tránh mưa dầm gây thối nhũn lá gốc."
+    },
+    "botanical_details": {
+      "family": "Solanaceae (Họ Cà)",
+      "native_range": "Nam Mỹ (giống lai thương mại toàn cầu)",
+      "active_compounds": [
+        "Anthocyanin & Petunidin (sắc tố tím xanh đặc trưng)",
+        "Flavonoid",
+        "Không độc với chó mèo (ASPCA Pet-Safe)"
+      ],
+      "soil_ph": "5.5 - 6.5",
+      "ideal_temp": "15°C - 28°C",
+      "pot_size": "Chậu treo đường kính 22 - 28cm thoát nước tốt"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Phối trộn giá thể tơi nhẹ giữ ẩm vừa đủ cho chậu treo",
+        "instruction": "Trộn 35% xơ dừa đã xử lý + 30% đất sạch + 20% trấu hun/đá Perlite + 15% phân trùn quế. Chậu treo nhẹ giúp an toàn móc treo ban công."
+      },
+      {
+        "step": 2,
+        "title": "Bấm ngọn khi cây còn non để tạo tán tròn sum suê",
+        "instruction": "Khi cây con ra 5 - 6 cặp lá và bắt đầu vươn nhánh, bấm bỏ các đầu ngọn chính để kích cây đẻ nhiều nhánh phụ xòe tròn kín miệng chậu."
+      },
+      {
+        "step": 3,
+        "title": "Tưới sát gốc buổi sáng & bổ sung dinh dưỡng ra hoa liên tục",
+        "instruction": "Vén nhẹ lá và tưới nước trực tiếp vào gốc đất mỗi sáng sớm, tránh làm ướt hoa. Vì dạ yến thảo ra hoa rất nhiều nên cần tưới phân hữu cơ loãng (dịch chuối/trùn quế) mỗi 7 - 10 ngày/lần."
+      },
+      {
+        "step": 4,
+        "title": "Vặt bỏ hoa tàn tận cuống (Deadheading) kích nụ mới",
+        "instruction": "Hàng ngày ngắt bỏ hoa héo cùng cả phần đài xanh dưới cuống để cây không tạo hạt, dồn toàn bộ năng lượng bật lứa nụ hoa mới."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao giỏ dạ yến thảo mới mua rất sai hoa nhưng sau 1 tháng chỉ nở lưa thưa ở đầu ngọn dài?",
+        "answer": "Do cây thiếu phân bón nuôi hoa và người trồng không ngắt bỏ hoa tàn hoặc cắt tỉa bớt cành vóng dài. Hãy cắt ngắn lại khoảng 1/3 các cành già thưa hoa, bón phân trùn quế + dịch chuối, cây sẽ bật chồi ra hoa kín lại sau 2 tuần."
+      },
+      {
+        "question": "Hoa dạ yến thảo có an toàn cho thú cưng không?",
+        "answer": "Có, theo ASPCA, Petunia không có độc tính đối với chó và mèo."
+      }
+    ],
+    "monetization_tips": [
+      "Là dòng hoa chậu treo bán chạy nhất mỗi dịp Tết và trang trí ban công chung cư, quán cà phê."
+    ],
+    "tags": [
+      "dạ yến thảo",
+      "petunia",
+      "chậu treo ban công",
+      "pet safe",
+      "hoa tết"
+    ],
+    "related_plant_ids": [
+      "orn-42",
+      "orn-37",
+      "orn-44",
+      "space-01"
+    ],
+    "reference_sources": [
+      {
+        "title": "Petunia Production and Home Landscape Care",
+        "author": "University of Florida IFAS Extension",
+        "organization": "University of Florida",
+        "verification_type": "agronomy",
+        "url": "https://edis.ifas.ufl.edu/"
+      },
+      {
+        "title": "Petunia (Petunia spp.) - Non-Toxic Plants",
+        "author": "ASPCA Animal Poison Control Center",
+        "organization": "ASPCA",
+        "verification_type": "toxicology",
+        "url": "https://www.aspca.org/pet-care/animal-poison-control/toxic-and-non-toxic-plants/petunia"
+      }
+    ]
+  },
+  {
+    "id": "orn-48",
+    "slug": "cay-truong-sinh-phong-thuy",
+    "common_name": "Cây Trường Sinh Lá Bóng Để Bàn",
+    "scientific_name": "Peperomia obtusifolia",
+    "aliases": [
+      "Thiên Tuế Thảo",
+      "Trường Sinh Phong Thủy",
+      "Baby Rubber Plant"
+    ],
+    "category": "ornamental",
+    "nft_class": "botanical",
+    "description": "Cây để bàn phong thủy mang ý nghĩa trường tồn, sức khỏe dồi dào và sự gắn kết bền vững. Sở hữu phiến lá tròn dày mọng nước xanh bóng quanh năm, chịu điều hòa văn phòng cực giỏi và được ASPCA xác nhận 100% không độc cho trẻ nhỏ & thú cưng.",
+    "quick_answer": "Cây Trường Sinh (Peperomia obtusifolia) là cây để bàn văn phòng lá dày mọng nước, chịu thiếu sáng tốt và hoàn toàn không độc cho chó mèo, trẻ nhỏ (ASPCA). Cây ưa ánh sáng đèn văn phòng hoặc sáng tán xạ, đất thoát nước cực tốt pH 6.0 - 7.0, tưới ít 4 - 6 ngày/lần. Yếu tố sống còn là không tưới quá nhiều gây thối đen thân mọng nước.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/12/Peperomia_obtusifolia.jpg",
+    "image_sha256": "1d1f6429beb99175552d0907509632440192123041a02dc87cf91bc0a4e24846",
+    "sunlight": "indoor",
+    "watering": "drought_tolerant",
+    "propagation_difficulty": 1,
+    "growth_time": "Tạo bụi xanh bóng đẹp quanh năm; giâm lá/cành ra rễ sau 2 - 3 tuần",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Sống khỏe quanh năm trên bàn làm việc; mùa nồm ẩm giảm tần suất tưới còn 7 ngày/lần.",
+      "central": "Tránh ánh nắng gắt buổi trưa chiếu trực tiếp qua cửa kính làm cháy vàng lá.",
+      "south": "Xanh mướt quanh năm trong môi trường văn phòng máy lạnh.",
+      "best_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "warning": "Thân và lá mọng nước nên rất nhạy cảm với úng rễ; chỉ tưới khi đất sâu 3 - 4cm đã khô hoàn toàn."
+    },
+    "botanical_details": {
+      "family": "Piperaceae (Họ Hồ tiêu)",
+      "native_range": "Florida, Mexico và Caribe",
+      "active_compounds": [
+        "Lá mọng nước giữ ẩm tự nhiên chịu điều hòa",
+        "Không chứa canxi oxalat hay chất độc (100% ASPCA Pet-Safe)"
+      ],
+      "soil_ph": "6.0 - 7.0",
+      "ideal_temp": "18°C - 28°C",
+      "pot_size": "Chậu sứ để bàn có lỗ thoát nước đường kính 12 - 18cm"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Phối trộn giá thể bán mọng nước thoát nước nhanh",
+        "instruction": "Trộn 35% đất sạch + 30% đá Perlite/Pumice + 25% vỏ thông nhỏ/xơ dừa + 10% phân trùn quế. Tuyệt đối chọn chậu có lỗ thoát nước ở đáy."
+      },
+      {
+        "step": 2,
+        "title": "Đặt trên bàn làm việc có ánh sáng tán xạ hoặc đèn LED",
+        "instruction": "Cây sống tốt dưới ánh sáng đèn văn phòng 8 - 10 giờ/ngày hoặc cạnh cửa sổ sáng nhẹ (không phơi nắng gắt ngoài trời)."
+      },
+      {
+        "step": 3,
+        "title": "Tưới ít nước & kiểm tra độ đàn hồi của lá (Mẹo hay)",
+        "instruction": "Khi lá trường sinh còn cứng giòn thì cây chưa khát; chỉ tưới lượng nước vừa phải (khoảng 100 - 150ml cho chậu 15cm) mỗi 5 ngày/lần khi thấy mặt đất khô hẳn."
+      },
+      {
+        "step": 4,
+        "title": "Nhân giống đơn giản bằng giâm lá hoặc ngọn cành",
+        "instruction": "Cắt 1 lá khỏe kèm cuống dài 2cm hoặc 1 đoạn ngọn có 2 lá, cắm vào hỗn hợp cát/xơ dừa ẩm nơi thoáng mát, sau 3 tuần sẽ mọc cây con mới."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Cây Trường Sinh này có phải là cây Sống Đời (Lá Bỏng) hay không?",
+        "answer": "Không. Tuy đôi khi bị gọi nhầm tên, nhưng cây Trường Sinh để bàn này là *Peperomia obtusifolia* (họ Hồ tiêu, lá tròn nhẵn không răng cưa, không đẻ cây con trên mép lá), còn cây Sống Đời / Lá Bỏng là *Kalanchoe pinnata* (mép lá có răng cưa đẻ cây con)."
+      },
+      {
+        "question": "Cây trường sinh có độc nếu trẻ nhỏ hay mèo vô tình cắn lá không?",
+        "answer": "Hoàn toàn không độc! Theo ASPCA, *Peperomia obtusifolia* là loài cây để bàn cực kỳ thân thiện và an toàn cho gia đình có trẻ nhỏ và thú cưng."
+      }
+    ],
+    "monetization_tips": [
+      "Là mẫu cây quà tặng phong thủy (\"Chúc sức khỏe trường tồn\") bán chạy nhất tại các cửa hàng cây cảnh để bàn."
+    ],
+    "tags": [
+      "cây trường sinh",
+      "peperomia",
+      "để bàn văn phòng",
+      "pet safe",
+      "phong thủy"
+    ],
+    "related_plant_ids": [
+      "orn-44",
+      "orn-46",
+      "orn-04",
+      "space-17"
+    ],
+    "reference_sources": [
+      {
+        "title": "Baby Rubber Plant (Peperomia obtusifolia) - Non-Toxic Plants",
+        "author": "ASPCA Animal Poison Control Center",
+        "organization": "ASPCA",
+        "verification_type": "toxicology",
+        "url": "https://www.aspca.org/pet-care/animal-poison-control/toxic-and-non-toxic-plants/baby-rubber-plant"
+      },
+      {
+        "title": "Peperomia obtusifolia (L.) A.Dietr. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "space-20",
+    "slug": "nha-mang-mini-san-thuong-chong-con-trung",
+    "common_name": "Bản Vẽ Nhà Màng Mini Sân Thượng (6–12m²) Chống Mưa Axit & Ruồi Vàng",
+    "scientific_name": "Mini Rooftop Greenhouse & Insect Netting System",
+    "aliases": [
+      "Nhà Màng Mini Sân Thượng",
+      "Nhà Lưới Chống Côn Trùng",
+      "Greenhouse Đô Thị"
+    ],
+    "category": "space",
+    "nft_class": "space_method",
+    "description": "Giải pháp thi công nhà màng mini khung thép lắp ghép (6 - 12m²) ngay trên sân thượng nhà phố: mái lợp màng PE chống tia UV giúp ngăn mưa axit làm nứt thối dưa lưới/dâu tây, kết hợp vách lưới chắn côn trùng 50 mesh chặn đứng 100% ruồi vàng đục quả và bọ phấn trắng mà không cần thuốc trừ sâu.",
+    "quick_answer": "Nhà Màng Mini Sân Thượng (6 - 12m²) dùng khung thép mạ kẽm phi 27 - 34mm lợp mái màng PE 150 micron và vách lưới 50 mesh giúp bảo vệ cây khỏi mưa dầm, sâu bướm và ruồi vàng. Nhờ thông gió đối lưu 4 mặt vách lưới, nhiệt độ bên trong không bị hầm bí. Yếu tố sống còn là neo khung thép chắc chắn chống gió lốc sân thượng và chừa cửa sổ nóc thoát khí nóng.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/39/Mini_greenhouse_1.jpg",
+    "image_sha256": "d4062bcbd7ced6eded8f75ddf70745993e9575ce16f6c63d4d46bdfb130de76a",
+    "sunlight": "full_sun",
+    "watering": "daily",
+    "propagation_difficulty": 3,
+    "growth_time": "Lắp đặt hoàn thiện trong 1 - 2 ngày cuối tuần; sử dụng bền bỉ 5 - 7 năm",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Vào mùa đông rét đậm, đóng kín bạt vách giúp giữ ấm trồng dưa lưới, cà chua bi cực kỳ hiệu quả.",
+      "central": "Chú ý neo giằng cáp thép chịu gió bão cấp 10 - 12 hoặc thiết kế tháo màng mái nhanh khi có tin bão.",
+      "south": "Mùa mưa giúp bảo vệ tuyệt đối các loại quả mọng, dâu tây, dưa lưới không bị thối rễ và nứt trái.",
+      "best_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "warning": "Không làm nhà màng bịt kín nilon 4 vách trên sân thượng nhiệt đới vì nhiệt độ bên trong sẽ tăng vọt lên > 48°C làm chết cây; 4 vách xung quanh bắt buộc dùng lưới chắn côn trùng thoáng khí."
+    },
+    "botanical_details": {
+      "family": "Kỹ thuật Nông nghiệp Công nghệ cao Đô thị (Protected Cultivation)",
+      "native_range": "Sân thượng nhà phố diện tích từ 10m² trở lên",
+      "active_compounds": [
+        "Màng lợp PE 150 micron chống UV (Israel/Thái Lan)",
+        "Lưới chắn côn trùng 32 - 50 mesh (chặn ruồi vàng, bọ trĩ, bọ phấn)",
+        "Khung ống thép mạ kẽm + Nẹp C & Ziczac căng màng"
+      ],
+      "soil_ph": "Phù hợp mọi loại giá thể trồng dưa lưới, dâu tây, cà chua bi, rau ăn lá",
+      "ideal_temp": "22°C - 35°C (thông gió tốt qua 4 vách lưới)",
+      "pot_size": "Khuôn viên 2m x 3m (6m²) hoặc 3m x 4m (12m²), chiều cao đỉnh mái 2.5m"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Dựng khung thép mạ kẽm & cố định bản mã chống gió",
+        "instruction": "Dùng ống thép mạ kẽm phi 27mm hoặc 34mm liên kết bằng khớp nối chữ T/chữ thập. Bắt buộc neo chân khung vào bồn gạch xây hoặc tường lan can sân thượng bằng tắc kê thép chắc chắn."
+      },
+      {
+        "step": 2,
+        "title": "Lợp mái vòm màng PE có cửa sổ nóc thoát nhiệt",
+        "instruction": "Thiết kế mái hình vòm hoặc mái lệch có khe thoáng đối lưu ở đỉnh mái (cách khoảng 30cm có lưới chắn) để khí nóng bốc lên thoát ra ngoài. Cố định màng PE bằng thanh nẹp C và dây ziczac thép bọc nhựa cực kỳ căng phẳng."
+      },
+      {
+        "step": 3,
+        "title": "Bọc 4 vách xung quanh bằng lưới chắn côn trùng 50 mesh",
+        "instruction": "Bao quanh 4 vách bằng lưới chắn côn trùng màu trắng 50 mesh giúp ánh sáng xuyên qua 85% nhưng chặn đứng 100% bướm đẻ sâu, ruồi vàng và rầy chổng cánh."
+      },
+      {
+        "step": 4,
+        "title": "Bố trí hệ thống tưới nhỏ giọt & thụ phấn tay bên trong",
+        "instruction": "Lắp hệ thống tưới nhỏ giọt hẹn giờ bên trong nhà màng. Lưu ý với cây ăn trái cần côn trùng thụ phấn (dưa lưới, bầu bí), bạn cần thực hiện thụ phấn tay vào buổi sáng vì ong bướm không bay vào lưới được."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Nhà màng trên sân thượng có bị nóng hầm hơn ngoài trời vào buổi trưa không?",
+        "answer": "Nếu chỉ lợp màng PE phần mái và làm 4 vách xung quanh bằng lưới chắn côn trùng thoáng gió kết hợp có khe thoát nhiệt trên nóc mái, nhiệt độ bên trong chỉ chênh 1 - 2°C so với ngoài trời nhưng tránh hoàn toàn được mưa tạt làm thối cây."
+      },
+      {
+        "question": "Chi phí tự làm 1 nhà màng mini 6m² trên sân thượng hết khoảng bao nhiêu?",
+        "answer": "Nếu tự mua ống thép mạ kẽm, khớp nối, màng PE và lưới 50 mesh về lắp ghép, tổng chi phí chỉ dao động từ 2.800.000đ - 4.200.000đ."
+      }
+    ],
+    "monetization_tips": [
+      "Cho phép trồng thành công các loại cây giá trị cao siêu khó tính như Dưa lưới Nhật, Dâu tây Hàn Quốc, Nho mẫu đơn ngay trên sân thượng đô thị quanh năm."
+    ],
+    "tags": [
+      "nhà màng mini",
+      "sân thượng",
+      "lưới chắn côn trùng",
+      "trồng dưa lưới",
+      "chống ruồi vàng"
+    ],
+    "blueprint_spec": {
+      "target_area": "Sân thượng 6m² - 12m²",
+      "difficulty_level": "Trung bình",
+      "cost_estimate_vnd": "2.800.000đ - 5.500.000đ",
+      "components": [
+        "Ống thép mạ kẽm phi 27mm/34mm & khớp nối",
+        "Màng PE lợp mái 150 micron chống tia UV",
+        "Lưới chắn côn trùng 50 mesh bao 4 vách",
+        "Thanh nẹp C & dây ziczac thép bọc nhựa"
+      ],
+      "tools_needed": [
+        "Máy cắt/khoan cầm tay",
+        "Kìm bóp ziczac",
+        "Thước dây"
+      ],
+      "estimated_setup_hours": 10
+    },
+    "related_plant_ids": [
+      "fruit-14",
+      "fruit-51",
+      "space-18",
+      "recycle-18"
+    ],
+    "reference_sources": [
+      {
+        "title": "Protected Cultivation & Insect-Proof Screenhouses for Urban Horticulture",
+        "author": "Food and Agriculture Organization (FAO)",
+        "organization": "FAO",
+        "verification_type": "agronomy",
+        "url": "https://www.fao.org/"
+      },
+      {
+        "title": "Small Backyard Greenhouse Management",
+        "author": "University of Florida IFAS Extension",
+        "organization": "University of Florida",
+        "verification_type": "agronomy",
+        "url": "https://edis.ifas.ufl.edu/"
+      }
+    ]
+  },
+  {
+    "id": "space-21",
+    "slug": "vuon-rau-thuy-canh-tinh-ban-cong-khong-can-dien",
+    "common_name": "Bản Vẽ Thủy Canh Tĩnh Kratky Ban Công Không Dùng Điện",
+    "scientific_name": "Kratky Non-Circulating Balcony Hydroponic System",
+    "aliases": [
+      "Thủy Canh Tĩnh Kratky",
+      "Thủy Canh Không Điện",
+      "Vườn Ban Công Không Bơm"
+    ],
+    "category": "space",
+    "nft_class": "space_method",
+    "description": "Phương pháp trồng rau thủy canh thông minh của GS. Bernard Kratky (Đại học Hawaii) hoàn toàn KHÔNG cần máy bơm nước, KHÔNG cần điện, KHÔNG tiếng ồn. Thùng chứa 1 lần dung dịch ban đầu đủ nuôi xà lách, cải xanh từ lúc trồng đến khi thu hoạch.",
+    "quick_answer": "Thủy Canh Tĩnh Kratky là mô hình trồng rau ban công không dùng bơm điện, tự tạo vùng rễ thở khí khi mực nước hạ dần. Chỉ cần thùng 20L bọc kín sáng, pH dung dịch 5.8 - 6.5, thu hoạch sau 30 - 35 ngày. Yếu tố sống còn là tuyệt đối KHÔNG đổ đầy ngập rễ thở khi cây đã lớn.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/ec/Hydroponic_lettuce_leaves_green.jpg",
+    "image_sha256": "557f162a623767cc89cdcab3ab7ba3f8791d0189e7c353b48c7fdc283698b40f",
+    "sunlight": "partial_shade",
+    "watering": "moderate",
+    "propagation_difficulty": 1,
+    "growth_time": "Lắp đặt trong 30 phút; thu hoạch lứa rau đầu tiên sau 25 - 35 ngày",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Cực kỳ hiệu quả với các giống xà lách, cải ngọt, cải thìa từ tháng 9 đến tháng 4.",
+      "central": "Đặt nơi thoáng mát có nắng sáng 4 giờ/ngày, bọc bạc cách nhiệt thùng chứa tránh nóng nước.",
+      "south": "Phát triển tốt quanh năm với rau muống, cải bẹ xanh, húng quế.",
+      "best_months": [
+        1,
+        2,
+        3,
+        4,
+        9,
+        10,
+        11,
+        12
+      ],
+      "warning": "Tuyệt đối không dùng thùng nhựa trong suốt chưa bọc đen vì ánh nắng chiếu vào nước sẽ sinh rêu tảo xanh làm chết rễ; đồng thời không để khe hở lọt muỗi đẻ trứng."
+    },
+    "botanical_details": {
+      "family": "Hệ thống Thủy canh Tĩnh Thụ động (Passive Kratky Hydroponics)",
+      "native_range": "Phát minh tại Đại học Hawaii (CTAHR), ứng dụng rộng rãi cho ban công chung cư",
+      "active_compounds": [
+        "Dung dịch dinh dưỡng thủy canh A+B (600 - 900 PPM)",
+        "Khoang không khí tự nhiên nuôi rễ oxy (Air-root zone)"
+      ],
+      "soil_ph": "5.8 - 6.5",
+      "ideal_temp": "20°C - 28°C (nhiệt độ dung dịch)",
+      "pot_size": "Thùng xốp hoặc thùng nhựa tối màu 18 - 25L cho 6 - 8 rọ rau ăn lá"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Chuẩn bị thùng chứa tối màu & khoét lỗ nắp đặt rọ",
+        "instruction": "Dùng thùng nhựa tối màu hoặc thùng xốp lót túi nilon đen (chặn 100% ánh sáng lọt vào nước chống rêu tảo). Khoét 6 - 8 lỗ tròn trên nắp vừa khít rọ thủy canh 5cm, khoảng cách tâm lỗ 15cm."
+      },
+      {
+        "step": 2,
+        "title": "Ươm cây con trong mút xốp đến khi ra rễ dài 3cm",
+        "instruction": "Gieo hạt xà lách hoặc cải vào mút xốp ẩm trong khay ươm 10 - 12 ngày đến khi cây có 2 - 3 lá thật và bộ rễ trắng xuyên qua đáy mút dài khoảng 3cm."
+      },
+      {
+        "step": 3,
+        "title": "Pha dung dịch dinh dưỡng 1 lần duy nhất ngập 1cm đáy rọ",
+        "instruction": "Đổ nước sạch vào thùng, pha dung dịch thủy canh A+B đạt 700 PPM và chỉnh pH 6.0 sao cho mực nước chạm ngập đúng 1cm phần đáy rọ nhựa lúc mới đặt cây."
+      },
+      {
+        "step": 4,
+        "title": "Để cây tự sinh trưởng & nguyên tắc KHÔNG đổ đầy ngập rễ thở",
+        "instruction": "Khi cây lớn dần và hút cạn nước, khoảng trống không khí bên trên sẽ nuôi \"rễ thở oxy\". Nếu gần cuối vụ thùng cạn quá nhanh, chỉ châm thêm nước tối đa đến nửa chiều cao ban đầu để không làm ngạt rễ thở."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Nước đứng yên không sục khí oxy liệu rễ rau có bị thối không?",
+        "answer": "Không, đây chính là nguyên lý thiên tài của GS. Kratky: khi mực nước hạ dần theo tốc độ uống nước của cây, phần rễ nằm trong khoảng không khí ẩm phía trên tự động chuyển hóa thành \"rễ hấp thụ oxy\", còn phần rễ chạm nước bên dưới hút dinh dưỡng."
+      },
+      {
+        "question": "Làm sao để muỗi không đẻ lăng quăng vào thùng thủy canh tĩnh?",
+        "answer": "Chỉ cần khoét lỗ nắp vừa khít thân rọ thủy canh (không hở khe) và đậy nắp kín khít thùng, muỗi hoàn toàn không có đường chui vào đẻ trứng."
+      }
+    ],
+    "monetization_tips": [
+      "Chi phí đầu tư chỉ khoảng 100.000đ/thùng, không tốn 1 đồng tiền điện nào, cực kỳ phù hợp cho ban công chung cư không có ổ cắm điện ngoài trời."
+    ],
+    "tags": [
+      "thủy canh tĩnh",
+      "kratky",
+      "không dùng điện",
+      "ban công chung cư",
+      "rau sạch"
+    ],
+    "blueprint_spec": {
+      "target_area": "Ban công chung cư 1m² - 2m²",
+      "difficulty_level": "Dễ",
+      "cost_estimate_vnd": "100.000đ - 250.000đ / thùng",
+      "components": [
+        "Thùng nhựa tối màu hoặc thùng xốp 20L có nắp",
+        "6 - 8 rọ thủy canh + mút xốp ươm hạt",
+        "Dung dịch dinh dưỡng thủy canh A+B & bút đo TDS/pH"
+      ],
+      "tools_needed": [
+        "Mũi khoét lỗ 50mm",
+        "Thước đo"
+      ],
+      "estimated_setup_hours": 1
+    },
+    "related_plant_ids": [
+      "space-16",
+      "herb-63",
+      "herb-64",
+      "recycle-12"
+    ],
+    "reference_sources": [
+      {
+        "title": "Three Non-Circulating Hydroponic Methods for Growing Lettuce (Kratky Method)",
+        "author": "Bernard A. Kratky - University of Hawaii CTAHR",
+        "organization": "University of Hawaii at Manoa",
+        "verification_type": "agronomy",
+        "url": "https://www.ctahr.hawaii.edu/hawaii/downloads/three_non-circulating_hydroponic_methods_for_growing_lettuce.pdf"
+      }
+    ]
+  },
+  {
+    "id": "recycle-20",
+    "slug": "u-dat-cu-tai-sinh-trichoderma-trun-que",
+    "common_name": "Quy Trình Tái Sinh Đất Cũ Chai Cứng Bằng Nấm Trichoderma & Trùn Quế",
+    "scientific_name": "Container Potting Soil Regeneration with Trichoderma & Vermicompost",
+    "aliases": [
+      "Tái Tạo Đất Cũ",
+      "Xử Lý Đất Trồng Lại",
+      "Phục Hồi Giá Thể Chậu"
+    ],
+    "category": "recycle",
+    "nft_class": "eco_invention",
+    "description": "Giải pháp vàng cho người làm vườn phố khi đất trồng trong chậu sau 2 - 3 vụ bị chai cứng, bạc màu và tích tụ nấm bệnh: biến 100% đất cũ bỏ đi thành giá thể tơi xốp giàu vi sinh vật có lợi chỉ trong 14 ngày bằng quy trình phơi nắng - vôi/Trichoderma - phân trùn quế.",
+    "quick_answer": "Tái sinh đất cũ trồng chậu thực hiện qua 4 bước trong 14 ngày: nhặt sạch rễ thối, phơi nắng 2 ngày trộn vôi bột (hoặc xử lý nhiệt) diệt mầm bệnh, sau đó ủ lại cùng 20% phân trùn quế, 20% trấu hun/xơ dừa và chế phẩm nấm đối kháng Trichoderma. Bí quyết quan trọng là không trộn Trichoderma cùng lúc với vôi sống mà phải cách nhau tối thiểu 5 - 7 ngày.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/c5/Why_I_hate_peat-based_composts_%289491832797%29.jpg",
+    "image_sha256": "db10536579dfb1d1ffd547afa71fbfa13d595c576cfa717a248d65026c3e7a0f",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 1,
+    "growth_time": "Hoàn tất ủ phục hồi đất trong 10 - 14 ngày",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Phơi đất tốt nhất vào những ngày nắng hanh; mùa mưa nồm ủ trong bao tải buộc kín đặt nơi có mái che.",
+      "central": "Nắng nhiều giúp diệt mầm nấm bệnh trong đất cũ cực nhanh.",
+      "south": "Mùa mưa đậy bạt kín bao đất ủ để tránh nước mưa rửa trôi dinh dưỡng.",
+      "best_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "warning": "Tuyệt đối KHÔNG trộn trực tiếp nấm đối kháng Trichoderma chung ngay lúc vừa rắc vôi nông nghiệp vì độ pH kiềm cao của vôi sẽ tiêu diệt hết vi sinh vật có lợi."
+    },
+    "botanical_details": {
+      "family": "Vi sinh vật học Đất & Tái chế Giá thể Đô thị (Soil Microbiome Restoration)",
+      "native_range": "Áp dụng cho mọi vườn sân thượng và ban công chung cư",
+      "active_compounds": [
+        "Nấm đối kháng Trichoderma harzianum / viride (ức chế nấm Fusarium, Phytophthora)",
+        "Humic & Fulvic acid (trong phân trùn quế)",
+        "Vôi nông nghiệp CaCO3 (cân bằng pH đất chua)"
+      ],
+      "soil_ph": "Đưa pH đất cũ bị chua hóa (< 5.0) về mức chuẩn 6.2 - 6.8",
+      "ideal_temp": "25°C - 35°C trong quá trình ủ vi sinh",
+      "pot_size": "Bao tải dứa hoặc thùng ủ 50 - 100L"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Sàng lọc rễ già & phơi nắng diệt mầm bệnh sơ bộ",
+        "instruction": "Đổ đất cũ ra bạt, nhặt sạch toàn bộ rễ cây mục nát (đặc biệt nếu cây cũ bị héo rũ hay tuyến trùng), đập tơi các cục đất vón rồi phơi dưới nắng gắt 2 - 3 ngày."
+      },
+      {
+        "step": 2,
+        "title": "Khử chua bằng vôi bột nông nghiệp (Nếu cây cũ bị nấm bệnh)",
+        "instruction": "Trộn 1 nắm nhỏ vôi bột nông nghiệp (khoảng 30g cho 1 bao đất 20kg), tưới ẩm nhẹ và để yên 5 - 7 ngày cho pH đất ổn định trở lại."
+      },
+      {
+        "step": 3,
+        "title": "Bổ sung độ tơi xốp & dinh dưỡng hữu cơ",
+        "instruction": "Sau 7 ngày, trộn thêm vào đất cũ: 20% phân trùn quế (hoặc phân bò ủ hoai) + 15% vỏ trấu hun + 15% xơ dừa đã xả chát để tái tạo cấu trúc thoáng khí."
+      },
+      {
+        "step": 4,
+        "title": "Cấy nấm đối kháng Trichoderma & ủ 7 ngày trước khi trồng mới",
+        "instruction": "Hòa tan 20g chế phẩm Trichoderma vào 5 lít nước sạch tưới đều vào đống đất trộn (độ ẩm vừa nắm chặt tay không chảy nước), cho vào bao tải buộc hờ 7 ngày nơi râm mát trước khi đem trồng vụ mới."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Đất trồng từ cây trước vừa bị chết do thối rễ hoặc héo xanh vi khuẩn có tái sinh trồng lại được không?",
+        "answer": "Với cây bị héo rũ do nấm nhẹ hoàn toàn tái sinh tốt bằng cách phơi nắng kỹ + vôi + Trichoderma liều kép. Riêng nếu đất nhiễm bệnh héo xanh vi khuẩn (*Ralstonia*) nặng ở họ Cà (cà chua, ớt), nên xử lý bằng cách hấp/phơi cực khô hoặc chỉ dùng trồng cây khác họ (như rau cải, hoa kiểng)."
+      },
+      {
+        "question": "Nên tái sinh đất bao lâu một lần?",
+        "answer": "Với rau ăn lá ngắn ngày, cứ sau 2 - 3 lứa thu hoạch nên đổ ra trộn lại 1 lần; với cây ăn trái lâu năm, mỗi năm nên xới nhẹ 15cm lớp đất mặt thay thế bổ sung phân trùn quế + Trichoderma."
+      }
+    ],
+    "monetization_tips": [
+      "Tiết kiệm 100% chi phí mua bao đất mới nặng nề và công sức khuân vác rác đất thải xuống chung cư."
+    ],
+    "tags": [
+      "tái sinh đất cũ",
+      "trichoderma",
+      "trùn quế",
+      "xử lý đất trồng",
+      "tái chế"
+    ],
+    "eco_spec": {
+      "waste_input": "Đất trồng chậu cũ bị chai cứng, bạc màu sau 2 - 3 vụ trồng",
+      "output_yield": "100% giá thể tơi xốp sạch mầm bệnh tương đương đất hữu cơ cao cấp mới mua",
+      "carbon_offset_kg_year": 40,
+      "materials_cost_vnd": "20.000đ - 40.000đ (gói Trichoderma + phân trùn quế)",
+      "upcycled_components": [
+        "Đất cũ từ các chậu rau/cây ăn trái đã thu hoạch",
+        "Bao tải dứa cũ dùng ủ đất"
+      ]
+    },
+    "related_plant_ids": [
+      "recycle-16",
+      "recycle-17",
+      "fruit-51",
+      "space-20"
+    ],
+    "reference_sources": [
+      {
+        "title": "Trichoderma Biological Control and Soil Health Management",
+        "author": "Cornell University Integrated Pest Management",
+        "organization": "Cornell University",
+        "verification_type": "agronomy",
+        "url": "https://cals.cornell.edu/"
+      },
+      {
+        "title": "Hướng dẫn sử dụng chế phẩm nấm đối kháng Trichoderma trong cải tạo đất",
+        "author": "Bộ Nông nghiệp và PTNT Việt Nam",
+        "organization": "MARD",
+        "verification_type": "agronomy",
+        "url": "https://www.mard.gov.vn/"
+      }
+    ]
+  },
+  {
+    "id": "culinary-19",
+    "slug": "tra-la-oi-non-la-voi-duong-sinh",
+    "common_name": "Trà Lá Ổi Non & Lá Vối Thanh Lọc Đường Huyết, Êm Dạ Dày",
+    "scientific_name": "Psidium guajava & Syzygium nervosum Herbal Infusion",
+    "aliases": [
+      "Trà Lá Ổi Non",
+      "Trà Giảm Đường Huyết",
+      "Trà Lá Ổi Lá Vối"
+    ],
+    "category": "culinary",
+    "nft_class": "culinary_recipe",
+    "description": "Thức uống dưỡng sinh kết hợp hai loại lá cực kỳ sẵn có trên sân thượng đô thị: búp lá ổi non (giàu Quercetin, Polyphenol và Tanin giúp hỗ trợ làm chậm hấp thu đường sau ăn và cầm tiêu chảy nhẹ) cùng lá/nụ vối (hỗ trợ tiêu hóa và giảm mỡ máu).",
+    "quick_answer": "Trà Lá Ổi Non & Lá Vối được hãm từ 5 - 7 búp lá ổi non tươi (hoặc 10g khô) kết hợp 10g lá vối ủ trong 1 lít nước sôi suốt 15 phút. Giàu Quercetin và Polyphenol giúp hỗ trợ tiêu hóa, êm dạ dày và làm chậm tăng đường huyết sau bữa ăn. Lưu ý không uống quá đặc khi bụng đói hoặc với người đang bị táo bón nặng.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8b/Psidium_guajava_%28Guava_tree_leaves%29_at_Bhadrachalam.jpg",
+    "image_sha256": "ef7bb1c0c0bb08bf0dc921abedee0e335be52e36c1ebe8eae2eb838ba598aaca",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 1,
+    "growth_time": "Chuẩn bị & hãm trà trong 15 phút",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Uống ấm sau bữa ăn quanh năm, đặc biệt tốt vào mùa lạnh dễ rối loạn tiêu hóa.",
+      "central": "Dùng mát hoặc ấm sau bữa ăn nhiều dầu mỡ.",
+      "south": "Nguồn búp ổi lê và lá vối trên sân thượng dồi dào quanh năm.",
+      "best_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "warning": "Do chứa lượng Tanin tự nhiên cao, người đang bị táo bón kinh niên hoặc người thiếu máu thiếu sắt không nên uống trà lá ổi đặc liên tục nhiều ngày."
+    },
+    "botanical_details": {
+      "family": "Myrtaceae (Họ Sim - Ổi & Vối)",
+      "native_range": "Vườn ban công và sân thượng khắp Việt Nam",
+      "active_compounds": [
+        "Quercetin & Guaijaverin (flavonoid lá ổi hỗ trợ ức chế alpha-glucosidase)",
+        "Tanin (làm săn se niêm mạc ruột)",
+        "DMC & Polyphenol (từ lá vối)"
+      ],
+      "soil_ph": "6.0 - 6.5",
+      "ideal_temp": "Hãm nước sôi 90°C - 100°C trong 10 - 15 phút",
+      "pot_size": "Ấm sứ hoặc bình giữ nhiệt 1 lít"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Thu hái búp lá ổi non sạch & lá vối ủ từ vườn nhà",
+        "instruction": "Hái khoảng 7 - 10 lá ổi non bánh tẻ sạch không phun thuốc (từ cây Ổi Lê Đài Loan trên ban công) và 5 - 7 lá vối đã ủ khô (hoặc 10g nụ vối khô)."
+      },
+      {
+        "step": 2,
+        "title": "Sơ chế sao thơm nhẹ hoặc dùng tươi vò rách",
+        "instruction": "Rửa sạch lá với nước muối loãng rồi tráng lại nước sạch. Nếu muốn trà thơm dịu và giảm vị chát ngái, thái sợi lá ổi phơi héo rồi sao nhẹ trên chảo nóng 3 phút."
+      },
+      {
+        "step": 3,
+        "title": "Hãm trà đúng nhiệt độ giữ trọn Polyphenol",
+        "instruction": "Cho toàn bộ nguyên liệu vào ấm hoặc bình giữ nhiệt, rót 1 lít nước sôi (95°C - 100°C), đậy kín nắp hãm 15 phút cho đến khi nước chuyển màu vàng hổ phách thơm dịu."
+      },
+      {
+        "step": 4,
+        "title": "Thưởng thức sau bữa ăn 20 - 30 phút",
+        "instruction": "Uống từng ngụm ấm sau bữa ăn chính khoảng 20 - 30 phút để hỗ trợ tiêu hóa và ổn định đường huyết sau ăn. Có thể thêm 1 lát gừng tươi vào mùa lạnh."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Uống trà lá ổi có thay được thuốc hạ đường huyết của bệnh nhân tiểu đường không?",
+        "answer": "KHÔNG. Trà lá ổi chỉ là thức uống hỗ trợ giúp làm chậm hấp thu tinh bột sau bữa ăn nhờ các hợp chất polyphenol ức chế men tiêu hóa đường nhẹ. Người bệnh tiểu đường tuyệt đối vẫn phải dùng thuốc và theo dõi đường huyết theo chỉ định của bác sĩ."
+      },
+      {
+        "question": "Búp lá ổi non dùng chữa tiêu chảy cấp tại nhà như thế nào?",
+        "answer": "Theo kinh nghiệm dân gian, khi bị đi ngoài lỏng do lạnh bụng nhẹ, nhai 5 - 7 búp ổi non rửa sạch với vài hạt muối (hoặc sắc đặc uống) giúp cầm tiêu chảy nhanh; nhưng nếu tiêu chảy có sốt cao hoặc kéo dài trên 2 ngày phải đi khám ngay."
+      }
+    ],
+    "monetization_tips": [
+      "Tận dụng nguồn lá tỉa cành từ chậu ổi lê sân thượng để sản xuất trà búp ổi túi lọc sấy lạnh chuẩn hữu cơ."
+    ],
+    "tags": [
+      "trà lá ổi",
+      "lá vối",
+      "đường huyết",
+      "tiêu hóa",
+      "trà dưỡng sinh"
+    ],
+    "recipe_spec": {
+      "prep_time_minutes": 5,
+      "cook_time_minutes": 15,
+      "servings": "1 lít trà cho 2 - 3 người uống trong ngày",
+      "botanical_ingredients": [
+        "Búp lá ổi non bánh tẻ sạch: 7 - 10 lá (khoảng 15g tươi hoặc 8g khô)",
+        "Lá vối ủ hoặc nụ vối khô: 10g",
+        "Nước sôi tinh khiết: 1 lít",
+        "Tùy chọn: 2 lát gừng tươi hoặc 1 lá cỏ ngọt Stevia tạo ngọt thanh"
+      ],
+      "health_benefits": [
+        "Hỗ trợ làm chậm hấp thu đường sau bữa ăn giàu tinh bột",
+        "Làm săn se niêm mạc ruột, êm dạ dày và hỗ trợ giảm tiêu chảy nhẹ",
+        "Giàu chất chống oxy hóa Flavonoid & Polyphenol"
+      ]
+    },
+    "related_plant_ids": [
+      "fruit-01",
+      "herb-75",
+      "culinary-16",
+      "herb-25"
+    ],
+    "reference_sources": [
+      {
+        "title": "Những cây thuốc và vị thuốc Việt Nam (Mục Cây ổi & Cây vối)",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học",
+        "verification_type": "pharmacognosy",
+        "url": "https://nhathuoclongchau.com.vn/"
+      },
+      {
+        "title": "Anti-hyperglycemic Effect of Psidium guajava Leaf Extract (PubMed)",
+        "author": "National Center for Biotechnology Information (NCBI)",
+        "organization": "PubMed / NIH",
+        "verification_type": "phytochemistry",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/"
+      }
+    ]
+  },
+  {
+    "id": "forest-19",
+    "slug": "vuon-quoc-gia-cat-ba",
+    "common_name": "Vườn Quốc Gia Cát Bà (Khu DTSQ Thế Giới UNESCO & Voọc Cát Bà)",
+    "scientific_name": "Cat Ba National Park - UNESCO Biosphere & Marine Reserve",
+    "aliases": [
+      "VQG Cát Bà",
+      "Quần Đảo Cát Bà",
+      "Bảo Tồn Voọc Cát Bà"
+    ],
+    "category": "forest",
+    "nft_class": "geo_forest_10000m2",
+    "description": "Nằm trên đảo Cát Bà (huyện Cát Hải, TP. Hải Phòng) với tổng diện tích 17.362 ha (gồm rừng trên đảo đá vôi và vùng biển kề cận), Vườn Quốc Gia Cát Bà là vùng lõi của Khu Dự trữ Sinh quyển Thế giới UNESCO và Di sản Thiên nhiên Thế giới Vịnh Hạ Long - Quần đảo Cát Bà. Đây là ngôi nhà duy nhất trên Trái Đất của loài Voọc Cát Bà cực kỳ nguy cấp.",
+    "quick_answer": "Vườn Quốc Gia Cát Bà rộng 17.362 ha tại Hải Phòng là Di sản Thiên nhiên Thế giới và Khu DTSQ UNESCO nổi bật với hệ sinh thái rừng mưa nhiệt đới trên đảo đá vôi Karst, rừng ngập mặn và rạn san hô. Nơi đây bảo tồn hơn 1.500 loài thực vật (nhiều cây kim giao, lát hoa quý) và là sinh cảnh độc nhất của loài Voọc Cát Bà (Trachypithecus poliocephalus).",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/b6/Cat_Ba_national_park.JPG",
+    "image_sha256": "bd2b3d06778e247a7f45e6bedf140b9359fabfe580e3f629182dd7abc7d6fc03",
+    "sunlight": "full_sun",
+    "watering": "daily",
+    "propagation_difficulty": 5,
+    "growth_time": "Hệ sinh thái rừng trên núi đá vôi Karst biển hình thành hàng triệu năm",
+    "container_suitable": false,
+    "seasonality": {
+      "north": "Thời tiết đẹp nhất để khám phá sinh thái rừng Cát Bà là từ tháng 4 đến tháng 10; mùa đông se lạnh ít mưa.",
+      "central": "Không áp dụng trực tiếp.",
+      "south": "Không áp dụng trực tiếp.",
+      "best_months": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "warning": "Nghiêm cấm mọi hành vi săn bắt động vật hoang dã, bẻ san hô, hay xâm nhập vào các khu vực vách đá bảo tồn nghiêm ngặt của Voọc Cát Bà."
+    },
+    "botanical_details": {
+      "family": "Hệ sinh thái Rừng Nhiệt Đới Trên Đảo Đá Vôi Karst & Rạn San Hô Biển",
+      "native_range": "Huyện Cát Hải, Thành phố Hải Phòng, Việt Nam",
+      "active_compounds": [
+        "Rừng Kim Giao cổ thụ (Nageia fleuryi) trên đỉnh Ngự Lâm",
+        "Thảm thực vật đặc hữu núi đá vôi & Rừng ngập mặn Phù Long",
+        "Bảo tồn Voọc Cát Bà (Trachypithecus poliocephalus)"
+      ],
+      "soil_ph": "Đất mùn trên nền đá vôi Karst pH 6.5 - 7.5",
+      "ideal_temp": "16°C - 32°C",
+      "pot_size": "Khu bảo tồn thiên nhiên Di sản Thế giới (Không trồng chậu)"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Bảo tồn hệ sinh thái rừng Kim Giao đặc hữu trên núi đá vôi",
+        "instruction": "Rừng Kim Giao (Nageia fleuryi) mọc tự nhiên trên dãy núi đá vôi đỉnh Ngự Lâm tạo nên tầng tán xanh mát quanh năm và giữ nguồn nước ngọt quý giá cho đảo."
+      },
+      {
+        "step": 2,
+        "title": "Bảo vệ nghiêm ngặt quần thể Voọc Cát Bà (Voọc đầu trắng)",
+        "instruction": "Loài linh trưởng đặc hữu quý hiếm bậc nhất thế giới chỉ còn chưa tới 100 cá thể ngoài tự nhiên, sinh sống ở các vách đá vôi dựng đứng ven biển Lan Hạ."
+      },
+      {
+        "step": 3,
+        "title": "Kết nối hành lang rừng trên cạn - rừng ngập mặn - rạn san hô",
+        "instruction": "Hệ sinh thái liên hoàn từ rừng cây gỗ trên núi cao xuống rừng ngập mặn Phù Long và thảm cỏ biển, rạn san hô dưới vịnh tạo nên chuỗi thức ăn biển trù phú."
+      },
+      {
+        "step": 4,
+        "title": "Phát triển du lịch sinh thái có trách nhiệm & giám sát cộng đồng",
+        "instruction": "Du khách tham quan các tuyến trekking đỉnh Ngự Lâm, hang Quân Y, Ao Ếch được hướng dẫn bảo vệ môi trường không xả rác nhựa và giữ yên tĩnh."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao Voọc Cát Bà lại được xem là một trong những loài linh trưởng nguy cấp nhất thế giới?",
+        "answer": "Vì *Trachypithecus poliocephalus* là loài đặc hữu chỉ tồn tại duy nhất trên đảo Cát Bà (không nơi nào khác trên Trái Đất có ngoài tự nhiên). Nhờ nỗ lực bảo tồn nghiêm ngặt của VQG và Dự án Bảo tồn Voọc Cát Bà, số lượng cá thể đang dần phục hồi tích cực."
+      },
+      {
+        "question": "Ao Ếch nằm trên đỉnh núi trong VQG Cát Bà có gì đặc biệt?",
+        "answer": "Ao Ếch là hồ nước ngọt tự nhiên nằm ở độ cao giữa rừng núi đá vôi, nổi bật với quần thể cây Và nước mọc ngập giữa hồ tạo nên cảnh quan kỳ thú độc đáo bậc nhất miền Bắc."
+      }
+    ],
+    "monetization_tips": [
+      "Du lịch sinh thái trekking rừng Kim Giao, chèo kayak vịnh Lan Hạ và mật ong hoa rừng Cát Bà tạo sinh kế bền vững cho người dân đảo."
+    ],
+    "tags": [
+      "vqg cát bà",
+      "unesco",
+      "voọc cát bà",
+      "rừng kim giao",
+      "hải phòng"
+    ],
+    "forest_spec": {
+      "center_lat": 20.795,
+      "center_lng": 107.015,
+      "radius_km": 8,
+      "total_area_m2": 173620000,
+      "unit_area_m2": 10000,
+      "max_nft_supply": 17362,
+      "province": "Hải Phòng",
+      "unesco_or_status": "Di Sản Thiên Nhiên Thế Giới & Khu DTSQ Thế Giới Quần Đảo Cát Bà (UNESCO)"
+    },
+    "related_plant_ids": [
+      "forest-01",
+      "forest-18",
+      "forest-20"
+    ],
+    "reference_sources": [
+      {
+        "title": "Ha Long Bay - Cat Ba Archipelago UNESCO World Heritage Site",
+        "author": "UNESCO World Heritage Centre",
+        "organization": "UNESCO",
+        "verification_type": "ecology",
+        "url": "https://whc.unesco.org/en/list/672/"
+      },
+      {
+        "title": "Cat Ba Langur Conservation Status (IUCN Red List)",
+        "author": "IUCN Red List of Threatened Species",
+        "organization": "IUCN",
+        "verification_type": "ecology",
+        "url": "https://www.iucnredlist.org/"
+      }
+    ]
+  },
+  {
+    "id": "forest-20",
+    "slug": "vuon-quoc-gia-phu-quoc",
+    "common_name": "Vườn Quốc Gia Phú Quốc (Khu DTSQ Kiên Giang & Rừng Nguyên Sinh Hải Đảo)",
+    "scientific_name": "Phu Quoc National Park - Kien Giang UNESCO Biosphere Reserve",
+    "aliases": [
+      "VQG Phú Quốc",
+      "Rừng Nguyên Sinh Phú Quốc",
+      "Khu DTSQ Kiên Giang"
+    ],
+    "category": "forest",
+    "nft_class": "geo_forest_10000m2",
+    "description": "Trải rộng trên diện tích 31.422 ha tại phía Bắc đảo ngọc Phú Quốc (tỉnh Kiên Giang), Vườn Quốc Gia Phú Quốc là khu vực bảo tồn rừng nguyên sinh hải đảo hiếm hoi còn giữ được cấu trúc rừng lá rộng thường xanh nhiệt đới nguyên vẹn, đồng thời bảo vệ các rạn san hô và thảm cỏ biển nơi sinh sống của loài Bò biển (Dugong) quý hiếm.",
+    "quick_answer": "Vườn Quốc Gia Phú Quốc rộng 31.422 ha thuộc Khu DTSQ Thế giới Kiên Giang (UNESCO 2006), bảo tồn hệ sinh thái rừng nguyên sinh trên đảo với hơn 1.160 loài thực vật (nhiều cây Dầu, Vên vên, Trầm hương, Sim rừng) và vùng biển thảm cỏ biển bảo vệ loài Bò biển Dugong. Mùa khô từ tháng 11 đến tháng 4 là thời điểm đẹp nhất để khám phá.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Bai-sao-phu-quoc-tuonglamphotos.jpg",
+    "image_sha256": "ede83da29c535d262f82df6e987a8c03e36ca5c99d7f40137f63a7493fc89714",
+    "sunlight": "full_sun",
+    "watering": "daily",
+    "propagation_difficulty": 5,
+    "growth_time": "Hệ sinh thái rừng mưa nhiệt đới hải đảo hình thành hàng trăm nghìn năm",
+    "container_suitable": false,
+    "seasonality": {
+      "north": "Không áp dụng trực tiếp.",
+      "central": "Không áp dụng trực tiếp.",
+      "south": "Mùa khô (tháng 11 - tháng 4) nắng đẹp, rừng khô ráo lý tưởng nhất để tham quan Suối Tranh, Đỉnh Núi Chúa, Mũi Gành Dầu.",
+      "best_months": [
+        1,
+        2,
+        3,
+        4,
+        11,
+        12
+      ],
+      "warning": "Mùa khô (tháng 2 - 4) nguy cơ cháy rừng rất cao; nghiêm cấm đốt lửa, hút thuốc hoặc chặt phá khai thác Trầm hương, Lan rừng trái phép trong Vườn Quốc Gia."
+    },
+    "botanical_details": {
+      "family": "Hệ sinh thái Rừng Kín Thường Xanh Hải Đảo & Thảm Cỏ Biển Dugong",
+      "native_range": "Thành phố Phú Quốc, tỉnh Kiên Giang, Việt Nam",
+      "active_compounds": [
+        "Quần thể cây họ Dầu (Dipterocarpaceae), Trầm hương (Aquilaria crassna) & Sim rừng",
+        "Hệ sinh thái Rừng Tràm úng phèn và Thảm cỏ biển (Seagrass)",
+        "Bảo tồn loài Bò biển Dugong (Dugong dugon) & Chà vá chân đen"
+      ],
+      "soil_ph": "Đất feralit đỏ vàng & đất cát ven biển pH 5.0 - 6.5",
+      "ideal_temp": "25°C - 32°C",
+      "pot_size": "Khu bảo tồn thiên nhiên Quốc gia (Không trồng chậu)"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Bảo tồn tầng rừng cây gỗ lớn họ Dầu & cây dược liệu bản địa",
+        "instruction": "Hệ thực vật rừng Bắc đảo có hơn 1.160 loài thực vật bậc cao, nổi bật là các cây cổ thụ Dầu rái, Vên vên, Sao đen cao trên 30m cùng nhiều cây thuốc quý như Hà thủ ô, Nhân trần, Sim rừng."
+      },
+      {
+        "step": 2,
+        "title": "Giữ gìn vùng đệm rừng Tràm ngập nước & hệ thống suối đầu nguồn",
+        "instruction": "Rừng nguyên sinh giữ vai trò điều tiết nguồn nước ngọt cho toàn đảo thông qua các dòng suối nổi tiếng như Suối Tranh, Suối Đá Bàn, Suối Đá Ngọn."
+      },
+      {
+        "step": 3,
+        "title": "Bảo vệ thảm cỏ biển & loài Bò biển (Dugong) quý hiếm",
+        "instruction": "Khu vực biển ven bờ VQG Phú Quốc sở hữu những thảm cỏ biển rộng lớn nhất Việt Nam — nguồn thức ăn duy nhất của loài Bò biển (Dugong dugon) đang có nguy cơ tuyệt chủng."
+      },
+      {
+        "step": 4,
+        "title": "Phòng cháy chữa cháy rừng mùa khô & du lịch sinh thái bền vững",
+        "instruction": "Triển khai hệ thống chòi canh lửa và tuần tra liên tục suốt mùa khô Nam Bộ để bảo vệ nguyên vẹn thảm thực vật rừng nguyên sinh hải đảo."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao VQG Phú Quốc vừa bảo vệ rừng trên cạn lại vừa bảo vệ thảm cỏ biển?",
+        "answer": "Do đặc thù là vườn quốc gia hải đảo, rừng đầu nguồn trên núi giúp lọc nước ngọt và ngăn xói mòn bùn đất chảy xuống biển, từ đó giữ nước biển trong xanh cho thảm cỏ biển và rạn san hô phát triển để nuôi sống loài Bò biển Dugong."
+      },
+      {
+        "question": "Đặc sản rượu sim Phú Quốc có phải lấy quả từ trong vùng lõi Vườn Quốc gia không?",
+        "answer": "Hiện nay phần lớn nguyên liệu sim rừng (*Rhodomyrtus tomentosa*) làm rượu sim được người dân trồng và thu hái tại các vườn đồi vùng đệm ngoài ranh giới lõi bảo tồn nghiêm ngặt của Vườn Quốc gia."
+      }
+    ],
+    "monetization_tips": [
+      "Du lịch sinh thái khám phá rừng nguyên sinh, suối thác, lặn ngắm san hô có kiểm soát và sản phẩm đặc sản Hồ tiêu Phú Quốc, Mật ong rừng, Sim rừng vùng đệm."
+    ],
+    "tags": [
+      "vqg phú quốc",
+      "khu dtsq kiên giang",
+      "bò biển dugong",
+      "rừng hải đảo",
+      "unesco"
+    ],
+    "forest_spec": {
+      "center_lat": 10.35,
+      "center_lng": 104.0167,
+      "radius_km": 12,
+      "total_area_m2": 314220000,
+      "unit_area_m2": 10000,
+      "max_nft_supply": 31422,
+      "province": "Kiên Giang",
+      "unesco_or_status": "Vùng Lõi Khu Dự Trữ Sinh Quyển Thế Giới Kiên Giang (UNESCO 2006)"
+    },
+    "related_plant_ids": [
+      "forest-16",
+      "forest-05",
+      "forest-19"
+    ],
+    "reference_sources": [
+      {
+        "title": "Kien Giang Biosphere Reserve - UNESCO MAB Programme",
+        "author": "UNESCO Man and the Biosphere (MAB)",
+        "organization": "UNESCO",
+        "verification_type": "ecology",
+        "url": "https://en.unesco.org/biosphere"
+      },
+      {
+        "title": "Dugong (Dugong dugon) Conservation Status & Seagrass Habitats",
+        "author": "IUCN Red List of Threatened Species",
+        "organization": "IUCN",
+        "verification_type": "ecology",
+        "url": "https://www.iucnredlist.org/"
+      }
+    ]
   }
 ]
