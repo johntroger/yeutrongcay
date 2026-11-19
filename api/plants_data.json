@@ -30784,5 +30784,2060 @@
         "url": "https://www.iucnredlist.org/"
       }
     ]
+  },
+  {
+    "id": "herb-81",
+    "slug": "xa-can-re-quat-tri-viem-hong",
+    "common_name": "Xạ Can (Cây Rẻ Quạt)",
+    "scientific_name": "Iris domestica",
+    "aliases": [
+      "Cây Rẻ Quạt",
+      "Biển Trúc",
+      "Belamcanda chinensis"
+    ],
+    "category": "herb",
+    "description": "Cây thuốc nam dáng lá xếp xòe như chiếc quạt nan cực kỳ đẹp mắt cho ban công đô thị. Thân rễ xạ can chứa các isoflavonoid quý như Tectoridin và Irisflorentin — vị thuốc kinh điển trong Dược điển Việt Nam V chuyên trị viêm họng hạt, sưng đau amidan và khản tiếng.",
+    "quick_answer": "Xạ Can (Iris domestica) là cây thuốc kiểng họ Diên vĩ giàu Tectoridin và Irisflorentin chuyên trị viêm họng, sưng amidan và ho đờm. Cây ưa nắng 4 - 6 giờ/ngày, đất cát pha thoát nước tốt pH 6.0 - 7.0, tưới 2 ngày/lần và thu thân rễ sau 10 - 12 tháng. Lưu ý YMYL: cấm dùng cho phụ nữ có thai và người tỳ vị hư hàn hay tiêu chảy.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/77/Iris_domestica_2007-08-11_01.jpg",
+    "image_sha256": "543ce4b89b42f92427465129d0b93271f582ade90eac13655f8508e89d8f8342",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 1,
+    "growth_time": "10 - 12 tháng thu hoạch thân rễ chuẩn dược liệu; ra hoa cam đốm đỏ vào mùa hè",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Phát triển rất khỏe quanh năm, chịu rét tốt; nở hoa cam đốm đẹp rực rỡ vào tháng 6 - 8.",
+      "central": "Chịu nắng hạn tốt trên ban công và sân thượng.",
+      "south": "Xanh tốt quanh năm, đẻ nhánh con rất nhanh.",
+      "best_months": [
+        2,
+        3,
+        4,
+        8,
+        9
+      ],
+      "warning": "Lá tươi hoặc thân rễ tươi có vị rất hăng đắng gây rát cổ họng nếu dùng sống quá liều; khi ngậm chỉ nhấm từng chút nước cốt pha muối loãng hoặc dùng thân rễ đã phơi khô sắc thuốc."
+    },
+    "botanical_details": {
+      "family": "Iridaceae (Họ Diên vĩ)",
+      "native_range": "Đông Á và Việt Nam",
+      "active_compounds": [
+        "Tectoridin & Tectorigenin (isoflavonoid kháng viêm họng)",
+        "Irisflorentin & Belamcandin",
+        "Iridin"
+      ],
+      "soil_ph": "6.0 - 7.0",
+      "ideal_temp": "18°C - 34°C",
+      "pot_size": "Chậu rộng miệng đường kính 30 - 35cm, sâu 25cm"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Tách nhánh thân rễ hoặc gieo hạt đen bóng",
+        "instruction": "Tách nhánh con từ bụi xạ can mẹ có kèm đoạn thân rễ màu vàng cam và rễ tơ trắng để trồng nhân giống cực nhanh (tỷ lệ sống > 95%)."
+      },
+      {
+        "step": 2,
+        "title": "Phối trộn giá thể cát pha thoát nước chống thối củ",
+        "instruction": "Trộn 45% đất thịt pha cát + 25% trấu hun + 20% phân trùn quế + 10% xơ dừa. Không để đọng nước đáy chậu."
+      },
+      {
+        "step": 3,
+        "title": "Đặt nơi nắng sáng đến nắng vừa & giữ dáng quạt đều",
+        "instruction": "Đặt chậu nơi có nắng 4 - 6 giờ/ngày; cắt tỉa bỏ các lá già úa ở mép ngoài để khóm lá xếp rẻ quạt phẳng phiu đẹp mắt."
+      },
+      {
+        "step": 4,
+        "title": "Thu hoạch thân rễ phơi khô chế biến thuốc",
+        "instruction": "Sau 10 - 12 tháng, đào tỉa nhánh thân rễ già màu vàng đậm, cạo sạch vỏ rễ con, rửa sạch thái lát phơi khô (hoặc ngâm nước vo gạo 1 ngày cho bớt hăng rồi phơi khô)."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Dùng lá xạ can tươi nhai sống chữa viêm họng có được không?",
+        "answer": "Dân gian hay dùng 1 mẩu lá tươi giã với vài hạt muối chắt lấy nước ngậm, nhưng chỉ ngậm rất ít và nhổ bỏ bã vì nhựa sống khá gắt có thể gây rát niêm mạc họng ở người nhạy cảm; an toàn nhất vẫn là dùng 3 - 6g thân rễ khô sắc nước uống."
+      },
+      {
+        "question": "Cây xạ can có trồng làm cây cảnh trong nhà được không?",
+        "answer": "Cây cần ít nhất 4 giờ nắng mỗi ngày để giữ lá cứng cáp thẳng đứng và ra hoa cam đốm, nếu để trong phòng tối lá sẽ vươn dài yếu ớt và dễ ngã đổ."
+      }
+    ],
+    "medical_info": {
+      "uses": [
+        "Thanh nhiệt giải độc, tiêu đờm, tán kết; chủ trị viêm họng, sưng đau amidan, khản tiếng (theo Dược điển Việt Nam V)",
+        "Hỗ trợ giảm ho có đờm đặc và sưng tắc tuyến vú nhẹ"
+      ],
+      "folk_remedies": [
+        "Sắc uống hỗ trợ viêm họng hạt: Dùng 3 - 6g thân rễ xạ can khô (phối hợp 6g cát cánh, 4g cam thảo đất) sắc với 400ml nước còn 200ml chia 2 lần uống ấm trong ngày."
+      ],
+      "preparation": [
+        "Thân rễ thái lát ngâm nước vo gạo 1 đêm rồi phơi khô sắc uống"
+      ],
+      "toxicity_warning": "CHỐNG CHỈ ĐỊNH cho phụ nữ có thai (nguy cơ co bóp tử cung) và người tỳ vị hư hàn, hay đau bụng tiêu chảy phân lỏng.",
+      "contraindications": [
+        "Phụ nữ mang thai",
+        "Người tỳ vị hư hàn tiêu chảy"
+      ],
+      "disclaimer": "Thông tin dược liệu tham khảo theo Dược điển Việt Nam V, không thay thế kháng sinh hoặc phác đồ điều trị của bác sĩ."
+    },
+    "monetization_tips": [
+      "Dáng lá xếp quạt độc đáo và hoa cam đốm nở rực mùa hè rất hợp trồng dọc viền bồn hoa sân thượng vừa làm cảnh vừa làm tủ thuốc gia đình."
+    ],
+    "tags": [
+      "xạ can",
+      "cây rẻ quạt",
+      "viêm họng",
+      "khản tiếng",
+      "dược điển"
+    ],
+    "related_plant_ids": [
+      "herb-01",
+      "herb-80",
+      "herb-67",
+      "herb-96"
+    ],
+    "reference_sources": [
+      {
+        "title": "Dược điển Việt Nam V (Chuyên luận Xạ can - Rhizoma Belamcandae)",
+        "author": "Bộ Y tế Việt Nam",
+        "organization": "Hội đồng Dược điển Việt Nam",
+        "verification_type": "pharmacognosy",
+        "url": "https://duocdienvietnam.com/"
+      },
+      {
+        "title": "Iris domestica (L.) Goldblatt & Mabb. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "herb-82",
+    "slug": "hung-lui-bac-ha-ngot",
+    "common_name": "Húng Lủi (Húng Dũi)",
+    "scientific_name": "Mentha spicata",
+    "aliases": [
+      "Húng Dũi",
+      "Rau Húng Láng",
+      "Spearmint"
+    ],
+    "category": "herb",
+    "description": "Rau thơm quốc dân phổ biến bậc nhất trong ẩm thực Việt Nam (bún chả, phở, nem rán, gỏi cuốn). Khác với bạc hà Âu cay nồng Menthol, húng lủi giàu Carvone và Limonene nên có vị thơm ngọt thanh dịu, giúp kích thích tiêu hóa và làm dịu dạ dày.",
+    "quick_answer": "Húng Lủi (Mentha spicata) là rau gia vị họ Hoa môi giàu tinh dầu Carvone giúp thơm miệng, kích thích tiêu hóa và pha trà giải nhiệt. Cây ưa nắng bán phần 4 - 5 giờ/ngày, đất ẩm giàu hữu cơ pH 6.0 - 7.0, tưới hàng ngày và cắt ngọn thu hoạch sau 25 ngày giâm cành. Bí quyết trồng không bị sâu đục ngọn là cắt tỉa định kỳ sát gốc kích chồi mới.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e1/Mint_leaves_%28Mentha_spicata%29.jpg",
+    "image_sha256": "acbe9fe12b435fe74dbb2f9d185771a3722e9bc0148bbf7a8b8915ad9f862d2f",
+    "sunlight": "partial_shade",
+    "watering": "daily",
+    "propagation_difficulty": 1,
+    "growth_time": "20 - 25 ngày sau giâm cành là cắt ăn tỉa liên tục quanh năm",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Phát triển xanh mướt đặc biệt vào mùa xuân, thu và đông; mùa hè nắng gắt che nhẹ buổi trưa.",
+      "central": "Đặt dưới lưới che nắng 50% và tưới giữ ẩm đều.",
+      "south": "Xanh tốt quanh năm ở ban công đón nắng sáng.",
+      "best_months": [
+        1,
+        2,
+        3,
+        4,
+        8,
+        9,
+        10,
+        11
+      ],
+      "warning": "Thân rễ ngầm (thân bò) của húng lủi lan rất nhanh; nên trồng riêng trong chậu độc lập thay vì trồng chung làm lấn át rễ các cây khác."
+    },
+    "botanical_details": {
+      "family": "Lamiaceae (Họ Hoa môi)",
+      "native_range": "Châu Âu và châu Á, phổ biến khắp Việt Nam",
+      "active_compounds": [
+        "R-(-)-Carvone (chiếm 50-70% tinh dầu tạo mùi thơm ngọt dịu)",
+        "Limonene",
+        "Axit Rosmarinic (chống oxy hóa)"
+      ],
+      "soil_ph": "6.0 - 7.0",
+      "ideal_temp": "18°C - 30°C",
+      "pot_size": "Khay chữ nhật dài 45 - 60cm hoặc chậu treo đường kính 25cm"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Giâm cành từ bó rau húng lủi mua ngoài chợ",
+        "instruction": "Chọn những cọng húng lủi thân hơi cứng bánh tẻ, ngắt bỏ lá phía dưới chỉ giữ 3 - 4 lá ngọn rồi cắm vào ly nước sạch 4 - 5 ngày cho ra rễ trắng muốt."
+      },
+      {
+        "step": 2,
+        "title": "Trồng vào khay đất ẩm giàu mùn",
+        "instruction": "Trộn 45% đất thịt + 30% xơ dừa giữ ẩm + 25% phân trùn quế. Trồng cành đã ra rễ cách nhau 8 - 10cm."
+      },
+      {
+        "step": 3,
+        "title": "Chăm sóc nắng sáng & tưới giữ ẩm đều đặn",
+        "instruction": "Đặt khay nơi có nắng sáng dịu 4 giờ/ngày, tưới nước mỗi ngày 1 lần vào sáng sớm. Nếu có sâu xanh hoặc rệp mềm ở đọt non, cắt bỏ đọt sâu và xịt dầu Neem pha loãng."
+      },
+      {
+        "step": 4,
+        "title": "Cắt thu hoạch sát gốc & bón thúc phân trùn quế",
+        "instruction": "Khi ngọn dài 15 - 20cm, dùng kéo cắt cách mặt đất 3 - 4cm để cây bật đồng loạt nhiều chồi mới non mướt, sau đó rải thêm phân trùn quế lên mặt chậu."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Húng lủi và Bạc hà (Peppermint) khác nhau điểm nào dễ nhận biết nhất?",
+        "answer": "Húng lủi (*Mentha spicata*) có lá không cuống hoặc cuống rất ngắn, mặt lá nhăn gân nổi rõ, mùi thơm dịu ngọt không cay the mạnh ở cổ họng (vì chứa Carvone chứ gần như không có Menthol); còn Bạc hà (*Mentha piperita*) lá có cuống dài, tím nhẹ ở thân và vị cay the mát lạnh rõ rệt."
+      },
+      {
+        "question": "Tại sao trồng húng lủi một thời gian cây hay bị đen thân và thưa lá?",
+        "answer": "Do đất bị nén chặt lâu ngày hoặc bộ thân bò đã ăn kín hết chậu. Cứ sau 4 - 5 tháng, hãy nhổ bớt 50% thân rễ cũ, trộn lại đất mới với phân trùn quế rồi trồng lại các ngọn non."
+      }
+    ],
+    "medical_info": {
+      "uses": [
+        "Kích thích tiêu hóa, giảm đầy hơi buồn nôn và làm thơm hơi thở tự nhiên",
+        "Hãm trà tươi uống giúp thư giãn tinh thần, giảm căng thẳng nhẹ"
+      ],
+      "folk_remedies": [
+        "Trà húng lủi ấm bụng: Hãm 10g lá húng lủi tươi rửa sạch vò nhẹ với 300ml nước sôi và 1 lát chanh tươi, uống ấm sau bữa ăn."
+      ],
+      "preparation": [
+        "Ăn sống làm rau thơm gia vị",
+        "Hãm trà tươi hoặc pha nước giải khát Mojito không cồn"
+      ],
+      "toxicity_warning": "Rất an toàn lành tính dùng hàng ngày; người bị trào ngược dạ dày nặng hạn chế uống nước cốt bạc hà quá đặc vào lúc đói.",
+      "disclaimer": "Thông tin mang tính tham khảo ẩm thực và y học cổ truyền, không thay thế tư vấn bác sĩ."
+    },
+    "monetization_tips": [
+      "Rau gia vị tiêu thụ mỗi ngày trong gia đình; một khay húng lủi dài 60cm đủ cung cấp rau thơm sạch liên tục quanh năm."
+    ],
+    "tags": [
+      "húng lủi",
+      "húng dũi",
+      "rau thơm",
+      "giâm cành",
+      "spearmint"
+    ],
+    "related_plant_ids": [
+      "herb-19",
+      "herb-53",
+      "herb-63",
+      "herb-64"
+    ],
+    "reference_sources": [
+      {
+        "title": "Những cây thuốc và vị thuốc Việt Nam (Mục Bạc hà / Húng)",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học",
+        "verification_type": "pharmacognosy",
+        "url": "https://nhathuoclongchau.com.vn/"
+      },
+      {
+        "title": "Mentha spicata L. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "herb-83",
+    "slug": "cay-nhau-tri-dau-nhuc-khop",
+    "common_name": "Cây Nhàu (Trái Nhàu Dược Liệu)",
+    "scientific_name": "Morinda citrifolia",
+    "aliases": [
+      "Nhàu Núi",
+      "Nga Cố",
+      "Noni"
+    ],
+    "category": "herb",
+    "description": "Cây thuốc nam quen thuộc khắp miền Nam và miền Trung Việt Nam với cả quả chín, rễ và lá đều là vị thuốc quý. Quả nhàu giàu Scopoletin, Damnacanthal và Xeronine hỗ trợ giảm đau nhức xương khớp, mỏi lưng và điều hòa huyết áp nhẹ.",
+    "quick_answer": "Cây Nhàu (Morinda citrifolia) là cây dược liệu họ Cà phê nổi bật với quả và rễ giàu Scopoletin giúp giảm đau nhức xương khớp và ổn định huyết áp. Cây ưa nắng 6 - 8 giờ/ngày, đất thịt thoát nước pH 5.5 - 7.0, tưới 2 ngày/lần và ra quả quanh năm sau 18 tháng trồng chậu 80L. Lưu ý YMYL: quả nhàu giàu Kali, người bệnh thận mạn hoặc đang tăng kali máu không nên dùng.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/62/Morinda_citrifolia_0213.jpg",
+    "image_sha256": "d0c56a67b29455d7c9929d102e2b1ee4f67204e74669cee2fc2821e79b7c25d6",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 1,
+    "growth_time": "15 - 18 tháng từ cây chiết/giâm đến khi cho lứa quả đầu tiên",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Cây chịu rét kém hơn miền Nam, mùa đông miền Bắc cần đặt góc kín gió tránh rét đậm dưới 12°C.",
+      "central": "Phát triển rất khỏe tại các tỉnh duyên hải miền Trung.",
+      "south": "Ra hoa kết quả liên tục quanh năm cực kỳ dễ sống.",
+      "best_months": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "warning": "Quả nhàu chứa hàm lượng Kali cao và có báo cáo y khoa liên quan đến gánh nặng gan/thận nếu uống nước ép đậm đặc kéo dài; người suy thận hoặc bệnh gan mạn cần hỏi ý kiến bác sĩ."
+    },
+    "botanical_details": {
+      "family": "Rubiaceae (Họ Cà phê)",
+      "native_range": "Đông Nam Á và Thái Bình Dương, phổ biến tại Nam Bộ Việt Nam",
+      "active_compounds": [
+        "Scopoletin (coumarin giảm đau, giãn mạch nhẹ)",
+        "Damnacanthal & Nordamnacanthal (anthraquinone trong rễ)",
+        "Proxeronine & Kali"
+      ],
+      "soil_ph": "5.5 - 7.0",
+      "ideal_temp": "22°C - 35°C",
+      "pot_size": "Chậu hoặc thùng lớn đường kính 50 - 60cm (70 - 100L) để giữ dáng lùn"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Chọn cây giống giâm cành hoặc gieo hạt quả chín",
+        "instruction": "Cây nhàu dễ nhân giống bằng cành chiết/giâm (sớm ra trái sau 1.5 năm) hoặc gieo hạt từ quả chín đã ngâm rửa sạch lớp cơm."
+      },
+      {
+        "step": 2,
+        "title": "Trồng vào thùng lớn 80L với đất thịt giàu hữu cơ",
+        "instruction": "Trộn 50% đất thịt phù sa + 20% phân trùn quế/phân bò hoai + 20% trấu hun + 10% xơ dừa. Cây nhàu rễ khỏe và chịu được đất hơi phèn."
+      },
+      {
+        "step": 3,
+        "title": "Bấm ngọn khống chế chiều cao dưới 1.8m cho sân thượng",
+        "instruction": "Khi cây cao 1.2m, bấm ngọn chính để phân 3 - 4 cành ngang. Nhàu ra hoa trắng nhỏ trên cụm quả non dọc theo nách lá liên tục quanh năm."
+      },
+      {
+        "step": 4,
+        "title": "Thu hái quả già chuẩn bị chín & sơ chế ngâm đường/phơi khô",
+        "instruction": "Hái quả nhàu khi vỏ chuyển màu xanh nhạt hơi trắng ngà (vừa cứng tay, sắp chín mềm), rửa sạch bổ đôi phơi khô sắc nước uống hoặc ủ cùng đường phèn lấy nước cốt dùng dần."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Quả nhàu chín có mùi rất nồng khó uống, làm sao chế biến dễ dùng hơn?",
+        "answer": "Nếu không quen mùi nồng của quả nhàu chín tươi, hãy thu hái quả lúc vừa già (chuyển trắng ngà chưa mềm nhũn), thái lát mỏng phơi khô hoàn toàn rồi sao vàng nhẹ hạ thổ để sắc trà uống vị thanh dễ chịu hơn hẳn."
+      },
+      {
+        "question": "Lá nhàu non ngoài việc làm thuốc còn dùng làm gì?",
+        "answer": "Lá nhàu bánh tẻ rửa sạch bỏ gân sống lá là nguyên liệu không thể thiếu trong các món ăn nổi tiếng miền Tây như cá lóc nướng trui cuốn lá nhàu, hoặc ếch om lá nhàu."
+      }
+    ],
+    "medical_info": {
+      "uses": [
+        "Rễ và quả nhàu dùng trong Đông y hỗ trợ giảm đau nhức xương khớp, đau lưng mỏi gối",
+        "Hỗ trợ nhuận tràng nhẹ, điều hòa huyết áp mức độ nhẹ"
+      ],
+      "folk_remedies": [
+        "Trà quả nhàu khô hỗ trợ xương khớp: Sắc 20 - 30g quả nhàu khô thái lát với 800ml nước còn 400ml chia uống trong ngày sau bữa ăn."
+      ],
+      "preparation": [
+        "Thái lát phơi khô sao nhẹ sắc nước uống",
+        "Rễ nhàu thái lát ngâm rượu xoa bóp hoặc sắc uống"
+      ],
+      "toxicity_warning": "CHỐNG CHỈ ĐỊNH cho người bệnh thận mạn tính (do hàm lượng Kali cao), người đang bị tăng kali máu, người huyết áp thấp hoặc phụ nữ mang thai.",
+      "contraindications": [
+        "Bệnh nhân suy thận mạn / tăng kali máu",
+        "Phụ nữ mang thai",
+        "Người huyết áp thấp"
+      ],
+      "disclaimer": "Thông tin mang tính tham khảo y học cổ truyền; người đang dùng thuốc huyết áp hoặc bệnh lý gan thận cần hỏi ý kiến bác sĩ."
+    },
+    "monetization_tips": [
+      "Quả nhàu khô thái lát và trà nhàu hữu cơ có nhu cầu tiêu thụ cao tại thị trường nội địa và xuất khẩu sang Hàn Quốc, Nhật Bản."
+    ],
+    "tags": [
+      "cây nhàu",
+      "trái nhàu",
+      "xương khớp",
+      "noni",
+      "nam dược"
+    ],
+    "related_plant_ids": [
+      "herb-84",
+      "herb-85",
+      "herb-55",
+      "herb-73"
+    ],
+    "reference_sources": [
+      {
+        "title": "Những cây thuốc và vị thuốc Việt Nam (Mục Cây nhàu)",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học",
+        "verification_type": "pharmacognosy",
+        "url": "https://nhathuoclongchau.com.vn/"
+      },
+      {
+        "title": "Morinda citrifolia L. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "herb-84",
+    "slug": "day-dau-xuong-tri-phong-thap",
+    "common_name": "Dây Đau Xương (Khoan Cân Đằng)",
+    "scientific_name": "Tinospora sinensis",
+    "aliases": [
+      "Khoan Cân Đằng",
+      "Tục Cốt Đằng",
+      "Dây Đau Xương"
+    ],
+    "category": "herb",
+    "description": "Dây leo dược liệu bản địa đứng đầu trong nhóm thuốc nam trị phong tê thấp, đau nhức xương khớp và tê bì chân tay. Dây dễ trồng leo hàng rào hoặc giàn ban công bằng cách giâm đoạn thân già có mắt sần, càng lâu năm thân dây càng giàu Alkaloid và Tinosporin.",
+    "quick_answer": "Dây Đau Xương (Tinospora sinensis) là dây leo dược liệu họ Tiết dê nổi tiếng chứa Tinosporin và Berberine giúp trừ phong thấp, giảm đau nhức khớp. Cây ưa nắng vừa 4 - 6 giờ/ngày, đất tơi xốp thoát nước pH 6.0 - 7.0, tưới 2 - 3 ngày/lần và thu cắt dây sau 8 - 12 tháng. Yếu tố thuận lợi nhất là nhân giống bằng đoạn dây bánh tẻ dài 20cm có tỷ lệ sống rất cao.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/db/%E0%B4%85%E0%B4%AE%E0%B5%83%E0%B4%A4%E0%B5%8D.jpg",
+    "image_sha256": "35e9d46a26332effd7cf75fdc5bb393626dd7544080d549b17a80886e75d97c7",
+    "sunlight": "partial_shade",
+    "watering": "moderate",
+    "propagation_difficulty": 1,
+    "growth_time": "8 - 12 tháng sau giâm hom dây có thể cắt tỉa thân già làm thuốc",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Phát triển leo giàn rất khỏe từ xuân sang thu; mùa đông rụng bớt lá nhưng thân dây vẫn sống khỏe.",
+      "central": "Chịu nắng hạn tốt trên hàng rào và sân thượng.",
+      "south": "Leo xanh tốt quanh năm, rễ phụ buông dài rất khỏe.",
+      "best_months": [
+        2,
+        3,
+        4,
+        5,
+        8,
+        9
+      ],
+      "warning": "Thân dây có vị rất đắng; khi ngâm rượu xoa bóp cần dán nhãn rõ để tránh nhầm lẫn với rượu uống thông thường."
+    },
+    "botanical_details": {
+      "family": "Menispermaceae (Họ Tiết dê)",
+      "native_range": "Việt Nam, Nam Trung Quốc và Đông Nam Á",
+      "active_compounds": [
+        "Tinosporin & Columbin (diterpenoid chống viêm khớp)",
+        "Berberine & Palmatine (alkaloid)",
+        "Dinorditerpene glucosides"
+      ],
+      "soil_ph": "6.0 - 7.0",
+      "ideal_temp": "20°C - 34°C",
+      "pot_size": "Chậu đường kính 35 - 40cm kèm cọc hoặc giàn thép leo ban công"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Giâm hom thân dây già siêu dễ sống",
+        "instruction": "Cắt đoạn dây đau xương bánh tẻ đến già (đường kính 0.8 - 1.2cm) dài khoảng 20 - 25cm có 2 - 3 đốt mắt, để khô vết cắt 1 ngày rồi cắm nghiêng 45 độ sâu 10cm vào bầu đất ẩm."
+      },
+      {
+        "step": 2,
+        "title": "Phối trộn đất thoát nước & dựng giàn leo ban công",
+        "instruction": "Trộn 50% đất thịt + 20% trấu hun + 20% phân trùn quế + 10% xơ dừa. Dẫn dây leo theo khung lưới hoặc hàng rào ban công."
+      },
+      {
+        "step": 3,
+        "title": "Chăm sóc tối giản & cắt tỉa cành già định kỳ",
+        "instruction": "Cây chịu hạn cực giỏi, chỉ tưới 2 - 3 ngày/lần khi mặt đất khô ráo. Không cần bón quá nhiều phân đạm hóa học."
+      },
+      {
+        "step": 4,
+        "title": "Thu hái thân dây già chế biến sắc uống hoặc xoa bóp",
+        "instruction": "Cắt các đoạn thân dây già (có lớp vỏ sần sùi nhiều nốt), rửa sạch thái lát vát mỏng phơi khô sao vàng hạ thổ hoặc giã lá tươi đắp ngoài khớp sưng đau."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Dây đau xương có phân biệt được với dây ký ninh (dây thần thông) không?",
+        "answer": "Cả hai đều cùng chi *Tinospora* và rất giống nhau (đều có nốt sần ở vỏ thân và vị đắng), nhưng Dây đau xương (*Tinospora sinensis*) có mặt dưới lá phủ lớp lông tơ mịn như nhung và phiến lá hình tim rộng."
+      },
+      {
+        "question": "Người bị đau dạ dày uống nước sắc dây đau xương có ảnh hưởng gì không?",
+        "answer": "Vì dây có vị đắng tính mát, người có tiền sử viêm loét dạ dày hoặc hay lạnh bụng tiêu chảy nên uống sau khi ăn no và phối hợp thêm gừng tươi hoặc lá lốt tính ấm để trung hòa."
+      }
+    ],
+    "medical_info": {
+      "uses": [
+        "Khu phong, trừ thấp, mạnh gân cốt; hỗ trợ giảm đau nhức xương khớp, đau lưng, mỏi gối, tê bại tay chân",
+        "Lá tươi giã đắp ngoài hỗ trợ giảm sưng đau do bong gân, tụ máu nhẹ"
+      ],
+      "folk_remedies": [
+        "Bài thuốc nam hỗ trợ đau nhức khớp: Sắc 15 - 20g thân dây đau xương khô sao vàng phối hợp cùng 15g cỏ xước và 10g lá lốt với 800ml nước còn 350ml chia uống sau ăn."
+      ],
+      "preparation": [
+        "Thái lát phơi khô sao vàng sắc uống",
+        "Ngâm rượu xoa bóp ngoài da"
+      ],
+      "toxicity_warning": "Phụ nữ mang thai, người tỳ vị hư hàn hay tiêu chảy không nên dùng.",
+      "contraindications": [
+        "Phụ nữ mang thai",
+        "Người tiêu chảy lạnh bụng"
+      ],
+      "disclaimer": "Thông tin mang tính tham khảo y học cổ truyền, không thay thế phác đồ điều trị y khoa."
+    },
+    "monetization_tips": [
+      "Dây leo xanh mát che nắng ban công rất khỏe đồng thời cung cấp nguồn dược liệu sạch cho người lớn tuổi trong nhà."
+    ],
+    "tags": [
+      "dây đau xương",
+      "khoan cân đằng",
+      "phong thấp",
+      "xương khớp",
+      "dây leo dược liệu"
+    ],
+    "related_plant_ids": [
+      "herb-83",
+      "herb-85",
+      "herb-55",
+      "herb-06"
+    ],
+    "reference_sources": [
+      {
+        "title": "Những cây thuốc và vị thuốc Việt Nam (Mục Dây đau xương)",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học",
+        "verification_type": "pharmacognosy",
+        "url": "https://nhathuoclongchau.com.vn/"
+      },
+      {
+        "title": "Tinospora sinensis (Lour.) Merr. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "herb-85",
+    "slug": "cay-hy-thiem-co-di-tri-khop",
+    "common_name": "Hy Thiêm Thảo (Cỏ Đĩ)",
+    "scientific_name": "Sigesbeckia orientalis",
+    "aliases": [
+      "Hy Thiêm",
+      "Cỏ Đĩ",
+      "Chư Cao"
+    ],
+    "category": "herb",
+    "description": "Vị thuốc nam kinh điển ghi danh trong Dược điển Việt Nam V chuyên dùng khu phong trừ thấp, lợi gân cốt và hỗ trợ giảm đau nhức xương khớp, gout nhẹ. Cây mọc gọn thành bụi thấp, rất dễ gieo từ hạt tại khay ban công.",
+    "quick_answer": "Hy Thiêm Thảo (Sigesbeckia orientalis) là dược liệu họ Cúc chứa Darutoside và Kirenol có tác dụng chống viêm khớp và trừ phong thấp. Cây ưa nắng 4 - 6 giờ/ngày, đất tơi xốp pH 6.0 - 7.0, tưới vừa ẩm và thu hái phần trên mặt đất lúc cây chớm nở hoa sau 60 - 75 ngày. Lưu ý thu hái ở vườn trồng sạch để tránh lẫn cỏ dại không rõ nguồn gốc.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/40/Starr_090121-1041_Sigesbeckia_orientalis.jpg",
+    "image_sha256": "3b7fc422c6aabc99d073e84d3ffbeb4e2c47f8d576266e133b7db6203ffaa90f",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 1,
+    "growth_time": "60 - 75 ngày từ gieo hạt đến khi thu hái toàn thân lá lúc chớm hoa",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Gieo trồng tốt nhất từ tháng 3 đến tháng 9; thu hái trước khi hoa tàn rụng hạt.",
+      "central": "Phát triển khỏe mạnh mùa xuân - hè.",
+      "south": "Xanh tốt quanh năm trên ban công có nắng.",
+      "best_months": [
+        3,
+        4,
+        5,
+        6,
+        8,
+        9
+      ],
+      "warning": "Không nhầm lẫn với cây cứt lợn (Ageratum) hay các loài họ Cúc mọc hoang ven đường; hạt hy thiêm có chất dính dễ bám vào quần áo."
+    },
+    "botanical_details": {
+      "family": "Asteraceae (Họ Cúc)",
+      "native_range": "Đông Á, Nam Á và Việt Nam",
+      "active_compounds": [
+        "Darutoside & Kirenol (diterpenoid chống viêm khớp đặc hiệu)",
+        "Orientin & Flavonoid",
+        "Melampolide"
+      ],
+      "soil_ph": "6.0 - 7.0",
+      "ideal_temp": "20°C - 32°C",
+      "pot_size": "Khay hoặc chậu đường kính 30cm, sâu 20 - 25cm"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Gieo hạt trên mặt đất ẩm thoát nước",
+        "instruction": "Trộn 50% đất sạch + 30% xơ dừa + 20% phân trùn quế. Rắc hạt lên mặt đất, phủ lớp đất mỏng 0.3cm và tưới phun sương giữ ẩm."
+      },
+      {
+        "step": 2,
+        "title": "Tỉa thưa giữ cây mập tán khỏe",
+        "instruction": "Khi cây con cao 8 - 10cm, tỉa thưa giữ khoảng cách 20cm/cây để thân cành phân nhánh mập mạp, lá hình tam giác có răng cưa to khỏe."
+      },
+      {
+        "step": 3,
+        "title": "Đặt nơi nắng đủ & tránh ngập úng",
+        "instruction": "Đặt chậu nơi nhận nắng 5 giờ/ngày, tưới nước 2 ngày/lần khi mặt đất se khô."
+      },
+      {
+        "step": 4,
+        "title": "Thu hái đúng thời điểm chớm ra hoa vàng nhỏ",
+        "instruction": "Khi cây bắt đầu nhú hoa vàng nhỏ ở ngọn (sau 2 - 2.5 tháng), cắt lấy toàn bộ phần thân lá cách gốc 10cm (bỏ rễ), rửa sạch phơi khô hoặc chưng rượu mật (cửu chưng cửu sái) theo Đông y."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao trong Đông y thường hay tẩm rượu mật đồ chín Hy thiêm rồi mới dùng?",
+        "answer": "Hy thiêm tươi có tính hơi táo và mùi hăng ngái; theo Dược điển Việt Nam V, việc tẩm rượu và mật ong đồ chín rồi phơi khô (chế biến) giúp giảm mùi hăng, tăng tác dụng dẫn thuốc vào kinh can thận và êm dạ dày hơn."
+      },
+      {
+        "question": "Hy thiêm thảo có giúp giảm triệu chứng bệnh gout không?",
+        "answer": "Các nghiên cứu dược lý ghi nhận hoạt chất Kirenol trong Hy thiêm có tác dụng hỗ trợ chống viêm khớp và giảm sưng đau khớp ngoại vi, thường được phối hợp trong các bài thuốc hỗ trợ gout mạn tính."
+      }
+    ],
+    "medical_info": {
+      "uses": [
+        "Khu phong trừ thấp, lợi gân cốt; chủ trị phong tê thấp, đau nhức xương khớp, tê mỏi chân tay (theo Dược điển Việt Nam V)",
+        "Hỗ trợ giảm sưng đau khớp và hạ huyết áp nhẹ"
+      ],
+      "folk_remedies": [
+        "Hỗ trợ đau nhức khớp: Sắc 12 - 16g Hy thiêm khô (đã chế rượu hoặc sao nhẹ) cùng 12g dây đau xương uống chia 2 lần trong ngày."
+      ],
+      "preparation": [
+        "Phơi khô sao nhẹ hoặc chế rượu mật sắc uống"
+      ],
+      "toxicity_warning": "Người huyết hư không có phong thấp, người hay dị ứng họ Cúc và phụ nữ mang thai không nên tự ý sử dụng.",
+      "contraindications": [
+        "Phụ nữ mang thai",
+        "Người huyết hư, âm hư hỏa vượng"
+      ],
+      "disclaimer": "Thông tin tham khảo theo Dược điển Việt Nam V, không thay thế điều trị y khoa."
+    },
+    "monetization_tips": [
+      "Rất dễ trồng xen trong vườn thuốc nam gia đình, cung cấp nguyên liệu sạch đạt chuẩn dược liệu cho người cao tuổi."
+    ],
+    "tags": [
+      "hy thiêm",
+      "cỏ đĩ",
+      "kirenol",
+      "xương khớp",
+      "dược điển"
+    ],
+    "related_plant_ids": [
+      "herb-84",
+      "herb-83",
+      "herb-55",
+      "herb-73"
+    ],
+    "reference_sources": [
+      {
+        "title": "Dược điển Việt Nam V (Chuyên luận Hy thiêm - Herba Siegesbeckiae)",
+        "author": "Bộ Y tế Việt Nam",
+        "organization": "Hội đồng Dược điển Việt Nam",
+        "verification_type": "pharmacognosy",
+        "url": "https://duocdienvietnam.com/"
+      },
+      {
+        "title": "Sigesbeckia orientalis L. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "herb-86",
+    "slug": "cay-vong-nem-an-than-ngu-ngon",
+    "common_name": "Cây Vông Nem (Hải Đồng Bì)",
+    "scientific_name": "Erythrina variegata",
+    "aliases": [
+      "Lá Vông",
+      "Thích Đồng Bì",
+      "Indian Coral Tree"
+    ],
+    "category": "herb",
+    "description": "Cây thuốc dân gian nổi tiếng nhất dùng lá non nấu canh hoặc luộc ăn giúp an thần, dễ ngủ tự nhiên không gây nghiện. Trồng chậu sân thượng và cắt ngọn thường xuyên giúp khống chế cây thành bụi lùn 1.2m luôn sẵn lá non xanh mướt.",
+    "quick_answer": "Cây Vông Nem (Erythrina variegata) là dược liệu họ Đậu nổi bật với lá chứa Alkaloid Erythrin giúp an thần, cải thiện giấc ngủ tự nhiên. Cây ưa nắng 5 - 8 giờ/ngày, đất tơi xốp pH 6.0 - 7.0, tưới 2 ngày/lần và hái lá non sau 3 tháng trồng chậu. Lưu ý YMYL: tuyệt đối KHÔNG ăn hạt vông nem (chứa độc tố) và chỉ dùng phần lá non bánh tẻ.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d1/Erythrina_variegata_2.jpg",
+    "image_sha256": "3c3e45102adfc67bc4661e6ea4dc76c11ee6709cd9395fe8947f4ab60e34c5ce",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 1,
+    "growth_time": "2 - 3 tháng sau giâm cành có thể thu hái lá non nấu canh an thần",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Phát triển cực khỏe mùa xuân - hè - thu; mùa đông rụng lá rồi bật lộc non mạnh vào tháng 2 - 3.",
+      "central": "Chịu nắng gió rất tốt trên sân thượng.",
+      "south": "Xanh tốt quanh năm, đẻ nhánh non rất nhanh sau khi cắt tỉa.",
+      "best_months": [
+        2,
+        3,
+        4,
+        5,
+        8,
+        9
+      ],
+      "warning": "Thân và cuống lá có gai ngắn; đặc biệt HẠT vông nem có độc tính gây liệt cơ, tuyệt đối không ăn hạt mà chỉ dùng phần lá non hoặc vỏ thân đã chế biến theo Đông y."
+    },
+    "botanical_details": {
+      "family": "Fabaceae (Họ Đậu)",
+      "native_range": "Vùng nhiệt đới châu Á và Thái Bình Dương, bản địa Việt Nam",
+      "active_compounds": [
+        "Erythrinine & Erysodine (alkaloid isoquinoline tác dụng an thần nhẹ)",
+        "Flavonoid & Saponin",
+        "Alkaloid hạt (độc - không sử dụng)"
+      ],
+      "soil_ph": "6.0 - 7.0",
+      "ideal_temp": "20°C - 35°C",
+      "pot_size": "Chậu đường kính 40 - 50cm, sâu 35 - 40cm trên sân thượng"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Giâm hom cành bánh tẻ (Sống cực khỏe 95%)",
+        "instruction": "Cắt đoạn cành vông nem đường kính 2 - 3cm dài 30 - 40cm, cắm sâu 12cm vào chậu đất ẩm đặt nơi mát 2 tuần đầu, cành sẽ bật chồi xanh cực nhanh."
+      },
+      {
+        "step": 2,
+        "title": "Phối trộn giá thể giàu dinh dưỡng cho cây họ Đậu",
+        "instruction": "Trộn 50% đất thịt + 20% phân trùn quế + 20% trấu hun + 10% xơ dừa. Rễ vông nem cộng sinh vi khuẩn cố định đạm nên phát triển rất mạnh."
+      },
+      {
+        "step": 3,
+        "title": "Cắt tỉa khống chế chiều cao lùn 1.2m để lấy lá non",
+        "instruction": "Thường xuyên bấm ngọn khi cành cao quá 1.2m để kích thích cây bật ra nhiều đọt lá non mềm (càng cắt tỉa nhiều lá non càng mập và ít gai)."
+      },
+      {
+        "step": 4,
+        "title": "Hái lá bánh tẻ nấu canh hoặc hãm trà ngủ ngon",
+        "instruction": "Hái 5 - 7 lá vông non bánh tẻ rửa sạch, thái nhỏ nấu canh tôm/thịt băm ăn vào bữa tối hoặc phơi khô hãm cùng lạc tiên uống trước ngủ 1 tiếng."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Canh lá vông nem nấu ăn buổi tối có gây buồn ngủ ban ngày không?",
+        "answer": "Không. Lá vông nem có tác dụng thư giãn thần kinh ngoại vi êm dịu giúp dễ đi vào giấc ngủ và ngủ sâu hơn mà không gây cảm giác mệt mỏi, uể oải vào sáng hôm sau."
+      },
+      {
+        "question": "Lá vông nem ngoài dùng ăn ngủ ngon còn công dụng gì khác?",
+        "answer": "Trong dân gian, lá vông tươi rửa sạch giã nát hơ ấm dùng đắp ngoài hỗ trợ làm co búi trĩ ngoại nhẹ hoặc đắp giảm đau nhức."
+      }
+    ],
+    "medical_info": {
+      "uses": [
+        "An thần, dưỡng tâm, hỗ trợ cải thiện mất ngủ và ngủ không sâu giấc",
+        "Vỏ thân (Hải đồng bì) trong Đông y dùng trừ phong thấp, giảm đau nhức khớp"
+      ],
+      "folk_remedies": [
+        "Canh an thần ngủ ngon: Dùng 10 - 15g lá vông non tươi rửa sạch thái nhỏ nấu canh thịt băm hoặc luộc ăn vào bữa cơm chiều; có thể phối hợp sắc cùng 15g lạc tiên."
+      ],
+      "preparation": [
+        "Luộc hoặc nấu canh lá non",
+        "Phơi khô lá bánh tẻ hãm trà cùng lạc tiên, tâm sen"
+      ],
+      "toxicity_warning": "TUYỆT ĐỐI không ăn hạt vông nem; người huyết áp thấp hoặc đang dùng thuốc ngủ Tây y không dùng liều cao kéo dài.",
+      "contraindications": [
+        "Không ăn hạt",
+        "Người đang dùng thuốc an thần mạnh"
+      ],
+      "disclaimer": "Thông tin mang tính tham khảo ẩm thực dược liệu, không thay thế tư vấn bác sĩ."
+    },
+    "monetization_tips": [
+      "Lá vông nem sạch và gói lá vông khô phối hợp lạc tiên luôn là sản phẩm bán chạy cho nhóm khách hàng văn phòng bị stress mất ngủ."
+    ],
+    "tags": [
+      "lá vông nem",
+      "an thần",
+      "ngủ ngon",
+      "hải đồng bì",
+      "giâm cành"
+    ],
+    "related_plant_ids": [
+      "herb-39",
+      "herb-87",
+      "herb-04",
+      "herb-43"
+    ],
+    "reference_sources": [
+      {
+        "title": "Những cây thuốc và vị thuốc Việt Nam (Mục Cây vông nem)",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học",
+        "verification_type": "pharmacognosy",
+        "url": "https://nhathuoclongchau.com.vn/"
+      },
+      {
+        "title": "Erythrina variegata L. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "herb-87",
+    "slug": "cu-binh-voi-an-than",
+    "common_name": "Củ Bình Vôi (Ngải Tượng Bonsai)",
+    "scientific_name": "Stephania glabra",
+    "aliases": [
+      "Ngải Tượng",
+      "Cà Tom",
+      "Bình Vôi Đá"
+    ],
+    "category": "herb",
+    "description": "Cây dược liệu quý có phần gốc phình to thành củ tròn kỳ thú giống chiếc bình vôi, cực kỳ được giới chơi bonsai văn phòng săn đón. Củ bình vôi chứa hoạt chất L-Tetrahydropalmatine (Rotundin) dùng làm nguyên liệu bào chế thuốc an thần, giảm đau.",
+    "quick_answer": "Củ Bình Vôi (Stephania glabra) là cây củ bonsai phong thủy kiêm dược liệu chứa Rotundin (L-tetrahydropalmatine) nổi bật với công dụng an thần. Cây ưa sáng bán phần 3 - 4 giờ/ngày, giá thể đá bọt siêu thoát nước pH 6.0 - 7.0, tưới ít 4 - 6 ngày/lần. Lưu ý YMYL nghiêm ngặt: KHÔNG tự ý ăn sống hoặc sắc uống củ tươi quá liều vì có thể gây ngộ độc thần kinh.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/78/Stephania_japonica_hasunohakzr01.jpg",
+    "image_sha256": "349a9321d81a65fc2ca8681a970c55fbe330c7849ffb944b1c6a3f23abd9fb51",
+    "sunlight": "partial_shade",
+    "watering": "drought_tolerant",
+    "propagation_difficulty": 2,
+    "growth_time": "Củ phát triển bền vững hàng chục năm; dây lá leo xanh mướt từ mùa xuân sang thu",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Bật mầm lá xanh mướt từ tháng 3 - 10; mùa đông cây rụng dây ngủ đông tự nhiên, tuyệt đối ngưng tưới để củ nghỉ.",
+      "central": "Đặt nơi thoáng mát, tránh nắng gắt chiều chiếu trực tiếp làm cháy vỏ củ.",
+      "south": "Phát triển đẹp ở góc ban công có lưới che hoặc cửa sổ sáng.",
+      "best_months": [
+        3,
+        4,
+        5,
+        8,
+        9
+      ],
+      "warning": "CẢNH BÁO YMYL NGHIÊM NGẶT: Củ bình vôi chứa hàm lượng cao các alkaloid mạnh (rotundin, stepharin...); tuyệt đối KHÔNG tự ý dùng củ tươi sắc uống bừa bãi quá liều khuyến cáo (tối đa 3 - 6g củ khô chế biến chuẩn), tránh ngộ độc gây choáng váng, ức chế hô hấp."
+    },
+    "botanical_details": {
+      "family": "Menispermaceae (Họ Tiết dê)",
+      "native_range": "Vùng núi đá vôi Việt Nam (Hòa Bình, Ninh Bình, Lạng Sơn) và Nam Á",
+      "active_compounds": [
+        "L-Tetrahydropalmatine (Rotundin - an thần, giảm đau)",
+        "Stepharin & Roemerin",
+        "Cycleanine"
+      ],
+      "soil_ph": "6.0 - 7.0",
+      "ideal_temp": "18°C - 30°C",
+      "pot_size": "Chậu gốm bonsai đường kính 20 - 30cm khoe 2/3 củ nổi trên mặt đất"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Phối trộn giá thể sỏi đá thoáng nước tuyệt đối chống thối củ",
+        "instruction": "Củ bình vôi mọc trên núi đá vôi nên cực kỳ ghét úng. Trộn 40% đá Pumice/Perlite + 30% đất thịt pha cát + 20% trấu hun + 10% phân trùn quế."
+      },
+      {
+        "step": 2,
+        "title": "Trồng nổi 2/3 củ tạo dáng bonsai nghệ thuật",
+        "instruction": "Chỉ vùi phần đáy củ có rễ sâu khoảng 2 - 3cm xuống giá thể, để lộ 2/3 phần củ tròn sần sùi phía trên mặt chậu và rải sỏi trắng trang trí."
+      },
+      {
+        "step": 3,
+        "title": "Tạo khung dây uốn vòng cho lá hình tim nhỏ xinh",
+        "instruction": "Cắm vòng thép uốn tròn hoặc khung tre nhỏ cho dây bình vôi lá tròn xanh mướt quấn theo, đặt ở nơi có sáng tán xạ mạnh."
+      },
+      {
+        "step": 4,
+        "title": "Tưới nước cực ít & chăm sóc giai đoạn ngủ đông",
+        "instruction": "Chỉ tưới nhẹ quanh mép chậu mỗi 4 - 5 ngày/lần (tránh dội nước đọng lên đỉnh củ). Khi mùa đông dây lá vàng rụng, cắt gọn dây và ngưng tưới hoàn toàn đến mùa xuân."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao củ bình vôi để bàn mùa đông tự nhiên rụng sạch lá trơ lại mỗi củ?",
+        "answer": "Đây là chu kỳ ngủ đông sinh lý bình thường của các loài cây củ *Stephania*. Chỉ cần không tưới nước làm thối củ, đến tháng 2 - 3 ấm áp củ sẽ tự bật chồi non xanh mướt trở lại."
+      },
+      {
+        "question": "Có nên tự ngâm rượu củ bình vôi tươi mua trên mạng để uống trị mất ngủ không?",
+        "answer": "KHÔNG nên tự ý ngâm uống bừa bãi vì nồng độ alkaloid giữa các loài bình vôi tự nhiên chênh lệch rất lớn, dễ gây quá liều hoặc tổn thương gan. Nên dùng chế phẩm dược đã chuẩn hóa hàm lượng hoặc theo đơn thầy thuốc."
+      }
+    ],
+    "medical_info": {
+      "uses": [
+        "Chiết xuất hoạt chất Rotundin dùng làm thuốc an thần, hỗ trợ giấc ngủ và giảm đau (trong công nghiệp dược phẩm chuẩn hóa)",
+        "Củ trồng làm bonsai phong thủy \"bình an, tụ tài\" rất độc đáo"
+      ],
+      "folk_remedies": [
+        "Liều dùng dược liệu khô theo Dược điển: Chỉ dùng 3 - 6g củ bình vôi khô đã bào chế chuẩn sắc uống theo hướng dẫn của bác sĩ Y học cổ truyền."
+      ],
+      "preparation": [
+        "Trồng làm bonsai để bàn",
+        "Dược liệu phải qua bào chế chuẩn hóa"
+      ],
+      "toxicity_warning": "CHỐNG CHỈ ĐỊNH cho phụ nữ mang thai, cho con bú, trẻ em, người lái xe/vận hành máy móc (gây buồn ngủ) và người trầm cảm. Quá liều gây ngộ độc nặng.",
+      "contraindications": [
+        "Phụ nữ mang thai và trẻ nhỏ",
+        "Người đang vận hành máy móc",
+        "Bệnh nhân suy gan"
+      ],
+      "disclaimer": "Thông tin chỉ mang tính chất giáo dục thực vật học; tuyệt đối không tự ý chế biến củ tươi uống quá liều."
+    },
+    "monetization_tips": [
+      "Củ bình vôi bonsai kết hợp vòng uốn dây lá tròn là dòng cây cảnh phong thủy để bàn cực kỳ hút khách văn phòng."
+    ],
+    "tags": [
+      "củ bình vôi",
+      "stephania",
+      "bonsai để bàn",
+      "rotundin",
+      "ymyl"
+    ],
+    "related_plant_ids": [
+      "herb-86",
+      "herb-39",
+      "orn-38",
+      "orn-48"
+    ],
+    "reference_sources": [
+      {
+        "title": "Dược điển Việt Nam V (Chuyên luận Bình vôi - Tuber Stephaniae)",
+        "author": "Bộ Y tế Việt Nam",
+        "organization": "Hội đồng Dược điển Việt Nam",
+        "verification_type": "pharmacognosy",
+        "url": "https://duocdienvietnam.com/"
+      },
+      {
+        "title": "Stephania glabra (Roxb.) Miers - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "herb-88",
+    "slug": "rau-ngot-ban-dia-bo-duong",
+    "common_name": "Rau Ngót Bản Địa (Bồ Ngót)",
+    "scientific_name": "Breynia androgyna",
+    "aliases": [
+      "Bồ Ngót",
+      "Hắc Diện Thần",
+      "Sauropus androgynus"
+    ],
+    "category": "herb",
+    "description": "Loài rau xanh bổ dưỡng bậc nhất của mọi gia đình Việt, giàu Vitamin C, đạm thực vật, Sắt và Canxi. Dễ trồng bằng giâm cành ngay trong thùng xốp ban công và thu hoạch liên tục nhiều năm, tuy nhiên cần nấu chín kỹ và tránh lạm dụng uống nước ép sống.",
+    "quick_answer": "Rau Ngót Bản Địa (Breynia androgyna) là rau ăn lá lâu năm giàu Vitamin C, Sắt và đạm thực vật cực kỳ dễ trồng chậu. Cây ưa sáng bán phần 3 - 5 giờ/ngày, đất tơi xốp giàu đạm hữu cơ pH 6.0 - 7.0, tưới hàng ngày và thu hái sau 40 ngày giâm cành. Lưu ý YMYL: TUYỆT ĐỐI không uống nước ép rau ngót sống liều cao kéo dài vì nguy cơ ngộ độc Papaverine gây viêm tiểu phế quản khó thở.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/10/Sauropus_androgynous_7816.jpg",
+    "image_sha256": "96d7d6fa98ea4d363ef8ad52cf5ade0e612f7282fb123ec402b73c70f1c82f00",
+    "sunlight": "partial_shade",
+    "watering": "daily",
+    "propagation_difficulty": 1,
+    "growth_time": "40 - 45 ngày sau giâm cành là cắt ngọn ăn quanh năm",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Phát triển xanh mướt từ tháng 3 đến tháng 11; mùa đông lạnh cây rụng lá tạm nghỉ rồi bật chồi cực mạnh mùa xuân.",
+      "central": "Ưa chỗ mát có nắng sáng, tưới giữ ẩm thường xuyên.",
+      "south": "Xanh tốt và cho đọt non liên tục quanh năm.",
+      "best_months": [
+        2,
+        3,
+        4,
+        5,
+        8,
+        9
+      ],
+      "warning": "CẢNH BÁO YMYL QUAN TRỌNG: Theo các báo cáo y khoa quốc tế (Taiwan/PubMed), ăn hoặc uống nước ép lá rau ngót SỐNG liều cao để giảm cân có thể gây ngộ độc Papaverine dẫn đến tổn thương phổi không hồi phục (bronchiolitis obliterans). Luôn nấu chín kỹ như canh rau thông thường."
+    },
+    "botanical_details": {
+      "family": "Phyllanthaceae (Họ Diệp hạ châu)",
+      "native_range": "Đông Nam Á và Nam Á, phổ biến toàn Việt Nam",
+      "active_compounds": [
+        "Vitamin C & Beta-carotene hàm lượng cao",
+        "Sắt, Canxi & Protein thực vật",
+        "Papaverine (alkaloid tự nhiên - bị phân hủy bớt khi nấu chín)"
+      ],
+      "soil_ph": "6.0 - 7.0",
+      "ideal_temp": "22°C - 34°C",
+      "pot_size": "Thùng xốp hoặc chậu sâu 25 - 35cm (trồng thành hàng sát nhau)"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Giâm hom thân bánh tẻ (Không cần thuốc kích rễ)",
+        "instruction": "Tận dụng những cành rau ngót thân gỗ xanh hơi già (đường kính bằng chiếc đũa) sau khi tuốt lá nấu canh, cắt đoạn 20cm cắm nghiêng 45 độ sâu 8cm vào đất ẩm."
+      },
+      {
+        "step": 2,
+        "title": "Phối trộn giá thể giàu đạm hữu cơ cho lá xanh mướt",
+        "instruction": "Trộn 45% đất thịt + 30% phân trùn quế/phân bò hoai + 15% xơ dừa + 10% trấu hun. Đặt chậu nơi có nắng sáng 3 - 4 tiếng."
+      },
+      {
+        "step": 3,
+        "title": "Cắt tỉa hạ thấp gốc kích thích bật đọt non liên tục",
+        "instruction": "Khi cây cao quá 80cm, đừng chỉ tuốt lá mà hãy dùng kéo cắt ngang cành cách gốc 30cm để cây đẻ ra hàng loạt chồi non mập mạp, lá mềm ngọt."
+      },
+      {
+        "step": 4,
+        "title": "Phòng rệp sáp & nhện đỏ bằng dầu Neem",
+        "instruction": "Rau ngót ngoài trời hay bị rệp sáp trắng hoặc rầy bám mặt dưới lá; chỉ cần cắt tỉa thoáng tán và xịt nước pha dầu Neem vào chiều mát là sạch hoàn toàn."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao tuyệt đối không nên uống nước ép rau ngót sống giảm cân theo trào lưu trên mạng?",
+        "answer": "Y văn quốc tế (nhiều ca bệnh ghi nhận tại Đài Loan và trên PubMed) đã cảnh báo lá rau ngót sống chứa hàm lượng alkaloid Papaverine tự nhiên có thể gây co thắt mạch và tổn thương tiểu phế quản tắc nghẽn nếu uống nước ép sống liều lớn kéo dài. Nấu chín thành canh giúp phân hủy chất này và cực kỳ bổ dưỡng."
+      },
+      {
+        "question": "Phụ nữ mang thai ăn canh rau ngót nấu chín có an toàn không?",
+        "answer": "Với phụ nữ mang thai bình thường ăn 1 - 2 bữa canh rau ngót nấu chín kỹ/tuần với lượng thực phẩm thông thường nhìn chung an toàn, tuy nhiên phụ nữ có tiền sử sảy thai liên tiếp ở 3 tháng đầu thường được khuyên hạn chế ăn quá nhiều do lo ngại Papaverine nhẹ."
+      }
+    ],
+    "medical_info": {
+      "uses": [
+        "Bổ sung Vitamin C, Sắt, Canxi và chất xơ tự nhiên giúp thanh nhiệt, lợi sữa cho phụ nữ sau sinh (dạng nấu canh chín)",
+        "Hỗ trợ giảm táo bón, tưa lưỡi nhẹ ở trẻ nhỏ (theo kinh nghiệm dân gian dùng lượng rất nhỏ ngoài niêm mạc)"
+      ],
+      "folk_remedies": [
+        "Canh rau ngót nấu thịt băm bổ dưỡng: Tuốt 100g lá rau ngót sạch vò nhẹ, nấu sôi kỹ cùng thịt nạc băm giúp thanh nhiệt, lợi sữa sau sinh."
+      ],
+      "preparation": [
+        "Bắt buộc nấu chín kỹ thành canh hoặc xào"
+      ],
+      "toxicity_warning": "TUYỆT ĐỐI KHÔNG uống nước ép lá rau ngót sống liều cao; phụ nữ mang thai 3 tháng đầu có tiền sử động thai nên hạn chế ăn nhiều.",
+      "contraindications": [
+        "Không uống nước ép sống",
+        "Thận trọng khi động thai 3 tháng đầu"
+      ],
+      "disclaimer": "Thông tin dinh dưỡng và cảnh báo y khoa dựa trên báo cáo độc chất học lâm sàng trên PubMed."
+    },
+    "monetization_tips": [
+      "Rau ngót trồng ngoài chợ thường bị phun kích đọt; tự trồng 1 thùng xốp tại nhà cho thu hoạch rau siêu sạch liên tục 5 - 7 năm."
+    ],
+    "tags": [
+      "rau ngót",
+      "bồ ngót",
+      "rau sạch ban công",
+      "dinh dưỡng",
+      "ymyl"
+    ],
+    "related_plant_ids": [
+      "herb-89",
+      "herb-67",
+      "herb-80",
+      "recycle-20"
+    ],
+    "reference_sources": [
+      {
+        "title": "Sauropus androgynus Consumption and Bronchiolitis Obliterans Risk (PubMed)",
+        "author": "National Center for Biotechnology Information (NCBI)",
+        "organization": "PubMed / NIH",
+        "verification_type": "toxicology",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/"
+      },
+      {
+        "title": "Breynia androgyna (L.) Chakrab. & N.P.Balakr. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "herb-89",
+    "slug": "rau-sam-bo-duong-omega3",
+    "common_name": "Rau Sam Bản Địa (Mã Xỉ Hiện)",
+    "scientific_name": "Portulaca oleracea",
+    "aliases": [
+      "Mã Xỉ Hiện",
+      "Rau Sam Chua",
+      "Common Purslane"
+    ],
+    "category": "herb",
+    "description": "Loài \"siêu rau thuốc\" mọc sát mặt đất được các nhà dinh dưỡng học ca ngợi là nguồn thực vật trên cạn giàu axit béo Omega-3 (Alpha-linolenic acid - ALA) và Vitamin E hàng đầu, kết hợp công năng thanh nhiệt giải độc, sát khuẩn đường ruột.",
+    "quick_answer": "Rau Sam (Portulaca oleracea) là rau thuốc mọng nước giàu axit béo Omega-3 (ALA) và chất chống oxy hóa giúp thanh nhiệt, mát máu và kháng khuẩn đường ruột. Cây ưa nắng 5 - 8 giờ/ngày, sống khỏe trên đất cát pha pH 6.0 - 7.5, tưới 2 - 3 ngày/lần và thu hái ngọn non sau 25 ngày. Lưu ý người bị sỏi thận oxalat hoặc hay tiêu chảy lạnh bụng nên hạn chế ăn nhiều.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/55/Portulaca_oleracea.JPG",
+    "image_sha256": "26f8e568db6f7d18150e344a823369dd9ac6d32b3b6735e1967ad814a21c2734",
+    "sunlight": "full_sun",
+    "watering": "drought_tolerant",
+    "propagation_difficulty": 1,
+    "growth_time": "25 - 30 ngày từ hạt hoặc giâm cành là cắt ngọn ăn liên tục",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Phát triển rộ nhất từ tháng 3 đến tháng 10; mùa hè nắng nóng càng xanh mập.",
+      "central": "Chịu nắng hạn cực kỳ khỏe trên sân thượng.",
+      "south": "Xanh tốt quanh năm, rất dễ tự gieo hạt.",
+      "best_months": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "warning": "Rau sam có chứa lượng axit oxalic tự nhiên tương đối cao; người có tiền sử sỏi thận canxi oxalat hoặc đang tiêu chảy do hàn lạnh không nên ăn nhiều."
+    },
+    "botanical_details": {
+      "family": "Portulacaceae (Họ Rau sam)",
+      "native_range": "Phân bố rộng khắp vùng nhiệt đới và ôn đới, bản địa Việt Nam",
+      "active_compounds": [
+        "Axit Alpha-Linolenic (Omega-3 thực vật hàm lượng cao)",
+        "Betacyanin & Glutathione (chống oxy hóa)",
+        "Axit Oxalic tự nhiên"
+      ],
+      "soil_ph": "6.0 - 7.5",
+      "ideal_temp": "20°C - 36°C",
+      "pot_size": "Khay nông hoặc chậu phủ nền rộng đường kính 30cm"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Giâm đoạn thân bò hoặc gieo hạt siêu nhỏ",
+        "instruction": "Cắt đoạn thân rau sam dài 8 - 10cm đặt nằm hoặc cắm nhẹ xuống khay đất ẩm, chỉ sau 4 - 5 ngày sẽ ra rễ trắng khỏe mạnh."
+      },
+      {
+        "step": 2,
+        "title": "Phối trộn đất cát nhẹ thoát nước nhanh",
+        "instruction": "Trộn 50% đất thịt pha cát + 25% trấu hun + 15% phân trùn quế + 10% xơ dừa. Có thể trồng phủ nền dưới gốc chậu cây ăn trái lớn."
+      },
+      {
+        "step": 3,
+        "title": "Đón nắng gắt để giảm độ nhớt & tăng vị chua thanh",
+        "instruction": "Rau sam trồng nơi đủ nắng lá dày mập, giòn và giàu Omega-3 hơn hẳn cây trồng trong bóng râm."
+      },
+      {
+        "step": 4,
+        "title": "Thu hái ngọn non trước khi trổ hoa vàng",
+        "instruction": "Cắt các ngọn non dài 10 - 12cm (chừa gốc 3cm cho đẻ nhánh mới) dùng luộc, nấu canh cua hoặc trộn gỏi rất mát."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Rau sam ăn sống làm salad có giúp giữ lại nhiều Omega-3 hơn nấu chín không?",
+        "answer": "Đúng là ăn sống giữ trọn vitamin C và Omega-3 hơn, nhưng nếu rửa không kỹ dễ nhiễm vi khuẩn đất (do cây mọc bò sát đất) và lượng axit oxalic cao hơn. Luộc sơ hoặc nấu canh giúp giảm bớt axit oxalic hòa tan và an toàn vệ sinh hơn."
+      },
+      {
+        "question": "Rau sam có trồng cùng chậu với hoa mười giờ được không?",
+        "answer": "Cùng họ Rau sam nên có điều kiện nắng và đất giống hệt nhau, tuy nhiên rau sam bò lan rất nhanh có thể lấn át hoa mười giờ; tốt nhất trồng khay riêng để thu hoạch làm rau sạch."
+      }
+    ],
+    "medical_info": {
+      "uses": [
+        "Thanh nhiệt giải độc, làm mát máu, hỗ trợ làm dịu mụn nhọt rôm sảy mùa hè",
+        "Hỗ trợ kháng khuẩn đường ruột trong kiết lỵ nhẹ (theo Dược điển Việt Nam V)",
+        "Bổ sung axit béo Omega-3 thực vật tốt cho tim mạch"
+      ],
+      "folk_remedies": [
+        "Thanh nhiệt giải độc mùa hè: Dùng 50 - 100g rau sam tươi rửa sạch nấu canh tôm hoặc luộc chấm mắm tỏi ăn 1 - 2 bữa/tuần."
+      ],
+      "preparation": [
+        "Nấu canh cua, luộc ăn như rau sạch",
+        "Giã nát đắp ngoài vùng mụn nhọt sưng nóng"
+      ],
+      "toxicity_warning": "Người bị sỏi thận canxi oxalat, phụ nữ mang thai và người tiêu chảy do lạnh bụng nên tránh dùng.",
+      "contraindications": [
+        "Bệnh nhân sỏi thận oxalat",
+        "Phụ nữ mang thai",
+        "Người tỳ vị hư hàn"
+      ],
+      "disclaimer": "Thông tin tham khảo theo Dược điển Việt Nam V và dinh dưỡng học, không thay thế tư vấn bác sĩ."
+    },
+    "monetization_tips": [
+      "Rất lý tưởng làm cây rau phủ nền chống bốc hơi nước cho các chậu cây ăn trái sân thượng hướng Tây."
+    ],
+    "tags": [
+      "rau sam",
+      "mã xỉ hiện",
+      "omega 3 thực vật",
+      "thanh nhiệt",
+      "chịu hạn"
+    ],
+    "related_plant_ids": [
+      "herb-88",
+      "orn-42",
+      "herb-13",
+      "herb-78"
+    ],
+    "reference_sources": [
+      {
+        "title": "Dược điển Việt Nam V (Chuyên luận Mã xỉ hiện - Herba Portulacae)",
+        "author": "Bộ Y tế Việt Nam",
+        "organization": "Hội đồng Dược điển Việt Nam",
+        "verification_type": "pharmacognosy",
+        "url": "https://duocdienvietnam.com/"
+      },
+      {
+        "title": "Portulaca oleracea L. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "herb-90",
+    "slug": "cay-nhan-tran-mat-gan",
+    "common_name": "Cây Nhân Trần Bắc Bộ",
+    "scientific_name": "Adenosma glutinosum",
+    "aliases": [
+      "Nhân Trần Nam",
+      "Chè Nội",
+      "Hoắc Hương Núi"
+    ],
+    "category": "herb",
+    "description": "Thảo dược gắn liền với thức uống trà nhân trần giải nhiệt mùa hè trứ danh tại miền Bắc. Cây có mùi thơm tinh dầu dịu mát, chứa Saponin triterpenoid, Coumarin và Flavonoid giúp thanh nhiệt, lợi mật, mát gan và kích thích tiêu hóa.",
+    "quick_answer": "Cây Nhân Trần Bắc Bộ (Adenosma glutinosum) là thảo dược thanh nhiệt lợi mật nổi tiếng dùng nấu nước trà mát gan mùa hè. Cây ưa nắng 5 - 6 giờ/ngày, đất tơi xốp giữ ẩm vừa pH 5.5 - 6.5, tưới 2 ngày/lần và thu hái khi cây bắt đầu trổ bông tím sau 70 - 90 ngày. Lưu ý YMYL: KHÔNG pha chung nhân trần với cam thảo vì dễ gây giữ nước và tăng huyết áp.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Adenosma_glutinosa_corolla_and_calyx.jpg",
+    "image_sha256": "685c6517fc18e03bf7ce7006273e868f339fc76fa04ce2304943e8cc8c553413",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 2,
+    "growth_time": "70 - 90 ngày từ gieo hạt đến khi thu hoạch thân hoa phơi khô làm trà",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Gieo hạt vào tháng 2 - 4; thu hoạch rộ vào mùa hè nắng ấm khi cây ra bông thơm nhất.",
+      "central": "Phát triển tốt ở vùng nắng ấm có tưới giữ ẩm.",
+      "south": "Trồng tốt quanh năm trong chậu thoát nước.",
+      "best_months": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "warning": "CẢNH BÁO YMYL: Tuyệt đối KHÔNG pha nhân trần chung với cam thảo để uống giải khát hàng ngày (hai vị này có tính chất đối nghịch về giữ nước/lợi tiểu, dùng chung dễ gây giữ muối nước, phù nề và tăng huyết áp)."
+    },
+    "botanical_details": {
+      "family": "Plantaginaceae (Họ Mã đề - chuyển từ Scrophulariaceae theo APG)",
+      "native_range": "Việt Nam và miền Nam Trung Quốc",
+      "active_compounds": [
+        "L-Fenchone & Limonene (tinh dầu thơm đặc trưng)",
+        "Coumarin & Flavonoid (lợi mật, bảo vệ gan)",
+        "Saponin triterpenoid"
+      ],
+      "soil_ph": "5.5 - 6.5",
+      "ideal_temp": "20°C - 34°C",
+      "pot_size": "Chậu hoặc khay dài sâu 20 - 25cm đặt nơi nhiều nắng"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Gieo hạt nhân trần rất nhỏ trộn cùng cát mịn",
+        "instruction": "Vì hạt nhân trần nhỏ như hạt bụi, hãy trộn 1 thìa hạt với nửa bát cát khô mịn rồi rải đều lên mặt chậu đất ẩm, không lấp đất dày mà chỉ phun sương nhẹ."
+      },
+      {
+        "step": 2,
+        "title": "Phối trộn giá thể hơi chua nhẹ thoát nước tốt",
+        "instruction": "Trộn 50% đất thịt đồi hoặc đất phù sa + 25% trấu hun + 15% xơ dừa + 10% phân trùn quế."
+      },
+      {
+        "step": 3,
+        "title": "Chăm sóc nắng đủ để tinh dầu thơm nồng",
+        "instruction": "Đặt chậu nơi nắng tối thiểu 5 giờ/ngày. Khi cây cao 15cm, tỉa bớt giữ khoảng cách 15cm/cây để thân lá phủ lông tơ tỏa hương thơm ngát."
+      },
+      {
+        "step": 4,
+        "title": "Thu hái toàn thân mang hoa phơi râm mát",
+        "instruction": "Khi cây bắt đầu nở hoa tím, cắt thân cách gốc 5cm (chừa gốc cho tái sinh lứa 2), rửa sạch phơi khô râm mát để giữ trọn tinh dầu thơm."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao không được uống trà nhân trần pha cam thảo như ngoài hàng hay bán?",
+        "answer": "Nhân trần có tính mát, công năng lợi tiểu, đào thải; ngược lại cam thảo lại có hoạt chất glycyrrhizin gây giữ natri và giữ nước. Các bác sĩ Y học cổ truyền khuyến cáo phối hợp hai vị này uống thay nước hàng ngày có thể gây tương tác bất lợi cho người tăng huyết áp và phụ nữ mang thai."
+      },
+      {
+        "question": "Người bình thường uống trà nhân trần mỗi ngày có tốt không?",
+        "answer": "Nhân trần dùng giải nhiệt rất tốt vào ngày hè nóng bức với lượng vừa phải (10 - 15g hãm nước uống trong ngày), không nên uống đặc liên tục kéo dài quanh năm khi cơ thể không có biểu hiện nhiệt ẩm."
+      }
+    ],
+    "medical_info": {
+      "uses": [
+        "Thanh nhiệt, lợi thấp, lợi mật, hỗ trợ bảo vệ tế bào gan và giảm vàng da nhẹ (theo Dược điển Việt Nam V)",
+        "Hỗ trợ tiêu hóa, giảm đầy bụng chán ăn vào mùa hè nóng bức"
+      ],
+      "folk_remedies": [
+        "Trà nhân trần thanh nhiệt mùa hè: Rửa sạch 15g nhân trần khô hãm với 1 lít nước sôi trong 10 phút uống mát trong ngày (KHÔNG pha cam thảo)."
+      ],
+      "preparation": [
+        "Phơi âm can cắt khúc hãm trà uống riêng"
+      ],
+      "toxicity_warning": "Phụ nữ có thai, người huyết áp thấp hoặc đang bị tiêu chảy không nên uống nhiều nhân trần; không pha chung với cam thảo.",
+      "contraindications": [
+        "Phụ nữ mang thai",
+        "Không phối hợp tùy tiện với cam thảo"
+      ],
+      "disclaimer": "Thông tin dược liệu tham khảo theo Dược điển Việt Nam V, không thay thế điều trị y khoa."
+    },
+    "monetization_tips": [
+      "Trà nhân trần sạch tự trồng không bị mốc hay tẩm hương liệu hóa chất rất được người dân thành phố tin dùng."
+    ],
+    "tags": [
+      "nhân trần",
+      "trà thanh nhiệt",
+      "lợi mật",
+      "mát gan",
+      "dược điển"
+    ],
+    "related_plant_ids": [
+      "herb-74",
+      "herb-09",
+      "herb-78",
+      "culinary-03"
+    ],
+    "reference_sources": [
+      {
+        "title": "Dược điển Việt Nam V (Chuyên luận Nhân trần - Herba Adenosmatis)",
+        "author": "Bộ Y tế Việt Nam",
+        "organization": "Hội đồng Dược điển Việt Nam",
+        "verification_type": "pharmacognosy",
+        "url": "https://duocdienvietnam.com/"
+      },
+      {
+        "title": "Adenosma glutinosum (L.) Druce - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "herb-91",
+    "slug": "cay-xa-huong-thyme-chau",
+    "common_name": "Cỏ Xạ Hương (Thyme Trồng Chậu)",
+    "scientific_name": "Thymus vulgaris",
+    "aliases": [
+      "Xạ Hương",
+      "Thyme",
+      "Bách Lý Hương"
+    ],
+    "category": "herb",
+    "description": "Thảo mộc gia vị Địa Trung Hải trứ danh trong các món bít tết, súp và trà thảo mộc. Lá nhỏ li ti nhưng chứa hàm lượng Thymol và Carvacrol cực cao giúp kháng khuẩn đường hô hấp, giảm ho và chống oxy hóa mạnh mẽ.",
+    "quick_answer": "Cỏ Xạ Hương (Thymus vulgaris) là cây gia vị bụi nhỏ giàu Thymol giúp kháng khuẩn vòm họng và ướp món ăn thơm lừng. Cây ưa nắng 5 - 6 giờ/ngày, giá thể cát/đá bọt siêu thoát nước pH 6.0 - 7.5, tưới ít 2 - 3 ngày/lần và cắt tỉa thu hoạch sau 45 ngày. Yếu tố sống còn tại khí hậu nóng ẩm Việt Nam là chống úng tuyệt đối vào mùa mưa.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Thymus_vulgaris_2601.JPG",
+    "image_sha256": "2e9d1e01066d66cb23762f2202c1f8f2ddb183301d63e5ee37fa65ff75533e48",
+    "sunlight": "full_sun",
+    "watering": "drought_tolerant",
+    "propagation_difficulty": 2,
+    "growth_time": "45 - 60 ngày từ cây giống hoặc 25 ngày sau giâm cành",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Phát triển cực đẹp từ tháng 9 đến tháng 5 năm sau; mùa hè mưa dầm cần che mưa tránh thối gốc.",
+      "central": "Ưa nắng khô thoáng gió, tránh mưa bão dập nát.",
+      "south": "Đặt ở ban công nắng sáng có mái che mưa; dùng giá thể nhiều đá Pumice.",
+      "best_months": [
+        1,
+        2,
+        3,
+        10,
+        11,
+        12
+      ],
+      "warning": "Cỏ xạ hương xuất xứ Địa Trung Hải nên rất sợ đất sũng nước và độ ẩm tù đọng; luôn kê chậu thoáng gió và chỉ tưới vào gốc khi đất khô."
+    },
+    "botanical_details": {
+      "family": "Lamiaceae (Họ Hoa môi)",
+      "native_range": "Địa Trung Hải, trồng phổ biến tại Đà Lạt và ban công đô thị Việt Nam",
+      "active_compounds": [
+        "Thymol (chiếm 40-50% tinh dầu kháng khuẩn hô hấp mạnh)",
+        "Carvacrol & p-Cymene",
+        "Luteolin & Apigenin (flavonoid)"
+      ],
+      "soil_ph": "6.0 - 7.5",
+      "ideal_temp": "16°C - 28°C",
+      "pot_size": "Chậu đất nung hoặc chậu treo đường kính 18 - 25cm thoát nước nhanh"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Phối trộn giá thể Địa Trung Hải siêu thoáng rễ",
+        "instruction": "Trộn 35% đất thịt nhẹ + 30% đá Pumice/Perlite + 20% trấu hun + 15% phân trùn quế. Dùng chậu đất nung giúp rễ hô hấp và thoát ẩm cực tốt."
+      },
+      {
+        "step": 2,
+        "title": "Giâm cành bánh tẻ hoặc mua cây giống thuần khí hậu",
+        "instruction": "Chọn cành bánh tẻ dài 8 - 10cm, tuốt sạch 3cm lá gốc rồi cắm vào giá thể cát/perlite ẩm nơi râm mát 2 tuần cho ra rễ."
+      },
+      {
+        "step": 3,
+        "title": "Tưới vào gốc khi mặt đất khô & đặt nơi thoáng gió",
+        "instruction": "Tuyệt đối không tưới đẫm lên tán lá dày vào buổi chiều tối dễ gây nấm đen lá. Tưới nhẹ vào gốc 2 - 3 ngày/lần."
+      },
+      {
+        "step": 4,
+        "title": "Cắt tỉa cành ngọn 1/3 tán để giữ bụi non không hóa gỗ",
+        "instruction": "Thường xuyên cắt tỉa 1/3 ngọn cành dùng làm gia vị hoặc phơi khô hãm trà giúp bụi luôn trẻ hóa và không bị chết rụi phần thân gốc."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao bụi cỏ xạ hương mới mua về ban đầu rất xanh nhưng sau vài tuần lại bị đen thối từ gốc lên?",
+        "answer": "Do cây từ nhà vườn Đà Lạt thường trồng trong bầu xơ dừa giữ ẩm rất cao; khi mang về thành phố nắng nóng mà tưới nước hàng ngày kết hợp mưa tạt sẽ gây úng cổ rễ. Cần sang chậu có nhiều đá Pumice/Perlite và giảm tần suất tưới ngay."
+      },
+      {
+        "question": "Trà cỏ xạ hương có dùng giảm ho được như húng chanh không?",
+        "answer": "Có! Cỏ xạ hương chứa hoạt chất Thymol tương tự húng chanh, được y học châu Âu sử dụng rộng rãi dạng trà hoặc siro hỗ trợ giảm ho đờm và viêm phế quản nhẹ."
+      }
+    ],
+    "medical_info": {
+      "uses": [
+        "Hỗ trợ giảm ho, long đờm và sát khuẩn nhẹ vòm họng nhờ hàm lượng Thymol cao",
+        "Kích thích tiêu hóa, giảm đầy bụng khi dùng làm gia vị ướp thịt cá"
+      ],
+      "folk_remedies": [
+        "Trà Thyme dịu họng: Hãm 3 - 4 nhánh cỏ xạ hương tươi (hoặc 2g khô) với 250ml nước sôi và 1 thìa mật ong trong 7 phút uống ấm."
+      ],
+      "preparation": [
+        "Dùng tươi/khô làm gia vị Âu",
+        "Hãm trà mật ong uống ấm"
+      ],
+      "toxicity_warning": "Phụ nữ mang thai chỉ dùng lượng gia vị thông thường, không uống tinh dầu xạ hương đậm đặc.",
+      "disclaimer": "Thông tin mang tính tham khảo dược liệu học, không thay thế tư vấn bác sĩ."
+    },
+    "monetization_tips": [
+      "Combo chậu gia vị Âu (Hương thảo + Cỏ xạ hương + Kinh giới tây) bán rất chạy tại các khu đô thị và chung cư cao cấp."
+    ],
+    "tags": [
+      "cỏ xạ hương",
+      "thyme",
+      "gia vị âu",
+      "thymol",
+      "trị ho"
+    ],
+    "related_plant_ids": [
+      "herb-46",
+      "herb-92",
+      "herb-93",
+      "herb-01"
+    ],
+    "reference_sources": [
+      {
+        "title": "Thymus vulgaris L. - Medicinal Plant Monograph (EMA / WHO)",
+        "author": "European Medicines Agency (EMA)",
+        "organization": "EMA / Kew POWO",
+        "verification_type": "pharmacognosy",
+        "url": "https://www.ema.europa.eu/"
+      },
+      {
+        "title": "Thymus vulgaris L. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "herb-92",
+    "slug": "kinh-gioi-tay-oregano-chau",
+    "common_name": "Kinh Giới Tây (Oregano Trồng Chậu)",
+    "scientific_name": "Origanum vulgare",
+    "aliases": [
+      "Lá Oregano",
+      "Kinh Giới Cay",
+      "Wild Marjoram"
+    ],
+    "category": "herb",
+    "description": "Loại thảo mộc linh hồn của ẩm thực Ý (Pizza, Pasta) đồng thời sở hữu chỉ số chống oxy hóa (ORAC) cao top đầu thế giới thảo mộc nhờ tinh dầu Carvacrol và Thymol kháng khuẩn mạnh.",
+    "quick_answer": "Kinh Giới Tây (Origanum vulgare) là cây gia vị bụi thấp giàu Carvacrol giúp kháng khuẩn tự nhiên và tăng hương vị món Âu. Cây ưa nắng 5 - 6 giờ/ngày, đất thoát nước nhanh pH 6.5 - 7.5, tưới 2 - 3 ngày/lần và cắt ngọn thu hoạch sau 35 ngày. Bí quyết trồng tại Việt Nam là bấm ngọn thường xuyên và che mưa dầm để giữ tinh dầu thơm nồng.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/17/Origanum_vulgare_inflorescence_-_Keila.jpg",
+    "image_sha256": "60d0671c06235e503c53a74109778aefe69db7fdcf6fb66d21c9276914508ae4",
+    "sunlight": "full_sun",
+    "watering": "drought_tolerant",
+    "propagation_difficulty": 2,
+    "growth_time": "35 - 45 ngày sau giâm cành có thể cắt lá dùng dần quanh năm",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Sinh trưởng rất đẹp từ tháng 9 đến tháng 5 năm sau; chịu rét tốt.",
+      "central": "Ưa nắng ấm thoáng gió, che lưới nhẹ vào trưa hè > 37°C.",
+      "south": "Sống khỏe ở ban công có nắng sáng 4 - 5 tiếng và tránh mưa tạt úng.",
+      "best_months": [
+        1,
+        2,
+        3,
+        10,
+        11,
+        12
+      ],
+      "warning": "Không tưới nước quá nhiều hoặc bón thừa phân đạm sẽ làm lá to nhạt vị và mất mùi thơm đặc trưng."
+    },
+    "botanical_details": {
+      "family": "Lamiaceae (Họ Hoa môi)",
+      "native_range": "Địa Trung Hải và Âu-Á",
+      "active_compounds": [
+        "Carvacrol (chiếm tới 60-80% tinh dầu kháng khuẩn)",
+        "Thymol",
+        "Axit Rosmarinic"
+      ],
+      "soil_ph": "6.5 - 7.5",
+      "ideal_temp": "16°C - 30°C",
+      "pot_size": "Chậu đất nung hoặc chậu treo đường kính 20 - 25cm"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Phối trộn giá thể thoáng khí hơi kiềm nhẹ",
+        "instruction": "Trộn 35% đất thịt + 30% đá Pumice/Perlite + 20% trấu hun + 15% phân trùn quế (có thể thêm 1 ít vỏ trứng nghiền mịn)."
+      },
+      {
+        "step": 2,
+        "title": "Giâm cành hoặc tách bụi nhanh bén rễ",
+        "instruction": "Tách nhánh có sẵn rễ ở rìa bụi mẹ hoặc giâm đoạn ngọn 10cm vào cát/perlite ẩm, sau 12 - 14 ngày sẽ ra rễ."
+      },
+      {
+        "step": 3,
+        "title": "Đặt nơi nắng đủ & tưới tiết kiệm",
+        "instruction": "Đặt chậu nơi nắng 5 giờ/ngày; chỉ tưới khi lớp đất sâu 3cm đã khô ráo (khoảng 2 - 3 ngày/lần)."
+      },
+      {
+        "step": 4,
+        "title": "Cắt thu hoạch trước khi nở hoa để tinh dầu đậm nhất",
+        "instruction": "Cắt ngọn dài 10cm lúc cây chuẩn bị nhú nụ hoa (lúc này hàm lượng Carvacrol cao nhất), buộc thành bó treo ngược nơi râm gió để phơi khô cất lọ thủy tinh."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Kinh giới tây (Oregano) có giống Kinh giới ta (Elsholtzia ciliata) của Việt Nam không?",
+        "answer": "Khác nhau hoàn toàn về chi thực vật và hương vị: Kinh giới ta lá răng cưa nhọn dùng ăn bún đậu giải cảm; còn Oregano lá bầu tròn có lông tơ mịn, mùi thơm cay nồng đặc trưng kiểu Địa Trung Hải."
+      },
+      {
+        "question": "Tại sao lá Oregano trồng tại nhà ít thơm hơn lá khô mua siêu thị?",
+        "answer": "Tinh dầu trong Oregano cô đặc mạnh hơn hẳn khi lá được phơi khô râm mát (hoặc sấy lạnh), đồng thời cây trồng ngoài nắng đủ và hơi xiết nước nhẹ sẽ thơm hơn cây trồng thiếu nắng."
+      }
+    ],
+    "medical_info": {
+      "uses": [
+        "Kháng khuẩn, chống oxy hóa tự nhiên mạnh mẽ nhờ Carvacrol và Rosmarinic acid",
+        "Hỗ trợ tiêu hóa, giảm đầy hơi và làm dịu ho cảm nhẹ"
+      ],
+      "folk_remedies": [
+        "Trà Oregano hỗ trợ tiêu hóa: Hãm 1 thìa cà phê lá Oregano khô với 250ml nước sôi 8 phút uống ấm sau bữa ăn nhiều dầu mỡ."
+      ],
+      "preparation": [
+        "Dùng tươi hoặc phơi khô râm mát làm gia vị sốt cà chua, pizza",
+        "Hãm trà"
+      ],
+      "toxicity_warning": "Phụ nữ có thai chỉ dùng lượng gia vị thông thường; tránh uống tinh dầu Oregano nguyên chất đường miệng.",
+      "disclaimer": "Thông tin mang tính tham khảo dinh dưỡng dược liệu, không thay thế tư vấn bác sĩ."
+    },
+    "monetization_tips": [
+      "Rất hợp trồng chung với Cà chua bi ban công (fruit-51) giúp tăng hương vị quả và xua đuổi rệp bọ tự nhiên."
+    ],
+    "tags": [
+      "oregano",
+      "kinh giới tây",
+      "gia vị âu",
+      "carvacrol",
+      "chịu hạn"
+    ],
+    "related_plant_ids": [
+      "herb-91",
+      "herb-46",
+      "fruit-51",
+      "herb-49"
+    ],
+    "reference_sources": [
+      {
+        "title": "Origanum vulgare L. - Phytochemical and Antimicrobial Overview (NCBI)",
+        "author": "National Center for Biotechnology Information (NCBI)",
+        "organization": "PubMed / NIH",
+        "verification_type": "phytochemistry",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/"
+      },
+      {
+        "title": "Origanum vulgare L. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "herb-93",
+    "slug": "oai-huong-lavender-chiu-nhiet",
+    "common_name": "Oải Hương (Lavender Chịu Nhiệt)",
+    "scientific_name": "Lavandula dentata",
+    "aliases": [
+      "Lavender Răng Cưa",
+      "Oải Hương Pháp Chịu Nhiệt",
+      "French Lavender"
+    ],
+    "category": "herb",
+    "description": "Khác với giống Lavender Anh rất khó sống qua mùa hè nóng ẩm Việt Nam, Oải hương lá răng cưa (*Lavandula dentata*) có khả năng chịu nhiệt và độ ẩm vượt trội hơn nhiều, dễ nở hoa tím thơm ngát giúp thư giãn thần kinh và xua đuổi muỗi trên ban công.",
+    "quick_answer": "Oải Hương Chịu Nhiệt (Lavandula dentata) là giống Lavender lá răng cưa thích nghi tốt với khí hậu nóng ẩm Việt Nam hơn Lavender Anh. Cây ưa nắng 5 - 6 giờ/ngày, giá thể đá bọt siêu thoát nước pH 6.5 - 7.5, tưới ít 3 ngày/lần vào gốc. Bí quyết sống khỏe qua mùa hè là dùng chậu đất nung thoát ẩm nhanh và tránh mưa dầm đọng nước.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/32/Lavandula_dentata_kz02.jpg",
+    "image_sha256": "ec0ff3e92ee42d60e16587522a9ccbbb492fe6ff7c56584f8d9bef65125e06af",
+    "sunlight": "full_sun",
+    "watering": "drought_tolerant",
+    "propagation_difficulty": 3,
+    "growth_time": "3 - 4 tháng thuần dưỡng ổn định; ra hoa tím nhiều đợt trong năm",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Phát triển cực đẹp và nở hoa rộ từ tháng 10 đến tháng 5; mùa hè cần đặt nơi thoáng gió che mưa.",
+      "central": "Hợp khí hậu nắng gió thoáng mát; tránh úng mùa mưa bão.",
+      "south": "Chịu nhiệt tốt hơn hẳn giống *L. angustifolia*; đặt nơi nắng sáng 4 - 5 tiếng và có mái che mưa.",
+      "best_months": [
+        1,
+        2,
+        3,
+        10,
+        11,
+        12
+      ],
+      "warning": "Kẻ thù số 1 của Lavender là nấm thối rễ do đất bí nước kết hợp nóng ẩm; tuyệt đối không trồng bằng đất thịt nặng hay xơ dừa giữ nước."
+    },
+    "botanical_details": {
+      "family": "Lamiaceae (Họ Hoa môi)",
+      "native_range": "Địa Trung Hải (giống lá răng cưa chịu nhiệt tốt)",
+      "active_compounds": [
+        "1,8-Cineole & Camphor",
+        "Linalool & Linalyl acetate (hương thơm thư giãn, đuổi muỗi)",
+        "Axit Rosmarinic"
+      ],
+      "soil_ph": "6.5 - 7.5",
+      "ideal_temp": "16°C - 30°C",
+      "pot_size": "Chậu đất nung không tráng men đường kính 22 - 28cm thoát nước cực nhanh"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Phối trộn giá thể đá bọt 50% chống thối rễ mùa nóng",
+        "instruction": "Trộn 50% đá Pumice/Perlite/xỉ than sạch + 25% đất thịt nhẹ + 15% trấu hun + 10% phân trùn quế. Đáy chậu lót 3cm sỏi nhẹ."
+      },
+      {
+        "step": 2,
+        "title": "Chọn đúng giống Lavender Răng Cưa (Dentata) thay vì giống Anh",
+        "instruction": "Nhận diện lá có viền răng cưa nhỏ màu xanh xám bạc thơm mùi khuynh diệp pha oải hương; giống này khỏe và dễ ra hoa ở đồng bằng hơn hẳn giống lá thẳng."
+      },
+      {
+        "step": 3,
+        "title": "Tưới nước sát gốc buổi sáng & không làm ướt tán lá",
+        "instruction": "Chỉ tưới vào gốc khi 4cm đất mặt đã khô hẳn (2 - 3 ngày/lần). Đặt chậu nơi có gió lưu thông tốt để tán lá luôn khô ráo sạch nấm."
+      },
+      {
+        "step": 4,
+        "title": "Cắt tỉa sau đợt hoa & tạo túi thơm treo tủ áo",
+        "instruction": "Khi bông hoa tím bắt đầu tàn, cắt bỏ ngồng hoa cùng 2 - 3cm ngọn lá giúp bụi tròn gọn. Phơi khô bông hoa làm túi thơm treo tủ quần áo hoặc đặt đầu giường."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao hoa oải hương lá răng cưa mùi hơi hắc pha khuynh diệp chứ không ngọt dịu như tinh dầu Lavender Pháp?",
+        "answer": "Do *Lavandula dentata* chứa hàm lượng 1,8-Cineole và Camphor cao hơn để thích nghi chống nắng nóng (nhờ đó nó cũng đuổi muỗi côn trùng tốt hơn và chịu nhiệt ở Việt Nam tốt hơn)."
+      },
+      {
+        "question": "Có nên dùng hoa *Lavandula dentata* pha trà uống hàng ngày không?",
+        "answer": "Không khuyến khích dùng uống làm trà hàng ngày như giống *Lavandula angustifolia* (True Lavender) do hàm lượng camphor cao; *L. dentata* chuyên dùng trồng cảnh, làm túi thơm, xông phòng thư giãn và đuổi muỗi."
+      }
+    ],
+    "medical_info": {
+      "uses": [
+        "Hương thơm tinh dầu tự nhiên giúp thư giãn thần kinh, giảm căng thẳng và hỗ trợ giấc ngủ",
+        "Xua đuổi muỗi và côn trùng quanh khu vực ban công, cửa sổ"
+      ],
+      "folk_remedies": [
+        "Túi thơm thư giãn: Thu hái bông hoa tím phơi khô râm mát, cho vào túi vải lưới nhỏ đặt cạnh gối ngủ hoặc trong tủ quần áo chống ẩm mốc."
+      ],
+      "preparation": [
+        "Phơi khô làm túi thơm, xông hơi thư giãn ngoài da"
+      ],
+      "toxicity_warning": "Chỉ dùng hương liệu ngoài da/xông phòng; tránh để trẻ nhỏ hoặc chó mèo nuốt phải lượng lớn lá hoa.",
+      "disclaimer": "Thông tin mang tính tham khảo hương liệu tự nhiên, không thay thế điều trị y khoa."
+    },
+    "monetization_tips": [
+      "Chậu Lavender răng cưa nở hoa tím rất sang trọng, được ưa chuộng làm quà tặng sinh nhật và trang trí ban công chung cư."
+    ],
+    "tags": [
+      "lavender",
+      "oải hương chịu nhiệt",
+      "lavandula dentata",
+      "đuổi muỗi",
+      "túi thơm"
+    ],
+    "related_plant_ids": [
+      "herb-91",
+      "herb-46",
+      "herb-92",
+      "herb-86"
+    ],
+    "reference_sources": [
+      {
+        "title": "French Lavender (Lavandula dentata) Landscape Cultivation Guide",
+        "author": "University of Florida IFAS Extension",
+        "organization": "University of Florida",
+        "verification_type": "agronomy",
+        "url": "https://edis.ifas.ufl.edu/"
+      },
+      {
+        "title": "Lavandula dentata L. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "herb-94",
+    "slug": "cu-nen-hanh-tam-mien-trung",
+    "common_name": "Củ Nén (Hành Tăm Miền Trung)",
+    "scientific_name": "Allium schoenoprasum",
+    "aliases": [
+      "Hành Tăm",
+      "Nén Trắng",
+      "Chives"
+    ],
+    "category": "herb",
+    "description": "Đặc sản gia vị kiêm \"kháng sinh thực vật\" trứ danh của người dân miền Trung Việt Nam (Quảng Nam, Nghệ An, Hà Tĩnh). Củ nén nhỏ bé nhưng chứa hàm lượng hợp chất lưu huỳnh Allicin và Saponin cực cao, nổi tiếng với món cháo giải cảm và khử mùi tanh tuyệt đỉnh.",
+    "quick_answer": "Củ Nén / Hành Tăm (Allium schoenoprasum) là thảo dược gia vị họ Hành tỏi giàu Allicin giúp giải cảm, giữ ấm cơ thể và kháng khuẩn hô hấp. Cây ưa nắng 5 - 6 giờ/ngày, đất cát pha tơi xốp pH 6.0 - 7.0, tưới 2 ngày/lần và thu củ sau 5 - 6 tháng trồng. Bí quyết cho củ to trắng mẩy là trồng bằng đất cát pha trấu hun không bị nén chặt.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Allium_schoenoprasum_001.JPG",
+    "image_sha256": "09557f48097448ff1282b63ca3cb9da42829bcc3cc58bf7d621ab4a7496a695c",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 1,
+    "growth_time": "45 ngày ăn lá non; 5 - 6 tháng thu hoạch củ nén trắng già",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Trồng củ vào tháng 9 - 11 hoặc tháng 2 - 3; sinh trưởng rất khỏe.",
+      "central": "Cây bản địa chịu nắng gió cực kỳ phù hợp tại miền Trung.",
+      "south": "Trồng tốt quanh năm trong khay đất cát pha thoát nước.",
+      "best_months": [
+        2,
+        3,
+        8,
+        9,
+        10,
+        11
+      ],
+      "warning": "Không trồng trên đất sét nặng giữ nước lâu ngày vì củ nén rất dễ bị thối nhũn khi gặp mưa dầm."
+    },
+    "botanical_details": {
+      "family": "Amaryllidaceae (Họ Loa kèn đỏ / Hành tỏi)",
+      "native_range": "Châu Á & châu Âu, trồng lâu đời tại miền Trung Việt Nam",
+      "active_compounds": [
+        "Allicin & Diallyl disulfide (kháng sinh tự nhiên họ Hành)",
+        "Quercetin & Vitamin C",
+        "Saponin"
+      ],
+      "soil_ph": "6.0 - 7.0",
+      "ideal_temp": "18°C - 33°C",
+      "pot_size": "Khay chữ nhật hoặc thùng xốp sâu 20 - 25cm"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Phối trộn đất cát pha tơi xốp để củ phát triển tròn đẹp",
+        "instruction": "Trộn 40% đất thịt pha cát + 30% trấu hun + 20% phân trùn quế + 10% xơ dừa. Đất càng tơi thì củ nén càng trắng và nhiều nhánh."
+      },
+      {
+        "step": 2,
+        "title": "Trồng củ giống cách đều nhau 8 - 10cm",
+        "instruction": "Chọn củ nén giống già chắc mẩy không bị mốc, vùi sâu 2 - 3cm hướng đầu mầm lên trên, tưới ẩm nhẹ."
+      },
+      {
+        "step": 3,
+        "title": "Chăm sóc nắng đủ & cắt tỉa lá ăn dần",
+        "instruction": "Đặt khay nơi có nắng 5 giờ/ngày, tưới 2 ngày/lần. Trong quá trình chờ củ già có thể cắt tỉa bớt lá ống non dùng làm gia vị (chừa lại ít nhất 50% lá để quang hợp nuôi củ)."
+      },
+      {
+        "step": 4,
+        "title": "Ngưng tưới & thu hoạch củ khi lá ngả vàng rụi",
+        "instruction": "Khi lá bắt đầu ngả vàng khô đầu, ngưng tưới 1 tuần cho vỏ củ khô ráo rồi nhổ thu hoạch, phơi gió nơi râm mát để bảo quản dùng cả năm."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Củ nén và hành tím khác nhau thế nào trong công dụng giải cảm?",
+        "answer": "Củ nén nhỏ hơn nhiều so với hành tím nhưng tinh dầu lưu huỳnh cay nồng và tính ấm phát tán mạnh hơn hẳn, được người miền Trung dùng giã nấu cháo giải cảm phong hàn rất nhạy."
+      },
+      {
+        "question": "Chó mèo trong nhà ăn phải lá hoặc củ nén có sao không?",
+        "answer": "CẢNH BÁO: Giống như tỏi và hành tây, tất cả các loài chi *Allium* (hành, hẹ, nén, tỏi) đều có thể gây thiếu máu tan máu ở chó mèo nếu ăn phải. Cần đặt khay trồng tránh xa thú cưng."
+      }
+    ],
+    "medical_info": {
+      "uses": [
+        "Giải cảm phong hàn, ra mồ hôi, hỗ trợ làm ấm đường hô hấp và giảm ho nhẹ",
+        "Kích thích tiêu hóa, khử hàn khí trong món ăn thủy hải sản"
+      ],
+      "folk_remedies": [
+        "Cháo giải cảm củ nén: Giã nát 5 - 7 củ nén tươi cho vào bát cháo trắng nóng cùng 1 lòng đỏ trứng gà và chút tiêu, ăn nóng giúp toát mồ hôi giải cảm."
+      ],
+      "preparation": [
+        "Giã nát phi thơm nấu cháo, kho cá, nấu canh"
+      ],
+      "toxicity_warning": "Người âm hư nội nhiệt, hay bốc hỏa, đau mắt đỏ không nên ăn quá nhiều cùng lúc; độc hại cho chó mèo.",
+      "disclaimer": "Thông tin mang tính tham khảo ẩm thực dược liệu, không thay thế tư vấn bác sĩ."
+    },
+    "monetization_tips": [
+      "Củ nén sạch miền Trung trồng hữu cơ có giá bán cao và bảo quản khô được quanh năm không lo hỏng."
+    ],
+    "tags": [
+      "củ nén",
+      "hành tăm",
+      "giải cảm",
+      "đặc sản miền trung",
+      "allicin"
+    ],
+    "related_plant_ids": [
+      "herb-67",
+      "herb-01",
+      "herb-02",
+      "herb-69"
+    ],
+    "reference_sources": [
+      {
+        "title": "Những cây thuốc và vị thuốc Việt Nam (Mục Hành / Hành tăm)",
+        "author": "GS. TSKH. Đỗ Tất Lợi",
+        "organization": "NXB Y Học",
+        "verification_type": "pharmacognosy",
+        "url": "https://nhathuoclongchau.com.vn/"
+      },
+      {
+        "title": "Allium schoenoprasum L. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "herb-95",
+    "slug": "cay-cot-toai-bo-tac-ke-da",
+    "common_name": "Cốt Toái Bổ (Tắc Kè Đá)",
+    "scientific_name": "Drynaria roosii",
+    "aliases": [
+      "Tắc Kè Đá",
+      "Tổ Phượng",
+      "Hầu Khương"
+    ],
+    "category": "herb",
+    "description": "Loài dương xỉ dược liệu kỳ lạ với thân rễ bò phủ lông vảy vàng nâu như thân tắc kè, sống bám trên gỗ lũa hoặc hốc đá. Trong Đông y, Cốt toái bổ chứa Naringin và Neoeriocitrin là vị thuốc quý chuyên bổ thận, mạnh gân xương và hỗ trợ phục hồi chấn thương xương khớp.",
+    "quick_answer": "Cốt Toái Bổ (Drynaria roosii) là dương xỉ dược liệu phụ sinh giàu Naringin giúp bổ thận, mạnh gân xương. Cây ưa sáng bán phần 2 - 4 giờ nắng dịu/ngày, giá thể vỏ thông/gỗ lũa thoáng khí pH 5.5 - 6.5, phun ẩm hàng ngày và thu hái thân rễ sau 12 - 18 tháng. Bí quyết trồng sống khỏe là ghép bám trên gỗ lũa hoặc rổ vỏ thông như trồng lan.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Drynaria_quercifolia_%28Oak-leaf_fern%29.jpg",
+    "image_sha256": "30a0ff19c6fa0017f50be858d1613b357a653058728a9d1e676eea80a9f19ffa",
+    "sunlight": "partial_shade",
+    "watering": "daily",
+    "propagation_difficulty": 2,
+    "growth_time": "12 - 18 tháng nuôi thân rễ mập bám gỗ/đá",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Phát triển rất khỏe trong vườn lan hoặc giếng trời mát ẩm.",
+      "central": "Đặt dưới lưới che nắng 60% tránh khô cháy lá.",
+      "south": "Xanh tốt quanh năm khi ghép gỗ lũa treo dưới tán cây.",
+      "best_months": [
+        2,
+        3,
+        4,
+        5,
+        8,
+        9
+      ],
+      "warning": "Không vùi lấp kín thân rễ của tắc kè đá sâu dưới đất thịt nặng vì cây là loài phụ sinh sống bám bề mặt, vùi sâu đất ướt sẽ gây thối thân rễ."
+    },
+    "botanical_details": {
+      "family": "Polypodiaceae (Họ Dương xỉ)",
+      "native_range": "Việt Nam và Đông Á",
+      "active_compounds": [
+        "Naringin (flavonoid kích thích tái tạo xương)",
+        "Neoeriocitrin",
+        "Cycloartenol & Beta-sitosterol"
+      ],
+      "soil_ph": "5.5 - 6.5 (giá thể vỏ thông/gỗ lũa)",
+      "ideal_temp": "18°C - 30°C",
+      "pot_size": "Ghép lên khúc gỗ lũa, đá thấm thủy hoặc giỏ nan trồng lan kích thước 25 - 35cm"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Chuẩn bị khúc gỗ lũa hoặc chậu vỏ thông thoáng khí",
+        "instruction": "Dùng khúc gỗ lũa mục, dớn bảng hoặc rổ nhựa nan thưa chứa 70% vỏ thông to + 30% than củi/dớn sợi."
+      },
+      {
+        "step": 2,
+        "title": "Cố định đoạn thân rễ bò lên bề mặt giá thể",
+        "instruction": "Cắt đoạn thân rễ tắc kè đá dài 15 - 20cm có mầm lá xanh, đặt NỔI trên bề mặt gỗ/vỏ thông và dùng dây rút nhựa buộc cố định cho rễ tơ bám chặt."
+      },
+      {
+        "step": 3,
+        "title": "Treo nơi bán râm mát & phun sương giữ ẩm",
+        "instruction": "Treo cây dưới giàn lan hoặc ban công ánh sáng tán xạ 60%, tưới phun sương giữ ẩm mỗi ngày 1 lần vào sáng sớm."
+      },
+      {
+        "step": 4,
+        "title": "Thu hái phần thân rễ già cạo sạch lông vảy làm thuốc",
+        "instruction": "Khi thân rễ bò dài phân nhánh nhiều, cắt tỉa bớt phần thân rễ già (chừa lại phần ngọn mọc tiếp), đốt hoặc cạo sạch lớp lông tơ vàng nâu bên ngoài, thái lát phơi khô."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao trên cây Cốt toái bổ có hai loại lá khác nhau (lá xanh xẻ thùy dài và lá khô màu nâu ôm gốc)?",
+        "answer": "Đó là cấu tạo sinh học độc đáo của chi *Drynaria*: lá xanh dài để quang hợp, còn các \"lá ổ\" hình tim màu nâu ôm sát thân rễ có nhiệm vụ hứng lá mục và giữ nước mưa cho bộ rễ phụ sinh."
+      },
+      {
+        "question": "Cốt toái bổ thường được dùng phối hợp với vị thuốc nào để trị đau lưng mỏi gối?",
+        "answer": "Trong Đông y, Cốt toái bổ thường phối hợp với Đỗ trọng, Cẩu tích, Tục đoạn hoặc Dây đau xương để bổ can thận, mạnh gân cốt."
+      }
+    ],
+    "medical_info": {
+      "uses": [
+        "Bổ thận, mạnh gân xương, hoạt huyết chỉ thống; hỗ trợ giảm đau lưng mỏi gối, ù tai và phục hồi sau gãy xương, bong gân (theo Dược điển Việt Nam V)",
+        "Hỗ trợ giảm chảy máu chân răng nhẹ theo bài thuốc cổ truyền"
+      ],
+      "folk_remedies": [
+        "Sắc uống mạnh gân cốt: Dùng 10 - 15g cốt toái bổ khô (đã cạo sạch lông, sao nhẹ) sắc với 500ml nước còn 250ml uống chia 2 lần trong ngày."
+      ],
+      "preparation": [
+        "Cạo/đốt sạch lông vảy, thái lát phơi khô sao vàng sắc uống hoặc ngâm rượu xoa bóp"
+      ],
+      "toxicity_warning": "Người âm hư hỏa vượng, không có chứng thận hư phong thấp không nên dùng nhiều.",
+      "contraindications": [
+        "Người âm hư nội nhiệt"
+      ],
+      "disclaimer": "Thông tin dược liệu tham khảo theo Dược điển Việt Nam V, không thay thế điều trị y khoa."
+    },
+    "monetization_tips": [
+      "Tắc kè đá ghép gỗ lũa vừa làm cây cảnh nội thất/vườn lan cực đẹp vừa là nguồn dược liệu quý hiếm tự cung cấp."
+    ],
+    "tags": [
+      "cốt toái bổ",
+      "tắc kè đá",
+      "dương xỉ dược liệu",
+      "bổ thận mạnh gân cốt",
+      "ghép gỗ lũa"
+    ],
+    "related_plant_ids": [
+      "herb-84",
+      "herb-85",
+      "herb-56",
+      "orn-23"
+    ],
+    "reference_sources": [
+      {
+        "title": "Dược điển Việt Nam V (Chuyên luận Cốt toái bổ - Rhizoma Drynariae)",
+        "author": "Bộ Y tế Việt Nam",
+        "organization": "Hội đồng Dược điển Việt Nam",
+        "verification_type": "pharmacognosy",
+        "url": "https://duocdienvietnam.com/"
+      },
+      {
+        "title": "Drynaria roosii Nakaike - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
+  },
+  {
+    "id": "herb-96",
+    "slug": "cay-ke-dau-ngua-viem-xoang",
+    "common_name": "Ké Đầu Ngựa (Thương Nhĩ Tử)",
+    "scientific_name": "Xanthium strumarium",
+    "aliases": [
+      "Thương Nhĩ Tử",
+      "Xương Nhĩ",
+      "Cocklebur"
+    ],
+    "category": "herb",
+    "description": "Cây thuốc nam nổi tiếng ghi danh trong Dược điển Việt Nam V với quả (Thương nhĩ tử) chuyên dùng thông mũi, hỗ trợ trị viêm xoang mạn tính, chảy nước mũi và dị ứng mẩn ngứa. Cần tuyệt đối tuân thủ quy trình sao cháy gai để khử độc tính tự nhiên trong quả sống.",
+    "quick_answer": "Ké Đầu Ngựa (Xanthium strumarium) là dược liệu họ Cúc nổi bật với quả Thương nhĩ tử hỗ trợ viêm xoang và mẩn ngứa dị ứng. Cây ưa nắng 6 - 8 giờ/ngày, đất tơi xốp pH 6.0 - 7.5, tưới vừa phải và thu quả sau 90 ngày. Lưu ý YMYL NGHIÊM NGẶT: quả sống chứa độc tố Atractyloside gây hại gan thận, bắt buộc phải sao vàng cháy gai đúng chuẩn trước khi dùng.",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Xanthium_strumarium-1.JPG",
+    "image_sha256": "4ea7e8b3ea693d8918488943415eb3f3b0c27bba8b3aaa7cc8c02345b35924ad",
+    "sunlight": "full_sun",
+    "watering": "moderate",
+    "propagation_difficulty": 1,
+    "growth_time": "90 - 110 ngày từ hạt đến khi thu hoạch quả già chuyển màu vàng nâu",
+    "container_suitable": true,
+    "seasonality": {
+      "north": "Gieo hạt vào tháng 3 - 5, thu hoạch quả già vào mùa thu (tháng 8 - 10).",
+      "central": "Phát triển khỏe mạnh mùa nắng ấm.",
+      "south": "Trồng tốt quanh năm trên sân thượng đủ nắng.",
+      "best_months": [
+        3,
+        4,
+        5,
+        8,
+        9
+      ],
+      "warning": "CẢNH BÁO ĐỘC TÍNH NGHIÊM NGẶT (YMYL): Quả ké đầu ngựa SỐNG và cây non mới nảy mầm chứa Carboxyatractyloside gây độc nặng cho gan và thận. Tuyệt đối KHÔNG ăn sống, không dùng quá liều (tối đa 6 - 12g quả khô ĐÃ SAO CHÁY GAI mỗi ngày) và không để gia súc/thú cưng ăn phải."
+    },
+    "botanical_details": {
+      "family": "Asteraceae (Họ Cúc)",
+      "native_range": "Phân bố rộng toàn cầu, phổ biến khắp Việt Nam",
+      "active_compounds": [
+        "Sesquiterpene lactone & Xanthatin (chống viêm xoang)",
+        "Carboxyatractyloside (độc tố trong quả sống - phân hủy khi sao nhiệt)",
+        "Iodine tự nhiên lượng nhỏ"
+      ],
+      "soil_ph": "6.0 - 7.5",
+      "ideal_temp": "20°C - 35°C",
+      "pot_size": "Chậu đường kính 30 - 35cm đặt góc nắng sân thượng"
+    },
+    "how_to_grow_steps": [
+      {
+        "step": 1,
+        "title": "Gieo quả giống vào chậu riêng biệt tránh trẻ nhỏ & thú cưng",
+        "instruction": "Ngâm quả ké già trong nước ấm 1 đêm rồi vùi sâu 2cm vào chậu đất trộn 50% đất thịt + 30% xơ dừa + 20% phân trùn quế."
+      },
+      {
+        "step": 2,
+        "title": "Đặt nơi nắng hoàn toàn & bấm ngọn giữ bụi thấp",
+        "instruction": "Cây cần nắng 6 giờ/ngày để ra nhiều chùm quả. Bấm ngọn khi cây cao 50cm để tán phân nhánh gọn trên sân thượng."
+      },
+      {
+        "step": 3,
+        "title": "Thu hái quả khi vỏ chuyển màu vàng nâu khô ráo",
+        "instruction": "Đeo găng tay dày hái các quả đã chuyển vàng nâu cứng cáp (tránh gai móc bám quần áo), phơi thật khô."
+      },
+      {
+        "step": 4,
+        "title": "Bắt buộc sao cháy gai khử độc chuẩn Dược điển trước khi dùng",
+        "instruction": "Cho quả khô vào chảo gang nóng, đảo đều trên lửa vừa đến khi toàn bộ gai nhọn bên ngoài cháy xém đen và hạt bên trong chuyển vàng thơm, sau đó sàng sảy bỏ hết tro gai cháy trước khi giã dập sắc thuốc."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Tại sao quả ké đầu ngựa bắt buộc phải sao cháy gai trước khi sắc uống?",
+        "answer": "Trong nhân quả ké sống chứa độc tố protein glycoside là Carboxyatractyloside có thể gây hoại tử tế bào gan và suy thận nếu uống sống. Quá trình sao nhiệt độ cao cho tới khi cháy gai giúp phá hủy độc tố này theo đúng quy chuẩn bào chế của Dược điển Việt Nam V."
+      },
+      {
+        "question": "Có thể tự sắc uống ké đầu ngựa lâu dài hàng tháng để trị viêm xoang không?",
+        "answer": "Không nên tự ý uống kéo dài liên tục không nghỉ vì vẫn có nguy cơ tích lũy gánh nặng lên gan. Chỉ dùng theo từng đợt ngắn (7 - 10 ngày) đúng liều 6 - 12g đã sao chế dưới sự tư vấn của thầy thuốc Đông y."
+      }
+    ],
+    "medical_info": {
+      "uses": [
+        "Tán phong trừ thấp, thông khiếu; hỗ trợ điều trị viêm xoang mũi dị ứng, chảy nước mũi hôi, đau đầu vùng trán (theo Dược điển Việt Nam V)",
+        "Hỗ trợ giảm mẩn ngứa, phong chẩn ngoài da"
+      ],
+      "folk_remedies": [
+        "Hỗ trợ viêm xoang mũi dị ứng (theo y văn cổ truyền): Dùng 8 - 10g quả ké đầu ngựa ĐÃ SAO CHÁY GAI giã dập phối hợp cùng 8g hoa tân di và 6g bạc hà sắc uống trong ngày (dùng theo đợt 7 ngày)."
+      ],
+      "preparation": [
+        "BẮT BUỘC sao vàng cháy hết gai rồi sàng sạch vỏ gai trước khi giã dập sắc thuốc"
+      ],
+      "toxicity_warning": "ĐỘC TÍNH CAO NẾU DÙNG SỐNG HOẶC QUÁ LIỀU: Cấm dùng quả sống, cấm người suy gan thận, phụ nữ có thai và người huyết hư đau đầu.",
+      "contraindications": [
+        "Bệnh nhân suy gan, suy thận",
+        "Phụ nữ mang thai",
+        "Không dùng dạng sống chưa qua sao chế"
+      ],
+      "disclaimer": "Dược liệu có giới hạn an toàn hẹp theo Dược điển Việt Nam V; bắt buộc tham khảo bác sĩ Y học cổ truyền trước khi sử dụng."
+    },
+    "monetization_tips": [
+      "Dược liệu đặc trị viêm xoang quý nhưng cần chế biến chuẩn; chỉ trồng làm mẫu vườn thuốc giáo dục hoặc cung cấp cho thầy thuốc Đông y bào chế chuẩn."
+    ],
+    "tags": [
+      "ké đầu ngựa",
+      "thương nhĩ tử",
+      "viêm xoang",
+      "dược điển",
+      "ymyl"
+    ],
+    "related_plant_ids": [
+      "herb-81",
+      "herb-01",
+      "herb-49",
+      "herb-85"
+    ],
+    "reference_sources": [
+      {
+        "title": "Dược điển Việt Nam V (Chuyên luận Thương nhĩ tử - Fructus Xanthii)",
+        "author": "Bộ Y tế Việt Nam",
+        "organization": "Hội đồng Dược điển Việt Nam",
+        "verification_type": "pharmacognosy",
+        "url": "https://duocdienvietnam.com/"
+      },
+      {
+        "title": "Xanthium strumarium L. - Plants of the World Online",
+        "author": "Royal Botanic Gardens, Kew",
+        "organization": "Kew Science (POWO)",
+        "verification_type": "taxonomy",
+        "url": "https://powo.science.kew.org/"
+      }
+    ]
   }
 ]
