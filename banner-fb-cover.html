@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=730">
+  <title>Yêu Trồng Cây // Facebook Fanpage Cover</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800&family=JetBrains+Mono:wght@600;700;800&family=Lexend:wght@700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      width: 1920px;
+      height: 730px;
+      overflow: hidden;
+      background-color: #F8FAF8;
+      color: #072618;
+      font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .cover-canvas {
+      position: relative;
+      width: 1920px;
+      height: 730px;
+      overflow: hidden;
+    }
+
+    /* Key Visual Background */
+    .bg-image {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 85% center;
+      z-index: 0;
+    }
+
+    /* Readability Gradient */
+    .readability-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, 
+        rgba(248, 250, 248, 0.98) 0%, 
+        rgba(248, 250, 248, 0.94) 38%, 
+        rgba(248, 250, 248, 0.5) 56%, 
+        rgba(248, 250, 248, 0) 75%
+      );
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Perimeter Fine Framing Lines */
+    .frame-border {
+      position: absolute;
+      inset: 28px;
+      border: 1.5px solid rgba(7, 38, 24, 0.08);
+      pointer-events: none;
+      z-index: 10;
+    }
+    .corner-mark {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-color: #059669;
+      border-style: solid;
+      pointer-events: none;
+      z-index: 10;
+    }
+    .cm-tl { top: 22px; left: 22px; border-width: 2.5px 0 0 2.5px; }
+    .cm-tr { top: 22px; right: 22px; border-width: 2.5px 2.5px 0 0; }
+    .cm-bl { bottom: 22px; left: 22px; border-width: 0 0 2.5px 2.5px; }
+    .cm-br { bottom: 22px; right: 22px; border-width: 0 2.5px 2.5px 0; }
+
+    /* Left Narrative Stage */
+    .editorial-content {
+      position: relative;
+      width: 58%;
+      height: 100%;
+      padding: 50px 30px 50px 85px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 5;
+    }
+
+    /* Top Strip */
+    .brand-top-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .official-logo-card {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1.5px solid rgba(5, 150, 105, 0.25);
+      border-radius: 14px;
+      padding: 10px 20px;
+      box-shadow: 0 6px 20px rgba(7, 38, 24, 0.06);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .brand-logo-img {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+      image-rendering: -webkit-optimize-contrast;
+    }
+    .reposition-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #E8F5EE;
+      border: 1.5px solid rgba(5, 150, 105, 0.35);
+      color: #047857;
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: #10B981;
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.9);
+    }
+
+    /* Title Group */
+    .title-group {
+      margin-top: 10px;
+      margin-bottom: 12px;
+    }
+    .brand-title {
+      font-family: 'Be Vietnam Pro', sans-serif;
+      font-size: 80px;
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -1.5px;
+      color: #072618;
+      text-transform: uppercase;
+      padding-top: 8px;
+    }
+    .highlight-title {
+      font-family: 'Be Vietnam Pro', sans-serif;
+      font-size: 64px;
+      font-weight: 900;
+      line-height: 1.25;
+      letter-spacing: -1px;
+      background: linear-gradient(90deg, #059669 0%, #0D9488 55%, #0284C7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      padding-top: 14px;
+      padding-bottom: 4px;
+      text-transform: uppercase;
+      display: inline-block;
+    }
+    .sub-tagline {
+      font-family: 'Be Vietnam Pro', sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: #1A442E;
+      line-height: 1.45;
+      margin-top: 12px;
+      letter-spacing: 0.2px;
+      max-width: 95%;
+    }
+    .tech-pill {
+      display: inline-block;
+      background: rgba(2, 132, 199, 0.1);
+      border: 1.5px solid rgba(2, 132, 199, 0.3);
+      color: #0284C7;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    /* QR Code Gateway */
+    .bottom-gateway {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1.5px solid rgba(5, 150, 105, 0.28);
+      border-radius: 18px;
+      padding: 14px 24px;
+      box-shadow: 0 12px 30px rgba(7, 38, 24, 0.08);
+      width: fit-content;
+    }
+    .qr-frame {
+      width: 98px;
+      height: 98px;
+      background: #FFFFFF;
+      border: 1.5px solid #059669;
+      border-radius: 10px;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.15);
+    }
+    .qr-text-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .qr-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: #059669;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .qr-domain {
+      font-family: 'Lexend', 'Be Vietnam Pro', sans-serif;
+      font-size: 30px;
+      font-weight: 900;
+      color: #072618;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+    }
+    .qr-desc {
+      font-size: 13.5px;
+      color: #385E49;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="cover-canvas">
+    <!-- Full-Bleed Real Photographic Visual -->
+    <img src="banner-bg-hero.jpg" alt="Digital Agriculture Key Visual" class="bg-image">
+
+    <!-- Seamless Readability Gradient Layer -->
+    <div class="readability-gradient"></div>
+
+    <!-- Framing Lines -->
+    <div class="frame-border"></div>
+    <div class="corner-mark cm-tl"></div>
+    <div class="corner-mark cm-tr"></div>
+    <div class="corner-mark cm-bl"></div>
+    <div class="corner-mark cm-br"></div>
+
+    <!-- Editorial Content Architecture -->
+    <main class="editorial-content">
+      <!-- Top Strip: Logo & Badge -->
+      <div class="brand-top-row">
+        <div class="official-logo-card">
+          <img src="logo-sharpened.png" alt="Logo Yêu Trồng Cây" class="brand-logo-img">
+        </div>
+        <span class="reposition-pill">
+          <span class="pulse-dot"></span>
+          TÁI ĐỊNH VỊ 2026
+        </span>
+      </div>
+
+      <!-- Main Headline Block -->
+      <div class="title-group">
+        <h1 class="brand-title">YÊU TRỒNG CÂY</h1>
+        <div>
+          <span class="highlight-title">NÔNG NGHIỆP SỐ</span>
+        </div>
+        <p class="sub-tagline">
+          Tiên phong ứng dụng Trí Tuệ Nhân Tạo & Blockchain vào nông nghiệp thông minh
+          <span class="tech-pill">AI ✕ WEB3</span>
+        </p>
+      </div>
+
+      <!-- Bottom Gateway -->
+      <div class="bottom-gateway">
+        <div class="qr-frame">
+          <!-- Vector QR Code for https://yeutrongcay.com/ -->
+          <svg style="width: 100%; height: 100%;" viewBox="0 0 27 27" shape-rendering="crispEdges">
+            <path stroke="#072618" stroke-width="1" d="M1 1.5h7m9 0h1m1 0h7M1 2.5h1m5 0h1m3 0h3m2 0h2m1 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m1 0h5m1 0h1m3 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h3m2 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h2m1 0h1m1 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m1 0h1m3 0h1m2 0h2m1 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M9 8.5h1m2 0h1m2 0h1m1 0h1M1 9.5h1m1 0h5m2 0h1m3 0h1m1 0h1m2 0h5M2 10.5h5m1 0h2m1 0h1m1 0h2m2 0h1m2 0h1m3 0h1M3 11.5h1m1 0h1m1 0h1m1 0h1m1 0h1m2 0h3m1 0h3m1 0h1m1 0h2M1 12.5h1m2 0h1m3 0h1m2 0h3m3 0h3m1 0h1m3 0h1M2 13.5h1m1 0h1m2 0h1m1 0h4m1 0h2m2 0h4m1 0h3M1 14.5h2m1 0h1m3 0h2m1 0h1m1 0h1m3 0h2m1 0h1m1 0h1m1 0h1M1 15.5h1m2 0h5m2 0h1m2 0h1m1 0h7m1 0h2M1 16.5h1m2 0h1m5 0h2m1 0h1m1 0h1m1 0h5m3 0h1M1 17.5h1m1 0h1m3 0h2m1 0h2m1 0h3m1 0h5m1 0h1M9 18.5h1m1 0h1m2 0h1m1 0h2m3 0h2M1 19.5h7m4 0h4m1 0h1m1 0h1m1 0h1m1 0h3M1 20.5h1m5 0h1m1 0h1m1 0h2m2 0h1m1 0h1m3 0h2m2 0h1M1 21.5h1m1 0h3m1 0h1m1 0h13m1 0h1M1 22.5h1m1 0h3m1 0h1m1 0h3m1 0h2m1 0h4m1 0h5M1 23.5h1m1 0h3m1 0h1m1 0h3m3 0h2m1 0h1m3 0h2m1 0h1M1 24.5h1m5 0h1m3 0h2m2 0h1m1 0h6m2 0h1M1 25.5h7m1 0h6m4 0h7"/>
+          </svg>
+        </div>
+        <div class="qr-text-meta">
+          <div class="qr-label">
+            <span class="pulse-dot" style="width: 7px; height: 7px;"></span>
+            QUÉT ĐỂ TRẢI NGHIỆM
+          </div>
+          <div class="qr-domain">yeutrongcay.com</div>
+          <div class="qr-desc">Nền tảng Nông Nghiệp Số thế hệ mới</div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+# CHẶN ĐỨNG 100% VIỆC THỰC THI SCRIPT TRONG THƯ MỤC ẢNH
+# Tuân thủ quy chuẩn an ninh mạng Mắt Bão
+<FilesMatch "\.(php|php5|php7|php8|phtml|pl|py|cgi|sh|bash)$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+# Chặn tải trực tiếp các tệp dữ liệu nội bộ và file sao lưu
+<FilesMatch "\.(json|sql|log|txt|bak|env)$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+Options -Indexes -ExecCGI
