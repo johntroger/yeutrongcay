@@ -836,6 +836,7 @@ if ($status === 'success') {
 // 10. Trả về kết quả
 echo json_encode([
     'success'       => ($status === 'success'),
+    'config_source' => function_exists('getYtcConfigSource') ? getYtcConfigSource() : 'unknown',
     'posted_date'   => $todayStr,
     'post_slot'     => $slot,
     'slot_label'    => $slotLabel,

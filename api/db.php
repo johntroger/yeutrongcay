@@ -18,6 +18,13 @@ define('YTC_APP', true);
  * 2. httpdocs/config.php (Thư mục web gốc)
  * 3. /var/www/vhosts/.../config.php (Thư mục cha ngoài httpdocs - Không bao giờ bị Git xóa!)
  */
+if (!function_exists('getYtcConfigSource')) {
+    function getYtcConfigSource() {
+        getYtcConfig();
+        return $GLOBALS['ytc_config_source'] ?? 'none';
+    }
+}
+
 if (!function_exists('getYtcConfig')) {
     function getYtcConfig() {
         static $cfg = null;
@@ -26,14 +33,14 @@ if (!function_exists('getYtcConfig')) {
         }
 
         $candidates = [
-            __DIR__ . '/config.php',
-            __DIR__ . '/../config.php',
-            __DIR__ . '/../../config.php',
-            __DIR__ . '/../../../config.php',
-            __DIR__ . '/config.sample.php'
+            'api/config.php'        => __DIR__ . '/config.php',
+            '../config.php'         => __DIR__ . '/../config.php',
+            '../../config.php'      => __DIR__ . '/../../config.php',
+            '../../../config.php'   => __DIR__ . '/../../../config.php',
+            'api/config.sample.php' => __DIR__ . '/config.sample.php'
         ];
 
-        foreach ($candidates as $file) {
+        foreach ($candidates as $label => $file) {
             if (file_exists($file)) {
                 $loaded = @require $file;
                 if (is_array($loaded)) {
@@ -41,10 +48,12 @@ if (!function_exists('getYtcConfig')) {
                     $hasFb = !empty($loaded['facebook']['page_access_token']) && strpos($loaded['facebook']['page_access_token'], 'YOUR_') === false;
                     if ($hasDb || $hasFb) {
                         $cfg = $loaded;
+                        $GLOBALS['ytc_config_source'] = $label;
                         return $cfg;
                     }
                     if ($cfg === null) {
                         $cfg = $loaded;
+                        $GLOBALS['ytc_config_source'] = $label;
                     }
                 }
             }
